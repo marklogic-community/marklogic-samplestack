@@ -12,16 +12,10 @@ task wrapper(type: Wrapper) {
 }
 
 /* Running jetty 9 */
-jettyVersion = "9.1.2.v20140210"
-
 configurations {
     jetty9
 }
 
-dependencies {
-    jetty9 "org.eclipse.jetty:jetty-runner:$jettyVersion"
-    groovy 'org.codehaus.groovy:groovy-all:2.0.0'
-}
 
 task runJetty9(type: JavaExec) {
     main = "org.eclipse.jetty.runner.Runner"
@@ -46,6 +40,8 @@ repositories {
 }
 
 dependencies {
+    jetty9 "org.eclipse.jetty:jetty-runner:9.1.2.v20140210"
+    groovy 'org.codehaus.groovy:groovy-all:2.0.0'
     compile 'org.springframework:spring-webmvc:4.0.2.RELEASE'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
