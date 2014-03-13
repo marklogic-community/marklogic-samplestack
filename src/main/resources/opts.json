@@ -1,0 +1,7 @@
+{"search":
+  {"options":
+	{"debug":true,
+	 "values":
+		[
+		{"name":"points",
+		 "geo-path":{"path-index":{"namespaces":[],"text":"point"}}}]}}}

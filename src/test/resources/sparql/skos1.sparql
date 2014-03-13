@@ -1,0 +1,8 @@
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+
+select ?concept ?scheme 
+where 
+{
+?concept a skos:Concept ;
+      skos:inScheme ?scheme
+}

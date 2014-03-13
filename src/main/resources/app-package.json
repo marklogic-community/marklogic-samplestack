@@ -1,0 +1,35 @@
+{
+    "package-database": {
+        "config": {
+            "name": "boo",
+            "package-database-properties": {
+                "collection-lexicon": true,
+                "geospatial-path-indexes": {
+                    "geospatial-path-index": [
+                        {
+                            "coordinate-system": "wgs84",
+                            "invalid-values": "ignore",
+                            "path-expression": "point",
+                            "point-format": "point",
+                            "range-value-positions": false
+                        }
+                    ]
+                },
+                "range-element-indexes": {
+                    "range-element-index": [
+                        {
+                            "collation": "",
+                            "invalid-values": "reject",
+                            "localname": "new",
+                            "namespace-uri": "",
+                            "range-value-positions": false,
+                            "scalar-type": "int"
+                        }
+                    ]
+                },
+                "triple-index": true,
+                "uri-lexicon": true
+            }
+        }
+    }
+}
