@@ -1,0 +1,15 @@
+{"search":
+  {"query":
+      {"term-query":{"text":"Clojure"}
+      }
+      ,
+   "options":
+	{"debug":true,
+     "return-qtext":true,
+     "constraint":{
+         "name":"type",
+         "range":{
+             "type":"xs:string",
+             "facet":true,
+             "json-key":"type"}},
+     "extract-metadata":{"json-key":"location"}}}}

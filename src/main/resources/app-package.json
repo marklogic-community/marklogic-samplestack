@@ -18,12 +18,20 @@
                 "range-element-indexes": {
                     "range-element-index": [
                         {
-                            "collation": "",
+                            "collation": "http://marklogic.com/collation/",
                             "invalid-values": "reject",
-                            "localname": "new",
-                            "namespace-uri": "",
+                            "localname": "type",
+                            "namespace-uri": "http://marklogic.com/xdmp/json/basic",
                             "range-value-positions": false,
-                            "scalar-type": "int"
+                            "scalar-type": "string"
+                        },
+                        {
+                            "collation": "http://marklogic.com/collation/codepoint",
+                            "invalid-values": "reject",
+                            "localname": "language",
+                            "namespace-uri": "http://marklogic.com/xdmp/json/basic",
+                            "range-value-positions": false,
+                            "scalar-type": "string"
                         }
                     ]
                 },

@@ -24,10 +24,10 @@ task runJetty9(type: JavaExec) {
 }
 
 /* a test groovy script to implement a build task. see src/main/groovy... */
-task runTest (dependsOn: 'classes', type: JavaExec ) {
-    main = 'com.marklogic.example.gradle.Test'
-   classpath = sourceSets.main.runtimeClasspath
-   args 'ARG1'
+task loadGithub (dependsOn: 'classes', type: JavaExec ) {
+    main = 'com.marklogic.sasquatch.gradle.GithubSlurp'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'sasquatch-data/jsondata.json'
 }
 
 /* The code repositories to consult for dependencies */
@@ -40,12 +40,17 @@ repositories {
 }
 
 dependencies {
+// TODO these are really for gradle/build process only
     jetty9 "org.eclipse.jetty:jetty-runner:9.1.2.v20140210"
-    groovy 'org.codehaus.groovy:groovy-all:2.0.0'
+    compile gradleApi()
+    compile localGroovy()
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
+
+//the following are app dependencies.
     compile 'org.springframework:spring-webmvc:4.0.2.RELEASE'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
-    compile('org.slf4j:slf4j-api:1.7.6')
+    compile 'org.slf4j:slf4j-api:1.7.6'
     compile 'junit:junit:4.11' 
     compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
         exclude(group: 'org.slf4j')
