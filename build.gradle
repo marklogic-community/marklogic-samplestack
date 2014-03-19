@@ -30,6 +30,13 @@ task loadGithub (dependsOn: 'classes', type: JavaExec ) {
     args 'sasquatch-data/jsondata.json'
 }
 
+/* a test groovy script to implement a build task. see src/main/groovy... */
+task loadTestGithub (dependsOn: 'classes', type: JavaExec ) {
+    main = 'com.marklogic.sasquatch.gradle.GithubSlurp'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'src/test/resources/github/githubSample.json'
+}
+
 /* The code repositories to consult for dependencies */
 repositories {
     mavenLocal()

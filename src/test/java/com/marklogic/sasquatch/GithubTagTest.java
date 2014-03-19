@@ -40,13 +40,13 @@ public class GithubTagTest {
 		tripleBean.setSubject(new URI("http://marklogic.com/sasquatch/githubTag1"));
 		tripleBean.setPredicate(new URI("http://marklogic.com/sasquatch/tagsDoc"));
 		tripleBean.setType(null);
-		tripleBean.setObject("/beans/1");
+		tripleBean.setObject("/github/10557684754268789535.json");
 		
 		TripleBean tripleBean2 = new TripleBean();
 		tripleBean2.setSubject(new URI("http://marklogic.com/sasquatch/githubTag1"));
 		tripleBean2.setPredicate(new URI("http://marklogic.com/sasquatch/taggedWith"));
 		tripleBean2.setType(null);
-		tripleBean2.setObject("");
+		tripleBean2.setObject("http://dbpedia.org/resource/Category:Computing");
 		
 		
 		List<TripleBean> list = new ArrayList<TripleBean>();
