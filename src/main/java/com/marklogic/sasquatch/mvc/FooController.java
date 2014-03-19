@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.marklogic.sasquatch.domain.FooBean;
-import com.marklogic.sasquatch.impl.FooDaoImpl;
-import com.marklogic.sasquatch.marklogic.FooDao;
+import com.marklogic.sasquatch.impl.FooDataServiceImpl;
+import com.marklogic.sasquatch.marklogic.FooDataService;
 
 @Controller
 public class FooController {
 
-	private final Logger logger = LoggerFactory.getLogger(FooDaoImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(FooDataServiceImpl.class);
 
 	@Autowired
-	private FooDao fooDao;
+	private FooDataService fooDao;
 
 	@RequestMapping(value = "foo", method = RequestMethod.POST)
 	public @ResponseBody

@@ -15,23 +15,18 @@ import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.sasquatch.domain.FooBean;
 import com.marklogic.sasquatch.marklogic.FooBeanNotFoundException;
-import com.marklogic.sasquatch.marklogic.FooDao;
+import com.marklogic.sasquatch.marklogic.FooDataService;
 
 @Component
-public class FooDaoImpl implements FooDao {
+public class FooDataServiceImpl implements FooDataService {
 
-	private final Logger logger = LoggerFactory.getLogger(FooDaoImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(FooDataServiceImpl.class);
 	
 	@Autowired
 	private DatabaseClient client;
 
 	@Autowired
 	private ObjectMapper mapper;
-
-	@Override
-	public String getMessage() {
-		return "HEY FROM FOODAO!";
-	}
 
 	@Override
 	public FooBean getFooBean(Long id) {

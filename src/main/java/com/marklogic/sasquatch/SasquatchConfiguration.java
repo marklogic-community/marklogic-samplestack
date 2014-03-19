@@ -1,7 +1,11 @@
 package com.marklogic.sasquatch;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -10,13 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
+import com.marklogic.sasquatch.domain.GithubTag;
 
 @Configuration
+@ComponentScan
 @PropertySource("classpath:sasquatch.properties")
 public class SasquatchConfiguration  {
 
-	
-	
 	@Autowired
 	Environment env;
 	
@@ -35,5 +39,17 @@ public class SasquatchConfiguration  {
 		return new ObjectMapper();
 	}
 	
-	
+
+	@Bean
+	public JAXBContext jaxbContext() {
+		JAXBContext context = null;
+		try {
+			context = JAXBContext.newInstance(GithubTag.class);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return context;
+	}
+
 }

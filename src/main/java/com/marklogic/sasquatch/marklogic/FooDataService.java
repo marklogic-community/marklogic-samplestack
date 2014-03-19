@@ -2,9 +2,7 @@ package com.marklogic.sasquatch.marklogic;
 
 import com.marklogic.sasquatch.domain.FooBean;
 
-public interface FooDao {
-
-	public String getMessage();
+public interface FooDataService {
 
 	public FooBean getFooBean(Long id);
 	
