@@ -1,8 +1,8 @@
 # get appserver config
-curl -o boo-package.json -Haccept:application/json --digest -u admin:admin "http://localhost:8002/manage/v2/servers/boo?group-id=Default&view=package"
+# curl -o boo-package.json -Haccept:application/json --digest -u admin:admin "http://localhost:8002/manage/v2/servers/boo?group-id=Default&view=package"
 
 # gt db config
-curl -o boo.json -Haccept:application/json --digest -u admin:admin http://localhost:8002/manage/v2/databases/boo?view=package
+# curl -o boo.json -Haccept:application/json --digest -u admin:admin http://localhost:8002/manage/v2/databases/boo?view=package
 
 #cleanup- teardown package
 curl --digest -u admin:admin -X DELETE http://localhost:8002/manage/v2/packages/sasquatch

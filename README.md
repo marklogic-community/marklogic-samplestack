@@ -12,7 +12,17 @@ git clone https://github.com/marklogic/sasquatch.git
 
 TODO: bootstrap tasks  look in /scripts/ for existing bootstrap/setup tasks
 
-./gradlew test
+Current steps to get running (not gradelized)
+1. install and start MarkLogic with fresh data dir
+2. sh scripts/init-bootstrap.sh   initialized MarkLogic, makes a REST API Instance
+3. sh scripts/packages.sh   does database config, appserver setup
+4. ./gradlew loadTestGithub   invokes a gradle task to load a small set of github files.
+5. ./gradlew test  runs unit tests
+6. ./gradlew war   builds web application artifact
+7. ./gradlew runJetty9   runs jetty on that war.
+
+If you get that far, let's talk endpoints
+
 
 ## License
 
