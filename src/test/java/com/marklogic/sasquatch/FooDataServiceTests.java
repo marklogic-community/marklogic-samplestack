@@ -1,6 +1,8 @@
 package com.marklogic.sasquatch;
 
-import java.util.Calendar;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 
 import org.junit.Test;
@@ -37,6 +39,17 @@ public class FooDataServiceTests {
 	public void testBeanMaking() {
 		FooBean f1 = newFoo(1L);
 		fooService.storeFooBean(f1);
+		
+		FooBean f2 = fooService.getFooBean(1L);
+		
+		assertNotNull(f2);
+		
+		assertEquals(String.format("%8f",f1.getDoubleValue()), 
+				String.format("%8f", f2.getDoubleValue()));
+		assertEquals(f1.getStartDate(), f2.getStartDate());
+		assertEquals(f1.getId(), f2.getId());
+		assertEquals(f1.getName(), f2.getName());
+		assertEquals(f1.getPoint(), f2.getPoint());
 	}
 
 	

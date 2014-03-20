@@ -13,6 +13,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class FooBean {
 
+	private String name;
+	private Long id;
+	private Date startDate;
+	private Double doubleValue;
+	private String point;
+
+	public FooBean() {
+		
+	}
+	
+	public FooBean(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long l) {
+		this.id = l;
+	}
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -36,36 +63,6 @@ public class FooBean {
 
 	public void setPoint(String point) {
 		this.point = point;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	private String name;
-	private Long id;
-	private Date startDate;
-	private Double doubleValue;
-	private String point;
-	
-	public FooBean() {
-		
-	}
-	
-	public FooBean(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(long l) {
-		this.id = l;
 	}
 	
 }

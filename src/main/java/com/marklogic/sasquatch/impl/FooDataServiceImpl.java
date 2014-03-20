@@ -20,8 +20,9 @@ import com.marklogic.sasquatch.marklogic.FooDataService;
 @Component
 public class FooDataServiceImpl implements FooDataService {
 
-	private final Logger logger = LoggerFactory.getLogger(FooDataServiceImpl.class);
-	
+	private final Logger logger = LoggerFactory
+			.getLogger(FooDataServiceImpl.class);
+
 	@Autowired
 	private DatabaseClient client;
 
@@ -32,17 +33,13 @@ public class FooDataServiceImpl implements FooDataService {
 	public FooBean getFooBean(Long id) {
 		try {
 			InputStreamHandle handle = client.newJSONDocumentManager().read(
-				"/beans/" + Long.toString(id), new InputStreamHandle());
+					"/beans/" + Long.toString(id), new InputStreamHandle());
 			return mapper.readValue(handle.get(), FooBean.class);
 		} catch (ResourceNotFoundException e) {
-			throw new FooBeanNotFoundException(); 
+			throw new FooBeanNotFoundException();
 		} catch (IOException e) {
-		
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SasquatchExcepion(e);
 		}
-		return null;
-
 	}
 
 	@Override

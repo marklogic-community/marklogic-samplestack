@@ -14,9 +14,17 @@ declare function tagged-with:parseQuery(
 ) as schema-element(cts:query)
 {
     let $_ := xdmp:log($query-elem)  
+    let $text := "Computing"
     let $results := sem:sparql('
         prefix sas: <http://marklogic.com/sasquatch/>
-        select ?o where {sas:githubTag1 sas:tagsDoc ?o}')
+        prefix skos: <http://www.w3.org/2004/02/skos/core#>
+        select ?o where {
+            ?narrower skos:broader* ?concept .
+            ?concept skos:prefLabel ?label .
+            sas:githubTag1 sas:taggedWith ?narrower ;
+               sas:tagsDoc ?o .
+            filter (contains(?label, $text))
+        }', map:new(map:entry("text", $text)))
     let $v := $results ! map:get(., "o")
     return 
         element cts:document-query {

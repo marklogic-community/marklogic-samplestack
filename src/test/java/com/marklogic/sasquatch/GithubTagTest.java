@@ -33,14 +33,17 @@ public class GithubTagTest {
 	public void testMakingATag() throws URISyntaxException {
 		tag = new GithubTag();
 		
-		String tagNameString = "bean1 tagged with computing";
+		
+		
+		String tagNameString = " tagged with computing";
+		String tagDocString = "/github/10557684754268789535.json";
 		tag.setTagName(tagNameString);
 		
 		TripleBean tripleBean = new TripleBean();
 		tripleBean.setSubject(new URI("http://marklogic.com/sasquatch/githubTag1"));
 		tripleBean.setPredicate(new URI("http://marklogic.com/sasquatch/tagsDoc"));
 		tripleBean.setType(null);
-		tripleBean.setObject("/github/10557684754268789535.json");
+		tripleBean.setObject(tagDocString);
 		
 		TripleBean tripleBean2 = new TripleBean();
 		tripleBean2.setSubject(new URI("http://marklogic.com/sasquatch/githubTag1"));
@@ -58,7 +61,7 @@ public class GithubTagTest {
 		
 		GithubTag retrievedTag = service.get(tagIdString);
 		assertEquals(tagNameString, retrievedTag.getTagName());
-		assertEquals("/beans/1", retrievedTag.getTriples().get(0).getObject());
+		assertEquals(tagDocString, retrievedTag.getTriples().get(0).getObject());
 	}
 }
 
