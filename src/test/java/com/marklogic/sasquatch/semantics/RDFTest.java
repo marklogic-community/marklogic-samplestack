@@ -1,4 +1,4 @@
-package com.marklogic.sasquatch;
+package com.marklogic.sasquatch.semantics;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.FileCopyUtils;
 
 import com.marklogic.sasquatch.SasquatchWebConfiguration;
-import com.marklogic.sasquatch.marklogic.SemanticsOperations;
+import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 
 /*
  * Basic test for RDF ingestion and query
@@ -25,7 +25,7 @@ import com.marklogic.sasquatch.marklogic.SemanticsOperations;
 public class RDFTest {
 
 	@Autowired
-	private SemanticsOperations graphStore;
+	private MarkLogicOperations graphStore;
 
 	@Before
 	public void loadTurtle() throws IOException {

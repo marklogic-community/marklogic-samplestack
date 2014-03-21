@@ -1,6 +1,7 @@
 package com.marklogic.sasquatch.mvc;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -25,11 +26,17 @@ import com.marklogic.sasquatch.marklogic.FooDataService;
 @Controller
 public class FooController {
 
-	private final Logger logger = LoggerFactory.getLogger(FooDataServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(FooController.class);
 
 	@Autowired
 	private FooDataService fooDao;
 
+	@RequestMapping(value = "foo", method = RequestMethod.GET)
+	public @ResponseBody
+	List<String> getFooList() {
+		return fooDao.getFooIds();
+	}
+	
 	@RequestMapping(value = "foo", method = RequestMethod.POST)
 	public @ResponseBody
 	ResponseEntity<?> postFoo(@RequestBody FooBean bean) {
@@ -62,7 +69,7 @@ public class FooController {
 		return bean;
 	}
 
-	@RequestMapping(value = "foo", method = RequestMethod.GET)
+	@RequestMapping(value = "foo/new", method = RequestMethod.GET)
 	public @ResponseBody
 	FooBean newFooBean(
 			@RequestParam(value = "name", required = false, defaultValue = "name") String name,

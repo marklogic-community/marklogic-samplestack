@@ -1,4 +1,4 @@
-package com.marklogic.sasquatch;
+package com.marklogic.sasquatch.mvc;
 
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -20,11 +20,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.marklogic.sasquatch.SasquatchConfiguration;
+import com.marklogic.sasquatch.SasquatchWebConfiguration;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { SasquatchWebConfiguration.class,
 		SasquatchConfiguration.class })
-public class SasquatchTests {
+public class FooControllerTests {
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -40,7 +43,7 @@ public class SasquatchTests {
 	public void fooLifecycle() throws Exception {
 
 		this.mockMvc
-				.perform(get("/foo").accept(MediaType.APPLICATION_JSON))
+				.perform(get("/foo/new").accept(MediaType.APPLICATION_JSON))
 				// .andExpect(content().string("blah"));
 				.andExpect(status().isOk())
 				.andExpect(
@@ -87,7 +90,14 @@ public class SasquatchTests {
 		String fooList = this.mockMvc.perform(get("/foo")).andReturn().getResponse().getContentAsString();
 		
 		System.out.println(fooList);
-		assertTrue(fooList.contains("/foo/1") && fooList.contains("/foo/2"));
+		assertTrue(fooList.contains("/beans/1") && fooList.contains("/beans/2"));
 		
+		String byDoc = this.mockMvc
+			.perform(
+					get("/docs").param("docUri",  "/beans/1"))
+					.andExpect(status().isOk())
+					.andReturn().getResponse().getContentAsString();
+		
+		System.out.println(byDoc);
 	}
 }

@@ -16,6 +16,9 @@ curl --user admin:admin --digest -d@'src/main/xquery/tagged-with.xqy' -X PUT -Hc
 # custom constraint, structured query
 curl --user admin:admin --digest -d@'src/main/resources/custom1.json' -X POST -Hcontent-type:application/json -H accept:application/json "http://localhost:8006/v1/search"
 
+#values
+curl --user admin:admin --digest -d@'src/main/resources/values1.json' -X POST -Hcontent-type:application/json -H accept:application/json "http://localhost:8006/v1/values/beans"
+
 # CRUD get a github doc
 curl --user admin:admin --digest -X GET -Haccept:application/json http://localhost:8006/v1/documents?uri=/github/1007227863139673301.json | python -mjson.tool
 

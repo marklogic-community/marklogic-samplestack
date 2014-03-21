@@ -1,0 +1,12 @@
+{"search":
+  {"query":
+      {"directory-query":{"uri":"/beans/"}
+      }
+      ,
+   "options":
+	{"debug":true,
+     "return-qtext":true,
+     "values":{
+         "name":"beans",
+         "uri":null},
+     "extract-metadata":{"json-key":"name"}}}}

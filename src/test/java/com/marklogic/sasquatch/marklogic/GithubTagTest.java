@@ -1,4 +1,4 @@
-package com.marklogic.sasquatch;
+package com.marklogic.sasquatch.marklogic;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.marklogic.sasquatch.SasquatchConfiguration;
+import com.marklogic.sasquatch.SasquatchWebConfiguration;
 import com.marklogic.sasquatch.domain.GithubTag;
 import com.marklogic.sasquatch.domain.TripleBean;
 import com.marklogic.sasquatch.marklogic.GithubTagDataService;
