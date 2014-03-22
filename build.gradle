@@ -8,7 +8,7 @@ apply plugin: 'groovy'
 
 /* task to generate the gradle wrapper script */
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.10'
+    gradleVersion = '1.11'
 }
 
 /* Running jetty 9 */
@@ -58,7 +58,7 @@ dependencies {
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
     compile 'org.slf4j:slf4j-api:1.7.6'
-    compile 'junit:junit:4.11' 
+    compile 'junit:junit:4.11'
     compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
         exclude(group: 'org.slf4j')
     }
