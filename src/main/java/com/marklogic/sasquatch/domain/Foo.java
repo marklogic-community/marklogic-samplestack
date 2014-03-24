@@ -5,13 +5,13 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A FooBean has no practical utility -- it is just 
+ * A Foo has no practical utility -- it is just 
  * here to illustrate a Java Object and how it can be stored 
  * and queried in MarkLogic, and served as JSON to the front-
  * end application.
  */
 @XmlRootElement
-public class FooBean {
+public class Foo {
 
 	private String name;
 	private Long id;
@@ -19,11 +19,11 @@ public class FooBean {
 	private Double doubleValue;
 	private String point;
 
-	public FooBean() {
+	public Foo() {
 		
 	}
 	
-	public FooBean(Long id, String name) {
+	public Foo(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}

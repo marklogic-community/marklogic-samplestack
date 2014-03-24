@@ -2,15 +2,15 @@ package com.marklogic.sasquatch.marklogic;
 
 import java.util.List;
 
-import com.marklogic.sasquatch.domain.FooBean;
+import com.marklogic.sasquatch.domain.Foo;
 
 public interface FooDataService {
 
-	public FooBean getFooBean(Long id);
+	public Foo getFoo(Long id);
 	
-	public void storeFooBean(FooBean bean);
+	public void storeFoo(Foo bean);
 
 	public void deleteFooBean(Long id);
 
-	public List<String> getFooIds();
+	public List<String> getDocumentUris();
 }

@@ -1,24 +1,35 @@
 package com.marklogic.sasquatch.impl;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.StringHandle;
+import com.marklogic.client.io.ValuesHandle;
+import com.marklogic.client.query.CountedDistinctValue;
+import com.marklogic.client.query.QueryManager;
+import com.marklogic.client.query.RawCombinedQueryDefinition;
+import com.marklogic.client.query.StructuredQueryBuilder;
+import com.marklogic.client.query.StructuredQueryDefinition;
+import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.client.semantics.GraphManager;
 import com.marklogic.client.semantics.SPARQLManager;
 import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
-import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
 
 @Component
 public class MarkLogicClient implements MarkLogicOperations {
 
 	@Autowired
-	private DatabaseClient client;
+	protected DatabaseClient client;
 
 	@Override
 	public String getJsonDocument(String uri) {
@@ -28,7 +39,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	public void insert(String graphIri, String mediaType,
+	public void insertGraph(String graphIri, String mediaType,
 			InputStream inputStream) {
 		GraphManager graphManager = client.newGraphManager();
 		graphManager.insert(graphIri, Format.TURTLE, new InputStreamHandle(
@@ -48,4 +59,28 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return responseHandle.get();
 	}
 
+	@Override
+	public List<String> getDocumentUris(String directory) {
+		ClassPathResource values1 = new ClassPathResource("doc-uris.json");
+		try {
+			FileHandle fileHandle = new FileHandle(values1.getFile())
+					.withFormat(Format.JSON);
+			QueryManager queryManager = client.newQueryManager();
+			RawCombinedQueryDefinition qdef = queryManager
+					.newRawCombinedQueryDefinition(fileHandle);
+			StructuredQueryDefinition structuredQueryDefinition = new StructuredQueryBuilder().directory(true,  directory);
+			ValuesDefinition valdef = queryManager.newValuesDefinition("docs");
+			valdef.setQueryDefinition(qdef);
+			ValuesHandle handle = client.newQueryManager().values(valdef,
+					new ValuesHandle());
+
+			List<String> docUrisList = new ArrayList<String>();
+			for (CountedDistinctValue value : handle.getValues()) {
+				docUrisList.add(value.get("string", String.class));
+			}
+			return docUrisList;
+		} catch (IOException e) {
+			throw new SasquatchException(e);
+		}
+	}
 }

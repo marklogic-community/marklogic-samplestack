@@ -1,5 +1,7 @@
 package com.marklogic.sasquatch.domain;
 
+import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,7 +13,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GithubTag {
 
+	private String userName;
 	private String tagName;
+	private Date createdAt;
+	private URI conceptUri;
 	
 	public String getTagName() {
 		return tagName;
@@ -21,17 +26,41 @@ public class GithubTag {
 		this.tagName = tagName;
 	}
 
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public URI getConceptUri() {
+		return conceptUri;
+	}
+
+	public void setConceptUri(URI conceptUri) {
+		this.conceptUri = conceptUri;
+	}
+
 	
-
 	@XmlElement(name = "triple", namespace="http://marklogic.com/semantics")
-	private List<TripleBean> triples;
+	private List<Triple> triples;
 
-	public List<TripleBean> getTriples() {
+	public List<Triple> getTriples() {
 		return triples;
 	}
 
-	public void setTriples(List<TripleBean> triples) {
+	public void setTriples(List<Triple> triples) {
 		this.triples = triples;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 }

@@ -16,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.sasquatch.SasquatchConfiguration;
 import com.marklogic.sasquatch.SasquatchWebConfiguration;
-import com.marklogic.sasquatch.domain.FooBean;
+import com.marklogic.sasquatch.domain.Foo;
 import com.marklogic.sasquatch.marklogic.FooDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +28,8 @@ public class FooDataServiceTests {
 	FooDataService fooService;
 	
 	
-	private FooBean newFoo(Long id) {
-		FooBean newBean = new FooBean(id, "name"+id);
+	private Foo newFoo(Long id) {
+		Foo newBean = new Foo(id, "name"+id);
 		newBean.setDoubleValue(Math.random());
 		int latitude =(int) Math.floor(Math.random() * 180) - 90;
 
@@ -41,10 +41,10 @@ public class FooDataServiceTests {
 	
 	@Test
 	public void testBeanMaking() {
-		FooBean f1 = newFoo(1L);
-		fooService.storeFooBean(f1);
+		Foo f1 = newFoo(1L);
+		fooService.storeFoo(f1);
 		
-		FooBean f2 = fooService.getFooBean(1L);
+		Foo f2 = fooService.getFoo(1L);
 		
 		assertNotNull(f2);
 		
@@ -59,14 +59,14 @@ public class FooDataServiceTests {
 
 	@Test
 	public void testList() {
-		FooBean f1 = newFoo(1L);
-		fooService.storeFooBean(f1);
-		FooBean f2 = newFoo(2L);
-		fooService.storeFooBean(f2);
+		Foo f1 = newFoo(1L);
+		fooService.storeFoo(f1);
+		Foo f2 = newFoo(2L);
+		fooService.storeFoo(f2);
 		
-		List<String> fooList = fooService.getFooIds();
-		assertTrue(fooList.contains("/beans/1"));
-		assertTrue(fooList.contains("/beans/2"));
+		List<String> fooList = fooService.getDocumentUris();
+		assertTrue(fooList.contains("/foo/1"));
+		assertTrue(fooList.contains("/foo/2"));
 		assertEquals(2, fooList.size());
 
 

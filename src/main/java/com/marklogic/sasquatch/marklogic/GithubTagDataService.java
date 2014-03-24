@@ -1,5 +1,6 @@
 package com.marklogic.sasquatch.marklogic;
 
+import com.marklogic.client.io.SearchHandle;
 import com.marklogic.sasquatch.domain.GithubTag;
 
 public interface GithubTagDataService {
@@ -11,9 +12,10 @@ public interface GithubTagDataService {
 	 * @param bean
 	 * @return
 	 */
-	public String store(GithubTag bean);
+	public String store(GithubTag tag);
 	
 	public void delete(String id);
 
+	public SearchHandle searchTags(String... terms);
 	
 }

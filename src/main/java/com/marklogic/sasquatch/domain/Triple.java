@@ -8,22 +8,22 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="triple", namespace=TripleBean.NS)
+@XmlRootElement(name="triple", namespace=Triple.NS)
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class TripleBean {
+public final class Triple {
 	
 	public static final String NS = "http://marklogic.com/semantics";
 
-	@XmlElement(namespace=TripleBean.NS)
+	@XmlElement(namespace=Triple.NS)
 	private URI subject;
 	
-	@XmlElement(namespace=TripleBean.NS)
+	@XmlElement(namespace=Triple.NS)
 	private URI predicate;
 	
 	@XmlAttribute
 	private String type;
 	
-	@XmlElement(namespace=TripleBean.NS)
+	@XmlElement(namespace=Triple.NS)
 	private String object;
 
 	public URI getSubject() {

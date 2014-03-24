@@ -13,11 +13,11 @@ import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 public class DocumentController {
 
 	@Autowired
-	private MarkLogicOperations operations;
+	private MarkLogicOperations jsonOps;
 
 	@RequestMapping(value = "docs", method = RequestMethod.GET)
 	public @ResponseBody
 	String getDocumentByUri(@RequestParam("docUri") String docUri) {
-		return operations.getJsonDocument(docUri);
+		return jsonOps.getJsonDocument(docUri);
 	}
 }

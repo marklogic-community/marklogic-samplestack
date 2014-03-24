@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.marklogic.sasquatch.domain.FooBean;
+import com.marklogic.sasquatch.domain.Foo;
 import com.marklogic.sasquatch.impl.FooDataServiceImpl;
 import com.marklogic.sasquatch.marklogic.FooDataService;
+import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 
 @Controller
 public class FooController {
@@ -30,21 +31,23 @@ public class FooController {
 
 	@Autowired
 	private FooDataService fooDao;
+	
 
 	@RequestMapping(value = "foo", method = RequestMethod.GET)
 	public @ResponseBody
 	List<String> getFooList() {
-		return fooDao.getFooIds();
+		return fooDao.getDocumentUris();
 	}
 	
 	@RequestMapping(value = "foo", method = RequestMethod.POST)
 	public @ResponseBody
-	ResponseEntity<?> postFoo(@RequestBody FooBean bean) {
+	ResponseEntity<?> postFoo(@RequestBody Foo bean) {
 		// validate
-		fooDao.storeFooBean(bean);
+		fooDao.storeFoo(bean);
 
+		
 		URI location = UriComponentsBuilder.newInstance()
-				.path("/fo/" + Long.toString(bean.getId())).build().encode()
+				.path("/foo/" + Long.toString(bean.getId())).build().encode()
 				.toUri();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -55,29 +58,29 @@ public class FooController {
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	
-	FooBean getFoo(@PathVariable(value = "id") Long id) {
+	Foo getFoo(@PathVariable(value = "id") Long id) {
 		// validate
-		return fooDao.getFooBean(id);
+		return fooDao.getFoo(id);
 	}
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	FooBean putFoo(@PathVariable(value = "id") Long id,
-			@RequestBody FooBean bean) {
+	Foo putFoo(@PathVariable(value = "id") Long id,
+			@RequestBody Foo bean) {
 		// validate id attr.
-		fooDao.storeFooBean(bean);
+		fooDao.storeFoo(bean);
 		return bean;
 	}
 
 	@RequestMapping(value = "foo/new", method = RequestMethod.GET)
 	public @ResponseBody
-	FooBean newFooBean(
+	Foo newFooBean(
 			@RequestParam(value = "name", required = false, defaultValue = "name") String name,
 			@RequestParam(value = "id", required = false) Long id) {
-		// return new FooBean(counter.incrementAndGet(), String.format(template,
+		// return new Foo(counter.incrementAndGet(), String.format(template,
 		// name));
 		logger.info("New foo bean");
-		FooBean bean = new FooBean();
+		Foo bean = new Foo();
 		bean.setName(name);
 		if (id == null) {
 			bean.setId(UUID.randomUUID().getLeastSignificantBits());

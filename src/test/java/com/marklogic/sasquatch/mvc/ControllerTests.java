@@ -27,7 +27,7 @@ import com.marklogic.sasquatch.SasquatchWebConfiguration;
 @WebAppConfiguration
 @ContextConfiguration(classes = { SasquatchWebConfiguration.class,
 		SasquatchConfiguration.class })
-public class FooControllerTests {
+public class ControllerTests {
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -40,7 +40,12 @@ public class FooControllerTests {
 	}
 
 	@Test
-	public void fooLifecycle() throws Exception {
+	/**
+	 * tests /foo/new POST, 
+	 * /foo POST, 
+	 * /foo/{1} PUT DELETE GET
+	 */
+	public void fooSlashIdLifecycle() throws Exception {
 
 		this.mockMvc
 				.perform(get("/foo/new").accept(MediaType.APPLICATION_JSON))
@@ -69,14 +74,18 @@ public class FooControllerTests {
 	}
 
 	@Test
-	public void testHateOS() throws Exception {
+	/**
+	 * tests /foo POST
+	 * /foo GET
+	 */
+	public void testFooList() throws Exception {
 		// put a couple foos up.
 		this.mockMvc
 				.perform(
 						post("/foo")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
-										"{\"name\":\"name1\", \"id\":1, \"startDate\":1395333660050, \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
+										"{\"name\":\"name1\", \"id\":1, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
 				.andExpect(status().isCreated());
 
 		this.mockMvc
@@ -84,20 +93,49 @@ public class FooControllerTests {
 						post("/foo")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
-										"{\"name\":\"name2\", \"id\":2, \"startDate\":1395333660050, \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
+										"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
 				.andExpect(status().isCreated());
 		
 		String fooList = this.mockMvc.perform(get("/foo")).andReturn().getResponse().getContentAsString();
 		
 		System.out.println(fooList);
-		assertTrue(fooList.contains("/beans/1") && fooList.contains("/beans/2"));
-		
-		String byDoc = this.mockMvc
+		assertTrue(fooList.contains("/foo/1") && fooList.contains("/foo/2"));
+
+		String byBean = this.mockMvc
 			.perform(
-					get("/docs").param("docUri",  "/beans/1"))
+					get("/foo/1"))
 					.andExpect(status().isOk())
 					.andReturn().getResponse().getContentAsString();
 		
+		String byDoc = this.mockMvc
+			.perform(
+					get("/docs").param("docUri",  "/foo/1"))
+					.andExpect(status().isOk())
+					.andReturn().getResponse().getContentAsString();
+		
+		System.out.println(byBean);
 		System.out.println(byDoc);
 	}
+	
+	@Test
+	public void testGithubTagging() throws Exception {
+		// invalid JSON is 400
+		this.mockMvc
+			.perform(post("/tags")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(
+							"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
+							.andExpect(status().isBadRequest());
+		this.mockMvc
+		.perform(post("/tags")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(
+						"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
+						.andExpect(status().isCreated());
+	
+		
+
+	}
+	
+	
 }

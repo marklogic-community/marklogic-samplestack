@@ -17,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.marklogic.sasquatch.SasquatchConfiguration;
 import com.marklogic.sasquatch.SasquatchWebConfiguration;
 import com.marklogic.sasquatch.domain.GithubTag;
-import com.marklogic.sasquatch.domain.TripleBean;
+import com.marklogic.sasquatch.domain.Triple;
 import com.marklogic.sasquatch.marklogic.GithubTagDataService;
 
 
@@ -41,20 +41,20 @@ public class GithubTagTest {
 		String tagDocString = "/github/10557684754268789535.json";
 		tag.setTagName(tagNameString);
 		
-		TripleBean tripleBean = new TripleBean();
+		Triple tripleBean = new Triple();
 		tripleBean.setSubject(new URI("http://marklogic.com/sasquatch/githubTag1"));
 		tripleBean.setPredicate(new URI("http://marklogic.com/sasquatch/tagsDoc"));
 		tripleBean.setType(null);
 		tripleBean.setObject(tagDocString);
 		
-		TripleBean tripleBean2 = new TripleBean();
+		Triple tripleBean2 = new Triple();
 		tripleBean2.setSubject(new URI("http://marklogic.com/sasquatch/githubTag1"));
 		tripleBean2.setPredicate(new URI("http://marklogic.com/sasquatch/taggedWith"));
 		tripleBean2.setType(null);
 		tripleBean2.setObject("http://dbpedia.org/resource/Category:Computing");
 		
 		
-		List<TripleBean> list = new ArrayList<TripleBean>();
+		List<Triple> list = new ArrayList<Triple>();
 		list.add(tripleBean);
 		list.add(tripleBean2);
 		tag.setTriples(list);

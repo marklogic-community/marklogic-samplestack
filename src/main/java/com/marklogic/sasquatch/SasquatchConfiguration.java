@@ -15,6 +15,7 @@ import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.sasquatch.domain.GithubTag;
+import com.marklogic.sasquatch.impl.SasquatchException;
 
 @Configuration
 @ComponentScan
@@ -36,7 +37,7 @@ public class SasquatchConfiguration  {
 
 	@Bean
 	public ObjectMapper mapper() {
-		return new ObjectMapper();
+		return new CustomObjectMapper();
 	}
 	
 
@@ -46,8 +47,7 @@ public class SasquatchConfiguration  {
 		try {
 			context = JAXBContext.newInstance(GithubTag.class);
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SasquatchException(e);
 		}
 		return context;
 	}

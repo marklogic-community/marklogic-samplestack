@@ -12,7 +12,7 @@ import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.sasquatch.domain.SecureObject;
-import com.marklogic.sasquatch.marklogic.FooBeanNotFoundException;
+import com.marklogic.sasquatch.marklogic.SasquatchNotFoundException;
 import com.marklogic.sasquatch.marklogic.SecureObjectDao;
 
 @Component
@@ -31,7 +31,7 @@ public class SecureObjectDaoImpl implements SecureObjectDao {
 				uri, new InputStreamHandle());
 			return mapper.readValue(handle.get(), SecureObject.class);
 		} catch (ResourceNotFoundException e) {
-			throw new FooBeanNotFoundException(); 
+			throw new SasquatchNotFoundException(); 
 		} catch (IOException e) {
 		
 			// TODO Auto-generated catch block

@@ -30,7 +30,7 @@ public class RDFTest {
 	@Before
 	public void loadTurtle() throws IOException {
 		Resource resource = new ClassPathResource("triples/skos1.ttl");
-		graphStore.insert("http://marklogic.com/example/skos1", "text/turtle", resource.getInputStream());
+		graphStore.insertGraph("http://marklogic.com/example/skos1", "text/turtle", resource.getInputStream());
 	}
 	
 	@Test
