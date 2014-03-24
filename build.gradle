@@ -13,6 +13,7 @@ task wrapper(type: Wrapper) {
 
 /* Running jetty 9 */
 configurations {
+    markLogicTasks
     jetty9
 }
 
@@ -22,6 +23,18 @@ task runJetty9(type: JavaExec) {
     args = [war.archivePath]
     classpath configurations.jetty9
 }
+
+task markLogicInit (dependsOn: 'classes', type: JavaExec) {
+    main = 'com.marklogic.sasquatch.gradle.MarkLogicInit'
+    classpath = sourceSets.main.runtimeClasspath
+    if (project.hasProperty("adminUser")) {
+        args(adminUser.split(":"))
+    }
+    else {
+        args = ["admin", "admin"]
+    }
+}
+
 
 /* a test groovy script to implement a build task. see src/main/groovy... */
 task loadGithub (dependsOn: 'classes', type: JavaExec ) {
@@ -50,10 +63,10 @@ dependencies {
 // TODO these are really for gradle/build process only
     jetty9 "org.eclipse.jetty:jetty-runner:9.1.2.v20140210"
     compile gradleApi()
-    compile localGroovy()
     compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 
 //the following are app dependencies.
+    compile localGroovy()
     compile 'org.springframework:spring-webmvc:4.0.2.RELEASE'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.0'
