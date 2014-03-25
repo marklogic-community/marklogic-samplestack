@@ -1,7 +1,7 @@
 {
     "package-database": {
         "config": {
-            "name": "boo",
+            "name": "sasquatch",
             "package-database-properties": {
                 "collection-lexicon": true,
                 "geospatial-path-indexes": {
