@@ -1,7 +1,6 @@
 package com.marklogic.sasquatch.impl;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
-import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.query.CountedDistinctValue;
@@ -21,8 +19,6 @@ import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
-import com.marklogic.client.semantics.GraphManager;
-import com.marklogic.client.semantics.SPARQLManager;
 import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 
 @Component
@@ -38,26 +34,26 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return stringHandle.get();
 	}
 
-	@Override
-	public void insertGraph(String graphIri, String mediaType,
-			InputStream inputStream) {
-		GraphManager graphManager = client.newGraphManager();
-		graphManager.insert(graphIri, Format.TURTLE, new InputStreamHandle(
-				inputStream));
-	}
+//	@Override
+//	public void insertGraph(String graphIri, String mediaType,
+//			InputStream inputStream) {
+//		GraphManager graphManager = client.newGraphManager();
+//		graphManager.insert(graphIri, Format.TURTLE, new InputStreamHandle(
+//				inputStream));
+//	}
 
-	@Override
-	public String sparql(String sparqlQuery) {
-		SPARQLManager sparqlManager = client.newSPARQLManager();
-		StringHandle queryHandle = new StringHandle(sparqlQuery)
-				.withFormat(Format.SPARQL_QUERY);
-		// TODO query handles should set format themselves. fix marker
-		// interfaces.
-		StringHandle responseHandle = new StringHandle()
-				.withFormat(Format.JSON);
-		responseHandle = sparqlManager.sparql(queryHandle, responseHandle);
-		return responseHandle.get();
-	}
+//	@Override
+//	public String sparql(String sparqlQuery) {
+//		SPARQLManager sparqlManager = client.newSPARQLManager();
+//		StringHandle queryHandle = new StringHandle(sparqlQuery)
+//				.withFormat(Format.SPARQL_QUERY);
+//		// TODO query handles should set format themselves. fix marker
+//		// interfaces.
+//		StringHandle responseHandle = new StringHandle()
+//				.withFormat(Format.JSON);
+//		responseHandle = sparqlManager.sparql(queryHandle, responseHandle);
+//		return responseHandle.get();
+//	}
 
 	@Override
 	public List<String> getDocumentUris(String directory) {

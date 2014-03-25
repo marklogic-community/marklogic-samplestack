@@ -30,13 +30,13 @@ public class RDFTest {
 	@Before
 	public void loadTurtle() throws IOException {
 		Resource resource = new ClassPathResource("triples/skos1.ttl");
-		graphStore.insertGraph("http://marklogic.com/example/skos1", "text/turtle", resource.getInputStream());
+		// graphStore.insertGraph("http://marklogic.com/example/skos1", "text/turtle", resource.getInputStream());
 	}
 	
 	@Test
 	public void sparqlOne() throws IOException {
 		ClassPathResource resource = new ClassPathResource("sparql/skos1.sparql");
 		String sparqlQuery = new String(FileCopyUtils.copyToByteArray(resource.getInputStream()));
-		String jsonSparqlResult = graphStore.sparql(sparqlQuery);
+		// String jsonSparqlResult = graphStore.sparql(sparqlQuery);
 	}
 }
