@@ -29,8 +29,8 @@ public class SasquatchConfiguration  {
 	public DatabaseClient databaseClient() {
 		String host = env.getProperty("host");
 		Integer port = Integer.parseInt(env.getProperty("port"));
-		String username = env.getProperty("username");
-		String password = env.getProperty("password");
+		String username = env.getProperty("applicationUser");
+		String password = env.getProperty("applicationPassword");
 		return DatabaseClientFactory.newClient(host, port, username, password,
 				Authentication.DIGEST);
 	}

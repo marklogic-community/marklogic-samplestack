@@ -44,14 +44,19 @@ public class MarkLogicInit {
 
 
     //Milestone 1 only
-    static void bootREST(host, port, adminUserName, adminPassword) {
+    static void bootREST(host, port, applicationName, adminUserName, adminPassword) {
         RESTClient client = new RESTClient("http://" + host + ":8002/v1/rest-apis")
         client.auth.basic adminUserName, adminPassword
         def params = [:]
         params.contentType = "application/json"
-        params.body = String.format('{"rest-api" : { "name" : "%s", "port" : %s }}',host, port)
-        client.post(params)
+        params.body = String.format('{"rest-api" : { "name" : "%s", "port" : %s }}', applicationName, port)
+        try {
+            client.post(params)
+        } catch (ex) {
+            println "REST Bootstrap failed: " + ex.response.status
+        }
     }
+
 
     static main( args ) {
         def adminUsername = args[0]
@@ -71,7 +76,7 @@ public class MarkLogicInit {
 
 
         println "Booting REST API"
-        bootREST(config.host, config.port, config.adminUsername, config.adminPassword)
+        bootREST(config.host, config.port, config.applicationName, config.adminUsername, config.adminPassword)
 
         println "Done"
 

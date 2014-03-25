@@ -6,7 +6,7 @@ import groovyx.net.http.RESTClient
 public class GithubSlurp {
 
     static void postJson(client, config, jsonObject) {
-        client.auth.basic config.username, config.password
+        client.auth.basic config.applicationUser, config.applicationPassword
         def params = [:]
         params.path = "/v1/documents"
         params.queryString = "directory=/github/&extension=json"

@@ -35,6 +35,11 @@ task markLogicInit (dependsOn: 'classes', type: JavaExec) {
     }
 }
 
+task markLogicApplication (dependsOn: 'classes', type: JavaExec) {
+    main = 'com.marklogic.sasquatch.gradle.MarkLogicApplication'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 
 /* a test groovy script to implement a build task. see src/main/groovy... */
 task loadGithub (dependsOn: 'classes', type: JavaExec ) {
