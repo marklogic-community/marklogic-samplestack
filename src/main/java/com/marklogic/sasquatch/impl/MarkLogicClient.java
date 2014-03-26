@@ -55,6 +55,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 //		return responseHandle.get();
 //	}
 
+	
 	@Override
 	public List<String> getDocumentUris(String directory) {
 		ClassPathResource values1 = new ClassPathResource("doc-uris.json");

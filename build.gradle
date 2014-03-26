@@ -83,7 +83,7 @@ dependencies {
     compile('com.jayway.jsonpath:json-path:0.9.1') {
         exclude(group: 'org.slf4j')
     }
-    testCompile('org.springframework:spring-test:4.0.1.RELEASE')
+    compile('org.springframework:spring-test:4.0.1.RELEASE')
 }
 
 

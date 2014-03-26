@@ -7,14 +7,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.marklogic.sasquatch.SasquatchWebConfiguration;
 import com.marklogic.sasquatch.domain.SecureObject;
 import com.marklogic.sasquatch.marklogic.SecureObjectDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = SasquatchWebConfiguration.class)
+@ContextConfiguration(classes = SasquatchConfiguration.class)
 /**
  * TODO
  * These are non-functional test stubs for examining secured objects.

@@ -15,13 +15,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.sasquatch.SasquatchConfiguration;
-import com.marklogic.sasquatch.SasquatchWebConfiguration;
 import com.marklogic.sasquatch.domain.Foo;
-import com.marklogic.sasquatch.marklogic.FooDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {SasquatchConfiguration.class, SasquatchWebConfiguration.class })
+@ContextConfiguration(classes = {SasquatchConfiguration.class })
 public class FooDataServiceTests {
 
 	@Autowired

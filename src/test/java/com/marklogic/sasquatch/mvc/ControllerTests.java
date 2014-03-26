@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.ContentResultMatchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,12 +22,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.marklogic.sasquatch.SasquatchConfiguration;
-import com.marklogic.sasquatch.SasquatchWebConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { SasquatchWebConfiguration.class,
-		SasquatchConfiguration.class })
+@ContextConfiguration(classes = { SasquatchConfiguration.class })
 public class ControllerTests {
 
 	@Autowired
@@ -77,6 +76,7 @@ public class ControllerTests {
 	/**
 	 * tests /foo POST
 	 * /foo GET
+	 * /docs GET
 	 */
 	public void testFooList() throws Exception {
 		// put a couple foos up.
@@ -132,10 +132,19 @@ public class ControllerTests {
 				.content(
 						"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
 						.andExpect(status().isCreated());
-	
-		
 
 	}
 	
+	@Test
+	public void testDefaultOptionsSearch() throws Exception {
+		this.mockMvc
+			.perform(get("/foo/search")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("word"))
+						.andExpect(status().isOk())
+						.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+						.andExpect(content().string("chacka"));
+						
+	}
 	
 }

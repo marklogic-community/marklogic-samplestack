@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
@@ -20,21 +22,24 @@ import com.marklogic.sasquatch.impl.SasquatchException;
 @Configuration
 @ComponentScan
 @PropertySource("classpath:sasquatch.properties")
-public class SasquatchConfiguration  {
+@EnableWebMvc
+public class SasquatchConfiguration  extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	Environment env;
 	
 	@Bean
 	public DatabaseClient databaseClient() {
-		String host = env.getProperty("host");
-		Integer port = Integer.parseInt(env.getProperty("port"));
+		String host = env.getProperty("markLogicHost");
+		Integer port = Integer.parseInt(env.getProperty("markLogicPort"));
 		String username = env.getProperty("applicationUser");
 		String password = env.getProperty("applicationPassword");
 		return DatabaseClientFactory.newClient(host, port, username, password,
 				Authentication.DIGEST);
 	}
 
+	// TODO User client, auth
+	
 	@Bean
 	public ObjectMapper mapper() {
 		return new CustomObjectMapper();

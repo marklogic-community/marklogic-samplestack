@@ -3,7 +3,6 @@ package com.marklogic.sasquatch.mvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.marklogic.sasquatch.SasquatchConfiguration;
-import com.marklogic.sasquatch.SasquatchWebConfiguration;
 
 public class SasquatchWebApplicationInitializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {
@@ -13,7 +12,7 @@ public class SasquatchWebApplicationInitializer extends
 	}
 
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { SasquatchWebConfiguration.class };
+		return new Class[] { SasquatchConfiguration.class };
 	}
 
 	protected String[] getServletMappings() {
