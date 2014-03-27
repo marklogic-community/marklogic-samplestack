@@ -16,7 +16,7 @@ public class SasquatchWebApplicationInitializer extends
 	}
 
 	protected String[] getServletMappings() {
-		return new String[] { "/*" };
+		return new String[] { "/sasquatch/*" };
 	}
 
 }
