@@ -5,6 +5,8 @@
 *.war
 *.ear
 
+*.swp
+
 # allow gradle-wrapper into repo
 !/gradle/wrapper/gradle-wrapper.jar
 # exclude .gradle working directory
