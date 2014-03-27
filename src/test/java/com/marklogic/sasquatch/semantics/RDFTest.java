@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.FileCopyUtils;
 
-import com.marklogic.sasquatch.SasquatchConfiguration;
+import com.marklogic.sasquatch.Application;
 import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 
 /*
@@ -21,7 +21,7 @@ import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = SasquatchConfiguration.class)
+@ContextConfiguration(classes = Application.class)
 public class RDFTest {
 
 	@Autowired

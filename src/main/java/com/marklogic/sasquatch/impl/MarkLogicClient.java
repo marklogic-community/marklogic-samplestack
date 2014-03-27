@@ -16,8 +16,6 @@ import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.query.CountedDistinctValue;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.RawCombinedQueryDefinition;
-import com.marklogic.client.query.StructuredQueryBuilder;
-import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 
@@ -65,7 +63,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 			QueryManager queryManager = client.newQueryManager();
 			RawCombinedQueryDefinition qdef = queryManager
 					.newRawCombinedQueryDefinition(fileHandle);
-			StructuredQueryDefinition structuredQueryDefinition = new StructuredQueryBuilder().directory(true,  directory);
+			//StructuredQueryDefinition structuredQueryDefinition = new StructuredQueryBuilder().directory(true,  directory);
 			ValuesDefinition valdef = queryManager.newValuesDefinition("docs");
 			valdef.setQueryDefinition(qdef);
 			ValuesHandle handle = client.newQueryManager().values(valdef,

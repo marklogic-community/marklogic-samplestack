@@ -13,7 +13,7 @@ import com.marklogic.sasquatch.marklogic.SecureObjectDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = SasquatchConfiguration.class)
+@ContextConfiguration(classes = Application.class)
 /**
  * TODO
  * These are non-functional test stubs for examining secured objects.

@@ -1,4 +1,4 @@
-package com.marklogic.sasquatch;
+package com.marklogic.sasquatch.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
