@@ -1,26 +1,25 @@
 <!doctype html>
-<html lang="en" ng-app="aj">
-<head>
-<meta charset="utf-8">
-<title>Angular and Jersey</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular-route.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular-resource.js"></script>
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
-</head>
-<body>
-<ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-</ul>
+<html lang="en" class="nojs">
+  <head>
+    <noscript><%= settings.noscriptHtml %></noscript>
+    <meta charset="utf-8">
+    <title>foobarbaz</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.3.0/es5-shim.min.js"></script>
+    <script
+      data-main="js/main"
+      src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.11/require.js"
+    ></script>
+  </head>
+  <body class="ng-cloak" ng-cloak>
+    <ul class="menu">
+        <li><a href="#/view1">view1</a></li>
+    </ul>
 
-<p>And therefore I'm running some {{ 1 + 1 }}
-<div ng-view></div>
+    <p ng-bind="'And therefore I\'m running some {{ 1 + 1 }}'">&nbsp;</p>
+    <div ng-view></div>
 
-
-<p>And some after...</p>
-</body>
+    <p>And some after...</p>
+  </body>
 </html>
