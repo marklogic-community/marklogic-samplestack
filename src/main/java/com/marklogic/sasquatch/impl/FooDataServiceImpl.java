@@ -1,6 +1,7 @@
 package com.marklogic.sasquatch.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,13 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.InputStreamHandle;
+import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
+import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.sasquatch.domain.Foo;
 import com.marklogic.sasquatch.marklogic.FooDataService;
 import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
@@ -79,6 +84,25 @@ public class FooDataServiceImpl implements FooDataService {
 	@Override
 	public List<String> getDocumentUris() {
 		return operations.getDocumentUris("/foo/");
+	}
+
+	@Override
+	// TODO refactor to use multipart capability
+	public List<Foo> search(String queryString) {
+		SearchHandle results = operations.searchDirectory("/foo/", queryString);
+		List<Foo> resultsFoos = new ArrayList<Foo>();
+		for (MatchDocumentSummary result : results.getMatchResults()) {
+			// this is slow, will fit multipart pattern
+			String documentUri = result.getUri();
+			InputStreamHandle handle = jsonDocumentManager.read(
+					documentUri, new InputStreamHandle());
+			try {
+				resultsFoos.add(mapper.readValue(handle.get(), Foo.class));
+			} catch (IOException e) {
+				throw new SasquatchException(e);
+			}
+		}
+		return resultsFoos;
 	}
 
 }

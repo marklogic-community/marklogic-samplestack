@@ -94,4 +94,10 @@ public class FooController {
 		fooDao.deleteFooBean(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
+	
+	@RequestMapping(value = "foo/search", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Foo> searchFoos(@RequestParam(value = "q") String queryString) {
+		return fooDao.search(queryString);
+	}
 }

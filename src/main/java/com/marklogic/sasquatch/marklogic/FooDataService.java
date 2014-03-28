@@ -8,9 +8,11 @@ public interface FooDataService {
 
 	public Foo getFoo(Long id);
 	
-	public void storeFoo(Foo bean);
+	public void storeFoo(Foo foo);
 
 	public void deleteFooBean(Long id);
 
 	public List<String> getDocumentUris();
+
+	public List<Foo> search(String queryString);
 }

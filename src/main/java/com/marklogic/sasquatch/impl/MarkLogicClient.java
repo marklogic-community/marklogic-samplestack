@@ -8,14 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import sun.awt.image.OffScreenImage;
+
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
+import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.query.CountedDistinctValue;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.RawCombinedQueryDefinition;
+import com.marklogic.client.query.StructuredQueryBuilder;
+import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.sasquatch.marklogic.MarkLogicOperations;
 
@@ -63,7 +68,6 @@ public class MarkLogicClient implements MarkLogicOperations {
 			QueryManager queryManager = client.newQueryManager();
 			RawCombinedQueryDefinition qdef = queryManager
 					.newRawCombinedQueryDefinition(fileHandle);
-			//StructuredQueryDefinition structuredQueryDefinition = new StructuredQueryBuilder().directory(true,  directory);
 			ValuesDefinition valdef = queryManager.newValuesDefinition("docs");
 			valdef.setQueryDefinition(qdef);
 			ValuesHandle handle = client.newQueryManager().values(valdef,
@@ -71,11 +75,27 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 			List<String> docUrisList = new ArrayList<String>();
 			for (CountedDistinctValue value : handle.getValues()) {
-				docUrisList.add(value.get("string", String.class));
+				String valueString = value.get("string", String.class);
+				// TODO refactor to actually query properly.
+				if (valueString.startsWith(directory)) {
+					docUrisList.add(value.get("string", String.class));
+				}
+				else {}
 			}
 			return docUrisList;
 		} catch (IOException e) {
 			throw new SasquatchException(e);
 		}
+	}
+
+	@Override
+	//TODO refactor to use multipart search capability.
+	public SearchHandle searchDirectory(String directory, String queryString) {
+		QueryManager queryManager = client.newQueryManager();
+		StructuredQueryBuilder qb = new StructuredQueryBuilder();
+		StructuredQueryDefinition qdef = qb.and(
+				qb.directory(true,  directory),
+				qb.term(queryString));
+		return queryManager.search(qdef, new SearchHandle());
 	}
 }

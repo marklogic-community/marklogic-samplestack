@@ -2,6 +2,8 @@ package com.marklogic.sasquatch.marklogic;
 
 import java.util.List;
 
+import com.marklogic.client.io.SearchHandle;
+
 public interface MarkLogicOperations {
 
 	public String getJsonDocument(String docUri);
@@ -10,5 +12,7 @@ public interface MarkLogicOperations {
 	// public String sparql(String sparqlQuery);
 
 	List<String> getDocumentUris(String directory);
+
+	public SearchHandle searchDirectory(String directory, String queryString);
 	
 }

@@ -8,10 +8,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.ContentResultMatchers.*;
+import static org.hamcrest.Matchers.containsString;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.internal.matchers.Contains;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,6 +22,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
 
 import com.marklogic.sasquatch.Application;
 
@@ -95,56 +98,65 @@ public class ControllerTests {
 								.content(
 										"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
 				.andExpect(status().isCreated());
-		
-		String fooList = this.mockMvc.perform(get("/foo")).andReturn().getResponse().getContentAsString();
-		
+
+		String fooList = this.mockMvc.perform(get("/foo")).andReturn()
+				.getResponse().getContentAsString();
+
 		System.out.println(fooList);
 		assertTrue(fooList.contains("/foo/1") && fooList.contains("/foo/2"));
 
-		String byBean = this.mockMvc
-			.perform(
-					get("/foo/1"))
-					.andExpect(status().isOk())
-					.andReturn().getResponse().getContentAsString();
-		
+		String byBean = this.mockMvc.perform(get("/foo/1"))
+				.andExpect(status().isOk()).andReturn().getResponse()
+				.getContentAsString();
+
 		String byDoc = this.mockMvc
-			.perform(
-					get("/docs").param("docUri",  "/foo/1"))
-					.andExpect(status().isOk())
-					.andReturn().getResponse().getContentAsString();
-		
+				.perform(get("/docs").param("docUri", "/foo/1"))
+				.andExpect(status().isOk()).andReturn().getResponse()
+				.getContentAsString();
+
 		System.out.println(byBean);
 		System.out.println(byDoc);
 	}
-	
+
 	@Test
 	public void testGithubTagging() throws Exception {
 		// invalid JSON is 400
 		this.mockMvc
-			.perform(post("/tags")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(
-							"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
-							.andExpect(status().isBadRequest());
+				.perform(
+						post("/tags")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(
+										"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
+				.andExpect(status().isBadRequest());
 		this.mockMvc
-		.perform(post("/tags")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(
-						"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
-						.andExpect(status().isCreated());
+				.perform(
+						post("/tags")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(
+										"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
+				.andExpect(status().isCreated());
 
 	}
-	
+
 	@Test
 	public void testDefaultOptionsSearch() throws Exception {
 		this.mockMvc
-			.perform(get("/foo/search")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content("word"))
-						.andExpect(status().isOk())
-						.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-						.andExpect(content().string("chacka"));
-						
+				.perform(
+						post("/foo")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(
+										"{\"name\":\"word word words\", \"id\":15, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
+				.andExpect(status().isCreated());
+		this.mockMvc
+				.perform(
+						get("/foo/search").contentType(
+								MediaType.APPLICATION_JSON).param("q", "word"))
+				.andExpect(status().isOk())
+				// .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				// match has charset
+				.andExpect(content().string(containsString("word")));
+		this.mockMvc.perform(
+				delete("/foo/15"));
 	}
-	
+
 }

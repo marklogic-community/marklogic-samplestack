@@ -66,9 +66,24 @@ public class FooDataServiceTests {
 		assertTrue(fooList.contains("/foo/1"));
 		assertTrue(fooList.contains("/foo/2"));
 		assertEquals(2, fooList.size());
-
-
+		
 		System.out.print(fooList);
 	}
 
+	@Test
+	public void testSearch() {
+		Foo f = newFoo(15L);
+		f.setName("words words words");
+		fooService.storeFoo(f);
+		List<Foo> fooList = fooService.search("word");
+		Long id = fooList.get(0).getId();
+		
+		assertEquals(1, fooList.size());
+		assertEquals("Get back ID from first search", (Long) 15L, (Long) id);
+		
+		fooService.deleteFooBean(id);
+		fooList = fooService.search("word");
+		assertEquals(0, fooList.size());
+		
+	}
 }
