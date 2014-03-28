@@ -13,7 +13,6 @@ import static org.hamcrest.Matchers.containsString;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.internal.matchers.Contains;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -156,14 +155,6 @@ public class ControllerTests {
 				.andExpect(content().string(containsString("word")));
 		this.mockMvc.perform(
 				delete("/foo/15"));
-	}
-	
-	
-	@Test
-	public void testStaticContext() throws Exception {
-		this.mockMvc
-			.perform(get("/index.html"))
-			.andExpect(content().string(containsString("therefore")));
 	}
 
 }

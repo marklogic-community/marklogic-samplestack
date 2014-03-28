@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '1.0.0.BUILD-SNAPSHOT'
-        markLogicBootVersion = '1.0.0.BUILD-SNAPSHOT'
+		markLogicBootVersion = '1.0.0.BUILD-SNAPSHOT'
 	}
     repositories {
         mavenLocal()
@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("com.marklogic:sasquatch-gradle:0.0.1-SNAPSHOT")
+        // classpath("com.marklogic:sasquatch-gradle:0.0.1-SNAPSHOT")
     }
 }
 
@@ -21,7 +21,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
-// apply plugin: 'sasqatch-gradle'  // may become marklogic-gradle-0.0.1
+// apply plugin: 'sasquatch-gradle'  // may become marklogic-gradle-0.0.1
 
 
 /* The code repositories to consult for dependencies */
@@ -35,7 +35,7 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+    // compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     // compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")

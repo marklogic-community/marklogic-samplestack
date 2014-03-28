@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
@@ -30,7 +30,7 @@ import com.marklogic.sasquatch.impl.SasquatchException;
 @PropertySource("classpath:sasquatch.properties")
 @EnableWebMvc
 @EnableAutoConfiguration
-public class Application  extends WebMvcConfigurerAdapter {
+public class Application  extends WebMvcAutoConfigurationAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
@@ -71,10 +71,4 @@ public class Application  extends WebMvcConfigurerAdapter {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**")
-        .addResourceLocations("/public")
-        .setCachePeriod(0);
-	}
 }
