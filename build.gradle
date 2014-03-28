@@ -11,7 +11,8 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        // classpath("com.marklogic:sasquatch-gradle:0.0.1-SNAPSHOT")
+// TODO remove to another repo 
+// classpath("com.marklogic:sasquatch-gradle:0.0.1-SNAPSHOT")
     }
 }
 
@@ -21,7 +22,8 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
-// apply plugin: 'sasquatch-gradle'  // may become marklogic-gradle-0.0.1
+// TODO remove to another repo
+// apply plugin: 'sasquatch-gradle'
 
 
 /* The code repositories to consult for dependencies */
@@ -41,7 +43,14 @@ dependencies {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
-    compile("com.marklogic:spring-boot-starter-marklogic:${markLogicBootVersion}")
+    // TODO spring-boot-starter
+    // compile("com.marklogic:spring-boot-starter-marklogic:${markLogicBootVersion}")
+    compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
+        exclude(group: 'org.slf4j')
+    }
+    testCompile('com.jayway.jsonpath:json-path:0.9.1') {
+        exclude(group: 'org.slf4j')
+    }
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
