@@ -1,7 +1,7 @@
-var services = angular.module('aj.services', ['ngResource']);
+var services = angular.module('frontend.services', ['ngResource']);
 
-services.factory('UserFactory', function ($resource) {
-    return $resource('/rest/users', {}, {
+services.factory('FooFactory', function ($resource) {
+    return $resource('/foo/2', {}, {
         query: {
             method: 'GET',
             params: {},

@@ -1,8 +1,10 @@
-var app = angular.module('aj.controllers', []);
+var app = angular.module('frontend.controllers', []);
 
-app.controller('MyCtrl', ['$scope', 'UserFactory', function ($scope, UserFactory) {
-    UserFactory.get({}, function (userFactory) {
-        $scope.firstname = userFactory.firstName;
+app.controller('FooCtrl', ['$scope', 'FooFactory', function ($scope, FooFactory) {
+    FooFactory.get({}, function (fooFactory) {
+        $scope.name = fooFactory.name;
+        $scope.id = fooFactory.id;
+        $scope.point = fooFactory.point;
     })
 }]);
 

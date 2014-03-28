@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
 import com.marklogic.sasquatch.Application;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -157,6 +156,14 @@ public class ControllerTests {
 				.andExpect(content().string(containsString("word")));
 		this.mockMvc.perform(
 				delete("/foo/15"));
+	}
+	
+	
+	@Test
+	public void testStaticContext() throws Exception {
+		this.mockMvc
+			.perform(get("/index.html"))
+			.andExpect(content().string(containsString("therefore")));
 	}
 
 }

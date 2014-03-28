@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -68,5 +69,12 @@ public class Application  extends WebMvcConfigurerAdapter {
 	public static void main(String[] args) {
 		logger.debug("Starting Spring Boot Sasquatch Application");
 		SpringApplication.run(Application.class, args);
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/**")
+        .addResourceLocations("/public")
+        .setCachePeriod(0);
 	}
 }

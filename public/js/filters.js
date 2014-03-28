@@ -2,7 +2,7 @@
 
 /* Filters */
 
-angular.module('aj.filters', []).
+angular.module('frontend.filters', []).
   filter('interpolate', ['version', function(version) {
     return function(text) {
       return String(text).replace(/\%VERSION\%/mg, version);
