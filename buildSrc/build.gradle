@@ -1,0 +1,14 @@
+apply plugin: 'groovy'
+
+
+repositories {
+    mavenCentral()
+    maven { url "http://repository.codehaus.org" }
+}
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile("org.codehaus.groovy.modules.http-builder:http-builder:0.7")
+    testCompile("junit:junit:4.10")
+}
+

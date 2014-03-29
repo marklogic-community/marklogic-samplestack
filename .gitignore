@@ -6,6 +6,7 @@
 *.ear
 
 *.swp
+*.swo
 
 # allow gradle-wrapper into repo
 !/gradle/wrapper/gradle-wrapper.jar
