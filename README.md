@@ -4,26 +4,37 @@ An application to demonstrate using MarkLogic in a Java Application Server envir
 
 ## Usage
 
-Install MarkLogic Server (Only builds with trunk Client Java API -FIXME)
 
-Check out code
-
+```bash
 git clone https://github.com/marklogic/sasquatch.git
+git checkout develop
+```
 
-Current steps to get running (not gradelized)
+One-time setup:
 
 1. install and start MarkLogic with fresh data dir
-2. ./gradlew markLogicInit          sets up MarkLogic
-3. ./gradlew markLogicApplication   configures application
-4. ./gradlew loadGithub   invokes a gradle task to load a small set of github files.
-5. ./gradlew test  runs unit tests
-6. ./gradlew bootRun  runs the application, localhost:8080
+2. build and install ML java client from trunk as Maven package
+3. `./gradlew markLogicInit`          sets up MarkLogic
+4. `./gradlew markLogicApplication`   configures application
+5. `./gradlew loadGithub`   invokes a gradle task to load a small set of github files.
 
-Endpoints currently supported
-/docs
-/foo
-/tags
-/
+To run unit tests:
+
+* `./gradlew test`
+
+
+To run the application:
+
+* `./gradlew run` -- builds and runs the app (on localhost:8080) and enters
+watch mode (subsequent changes are instantaneously applied to the running
+server)
+
+### Endpoints currently supported
+
+* /docs
+* /foo
+* /tags
+* /
 
 ## License
 
