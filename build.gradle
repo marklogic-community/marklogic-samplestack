@@ -7,9 +7,11 @@ buildscript {
         mavenCentral()
         maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//        classpath 'com.moowork.gradle:gradle-node-plugin:0.4'
     }
 }
 
@@ -17,8 +19,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'groovy'
+apply plugin: NodePlugin
+apply plugin: SpawnOngoingPlugin
 
-task markLogicInit(type: MarkLogicInitTask) 
+task markLogicInit(type: MarkLogicInitTask)
 
 task markLogicTeardown(type: MarkLogicTeardownTask)
 
@@ -36,6 +40,44 @@ task loadGithubFromArchive(type: GithubSlurpTask) {
    url = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
 
+task gulpDefault(type: SpawnOngoingTask) {
+    command = "gulp --color"
+    processName = "gulp"
+    directory = "src/main/web"
+    errPrefix = "ERROR: "
+    outPrefix = ""
+    readySentinel = "server listening"
+}
+
+
+/**
+ * TODO: PR for node plugin that allows for child process
+ * as of now, we can't use this, but it would be better
+ * to submit a patch to it than to roll our own, since
+ * the node plugin has a whole bunch of cross-platform
+ * handling stuff (and can install node if not present)
+ */
+/*
+task gulpDefault(type: NodeTask) {
+    script = file('src/main/web/node_modules/gulp/bin/gulp')
+    args = ['--color']
+    execOverrides {
+        it.workingDir = 'src/main/web'
+    }
+}
+*/
+
+bootRun.dependsOn gulpDefault
+
+// this is an example gradle task that can run
+// a specific gulp task
+task gulpBuild(type: NodeTask) {
+    script = file('src/main/webapp/node_modules/gulp/bin/gulp')
+    args = ['build']
+    execOverrides {
+        it.workingDir = 'src/main/webapp'
+    }
+}
 
 /* The code repositories to consult for dependencies */
 repositories {

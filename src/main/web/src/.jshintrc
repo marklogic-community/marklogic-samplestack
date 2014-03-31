@@ -1,0 +1,6 @@
+{
+  "node": false,
+  "browser": true,
+  "strict": true,
+  "globals": {"define": false, "require": false}
+}

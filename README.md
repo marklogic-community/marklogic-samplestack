@@ -17,6 +17,8 @@ One-time setup:
 3. `./gradlew markLogicInit`          sets up MarkLogic
 4. `./gradlew markLogicApplication`   configures application
 5. `./gradlew loadGithub`   invokes a gradle task to load a small set of github files.
+6. **install node**
+7. from /src/main/web, run `npm install`
 
 To run unit tests:
 
@@ -25,9 +27,14 @@ To run unit tests:
 
 To run the application:
 
-* `./gradlew run` -- builds and runs the app (on localhost:8080) and enters
+* `./gradlew bootRun` -- builds and runs the app (on localhost:8080) and enters
 watch mode (subsequent changes are instantaneously applied to the running
 server)
+
+**Note**: at this time gradle blocks the UI, and the options offered by gulp
+during watch mode are not avaiable.  However, changes made to the web directory
+(/src/main/web) are effected live on the web browser, and live reload *is*
+enabled.
 
 ### Endpoints currently supported
 
