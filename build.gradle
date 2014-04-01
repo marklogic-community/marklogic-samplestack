@@ -24,8 +24,10 @@ task markLogicTeardown(type: MarkLogicTeardownTask)
 
 task markLogicApplication(type: MarkLogicApplicationTask)
 
+task extendREST(type: RESTConfigureTask)
+
 task loadGithub(type: GithubSlurpTask) {
-   file = "githubSample.json"
+   file = "../sasquatch-data/jsondata.json"
 }
 
 

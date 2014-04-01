@@ -18,10 +18,9 @@ public class MarkLogicApplicationTask extends DefaultTask {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/packages")
         client.auth.basic project.adminUsername, project.adminPassword
         def params = [:]
-        params.query = ["pkgname": name ]
+        params.query = ["pkgname": project.applicationName ]
         params.contentType = "application/json"
         params.body = MarkLogicApplicationTask.class.getResource('/app-package.json').openStream().text
-        println(params.body)
         try {
             client.post(params)
         }
@@ -44,4 +43,5 @@ public class MarkLogicApplicationTask extends DefaultTask {
             println ex.response.statusLine
         }
     }
+
 }
