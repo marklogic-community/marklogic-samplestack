@@ -27,7 +27,13 @@ task markLogicApplication(type: MarkLogicApplicationTask)
 task extendREST(type: RESTConfigureTask)
 
 task loadGithub(type: GithubSlurpTask) {
-   file = "../sasquatch-data/jsondata.json"
+   //file = "src/test/resources/github/githubSample.json"
+   // file = "/tmp/temp8026336001481176720"
+   file = "/tmp/temp2418963333306216496"
+}
+
+task loadGithubFromArchive(type: GithubSlurpTask) {
+   url = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
 
 

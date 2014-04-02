@@ -9,7 +9,7 @@ curl --digest -u admin:admin -X DELETE http://localhost:8002/manage/v2/packages/
 curl --digest -u admin:admin -X DELETE http://localhost:8002/manage/v2/packages/xdbc
 
 # make named package from that db config
-curl --digest -u admin:admin -X POST -d@'src/main/resources/app-package.json' -Haccept:application/json -Hcontent-type:application/json http://localhost:8002/manage/v2/packages?pkgname=sasquatch
+curl --digest -u admin:admin -X POST -d@'buildSrc/src/main/resources/app-package.json' -Haccept:application/json -Hcontent-type:application/json http://localhost:8002/manage/v2/packages?pkgname=sasquatch
 curl --digest -u admin:admin -X POST -d@'src/main/resources/xdbc-package.json' -Hcontent-type:application/json http://localhost:8002/manage/v2/packages?pkgname=xdbc
 
 curl --digest -u admin:admin --data-binary @/dev/null -Hcontent-type:application/json -X POST http://localhost:8002/manage/v2/packages/sasquatch/install
