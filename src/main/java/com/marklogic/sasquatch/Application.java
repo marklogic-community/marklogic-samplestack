@@ -27,7 +27,7 @@ import com.marklogic.sasquatch.impl.SasquatchException;
 
 @Configuration
 @ComponentScan
-@PropertySource("classpath:sasquatch.properties")
+@PropertySource("classpath:gradle.properties")
 @EnableWebMvc
 @EnableAutoConfiguration
 public class Application  extends WebMvcAutoConfigurationAdapter {
