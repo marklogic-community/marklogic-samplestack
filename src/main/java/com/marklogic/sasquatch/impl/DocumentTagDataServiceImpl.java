@@ -8,17 +8,18 @@ import org.springframework.stereotype.Component;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.document.DocumentDescriptor;
 import com.marklogic.client.document.DocumentUriTemplate;
+import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.JAXBHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
-import com.marklogic.sasquatch.domain.GithubTag;
-import com.marklogic.sasquatch.marklogic.GithubTagDataService;
+import com.marklogic.sasquatch.domain.DocumentTag;
+import com.marklogic.sasquatch.marklogic.DocumentTagDataService;
 
 @Component
-public class GithubTagDataServiceImpl implements GithubTagDataService  {
+public class DocumentTagDataServiceImpl implements DocumentTagDataService  {
 	
 	@Autowired
 	private DatabaseClient client;
@@ -28,25 +29,26 @@ public class GithubTagDataServiceImpl implements GithubTagDataService  {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public GithubTag get(String id) {
-		GithubTag tag = new GithubTag();
+	public DocumentTag get(String id) {
+		DocumentTag tag = new DocumentTag();
 		JAXBHandle handle = new JAXBHandle(context);
 		handle.set(tag);
 		XMLDocumentManager manager = client.newXMLDocumentManager();
 		handle = manager.read(id, handle);
-		return (GithubTag) handle.get();
+		return (DocumentTag) handle.get();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public String store(GithubTag bean) {
+	public String store(DocumentTag bean) {
 		JAXBHandle handle = new JAXBHandle(context);
 		handle.set(bean);
 		XMLDocumentManager manager = client.newXMLDocumentManager();
 		DocumentUriTemplate descriptor = manager.newDocumentUriTemplate("xml");
 		descriptor.setDirectory("/tags/");
+		ServerTransform transform = new ServerTransform("decorateTag");
 		DocumentDescriptor newDoc = client.newXMLDocumentManager().create(
-				descriptor, handle);
+				descriptor, handle, transform);
 		return newDoc.getUri();
 	}
 

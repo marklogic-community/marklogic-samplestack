@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
-import com.marklogic.sasquatch.domain.GithubTag;
+import com.marklogic.sasquatch.domain.DocumentTag;
 import com.marklogic.sasquatch.impl.CustomObjectMapper;
 import com.marklogic.sasquatch.impl.SasquatchException;
 
@@ -59,7 +59,7 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 	public JAXBContext jaxbContext() {
 		JAXBContext context = null;
 		try {
-			context = JAXBContext.newInstance(GithubTag.class);
+			context = JAXBContext.newInstance(DocumentTag.class);
 		} catch (JAXBException e) {
 			throw new SasquatchException(e);
 		}

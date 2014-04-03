@@ -117,7 +117,7 @@ public class ControllerTests {
 	}
 
 	@Test
-	public void testGithubTagging() throws Exception {
+	public void testDocumentTags() throws Exception {
 		// invalid JSON is 400
 		this.mockMvc
 				.perform(

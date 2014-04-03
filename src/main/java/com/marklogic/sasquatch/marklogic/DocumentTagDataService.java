@@ -1,18 +1,18 @@
 package com.marklogic.sasquatch.marklogic;
 
 import com.marklogic.client.io.SearchHandle;
-import com.marklogic.sasquatch.domain.GithubTag;
+import com.marklogic.sasquatch.domain.DocumentTag;
 
-public interface GithubTagDataService {
+public interface DocumentTagDataService {
 
-	public GithubTag get(String id);
+	public DocumentTag get(String id);
 	
 	/**
 	 * Stores a triple-based object and returns a document URI for it.
 	 * @param bean
 	 * @return
 	 */
-	public String store(GithubTag tag);
+	public String store(DocumentTag tag);
 	
 	public void delete(String id);
 

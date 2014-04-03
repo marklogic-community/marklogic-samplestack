@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GithubTag {
+public class DocumentTag {
 
 	private String userName;
 	private String tagName;
