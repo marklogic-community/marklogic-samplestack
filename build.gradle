@@ -28,7 +28,10 @@ task markLogicTeardown(type: MarkLogicTeardownTask)
 
 task markLogicApplication(type: MarkLogicApplicationTask)
 
-task extendREST(type: RESTConfigureTask)
+task markLogicExtendREST(type: RESTConfigureTask) {
+    transforms = "src/main/rest-api/transforms"
+    extensions = "src/main/rest-api/ext"
+}
 
 task loadGithub(type: GithubSlurpTask) {
    //file = "src/test/resources/github/githubSample.json"

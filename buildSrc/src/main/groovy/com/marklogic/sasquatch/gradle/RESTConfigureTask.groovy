@@ -5,41 +5,61 @@ import org.gradle.api.tasks.TaskAction
 
 public class RESTConfigureTask extends DefaultTask {
 
+    def transforms = "src/main/rest-api/transforms"
+    def extensions = "src/main/rest-api/ext"
+
     @TaskAction
     void configureREST() {
-        println "Saving transform"
-        putTransform()
-        println "Saving extension"
-        putExtension()
+        def transformsDirectory = new File(transforms)
+        transformsDirectory.listFiles().each { putTransform(it) }
+
+        def extensionsDirectory = new File(extensions)
+        extensionsDirectory.listFiles().each { putExtension(it) }
+
         println "configuring JSON errors"
         configureJSONErrors()
         println "Done"
     }
 
-    void putTransform() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/config/transforms/related")
-        client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
+    void putTransform(transform) {
+        def transformFileName = transform.getPath()
+        def transformName = transformFileName.replaceAll(~"\\.[^\\.]+", "").replaceAll(~".*\\/","")
+
+        if (transformName) {
+            println "Saving transform " + transformName
+            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/config/transforms/" + transformName)
+            client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
+            // client.getDecoder().putAt("application/xquery", client.getDecoder().getAt("text/plain"))
 
 
-        client.auth.basic project.adminUsername, project.adminPassword
-        def params = [:]
-        params.contentType = "application/xquery"
-        params.body = RESTConfigureTask.class.getResource('/related-result-transform.xqy').openStream().text
-        try {
-            client.put(params)
+            client.auth.basic project.adminUsername, project.adminPassword
+            def params = [:]
+            params.contentType = "application/xquery"
+            params.body = transform.text
+            try {
+                client.put(params)
+            }
+            catch (ex) {
+                println ex.response.status
+                println ex.response.data.text
+            }
         }
-        catch (ex) {
-            println ex
+        else {
+            println "Skipping filename " + transformName
         }
     }
 
-    void putExtension() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/ext/tagged-with.xqy")
+    void putExtension(extension) {
+        def extensionFileName = extension.getPath()
+        def extensionName = 
+            extensionFileName.replaceAll(~".*\\/","")
+        println "Saving extension " + extensionFileName
+        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/ext/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
         client.auth.basic project.adminUsername, project.adminPassword
         def params = [:]
         params.contentType = "application/xquery"
-        params.body = RESTConfigureTask.class.getResource('/tagged-with.xqy').openStream().text
+        params.body = extension.text
         try {
             client.put(params)
         }

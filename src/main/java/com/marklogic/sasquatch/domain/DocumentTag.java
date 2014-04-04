@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DocumentTag {
 
+	
 	private String userName;
 	private String tagName;
 	private Date createdAt;

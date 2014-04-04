@@ -21,6 +21,8 @@ import com.marklogic.sasquatch.marklogic.DocumentTagDataService;
 @Component
 public class DocumentTagDataServiceImpl implements DocumentTagDataService  {
 	
+	public static final String TAG_TRANSFORM = "decorateTag";
+
 	@Autowired
 	private DatabaseClient client;
 	
@@ -46,7 +48,7 @@ public class DocumentTagDataServiceImpl implements DocumentTagDataService  {
 		XMLDocumentManager manager = client.newXMLDocumentManager();
 		DocumentUriTemplate descriptor = manager.newDocumentUriTemplate("xml");
 		descriptor.setDirectory("/tags/");
-		ServerTransform transform = new ServerTransform("decorateTag");
+		ServerTransform transform = new ServerTransform(TAG_TRANSFORM);
 		DocumentDescriptor newDoc = client.newXMLDocumentManager().create(
 				descriptor, handle, transform);
 		return newDoc.getUri();
