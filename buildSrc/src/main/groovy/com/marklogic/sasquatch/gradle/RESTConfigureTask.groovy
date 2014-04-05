@@ -5,8 +5,8 @@ import org.gradle.api.tasks.TaskAction
 
 public class RESTConfigureTask extends DefaultTask {
 
-    def transforms = "src/main/rest-api/transforms"
-    def extensions = "src/main/rest-api/ext"
+    def transforms = "src/main/server/transforms"
+    def extensions = "src/main/server/ext"
 
     @TaskAction
     void configureREST() {

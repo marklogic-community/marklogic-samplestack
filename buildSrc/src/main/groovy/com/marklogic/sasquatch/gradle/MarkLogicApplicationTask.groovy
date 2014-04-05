@@ -5,43 +5,26 @@ import org.gradle.api.tasks.TaskAction
 
 public class MarkLogicApplicationTask extends DefaultTask {
 
+    def indexes = "src/main/server/indexes"
+
     @TaskAction
-    void managePackage() {
-        println "Saving Package"
-        putPackage()
-        println "Installing Package"
-        installPackage()
+    void updateDatabase() {
+        def indexesDirectory = new File(indexes)
+        println "Saving Database Configuration"
+        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/databases/" + project.applicationName + "/properties")
+        client.auth.basic project.adminUsername, project.adminPassword
+        indexesDirectory.listFiles().each { 
+            def params = [:]
+            params.contentType = "application/json"
+            params.body = it.text
+            try {
+                client.put(params)
+            }
+            catch (ex) {
+                println ex.response.data
+            }
+        }
         println "Done"
-    }
-
-    void putPackage() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/packages")
-        client.auth.basic project.adminUsername, project.adminPassword
-        def params = [:]
-        params.query = ["pkgname": project.applicationName ]
-        params.contentType = "application/json"
-        params.body = MarkLogicApplicationTask.class.getResource('/app-package.json').openStream().text
-        try {
-            client.post(params)
-        }
-        catch (ex) {
-            println ex.response.data
-        }
-    }
-
-    void installPackage() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/packages/"+ project.applicationName + "/install")
-        client.auth.basic project.adminUsername, project.adminPassword
-        def params = [:]
-        params.contentType = "application/json"
-        params.body = "{}"
-        try {
-            client.post(params)
-        }
-        catch (ex) {
-            println ex.response.status
-            println ex.response.statusLine
-        }
     }
 
 }
