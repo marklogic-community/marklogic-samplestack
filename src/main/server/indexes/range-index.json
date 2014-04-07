@@ -9,6 +9,6 @@
         "namespace-uri": "http://marklogic.com/xdmp/json/basic",
         "range-value-positions": false,
         "scalar-type": "string"
-    }
+    }]
 }
 

@@ -15,6 +15,7 @@ public class MarkLogicInitTask extends DefaultTask {
         adminSetup()
         println "MarkLogic admin secured.  Waiting for server restart."
         Thread.sleep(5000)
+        createUsers()
         restBoot()
     }
 
@@ -48,12 +49,20 @@ public class MarkLogicInitTask extends DefaultTask {
             if ( ex.response.status == 401 )
                 println "Server already secured.  Initialization skipped"
             else 
-                println "Got" + ex.response.status
+                println "Got " + ex.response.status
         }
     }
 
 
-    //Milestone 1 only
+    
+    void createUsers() {
+        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/v1/rest-apis")
+        client.auth.basic project.adminUsername, project.adminPassword
+        String restReader = "{ \"user-properties\": { \"name\": \"rest-reader\", \"password\": \"" + project.restReaderPassword + "\", \"description\": \"who cares\" }}"
+        String restWriter = "{ \"user-properties\": { \"name\": \"rest-write\", \"password\": \"" + project.restWriterPassword + "\", \"description\": \"who cares\" }}"
+    }
+
+    //Milestone 1 only ?
     void restBoot() {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/v1/rest-apis")
         client.auth.basic project.adminUsername, project.adminPassword

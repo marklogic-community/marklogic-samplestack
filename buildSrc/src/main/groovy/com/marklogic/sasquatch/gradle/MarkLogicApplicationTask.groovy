@@ -14,14 +14,16 @@ public class MarkLogicApplicationTask extends DefaultTask {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/databases/" + project.applicationName + "/properties")
         client.auth.basic project.adminUsername, project.adminPassword
         indexesDirectory.listFiles().each { 
+            print "Found config file " +  it.name + "..."
             def params = [:]
             params.contentType = "application/json"
             params.body = it.text
             try {
-                client.put(params)
+                def response = client.put(params)
+                println response.status
             }
             catch (ex) {
-                println ex.response.data
+                println "Error: " + ex.response.data
             }
         }
         println "Done"
