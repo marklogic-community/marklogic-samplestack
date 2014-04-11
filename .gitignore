@@ -16,3 +16,5 @@
 build
 static
 public
+.classpath
+.project
