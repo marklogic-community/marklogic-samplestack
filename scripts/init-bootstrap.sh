@@ -19,5 +19,8 @@ curl --anyauth --user admin:admin -Hcontent-type:application/json -d'{"rest-api"
 
 # curl --anyauth --user admin:admin -X DELETE http://localhost:8002/v1/rest-apis/boo
 
-curl --anyauth --user admin:admin -i -X POST -Hcontent-type:application/json -d'{ "name": "rest-writer", "password": "rest-writer-password", "desc": "Rest Writer User" }' http://localhost:8002/manage/v2/users
+curl --anyauth --user admin:admin -i -X POST -Hcontent-type:application/json -d'{ "name": "restwriter", "password": "restwriter" }' http://localhost:8002/manage/v2/users
+curl --anyauth --user admin:admin -i -X POST -Hcontent-type:application/json -d'{ "name": "restwriter", "password": "restwriter", "description":"description" }' http://localhost:8002/manage/v2/users
+curl --anyauth --user admin:admin -i -X DELETE -Haccept:application/json http://localhost:8002/manage/v2/users/restwriter
+curl --anyauth --user admin:admin -i -X GET -Haccept:application/json http://localhost:8002/manage/v2/users/restwriter
 

@@ -1,7 +1,13 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'groovy'
+allprojects {
+    task hello << { task -> println "I'm $task.project.name" }
+}
 
+task setup << {
+    markLogicInit
+    markLogicApplication
+    markLogicExtendREST
+}
+   
 task markLogicInit(type: MarkLogicInitTask)
 
 task markLogicTeardown(type: MarkLogicTeardownTask)
@@ -13,6 +19,7 @@ task markLogicExtendREST(type: RESTConfigureTask) {
     extensions = "src/main/rest-api/ext"
 }
 
+
 //TODO rework to stackoverflow data
 task loadGithub(type: GithubSlurpTask) {
    //file = "src/test/resources/github/githubSample.json"
@@ -23,18 +30,6 @@ task loadGithub(type: GithubSlurpTask) {
 task loadGithubFromArchive(type: GithubSlurpTask) {
    url = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
-
-
-/* The code repositories to consult for dependencies */
-repositories {
-}
-
-dependencies {
-    testCompile('com.jayway.jsonpath:json-path:0.9.1') {
-        exclude(group: 'org.slf4j')
-    }
-}
-
 
 
 /* task to generate the gradle wrapper script */

@@ -12,7 +12,6 @@ public class MarkLogicInitTask extends DefaultTask {
         adminInit()
         adminSetup()
         createUsers()
-
         restBoot()
     }
 

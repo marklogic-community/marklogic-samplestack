@@ -1,6 +1,5 @@
 apply plugin: 'groovy'
 
-
 repositories {
     mavenCentral()
     maven { url "http://repository.codehaus.org" }
