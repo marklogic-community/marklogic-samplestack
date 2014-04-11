@@ -1,0 +1,3 @@
+[submodule "sample-enode"]
+	path = sample-enode
+	url = git@github.com:marklogic/sample-enode.git
