@@ -15,23 +15,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.sasquatch.Application;
-import com.marklogic.sasquatch.domain.GithubTag;
+import com.marklogic.sasquatch.domain.DocumentTag;
 import com.marklogic.sasquatch.domain.Triple;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {Application.class })
-public class GithubTagTest {
+public class DocumentTagTest {
 
-	GithubTag tag;
+	DocumentTag tag;
 	
 	@Autowired
-	private GithubTagDataService service;
+	private DocumentTagDataService service;
 	
 	@Test
 	public void testMakingATag() throws URISyntaxException {
-		tag = new GithubTag();
+		tag = new DocumentTag();
 		
 		
 		
@@ -59,7 +59,7 @@ public class GithubTagTest {
 		
 		String tagIdString = service.store(tag);
 		
-		GithubTag retrievedTag = service.get(tagIdString);
+		DocumentTag retrievedTag = service.get(tagIdString);
 		assertEquals(tagNameString, retrievedTag.getTagName());
 		assertEquals(tagDocString, retrievedTag.getTriples().get(0).getObject());
 	}

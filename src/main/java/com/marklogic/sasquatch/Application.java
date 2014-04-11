@@ -15,19 +15,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
-import com.marklogic.sasquatch.domain.GithubTag;
+import com.marklogic.sasquatch.domain.DocumentTag;
 import com.marklogic.sasquatch.impl.CustomObjectMapper;
 import com.marklogic.sasquatch.impl.SasquatchException;
 
 @Configuration
 @ComponentScan
-@PropertySource("classpath:sasquatch.properties")
+@PropertySource("classpath:gradle.properties")
 @EnableWebMvc
 @EnableAutoConfiguration
 public class Application  extends WebMvcAutoConfigurationAdapter {
@@ -38,11 +37,11 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 	Environment env;
 	
 	@Bean
-	public DatabaseClient databaseClient() {
+	public DatabaseClient databaseClient(ClientRole role) {
 		String host = env.getProperty("markLogicHost");
 		Integer port = Integer.parseInt(env.getProperty("markLogicPort"));
-		String username = env.getProperty("applicationUser");
-		String password = env.getProperty("applicationPassword");
+		String username = env.getProperty("restAdminUser");
+		String password = env.getProperty("restAdminPassword");
 		return DatabaseClientFactory.newClient(host, port, username, password,
 				Authentication.DIGEST);
 	}
@@ -59,7 +58,7 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 	public JAXBContext jaxbContext() {
 		JAXBContext context = null;
 		try {
-			context = JAXBContext.newInstance(GithubTag.class);
+			context = JAXBContext.newInstance(DocumentTag.class);
 		} catch (JAXBException e) {
 			throw new SasquatchException(e);
 		}

@@ -1,8 +1,5 @@
 {
-  "node": false,
-  "browser": true,
-  "strict": true,
-  "globals": {"define": false, "require": false},
+  "node": true,
 
   "esnext": false,
   "bitwise": true,

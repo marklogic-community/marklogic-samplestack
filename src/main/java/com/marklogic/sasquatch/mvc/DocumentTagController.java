@@ -17,14 +17,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
-import com.marklogic.sasquatch.domain.GithubTag;
-import com.marklogic.sasquatch.marklogic.GithubTagDataService;
+import com.marklogic.sasquatch.domain.DocumentTag;
+import com.marklogic.sasquatch.marklogic.DocumentTagDataService;
 
 @Controller
-public class GithubTagController {
+public class DocumentTagController {
 
 	@Autowired
-	private GithubTagDataService service;
+	private DocumentTagDataService service;
 	
 	@RequestMapping(value="tags", method=RequestMethod.GET)
 	public @ResponseBody
@@ -39,7 +39,7 @@ public class GithubTagController {
 	
 	@RequestMapping(value = "tags", method = RequestMethod.POST)
 	public @ResponseBody
-	ResponseEntity<?> postTag(@RequestBody GithubTag tag) {
+	ResponseEntity<?> postTag(@RequestBody DocumentTag tag) {
 		// validate
 		
 		String newUri = service.store(tag);

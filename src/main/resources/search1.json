@@ -1,6 +1,6 @@
 {"search":
   {"query":
-      {"term-query":{"text":"Clojure"}
+      {"term-query":{"text":"Java"}
       }
       ,
    "options":
