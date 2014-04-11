@@ -18,3 +18,6 @@ sleep 6
 curl --anyauth --user admin:admin -Hcontent-type:application/json -d'{"rest-api":{ "name" : "boo", "port" : 8006} }' -X POST http://localhost:8002/v1/rest-apis
 
 # curl --anyauth --user admin:admin -X DELETE http://localhost:8002/v1/rest-apis/boo
+
+curl --anyauth --user admin:admin -i -X POST -Hcontent-type:application/json -d'{ "name": "rest-writer", "password": "rest-writer-password", "desc": "Rest Writer User" }' http://localhost:8002/manage/v2/users
+
