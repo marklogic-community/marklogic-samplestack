@@ -1,7 +1,7 @@
 import groovy.json.*
 import groovyx.net.http.RESTClient
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 
 
 
@@ -9,10 +9,10 @@ public class MarkLogicInitTask extends DefaultTask {
 
     @TaskAction
     void initMarkLogic() {
-        adminInit()
-        adminSetup()
+        //adminInit()
+        //adminSetup()
         createUsers()
-        restBoot()
+        //restBoot()
     }
 
     void adminInit() {
@@ -55,32 +55,38 @@ public class MarkLogicInitTask extends DefaultTask {
 
 
     
-    void createUsers() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users").with {
-            headers."accept" = "application/json"
-            auth.basic project.adminUsername, project.adminPassword
-            it
-        }
-        
-        def builder = new JsonBuilder()
-        def root = builder { "user-properties" {
-              "name" project.restWriterUser
-              "password" project.restWriterPassword
-              "description" "Rest Writer User"
-              } 
-        }
-        def params = [:]
-        
-        params.contentType = "application/json"
-        params.body = builder.toString()
+    private void createUser(configString, roleName) {
         try {
+            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users").with {
+                headers."accept" = "application/json"
+                auth.basic project.adminUsername, project.adminPassword
+                it
+            }
+            def props = project.properties
+            def userName = props.get(configString + "User")
+            def password = props.get(configString + "Password")
+            def description = roleName + " user"
+        
+            def params = [:]
+            params.contentType = "application/json"
+            println "Creating " + roleName
+            def builder = new JsonBuilder()
+            def root = builder name: userName, password: password, description: description, roles: [ {"role" roleName } ]
+            println builder.toString()
+            params.body = builder.toString()
             client.post(params)
         } catch (ex) {
-            println ex
+            ex.dump()
+            throw ex
         }
     }
 
-    //Milestone 1 only ?
+    void createUsers() {
+        createUser("restAdmin", "rest-admin")
+        createUser("restWriter", "rest-writer")
+        createUser("restReader", "rest-reader")
+    }
+
     void restBoot() {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/v1/rest-apis").with {
             headers."accept" = "application/json"
