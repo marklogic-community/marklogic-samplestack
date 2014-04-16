@@ -26,6 +26,14 @@
         "namespace-uri": "",
         "range-value-positions": false,
         "scalar-type": "long"
+    },
+    {
+        "collation": "http://marklogic.com/collation/",
+        "invalid-values": "reject",
+        "localname": "CreationDate",
+        "namespace-uri": "",
+        "range-value-positions": false,
+        "scalar-type": "dateTime"
     }
     ]},
     "forests": {
