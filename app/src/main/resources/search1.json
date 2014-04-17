@@ -1,15 +1,20 @@
 {"search":
   {"query":
-      {"term-query":{"text":"Java"}
-      }
+      {"and-query":
+          {"queries":[
+            {"term-query":{"text":"language"}},
+            {"directory-query":{"uri":"/question/"}}]}}
       ,
    "options":
 	{"debug":true,
      "return-qtext":true,
      "constraint":{
-         "name":"type",
+         "name":"created",
          "range":{
-             "type":"xs:string",
+             "type":"xs:dateTime",
              "facet":true,
-             "json-key":"type"}},
-     "extract-metadata":{"json-key":"location"}}}}
+             "element":{"ns":"","name":"CreationDate"},
+             "computed-bucket":[{"name":"older", "lt":"-P365D", "anchor":"now", "label":"Older than 1 years"},{"name":"year", "ge":"-P365D", "lt":"-P30D", "anchor":"now", "label":"1 month to 1 year ago"},{"name":"month", "ge":"-P30D", "lt":"-P7D", "anchor":"now", "label":"7 to 30 days ago"},{"name":"week", "ge":"-P7D", "lt":"-P1D", "anchor":"now", "label":"1 to 7 days ago"},{"name":"today", "ge":"-P1D", "lt":"P0D", "anchor":"now", "label":"Today"},{"name":"future", "ge":"P0D", "anchor":"now", "label":"Future"}]
+         }},
+     "transform-results":{"apply":"empty-snippet"},
+     "extract-metadata":{"qname":[{"elem-name":"Body"},{"elem-name":"OwnerUserId"}]}}}}

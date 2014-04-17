@@ -5,14 +5,14 @@ import org.gradle.api.tasks.*
 
 
 
-public class MarkLogicInitTask extends DefaultTask {
+public class MarkLogicInitTask extends MarkLogicTask {
 
     @TaskAction
     void initMarkLogic() {
-        //adminInit()
-        //adminSetup()
+        adminInit()
+        adminSetup()
         createUsers()
-        //restBoot()
+        restBoot()
     }
 
     void adminInit() {
@@ -76,8 +76,7 @@ public class MarkLogicInitTask extends DefaultTask {
             params.body = builder.toString()
             client.post(params)
         } catch (ex) {
-            ex.dump()
-            throw ex
+            println "Error creating user "+roleName+".  Skipping..."
         }
     }
 
@@ -97,9 +96,9 @@ public class MarkLogicInitTask extends DefaultTask {
         params.contentType = "application/json"
         params.body = String.format('{"rest-api" : { "name" : "%s", "port" : %s }}', project.applicationName, project.markLogicPort)
         try {
-            client.post(params)
+            post(client, params)
         } catch (ex) {
-            println "REST Bootstrap failed: " + ex
+            println "Ignoring server creation error... "
         }
     }
 }

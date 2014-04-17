@@ -6,9 +6,9 @@ import org.gradle.api.tasks.TaskAction
 public class MarkLogicTeardownTask extends DefaultTask {
 
     @TaskAction
-    void teardoen() {
-        //teardownRest()
+    void teardown() {
         removeUsers()
+        teardownRest()
     }
 
     void teardownRest() {

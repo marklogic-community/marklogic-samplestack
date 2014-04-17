@@ -1,5 +1,8 @@
 # straight ahead directory search to find just github stuff, language, with facet on type...
-curl --user admin:admin --digest -d@'src/main/resources/search1.json' -X POST -Hcontent-type:application/json -H accept:application/json "http://localhost:8006/v1/search?directory=/github/" | python -mjson.tool | less
+curl --user admin:admin --digest -d@'app/src/main/resources/search1.json' -X POST -Hcontent-type:application/json -H accept:application/json "http://localhost:8006/v1/search?directory=/github/" | python -mjson.tool | less
+
+# with transform
+curl --user admin:admin --digest -d@'app/src/main/resources/search1.json' -X POST -Hcontent-type:application/json -H accept:application/json "http://localhost:8006/v1/search?directory=/question/&transform=users" | python -mjson.tool | less
 
 # without directory, with tranfsorm
 curl --user admin:admin --digest -d@'src/main/resources/search1.json' -X POST -Hcontent-type:application/json -H accept:application/json "http://localhost:8006/v1/search?transform=related"

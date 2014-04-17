@@ -4,23 +4,16 @@ allprojects {
     task hello << { task -> println "I'm $task.project.name" }
 }
 
-task setup << {
-    markLogicInit
-    markLogicApplication
-    markLogicExtendREST
-}
-   
 task markLogicInit(type: MarkLogicInitTask)
 
 task markLogicTeardown(type: MarkLogicTeardownTask)
 
-task markLogicApplication(type: MarkLogicApplicationTask)
+task markLogicManage(type: MarkLogicManageTask) 
 
-task markLogicExtendREST(type: RESTConfigureTask) {
-    transforms = "src/main/rest-api/transforms"
-    extensions = "src/main/rest-api/ext"
-}
+task markLogicExtendREST(type: MarkLogicRESTTask) 
 
+test.dependsOn(markLogicExtendREST) 
+assemble.dependsOn(markLogicInit, markLogicManage, test)
 
 //TODO rework to stackoverflow data
 task loadGithub(type: GithubSlurpTask) {
@@ -31,6 +24,10 @@ task loadGithub(type: GithubSlurpTask) {
 
 task loadGithubFromArchive(type: GithubSlurpTask) {
    url = "http://data.githubarchive.org/2012-04-11-15.json.gz"
+}
+
+task run(dependsOn: ':app:bootRun') << {
+  println "running the angular app"
 }
 
 
