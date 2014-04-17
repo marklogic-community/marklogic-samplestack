@@ -1,4 +1,4 @@
-# sasquatch
+# sampleStack
 
 An application to demonstrate using MarkLogic in a Java Application Server environment.
 
@@ -7,18 +7,14 @@ An application to demonstrate using MarkLogic in a Java Application Server envir
 
 ```bash
 git clone https://github.com/marklogic/sasquatch.git
-git checkout develop
 ```
 
 One-time setup:
 
 1. install and start MarkLogic with fresh data dir
 2. build and install ML java client from trunk as Maven package
-3. `./gradlew markLogicInit`          sets up MarkLogic
-4. `./gradlew markLogicApplication`   configures application
-5. `./gradlew loadGithub`   invokes a gradle task to load a small set of github files.
+3. `./gradlew assemble` sets up MarkLogic
 6. **install node**
-7. from /src/main/web, run `npm install`
 
 To run unit tests:
 
@@ -27,21 +23,12 @@ To run unit tests:
 
 To run the application:
 
-* `./gradlew bootRun` -- builds and runs the app (on localhost:8080) and enters
+* `./gradlew boot` -- builds and runs the app (on localhost:8080) and enters
 watch mode (subsequent changes are instantaneously applied to the running
 server)
 
-**Note**: at this time gradle blocks the UI, and the options offered by gulp
-during watch mode are not avaiable.  However, changes made to the web directory
-(/src/main/web) are effected live on the web browser, and live reload *is*
-enabled.
-
 ### Endpoints currently supported
 
-* /docs
-* /foo
-* /tags
-* /
 
 ## License
 

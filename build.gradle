@@ -1,9 +1,5 @@
 apply plugin: "groovy"
 
-allprojects {
-    task hello << { task -> println "I'm $task.project.name" }
-}
-
 task markLogicInit(type: MarkLogicInitTask)
 
 task markLogicTeardown(type: MarkLogicTeardownTask)
@@ -12,7 +8,14 @@ task markLogicManage(type: MarkLogicManageTask)
 
 task markLogicExtendREST(type: MarkLogicRESTTask) 
 
-test.dependsOn(markLogicExtendREST) 
+task props(type: Copy) {
+    from('.') {
+        include 'gradle.properties'
+    }
+    into 'app/src/main/resources'
+}
+
+test.dependsOn(props, markLogicExtendREST) 
 assemble.dependsOn(markLogicInit, markLogicManage, test)
 
 //TODO rework to stackoverflow data
