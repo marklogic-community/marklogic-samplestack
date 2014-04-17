@@ -8,6 +8,10 @@ task markLogicManage(type: MarkLogicManageTask)
 
 task markLogicExtendREST(type: MarkLogicRESTTask) 
 
+task status << {
+    println "Status about the server"
+}
+
 task props(type: Copy) {
     from('.') {
         include 'gradle.properties'
@@ -18,14 +22,11 @@ task props(type: Copy) {
 test.dependsOn(props, markLogicExtendREST) 
 assemble.dependsOn(markLogicInit, markLogicManage, test)
 
-//TODO rework to stackoverflow data
-task loadGithub(type: GithubSlurpTask) {
-   //file = "src/test/resources/github/githubSample.json"
-   // file = "/tmp/temp8026336001481176720"
+task load(type: MarkLogicSlurpTask) {
    file = "/tmp/temp2418963333306216496"
 }
 
-task loadGithubFromArchive(type: GithubSlurpTask) {
+task loadMore(type: MarkLogicSlurpTask) {
    url = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
 

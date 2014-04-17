@@ -6,7 +6,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 
-public class GithubSlurpTask extends DefaultTask {
+public class MarkLogicSlurpTask extends DefaultTask {
 
     String file 
     String url

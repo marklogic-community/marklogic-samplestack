@@ -6,20 +6,19 @@ An application to demonstrate using MarkLogic in a Java Application Server envir
 
 
 ```bash
-git clone https://github.com/marklogic/sasquatch.git
+git clone https://github.com/marklogic/samplestack-java.git
 ```
 
 One-time setup:
 
-1. install and start MarkLogic with fresh data dir
-2. build and install ML java client from trunk as Maven package
-3. `./gradlew assemble` sets up MarkLogic
-6. **install node**
+* install and start MarkLogic with fresh data dir
+* build and install ML java client from trunk as Maven package TODO - put on maven central
+* `./gradlew assemble`
+* **install node**
 
 To run unit tests:
 
 * `./gradlew test`
-
 
 To run the application:
 
