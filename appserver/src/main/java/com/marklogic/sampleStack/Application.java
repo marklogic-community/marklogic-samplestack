@@ -56,6 +56,10 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 	Environment env;
 	
 	@Bean
+	public DatabaseClient databaseClient() {
+		return databaseClient(ClientRole.ADMIN);
+	}
+	
 	public DatabaseClient databaseClient(ClientRole role) {
 		String host = env.getProperty("markLogicHost");
 		Integer port = Integer.parseInt(env.getProperty("markLogicPort"));

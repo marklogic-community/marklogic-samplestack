@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import sun.awt.image.OffScreenImage;
+import sun.util.logging.resources.logging;
 
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.io.FileHandle;
@@ -26,6 +29,10 @@ import com.marklogic.sampleStack.marklogic.MarkLogicOperations;
 
 @Component
 public class MarkLogicClient implements MarkLogicOperations {
+
+
+	private final Logger logger = LoggerFactory
+			.getLogger(MarkLogicClient.class);
 
 	@Autowired
 	protected DatabaseClient client;
@@ -93,9 +100,9 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public SearchHandle searchDirectory(String directory, String queryString) {
 		QueryManager queryManager = client.newQueryManager();
 		StructuredQueryBuilder qb = new StructuredQueryBuilder();
-		StructuredQueryDefinition qdef = qb.and(
-				qb.directory(true,  directory),
-				qb.term(queryString));
+		StructuredQueryDefinition qdef = qb.term(queryString);
+		qdef.setDirectory(directory);
+		logger.debug(qdef.serialize());
 		return queryManager.search(qdef, new SearchHandle());
 	}
 }

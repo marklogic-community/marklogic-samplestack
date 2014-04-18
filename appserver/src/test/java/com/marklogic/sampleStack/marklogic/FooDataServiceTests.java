@@ -76,7 +76,7 @@ public class FooDataServiceTests {
 		Foo f = newFoo(15L);
 		f.setName("words words words");
 		fooService.storeFoo(f);
-		List<Foo> fooList = fooService.search("word");
+		List<Foo> fooList = fooService.search("words");
 		Long id = fooList.get(0).getId();
 		
 		assertEquals(1, fooList.size());
