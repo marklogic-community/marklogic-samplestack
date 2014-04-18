@@ -1,6 +1,7 @@
 package com.marklogic.sampleStack.mvc;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,6 +86,9 @@ public class FooController {
 		} else {
 			bean.setId(id);
 		}
+		bean.setDoubleValue(1.0001);
+		bean.setPoint("-92,23");
+		bean.setStartDate(new Date());
 		return bean;
 	}
 

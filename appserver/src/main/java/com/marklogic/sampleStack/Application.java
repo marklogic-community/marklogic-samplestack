@@ -41,7 +41,7 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 	    	case REST_ADMIN: return "restAdmin"; 
 	    	case REST_WRITER: return "restWriter"; 
 	    	case REST_READER: return "restReader";
-	    	default: throw new SasquatchSecurityException();
+	    	default: throw new SampleStackSecurityException();
 			}
 		}
 		public String getUserParam() {
