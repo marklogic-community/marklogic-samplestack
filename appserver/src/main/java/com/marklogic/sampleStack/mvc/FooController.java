@@ -86,7 +86,7 @@ public class FooController {
 		} else {
 			bean.setId(id);
 		}
-		bean.setDoubleValue(1.0001);
+		bean.setDoubleValue(1.0002);
 		bean.setPoint("-92,23");
 		bean.setStartDate(new Date());
 		return bean;

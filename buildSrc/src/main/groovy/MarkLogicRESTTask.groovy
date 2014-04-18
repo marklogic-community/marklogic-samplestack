@@ -11,7 +11,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
     def restExtensions = database + "/rest-ext"
     def reducers = database + "/reducers"
     def options = database + "/options"
-    def properties = database + "/properties.json"
+    def properties = database + "/rest-properties.json"
 
     @TaskAction
     void configureREST() {

@@ -28,11 +28,11 @@ server)
 
 ### Endpoints currently supported
 
-/foo/new    generate a new foo object
-GET /foo        list of foo object URIs as JSON array
-GET /foo/{id}   get a particular foo
-PUT /foo/{id}   replace a foo
-DELETE /foo/{id} delete a foo
+# GET /foo/new    generate a new foo object
+# GET /foo        list of foo object URIs as JSON array
+# GET /foo/{id}   get a particular foo
+# PUT /foo/{id}   replace a foo
+# DELETE /foo/{id} delete a foo
 
 GET /foo/search?q=search    simple search over foos
 
