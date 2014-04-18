@@ -22,12 +22,10 @@ task props(type: Copy) {
 test.dependsOn(props, markLogicExtendREST, ':appserver:test') 
 assemble.dependsOn(markLogicInit, markLogicManage, ':appserver:test')
 
-task load(type: MarkLogicSlurpTask) {
-   file = "/tmp/temp2418963333306216496"
-}
+task load(type: MarkLogicSlurpTask) 
 
 task loadMore(type: MarkLogicSlurpTask) {
-   url = "http://data.githubarchive.org/2012-04-11-15.json.gz"
+  // url  = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
 
 task boot(dependsOn: ':appserver:bootRun') << {

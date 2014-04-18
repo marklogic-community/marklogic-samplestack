@@ -33,10 +33,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
             println "Saving transform " + transformName
             RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/config/transforms/" + transformName)
             client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
-            // client.getDecoder().putAt("application/xquery", client.getDecoder().getAt("text/plain"))
-
-
-            client.auth.basic project.adminUsername, project.adminPassword
+            client.auth.basic project.restAdminUser, project.restAdminPassword
             def params = [:]
             params.contentType = "application/xquery"
             params.body = transform.text
@@ -54,7 +51,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
         println "Saving extension " + extensionFileName
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/ext/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
-        client.auth.basic project.adminUsername, project.adminPassword
+        client.auth.basic project.restAdminUser, project.restAdminPassword
         def params = [:]
         params.contentType = "application/xquery"
         params.body = extension.text
@@ -63,7 +60,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
 
     void configureProperties() {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/config/properties")
-        client.auth.basic project.adminUsername, project.adminPassword
+        client.auth.basic project.restAdminUser, project.restAdminPassword
         def params = [:]
         params.contentType = "application/json"
         params.body = new File(properties).text

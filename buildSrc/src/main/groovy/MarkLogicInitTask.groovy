@@ -71,7 +71,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             params.contentType = "application/json"
             println "Creating " + roleName
             def builder = new JsonBuilder()
-            def root = builder name: userName, password: password, description: description, roles: [ {"role" roleName } ]
+            def root = builder name: userName, password: password, description: description, role: [ roleName ]
             println builder.toString()
             params.body = builder.toString()
             client.post(params)
