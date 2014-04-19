@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" class="nojs">
+  <head>
+    <noscript><%= noscriptHtml %></noscript>
+    <meta charset="utf-8">
+    <title>SampleStack -- MarkLogic</title>
+
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <script src="/js/bower_components/modernizr/modernizr.js"></script>
+    <script src="/js/bower_components/es5-shim/es5-shim.js"></script>
+
+  </head>
+
+  <body>
+    <div class="initspin">
+      <div id="initspinContainer">
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+
+        <h1>Loading...</h1>
+
+      </div>
+    </div>
+    <div class="body ng-cloak" ng-cloak>
+      <ui-view/>
+    </div>
+  </body>
+  <script
+    src="/js/bower_components/requirejs/require.js"
+    data-main="js/main.js"
+  ></script>
+</html>
