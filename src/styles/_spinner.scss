@@ -1,0 +1,178 @@
+/*
+  from the author: "The first loader out of a series I'm going to be
+  completing. You are free to use these as long as you keep the reference to me
+  in the outputted CSS
+  file! :-)"
+
+   Loader #1 by Sam Lillicrap
+   http://www.samueljwebdesign.co.uk
+   http://codepen.io/samueljweb/pen/LbGxi
+
+   container selectors adapted by MarkLogic Corporation
+*/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,700);
+html, body {
+  height: 100%;
+}
+
+.initspin {
+  background-color:#DC554F;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  z-index: -1;
+}
+html.spun .initspin {
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+}
+
+.initspin h1 {
+  font-family: 'Lato';
+  color: white;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 1.5px;
+  text-align: center;
+  width: 155px;
+  margin-top: 20px;
+  -webkit-animation: fade 2s infinite;
+  -moz-animation: fade 2s infinite; }
+
+.initspin #initspinContainer {
+  background-color: #DC554F;
+  width: 180px;
+  padding-top: 180px;
+  margin: auto;
+  vertical-align: middle; }
+
+.initspin .stick {
+  width: 30px;
+  height: 3px;
+  background: white;
+  display: inline-block;
+  margin-left: -8px; }
+
+.initspin .stick:nth-child(n) {
+  transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
+  /* IE 9 */
+  -webkit-transform: rotate(30deg);
+  /* Safari and Chrome */
+  -moz-transform: rotate(30deg);
+  -webkit-animation: fall 2s infinite;
+  -moz-animation: fall 2s infinite; }
+
+.initspin .stick:nth-child(2n) {
+  transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-30deg);
+  /* Safari and Chrome */
+  -moz-transform: rotate(-30deg);
+  -webkit-animation: rise 2s infinite;
+  -moz-animation: rise 2s infinite; }
+
+@-webkit-keyframes rise {
+  50% {
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    /* IE 9 */
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg); } }
+
+@-moz-keyframes rise {
+  50% {
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    /* IE 9 */
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg); } }
+
+@-o-keyframes rise {
+  @keyframes rise {
+    50% {
+      transform: rotate(30deg);
+      -ms-transform: rotate(30deg);
+      /* IE 9 */
+      -webkit-transform: rotate(30deg);
+      -moz-transform: rotate(30deg); } }
+
+  50% {
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    /* IE 9 */
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg); } }
+
+@-webkit-keyframes fall {
+  50% {
+    transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    /* IE 9 */
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(30deg); } }
+
+@-moz-keyframes fall {
+  50% {
+    transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    /* IE 9 */
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg); } }
+
+@-o-keyframes fall {
+  @keyframes fall {
+    50% {
+      transform: rotate(-30deg);
+      -ms-transform: rotate(-30deg);
+      /* IE 9 */
+      -webkit-transform: rotate(-30deg);
+      -moz-transform: rotate(30deg); } }
+
+  50% {
+    transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    /* IE 9 */
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(30deg); } }
+
+@-webkit-keyframes fade {
+  50% {
+    opacity: 0.5; }
+
+  100% {
+    opacity: 1; } }
+
+@-moz-keyframes fade {
+  50% {
+    opacity: 0.5; }
+
+  100% {
+    opacity: 1; } }
+
+@-o-keyframes fade {
+  @keyframes fade {
+    50% {
+      opacity: 0.5; }
+
+    100% {
+      opacity: 1; } }
+
+  50% {
+    opacity: 0.5; }
+
+  100% {
+    opacity: 1; } }
+
+.body {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
