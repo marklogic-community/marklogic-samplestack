@@ -1,9 +1,0 @@
-[submodule "sample-enode"]
-	path = sample-enode
-	url = git@github.com:marklogic/sample-enode.git
-[submodule "client"]
-	path = client
-	url = git@github.com:marklogic/sample-angular.git
-[submodule "database"]
-	path = database
-	url = git@github.com:marklogic/sample-enode.git
