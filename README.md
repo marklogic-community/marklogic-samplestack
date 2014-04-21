@@ -12,7 +12,10 @@ git clone https://github.com/marklogic/samplestack-java.git
 One-time setup:
 
 * install and start MarkLogic with fresh data dir
-* build and install ML java client from trunk as Maven package TODO - put on maven central
+* build and install ML java client from trunk as Maven package.. in a separate directory:
+** git clone https://github.com/marklogic/java-client-api
+** cd java-client-api
+** mvn -Dmaven.test.skip=true install
 * `./gradlew assemble`
 * **install node**
 
@@ -28,14 +31,13 @@ server)
 
 ### Endpoints currently supported
 
-# GET /foo/new    generate a new foo object
-# GET /foo        list of foo object URIs as JSON array
-# GET /foo/{id}   get a particular foo
-# PUT /foo/{id}   replace a foo
-# DELETE /foo/{id} delete a foo
+* GET /foo/new    generate a new foo object
+* GET /foo        list of foo object URIs as JSON array
+* GET /foo/{id}   get a particular foo
+* PUT /foo/{id}   replace a foo
+* DELETE /foo/{id} delete a foo
 
 GET /foo/search?q=search    simple search over foos
-
 
 
 ## License
