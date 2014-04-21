@@ -30,7 +30,7 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
     // compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
-    // compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
     }
