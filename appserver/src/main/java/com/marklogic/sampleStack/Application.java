@@ -11,8 +11,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
@@ -24,8 +26,9 @@ import com.marklogic.sampleStack.impl.SampleStackException;
 
 @Configuration
 @ComponentScan
-//@PropertySource("classpath:gradle.properties")
+@PropertySource("classpath:gradle.properties")
 @EnableAutoConfiguration
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class Application {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -57,7 +60,7 @@ public class Application {
 		return databaseClient(ClientRole.ADMIN);
 	}
 	
-	public DatabaseClient databaseClient(ClientRole role) {
+	private DatabaseClient databaseClient(ClientRole role) {
 		String host = env.getProperty("markLogicHost");
 		Integer port = Integer.parseInt(env.getProperty("markLogicPort"));
 		String username = env.getProperty(role.getUserParam());

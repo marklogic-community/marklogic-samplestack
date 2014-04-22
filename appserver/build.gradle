@@ -35,7 +35,7 @@ dependencies {
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
     compile("org.springframework.security:spring-security-ldap:3.2.3.RELEASE")
-    compile("org.apache.directory.server:apacheds-server-jndi:1.5.7")
+    compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
     compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
         exclude(group: 'org.slf4j')
     }
