@@ -16,7 +16,7 @@ task props(type: Copy) {
     from('.') {
         include 'gradle.properties'
     }
-    into 'app/src/main/resources'
+    into 'appserver/src/main/resources'
 }
 
 test.dependsOn(props, markLogicExtendREST, ':appserver:test') 
@@ -28,9 +28,10 @@ task loadMore(type: MarkLogicSlurpTask) {
   // url  = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
 
-task boot(dependsOn: ':appserver:bootRun') << {
+task boot << {
   println "running the angular app"
 }
+boot.dependsOn(props, ':appserver:bootRun')
 
 
 /* task to generate the gradle wrapper script */

@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import sun.awt.image.OffScreenImage;
-import sun.util.logging.resources.logging;
-
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
@@ -91,7 +88,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 			}
 			return docUrisList;
 		} catch (IOException e) {
-			throw new SasquatchException(e);
+			throw new SampleStackException(e);
 		}
 	}
 

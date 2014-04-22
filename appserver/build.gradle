@@ -1,7 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.0.0.BUILD-SNAPSHOT'
-		markLogicBootVersion = '1.0.0.BUILD-SNAPSHOT'
+		springBootVersion = '1.0.1.RELEASE'
 	}
     repositories {
         mavenCentral()
@@ -28,13 +27,15 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
+    // compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
     // compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.security:spring-security-ldap:3.2.3.RELEASE")
+    compile("org.apache.directory.server:apacheds-server-jndi:1.5.7")
     compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
         exclude(group: 'org.slf4j')
     }

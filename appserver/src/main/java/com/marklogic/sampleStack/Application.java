@@ -8,13 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
@@ -22,14 +20,13 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.sampleStack.domain.DocumentTag;
 import com.marklogic.sampleStack.impl.CustomObjectMapper;
-import com.marklogic.sampleStack.impl.SasquatchException;
+import com.marklogic.sampleStack.impl.SampleStackException;
 
 @Configuration
 @ComponentScan
-@PropertySource("classpath:gradle.properties")
-@EnableWebMvc
+//@PropertySource("classpath:gradle.properties")
 @EnableAutoConfiguration
-public class Application  extends WebMvcAutoConfigurationAdapter {
+public class Application {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
@@ -68,8 +65,6 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 		return DatabaseClientFactory.newClient(host, port, username, password,
 				Authentication.DIGEST);
 	}
-
-	// TODO User client, auth
 	
 	@Bean
 	public ObjectMapper mapper() {
@@ -83,11 +78,12 @@ public class Application  extends WebMvcAutoConfigurationAdapter {
 		try {
 			context = JAXBContext.newInstance(DocumentTag.class);
 		} catch (JAXBException e) {
-			throw new SasquatchException(e);
+			throw new SampleStackException(e);
 		}
 		return context;
 	}
 
+	
 	public static void main(String[] args) {
 		logger.debug("Starting Spring Boot Sasquatch Application");
 		SpringApplication.run(Application.class, args);

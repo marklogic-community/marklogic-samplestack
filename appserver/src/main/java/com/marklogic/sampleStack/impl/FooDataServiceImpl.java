@@ -56,7 +56,7 @@ public class FooDataServiceImpl implements FooDataService {
 		} catch (ResourceNotFoundException e) {
 			throw new SasquatchNotFoundException();
 		} catch (IOException e) {
-			throw new SasquatchException(e);
+			throw new SampleStackException(e);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class FooDataServiceImpl implements FooDataService {
 		try {
 			jsonString = mapper.writeValueAsString(foo);
 		} catch (JsonProcessingException e) {
-			throw new SasquatchException(e);
+			throw new SampleStackException(e);
 		}
 		jsonDocumentManager.write("/foo/" + foo.getId(),
 				new StringHandle(jsonString));
@@ -97,7 +97,7 @@ public class FooDataServiceImpl implements FooDataService {
 			try {
 				resultsFoos.add(mapper.readValue(handle.get(), Foo.class));
 			} catch (IOException e) {
-				throw new SasquatchException(e);
+				throw new SampleStackException(e);
 			}
 		}
 		return resultsFoos;

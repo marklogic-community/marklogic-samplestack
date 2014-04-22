@@ -9,6 +9,7 @@ import com.marklogic.sampleStack.domain.SecureObject;
 public interface SecureObjectDao {
 
 	public SecureObject getObject(String uri);
+	
 	public void storeSecureObject(String uri, SecureObject o);
 	
 	public SecureObject getAnnotatedDocument(SecureObject o);

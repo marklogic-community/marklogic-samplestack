@@ -30,21 +30,19 @@ public class FooController {
 
 	@Autowired
 	private FooDataService fooDao;
-	
 
 	@RequestMapping(value = "foo", method = RequestMethod.GET)
 	public @ResponseBody
 	List<String> getFooList() {
 		return fooDao.getDocumentUris();
 	}
-	
+
 	@RequestMapping(value = "foo", method = RequestMethod.POST)
 	public @ResponseBody
 	ResponseEntity<?> postFoo(@RequestBody Foo bean) {
 		// validate
 		fooDao.storeFoo(bean);
 
-		
 		URI location = UriComponentsBuilder.newInstance()
 				.path("/foo/" + Long.toString(bean.getId())).build().encode()
 				.toUri();
@@ -56,7 +54,6 @@ public class FooController {
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	
 	Foo getFoo(@PathVariable(value = "id") Long id) {
 		// validate
 		return fooDao.getFoo(id);
@@ -64,8 +61,7 @@ public class FooController {
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	Foo putFoo(@PathVariable(value = "id") Long id,
-			@RequestBody Foo bean) {
+	Foo putFoo(@PathVariable(value = "id") Long id, @RequestBody Foo bean) {
 		// validate id attr.
 		fooDao.storeFoo(bean);
 		return bean;
@@ -98,7 +94,7 @@ public class FooController {
 		fooDao.deleteFooBean(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@RequestMapping(value = "foo/search", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Foo> searchFoos(@RequestParam(value = "q") String queryString) {
