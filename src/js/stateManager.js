@@ -1,7 +1,7 @@
-define(['app', 'states/root', 'state-helper'], function(app, root) {
+define(['app', 'states/_root', 'state-helper'], function(app, root) {
 
   app.provider('stateManager', function(
-    $provide, $locationProvider, stateHelperProvider) {
+    $provide, $locationProvider, stateHelperProvider, $urlRouterProvider) {
 
     $provide.decorator('$sniffer', function($delegate) {
       // Uncomment this line in order to use "hash" mode (for instance,
@@ -17,6 +17,8 @@ define(['app', 'states/root', 'state-helper'], function(app, root) {
 
 
     stateHelperProvider.setNestedState(root);
+
+    $urlRouterProvider.otherwise('/404');
 
     this.$get = function() {
       return {};
