@@ -22,7 +22,6 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.sampleStack.domain.DocumentTag;
 import com.marklogic.sampleStack.impl.CustomObjectMapper;
-import com.marklogic.sampleStack.impl.SampleStackException;
 
 @Configuration
 @ComponentScan

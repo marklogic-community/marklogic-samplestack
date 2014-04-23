@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.mvc;
+package com.marklogic.sampleStack.web;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.sampleStack.domain.DocumentTag;
-import com.marklogic.sampleStack.marklogic.DocumentTagDataService;
+import com.marklogic.sampleStack.service.DocumentTagDataService;
 
 @Controller
 public class DocumentTagController {

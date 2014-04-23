@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.mvc;
+package com.marklogic.sampleStack.web;
 
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;

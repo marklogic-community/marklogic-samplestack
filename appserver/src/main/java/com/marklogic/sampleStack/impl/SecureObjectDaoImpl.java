@@ -12,8 +12,8 @@ import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.sampleStack.domain.SecureObject;
-import com.marklogic.sampleStack.marklogic.SasquatchNotFoundException;
-import com.marklogic.sampleStack.marklogic.SecureObjectDao;
+import com.marklogic.sampleStack.service.SasquatchNotFoundException;
+import com.marklogic.sampleStack.service.SecureObjectDao;
 
 @Component
 public class SecureObjectDaoImpl implements SecureObjectDao {

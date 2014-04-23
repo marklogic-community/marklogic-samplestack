@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.impl;
+package com.marklogic.sampleStack;
 
 
 @SuppressWarnings("serial")

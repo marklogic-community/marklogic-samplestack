@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.mvc;
+package com.marklogic.sampleStack.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.marklogic.sampleStack.marklogic.MarkLogicOperations;
+import com.marklogic.sampleStack.service.MarkLogicOperations;
 
 @Controller
 public class DocumentController {

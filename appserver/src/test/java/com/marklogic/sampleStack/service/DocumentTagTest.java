@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.marklogic;
+package com.marklogic.sampleStack.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.marklogic.sampleStack.Application;
 import com.marklogic.sampleStack.domain.DocumentTag;
 import com.marklogic.sampleStack.domain.Triple;
-import com.marklogic.sampleStack.marklogic.DocumentTagDataService;
+import com.marklogic.sampleStack.service.DocumentTagDataService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -19,10 +19,11 @@ import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
+import com.marklogic.sampleStack.SampleStackException;
 import com.marklogic.sampleStack.domain.Foo;
-import com.marklogic.sampleStack.marklogic.FooDataService;
-import com.marklogic.sampleStack.marklogic.MarkLogicOperations;
-import com.marklogic.sampleStack.marklogic.SasquatchNotFoundException;
+import com.marklogic.sampleStack.service.FooDataService;
+import com.marklogic.sampleStack.service.MarkLogicOperations;
+import com.marklogic.sampleStack.service.SasquatchNotFoundException;
 
 @Component
 public class FooDataServiceImpl implements FooDataService {

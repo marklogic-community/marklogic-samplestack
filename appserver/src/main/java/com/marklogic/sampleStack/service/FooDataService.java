@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.marklogic;
+package com.marklogic.sampleStack.service;
 
 import java.util.List;
 

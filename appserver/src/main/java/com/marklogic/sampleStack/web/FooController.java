@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.mvc;
+package com.marklogic.sampleStack.web;
 
 import java.net.URI;
 import java.util.Date;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.marklogic.sampleStack.domain.Foo;
-import com.marklogic.sampleStack.marklogic.FooDataService;
+import com.marklogic.sampleStack.service.FooDataService;
 
 @RestController
 public class FooController {

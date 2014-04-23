@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.marklogic;
+package com.marklogic.sampleStack.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.sampleStack.Application;
 import com.marklogic.sampleStack.domain.Foo;
-import com.marklogic.sampleStack.marklogic.FooDataService;
+import com.marklogic.sampleStack.service.FooDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration

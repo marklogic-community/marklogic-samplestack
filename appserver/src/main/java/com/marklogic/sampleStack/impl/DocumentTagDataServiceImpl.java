@@ -16,7 +16,7 @@ import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.sampleStack.domain.DocumentTag;
-import com.marklogic.sampleStack.marklogic.DocumentTagDataService;
+import com.marklogic.sampleStack.service.DocumentTagDataService;
 
 @Component
 public class DocumentTagDataServiceImpl implements DocumentTagDataService  {

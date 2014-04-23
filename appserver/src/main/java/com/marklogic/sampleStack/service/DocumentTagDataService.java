@@ -1,4 +1,4 @@
-package com.marklogic.sampleStack.marklogic;
+package com.marklogic.sampleStack.service;
 
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.sampleStack.domain.DocumentTag;

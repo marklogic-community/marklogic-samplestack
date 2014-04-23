@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.FileCopyUtils;
 
 import com.marklogic.sampleStack.Application;
-import com.marklogic.sampleStack.marklogic.MarkLogicOperations;
+import com.marklogic.sampleStack.service.MarkLogicOperations;
 
 /*
  * Basic test for RDF ingestion and query
