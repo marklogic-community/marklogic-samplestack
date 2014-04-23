@@ -87,7 +87,7 @@ public class Application {
 
 	
 	public static void main(String[] args) {
-		logger.debug("Starting Spring Boot Sasquatch Application");
+		logger.debug("Starting Spring Boot SampleStack Application");
 		SpringApplication.run(Application.class, args);
 	}
 	

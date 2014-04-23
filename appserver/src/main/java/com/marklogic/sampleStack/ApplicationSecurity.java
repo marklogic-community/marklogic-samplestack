@@ -20,9 +20,4 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.ldif("classpath:test-server.ldif");
 	}
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
 }
