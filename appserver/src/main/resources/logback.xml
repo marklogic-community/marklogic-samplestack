@@ -10,6 +10,7 @@
     <appender-ref ref="stdout"/>
   </root>
 
+  <logger name="com.marklogic" level="DEBUG"/>
 
 
 </configuration>
