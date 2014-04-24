@@ -3,12 +3,13 @@ define(function() {
   /**
    * Represents a ui-router state definition that includes all aspects
    * of a state definition
-   * @constructor
-   * @param {Object} definition ui-router-based definition for the state.
    * TODO: document the handling of templateUrls
+   * @constructor
+   * @param {[type]} parent     [description]
+   * @param {[type]} name       [description]
+   * @param {[type]} definition [description]
    */
   var StateDef = function(parent, name, definition) {
-
     if (!definition) { definition = {}; }
     definition.name = name;
 
@@ -25,8 +26,13 @@ define(function() {
 
     if (_.isUndefined(definition.templateUrl)) {
       definition.templateUrl = '/js/states/' +
+          // replace dots with dashes (dashes used in fnames
+          // so that they sort logically)
           definition.fullName.replace(/\./g, '-')
-              .replace(/root-/g, '')
+              // remove 'root-' so we don't repeat in fnames
+              .replace(/root-/, '')
+              // replace root with _root b/c filename has _ prepended so
+              // it sorts to top
               .replace(/root/, '_root') + '.html';
       //TODO: deal with multi-views
     }

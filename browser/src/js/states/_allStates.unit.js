@@ -1,8 +1,8 @@
-require(['./_allStates', 'mocha'], function(sut) {
+define(['./_allStates'], function(sut) {
 
   describe('states/allStates', function() {
-    it('should not error', function() {
-      return true;
+    it('should be an array', function() {
+      sut.should.be.an('array');
     });
   });
 
