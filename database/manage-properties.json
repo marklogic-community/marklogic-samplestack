@@ -1,6 +1,6 @@
 {
     "triple-index": true,
-    "name": "sampleStack",
+    "name": "samplestack",
     "range-element-indexes": {
     "range-element-index": [
     {
@@ -38,7 +38,7 @@
     ]},
     "forests": {
     "forest-name": [
-      "sampleStack-1"
+      "samplestack-1"
     ]
     }
 }
