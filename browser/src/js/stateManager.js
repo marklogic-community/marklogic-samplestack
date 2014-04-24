@@ -18,6 +18,7 @@ define(['app', 'states/_root', 'state-helper'], function(app, root) {
 
     stateHelperProvider.setNestedState(root);
 
+    $urlRouterProvider.when('/', '/docs');
     $urlRouterProvider.otherwise('/404');
 
     this.$get = function() {

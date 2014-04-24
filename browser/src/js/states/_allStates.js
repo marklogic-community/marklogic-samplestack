@@ -1,5 +1,6 @@
 define([
   './_root',
+  './fourOhFour',
   './docs',
-  './docs-item'
+  './docsItem'
 ]);
