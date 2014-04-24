@@ -1,7 +1,7 @@
 define(['angular', 'ui-router', 'state-helper'], function(ng) {
   'use strict';
 
-  var app = ng.module('<%= appName %>', [
+  var app = ng.module('app', [
     'ui.router', 'ui.router.stateHelper'
   ]);
 

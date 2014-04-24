@@ -1,7 +1,6 @@
 {
   "preset": "google",
   "disallowMultipleVarDecl": true,
-  "requireAlignedObjectValues": true,
   "requireSpaceBeforeBinaryOperators": [
     "+",
     "-",

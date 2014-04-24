@@ -22,14 +22,11 @@
   "devDependencies": {
     "bootstrap-sass-official": "~3.1.1",
     "mocha": "~1.18.2",
-    "chai": "~1.9.1"
-  },
-  "overrides": {
-    "modernizr": {
-      "main": "modernizr.js"
-    },
-    "es5-shim": {
-      "main": "es5-shim.js"
-    }
+    "chai": "~1.9.1",
+    "angular-mocks": "~1.2.16",
+    "angular": "~1.2.16",
+    "chai-as-promised": "~4.1.1",
+    "sinon-chai": "~2.5.0",
+    "sinon-browser-only": "~1.9.0"
   }
 }

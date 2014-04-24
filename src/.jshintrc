@@ -8,10 +8,16 @@
     "console": false,
     "describe": false,
     "it": false,
-    "angular": false
+    "angular": false,
+    "mocha": false,
+    "inject": false,
+    "beforeEach": false,
+    "before": false,
+    "sinon": false
   },
 
   "esnext": false,
+  "expr": true,
   "bitwise": true,
   "boss": true,
   "camelcase": true,

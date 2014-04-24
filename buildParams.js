@@ -1,6 +1,7 @@
 var defaultParams = {
-  appName: 'soDemo',
-  noscriptHtml: '<p>You need a script-enabled browser.</p>'
+  appName: 'app',
+  noscriptHtml: '<p>You need a script-enabled browser.</p>',
+  unit: false
 };
 
 var targetParams = {
@@ -9,6 +10,7 @@ var targetParams = {
   },
   // unit target specifics
   unit: {
+    unit: true
   },
   // e2e target specifics
   e2e: {

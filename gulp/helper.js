@@ -57,9 +57,10 @@ helper.pipewrap = function(task, step, domain, lazySteps) {
     var lp = lazypipe(); // initialize a lazypipe
     var movingStep = lp; // keep track of the steps we add to the LP
     _.forEach(lazySteps, function(lazyStep) {
+      console.log('step');
       // loop over the step to add
       // apply the contents of the lazyStep array to the LP pipe function
-      movingStep = movingStep.pipe.apply(this, lazyStep);
+      movingStep = movingStep.pipe.apply(movingStep, lazyStep);
     });
     // invoke and return the stream back to the $.if branch
     return movingStep();
