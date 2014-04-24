@@ -17,7 +17,7 @@ define(['app'], function(app) {
       });
       return promise;
     };
-    docs.postDoc = function() {
+    docs.addDummyDoc = function() {
       var url = 'http://localhost:8080/foo';
       var id = Math.floor((Math.random() * 1000) + 1);
       var names = ['Colleen', 'Charles', 'Erik', 'Jim', 'Norm', 'Sam'];
