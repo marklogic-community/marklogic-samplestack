@@ -1,0 +1,35 @@
+{
+  "name": "marklogic-stackoverflow-angular",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.16",
+    "requirejs": "~2.1.11",
+    "modernizr": "~2.7.2",
+    "es5-shim": "~2.3.0",
+    "angular-ui-router": "~0.2.10",
+    "highlight.js": "~7.3.0",
+    "marked": "~0.3.2",
+    "angular-ui-router.stateHelper": "~1.1.0",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "bootstrap-sass-official": "~3.1.1",
+    "mocha": "~1.18.2",
+    "chai": "~1.9.1"
+  },
+  "overrides": {
+    "modernizr": {
+      "main": "modernizr.js"
+    },
+    "es5-shim": {
+      "main": "es5-shim.js"
+    }
+  }
+}
