@@ -1,6 +1,6 @@
 define(['./_root', 'services/docs'], function(parent) {
 
-  return parent.addChild('docs-item', {
+  return parent.addChild('docsItem', {
 
     url: '/docs/:id',
 

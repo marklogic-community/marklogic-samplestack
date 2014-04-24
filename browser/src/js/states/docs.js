@@ -9,8 +9,8 @@ define(['./_root', 'services/docs'], function(parent) {
       });
 
       $scope.addDoc = function() {
-        docs.createAndPostNewDoc().then(function(data) {
-          docs.getdocs().then(function(data) {
+        docs.addDummyDoc().then(function(data) {
+          docs.getDocs().then(function(data) {
             $scope.docs = data;
           });
         });
@@ -18,7 +18,7 @@ define(['./_root', 'services/docs'], function(parent) {
 
       $scope.deleteDoc = function(uri) {
         docs.deleteDoc(uri).then(function(data) {
-          docs.getdocs().then(function(data) {
+          docs.getDocs().then(function(data) {
             $scope.docs = data;
           });
         });
