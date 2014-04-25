@@ -3,4 +3,6 @@ define([
   './fourOhFour',
   './docs',
   './docsItem'
-]);
+], function() {
+  return Array.prototype.slice.apply(arguments);
+});

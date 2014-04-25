@@ -1,10 +1,13 @@
 // var eventStream = require('event-stream');
 var through2 = require('through2');
-// var _ = require('lodash');
+var _ = require('lodash');
+var clone = require('gulp-clone');
+var path = require('path');
+var map = require('map-stream');
+
 // var multimatch = require('multimatch');
 // var gutil = require('gulp-util');
 // var q = require('Q');
-// var path = require('path');
 // var File = require('vinyl');
 
 /**
@@ -28,6 +31,94 @@ plugins.forEach = function(binding, func) {
     cb();
   });
 };
+
+/**
+ * TODO
+ * @return {[type]} [description]
+ */
+plugins.drainAway = function() {
+  return through2.obj(function(file, enc, cb) {
+    // swallow the file
+    cb();
+  }, function(cb) {
+    cb();
+  });
+};
+
+plugins.branchClones = function(spec) {
+  var firstTarget;
+  var prevTarget;
+  var targets = {};
+  var newTarget;
+  _.forEach(spec.targets, function(targetName) {
+    targets[targetName] = newTarget = clone();
+
+    if (!firstTarget) {
+      firstTarget = newTarget;
+    }
+    else {
+      prevTarget.pipe(newTarget);
+    }
+
+    prevTarget = newTarget;
+
+  });
+
+  spec.src.pipe(firstTarget);
+
+  return targets;
+
+};
+
+plugins.rebase = function(outFolder, opt) {
+  if (typeof outFolder !== 'string') {
+    throw new Error('Invalid output folder');
+  }
+  var defaultMode;
+  /* jshint ignore:start */
+  defaultMode = 0777 & (~process.umask());
+  /* jshint ignore:end */
+  if (!opt) {
+    opt = {};
+  }
+  if (!opt.cwd) {
+    opt.cwd = process.cwd();
+  }
+  if (typeof opt.mode === 'string') {
+    opt.mode = parseInt(opt.mode, 8);
+  }
+
+  var cwd = path.resolve(opt.cwd);
+  var basePath = path.resolve(cwd, outFolder);
+  var folderMode = (opt.mode || defaultMode);
+
+  function rebaseFile(file, cb) {
+    var writePath = path.resolve(basePath, file.relative);
+    var writeFolder = path.dirname(writePath);
+
+    if (typeof opt.mode !== 'undefined') {
+      if (!file.stat) {
+        file.stat = {};
+      }
+      file.stat.mode = opt.mode;
+    }
+
+    file.cwd = cwd;
+    file.base = path.resolve(path.join(basePath, '..'));
+    file.path = writePath;
+
+    cb(null, file);
+    // // mkdirp the folder the file is going in
+    // // then write to it
+    // mkdirp(writeFolder, folderMode, function(err){
+    //   if (err) return cb(err);
+    //   writeContents(writePath, file, cb);
+    // });
+  }
+  var stream = map(rebaseFile);
+  return stream;
+};
+
 
 // var handler = function(incoming, stream) {
 //   return incoming.pipe(stream);

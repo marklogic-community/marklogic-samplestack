@@ -5,42 +5,15 @@
  * a Node.js server with this browser app).
  * @type {Object}
  */
-var tasks = module.exports = {
-  'preprocess': {
-    deps: []
-  },
-  // tasks here are expected to populate the build object for future use
-  'build': {
-    deps: ['preprocess', 'clean', 'bower']
-  },
-  'unit-test': {
-    deps: ['build']
-  },
-  'e2e-test': {
-    deps: ['build']
-  },
-  'test': {
-    deps: ['unit-test', 'e2e-test']
-  },
-  'finalize-validate': {
-    deps: ['select']
-  },
-  'finalize-build': {
-    deps: ['finalize-clean', 'finalize-validate']
-  },
-  'finalize-e2e-tests': {
-    deps: ['finalize-build']
-  }
-};
-
+var tasks = module.exports = {};
 
 var path = require('path');
 var _ = require('lodash');
-var lazypipe = require('lazypipe');
 var fs = require('fs');
 var chalk = require('chalk');
-var glob = require('glob');
-var async = require('async');
+var gulp = require('gulp');
+var merge = require('event-stream').merge;
+var readArray = require('event-stream').readArray;
 
 var h = require('./helper');
 var buildParams = require('../buildParams');
@@ -48,58 +21,16 @@ var buildParams = require('../buildParams');
 // make it easier to get to plugins
 var $ = h.$;
 
-var taskFuncs = {};
-
-var subtasks = _.transform(
-  glob.sync(path.join('*.js'), {cwd: path.join(__dirname, 'subtasks')}),
-  function(mods, filename) {
-    var modName = filename.replace(/\.js/, '');
-    var mod = null;
-    mod = require(path.join(__dirname, 'subtasks/' + modName));
-    mods[modName] = mod;
-    mod.name = modName;
-  },
-  {}
-);
-
-var callback = _.bind($.callback, $, { objectMode: true} );
-var context;
-var buildLr;
-
-// load specifics for each task... e.g.
-// the select function for sass goes to
-// { select: sass: {} }
-_.forEach(tasks, function(task, taskName) {
-  task.subtasks = [];
-  _.forEach(subtasks, function(subtask, subtaskName) {
-    var subtaskTask = subtask[taskName]; // e.g. sass
-    if (subtaskTask) {
-      // subtaskTask.name = subtaskName;
-      task.subtasks.push(subtaskTask);
-    }
-  });
-
-  task.func = function(cb) {
-    if (task.msg) {
-      $.tasklog(taskName, task.msg);
-    }
-    if (!context) {
-      context = h.fs.src(path.join(h.src, '**/*'));
-    }
-    _.forEach(task.subtasks, function(subtask) {
-      context = context.pipe(subtask());
-    });
-    cb(null);
-  };
-});
-
+var bootstrapDir =
+    'bower_components/bootstrap-sass-official/vendor/assets/stylesheets';
 // this is a process-wide task, not file-type specific
 tasks.clean = {
-  deps: ['preprocess'],
+  deps: [],
   func: function() {
     return h.fs.src([
       path.join(h.targets.build),
-      path.join(h.targets.unit)
+      path.join(h.targets.unit),
+      path.join(h.targets.dist)
     ], {read: false})
       .pipe($.rimraf());
   }
@@ -108,218 +39,195 @@ tasks.clean = {
 tasks['bower'] = {
   deps: ['clean'],
   func: function() {
-    return $.bowerFiles({includeDev: true})
+    return h.fs.src('bower_components/**/*')
       .pipe(h.fs.dest(path.join(h.targets.build, 'js/bower_components')))
       .pipe(h.fs.dest(path.join(h.targets.unit, 'js/bower_components')));
   }
 };
 
-tasks['watch'] = {
-  deps: ['build'],
-  func: function(cb) {
-    var connect = require('connect');
-    var app = connect()
-      .use(require('connect-modrewrite')([
-        '!\\. /index.html [L]' // if lacking a dot, redirect to index.html
-      ]))
-      .use(connect.static(h.targets.build, {redirect: false}))
-      .listen(3000, '0.0.0.0');
+var buildStream = function(src) {
+  // there are some things we can do before we diverge
 
-    $.watch(
-      {
-        glob: path.join(h.src, '**/*'),
-        name: 'watch',
-        emitOnGlob: false,
-        emit: 'one'
-      }, function(file) {
-        return file
-          .pipe(subtasks.html.build())
-          .pipe(subtasks.javascript.build())
-          .pipe(subtasks.sass.build());
-      }
-    );
+  /***************
+  JSHINT
+  ****************/
+  var jsFilt = $.filter('**/*.js');
+  var srcDir = path.join(__dirname, '..', h.src);
+  src = src.pipe(jsFilt)
+    .pipe($.jshint(path.join(srcDir, '.jshintrc')))
+    .pipe($.jshint.reporter('jshint-stylish'));
+  // jscs can't handle lodash templates, so wait
+  // .pipe($.jscs(path.join(srcDir, '.jscsrc')));
+  src = src.pipe(jsFilt.restore());
 
-    var port = 35729;
-    var tinylr = require('tiny-lr-fork');
-    buildLr = new tinylr.Server();
-    buildLr.listen(port, function() {
-      $.watch({
-        glob: path.join(h.targets.build, '**/*'),
-        name: 'reload-watch',
-        emitOnGlob: false,
-        emit: 'one'
-      })
-      .on('data', function(file) {
-        file.base = path.resolve('./build');
-        // just say the "main" file has changed
-        buildLr.changed({body: { files: [file.relative]}});
-        return file;
-      });
-    });
+  /***************
+  SASS
+  ****************/
+  var sassFilt = $.filter(['**/*.scss', '!**/_*.scss']);
+  src = src.pipe(sassFilt).pipe($.sass({
+    sourceComments: 'map',
+    includePaths: [bootstrapDir]
+  })).pipe(sassFilt.restore().pipe($.filter('!**/*.scss')));
 
-    cb();
+  var targets = $.branchClones({ src: src, targets: ['build', 'unit']});
+
+  var build = targets['build'].pipe($.rebase(h.targets.build));
+  var unit = targets['unit'].pipe($.rebase(h.targets.unit));
+  // var dist = targets['dist'].pipe($.rebase(h.targets.dist));
+
+  /****************
+  TEMPLATE
+  *****************/
+  var templateFilt;
+  // danger -- the filter has a memory, get a new one each time
+  templateFilt = $.filter(['**/*.html', '**/*.js']);
+  build = build.pipe(templateFilt)
+    .pipe($.template(buildParams.build))
+    .pipe(templateFilt.restore());
+  templateFilt = $.filter(['**/*.html', '**/*.js']);
+  unit = unit.pipe(templateFilt)
+    .pipe($.template(buildParams.unit))
+    .pipe(templateFilt.restore());
+  templateFilt = $.filter(['**/*.html', '**/*.js']);
+  // dist = dist.pipe(templateFilt)
+  //   .pipe($.template(buildParams.dist))
+  //   .pipe(templateFilt.restore());
+
+  // src = merge(build, unit, dist);
+  src = merge(build, unit);
+  // return src.pipe($.debug());
+  return src.pipe(h.fs.dest('.'));
+
+
+};
+
+tasks.build = {
+  deps: ['clean', 'bower'],
+  func: function() {
+    var src = h.fs.src(path.join(h.src, '**/*'));
+
+    return buildStream(src);
   }
 };
 
-// // load specifics for each task... e.g.
-// // the select function for sass goes to
-// // { select: sass: {} }
-// _.forEach(tasks, function(task, taskName) {
-//   task.subtasks = [];
-//   _.forEach(specificsModules, function(mod, modName) {
-//     var subtask = mod[taskName]; // e.g. sass
-//     if (subtask) {
-//       subtask.name = modName;
-//       task.subtasks.push(subtask);
-//     }
-//   });
+// var buildServer;
+function startServer(path, port) {
+  var connect = require('connect');
+  var server = connect()
+    .use(require('connect-modrewrite')(
+      // if lacking a dot, redirect to index.html
+      ['!\\. /index.html [L]']))
+    .use(connect.static(path, {redirect: false}))
+    .listen(port, '0.0.0.0');
+  return server;
+}
 
-//   task.func = function() {
-//     if (task.msg) {
-//       $.util.log('[' + chalk.cyan(taskName) + ']', task.msg);
-//     }
-//     var context = h.fs.src(path.join(h.src, '**/*'));
-//     _.forEach(task.subtasks, function(subtask) {
-//       if (subtask.msg) {
-//         $.util.log(
-//           '[' + chalk.cyan(subtask.name) + ']', subtask.msg
-//         );
-//       }
-//       context = context.pipe(subtask.processor());
-//     });
-//     return context;
-//   };
-// });
+tasks['unit'] = {
+  deps: ['build'],
+  func: function(cb) {
+    var tempServer = startServer(h.targets.unit, 3001);
+    h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
+    .pipe($.mochaPhantomjs({reporter: 'dot'}))
+    .on('error', function(){})
+    .pipe($.util.buffer(
+        function(err, files) {
+          tempServer.close();
+          cb();
+        }));
+  }
+};
 
-// tasks['testy'].func = function(cb) {
-//   h.fs.src(path.join(h.src, '**/*'));
-//     .pipe(subtasks.sass.build())
-//     .pipe($.callback(cb));
-// };
+function writeWatchMenu() {
+  $.util.log('[' + chalk.cyan('watch') + '] ' +
+      'watching for changes to the ' + chalk.magenta(h.src) + ' directory.');
+  $.util.log('[' + chalk.cyan('watch') + '] ' +
+      '--> ' + chalk.magenta('build server') + ': ' +
+      chalk.bold.blue('http://localhost:3000'));
+  $.util.log('[' + chalk.cyan('watch') + '] ' +
+      '--> ' + chalk.magenta('unit test runner') + ': ' +
+      chalk.bold.blue('http://localhost:3001/unit-runner.html'));
+}
 
-// tasks['clean'].func = function() {
-//   return h.fs.src([
-//     path.join(h.targets.build, '**/*'),
-//     path.join(h.targets.unit, '**/*')
-//   ], {read: false})
-//     .pipe($.rimraf());
-//     // .pipe($.wait(2050));
-// };
+var activeWatchers;
+var activeServers;
+tasks['watch'] = {
+  deps: ['build', 'unit'],
+  func: function(cb) {
+    activeWatchers = [];
+    activeServers = [];
+    activeServers.push(startServer(h.targets.build, 3000));
+    activeServers.push(startServer(h.targets.unit, 3001));
 
+    var watcher = $.watch({
+      glob: path.join(h.src, '**/*'),
+      name: 'watch',
+      emitOnGlob: false,
+      emit: 'one',
+      silent: true
+    }, function(file, cb) {
+      file.pipe($.util.buffer(function(err, files) {
 
-// setup watch
-// need to construct a function that chains the functions from a few
-// tasks together:
-// 1. filter what's specified by watch.notice
-// 2. call these tasks' funcs with their messages
-// a-1) select
-// a) validate
-// b) build
-// c) write-build
-// d) unit-tests
-// e) e2e-tests
+        var relpath = path.relative(
+          path.join(__dirname, '../src'), files[0].path
+        );
+        $.util.log('[' + chalk.cyan('watch') + '] ' +
+            chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
 
+        if (!(files[0].event === 'changed' || files[0].event === 'added')) {
+          $.util.log('[' + chalk.cyan('watch') + '] ' +
+              chalk.bold.yellow('initiating rebuild'));
+          activeWatchers.forEach(function(watcher) {
+            watcher.close();
+          });
+          activeServers.forEach(function(server) {
+            server.close();
+          });
+          gulp.start('watch');
+        }
+        else {
+          files = readArray(files);
 
+          buildStream(files).pipe(
+            $.util.buffer(function(err, files) {
+              h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
+              .pipe($.mochaPhantomjs())
+              .on('error', function(){})
+              .pipe($.util.buffer(
+                  function(err, files) {
+                    writeWatchMenu();
+                    cb();
+                  }
+              ));
+            })
+          );
+        }
+      }));
+    });
+    activeWatchers.push(watcher);
 
-      // if (incoming.event === 'deleted') {
-      //   $.util.log(chalk.amber(
-      //     'You may need to restart your wwatch session when you delete files.'
-      //   ));
-      //   return;
-      // }
+    var port = 35729;
+    var tinylr = require('tiny-lr-fork');
+    var buildLr = new tinylr.Server();
+    buildLr.listen(port, function() {
+      watcher = $.watch({
+        glob: path.join(h.targets.build, '**/*'),
+        name: 'reload-watch',
+        emitOnGlob: false,
+        emit: 'one',
+        silent: true
+      })
+      .on('data', function(file) {
+        file.base = path.resolve('./build');
+        buildLr.changed({body: { files: [file.relative]}});
+        return file;
+      });
+      activeWatchers.push(watcher);
+      activeServers.push(buildLr);
 
-// var watchers = [];
-// var applyIfPresent = function(
-//   incomingStream,
-//   subtaskMod,
-//   modName,
-//   taskName
-// ) {
-//   var specTask = subtaskMod[taskName];
-//   if (specTask) {
-//     // msgs dont make sense in this context
-//     // if (specTask.msg) {
-//     //   $.util.log('[' + chalk.cyan(modName) + ']', specTask.msg);
-//     // }
-//     return subtaskMod[taskName].func(incomingStream);
-//   }
-//   else {
-//     return incomingStream;
-//   }
-// };
+      writeWatchMenu();
 
-// var handlers = [];
-// _.forEach(specificsModules, function(specMod, modName) {
-//   if (specMod.watch) {
-//     // module is set up for noticing files
-//     var newHandler = function(incoming) {
-//       var filter = $.filter(specMod.watch);
-//       var selected = specMod['select'].func(incoming.pipe(filter));
-//       var validated = applyIfPresent(selected, specMod, modName, 'validate');
-//       var built = applyIfPresent(validated, specMod, modName, 'build');
-//       var uted = applyIfPresent(built, specMod, modName, 'unit-test');
-//       // var e2ed = applyIfPresent(uted, specMod, modName, 'e2e-tests');
-//       return uted.pipe(filter.restore());
-//     };
+      cb();
 
-//     handlers.push(newHandler);
-//   }
-// });
-
-// var w = tasks['watch'] = {
-//   deps: ['build'],
-//   unremarkable: true,
-//   func: function() {
-
-//     $.util.log(
-//       '[' + chalk.cyan('watch') + ']',
-//       chalk.green('watching for changes')
-//     );
-//     // return h.fs.src(path.join(h.src, '**/*')
-//     //   .pipe($.watch(function file) {
-
-//     //   });
-//     $.watch(
-//       {
-//         glob: path.join(h.src, '**/*'),
-//         name: 'watch',
-//         emitOnGlob: false,
-//         emit: 'one'
-//       }, function(file) {
-//         return file.pipe($.filelog('watched'));
-//       }
-//     );
-//     // fileStream.pipe($.filelog('watched'));
-//     // var res = fileStream;
-//     // // _.forEach(handlers, function(handler) {
-//     // //   res = handler(res);
-//     // // });
-//     return;
-//   }
-//     // if (file.event === '')
-//     // fileStream.pipe
-//     // );
-//     // .pipe($.batch(function(events) {
-//     //   console.log('batched ' + JSON.stringify(events, null, '  '));
-//     // }));
-//       // .pipe,
-//       // function(file) {
-//       //   if (file.event === 'deleted') {
-//       //     $.util.log(chalk.amber(
-//       //       'You may need to restart your wwatch session when you delete files.'
-//       //     ));
-//       //     return file;
-//       //   }
-//       //   else {
-//       //     var res = file;
-//       //     _.forEach(handlers, function(handler) {
-//       //       res = handler(res);
-//       //     });
-//       //     return res;
-//       //   }
-//       // }
-//     // );
-//   // }
-// };
-
-
+    });
+  }
+};

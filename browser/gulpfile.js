@@ -18,17 +18,18 @@ var gulp = require('gulp');
 var _ = require('lodash');
 var tasks = require('./gulp/tasks');
 var log = require('gulp-util').log;
+var chalk = require('chalk');
 
-gulp.addListener('err', function(e) {
-  console.log(e.err.stack);
-});
+// gulp.addListener('err', function(e) {
+//   console.log(e.err.stack);
+// });
 
 _.forEach(tasks, function(task, taskName) {
   gulp.task(taskName, task.deps, task.func);
 });
 
-// //monkey-patch console.log to suppress unremarkables
-// var unremarkablesExpr;
+// monkey-patch console.log to suppress unremarkables
+var unremarkablesExpr;
 // var unremarkables = _.reduce(tasks,
 //   function(result, task, taskName) {
 //     if (task.unremarkable) {
@@ -38,24 +39,25 @@ _.forEach(tasks, function(task, taskName) {
 //   },
 //   []
 // );
-// if (unremarkables.length) {
-//   unremarkablesExpr = new RegExp(unremarkables.join('|'));
-// }
+unremarkables = ['watch'];
+if (unremarkables.length) {
+  unremarkablesExpr = new RegExp(unremarkables.join('|'));
+}
 
-// var cl = console.log;
-// /**
-//  * TODO
-//  * @return {[type]} [description]
-//  */
-// console.log = function() {
-//   var args = Array.prototype.slice.call(arguments);
-//   if (args.length > 1 && (args[1] === 'Starting' || args[1] === 'Finished') &&
-//       unremarkablesExpr &&
-//       unremarkablesExpr.test(chalk.stripColor(args[2]))) {
+var cl = console.log;
+/**
+ * TODO
+ * @return {[type]} [description]
+ */
+console.log = function() {
+  var args = Array.prototype.slice.call(arguments);
+  if (args.length > 1 && (args[1] === 'Starting' || args[1] === 'Finished') &&
+      unremarkablesExpr &&
+      unremarkablesExpr.test(chalk.stripColor(args[2]))) {
 
-//       return;
-//   }
-//   return cl.apply(console, args);
-// };
+      return;
+  }
+  return cl.apply(console, args);
+};
 
 
