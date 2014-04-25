@@ -3,7 +3,7 @@ package com.marklogic.sampleStack.service;
 import java.util.List;
 
 import com.marklogic.sampleStack.domain.Foo;
-import com.marklogic.sampleStack.domain.User;
+import com.marklogic.sampleStack.domain.ApplicationUser;
 
 /**
  * Defines methods for interacting with the database of User objects.
@@ -16,7 +16,7 @@ public interface UserService {
 	 * @param id the user's id
 	 * @return a User object
 	 */
-	public User get(Long id);
+	public ApplicationUser get(Long id);
 
 	/**
 	 * Store a user object's state in the database.
@@ -25,11 +25,11 @@ public interface UserService {
 	 * An expert can update any?
 	 * @param user the user object.
 	 */
-	public void store(User user);
+	public void store(ApplicationUser user);
 
 	public void delete(Long id);
 
 	public List<String> getDocumentUris();
 
-	public List<User> search(String queryString);
+	public List<ApplicationUser> search(String queryString);
 }

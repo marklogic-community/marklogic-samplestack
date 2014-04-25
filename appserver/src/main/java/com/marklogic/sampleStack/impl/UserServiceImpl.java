@@ -4,20 +4,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.marklogic.sampleStack.domain.User;
+import com.marklogic.sampleStack.domain.ApplicationUser;
 import com.marklogic.sampleStack.service.UserService;
 
 @Component
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User get(Long id) {
+	public ApplicationUser get(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void store(User user) {
+	public void store(ApplicationUser user) {
 		// TODO Auto-generated method stub
 
 	}
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> search(String queryString) {
+	public List<ApplicationUser> search(String queryString) {
 		// TODO Auto-generated method stub
 		return null;
 	}

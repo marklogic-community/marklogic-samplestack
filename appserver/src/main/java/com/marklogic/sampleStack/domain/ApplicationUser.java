@@ -25,12 +25,13 @@ import java.util.Date;
  * </pre>
  * 
  */
-public class User {
+public class ApplicationUser {
 
 	private Long upVotes;
 	private String websiteUrl;
 	private Long downVotes;
 	private String accountId;
+	
 	public Long getUpVotes() {
 		return upVotes;
 	}
