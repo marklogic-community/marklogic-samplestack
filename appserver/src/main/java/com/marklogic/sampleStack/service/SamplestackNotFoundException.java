@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @SuppressWarnings("serial")
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class SasquatchNotFoundException extends RuntimeException {
+public class SamplestackNotFoundException extends RuntimeException {
 
 	private final Logger logger = LoggerFactory
-			.getLogger(SasquatchNotFoundException.class);
+			.getLogger(SamplestackNotFoundException.class);
 
-	public SasquatchNotFoundException() {
+	public SamplestackNotFoundException() {
 		logger.info("Resource Not Found Exception thrown by MarkLogic Client API");
 	}
 

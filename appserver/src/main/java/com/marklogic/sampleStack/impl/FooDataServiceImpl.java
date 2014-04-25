@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.InputStreamHandle;
@@ -23,30 +22,13 @@ import com.marklogic.sampleStack.SampleStackException;
 import com.marklogic.sampleStack.domain.Foo;
 import com.marklogic.sampleStack.service.FooDataService;
 import com.marklogic.sampleStack.service.MarkLogicOperations;
-import com.marklogic.sampleStack.service.SasquatchNotFoundException;
+import com.marklogic.sampleStack.service.SamplestackNotFoundException;
 
 @Component
-public class FooDataServiceImpl implements FooDataService {
+public class FooDataServiceImpl extends AbstractMarkLogicDataService implements FooDataService {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(FooDataServiceImpl.class);
-
-	@Autowired
-	private MarkLogicOperations operations;
-	
-	@Autowired
-	private DatabaseClient client;
-	
-	@Autowired
-	private JSONDocumentManager jsonDocumentManager;
-	
-	@Bean 
-	private JSONDocumentManager jsonDocumentManager() {
-		return client.newJSONDocumentManager();
-	};
-	
-	@Autowired
-	private ObjectMapper mapper;
 
 	@Override
 	public Foo getFoo(Long id) {
@@ -55,7 +37,7 @@ public class FooDataServiceImpl implements FooDataService {
 					"/foo/" + Long.toString(id), new InputStreamHandle());
 			return mapper.readValue(handle.get(), Foo.class);
 		} catch (ResourceNotFoundException e) {
-			throw new SasquatchNotFoundException();
+			throw new SamplestackNotFoundException();
 		} catch (IOException e) {
 			throw new SampleStackException(e);
 		}

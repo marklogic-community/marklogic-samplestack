@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
 import com.marklogic.client.io.SearchHandle;
@@ -102,5 +103,10 @@ public class MarkLogicClient implements MarkLogicOperations {
 		qdef.setDirectory(directory);
 		logger.debug(qdef.serialize());
 		return queryManager.search(qdef, new SearchHandle());
+	}
+
+	@Override
+	public JSONDocumentManager newJSONDocumentManager() {
+		return client.newJSONDocumentManager();
 	}
 }
