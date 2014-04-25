@@ -9,8 +9,6 @@ var path = require('path');
 var _ = require('lodash');
 var map = require('map-stream');
 var duplex = require('duplexer');
-var lazypipe = require('lazypipe');
-var chalk = require('chalk');
 
 
 /**
@@ -19,7 +17,7 @@ var chalk = require('chalk');
  * @type {Object}
  */
 var $ = require('gulp-load-plugins')({
-    config: path.resolve(__dirname, '../package.json')
+  config: path.resolve(__dirname, '../package.json')
 });
 
 // add our yet-to-be-published, generic plugins
@@ -31,10 +29,7 @@ _.merge($, require('./plugins'));
  * @type {Object}
  */
 $.marklogic = require('./gulp-marklogic');
-$.callback = require('callback-stream');
-$.tasklog = function(task, message) {
-  $.util.log('[' + chalk.cyan(task) + ']', message);
-};
+
 /**
  * Expose all of the plugins
  * @type {Object}
@@ -47,27 +42,6 @@ var ignoreIncoming = function(outgoingStream) {
   });
   // the incoming stream is not connected to the outgoing stream
   return duplex(incomingStream, outgoingStream);
-};
-
-helper.pipewrap = function(task, step, domain, lazySteps) {
-  // if a file matches the domain
-  return $.if(domain, (function() {
-    // then it enters this stream
-    // $.tasklog(task, step); // we've entered the stream, so ay somthing nice
-    var lp = lazypipe(); // initialize a lazypipe
-    var movingStep = lp; // keep track of the steps we add to the LP
-    _.forEach(lazySteps, function(lazyStep) {
-      console.log('step');
-      // loop over the step to add
-      // apply the contents of the lazyStep array to the LP pipe function
-      movingStep = movingStep.pipe.apply(movingStep, lazyStep);
-    });
-    // invoke and return the stream back to the $.if branch
-    return movingStep();
-  })());
-  // pipe to noop to colect the files back from the $.if branch
-  // .pipe($.debug({title: 'testy'}));
-  // util.noop());
 };
 
 /**
@@ -116,29 +90,3 @@ helper.fs = {
   }
 };
 
-
-/**
- * context-specific subdirectories
- * @type {Object}
- */
-helper.subdirs = {
-};
-
-
-/**
- * TODO
- * @param {Object} params TODO -- pipe should be an **unbuilt** lazypipe, not
- * a built one.
- * @return {Object} Should be either a stream or a promise.  This means that
- * the end of th lazypipe can return a stream or a promise.
- */
-helper.setWatch = function(params) {
-  return $.watch({
-    glob: params.watch,
-    name: params.name,
-    emitOnGlob: false,
-    emit: 'one'
-  }, function(file) {
-    return file.pipe(params.pipe()());
-  });
-};
