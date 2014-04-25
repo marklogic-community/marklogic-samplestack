@@ -19,13 +19,14 @@ task props(type: Copy) {
     into 'appserver/src/main/resources'
 }
 
-test.dependsOn(props, markLogicExtendREST, ':appserver:test')
-assemble.dependsOn(markLogicInit, markLogicManage, ':appserver:test')
+test.dependsOn(props, markLogicExtendREST, ':appserver:test') 
+assemble.dependsOn(markLogicInit, markLogicManage, test)
 
 task fooconfig(type: MarkLogicFooConfigTask)
 
 task load(type: MarkLogicSlurpTask)
 
+//TODO load a bigger dataset from remote server
 task loadMore(type: MarkLogicSlurpTask) {
   // url  = "http://data.githubarchive.org/2012-04-11-15.json.gz"
 }
