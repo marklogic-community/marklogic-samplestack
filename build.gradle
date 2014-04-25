@@ -32,7 +32,7 @@ task boot << {
   println "running the angular app"
 }
 
-boot.dependsOn(props, ':appserver:bootRun', ':browser:boot')
+boot.dependsOn(props, ':appserver:bootRun')
 
 task markLogicClearDatabase(type: MarkLogicClearTask)
 
