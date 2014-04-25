@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,6 +24,10 @@ import com.marklogic.sampleStack.domain.QuestionAndAnswers.Answer;
 @ContextConfiguration(classes = {Application.class })
 public class QuestionAndAnswerServiceTest {
 
+
+	private final Logger logger = LoggerFactory
+			.getLogger(QuestionAndAnswerServiceTest.class);
+	
 	@Autowired
 	QuestionAndAnswerService service;
 
@@ -29,16 +35,18 @@ public class QuestionAndAnswerServiceTest {
 	public void testAnonymousAccess() {
 
 		// check for existing answers with a naive question
-		String question = "What should I ask about the Protoalgonquin Language Family?";
+		String question = "Protoalgonquin";
 
 		// this might just wrap a SearchHandle. It certainly contains one.
 		QuestionAndAnswerResults existingAnswers = service.search(question);
 
+
 		if (existingAnswers.hasResults()) {
-			// maybe I'm satisfied with one of them
+			logger.info(existingAnswers.getResults().getMatchResults()[0].getPath());
+		} else {
+			logger.info("No results from question");
 		}
 		
-
 	}
 
 	@Test
@@ -54,7 +62,9 @@ public class QuestionAndAnswerServiceTest {
 
 		// check for existing answers with a naive question
 		String question = "What should I ask about the Protoalgonquin Language Family?";
-
+		
+		// TODO 'question syntax'
+		
 		QuestionAndAnswerResults results = service.search("protoalgonquin");
 		
 		QuestionAndAnswers toAnswer = results.get(0); // maybe

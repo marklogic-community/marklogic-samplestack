@@ -17,6 +17,7 @@ import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.query.CountedDistinctValue;
+import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
@@ -102,5 +103,13 @@ public class MarkLogicClient implements MarkLogicOperations {
 		qdef.setDirectory(directory);
 		logger.debug(qdef.serialize());
 		return queryManager.search(qdef, new SearchHandle());
+	}
+
+	@Override
+	public void deleteDirectory(String directory) {
+		QueryManager queryManager = client.newQueryManager();
+		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
+		deleteDef.setDirectory(directory);
+		queryManager.delete(deleteDef);
 	}
 }

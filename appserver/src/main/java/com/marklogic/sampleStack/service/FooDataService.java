@@ -15,4 +15,6 @@ public interface FooDataService {
 	public List<String> getDocumentUris();
 
 	public List<Foo> search(String queryString);
+
+	public void deleteAll();
 }

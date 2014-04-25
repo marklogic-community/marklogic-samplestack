@@ -104,4 +104,9 @@ public class FooDataServiceImpl implements FooDataService {
 		return resultsFoos;
 	}
 
+	@Override
+	public void deleteAll() {
+		operations.deleteDirectory("/foo/");
+	}
+
 }

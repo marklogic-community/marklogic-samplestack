@@ -14,5 +14,7 @@ public interface MarkLogicOperations {
 	List<String> getDocumentUris(String directory);
 
 	public SearchHandle searchDirectory(String directory, String queryString);
+
+	public void deleteDirectory(String string);
 	
 }

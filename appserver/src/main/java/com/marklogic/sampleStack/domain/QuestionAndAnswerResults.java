@@ -8,19 +8,27 @@ import com.marklogic.client.io.SearchHandle;
  */
 public class QuestionAndAnswerResults {
 
-	SearchHandle results;
+	private SearchHandle results;
 	
 	public QuestionAndAnswerResults(SearchHandle results) {
-		this.results = results;
+		this.setResults(results);
 	}
 
 	public boolean hasResults() {
-		return this.results.getTotalResults() > 0;
+		return this.getResults().getTotalResults() > 0;
 	}
 
 	public QuestionAndAnswers get(int i) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public SearchHandle getResults() {
+		return results;
+	}
+
+	public void setResults(SearchHandle results) {
+		this.results = results;
 	}
 
 }

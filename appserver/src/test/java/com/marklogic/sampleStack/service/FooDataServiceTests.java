@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,12 @@ public class FooDataServiceTests {
 		assertEquals(0, fooList.size());
 
 	}
-
+	
+	@After
+	public void deleteFoos() {
+		fooService.deleteAll();
+		List<Foo> fooList = fooService.search("word");
+		assertEquals(0, fooList.size());
+	}
 }
 
