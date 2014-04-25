@@ -12,17 +12,17 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .antMatchers("/foo", "/foo/2").permitAll()
-                .anyRequest().authenticated();
-        http
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-                .permitAll();
+//        http
+//            .authorizeRequests()
+//                .antMatchers("/foo", "/foo/2").permitAll()
+//                .anyRequest().authenticated();
+//        http
+//            .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//            .logout()
+//                .permitAll();
         http       
             .csrf()
                 .disable();

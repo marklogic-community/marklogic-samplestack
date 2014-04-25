@@ -31,7 +31,8 @@ task loadMore(type: MarkLogicSlurpTask) {
 task boot << {
   println "running the angular app"
 }
-boot.dependsOn(props, ':appserver:bootRun')
+
+boot.dependsOn(props, ':appserver:bootRun', ':browser:boot')
 
 task markLogicClearDatabase(type: MarkLogicClearTask)
 
