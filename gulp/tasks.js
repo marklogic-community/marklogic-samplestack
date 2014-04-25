@@ -9,12 +9,9 @@ var tasks = module.exports = {};
 
 var path = require('path');
 var _ = require('lodash');
-var lazypipe = require('lazypipe');
 var fs = require('fs');
 var chalk = require('chalk');
-var glob = require('glob');
 var gulp = require('gulp');
-// var async = require('async');
 var merge = require('event-stream').merge;
 var readArray = require('event-stream').readArray;
 
@@ -130,7 +127,8 @@ tasks['unit'] = {
   func: function(cb) {
     var tempServer = startServer(h.targets.unit, 3001);
     h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
-    .pipe($.mochaPhantomjs())
+    .pipe($.mochaPhantomjs({reporter: 'dot'}))
+    .on('error', function(){})
     .pipe($.util.buffer(
         function(err, files) {
           tempServer.close();
@@ -193,6 +191,7 @@ tasks['watch'] = {
             $.util.buffer(function(err, files) {
               h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
               .pipe($.mochaPhantomjs())
+              .on('error', function(){})
               .pipe($.util.buffer(
                   function(err, files) {
                     writeWatchMenu();

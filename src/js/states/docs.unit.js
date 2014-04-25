@@ -1,7 +1,7 @@
 define(['testHelper', './docs'], function(helper, sut) {
 
   describe('states/docs', function() {
-    describe('states/docs:controler', function() {
+    describe(':controller', function() {
       var testable;
       var stub;
       var getDocsResponse = 'hello';

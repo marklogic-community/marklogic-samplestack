@@ -2,7 +2,6 @@
 var through2 = require('through2');
 var _ = require('lodash');
 var clone = require('gulp-clone');
-var match = require('gulp-match');
 var path = require('path');
 var map = require('map-stream');
 
