@@ -42,7 +42,8 @@
     "open": "0.0.5",
     "through2": "^0.4.1",
     "tiny-lr-fork": "0.0.5",
-    "vinyl-fs": "^0.1.4"
+    "vinyl-fs": "^0.1.4",
+    "gulp-plumber": "^0.6.1"
   },
   "dependencies": {}
 }
