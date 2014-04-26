@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class FooController {
 	private FooDataService fooDao;
 
 	@RequestMapping(value = "foo", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTOR')")
 	public @ResponseBody
 	List<String> getFooList() {
 		return fooDao.getDocumentUris();
@@ -60,6 +62,7 @@ public class FooController {
 	}
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTOR')")
 	public @ResponseBody
 	Foo putFoo(@PathVariable(value = "id") Long id, @RequestBody Foo bean) {
 		// validate id attr.
@@ -90,6 +93,7 @@ public class FooController {
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	ResponseEntity<?> deleteFooBean(@PathVariable(value = "id") Long id) {
 		fooDao.deleteFooBean(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

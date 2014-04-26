@@ -38,6 +38,17 @@ sn: Alex
 uid: ben
 userPassword: {SHA}nFCebWjxfaLbHHG1Qk5UU4trbvQ=
 
+
+dn: uid=joeUser,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Joe User
+sn: User
+uid: joeUser
+userPassword: joesPassword
+
 dn: uid=bob,ou=people,dc=springframework,dc=org
 objectclass: top
 objectclass: person

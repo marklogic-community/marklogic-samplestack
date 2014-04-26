@@ -1,20 +1,28 @@
 package com.marklogic.sampleStack.web;
 
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.ContentResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
+
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,11 +40,34 @@ public class ControllerTests {
 	@Autowired
 	private WebApplicationContext wac;
 
+	@Autowired
+	private FilterChainProxy springSecurityFilter;
+
 	private MockMvc mockMvc;
 
 	@Before
 	public void setup() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(this.springSecurityFilter, "/*").build();
+	}
+	
+	
+	@Test
+	public void testLogin() throws Exception {
+		HttpSession session = mockMvc.perform(post("/login").param("username", "joeUser").param("password", "joesPassword"))
+				.andExpect(status().is(HttpStatus.FOUND.value()))
+				.andExpect(//content().string("blah"))
+						redirectedUrl("/"))
+				.andReturn()
+				.getRequest()
+				.getSession();	
+
+		assertNotNull(session);	
+
+		mockMvc.perform(get("/").session((MockHttpSession)session).locale(Locale.ENGLISH))
+				.andDo(print())
+				.andExpect(status().isOk());
+
+
 	}
 
 	@Test
@@ -157,8 +188,8 @@ public class ControllerTests {
 				// .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				// match has charset
 				.andExpect(content().string(containsString("word")));
-		this.mockMvc.perform(
-				delete("/foo/15"));
+		this.mockMvc.perform(delete("/foo/15"));
 	}
 
+	
 }
