@@ -164,6 +164,23 @@ var buildStream = function(src) {
   //   .pipe($.template(buildParams.dist))
   //   .pipe(templateFilt.restore());
 
+  /***************
+  JSCS -- just run it on build since we've branched
+  ****************/
+  filt = $.filter('**/*.js');
+  srcDir = path.join(__dirname, '..', h.src);
+  build = build.pipe(filt)
+    .pipe($.jscs(path.join(srcDir, '.jscsrc')));
+  build = build.pipe(filt.restore());
+
+  /**************
+  embed livereload script in build/index.html
+  **************/
+  filt = $.filter(path.join(h.targets.build, 'index.html'));
+  build = build.pipe(filt)
+    .pipe($.embedlr());
+  build = build.pipe(filt.restore());
+
   // src = merge(build, unit, dist);
   src = merge(build, unit);
   // return src.pipe($.debug());
