@@ -17,24 +17,21 @@ define(function() {
     this.children = [];
 
     if (parent) {
-      definition.fullName = parent.fullName + '.' + name;
+      var prefix = _.isUndefined(parent.childNamePrefix) ?
+          parent.name :
+          parent.childNamePrefix;
+
+      definition.name = prefix + (prefix && '-')  + name;
       parent.children.push(this);
     }
     else {
-      definition.fullName = name;
+      definition.name = name;
     }
 
     if (_.isUndefined(definition.templateUrl)) {
-      definition.templateUrl = '/js/states/' +
-          // replace dots with dashes (dashes used in fnames
-          // so that they sort logically)
-          definition.fullName.replace(/\./g, '-')
-              // remove 'root-' so we don't repeat in fnames
-              .replace(/root-/, '')
-              // replace root with _root b/c filename has _ prepended so
-              // it sorts to top
-              .replace(/root/, '_root') + '.html';
-      //TODO: deal with multi-views
+      // unless otherise specified, the templateUrl is in direct
+      // relationship to the state name
+      definition.templateUrl = '/js/states/' + definition.name + '.html';
     }
 
     _.merge(this, definition);
@@ -43,12 +40,6 @@ define(function() {
   StateDef.prototype.addChild = function(name, definition) {
     return new StateDef(this, name, definition);
   };
-
-  // StateDef.prototype.newChild = function(name, definition) {
-
-  //   var child = new StateDef(name, definition);
-  //   return child;
-  // };
 
   return StateDef;
 

@@ -1,4 +1,4 @@
-define(['./_root'], function(parent) {
+define(['./_defaultLayout'], function(parent) {
 
   return parent.addChild('fourOhFour', {
 
@@ -6,7 +6,7 @@ define(['./_root'], function(parent) {
 
     controller: function($scope, $window) {
 
-       $scope.goBack = function() {
+      $scope.goBack = function() {
         $window.history.back();
       };
 

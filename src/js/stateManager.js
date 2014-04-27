@@ -15,11 +15,15 @@ define(['app', 'states/_root', 'state-helper'], function(app, root) {
       .html5Mode(true)
       .hashPrefix('');
 
+    // define the state defs tree -- secon param
+    // says that we've alrady prepared the names of
+    // the states so don't use dot notation on them
+    // to construct the names internally.
+    // this is done to avoid having to refer to states
+    // which are always abstract in state names
+    stateHelperProvider.setNestedState(root, true);
 
-    stateHelperProvider.setNestedState(root);
-
-    $urlRouterProvider.when('/', '/docs');
-    $urlRouterProvider.otherwise('/404');
+    // $urlRouterProvider.otherwise('/404');
 
     this.$get = function() {
       return {};

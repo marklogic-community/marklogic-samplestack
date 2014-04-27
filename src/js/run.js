@@ -26,7 +26,7 @@ define(['app', 'config', 'stateManager'], function(app) {
         }
     );
 
-    $state.go('root.docs');
+    $state.go('home');
 
   });
 });
