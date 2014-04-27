@@ -18,3 +18,5 @@ static
 public
 .classpath
 .project
+.settings
+appserver/bin
