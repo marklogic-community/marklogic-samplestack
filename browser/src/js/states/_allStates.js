@@ -1,8 +1,9 @@
 define([
   './_root',
   './fourOhFour',
-  './docs',
-  './docsItem'
+  './home',
+  './oldDocs',
+  './oldDocsItem'
 ], function() {
   return Array.prototype.slice.apply(arguments);
 });

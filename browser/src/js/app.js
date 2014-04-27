@@ -1,11 +1,24 @@
-define(['angular', 'ui-router', 'state-helper'], function(ng) {
+define([
+  'angular',
+  'ui-router',
+  'state-helper',
+  'ui-bootstrap',
+  'spinner',
+  'dialogs',
+  'angular-sanitize'
+], function(ng) {
   'use strict';
 
   var app = ng.module('app', [
-    'ui.router', 'ui.router.stateHelper'
+    'ui.router',
+    'ui.router.stateHelper',
+    'ui.bootstrap',
+    'angularSpinner',
+    'dialogs',
+    'ngSanitize'
   ]);
 
-  app.value('version', '0.0.0');
+  app.value('version', '<%= pkg.version %>');
 
   return app;
 

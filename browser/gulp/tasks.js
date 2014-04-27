@@ -181,11 +181,14 @@ var buildStream = function(src) {
     .pipe($.embedlr());
   build = build.pipe(filt.restore());
 
-  // src = merge(build, unit, dist);
-  src = merge(build, unit);
-  // return src.pipe($.debug());
-  return src.pipe(h.fs.dest('.'));
+  var out = merge(build, unit);
+  out = out.pipe(h.fs.dest('.'));
 
+  out.on('error', function(err) {
+    $.util.log('caught error' + err);
+  });
+
+  return out;
 
 };
 

@@ -1,6 +1,6 @@
-define(['testHelper', './docs'], function(helper, sut) {
+define(['testHelper', './oldDocs'], function(helper, sut) {
 
-  describe('states/docs', function() {
+  describe('states/oldDocs', function() {
     describe(':controller', function() {
       var testable;
       var stub;

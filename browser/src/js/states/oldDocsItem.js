@@ -1,8 +1,8 @@
-define(['./_root', 'services/docs'], function(parent) {
+define(['./_defaultLayout', 'services/docs'], function(parent) {
 
-  return parent.addChild('docsItem', {
+  return parent.addChild('oldDocsItem', {
 
-    url: '/docs/:id',
+    url: '/oldDocs/:id',
 
     controller: function($scope, $stateParams, docs) {
       docs.getDoc($stateParams.id)
