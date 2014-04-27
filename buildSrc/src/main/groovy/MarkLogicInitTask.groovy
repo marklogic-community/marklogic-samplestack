@@ -71,7 +71,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             params.contentType = "application/json"
             println "Creating " + roleName
             def builder = new JsonBuilder()
-            def root = builder name: userName, password: password, description: description, role: [ roleName ]
+            def root = builder name: userName, password: password, description: description, "external-name": [ userName ], role: [ roleName ]
             println builder.toString()
             params.body = builder.toString()
             client.post(params)
@@ -84,6 +84,10 @@ public class MarkLogicInitTask extends MarkLogicTask {
         createUser("restAdmin", "rest-admin")
         createUser("restWriter", "rest-writer")
         createUser("restReader", "rest-reader")
+
+        //users for ldap
+        createUser("samplestackAnonymous", "rest-reader")
+        createUser("samplestackContributor", "rest-writer")
     }
 
     void restBoot() {

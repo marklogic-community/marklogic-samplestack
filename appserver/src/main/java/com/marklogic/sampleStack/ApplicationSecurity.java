@@ -39,7 +39,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		authManagerBuilder.ldapAuthentication()
 				.userDnPatterns("uid={0},ou=people")
 				.groupSearchBase("ou=groups").contextSource()
-				.ldif("classpath:test-server.ldif");
+				.ldif("classpath:test-server.ldif")
+				.root("dc=samplestack,dc=org");
 	}
 
 }

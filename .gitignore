@@ -20,3 +20,4 @@ public
 .project
 .settings
 appserver/bin
+appserver/src/main/resources/test-server.ldif~

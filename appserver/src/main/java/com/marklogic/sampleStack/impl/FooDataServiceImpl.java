@@ -23,7 +23,7 @@ import com.marklogic.sampleStack.SampleStackException;
 import com.marklogic.sampleStack.domain.Foo;
 import com.marklogic.sampleStack.service.FooDataService;
 import com.marklogic.sampleStack.service.MarkLogicOperations;
-import com.marklogic.sampleStack.service.SasquatchNotFoundException;
+import com.marklogic.sampleStack.service.SampleStackNotFoundException;
 
 @Component
 public class FooDataServiceImpl implements FooDataService {
@@ -55,7 +55,7 @@ public class FooDataServiceImpl implements FooDataService {
 					"/foo/" + Long.toString(id), new InputStreamHandle());
 			return mapper.readValue(handle.get(), Foo.class);
 		} catch (ResourceNotFoundException e) {
-			throw new SasquatchNotFoundException();
+			throw new SampleStackNotFoundException();
 		} catch (IOException e) {
 			throw new SampleStackException(e);
 		}

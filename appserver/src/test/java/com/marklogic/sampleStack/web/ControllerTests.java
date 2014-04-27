@@ -3,13 +3,16 @@ package com.marklogic.sampleStack.web;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,9 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.FilterChainProxy;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -50,25 +51,57 @@ public class ControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(this.springSecurityFilter, "/*").build();
 	}
 	
-	
-	@Test
-	public void testLogin() throws Exception {
-		HttpSession session = mockMvc.perform(post("/login").param("username", "joeUser").param("password", "joesPassword"))
+	private HttpSession login(String username, String password) throws Exception {
+		HttpSession session = mockMvc.perform(post("/login").param("username",username ).param("password", password))
 				.andExpect(status().is(HttpStatus.FOUND.value()))
-				.andExpect(//content().string("blah"))
-						redirectedUrl("/"))
+				.andExpect(redirectedUrl("/"))
 				.andReturn()
 				.getRequest()
 				.getSession();	
+		return session;
+	}
+	
+	private HttpSession logout() throws Exception {
+		return this.mockMvc.perform(get("/logout")).andReturn()
+		.getRequest()
+		.getSession();
+	}
+	
+	
+	@Test
+	public void testLogin() throws Exception {
+		HttpSession session = mockMvc.perform(post("/login").param("username", "nobody" ).param("password", "nopassword"))
+				.andExpect(status().is(HttpStatus.FOUND.value()))
+				.andExpect(redirectedUrl("/login?error"))
+				.andReturn()
+				.getRequest()
+				.getSession();	
+		//(session);
+		
+		// another bad credential case
+		session = mockMvc.perform(post("/login").param("username", "joeUser" ).param("password", "notJoesPassword"))
+				.andExpect(status().is(HttpStatus.FOUND.value()))
+				.andExpect(redirectedUrl("/login?error"))
+				.andReturn()
+				.getRequest()
+				.getSession();	
+		//assertNull(session);
+		
+		session = login("joeUser", "joesPassword");
 
 		assertNotNull(session);	
 
 		mockMvc.perform(get("/").session((MockHttpSession)session).locale(Locale.ENGLISH))
 				.andDo(print())
 				.andExpect(status().isOk());
-
+		
+		session = logout();
+		mockMvc.perform(get("/").session((MockHttpSession)session).locale(Locale.ENGLISH))
+		.andDo(print())
+		.andExpect(status().is3xxRedirection());
 
 	}
+
 
 	@Test
 	/**

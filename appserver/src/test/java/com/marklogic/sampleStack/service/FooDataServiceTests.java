@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Test;
@@ -20,7 +17,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.sampleStack.Application;
 import com.marklogic.sampleStack.domain.Foo;
-import com.marklogic.sampleStack.service.FooDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration

@@ -34,6 +34,12 @@ public class MarkLogicTeardownTask extends DefaultTask {
         client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users/rest-reader")
         client.auth.basic project.adminUsername, project.adminPassword
         client.delete(params)
+        client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users/samplestack-anonymous")
+        client.auth.basic project.adminUsername, project.adminPassword
+        client.delete(params)
+        client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users/samplestack-contributor")
+        client.auth.basic project.adminUsername, project.adminPassword
+        client.delete(params)
     }
 
 }

@@ -2,7 +2,6 @@ package com.marklogic.sampleStack.service;
 
 import java.util.List;
 
-import com.marklogic.sampleStack.domain.Foo;
 import com.marklogic.sampleStack.domain.ApplicationUser;
 
 /**
