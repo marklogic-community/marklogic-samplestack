@@ -22,7 +22,8 @@
     "spin.js": "~2.0.0",
     "angular-marked": "~0.0.11",
     "angular-dialog-service": "master",
-    "angular-sanitize": "~1.2.16"
+    "angular-sanitize": "~1.2.16",
+    "momentjs": "~2.6.0"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.1.1",
