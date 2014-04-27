@@ -1,9 +1,9 @@
-define(['./_root', 'services/docs'], function(parent) {
+define(['./_defaultLayout', 'services/docs'], function(parent) {
 
   var state = {
-    name: 'docs',
+    name: 'oldDocs',
     definition: {
-      url: '/docs',
+      url: '/oldDocs',
 
       controller: function($scope, docs) {
 

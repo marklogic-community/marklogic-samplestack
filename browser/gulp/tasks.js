@@ -23,7 +23,68 @@ var $ = h.$;
 
 var bootstrapDir =
     'bower_components/bootstrap-sass-official/vendor/assets/stylesheets';
-// this is a process-wide task, not file-type specific
+
+
+/**************************
+stuff about dealing with
+watch having to be restarted
+**************************/
+var amWatching = false;
+var activeServers;
+var rebuildOnNext = false;
+
+function refireWatchTask(servers) {
+  // $.util.log('[' + chalk.cyan('watch') + '] ' +
+  //     chalk.yellow('initiating rebuild'));
+  activeServers.forEach(function(server) {
+    try {
+      server.close();
+    } catch (err) {}
+  });
+  rebuildOnNext = false;
+  gulp.start('watch');
+}
+
+function refireWatchFunc() {
+  if (amWatching) {
+    amWatching = false;
+    $.util.log('[' + chalk.cyan('watch') + '] ' +
+        chalk.yellow(
+          'restarting watch'
+        ));
+    activeServers.forEach(function(server) {
+      try {
+        server.close();
+      } catch (err) {}
+    });
+    rebuildOnNext = true;
+    tasks['watch'].func();
+  }
+}
+
+function trim(str) { return str.replace(/^\s+|\s+$/g, ''); }
+var plumberErrorHandler = function(err) {
+  $.util.log(
+            $.util.colors.cyan('Plumber') +
+            chalk.red(' found unhandled error:\n\n') +
+            trim(err.toString()) + '\n');
+  if (!rebuildOnNext) {
+    rebuildOnNext = true; // rebuild after the next save
+    $.util.log('[' + chalk.cyan('watch') + '] ' +
+        chalk.yellow(
+          'some changes not written -- will rebuild on next change'
+        ));
+    if (amWatching) {
+      refireWatchFunc();
+    }
+  }
+};
+
+/********************
+tasks
+********************/
+
+// rimraf all of the target directories
 tasks.clean = {
   deps: [],
   func: function() {
@@ -36,6 +97,8 @@ tasks.clean = {
   }
 };
 
+// copy all of the bower components
+// to the unit test and build targets
 tasks['bower'] = {
   deps: ['clean'],
   func: function() {
@@ -45,59 +108,87 @@ tasks['bower'] = {
   }
 };
 
+/*************************
+this is the main building
+function for builds and
+incremental watch buils
+**************************/
 var buildStream = function(src) {
   // there are some things we can do before we diverge
+
+  // protection from unhandled errors in plugins (ahem -- SASS!)
+  src = src.pipe($.plumber(plumberErrorHandler));
 
   /***************
   JSHINT
   ****************/
-  var jsFilt = $.filter('**/*.js');
+  var filt = $.filter('**/*.js');
   var srcDir = path.join(__dirname, '..', h.src);
-  src = src.pipe(jsFilt)
+  src = src.pipe(filt)
     .pipe($.jshint(path.join(srcDir, '.jshintrc')))
     .pipe($.jshint.reporter('jshint-stylish'));
   // jscs can't handle lodash templates, so wait
   // .pipe($.jscs(path.join(srcDir, '.jscsrc')));
-  src = src.pipe(jsFilt.restore());
+  src = src.pipe(filt.restore());
 
   /***************
   SASS
   ****************/
-  var sassFilt = $.filter(['**/*.scss', '!**/_*.scss']);
-  src = src.pipe(sassFilt).pipe($.sass({
+  filt = $.filter(['**/*.scss', '!**/_*.scss']);
+  src = src.pipe(filt);
+  src = src.pipe($.sass({
     sourceComments: 'map',
     includePaths: [bootstrapDir]
-  })).pipe(sassFilt.restore().pipe($.filter('!**/*.scss')));
+  })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
 
   var targets = $.branchClones({ src: src, targets: ['build', 'unit']});
-
-  var build = targets['build'].pipe($.rebase(h.targets.build));
-  var unit = targets['unit'].pipe($.rebase(h.targets.unit));
+  var build = targets['build'].pipe($.rebase(h.targets.build))
+    .pipe($.plumber(plumberErrorHandler));
+  var unit = targets['unit'].pipe($.rebase(h.targets.unit))
+    .pipe($.plumber(plumberErrorHandler));
   // var dist = targets['dist'].pipe($.rebase(h.targets.dist));
 
   /****************
   TEMPLATE
   *****************/
-  var templateFilt;
-  // danger -- the filter has a memory, get a new one each time
-  templateFilt = $.filter(['**/*.html', '**/*.js']);
-  build = build.pipe(templateFilt)
+  filt = $.filter(['**/*.html', '**/*.js']);
+  build = build.pipe(filt)
     .pipe($.template(buildParams.build))
-    .pipe(templateFilt.restore());
-  templateFilt = $.filter(['**/*.html', '**/*.js']);
-  unit = unit.pipe(templateFilt)
+    .pipe(filt.restore());
+  filt = $.filter(['**/*.html', '**/*.js']);
+  unit = unit.pipe(filt)
     .pipe($.template(buildParams.unit))
-    .pipe(templateFilt.restore());
-  templateFilt = $.filter(['**/*.html', '**/*.js']);
+    .pipe(filt.restore());
+  // filt = $.filter(['**/*.html', '**/*.js']);
   // dist = dist.pipe(templateFilt)
   //   .pipe($.template(buildParams.dist))
   //   .pipe(templateFilt.restore());
 
-  // src = merge(build, unit, dist);
-  src = merge(build, unit);
-  // return src.pipe($.debug());
-  return src.pipe(h.fs.dest('.'));
+  /***************
+  JSCS -- just run it on build since we've branched
+  ****************/
+  filt = $.filter('**/*.js');
+  srcDir = path.join(__dirname, '..', h.src);
+  build = build.pipe(filt)
+    .pipe($.jscs(path.join(srcDir, '.jscsrc')));
+  build = build.pipe(filt.restore());
 
+  /**************
+  embed livereload script in build/index.html
+  **************/
+  filt = $.filter(path.join(h.targets.build, 'index.html'));
+  build = build.pipe(filt)
+    .pipe($.embedlr());
+  build = build.pipe(filt.restore());
+
+  var out = merge(build, unit);
+  out = out.pipe(h.fs.dest('.'));
+
+  out.on('error', function(err) {
+    $.util.log('caught error' + err);
+  });
+
+  return out;
 
 };
 
@@ -148,15 +239,13 @@ function writeWatchMenu() {
       chalk.bold.blue('http://localhost:3001/unit-runner.html'));
 }
 
-var activeWatchers;
-var activeServers;
 tasks['watch'] = {
   deps: ['build', 'unit'],
   func: function(cb) {
-    activeWatchers = [];
     activeServers = [];
     activeServers.push(startServer(h.targets.build, 3000));
     activeServers.push(startServer(h.targets.unit, 3001));
+    amWatching = true;
 
     var watcher = $.watch({
       glob: path.join(h.src, '**/*'),
@@ -164,7 +253,7 @@ tasks['watch'] = {
       emitOnGlob: false,
       emit: 'one',
       silent: true
-    }, function(file, cb) {
+    }, function(file, gulpWatchCb) {
       file.pipe($.util.buffer(function(err, files) {
 
         var relpath = path.relative(
@@ -174,36 +263,41 @@ tasks['watch'] = {
             chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
 
         if (!(files[0].event === 'changed' || files[0].event === 'added')) {
+          refireWatchTask();
+        }
+        else if (rebuildOnNext) {
           $.util.log('[' + chalk.cyan('watch') + '] ' +
-              chalk.bold.yellow('initiating rebuild'));
-          activeWatchers.forEach(function(watcher) {
-            watcher.close();
-          });
-          activeServers.forEach(function(server) {
-            server.close();
-          });
-          gulp.start('watch');
+              chalk.yellow(
+                'some changes not written on previous change -- rebuilding'
+              ));
+          refireWatchTask();
         }
         else {
           files = readArray(files);
 
-          buildStream(files).pipe(
+          var out = buildStream(files).pipe(
             $.util.buffer(function(err, files) {
-              h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
-              .pipe($.mochaPhantomjs())
-              .on('error', function(){})
-              .pipe($.util.buffer(
-                  function(err, files) {
-                    writeWatchMenu();
-                    cb();
-                  }
-              ));
+              if(!rebuildOnNext) {
+                h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
+                .pipe($.mochaPhantomjs())
+                .on('error', function(){})
+                .pipe($.util.buffer(
+                    function(err, files) {
+                      writeWatchMenu();
+                      gulpWatchCb();
+                    }
+                ));
+              }
+              else {
+                // writeWatchMenu();
+                gulpWatchCb();
+              }
             })
           );
         }
       }));
     });
-    activeWatchers.push(watcher);
+    activeServers.push(watcher);
 
     var port = 35729;
     var tinylr = require('tiny-lr-fork');
@@ -221,12 +315,16 @@ tasks['watch'] = {
         buildLr.changed({body: { files: [file.relative]}});
         return file;
       });
-      activeWatchers.push(watcher);
+      activeServers.push(watcher);
       activeServers.push(buildLr);
 
       writeWatchMenu();
 
-      cb();
+      if (cb) {
+        // if we restarted this function then no cb is available or
+        // necessary
+        cb();
+      }
 
     });
   }

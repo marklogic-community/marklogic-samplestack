@@ -15,10 +15,13 @@
       'angular-mocks': 'bower_components/angular-mocks/angular-mocks',
       'ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
       'state-helper': 'bower_components/angular-ui-router.stateHelper/statehelper',
-      'mocha': 'bower_components/mocha/mocha',
-      'chai': 'bower_components/chai/chai'
-      // 'sinon': 'bower_components/sinon/lib/sinon',
-      // 'sinon-lib': 'bower_components/sinon/lib/sinon/.',
+      'ui-bootstrap': 'bower_components/angular-bootstrap/ui-bootstrap',
+      'spinner': 'bower_components/angular-spinner/angular-spinner',
+      'spinjs': 'bower_components/spin.js/spin',
+      'dialogs': 'bower_components/angular-dialog-service/dialogs',
+      'angular-sanitize': 'bower_components/angular-sanitize/angular-sanitize',
+      'moment': 'bower_components/momentjs/moment',
+      'ng-table': 'bower_components/ng-table/ng-table'
       /* jshint +W101 */
     },
 
@@ -29,11 +32,26 @@
       'angular-mocks': {
         deps: ['angular']
       },
+      'ui-bootstrap': {
+        deps: ['angular']
+      },
       'ui-router': {
+        deps: ['angular']
+      },
+      'ng-table': {
+        deps: ['angular']
+      },
+      'angular-sanitize': {
         deps: ['angular']
       },
       'state-helper': {
         deps: ['angular', 'ui-router']
+      },
+      'spinner': {
+        deps: ['spinjs']
+      },
+      'dialogs': {
+        deps: ['ui-bootstrap', 'angular-sanitize']
       },
       'mocha': {
         exports: 'mocha'
@@ -46,11 +64,27 @@
 
   });
 
-  require(['lodash'], function(_) {
+  require(['lodash', 'moment'], function(_, moment) {
     // lodash is used so frequently that it's better to make it global.
-    // this is a rare exception to the rule
+    // a rare exception to the intent of not using globals
     window._ = _;
 
+    var newFromJson = function(json) {
+      if (!_.isString(json)) {
+        return json;
+      }
+      else {
+        return JSON.parse(json, function(key, val) {
+          var momentized = moment(val);
+          if (momentized.isValid()) {
+            return momentized.toDate();
+          }
+          else {
+            return val;
+          }
+        });
+      }
+    };
 
 /* jshint ignore:start */
 <% if (unit) { %>
@@ -60,6 +94,8 @@ unit test config
 ******************************************/
     // do not include the run module, instead config
     require(['angular', 'app', 'config'], function(ng, app) {
+
+      angular.fromJSON = newFromJson;
 
       require(['all.unit'], function() {
         // window.sinon = sinon;
@@ -77,6 +113,7 @@ runtime config
 ******************************************/
     require(['angular', 'app', 'run'], function(ng, app) {
 
+      angular.fromJSON = newFromJson;
 
       /**
        * attach the app to the DOM -- test tools like this to be present
@@ -90,11 +127,6 @@ runtime config
          */
         var doBoostrap = function() {
           htmlElement.addClass('ng-app');
-          htmlElement.addClass('spun');
-          // setTimeout(function() {
-
-
-          // }, 1000)
         };
 
         ng.bootstrap(htmlElement, [app['name'], doBoostrap]);

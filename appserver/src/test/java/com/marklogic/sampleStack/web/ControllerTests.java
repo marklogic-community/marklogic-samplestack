@@ -41,8 +41,8 @@ public class ControllerTests {
 
 	@Test
 	/**
-	 * tests /foo/new POST, 
-	 * /foo POST, 
+	 * tests /foo/new POST,
+	 * /foo POST,
 	 * /foo/{1} PUT DELETE GET
 	 */
 	public void fooSlashIdLifecycle() throws Exception {
@@ -114,6 +114,10 @@ public class ControllerTests {
 
 		System.out.println(byBean);
 		System.out.println(byDoc);
+
+		this.mockMvc.perform(
+				delete("/foo/2"));
+
 	}
 
 	@Test
@@ -126,13 +130,13 @@ public class ControllerTests {
 								.content(
 										"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
 				.andExpect(status().isBadRequest());
-		this.mockMvc
-				.perform(
-						post("/tags")
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
-				.andExpect(status().isCreated());
+		// this.mockMvc
+		// 		.perform(
+		// 				post("/tags")
+		// 						.contentType(MediaType.APPLICATION_JSON)
+		// 						.content(
+		// 								"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
+		// 		.andExpect(status().isCreated());
 
 	}
 

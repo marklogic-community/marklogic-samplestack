@@ -1,0 +1,9 @@
+@import "bootstrap";
+
+// for angular-bootstrap's purposes
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.ng-hide {
+  display: block !important;
+  visibility: hidden;
+}
