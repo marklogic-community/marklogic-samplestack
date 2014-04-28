@@ -23,7 +23,7 @@ define(['testHelper', './point'], function(helper) {
       });
 
       it('should parse a string using brackets to a point', function() {
-        sut('[0xF,070)').should.eql([15,56]);
+        sut('[0xF,70)').should.eql([15,70]);
       });
 
     });
