@@ -134,12 +134,18 @@ var buildStream = function(src) {
   /***************
   SASS
   ****************/
-  filt = $.filter(['**/*.scss', '!**/_*.scss']);
-  src = src.pipe(filt);
-  src = src.pipe($.sass({
+  var sassed = h.fs.src([path.join(h.src, '**/*.scss'), '!**/_*.scss']);
+  sassed = sassed.pipe($.sass({
     sourceComments: 'map',
     includePaths: [bootstrapDir]
-  })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
+  }));
+  src = merge(src, sassed);
+  // filt = $.filter(['**/*.scss', '!**/_*.scss']);
+  // src = src.pipe(filt);
+  // src = src.pipe($.sass({
+  //   sourceComments: 'map',
+  //   includePaths: [bootstrapDir]
+  // })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
 
   var targets = $.branchClones({ src: src, targets: ['build', 'unit']});
   var build = targets['build'].pipe($.rebase(h.targets.build))
@@ -184,9 +190,9 @@ var buildStream = function(src) {
   var out = merge(build, unit);
   out = out.pipe(h.fs.dest('.'));
 
-  out.on('error', function(err) {
-    $.util.log('caught error' + err);
-  });
+  // out.on('error', function(err) {
+  //   $.util.log('caught error' + err);
+  // });
 
   return out;
 

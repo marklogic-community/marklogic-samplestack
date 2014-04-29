@@ -1,17 +1,12 @@
 @import "bootstrap-vars";
-@import "./marklogic/marklogic";
+@import "marklogic/marklogic";
 @import "spinner";
 
 .body {
 }
 
 .navbar-brand a {
-  color: $navbar-default-brand-color;
-  &:hover,
-  &:focus {
-    color: $navbar-default-brand-hover-color;
-    background-color: $navbar-default-brand-hover-bg;
-  }
+  color: $brand-primary;
 }
 
 .header-placeholder {
@@ -28,4 +23,13 @@ footer.navbar {
 
 table {
   max-width: 1000px;
+  margin: auto;
+}
+
+tbody {
+  font-size: $font-size-small;
+}
+
+.modal-body-occupy {
+  max-height: 95%;
 }

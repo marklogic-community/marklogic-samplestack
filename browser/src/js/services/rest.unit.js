@@ -34,6 +34,18 @@ define(['testHelper', './rest'], function(helper) {
         ]);
       });
 
+      it('should get a docs from the server', function() {
+        $httpBackend.expectGET(baseUrl + '/foo/1').respond(
+          {point: 'b'}
+        );
+
+        var resp = sut.docs.get('1');
+
+        resp.should.eventually.have.property('body', 'b');
+        resp.should.eventually.have.property('id', '1');
+        $httpBackend.flush();
+      });
+
       it('should put a doc to the server', function() {
         $httpBackend.expectPUT(baseUrl + '/foo/1', {id: 1, name: 'a'})
           .respond(204);
@@ -49,6 +61,18 @@ define(['testHelper', './rest'], function(helper) {
             .should.eventually.have.property('status', 204);
         $httpBackend.flush();
       });
+
+      it('should do something really weird to pretend it\'s posting a doc' +
+          ' to the server',
+        function() {
+          $httpBackend.expectGET(baseUrl + '/foo/new').respond({ id: '1234'});
+          $httpBackend.expectPUT(baseUrl + '/foo/1234').respond(204);
+          var doc = { a: 'b'};
+          sut.docs.post(doc)
+              .should.eventually.equal('1234');
+          $httpBackend.flush();
+        }
+      );
     });
 
   });

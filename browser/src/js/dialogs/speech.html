@@ -1,0 +1,117 @@
+<div style="position: relative; height: 100%; width: 100%">
+
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">
+      {{dialogTitle}}
+    </h4>
+  </div>
+<!--
+        <rating
+          value="doc.rating"
+          max="10"
+          on-hover="overStar = value"
+          readOnly="true"
+          state-off="'DUMMY-DONT-DISPLAY'"
+        />
+ -->
+  <div class="modal-body">
+     <!-- <div class="ml-text-area">position: fixed; height: 80%; height: 500px; width: 550px position: fixed top:10px; bottom: 10px-->
+    <div class="modal-body-inner">
+      <tabset type="pills" class="nav-pills nav-tabs">
+        <tab heading="view">
+          <div class="tab-content">
+            <div class="ml-text-area">
+              <div class="clearfix">
+                <h5 class="pull-right">{{model.date | date:'MMMM d, yyyy'}}</h5>
+              </div>
+              <div marked="model.body" class="speech"></div>
+            </div>
+          </div>
+        </tab>
+        <tab heading="edit">
+          <div class="tab-content">
+            <ng-form nname="speechDialog" class="form" novalidate role="form">
+              <div class="row">
+                <div class="col-xs-7">
+                  <div class="form-group">
+                    <label>title</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="enter title"
+                      ng-model="model.title"
+                      ng-required="true"
+                    >
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group">
+                    <label>date given</label>
+                    <p class="input-group">
+                    <!-- <input type="text" class="form-control" datepicker-popup="dd.mm.yyyy" ng-model="dt" is-open="opened" ng-required="true" close-text="Close" /> -->
+                      <input
+                        type="text"
+                        class="form-control"
+                        datepicker-popup="M/d/yyyy"
+                        placeholder="enter date"
+                        show-weeks="true"
+                        ng-model="model.date"
+                        is-open="dateOpened"
+                        max="maxDate"
+                        ng-required="true"
+                        close-text="Close"
+                      />
+                      <span class="input-group-btn">
+                        <button
+                          class="btn btn-default"
+                          ng-click="$parent.dateOpen($event)"
+                        >
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row occupy-remainder">
+                <div class="col col-xs-12">
+                  <div class="form-group">
+                    <label>body</label>
+                    <textarea
+                      ng-model="model.body"
+                      class="form-control"
+                      placeholder="enter body"
+                      ng-model="model.title"
+                      ng-required="true"
+                    >
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+            </ng-form>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+    <!-- </div> -->
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      ng-click="cancel()"
+      class="btn btn-default"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      ng-click="save()"
+      class="btn btn-primary"
+    >
+      Ok
+    </button>
+  </div>
+
+</div>

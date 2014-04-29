@@ -2,9 +2,7 @@ var defaultParams = {
   appName: 'app',
   noscriptHtml: '<p>You need a script-enabled browser.</p>',
   unit: false,
-  pkg: { // TODO read from package.json
-    version: '0.0.0'
-  },
+  pkg: require('./package.json'),
   restUrl: 'http://localhost:8080'
 };
 
