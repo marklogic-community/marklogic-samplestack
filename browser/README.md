@@ -1,12 +1,12 @@
 # marklogic-samplestack-angular
 
-* npm update
-* bower update
+* npm install
+* bower install
 * gulp <command>
 
-<command> may be `build`, `unit`, `watch`.
+<command> may be `build`, `unit`, `run`, `watch`.
 
-In watch mode, you may use these URLs:
+In run and watch mode, you may use these URLs:
 
 [https://localhost:3000](https://localhost:3000) -- view the running app.
 Livereload is enabled by a script embedded in the app so changes should

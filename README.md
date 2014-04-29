@@ -52,8 +52,9 @@ server)
 **To run the Angular unit tests and launch the web application**
 (in a separate terminal):
 
-* cd browser
-* gulp watch
+* `cd browser`
+* `gulp unit`
+* `gulp run`
 
 ### Endpoints currently supported
 
