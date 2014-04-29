@@ -1,4 +1,6 @@
-define(['app', 'states/_root', 'state-helper'], function(app, root) {
+define([
+  'app', 'states/_root', 'state-helper', 'states/_allStates'
+], function(app, root) {
 
   app.provider('stateManager', function(
     $provide, $locationProvider, stateHelperProvider, $urlRouterProvider) {

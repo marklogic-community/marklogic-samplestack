@@ -21,9 +21,11 @@
     "angular-spinner": "~0.4.0",
     "spin.js": "~2.0.0",
     "angular-marked": "~0.0.11",
-    "angular-dialog-service": "master",
+    "angular-dialog-service": "~4.0.0",
     "angular-sanitize": "~1.2.16",
-    "momentjs": "~2.6.0"
+    "momentjs": "~2.6.0",
+    "marked": "~0.3.2",
+    "angular-translate": "~2.1.0"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.1.1",
