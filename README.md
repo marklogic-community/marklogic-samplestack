@@ -66,13 +66,25 @@ server)
 
 GET /foo/search?q=search    simple search over foos
 
-### Accessing the web application
+# marklogic-samplestack-angular
 
-[http://localhost:3000](http://localhost:3000)
+* npm update
+* bower update
+* gulp <command>
 
-### To run web application unit tests in a browser:
+<command> may be `build`, `unit`, `watch`.
 
-[http://localhost:3001](http://localhost:3001/unit-runner.html)
+In watch mode, you may use these URLs:
+
+[https://localhost:3000](https://localhost:3000) -- view the running app.
+Livereload is enabled by a script embedded in the app so changes should
+be instantly seen in a browser.
+
+[https://localhost:3001/unit-runner.html](https://localhost:3001/unit-runner.html) -- run
+unit tests within the browser.  Unit tests are run upon build and upon changes
+during watch mode using PhantomJS and results are reported in the console.
+It may also be useful to run the tests from within the browser to debug.
+>>>>>>> Squashed 'browser/' changes from df852a4..55bdc19
 
 ## License
 

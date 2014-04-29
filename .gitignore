@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 
 # Package Files #
@@ -21,3 +22,9 @@ public
 .settings
 appserver/bin
 appserver/src/main/resources/test-server.ldif~
+bower_components
+node_modules/*
+!node_modules/gulp-marklogic
+build
+dist
+unit
