@@ -245,6 +245,22 @@ function writeWatchMenu() {
       chalk.bold.blue('http://localhost:3001/unit-runner.html'));
 }
 
+tasks['run'] = {
+  deps: ['build'],
+  func: function(cb) {
+    activeServers = [];
+    activeServers.push(startServer(h.targets.build, 3000));
+    activeServers.push(startServer(h.targets.unit, 3001));
+    cb();
+    $.util.log('[' + chalk.cyan('run') + '] ' +
+        '--> ' + chalk.magenta('build server') + ': ' +
+        chalk.bold.blue('http://localhost:3000'));
+    $.util.log('[' + chalk.cyan('run') + '] ' +
+        '--> ' + chalk.magenta('unit test runner') + ': ' +
+        chalk.bold.blue('http://localhost:3001/unit-runner.html'));
+  }
+};
+
 tasks['watch'] = {
   deps: ['build', 'unit'],
   func: function(cb) {
