@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,6 +40,8 @@ import com.marklogic.sampleStack.Application;
 @ContextConfiguration(classes = { Application.class })
 public class ControllerTests {
 
+	private Logger logger = LoggerFactory.getLogger(ControllerTests.class);
+	
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -110,7 +114,7 @@ public class ControllerTests {
 	 * /foo/{1} PUT DELETE GET
 	 */
 	public void fooSlashIdLifecycle() throws Exception {
-
+		HttpSession session = login("joeUser", "joesPassword");
 		this.mockMvc
 				.perform(get("/foo/new").accept(MediaType.APPLICATION_JSON))
 				// .andExpect(content().string("blah"));
@@ -120,7 +124,7 @@ public class ControllerTests {
 				.andExpect(jsonPath("name").value("name"));
 		this.mockMvc
 				.perform(
-						post("/foo")
+						post("/foo").session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
 										"{\"name\":\"name1\", \"id\":1, \"startDate\":1395333660050, \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
@@ -131,8 +135,15 @@ public class ControllerTests {
 				.andExpect(
 						content().contentType("application/json;charset=UTF-8"))
 				.andExpect(jsonPath("name").value("name1"));
-		this.mockMvc.perform(delete("/foo/1")).andExpect(status().is(204))
+		
+		// joe cannot delete
+		this.mockMvc.perform(delete("/foo/1")).andExpect(status().is(302))
 				.andExpect(content().string(""));
+		
+		session = login("maryAdmin", "marysPassword");
+		this.mockMvc.perform(delete("/foo/1").session((MockHttpSession) session)).andExpect(status().is(204))
+		.andExpect(content().string(""));
+
 		this.mockMvc.perform(get("/foo/1").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound());
 	}
@@ -145,9 +156,10 @@ public class ControllerTests {
 	 */
 	public void testFooList() throws Exception {
 		// put a couple foos up.
+		HttpSession session = login("joeUser", "joesPassword");
 		this.mockMvc
 				.perform(
-						post("/foo")
+						post("/foo").session((MockHttpSession)session).locale(Locale.ENGLISH)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
 										"{\"name\":\"name1\", \"id\":1, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
@@ -155,16 +167,17 @@ public class ControllerTests {
 
 		this.mockMvc
 				.perform(
-						post("/foo")
+						post("/foo").session((MockHttpSession) session).locale(Locale.ENGLISH)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
 										"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
 				.andExpect(status().isCreated());
 
-		String fooList = this.mockMvc.perform(get("/foo")).andReturn()
+		String fooList = this.mockMvc.perform(get("/foo").session((MockHttpSession) session)
+				).andReturn()
 				.getResponse().getContentAsString();
 
-		System.out.println(fooList);
+		logger.info(fooList);
 		assertTrue(fooList.contains("/foo/1") && fooList.contains("/foo/2"));
 
 		String byBean = this.mockMvc.perform(get("/foo/1"))
@@ -206,9 +219,10 @@ public class ControllerTests {
 
 	@Test
 	public void testDefaultOptionsSearch() throws Exception {
+		HttpSession session = login("maryAdmin", "marysPassword");
 		this.mockMvc
 				.perform(
-						post("/foo")
+						post("/foo").session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
 										"{\"name\":\"word word words\", \"id\":15, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))

@@ -1,0 +1,11 @@
+{
+  "name": "samplestack-contributor",
+  "password": "sc-pass",
+  "description": "user for write unrestricted access to samplestack data",
+  "external-name": [
+    "uid=samplestack-contributor,ou=apps,dc=samplestack,dc=org"
+  ],
+  "role": [
+    "samplestack-unrestricted"
+  ]
+}

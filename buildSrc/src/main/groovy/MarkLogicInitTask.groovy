@@ -7,6 +7,9 @@ import org.gradle.api.tasks.*
 
 public class MarkLogicInitTask extends MarkLogicTask {
 
+    def roles = "database/security/roles"
+    def users = "database/security/users"
+
     @TaskAction
     void initMarkLogic() {
         adminInit()
@@ -39,7 +42,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8001/admin/v1/instance-admin")
         def params = [:]
         params.contentType = "application/json"
-        params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }',project.adminUsername, project.adminPassword)
+        params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }',project.adminUser, project.adminPassword)
         try {
             client.post(params)
             println "MarkLogic admin secured.  Waiting for server restart."
@@ -53,47 +56,48 @@ public class MarkLogicInitTask extends MarkLogicTask {
         }
     }
 
-
-    
-    private void createUser(configString, roleName) {
+    private void create(path, jsonObject) {
         try {
-            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users").with {
-                headers."accept" = "application/json"
-                auth.basic project.adminUsername, project.adminPassword
-                it
-            }
-            def props = project.properties
-            def userName = props.get(configString + "User")
-            def password = props.get(configString + "Password")
-            def description = roleName + " user"
+            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/" + path)
+            client.headers."accept" = "application/json"
+            client.auth.basic project.adminUser, project.adminPassword
         
             def params = [:]
             params.contentType = "application/json"
-            println "Creating " + roleName
-            def builder = new JsonBuilder()
-            def root = builder name: userName, password: password, description: description, "external-name": [ userName ], role: [ roleName ]
-            println builder.toString()
-            params.body = builder.toString()
+            params.body = jsonObject.text
             client.post(params)
         } catch (ex) {
-            println "Error creating user "+roleName+".  Skipping..."
+            println "Error creating security object.  Payload: "+jsonObject.text+" .  Skipping..."
         }
     }
 
-    void createUsers() {
-        createUser("restAdmin", "rest-admin")
-        createUser("restWriter", "rest-writer")
-        createUser("restReader", "rest-reader")
+    void createUser(jsonUser) {
+        create("users", jsonUser)
+    }
 
-        //users for ldap
-        createUser("samplestackAnonymous", "rest-reader")
-        createUser("samplestackContributor", "rest-writer")
+    void createRole(jsonRole) {
+        create("roles", jsonRole)
+    }
+
+    void createUsers() {
+        def rolesDirectory = new File(roles)
+        rolesDirectory.listFiles().each { createRole(it) }
+        def usersDirectory = new File(users)
+        usersDirectory.listFiles().each { createUser(it) }
+        // createUser("restAdmin", "rest-admin")
+        //createUser("restWriter", "rest-writer")
+        //createUser("restReader", "rest-reader")
+
+        //ldap users are external
+        //createUser("samplestackAnonymous", "rest-reader")
+        //createUser("samplestackContributor", "rest-writer")
+        //createUser("samplestackContributor", "rest-writer")
     }
 
     void restBoot() {
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/v1/rest-apis").with {
             headers."accept" = "application/json"
-            auth.basic project.adminUsername, project.adminPassword
+            auth.basic project.adminUser, project.adminPassword
             it
         }
         def params = [:]

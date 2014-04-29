@@ -14,7 +14,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/home", "/foo/**").permitAll()
+                .antMatchers("/home", "/foo/**", "/docs/**", "/tags/**").permitAll()
                 .anyRequest().authenticated();
 		http.formLogin()	
                 .permitAll()
@@ -40,7 +40,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.userDnPatterns("uid={0},ou=people")
 				.groupSearchBase("ou=groups").contextSource()
 				.ldif("classpath:test-server.ldif")
-				.root("dc=samplestack,dc=org");
+				.root("dc=samplestack,dc=org")
+				;
 	}
 
 }

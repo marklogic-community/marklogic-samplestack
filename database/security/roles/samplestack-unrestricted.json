@@ -1,0 +1,21 @@
+{
+  "name": "samplestack-unrestricted",
+  "description": "role for contributing to samplestack corpus",
+  "external-name": [
+    "cn=samplestack-restricted,ou=groups,dc=samplestack,dc=org"
+  ],
+  "permission": [
+    {
+      "role-name": "rest-reader",
+      "capability": "read"
+    },
+    {
+      "role-name": "rest-writer",
+      "capability": "read"
+    },
+    {
+      "role-name": "rest-writer",
+      "capability": "update"
+    }
+  ]
+}

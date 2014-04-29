@@ -2,6 +2,7 @@ package com.marklogic.sampleStack.service;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -50,6 +51,7 @@ public class QuestionAndAnswerServiceTest {
 	}
 
 	@Test
+	@Ignore
 	public void testAskAndAnswer() {
 		ApplicationUser joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");

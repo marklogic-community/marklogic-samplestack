@@ -34,11 +34,19 @@ with fresh data dir
 * `./gradlew fooconfig`
 
 *(in a separate terminal session...)*
+<<<<<<< HEAD
 
 * `cd browser`
 * `npm install`
 * `bower install`
 
+=======
+
+* `cd browser`
+* `npm install`
+* `bower install`
+
+>>>>>>> chore(readme): update readme for web app instructions
 **To run Java unit tests**:
 
 * `./gradlew test`
@@ -84,7 +92,6 @@ be instantly seen in a browser.
 unit tests within the browser.  Unit tests are run upon build and upon changes
 during watch mode using PhantomJS and results are reported in the console.
 It may also be useful to run the tests from within the browser to debug.
->>>>>>> Squashed 'browser/' changes from df852a4..55bdc19
 
 ## License
 

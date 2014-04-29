@@ -32,18 +32,18 @@ public class Application {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
 	public enum ClientRole {
-		ADMIN, REST_ADMIN, REST_WRITER, REST_READER;
+		ADMIN, REST_ADMIN, SAMPLESTACK_CONTRIBUTOR, REST_READER;
 		private String getPrefix() {
 			switch(this) {
 	    	case ADMIN: return "admin"; 
 	    	case REST_ADMIN: return "restAdmin"; 
-	    	case REST_WRITER: return "restWriter"; 
+	    	case SAMPLESTACK_CONTRIBUTOR: return "samplestackContributor"; 
 	    	case REST_READER: return "restReader";
 	    	default: throw new SampleStackSecurityException();
 			}
 		}
 		public String getUserParam() {
-			return getPrefix() + "Username";
+			return getPrefix() + "User";
 		}
 		public String getPasswordParam() {
 			return getPrefix() + "Password";
@@ -55,7 +55,7 @@ public class Application {
 	
 	@Bean
 	public DatabaseClient databaseClient() {
-		return databaseClient(ClientRole.ADMIN);
+		return databaseClient(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 	}
 	
 	private DatabaseClient databaseClient(ClientRole role) {
@@ -64,7 +64,7 @@ public class Application {
 		String username = env.getProperty(role.getUserParam());
 		String password = env.getProperty(role.getPasswordParam());
 		return DatabaseClientFactory.newClient(host, port, username, password,
-				Authentication.DIGEST);
+				Authentication.BASIC);
 	}
 	
 	@Bean

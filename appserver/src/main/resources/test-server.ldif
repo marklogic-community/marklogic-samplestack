@@ -3,50 +3,52 @@ objectclass: top
 objectclass: organizationalUnit
 ou: groups
 
-dn: ou=subgroups,ou=groups,dc=samplestack,dc=org
-objectclass: top
-objectclass: organizationalUnit
-ou: subgroups
-
 dn: ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: organizationalUnit
 ou: people
 
-dn: ou=databases,dc=samplestack,dc=org
+dn: ou=apps,dc=samplestack,dc=org
 objectclass: top
 objectclass: organizationalUnit
-ou: databases
+ou: apps
 
-dn: uid=marklogic-ldap-user,ou=databases,dc=samplestack,dc=org
+
+dn: uid=marklogic-ldap-user,ou=apps,dc=samplestack,dc=org
 objectclass: top
-objectclass: person
-objectclass: organizationalPerson
-objectclass: inetOrgPerson
-cn: MarkLogic Application
-sn: MarkLogic
+objectclass: applications
+cn: MarkLogic LDAP User
+sn: marklogic-ldap-user
 uid: marklogic-ldap-user
-userPassword: marklogicPassword
+userPassword: marklogic-ldap-password
 
-dn: uid=samplestack-anonymous,ou=people,dc=samplestack,dc=org
+dn: uid=samplestack-anonymous,ou=apps,dc=samplestack,dc=org
 objectclass: top
-objectclass: person
-objectclass: organizationalPerson
-objectclass: inetOrgPerson
-cn: Samplestack anonymous user
-sn: SamplestackAnonymous
+objectclass: applications
+cn: samplestack-anonymous
+sn: samplestack-anonymous
 uid: samplestack-anonymous
 userPassword: sa-pass
 
-dn: uid=samplestack-contributor,ou=people,dc=samplestack,dc=org
+
+dn: uid=samplestack-contributor,ou=apps,dc=samplestack,dc=org
 objectclass: top
-objectclass: person
-objectclass: organizationalPerson
-objectclass: inetOrgPerson
-cn: Samplestack contributor user
-sn: SamplestackContributor
+objectclass: applications
+cn: samplestack-contributor
+sn: samplestack-contributor
 uid: samplestack-contributor
 userPassword: sc-pass
+
+dn: cn=apps,ou=groups,dc=samplestack,dc=org
+objectclass: top
+objectclass: groupOfNames
+cn: apps
+ou: groups
+uniqueMember: uid=samplestack-anonymous,ou=apps,dc=samplestack,dc=org
+uniqueMember: uid=samplestack-contributor,ou=apps,dc=samplestack,dc=org
+uniqueMember: uid=marklogic-ldap-user,ou=apps,dc=samplestack,dc=org
+
+
 
 dn: uid=joeUser,ou=people,dc=samplestack,dc=org
 objectclass: top
@@ -58,19 +60,28 @@ sn: User
 uid: joeUser
 userPassword: joesPassword
 
-dn: cn=developers,ou=groups,dc=samplestack,dc=org
+dn: uid=maryAdmin,ou=people,dc=samplestack,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Mary Admin
+sn: User
+uid: maryAdmin
+userPassword: marysPassword
+
+dn: cn=admins,ou=groups,dc=samplestack,dc=org
 objectclass: top
 objectclass: groupOfNames
-cn: developers
-ou: developer
-uniqueMember: uid=ben,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=bob,ou=people,dc=samplestack,dc=org
+cn: admins
+ou: groups
+uniqueMember: uid=maryAdmin,ou=people,dc=samplestack,dc=org
 
 dn: cn=contributors,ou=groups,dc=samplestack,dc=org
 objectclass: top
 objectclass: groupOfNames
-cn: managers
-ou: manager
+cn: contributors
+ou: groups
 uniqueMember: uid=joeUser,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=maryUser,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=maryAdmin,ou=people,dc=samplestack,dc=org
 

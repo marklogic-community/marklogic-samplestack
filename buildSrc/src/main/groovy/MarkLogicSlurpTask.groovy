@@ -12,7 +12,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
     String seedDirectory = "database/seed-data"
 
     void putJson(client, uri, jsonObject) {
-        client.auth.basic project.restWriterUser, project.restWriterPassword
+        client.auth.basic project.samplestackContributorUser, project.samplestackContributorPassword
         def params = [:]
         params.path = "/v1/documents"
         params.queryString = "uri="+uri

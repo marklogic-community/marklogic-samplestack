@@ -33,7 +33,6 @@ public class FooController {
 	private FooDataService fooDao;
 
 	@RequestMapping(value = "foo", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_CONTRIBUTOR')")
 	public @ResponseBody
 	List<String> getFooList() {
 		return fooDao.getDocumentUris();
@@ -41,6 +40,7 @@ public class FooController {
 
 	@RequestMapping(value = "foo", method = RequestMethod.POST)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	ResponseEntity<?> postFoo(@RequestBody Foo bean) {
 		// validate
 		fooDao.storeFoo(bean);
@@ -62,7 +62,7 @@ public class FooController {
 	}
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.PUT)
-	@PreAuthorize("hasRole('ROLE_CONTRIBUTOR')")
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	public @ResponseBody
 	Foo putFoo(@PathVariable(value = "id") Long id, @RequestBody Foo bean) {
 		// validate id attr.
@@ -93,7 +93,7 @@ public class FooController {
 
 	@RequestMapping(value = "foo/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	ResponseEntity<?> deleteFooBean(@PathVariable(value = "id") Long id) {
 		fooDao.deleteFooBean(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
