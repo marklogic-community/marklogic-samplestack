@@ -26,7 +26,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
     }
 
     void putTransform(transform) {
-        def transformFileName = transform.getPath()
+        def transformFileName = transform.getPath().replaceAll("\\","/")
         def transformName = transformFileName.replaceAll(~"\\.[^\\.]+", "").replaceAll(~".*\\/","")
 
         if (transformName) {
@@ -45,7 +45,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
     }
 
     void putExtension(extension) {
-        def extensionFileName = extension.getPath()
+        def extensionFileName = extension.getPath().replaceAll("\\","/")
         def extensionName = 
             extensionFileName.replaceAll(~".*\\/","")
         println "Saving extension " + extensionFileName
