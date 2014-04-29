@@ -1,0 +1,68 @@
+{
+  "preset": "google",
+  "disallowMultipleVarDecl": true,
+  "requireSpaceBeforeBinaryOperators": [
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!=="
+  ],
+  "requireSpaceAfterBinaryOperators": [
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!=="
+  ],
+  "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+  "requireLeftStickedOperators": [","],
+  "disallowRightStickedOperators": [
+    "?",
+    "+",
+    "/",
+    "*",
+    ":",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!==",
+    ">",
+    ">=",
+    "<",
+    "<="
+  ],
+  "disallowLeftStickedOperators": [
+    "?",
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!==",
+    ">",
+    ">=",
+    "<",
+    "<="
+  ],
+  "validateIndentation": 2,
+  "requireKeywordsOnNewLine": ["else"],
+  "safeContextKeyword": [ "self" ],
+  "validateJSDoc": {
+    "checkParamNames": true,
+    "checkRedundantParams": true,
+    "requireParamTypes": true
+  }
+}

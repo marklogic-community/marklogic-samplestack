@@ -1,0 +1,19 @@
+<h2>docs</h2>
+<div class="form-group">
+  <button type="button" class="btn btn-default" ng-click="addDoc()">
+    Add Doc
+  </button>
+</div>
+
+<table class="table table-condensed table-striped" style="width:300px">
+  <tr>
+    <th>URI</th>
+    <th style="text-align:right">Action</th>
+  </tr>
+  <tr ng-repeat="doc in docs">
+    <td><a ui-sref="oldDocsItem({ id: doc.substring(5) })">{{doc}}</a></td>
+    <td style="text-align:right">
+      <a href ng-click="deleteDoc(doc)">Delete</a>
+    </td>
+  </tr>
+</table>
