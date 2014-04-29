@@ -1,4 +1,4 @@
-# sampleStack
+# samplestack
 
 An application to demonstrate using MarkLogic in a Java Application Server environment.
 
@@ -9,25 +9,51 @@ An application to demonstrate using MarkLogic in a Java Application Server envir
 git clone https://github.com/marklogic/samplestack-java.git
 ```
 
-One-time setup:
+**One-time setup**:
 
-* install and start MarkLogic with fresh data dir
+* install MarklLogic
 * build and install ML java client from trunk as Maven package.. in a separate directory:
 ** git clone https://github.com/marklogic/java-client-api
 ** cd java-client-api
 ** mvn -Dmaven.test.skip=true install
-* `./gradlew assemble`
-* **install node**
+* **install node/npm**
+* `npm install -g bower`
+* `npm install -g gulp`
+* `cd browser`
+* `npm install`
+* `bower install`
 
-To run unit tests:
+**Development Steps**:
+
+*(Do these the first time you run.  You may need to repeat them if you pull
+code changes in the future)*
+
+* clear MarkLogic data directory and start MarkLogic Server
+with fresh data dir
+* `./gradlew assemble`
+* `./gradlew fooconfig`
+
+*(in a separate terminal session...)*
+
+* `cd browser`
+* `npm install`
+* `bower install`
+
+**To run Java unit tests**:
 
 * `./gradlew test`
 
-To run the application:
+**To run the Java application**:
 
 * `./gradlew boot` -- builds and runs the app (on localhost:8080) and enters
 watch mode (subsequent changes are instantaneously applied to the running
 server)
+
+**To run the Angular unit tests and launch the web application**
+(in a separate terminal):
+
+* cd browser
+* gulp watch
 
 ### Endpoints currently supported
 
@@ -39,6 +65,13 @@ server)
 
 GET /foo/search?q=search    simple search over foos
 
+### Accessing the web application
+
+[http://localhost:3000](http://localhost:3000)
+
+### To run web application unit tests in a browser:
+
+[http://localhost:3001](http://localhost:3001/unit-runner.html)
 
 ## License
 
