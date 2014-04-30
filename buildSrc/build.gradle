@@ -1,0 +1,13 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile("org.codehaus.groovy:groovy-all:2.2.2")
+    compile("org.codehaus.groovy.modules.http-builder:http-builder:0.7")
+    testCompile("junit:junit:4.10")
+}
+

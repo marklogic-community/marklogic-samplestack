@@ -1,0 +1,16 @@
+{"search":
+  {"query":
+      {"custom-constraint-query":{"constraint-name":"tag","text":"Clojure"}}
+      ,
+   "options":
+	{"debug":true,
+     "return-qtext":true,
+     "constraint":{
+         "name":"tag",
+         "custom":{
+             "facet":false,
+             "parse":{
+                 "apply":"parseQuery",
+                 "ns":"http://marklogic.com/rest-api/ext/tagged-with",
+                 "at":"/ext/tagged-with.xqy"}}},
+     "extract-metadata":{"json-key":"location"}}}}
