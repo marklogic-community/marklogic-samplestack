@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" class="nojs">
+
+  <head>
+
+    <!--
+    a messag will be delivered that this application requires a script
+    endabled browser or other script-enabled assistive technology
+    -->
+    <noscript><%= noscriptHtml %></noscript>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>samplestack - MarkLogic</title>
+
+    <link rel="stylesheet" type="text/css" href="/styles/samplestack.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/js/bower_components/ng-table/ng-table.css"
+    >
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/js/bower_components/angular-dialog-service/dialogs.css"
+    >
+
+    <!--
+    honest effort to maintain consistency across less-than perfect
+    browsers
+    -->
+    <script src="/js/bower_components/modernizr/modernizr.js"></script>
+    <script src="/js/bower_components/es5-shim/es5-shim.js"></script>
+
+  </head>
+
+  <body>
+
+    <!--
+    CSS will cause this animated overlay to fade out when the application
+    has been bootstrapped.
+    -->
+    <div class="initspin">
+      <div id="initspinContainer">
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <div class="stick"></div>
+        <h1>Loading...</h1>
+      </div>
+    </div>
+
+    <!--
+    This is the real body of the app.  It is initially hidden until it is
+    bootstrapped.  ng-cloak allows it to be invisible until template code
+    has been compiled by Angular.
+    -->
+    <div class="body ng-cloak" ng-cloak>
+
+      <!--
+      This is the main ui-view, corresponding to the _root state in the
+      ui-router hierarchy.
+      -->
+      <ui-view/>
+
+    </div>
+
+  </body>
+
+  <!--
+  delay the browser seeing this until it's already seen the body so that
+  it will render the spinner with minimal interference
+  -->
+  <script
+    src="/js/bower_components/requirejs/require.js"
+    data-main="/js/main.js"
+  ></script>
+
+</html>

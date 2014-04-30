@@ -1,0 +1,50 @@
+{
+  "name": "marklogic-samplestack-angular",
+  "version": "0.0.1",
+  "description": "An AngularJS webapp to demonstrate basic 3-tiered MarkLogic-based development following the MarkLogic Reference Architecture",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marklogic/samplestack-angular"
+  },
+  "main": null,
+  "scripts": {
+    "test": "npm test",
+    "prepublish": null
+  },
+  "devDependencies": {
+    "chalk": "~0.4.0",
+    "connect-modrewrite": "~0.5.11",
+    "connect": "~2.14.4",
+    "duplexer": "~0.1.1",
+    "event-stream": "~3.1.1",
+    "gulp-clone": "~1.0.0",
+    "gulp-debug": "~0.3.0",
+    "gulp-embedlr": "~0.5.2",
+    "gulp-filelog": "~0.2.0",
+    "gulp-filter": "~0.4.1",
+    "gulp-jscs": "~0.4.2",
+    "gulp-jshint": "~1.5.5",
+    "gulp-load-plugins": "~0.5.0",
+    "gulp-match": "0.0.3",
+    "gulp-mocha-phantomjs": "~0.1.5",
+    "gulp-rimraf": "0.0.10",
+    "gulp-sass": "~0.7.1",
+    "gulp-template": "~0.1.1",
+    "gulp-util": "~2.2.14",
+    "gulp-watch": "~0.6.2",
+    "gulp": "~3.6.0",
+    "jshint-stylish": "~0.1.5",
+    "lazypipe": "~0.2.1",
+    "lodash": "~2.4.1",
+    "map-stream": "~0.1.0",
+    "minimist": "0.0.8",
+    "open": "0.0.5",
+    "through2": "~0.4.1",
+    "tiny-lr-fork": "0.0.5",
+    "vinyl-fs": "~0.1.4",
+    "gulp-plumber": "~0.6.1",
+    "gulp-if": "~1.1.0"
+  },
+  "dependencies": {}
+}
