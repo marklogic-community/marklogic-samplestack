@@ -1,5 +1,5 @@
-define(['app'], function(app) {
-  app.filter('fromPoint', function() {
+(function (undefined) {
+  this.app.filter('fromPoint', function() {
     return function(point) {
       if (!point) {
         return null;
@@ -10,21 +10,24 @@ define(['app'], function(app) {
     };
   });
 
-  var parseNum = function(str) {
-    if (str.indexOf('.') > -1) {
-      return parseFloat(str);
-    }
-    else {
-      return parseInt(str);
-    }
+  this.app.filter('toPoint', function() {
+    // octal not supported
+    var parseNum = function(str) {
+      if (str.indexOf('.') > -1) {
+        return parseFloat(str);
+      }
+      else {
+        return parseInt(str);
+      }
 
-  };
-  app.filter('toPoint', function() {
+    };
+
     return function(str) {
       if (!str) {
         return null;
       }
       else {
+        // [3.2, 6 ] or (  0x3f,-1)
         var ptParser =
             /^\s*[\(\[]\s*([^\,\s]*\s*)\s*,\s*([^\) ]*\s*)\s*[\)|\]]\s*$/;
 
@@ -38,4 +41,4 @@ define(['app'], function(app) {
       }
     };
   });
-});
+}).call(global);

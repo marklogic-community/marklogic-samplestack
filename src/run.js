@@ -1,7 +1,6 @@
-define(['app', 'config', 'stateManager'], function(app) {
-  'use strict';
+(function(undefined) {
 
-  app.run(function($rootScope, $state, stateManager) {
+  this.app.run(function($rootScope, $state, stateManager) {
 
     // TODO: handle these more gracefully!
     // this should be the role of the stateManager
@@ -26,8 +25,8 @@ define(['app', 'config', 'stateManager'], function(app) {
         }
     );
 
-    $state.go('home');
+    // $state.go('home');
 
   });
-});
 
+}).call(global);

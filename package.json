@@ -44,7 +44,10 @@
     "tiny-lr-fork": "0.0.5",
     "vinyl-fs": "~0.1.4",
     "gulp-plumber": "~0.6.1",
-    "gulp-if": "~1.1.0"
+    "gulp-if": "~1.1.0",
+    "gulp-bower-files": "^0.2.2",
+    "gulp-inject": "^0.4.1",
+    "globule": "^0.2.0"
   },
   "dependencies": {}
 }

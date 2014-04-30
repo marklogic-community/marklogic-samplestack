@@ -3,7 +3,18 @@ var defaultParams = {
   noscriptHtml: '<p>You need a script-enabled browser.</p>',
   unit: false,
   pkg: require('./package.json'),
-  restUrl: 'http://localhost:8080'
+  restUrl: 'http://localhost:8080',
+  ngModuleDepencencies: [
+    'ui.router',
+    'ui.router.stateHelper',
+    'ui.bootstrap',
+    'angularSpinner',
+    'dialogs.main',
+    'ngSanitize',
+    'hc.marked'
+  ],
+  html5Mode: true
+
 };
 
 var targetParams = {
@@ -34,6 +45,7 @@ _.forEach(targetParams, function(targetParams, targetName) {
     targetParams
   );
 });
+
 
 /**
  * Parameters for builds

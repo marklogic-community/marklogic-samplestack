@@ -1,5 +1,4 @@
-// define(['testSupport/sinon', 'angular-mocks'], function(sinon) {
-define(['angular-mocks'], function() {
+(function (undefined) {
   var helper = {};
 
   helper.getTestableController = function($injector, sut, injected) {
@@ -23,7 +22,6 @@ define(['angular-mocks'], function() {
     return stub;
   };
 
-  return helper;
+  window.myTest = helper;
 
-});
-
+})(window.appContext);

@@ -13,7 +13,8 @@
     "inject": false,
     "beforeEach": false,
     "before": false,
-    "sinon": false
+    "sinon": false,
+    "global": false
   },
 
   "esnext": false,

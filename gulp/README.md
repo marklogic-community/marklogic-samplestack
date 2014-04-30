@@ -25,3 +25,11 @@ implement watcher as separate module to clean up tasks module
 
 reconcile helper.js with other modules (tasks, plugins, watcher)
 
+
+gulp-inject
+wiredep
+bowerFiles
+gulp-cdnizer
+gulp-cdn-data (or whatever it's called)
+
+forever -- to reload gulp when gulpfile changes

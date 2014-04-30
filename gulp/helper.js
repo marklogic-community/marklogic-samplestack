@@ -49,7 +49,7 @@ var ignoreIncoming = function(outgoingStream) {
  * @type {[type]}
  */
 helper.buildParams = require('../buildParams');
-
+// TODO -- absoluteize these?
 helper.src = 'src';
 /**
  * specific directories to which to write

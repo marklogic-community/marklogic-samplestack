@@ -14,6 +14,7 @@ var chalk = require('chalk');
 var gulp = require('gulp');
 var merge = require('event-stream').merge;
 var readArray = require('event-stream').readArray;
+var globule = require('globule');
 
 var h = require('./helper');
 var buildParams = require('../buildParams');
@@ -97,15 +98,62 @@ tasks.clean = {
   }
 };
 
-// copy all of the bower components
-// to the unit test and build targets
-tasks['bower'] = {
+var bowerBuildStream = function(read) {
+  return $.bowerFiles({
+    includeDev: false,
+    // debugging: true,
+    dependencies: false,
+    read: read
+  });
+};
+
+var bowerUnitStream = function(read) {
+  return $.bowerFiles({
+    includeDev: true,
+    // debugging: true,
+    dependencies: false,
+    read: read
+  });
+};
+
+// copy all of the bower components runtime deps to the build
+// and unit targets.
+// also, for unit targets, copy the dev dependencies that have
+// an oerride that indicates they are needed for the unit target
+//
+tasks['bower-files'] = {
   deps: ['clean'],
   func: function() {
-    return h.fs.src('bower_components/**/*')
-      .pipe(h.fs.dest(path.join(h.targets.build, 'js/bower_components')))
-      .pipe(h.fs.dest(path.join(h.targets.unit, 'js/bower_components')));
+    var stream1 = bowerBuildStream(true)
+      .pipe(h.fs.dest(path.join(h.targets.build, 'deps')));
+
+    var stream2 = bowerUnitStream(true)
+      .pipe(h.fs.dest(path.join(h.targets.unit, 'deps')));
+
+    return merge(stream1, stream2);
   }
+};
+
+var indexHtmlStream = function(stream, target) {
+  var filt = $.filter(path.join(h.targets[target], 'index.html'));
+  stream = stream.pipe(filt);
+
+  switch (target) {
+    case 'build':
+      // stream = stream
+        // .pipe($.inject((h.fs.src('/bower_components/'))))
+      /**************
+      embed livereload script in build/index.html
+      **************/
+      stream = stream.pipe($.embedlr());
+      break;
+    case 'unit':
+      break;
+
+  }
+
+  return stream.pipe(filt.restore());
+
 };
 
 /*************************
@@ -157,6 +205,24 @@ var buildStream = function(src) {
   /****************
   TEMPLATE
   *****************/
+  buildParams.build.appComponents =
+      globule.find(
+        ['app/**/*.js', '!**/*.unit.js'],
+        { cwd: path.join(__dirname, '..', h.src, '/')}
+      );
+  buildParams.unit.appComponents =
+      globule.find(
+        ['app/**/*.js', '!**/*.unit.js'],
+        { cwd: path.join(__dirname, '..', h.src, '/')}
+      )
+          .concat(
+            globule.find(
+              ['app/**/*.unit.js'],
+              { cwd: path.join(__dirname, '..', h.src, '/')}
+            )
+          );
+
+  // buildParams =
   filt = $.filter(['**/*.html', '**/*.js']);
   build = build.pipe(filt)
     .pipe($.template(buildParams.build))
@@ -179,13 +245,8 @@ var buildStream = function(src) {
     .pipe($.jscs(path.join(srcDir, '.jscsrc')));
   build = build.pipe(filt.restore());
 
-  /**************
-  embed livereload script in build/index.html
-  **************/
-  filt = $.filter(path.join(h.targets.build, 'index.html'));
-  build = build.pipe(filt)
-    .pipe($.embedlr());
-  build = build.pipe(filt.restore());
+  build = indexHtmlStream(build, 'build');
+  unit = indexHtmlStream(unit, 'unit');
 
   var out = merge(build, unit);
   out = out.pipe(h.fs.dest('.'));
@@ -199,7 +260,7 @@ var buildStream = function(src) {
 };
 
 tasks.build = {
-  deps: ['clean', 'bower'],
+  deps: ['clean', 'bower-files'],
   func: function() {
     var src = h.fs.src(path.join(h.src, '**/*'));
 
@@ -221,6 +282,7 @@ function startServer(path, port) {
 
 tasks['unit'] = {
   deps: ['build'],
+  // deps: [],
   func: function(cb) {
     var tempServer = startServer(h.targets.unit, 3001);
     h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))

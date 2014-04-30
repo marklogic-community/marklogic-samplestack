@@ -1,7 +1,8 @@
-define(['app', 'filters/restTranslate'], function(app) {
-  var fact = {
-    name: 'rest',
-    definition: function($http, $q, fromServerFilter, toServerFilter) {
+(function (undefined) {
+  this.app.factory('rest', [
+
+    '$http', '$q', 'fromServerFilter', 'toServerFilter',
+    function($http, $q, fromServerFilter, toServerFilter) {
       var baseUrl = '<%= restUrl %>';
 
       var svc = {};
@@ -72,19 +73,6 @@ define(['app', 'filters/restTranslate'], function(app) {
       };
 
 
-      // addDummyDoc = function() {
-      //   var url = 'http://localhost:8080/foo';
-      //   var id = Math.floor((Math.random() * 1000) + 1);
-      //   var names = ['Colleen', 'Charles', 'Erik', 'Jim', 'Norm', 'Sam'];
-      //   var nameKey = Math.floor(Math.random() * names.length);
-      //   var promise = $http.post(
-      //     url, '{"name": "' + names[nameKey] + '", "id": ' + id + '}'
-      //   )
-      //   .then(function(response) {
-      //     return response.data;
-      //   });
-      //   return promise;
-      // };
       svc.docs.delete = function(id) {
         return $http.delete(baseUrl + '/foo/' + id);
       };
@@ -93,7 +81,5 @@ define(['app', 'filters/restTranslate'], function(app) {
 
     }
 
-  };
-
-  app.factory(fact.name, fact.definition);
-});
+  ]);
+}).call(global);
