@@ -249,6 +249,11 @@ var buildStream = function(src) {
   unit = indexHtmlStream(unit, 'unit');
 
   var out = merge(build, unit);
+
+  out
+    .on('error', $.util.log)
+    .on('error', $.util.beep);
+
   out = out.pipe(h.fs.dest('.'));
 
   // out.on('error', function(err) {
@@ -285,6 +290,10 @@ tasks['unit'] = {
   // deps: [],
   func: function(cb) {
     var tempServer = startServer(h.targets.unit, 3001);
+    if (!activeServers) {
+      activeServers = [];
+    }
+    activeServers.push(tempServer);
     h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
     .pipe($.mochaPhantomjs({reporter: 'dot'}))
     .on('error', function(){})

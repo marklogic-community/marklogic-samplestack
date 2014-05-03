@@ -1,8 +1,8 @@
 (function (undefined) {
 // note: window.moment
 
-  this.app.filter('fromDate', function() {
-    return function(date) {
+  this.app.filter('fromDate', function () {
+    return function (date) {
       if (!date) {
         return undefined;
       }
@@ -12,8 +12,8 @@
     };
   });
 
-  this.app.filter('toDate', function() {
-    return function(str) {
+  this.app.filter('toDate', function () {
+    return function (str) {
       if (!str) {
         return undefined;
       }

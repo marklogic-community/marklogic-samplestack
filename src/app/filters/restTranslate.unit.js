@@ -1,4 +1,4 @@
-describe('filters/restTranslate', function() {
+describe('filters/restTranslate', function () {
   var sut;
 
   var ourStyle = {
@@ -17,15 +17,15 @@ describe('filters/restTranslate', function() {
     doubleValue: 9.999
   };
 
-  beforeEach(function() {
+  beforeEach(function () {
     angular.mock.module('app');
   });
 
-  describe('toServerFilter', function() {
+  describe('toServerFilter', function () {
 
-    it('should translate to the server\'s schema', function(done) {
+    it('should translate to the server\'s schema', function (done) {
       inject(
-        function(toServerFilter) {
+        function (toServerFilter) {
           var toServer = toServerFilter(ourStyle);
           toServer.should.eql(serverStyle);
           done();
@@ -35,11 +35,11 @@ describe('filters/restTranslate', function() {
 
   });
 
-  describe('fromServerFilter', function() {
+  describe('fromServerFilter', function () {
 
-    it('should translate from the server\'s schema', function(done) {
+    it('should translate from the server\'s schema', function (done) {
       inject(
-        function(fromServerFilter) {
+        function (fromServerFilter) {
           var fromServer = fromServerFilter(serverStyle);
           fromServer.should.eql(ourStyle);
           done();

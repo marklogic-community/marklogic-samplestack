@@ -1,5 +1,4 @@
 {
-  "preset": "google",
   "disallowMultipleVarDecl": true,
   "requireSpaceBeforeBinaryOperators": [
     "+",
@@ -59,7 +58,12 @@
   ],
   "validateIndentation": 2,
   "requireKeywordsOnNewLine": ["else"],
+  "disallowKeywordsOnNewLine": [],
   "safeContextKeyword": [ "self" ],
+  "requireSpacesInFunctionExpression": {
+      "beforeOpeningRoundBrace": true,
+      "beforeOpeningCurlyBrace": true
+  },
   "validateJSDoc": {
     "checkParamNames": true,
     "checkRedundantParams": true,

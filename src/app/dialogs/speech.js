@@ -3,11 +3,11 @@
   this.app.controller('speechDialogCtlr', [
 
     '$scope', '$modalInstance', 'data',
-    function($scope, $modalInstance, data) {
+    function ($scope, $modalInstance, data) {
 
       $scope.isNew = data.isNew;
 
-      $scope.$watch('model.title', function(newValue, oldValue) {
+      $scope.$watch('model.title', function (newValue, oldValue) {
         var valueForTitle = newValue && newValue.trim().length ?
             newValue.trim() :
             '(untitled)';
@@ -17,16 +17,16 @@
       });
 
 
-      $scope.save = function() {
+      $scope.save = function () {
         $modalInstance.close($scope.model);
       };
 
-      $scope.cancel = function() {
+      $scope.cancel = function () {
         $modalInstance.dismiss();
       };
 
       $scope.maxDate = new Date();
-      $scope.dateOpen = function($event) {
+      $scope.dateOpen = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
 
@@ -41,8 +41,8 @@
 
   this.app.factory('speechDialog', [
     '$modal',
-    function($modal) {
-      return function(data, opts) {
+    function ($modal) {
+      return function (data, opts) {
         return $modal.open({
           templateUrl : '/app/dialogs/speech.html',
           controller : 'speechDialogCtlr',
@@ -50,7 +50,7 @@
           backdrop : true,
           windowClass: 'dialogs-default',
           resolve : {
-            data : function() { return _.cloneDeep(data); }
+            data : function () { return _.cloneDeep(data); }
           }
         })
             .result;

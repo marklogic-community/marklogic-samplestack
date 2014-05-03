@@ -2,8 +2,8 @@
   this.app.filter('fromServer', [
 
     'toDateFilter',
-    function(toDateFilter) {
-      return function(serverStyle) {
+    function (toDateFilter) {
+      return function (serverStyle) {
         if (!serverStyle) {
           return null;
         }
@@ -23,8 +23,8 @@
   this.app.filter('toServer', [
 
     'fromDateFilter',
-    function(fromDateFilter) {
-      return function(ourStyle) {
+    function (fromDateFilter) {
+      return function (ourStyle) {
         if (!ourStyle) {
           return null;
         }

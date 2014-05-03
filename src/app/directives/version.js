@@ -5,8 +5,8 @@
 
     [
       'settings',
-      function(settings) {
-        return function(scope, elm, attrs) {
+      function (settings) {
+        return function (scope, elm, attrs) {
           elm.text(settings.version);
         };
       }

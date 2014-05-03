@@ -1,4 +1,4 @@
-(function(undefined) {
+(function (undefined) {
 
   var root = {
     name: 'root',

@@ -1,7 +1,7 @@
 (function (undefined) {
   var helper = {};
 
-  helper.getTestableController = function($injector, sut, injected) {
+  helper.getTestableController = function ($injector, sut, injected) {
     var resp = {};
 
     resp.$rootScope = $injector.get('$rootScope');
@@ -14,7 +14,7 @@
     return resp;
   };
 
-  helper.stubPromise = function($q, theObj, methodName, value) {
+  helper.stubPromise = function ($q, theObj, methodName, value) {
     var deferred = $q.defer();
     var promise = deferred.promise;
     var stub = sinon.stub(theObj, methodName).returns(promise);

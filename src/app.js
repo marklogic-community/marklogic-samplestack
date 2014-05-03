@@ -1,4 +1,4 @@
-(function(undefined) {
+(function (undefined) {
 
   var app = this.angular.module('app', [
     'ui.router',
@@ -14,12 +14,12 @@
 
   this.app = app;
 
-  this.angular.fromJSON = function(json) {
+  this.angular.fromJSON = function (json) {
     if (!_.isString(json)) {
       return json;
     }
     else {
-      return JSON.parse(json, function(key, val) {
+      return JSON.parse(json, function (key, val) {
         var momentized = this.moment(val);
         if (momentized.isValid()) {
           return momentized.toDate();
@@ -33,7 +33,7 @@
 
   app.config([
     'markedProvider',
-    function(markedProvider) {
+    function (markedProvider) {
       markedProvider.setOptions({gfm: true});
     }
   ]);

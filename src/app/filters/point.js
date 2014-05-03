@@ -1,6 +1,6 @@
 (function (undefined) {
-  this.app.filter('fromPoint', function() {
-    return function(point) {
+  this.app.filter('fromPoint', function () {
+    return function (point) {
       if (!point) {
         return null;
       }
@@ -10,9 +10,9 @@
     };
   });
 
-  this.app.filter('toPoint', function() {
+  this.app.filter('toPoint', function () {
     // octal not supported
-    var parseNum = function(str) {
+    var parseNum = function (str) {
       if (str.indexOf('.') > -1) {
         return parseFloat(str);
       }
@@ -22,7 +22,7 @@
 
     };
 
-    return function(str) {
+    return function (str) {
       if (!str) {
         return null;
       }

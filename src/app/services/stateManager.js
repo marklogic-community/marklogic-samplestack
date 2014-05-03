@@ -2,9 +2,8 @@
 
   var app = this.app;
 
-
   var setHtmlFiveOrHash = function ($provide, settings, $locationProvider) {
-    $provide.decorator('$sniffer', function($delegate) {
+    $provide.decorator('$sniffer', function ($delegate) {
       // set history to false if you want to run hashode (perhaps your
       // webserver isn't configured for url rewriting in support of html5,
       // or you want hash signs in your urls for some other reason)
@@ -42,7 +41,7 @@
     if (_.isUndefined(state.controller)) {
       state.controller = state.name.replace(/-/g, '') + 'Ctlr';
     }
-    _.forEach(state.children, function(child) {
+    _.forEach(state.children, function (child) {
       setStateDefaults(child);
     });
   };
@@ -76,11 +75,10 @@
 
       $urlRouterProvider.otherwise('/404');
 
-
       setHtmlFiveOrHash($provide, settings, $locationProvider);
 
       // TODO -- lots of stuff to be done here
-      this.$get = function() {
+      this.$get = function () {
         return {};
       };
 
