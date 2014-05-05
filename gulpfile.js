@@ -20,9 +20,9 @@ var tasks = require('./dev-tasks/tasks');
 var log = require('gulp-util').log;
 var chalk = require('chalk');
 
-gulp.addListener('err', function(e) {
-  console.log(e.err.stack);
-});
+// gulp.addListener('err', function(e) {
+//   console.log(e.err.stack);
+// });
 
 _.forEach(tasks, function(task, taskName) {
   gulp.task(taskName, task.deps, task.func);

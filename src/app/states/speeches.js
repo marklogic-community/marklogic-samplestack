@@ -4,6 +4,7 @@
 
     '$scope', 'rest', 'speechDialog',
     function ($scope, rest, speechDialog) {
+      $scope.setPageTitle('speeches');
 
       var launchDialog = function (doc) {
         var isNew = _.isUndefined(doc);

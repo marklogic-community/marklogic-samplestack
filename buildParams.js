@@ -14,12 +14,7 @@ var defaultParams = {
     'hc.marked'
   ],
   html5Mode: true,
-  seleniumPort: 4445,
-  // port will be appended
-  // if specified, will not attempt to (a) download/update selenium
-  // and (b) start selenium -- if seleniumUrl is present
-  // it must be running
-  // seleniumUrl: 'http://someserver.com:4567' //
+  seleniumAddress: 'http://localhost:4445'
 };
 
 var targetParams = {

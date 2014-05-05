@@ -4,6 +4,8 @@
 
     '$scope',
     function ($scope) {
+
+      $scope.setPageTitle('search');
       var facets = {
         'jquery': {
           count: 45

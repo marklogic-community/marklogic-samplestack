@@ -51,7 +51,13 @@
     "gulp-rename": "^1.2.0",
     "gulp-ignore": "^1.0.1",
     "jsonschema": "^0.4.0",
-    "gulp-browserify": "^0.5.0"
+    "gulp-browserify": "^0.5.0",
+    "protractor": "git://github.com/stu-salsbury/protractor#groners",
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1",
+    "selenium-webdriver": "^2.41.0",
+    "phantomjs": "^1.9.7-5",
+    "cucumber": "^0.4.0"
   },
   "dependencies": {}
 }
