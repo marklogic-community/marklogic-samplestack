@@ -1,10 +1,10 @@
 {
-  "node": false,
-  "browser": true,
+  "node": true,
+  "browser": false,
   "globals": {
-    "_": false,
-    "global": false,
-    "angular": false
+    "browser": false,
+    "By": false,
+    "element": false
   },
   "esnext": false,
   "expr": true,
@@ -30,3 +30,4 @@
   "trailing": true,
   "undef": true
 }
+

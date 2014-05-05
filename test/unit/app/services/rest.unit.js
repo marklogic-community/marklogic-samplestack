@@ -5,7 +5,7 @@ describe('services/rest', function () {
     var sut;
 
     beforeEach(function (done) {
-      angular.mock.module('app');
+      module('app');
       inject(
         function ($injector) {
           sut = $injector.get('rest');

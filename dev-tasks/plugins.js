@@ -4,6 +4,7 @@ var _ = require('lodash');
 var clone = require('gulp-clone');
 var path = require('path');
 var map = require('map-stream');
+var util = require('gulp-util');
 
 // var multimatch = require('multimatch');
 // var gutil = require('gulp-util');
@@ -78,11 +79,23 @@ plugins.rebase = function(outFolder, opt) {
   /* jshint ignore:start */
   defaultMode = 0777 & (~process.umask());
   /* jshint ignore:end */
+
+  if (_.isString(opt)) {
+    throw new util.PluginError(
+      'rebase', 'rebase got a string for opt parameter'
+    );
+  }
+
+  // console.log(JSON.stringify(opt));
   if (!opt) {
     opt = {};
   }
   if (!opt.cwd) {
     opt.cwd = process.cwd();
+// console.log('Current directory: ' + process.cwd());
+// opt.cwd = 'yo';
+//     console.log('opt.cwd ' + opt.cwd);
+// console.log('Current directory: ' + process.cwd());
   }
   if (typeof opt.mode === 'string') {
     opt.mode = parseInt(opt.mode, 8);

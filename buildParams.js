@@ -13,8 +13,13 @@ var defaultParams = {
     'ngSanitize',
     'hc.marked'
   ],
-  html5Mode: true
-
+  html5Mode: true,
+  seleniumPort: 4445,
+  // port will be appended
+  // if specified, will not attempt to (a) download/update selenium
+  // and (b) start selenium -- if seleniumUrl is present
+  // it must be running
+  // seleniumUrl: 'http://someserver.com:4567' //
 };
 
 var targetParams = {
@@ -39,6 +44,7 @@ var _ = require('lodash');
 
 // overlay target specific
 var params = {};
+_.merge(params, defaultParams);
 _.forEach(targetParams, function(targetParams, targetName) {
   params[targetName] = _.merge(
     _.clone(defaultParams),

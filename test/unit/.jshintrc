@@ -2,9 +2,14 @@
   "node": false,
   "browser": true,
   "globals": {
-    "_": false,
-    "global": false,
-    "angular": false
+    "describe": false,
+    "it": false,
+    "module": false,
+    "inject": false,
+    "beforeEach": false,
+    "before": false,
+    "sinon": false,
+    "_": false
   },
   "esnext": false,
   "expr": true,

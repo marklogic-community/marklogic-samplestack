@@ -2,7 +2,7 @@ describe('filters/point', function () {
   var sut;
 
   beforeEach(function () {
-    angular.mock.module('app');
+    module('app');
   });
 
   describe('toPointFilter', function () {

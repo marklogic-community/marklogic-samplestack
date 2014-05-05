@@ -22,6 +22,12 @@ var buildParams = require('../buildParams');
 // make it easier to get to plugins
 var $ = h.$;
 
+var buildDir = path.join(h.rootDir, h.targets.build);
+var unitDir = path.join(h.rootDir, h.targets.unit);
+var distDir = path.join(h.rootDir, h.targets.dist);
+var srcDir = path.join(h.rootDir, h.src);
+var unitSrcDir = path.join(h.rootDir, h.unitSrc);
+
 var bootstrapDir =
     'bower_components/bootstrap-sass-official/vendor/assets/stylesheets';
 
@@ -34,10 +40,10 @@ var amWatching = false;
 var activeServers;
 var rebuildOnNext = false;
 
-function refireWatchTask(servers) {
+function refireWatchTask (servers) {
   // $.util.log('[' + chalk.cyan('watch') + '] ' +
   //     chalk.yellow('initiating rebuild'));
-  activeServers.forEach(function(server) {
+  activeServers.forEach(function (server) {
     try {
       server.close();
     } catch (err) {}
@@ -46,14 +52,14 @@ function refireWatchTask(servers) {
   gulp.start('watch');
 }
 
-function refireWatchFunc() {
+function refireWatchFunc () {
   if (amWatching) {
     amWatching = false;
     $.util.log('[' + chalk.cyan('watch') + '] ' +
         chalk.yellow(
           'restarting watch'
         ));
-    activeServers.forEach(function(server) {
+    activeServers.forEach(function (server) {
       try {
         server.close();
       } catch (err) {}
@@ -63,12 +69,13 @@ function refireWatchFunc() {
   }
 }
 
-function trim(str) { return str.replace(/^\s+|\s+$/g, ''); }
-var plumberErrorHandler = function(err) {
+function trim (str) { return str.replace(/^\s+|\s+$/g, ''); }
+var plumberErrorHandler = function (err) {
   $.util.log(
-            $.util.colors.cyan('Plumber') +
-            chalk.red(' found unhandled error:\n\n') +
-            trim(err.toString()) + '\n');
+    $.util.colors.cyan('Plumber') +
+    chalk.red(' found unhandled error:\n\n') +
+    trim(err.toString()) + '\n'
+  );
   if (!rebuildOnNext) {
     rebuildOnNext = true; // rebuild after the next save
     $.util.log('[' + chalk.cyan('watch') + '] ' +
@@ -88,17 +95,18 @@ tasks
 // rimraf all of the target directories
 tasks.clean = {
   deps: [],
-  func: function() {
+  func: function () {
     return h.fs.src([
-      path.join(h.targets.build),
-      path.join(h.targets.unit),
-      path.join(h.targets.dist)
+      path.join(buildDir, '**/*'),
+      path.join(unitDir, '**/*'),
+      path.join(distDir, '**/*'),
+      '!**/*.md' // leave any markdown docs, they're there for a reason
     ], {read: false})
       .pipe($.rimraf());
   }
 };
 
-var bowerBuildStream = function(read) {
+var bowerBuildStream = function (read) {
   return $.bowerFiles({
     includeDev: false,
     // debugging: true,
@@ -107,7 +115,7 @@ var bowerBuildStream = function(read) {
   });
 };
 
-var bowerUnitStream = function(read) {
+var bowerUnitStream = function (read) {
   return $.bowerFiles({
     includeDev: true,
     // debugging: true,
@@ -123,18 +131,18 @@ var bowerUnitStream = function(read) {
 //
 tasks['bower-files'] = {
   deps: ['clean'],
-  func: function() {
+  func: function () {
     var stream1 = bowerBuildStream(true)
-      .pipe(h.fs.dest(path.join(h.targets.build, 'deps')));
+      .pipe(h.fs.dest(path.join(buildDir, 'deps')));
 
     var stream2 = bowerUnitStream(true)
-      .pipe(h.fs.dest(path.join(h.targets.unit, 'deps')));
+      .pipe(h.fs.dest(path.join(unitDir, 'deps')));
 
     return merge(stream1, stream2);
   }
 };
 
-var indexHtmlStream = function(stream, target) {
+var indexHtmlStream = function (stream, target) {
   var filt = $.filter(path.join(h.targets[target], 'index.html'));
   stream = stream.pipe(filt);
 
@@ -160,75 +168,145 @@ var indexHtmlStream = function(stream, target) {
 this is the main building
 function for builds and
 incremental watch buils
+
+stream should be the combination of sources from which we are based (from
+a path perspective) on their original location.
 **************************/
-var buildStream = function(src) {
-  // there are some things we can do before we diverge
+var buildStream = function (stream) {
+  var filt;
+  var targets;
+  var buildStream;
+  var unitStream;
 
   // protection from unhandled errors in plugins (ahem -- SASS!)
-  src = src.pipe($.plumber(plumberErrorHandler));
+  stream = stream.pipe($.plumber(plumberErrorHandler));
 
+  // there are some things we can do before we diverge
   /***************
-  JSHINT
+  JSHINT -- different rules for different sources
   ****************/
-  var filt = $.filter('**/*.js');
-  var srcDir = path.join(__dirname, '..', h.src);
-  src = src.pipe(filt)
+  // filt = $.filter(path.join(srcDir, '**/*.js'));
+  filt = $.filter('src/**/*.js');
+  stream = stream.pipe(filt)
     .pipe($.jshint(path.join(srcDir, '.jshintrc')))
     .pipe($.jshint.reporter('jshint-stylish'));
-  // jscs can't handle lodash templates, so wait
-  // .pipe($.jscs(path.join(srcDir, '.jscsrc')));
-  src = src.pipe(filt.restore());
+  stream = stream.pipe(filt.restore());
+
+  filt = $.filter('unit/**/*.js');
+  stream = stream.pipe(filt)
+    .pipe($.jshint(path.join(unitSrcDir, '.jshintrc')))
+    .pipe($.jshint.reporter('jshint-stylish'));
+  stream = stream.pipe(filt.restore());
+
+  // return stream.pipe($.filelog());
+
+  // jscs can't handle lodash templates, so wait for it
+
+
 
   /***************
   SASS
   ****************/
   var sassed = h.fs.src([path.join(h.src, '**/*.scss'), '!**/_*.scss']);
+  sassed = sassed.pipe($.rebase('src'));
   sassed = sassed.pipe($.sass({
     sourceComments: 'map',
     includePaths: [bootstrapDir]
   }));
-  src = merge(src, sassed);
+  stream = merge(stream, sassed);
+  // return stream.pipe($.debug());
+  // for later -- a dist-style SASS
   // filt = $.filter(['**/*.scss', '!**/_*.scss']);
   // src = src.pipe(filt);
   // src = src.pipe($.sass({
   //   sourceComments: 'map',
   //   includePaths: [bootstrapDir]
   // })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
+  //
 
-  var targets = $.branchClones({ src: src, targets: ['build', 'unit']});
-  var build = targets['build'].pipe($.rebase(h.targets.build))
+
+
+  // now we need to diverge our handling
+  //
+  // the src dir is applicable to build and unit, so we need to get it cloned
+  // the first step is to isolate these files
+
+  filt = $.filter('src/**/*');
+  var srcFiles = stream.pipe($.filter('src/**/*'));
+  // when we restore from filt it will bring back the non-src file.
+  // but now we're going to branch clone the src files
+
+  targets = $.branchClones({
+    src: srcFiles,
+    targets: ['build', 'unit']
+  });
+
+
+  buildStream = targets['build'];
+  // build stream is the easy part
+  buildStream = buildStream.pipe($.rename(
+    function (filepath) {
+      filepath.dirname = filepath.dirname.replace(/^src[\/]?/, '');
+    }
+  ));
+  buildStream = buildStream
+    .pipe($.rebase(h.targets.build))
     .pipe($.plumber(plumberErrorHandler));
-  var unit = targets['unit'].pipe($.rebase(h.targets.unit))
+
+
+  unitStream = targets['unit'];
+
+  //might as well drop things that we won't be using
+
+  unitStream = unitStream.pipe($.rename(
+    function (filepath) {
+      filepath.dirname = filepath.dirname.replace(/^src[\/]?/, '');
+    }
+  ));
+  // unit stream needs to be reassembled
+  var unitFiles = stream.pipe($.filter('unit/**/*'));
+  unitFiles = unitFiles.pipe($.rename(
+    function (filepath) {
+      filepath.dirname = filepath.dirname.replace(/^unit[\/]?/, '');
+    }
+  ));
+
+  // return stream.pipe($.filelog());
+  // var filesFromUnit = stream.pipe(filt.restore());
+  // for the unit stream, first get everyone in the same place (move the
+  // filesFromUnit = filesFromUnit.pipe($.rebase(h.src));
+  unitStream = merge(
+    unitStream,
+    unitFiles
+  );
+  unitStream = unitStream.pipe($.filter(['!index.html', '!styles/**/*', '!images/**/*']));
+  unitStream = unitStream.pipe($.rebase(h.targets.unit))
     .pipe($.plumber(plumberErrorHandler));
-  // var dist = targets['dist'].pipe($.rebase(h.targets.dist));
+
 
   /****************
   TEMPLATE
   *****************/
   buildParams.build.appComponents =
       globule.find(
-        ['app/**/*.js', '!**/*.unit.js'],
+        ['app/**/*.js'],
         { cwd: path.join(__dirname, '..', h.src, '/')}
       );
   buildParams.unit.appComponents =
-      globule.find(
-        ['app/**/*.js', '!**/*.unit.js'],
-        { cwd: path.join(__dirname, '..', h.src, '/')}
-      )
+      buildParams.build.appComponents
           .concat(
             globule.find(
               ['app/**/*.unit.js'],
-              { cwd: path.join(__dirname, '..', h.src, '/')}
+              { cwd: path.join(__dirname, '..', h.unitSrc, '/')}
             )
           );
 
-  // buildParams =
   filt = $.filter(['**/*.html', '**/*.js']);
-  build = build.pipe(filt)
+  buildStream = buildStream.pipe(filt)
     .pipe($.template(buildParams.build))
     .pipe(filt.restore());
   filt = $.filter(['**/*.html', '**/*.js']);
-  unit = unit.pipe(filt)
+  unitStream = unitStream.pipe(filt)
     .pipe($.template(buildParams.unit))
     .pipe(filt.restore());
   // filt = $.filter(['**/*.html', '**/*.js']);
@@ -237,26 +315,30 @@ var buildStream = function(src) {
   //   .pipe(templateFilt.restore());
 
   /***************
-  JSCS -- just run it on build since we've branched
+  JSCS
   ****************/
   filt = $.filter('**/*.js');
-  srcDir = path.join(__dirname, '..', h.src);
-  build = build.pipe(filt)
-    .pipe($.jscs(path.join(srcDir, '.jscsrc')));
-  build = build.pipe(filt.restore());
+  buildStream = buildStream.pipe(filt)
+    .pipe($.jscs(path.join(h.rootDir, '.jscsrc')));
+  buildStream = buildStream.pipe(filt.restore());
+  filt = $.filter('**/*.js');
+  unitStream = unitStream.pipe(filt)
+    .pipe($.jscs(path.join(h.rootDir, '.jscsrc')));
+  unitStream = unitStream.pipe(filt.restore());
 
-  build = indexHtmlStream(build, 'build');
-  unit = indexHtmlStream(unit, 'unit');
 
-  var out = merge(build, unit);
+  buildStream = indexHtmlStream(buildStream, 'build');
+  unitStream = indexHtmlStream(unitStream, 'unit');
+
+  var out = merge(buildStream, unitStream);
 
   out
     .on('error', $.util.log)
     .on('error', $.util.beep);
 
-  out = out.pipe(h.fs.dest('.'));
+  out = out.pipe(h.fs.dest('builds'));
 
-  // out.on('error', function(err) {
+  // out.on('error', function (err) {
   //   $.util.log('caught error' + err);
   // });
 
@@ -266,20 +348,29 @@ var buildStream = function(src) {
 
 tasks.build = {
   deps: ['clean', 'bower-files'],
-  func: function() {
+  func: function () {
     var src = h.fs.src(path.join(h.src, '**/*'));
+    src = src.pipe($.rebase('src'));
+    var unit = h.fs.src(path.join(h.unitSrc, '**/*'));
+    unit = unit.pipe($.rebase('unit'));
+    // unit = unit.pipe($.rebase(h.src));
 
-    return buildStream(src);
+    var srcs = merge(src, unit);
+
+    return buildStream(srcs);
   }
 };
 
 // var buildServer;
-function startServer(path, port) {
+function startServer (path, port) {
   var connect = require('connect');
   var server = connect()
-    .use(require('connect-modrewrite')(
+    .use(
+      require('connect-modrewrite')(
       // if lacking a dot, redirect to index.html
-      ['!\\. /index.html [L]']))
+        ['!\\. /index.html [L]']
+      )
+    )
     .use(connect.static(path, {redirect: false}))
     .listen(port, '0.0.0.0');
   return server;
@@ -288,7 +379,7 @@ function startServer(path, port) {
 tasks['unit'] = {
   deps: ['build'],
   // deps: [],
-  func: function(cb) {
+  func: function (cb) {
     var tempServer = startServer(h.targets.unit, 3001);
     if (!activeServers) {
       activeServers = [];
@@ -296,16 +387,19 @@ tasks['unit'] = {
     activeServers.push(tempServer);
     h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
     .pipe($.mochaPhantomjs({reporter: 'dot'}))
-    .on('error', function(){})
-    .pipe($.util.buffer(
-        function(err, files) {
+    .on('error', function () {})
+    .pipe(
+      $.util.buffer(
+        function (err, files) {
           tempServer.close();
           cb();
-        }));
+        }
+      )
+    );
   }
 };
 
-function writeWatchMenu() {
+function writeWatchMenu () {
   $.util.log('[' + chalk.cyan('watch') + '] ' +
       'watching for changes to the ' + chalk.magenta(h.src) + ' directory.');
   $.util.log('[' + chalk.cyan('watch') + '] ' +
@@ -318,7 +412,7 @@ function writeWatchMenu() {
 
 tasks['run'] = {
   deps: ['build'],
-  func: function(cb) {
+  func: function (cb) {
     activeServers = [];
     activeServers.push(startServer(h.targets.build, 3000));
     activeServers.push(startServer(h.targets.unit, 3001));
@@ -334,7 +428,7 @@ tasks['run'] = {
 
 tasks['watch'] = {
   deps: ['build', 'unit'],
-  func: function(cb) {
+  func: function (cb) {
     activeServers = [];
     activeServers.push(startServer(h.targets.build, 3000));
     activeServers.push(startServer(h.targets.unit, 3001));
@@ -346,8 +440,8 @@ tasks['watch'] = {
       emitOnGlob: false,
       emit: 'one',
       silent: true
-    }, function(file, gulpWatchCb) {
-      file.pipe($.util.buffer(function(err, files) {
+    }, function (file, gulpWatchCb) {
+      file.pipe($.util.buffer(function (err, files) {
 
         var relpath = path.relative(
           path.join(__dirname, '../src'), files[0].path
@@ -369,13 +463,13 @@ tasks['watch'] = {
           files = readArray(files);
 
           var out = buildStream(files).pipe(
-            $.util.buffer(function(err, files) {
+            $.util.buffer(function (err, files) {
               if(!rebuildOnNext) {
                 h.fs.src(path.join(h.targets.unit, 'unit-runner.html'))
                 .pipe($.mochaPhantomjs())
-                .on('error', function(){})
+                .on('error', function (){})
                 .pipe($.util.buffer(
-                    function(err, files) {
+                    function (err, files) {
                       writeWatchMenu();
                       gulpWatchCb();
                     }
@@ -395,7 +489,7 @@ tasks['watch'] = {
     var port = 35729;
     var tinylr = require('tiny-lr-fork');
     var buildLr = new tinylr.Server();
-    buildLr.listen(port, function() {
+    buildLr.listen(port, function () {
       watcher = $.watch({
         glob: path.join(h.targets.build, '**/*'),
         name: 'reload-watch',
@@ -403,7 +497,7 @@ tasks['watch'] = {
         emit: 'one',
         silent: true
       })
-      .on('data', function(file) {
+      .on('data', function (file) {
         file.base = path.resolve('./build');
         buildLr.changed({body: { files: [file.relative]}});
         return file;

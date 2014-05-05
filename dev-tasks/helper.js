@@ -50,17 +50,21 @@ var ignoreIncoming = function(outgoingStream) {
  */
 helper.buildParams = require('../buildParams');
 // TODO -- absoluteize these?
+//
+
+helper.rootDir = path.resolve(__dirname, '..');
 helper.src = 'src';
+helper.unitSrc = 'test/unit';
 /**
  * specific directories to which to write
  * @type {Object}
  */
 helper.targets = {
-  build: 'build',
-  unit: 'unit',
-  e2e: 'e2e',
-  docs: 'docs',
-  dist: 'dist'
+  build: 'builds/main',
+  unit: 'builds/unit',
+  e2e: 'builds/e2e',
+  docs: 'builds/docs',
+  dist: 'builds/dist'
 };
 
 

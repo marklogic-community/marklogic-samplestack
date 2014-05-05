@@ -36,7 +36,7 @@
       rest.docs.get().then(function (data) {
         $scope.docs = data;
       }, function (err) {
-        console.log(JSON.stringify(err, null, ' '));
+        throw new Error(JSON.stringify(err));
       });
 
       $scope.wordCount = function (doc) {
@@ -63,7 +63,7 @@
         rest.docs.post(doc).then(function (data) {
           $scope.docs.push(doc);
         }, function (err) {
-          console.log(JSON.stringify(err, null, ' '));
+          throw new Error(JSON.stringify(err));
         });
       };
 
@@ -72,7 +72,7 @@
         rest.docs.put(doc).then(function (data) {
           //noop
         }, function (err) {
-          console.log(JSON.stringify(err, null, ' '));
+          throw new Error(JSON.stringify(err));
         });
       };
 
@@ -85,12 +85,12 @@
                 $scope.docs = data;
               },
               function (err) {
-                console.log(JSON.stringify(err, null, ' '));
+                throw new Error(JSON.stringify(err));
               }
             );
           },
           function (err) {
-            console.log(JSON.stringify(err, null, ' '));
+            throw new Error(JSON.stringify(err));
           }
         );
       };

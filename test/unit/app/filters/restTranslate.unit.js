@@ -18,7 +18,7 @@ describe('filters/restTranslate', function () {
   };
 
   beforeEach(function () {
-    angular.mock.module('app');
+    module('app');
   });
 
   describe('toServerFilter', function () {

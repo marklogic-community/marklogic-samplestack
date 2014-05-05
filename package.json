@@ -47,7 +47,8 @@
     "gulp-if": "~1.1.0",
     "gulp-bower-files": "^0.2.2",
     "gulp-inject": "^0.4.1",
-    "globule": "^0.2.0"
+    "globule": "^0.2.0",
+    "gulp-rename": "^1.2.0"
   },
   "dependencies": {}
 }
