@@ -6,15 +6,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
@@ -22,31 +17,13 @@ import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.sampleStack.SampleStackException;
 import com.marklogic.sampleStack.domain.Foo;
 import com.marklogic.sampleStack.service.FooDataService;
-import com.marklogic.sampleStack.service.MarkLogicOperations;
 import com.marklogic.sampleStack.service.SampleStackNotFoundException;
 
 @Component
-public class FooDataServiceImpl implements FooDataService {
+public class FooDataServiceImpl extends AbstractMarkLogicDataService implements FooDataService {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(FooDataServiceImpl.class);
-
-	@Autowired
-	private MarkLogicOperations operations;
-	
-	@Autowired
-	private DatabaseClient client;
-	
-	@Autowired
-	private JSONDocumentManager jsonDocumentManager;
-	
-	@Bean 
-	private JSONDocumentManager jsonDocumentManager() {
-		return client.newJSONDocumentManager();
-	};
-	
-	@Autowired
-	private ObjectMapper mapper;
 
 	@Override
 	public Foo getFoo(Long id) {

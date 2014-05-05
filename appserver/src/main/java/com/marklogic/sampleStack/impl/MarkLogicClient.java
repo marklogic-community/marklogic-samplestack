@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
 import com.marklogic.client.io.SearchHandle;
@@ -111,5 +112,9 @@ public class MarkLogicClient implements MarkLogicOperations {
 		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
 		deleteDef.setDirectory(directory);
 		queryManager.delete(deleteDef);
+	}
+	
+	public JSONDocumentManager newJSONDocumentManager() {
+		return client.newJSONDocumentManager();
 	}
 }

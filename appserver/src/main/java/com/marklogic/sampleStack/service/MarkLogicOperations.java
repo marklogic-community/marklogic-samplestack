@@ -2,6 +2,7 @@ package com.marklogic.sampleStack.service;
 
 import java.util.List;
 
+import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.SearchHandle;
 
 public interface MarkLogicOperations {
@@ -16,5 +17,7 @@ public interface MarkLogicOperations {
 	public SearchHandle searchDirectory(String directory, String queryString);
 
 	public void deleteDirectory(String string);
+
+	public JSONDocumentManager newJSONDocumentManager();
 	
 }
