@@ -21,6 +21,9 @@ public class MarkLogicRESTTask extends MarkLogicTask {
         def extensionsDirectory = new File(extensions)
         extensionsDirectory.listFiles().each { putExtension(it) }
 
+        def restExtensionsDirectory = new File(restExtensions)
+        restExtensionsDirectory.listFiles().each { putRESTExtension(it) }
+
         configureProperties()
         println "Done"
     }
@@ -50,6 +53,20 @@ public class MarkLogicRESTTask extends MarkLogicTask {
             extensionFileName.replaceAll(~".*\\/","")
         println "Saving extension " + extensionFileName
         RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/ext/" + extensionName)
+        client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
+        client.auth.basic project.restAdminUser, project.restAdminPassword
+        def params = [:]
+        params.contentType = "application/xquery"
+        params.body = extension.text
+        put(client,params)
+    }
+
+    void putRESTExtension(extension) {
+        def extensionFileName = extension.getPath().replaceAll(~"\\\\","/")
+        def extensionName = 
+            extensionFileName.replaceAll(~".*\\/","")
+        println "Saving extension " + extensionFileName
+        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/config/resources/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
         client.auth.basic project.restAdminUser, project.restAdminPassword
         def params = [:]
