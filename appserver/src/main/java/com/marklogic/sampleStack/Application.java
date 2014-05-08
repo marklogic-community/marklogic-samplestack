@@ -21,7 +21,6 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.sampleStack.domain.DocumentTag;
 import com.marklogic.sampleStack.impl.CustomObjectMapper;
-import com.marklogic.sampleStack.service.TestResourceManager;
 
 @Configuration
 @ComponentScan
@@ -33,13 +32,13 @@ public class Application {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
 	public enum ClientRole {
-		ADMIN, REST_ADMIN, SAMPLESTACK_CONTRIBUTOR, REST_READER;
+		ADMIN, REST_ADMIN, SAMPLESTACK_CONTRIBUTOR, SAMPLESTACK_ANONYMOUS;
 		private String getPrefix() {
 			switch(this) {
 	    	case ADMIN: return "admin"; 
 	    	case REST_ADMIN: return "restAdmin"; 
 	    	case SAMPLESTACK_CONTRIBUTOR: return "samplestackContributor"; 
-	    	case REST_READER: return "restReader";
+	    	case SAMPLESTACK_ANONYMOUS: return "samplestackAnonymous";
 	    	default: throw new SampleStackSecurityException();
 			}
 		}
@@ -56,7 +55,8 @@ public class Application {
 	
 	@Bean
 	public DatabaseClient databaseClient() {
-		return databaseClient(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		//FIXME move to contributor
+		return databaseClient(ClientRole.REST_ADMIN);
 	}
 	
 	private DatabaseClient databaseClient(ClientRole role) {
@@ -65,7 +65,7 @@ public class Application {
 		String username = env.getProperty(role.getUserParam());
 		String password = env.getProperty(role.getPasswordParam());
 		return DatabaseClientFactory.newClient(host, port, username, password,
-				Authentication.BASIC);
+				Authentication.DIGEST);
 	}
 	
 	@Bean
