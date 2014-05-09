@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.sampleStack.Application;
 import com.marklogic.sampleStack.Utils;
-import com.marklogic.sampleStack.domain.ApplicationUser;
+import com.marklogic.sampleStack.domain.Contributor;
 import com.marklogic.sampleStack.domain.QuestionAndAnswerResults;
 import com.marklogic.sampleStack.domain.QuestionAndAnswers;
 import com.marklogic.sampleStack.domain.QuestionAndAnswers.Answer;
@@ -53,13 +53,13 @@ public class QuestionAndAnswerServiceTest {
 	@Test
 	@Ignore
 	public void testAskAndAnswer() {
-		ApplicationUser joeUser = Utils.getBasicUser();
+		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
-		joeUser.setAccountId("1");
+		joeUser.setId("1");
 
-		ApplicationUser maryUser = Utils.getBasicUser();
+		Contributor maryUser = Utils.getBasicUser();
 		maryUser.setDisplayName("maryUser");
-		maryUser.setAccountId("2");
+		maryUser.setId("2");
 		
 
 		// check for existing answers with a naive question

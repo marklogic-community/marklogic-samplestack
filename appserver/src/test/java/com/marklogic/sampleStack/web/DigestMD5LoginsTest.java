@@ -7,7 +7,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
+import javax.naming.directory.DirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
@@ -33,7 +33,7 @@ import com.marklogic.sampleStack.Application;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
-public class LoginsTest {
+public class DigestMD5LoginsTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -52,7 +52,7 @@ public class LoginsTest {
 	@Before
 	public void setup() throws NamingException {
 		env = new Hashtable<String, Object>();
-		env.put(Context.SECURITY_AUTHENTICATION, "simple");
+		env.put(Context.SECURITY_AUTHENTICATION, "DIGEST-MD5");
 		if (ldapUsername != null) {
 			env.put(Context.SECURITY_PRINCIPAL, ldapUsername);
 		}
@@ -69,14 +69,8 @@ public class LoginsTest {
 
 		// the following is helpful in debugging errors
 		env.put("com.sun.jndi.ldap.trace.ber", System.err);
-		
 
 		ctx = new InitialLdapContext(env, null);
-
-		// Read supportedSASLMechanisms from root DSE
-		Attributes attrs = ctx.getAttributes(
-		    ldapServer, new String[]{"supportedSASLMechanisms"});
-		logger.info("LDAP Embedded Server Supported SASL Mechanisms: " + attrs);
 
 	}
 

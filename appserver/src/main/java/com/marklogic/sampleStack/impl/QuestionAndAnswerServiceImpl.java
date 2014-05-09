@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.marklogic.sampleStack.domain.ApplicationUser;
+import com.marklogic.sampleStack.domain.Contributor;
 import com.marklogic.sampleStack.domain.QuestionAndAnswerResults;
 import com.marklogic.sampleStack.domain.QuestionAndAnswers;
 import com.marklogic.sampleStack.service.MarkLogicOperations;
@@ -26,13 +26,13 @@ public class QuestionAndAnswerServiceImpl implements QuestionAndAnswerService {
 	}
 
 	@Override
-	public QuestionAndAnswers ask(ApplicationUser user, String question) {
+	public QuestionAndAnswers ask(Contributor user, String question) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public QuestionAndAnswers answer(ApplicationUser user,
+	public QuestionAndAnswers answer(Contributor user,
 			QuestionAndAnswers toAnswer, String string) {
 		// TODO Auto-generated method stub
 		return null;

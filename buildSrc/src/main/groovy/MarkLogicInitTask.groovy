@@ -9,6 +9,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
 
     def roles = "database/security/roles"
     def users = "database/security/users"
+    def privileges = "database/security/privileges"
 
     @TaskAction
     void initMarkLogic() {
@@ -79,19 +80,30 @@ public class MarkLogicInitTask extends MarkLogicTask {
         create("roles", jsonRole)
     }
 
+    void assignPrivileges(jsonRole) {
+        def privilegeName = jsonRole.name.replaceAll(~".json","")
+        try {
+            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/privileges/" + privilegeName + "/properties")
+            client.headers."accept" = "application/json"
+            client.auth.basic project.adminUser, project.adminPassword
+        
+            def params = [:]
+            params.contentType = "application/json"
+            params.body = jsonRole.text
+            client.put(params)
+        } catch (ex) {
+            println "Error creating security object.  Privilege name: " + privilegeName + ". Payload: "+jsonRole.text+" .  Skipping..."
+        }
+
+    }
+
     void createUsers() {
         def rolesDirectory = new File(roles)
         rolesDirectory.listFiles().each { createRole(it) }
+        def privilegesDirectory = new File(privileges)
+        privilegesDirectory.listFiles().each { assignPrivileges(it) }
         def usersDirectory = new File(users)
         usersDirectory.listFiles().each { createUser(it) }
-        // createUser("restAdmin", "rest-admin")
-        //createUser("restWriter", "rest-writer")
-        //createUser("restReader", "rest-reader")
-
-        //ldap users are external
-        //createUser("samplestackAnonymous", "rest-reader")
-        //createUser("samplestackContributor", "rest-writer")
-        //createUser("samplestackContributor", "rest-writer")
     }
 
     void restBoot() {

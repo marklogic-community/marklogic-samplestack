@@ -37,7 +37,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder authManagerBuilder)
 			throws Exception {
 		authManagerBuilder.ldapAuthentication()
-				.userDnPatterns("uid={0},ou=people")
+				.userDnPatterns("uid={0},ou=people", "uid={0},ou=apps")
 				.groupSearchBase("ou=groups").contextSource()
 				.ldif("classpath:test-server.ldif")
 				.root("dc=samplestack,dc=org")
