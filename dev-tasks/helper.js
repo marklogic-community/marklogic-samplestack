@@ -54,16 +54,14 @@ helper.buildParams = require('../buildParams');
 
 helper.rootDir = path.resolve(__dirname, '..');
 helper.src = 'src';
-helper.unitSrc = 'test/unit';
+helper.unitSrc = 'test/unit-tests';
 /**
  * specific directories to which to write
  * @type {Object}
  */
 helper.targets = {
-  build: 'builds/main',
-  unit: 'builds/unit',
-  e2e: 'builds/e2e',
-  docs: 'builds/docs',
+  build: 'builds/built',
+  unit: 'builds/unit-tester',
   dist: 'builds/dist'
 };
 

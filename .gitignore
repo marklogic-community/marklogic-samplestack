@@ -1,6 +1,4 @@
 bower_components
 node_modules
-builds/main/*
-!builds/main/README.md
-builds/unit/*
-!builds/unit/README.md
+builds/*
+!builds/README.md

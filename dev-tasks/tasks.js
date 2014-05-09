@@ -164,6 +164,20 @@ var indexHtmlStream = function (stream, target) {
 
 };
 
+function organizeBuildStream (stream) {
+  stream = stream.pipe($.if(
+    ['**/src/**'],
+    $.rebase('src')
+  ));
+  stream = stream.pipe($.if(
+    ['**/test/unit-tests/**'],
+    $.rebase('unit')
+  ));
+
+  return stream;
+}
+
+
 /*************************
 this is the main building
 function for builds and
@@ -204,28 +218,6 @@ var buildStream = function (stream) {
 
 
 
-  /***************
-  SASS
-  ****************/
-  var sassed = h.fs.src([path.join(h.src, '**/*.scss'), '!**/_*.scss']);
-  sassed = sassed.pipe($.rebase('src'));
-  sassed = sassed.pipe($.sass({
-    sourceComments: 'map',
-    includePaths: [bootstrapDir]
-  }));
-  stream = merge(stream, sassed);
-  // return stream.pipe($.debug());
-  // for later -- a dist-style SASS
-  // filt = $.filter(['**/*.scss', '!**/_*.scss']);
-  // src = src.pipe(filt);
-  // src = src.pipe($.sass({
-  //   sourceComments: 'map',
-  //   includePaths: [bootstrapDir]
-  // })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
-  //
-
-
-
   // now we need to diverge our handling
   //
   // the src dir is applicable to build and unit, so we need to get it cloned
@@ -243,6 +235,24 @@ var buildStream = function (stream) {
 
 
   buildStream = targets['build'];
+
+  /***************
+  SASS
+  ****************/
+  // befoe we rename, do sass because it's incapable of using the in memory
+  // files, thus needs the original path
+  filt = $.filter('**/*.scss');
+  buildStream = buildStream.pipe(filt)
+    .pipe($.sass({
+      sourceComments: 'map',
+      includePaths: [bootstrapDir]
+    }));
+  buildStream = buildStream.pipe(filt.restore());
+  buildStream = buildStream
+    .pipe(
+      $.ignore.exclude(['styles/**/*', '!styles/**/*.css'])
+    );
+
   // build stream is the easy part
   buildStream = buildStream.pipe($.rename(
     function (filepath) {
@@ -254,6 +264,9 @@ var buildStream = function (stream) {
     .pipe($.plumber(plumberErrorHandler));
 
 
+  /***********************
+  UNIT STREAM break out.  TODO: factor this out
+  ************************/
   unitStream = targets['unit'];
 
   //might as well drop things that we won't be using
@@ -279,9 +292,34 @@ var buildStream = function (stream) {
     unitStream,
     unitFiles
   );
-  unitStream = unitStream.pipe($.filter(['!index.html', '!styles/**/*', '!images/**/*']));
+  unitStream = unitStream.pipe($.filter(['!index.html', '!run.js']));
   unitStream = unitStream.pipe($.rebase(h.targets.unit))
     .pipe($.plumber(plumberErrorHandler));
+
+  // var sassed = h.fs.src([path.join(h.src, '**/*.scss'), '!_*.scss']);
+  // sassed = sassed.pipe($.sass({
+  //   sourceComments: 'map',
+  //   includePaths: [bootstrapDir]
+  // }));
+  // sassed = sassed.pipe($.rebase(h.targets.build));
+
+  // buildStream = buildStream.pipe($.filter(['!styles/']));
+  unitStream = unitStream
+    .pipe(
+      $.ignore.exclude(['**/*.scss', '**/*.png'])
+    );
+
+  // buildStream = merge(buildStream, sassed);
+
+
+  // for later -- a dist-style SASS
+  // filt = $.filter(['**/*.scss', '!**/_*.scss']);
+  // src = src.pipe(filt);
+  // src = src.pipe($.sass({
+  //   sourceComments: 'map',
+  //   includePaths: [bootstrapDir]
+  // })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
+  //
 
 
   /****************
@@ -336,6 +374,11 @@ var buildStream = function (stream) {
     .on('error', $.util.log)
     .on('error', $.util.beep);
 
+  // deadweight directories will not be written
+  out = out.pipe(
+    $.ignore.exclude({ isDirectory: true })
+  );
+
   out = out.pipe(h.fs.dest('builds'));
 
   // out.on('error', function (err) {
@@ -349,13 +392,12 @@ var buildStream = function (stream) {
 tasks.build = {
   deps: ['clean', 'bower-files'],
   func: function () {
-    var src = h.fs.src(path.join(h.src, '**/*'));
-    src = src.pipe($.rebase('src'));
-    var unit = h.fs.src(path.join(h.unitSrc, '**/*'));
-    unit = unit.pipe($.rebase('unit'));
-    // unit = unit.pipe($.rebase(h.src));
+    var srcs = h.fs.src([
+      path.join(h.src, '**/*'),
+      path.join(h.unitSrc, '**/*'),
+    ]);
 
-    var srcs = merge(src, unit);
+    srcs = organizeBuildStream(srcs);
 
     return buildStream(srcs);
   }
@@ -435,7 +477,7 @@ tasks['watch'] = {
     amWatching = true;
 
     var watcher = $.watch({
-      glob: path.join(h.src, '**/*'),
+      glob: [path.join(h.src, '**/*'), path.join(h.unitSrc, '**/*')],
       name: 'watch',
       emitOnGlob: false,
       emit: 'one',
@@ -461,6 +503,8 @@ tasks['watch'] = {
         }
         else {
           files = readArray(files);
+
+          files = organizeBuildStream(files);
 
           var out = buildStream(files).pipe(
             $.util.buffer(function (err, files) {
