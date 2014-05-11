@@ -212,19 +212,6 @@ var buildStream = function (stream) {
     .pipe($.jshint.reporter('jshint-stylish'));
   stream = stream.pipe(filt.restore());
 
-
-
-  /***************
-  BROWSERIFY -- use node modules in the browser
-  ****************/
-  filt = $.filter('**/*.browserify.*');
-  var browserified = stream
-    .pipe(filt)
-    .pipe($.browserify({}));
-  // doing the merge this way seems to prevent gulp-sass from
-  // disappearing the brow2serified file. browserify stream wierdness?
-  stream = merge(stream, browserified);
-
   // now we need to diverge our handling
   //
   // the src dir is applicable to build and unit, so we need to get it cloned
@@ -329,6 +316,18 @@ var buildStream = function (stream) {
   // })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
   //
 
+  /***************
+  BROWSERIFY -- use node modules in the browser.
+  running this on each branch because it otherwise behaves flakily
+  ****************/
+  filt = $.filter('**/*.browserify.*');
+  buildStream = buildStream.pipe(filt)
+    .pipe($.browserify({}));
+  buildStream = buildStream.pipe(filt.restore());
+  filt = $.filter('**/*.browserify.*');
+  unitStream = unitStream.pipe(filt)
+    .pipe($.browserify({}));
+  unitStream = unitStream.pipe(filt.restore());
 
   /****************
   TEMPLATE
