@@ -1,4 +1,4 @@
-describe('filters/point', function () {
+describe('app/filters/point', function () {
   var sut;
 
   beforeEach(function () {

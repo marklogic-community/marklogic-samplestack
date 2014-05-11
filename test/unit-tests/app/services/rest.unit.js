@@ -1,4 +1,4 @@
-describe('services/rest', function () {
+describe('app/services/rest', function () {
   describe('docs', function () {
     var $httpBackend;
     var baseUrl = '<%= restUrl %>';

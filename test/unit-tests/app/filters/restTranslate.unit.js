@@ -1,4 +1,4 @@
-describe('filters/restTranslate', function () {
+describe('app/filters/restTranslate', function () {
   var sut;
 
   var ourStyle = {
