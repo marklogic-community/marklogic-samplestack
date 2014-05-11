@@ -23,7 +23,8 @@
     "spin.js": "~2.0.0",
     "angular-marked": "~0.0.11",
     "momentjs": "~2.6.0",
-    "marked": "~0.3.2"
+    "marked": "~0.3.2",
+    "ng-prettyjson": "*"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
@@ -68,6 +69,12 @@
     "sinon-chai": {
       "main": [
         "lib/sinon-chai.js"
+      ]
+    },
+    "ng-prettyjson": {
+      "main": [
+        "src/ng-prettyjson.js",
+        "src/ng-prettyjson.css"
       ]
     }
   }

@@ -5,6 +5,8 @@
     'ui.router.stateHelper',
     'ui.bootstrap',
     'hc.marked',
+    'ngPrettyJson',
+    'marklogic.dctv.json-scope',
     'marklogic.svc.schema'
   ]);
 
