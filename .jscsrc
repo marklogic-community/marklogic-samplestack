@@ -68,5 +68,6 @@
     "checkParamNames": true,
     "checkRedundantParams": true,
     "requireParamTypes": true
-  }
+  },
+  "maximumLineLength": 1000
 }
