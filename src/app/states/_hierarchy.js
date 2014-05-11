@@ -18,13 +18,17 @@
   layout.children = [
 
     {
-      name: 'home',
-      url: '/'
+      name: 'search',
+      url: '/' // there will be a bunch of URL parameters possible
     },
     {
       name: 'fourOhFour',
       url: '/404',
-    }
+    },
+    {
+      name: 'speeches',
+      url: '/speeches' // there will be a bunch of URL parameters possible
+    },
 
   ];
 

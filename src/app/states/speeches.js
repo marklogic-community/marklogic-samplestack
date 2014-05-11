@@ -1,6 +1,6 @@
 (function (undefined) {
 
-  this.app.controller('homeCtlr', [
+  this.app.controller('speechesCtlr', [
 
     '$scope', 'rest', 'speechDialog',
     function ($scope, rest, speechDialog) {

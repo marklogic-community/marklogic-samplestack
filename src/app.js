@@ -8,6 +8,8 @@
     'ngPrettyJson',
     'marklogic.svc.waiter',
     'marklogic.dctv.json-scope',
+    'ui.codemirror',
+    'marklogic.dctv.search',
     'marklogic.svc.schema'
   ]);
 
