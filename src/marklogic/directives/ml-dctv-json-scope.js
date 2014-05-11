@@ -7,7 +7,7 @@
     ]
   );
 
-  var template = '<div class="ml-json-scope" ';
+  var template = '<div class="ml-json-scope"> ';
   template += '<pre ';
   template += 'pretty-json="parentScope"> ';
   template += '</pre>';
@@ -37,7 +37,7 @@
 
       function () {
         return {
-          restrict: 'EAC',
+          restrict: 'EA',
           scope: {},
           link: link,
           template: template,
