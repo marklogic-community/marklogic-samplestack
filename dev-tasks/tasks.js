@@ -325,19 +325,25 @@ var buildStream = function (stream) {
   /****************
   TEMPLATE
   *****************/
+
+  buildParams.build.mlComponents =
+      globule.find(
+        ['marklogic/**/*.js'],
+        { cwd: path.join(__dirname, '..', h.src, '/')}
+      );
+  buildParams.unit.mlComponents = buildParams.build.mlComponents;
   buildParams.build.appComponents =
       globule.find(
         ['app/**/*.js'],
         { cwd: path.join(__dirname, '..', h.src, '/')}
       );
-  buildParams.unit.appComponents =
-      buildParams.build.appComponents
-          .concat(
-            globule.find(
-              ['app/**/*.unit.js'],
-              { cwd: path.join(__dirname, '..', h.unitSrc, '/')}
-            )
-          );
+  buildParams.unit.appComponents = buildParams.build.appComponents;
+  buildParams.unit.unitComponents =
+      globule.find(
+        ['**/*.unit.js'],
+        { cwd: path.join(__dirname, '..', h.unitSrc, '/')}
+      );
+  buildParams.unit.unitComponents.unshift('testHelper.js');
 
   filt = $.filter(['**/*.html', '**/*.js']);
   buildStream = buildStream.pipe(filt)

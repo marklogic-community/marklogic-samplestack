@@ -80,12 +80,19 @@
       <script src="init.js"></script>
 <!-- inject:main:js -->
 
+<% _.forEach(mlComponents, function(component) { %>
+        <script src="<%- component %>"></script>
+<% }); %>
+
       <script src="app.js"></script>
 
 <% _.forEach(appComponents, function(component) { %>
         <script src="<%- component %>"></script>
 <% }); %>
 
+<% _.forEach(unitComponents, function(component) { %>
+        <script src="<%- component %>"></script>
+<% }); %>
 
       <script>
         var myMocha = window.mochaPhantomJS ? window.mochaPhantomJS : mocha;
