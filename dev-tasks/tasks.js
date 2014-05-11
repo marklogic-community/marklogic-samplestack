@@ -250,6 +250,7 @@ var buildStream = function (stream) {
   // files, thus needs the original path
   filt = $.filter('**/*.scss');
   buildStream = buildStream.pipe(filt)
+    .pipe(h.fs.src(path.join(srcDir, '**/*.scss')))
     .pipe($.sass({
       sourceComments: 'map',
       includePaths: [bootstrapDir]
