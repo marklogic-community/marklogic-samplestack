@@ -36,8 +36,8 @@ $.marklogic = require('./gulp-marklogic');
  */
 helper.$ = $;
 
-var ignoreIncoming = function(outgoingStream) {
-  var incomingStream = map(function(data, callback) {
+var ignoreIncoming = function (outgoingStream) {
+  var incomingStream = map(function (data, callback) {
     callback();
   });
   // the incoming stream is not connected to the outgoing stream
@@ -77,17 +77,17 @@ var defaultFsOpts = { cwd: path.resolve(__dirname, '..') };
  * @type {Object}
  */
 helper.fs = {
-  src: function(globs, opt) {
+  src: function (globs, opt) {
     return ignoreIncoming(hidevfs.src(globs, _.defaults(opt, defaultFsOpts)));
         // .pipe(plumber(function(err) {
         //   console.log('ERR! TODO: fix this message');
         //   console.log(err.stack);
         // }));
   },
-  dest: function(folder, opt) {
+  dest: function (folder, opt) {
     return hidevfs.dest(folder, _.defaults(opt, defaultFsOpts));
   },
-  watch: function(globs, opt, cb) {
+  watch: function (globs, opt, cb) {
     return hidevfs.watch(globs, _.defaults(opt, defaultFsOpts), cb);
   }
 };
