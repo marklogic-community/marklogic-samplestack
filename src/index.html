@@ -29,6 +29,13 @@
     <link rel="stylesheet" type="text/css" href="/styles/samplestack.css">
 
     <!--
+    global will be used to load individual objects from self-executing functions
+    -->
+    <script>
+      window.global = window;
+    </script>
+
+    <!--
     honest effort to maintain consistency across less-than perfect
     browsers
     -->
@@ -81,12 +88,6 @@ delay the browser seeing this until it's already seen the body so that
 it will render the spinner with minimal interference
 -->
 
-
-      <script>
-        // window.myApp = {};
-        // window.global = window.myApp;
-        window.global = window;
-      </script>
 
 <!-- inject:bower-main:js -->
     <!--

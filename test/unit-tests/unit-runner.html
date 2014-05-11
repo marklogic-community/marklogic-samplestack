@@ -21,17 +21,18 @@
     <script src="deps/sinon-browser-only/sinon.js"></script>
 
     <script>
+      // window.myApp = {};
+      // window.global = window.myApp;
+      window.global = window;
+    </script>
+
+    <script>
       mocha.setup('bdd');
       var should = chai.should();
+      window.global.should = should;
     </script>
     <script src="deps/modernizr/modernizr.js"></script>
     <script src="deps/es5-shim/es5-shim.js"></script>
-
-      <script>
-        // window.myApp = {};
-        // window.global = window.myApp;
-        window.global = window;
-      </script>
 
 <!-- inject:bower-main:js -->
     <!--

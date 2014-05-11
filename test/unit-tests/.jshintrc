@@ -2,6 +2,7 @@
   "node": false,
   "browser": true,
   "globals": {
+    "global": false,
     "describe": false,
     "it": false,
     "module": false,
