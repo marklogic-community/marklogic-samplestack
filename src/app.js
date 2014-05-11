@@ -6,6 +6,7 @@
     'ui.bootstrap',
     'hc.marked',
     'ngPrettyJson',
+    'marklogic.svc.waiter',
     'marklogic.dctv.json-scope',
     'marklogic.svc.schema'
   ]);
