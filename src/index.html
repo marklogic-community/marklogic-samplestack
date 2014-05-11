@@ -13,19 +13,6 @@
 
     <title>samplestack - MarkLogic</title>
 
-    <!-- inject:bower-css:css -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/deps/ng-table/ng-table.css"
-    >
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/deps/angular-dialog-service/dialogs.css"
-    >
-    <!-- endinject -->
-
     <link rel="stylesheet" type="text/css" href="/styles/samplestack.css">
 
     <!--
@@ -39,10 +26,9 @@
     honest effort to maintain consistency across less-than perfect
     browsers
     -->
-    <!-- inject:bower-initial:js -->
     <script src="deps/modernizr/modernizr.js"></script>
     <script src="deps/es5-shim/es5-shim.js"></script>
-    <!-- endinject -->
+
 
     <!-- the rest of the app is loaded last for speed of initial view -->
   </head>
@@ -88,43 +74,15 @@ delay the browser seeing this until it's already seen the body so that
 it will render the spinner with minimal interference
 -->
 
-
-<!-- inject:bower-main:js -->
-    <!--
-    deps should be in order
-    note not including test deps
-    note not including build-time deps
-    (everythinng should technically be dev deps so that's not relevant)
-    TODO: how to resolve these from bower to cdnjs
-      'lodash': 'bower_components/lodash/dist/lodash.compat',
-      'angular': 'bower_components/angular/angular',
-      'angular-mocks': 'bower_components/angular-mocks/angular-mocks',
-      'ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
-      'state-helper': 'bower_components/angular-ui-router.stateHelper/statehelper',
-      'ui-bootstrap': 'bower_components/angular-bootstrap/ui-bootstrap-tpls',
-      'spinner': 'bower_components/angular-spinner/angular-spinner',
-      'spinjs': 'bower_components/spin.js/spin',
-      'angular-dialogs': 'bower_components/angular-dialog-service/dialogs',
-      'angular-sanitize': 'bower_components/angular-sanitize/angular-sanitize',
-      'moment': 'bower_components/momentjs/moment',
-      'ng-table': 'bower_components/ng-table/ng-table',
-      'angular-marked': 'bower_components/angular-marked/angular-marked',
-      'marked': 'bower_components/marked/lib/marked',
-      'angular-translate': 'bower_components/angular-translate/angular-translate'
-    -->
-      <script src="deps/lodash/dist/lodash.compat.js"></script>
-      <script src="deps/angular/angular.js"></script>
-      <script src="deps/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="deps/angular-ui-router.stateHelper/statehelper.js"></script>
-      <script src="deps/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="deps/spin.js/spin.js"></script>
-      <script src="deps/momentjs/moment.js"></script>
-      <script src="deps/marked/lib/marked.js"></script>
-      <script src="deps/angular-marked/angular-marked.js"></script>
-
-      <script>
-        window._ = global._;
-      </script>
+  <script src="deps/lodash/dist/lodash.compat.js"></script>
+  <script src="deps/angular/angular.js"></script>
+  <script src="deps/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="deps/angular-ui-router.stateHelper/statehelper.js"></script>
+  <script src="deps/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="deps/spin.js/spin.js"></script>
+  <script src="deps/momentjs/moment.js"></script>
+  <script src="deps/marked/lib/marked.js"></script>
+  <script src="deps/angular-marked/angular-marked.js"></script>
 
 
 <% if (unit) { %>
@@ -140,28 +98,12 @@ it will render the spinner with minimal interference
   <script src="app.js"></script>
 
 <% _.forEach(appComponents, function(component) { %>
-        <script src="<%- component %>"></script>
+  <script src="<%- component %>"></script>
 <% }); %>
 
 
 <% if (!unit) { %>
-      <script src="run.js"></script>
+  <script src="run.js"></script>
 <% } %>
-
-    <!--
-    our app is either lots of files or one big honking file
-
-    considerations:
-
-      at least /init.js
-
-      if unit include helper to read out compoenent deps from angluar's
-      invoke queue
-
-      either app.js + all of the components or samplestack.min.js
-
-      if unit then leave out run.js
-    -->
-<!-- endinject -->
 
 </html>
