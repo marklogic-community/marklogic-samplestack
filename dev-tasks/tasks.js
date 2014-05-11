@@ -198,9 +198,9 @@ var buildStream = function (stream) {
   // there are some things we can do before we diverge
   /***************
   JSHINT -- different rules for different sources
+  Avoid browserify files.
   ****************/
-  // filt = $.filter(path.join(srcDir, '**/*.js'));
-  filt = $.filter('src/**/*.js');
+  filt = $.filter(['src/**/*.js', '!**/*.browserify.*']);
   stream = stream.pipe(filt)
     .pipe($.jshint(path.join(srcDir, '.jshintrc')))
     .pipe($.jshint.reporter('jshint-stylish'));
@@ -212,11 +212,18 @@ var buildStream = function (stream) {
     .pipe($.jshint.reporter('jshint-stylish'));
   stream = stream.pipe(filt.restore());
 
-  // return stream.pipe($.filelog());
-
-  // jscs can't handle lodash templates, so wait for it
 
 
+  /***************
+  BROWSERIFY -- use node modules in the browser
+  ****************/
+  filt = $.filter('**/*.browserify.*');
+  var browserified = stream
+    .pipe(filt)
+    .pipe($.browserify({}));
+  // doing the merge this way seems to prevent gulp-sass from
+  // disappearing the brow2serified file. browserify stream wierdness?
+  stream = merge(stream, browserified);
 
   // now we need to diverge our handling
   //
@@ -361,11 +368,11 @@ var buildStream = function (stream) {
   /***************
   JSCS
   ****************/
-  filt = $.filter('**/*.js');
+  filt = $.filter(['**/*.js', '!**/*.browserify.*']);
   buildStream = buildStream.pipe(filt)
     .pipe($.jscs(path.join(h.rootDir, '.jscsrc')));
   buildStream = buildStream.pipe(filt.restore());
-  filt = $.filter('**/*.js');
+  filt = $.filter(['**/*.js', '!**/*.browserify.*']);
   unitStream = unitStream.pipe(filt)
     .pipe($.jscs(path.join(h.rootDir, '.jscsrc')));
   unitStream = unitStream.pipe(filt.restore());

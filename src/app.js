@@ -4,7 +4,8 @@
     'ui.router',
     'ui.router.stateHelper',
     'ui.bootstrap',
-    'hc.marked'
+    'hc.marked',
+    'marklogic.svc.schema'
   ]);
 
   app.constant('settings', {
