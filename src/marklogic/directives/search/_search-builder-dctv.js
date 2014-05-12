@@ -3,8 +3,8 @@
 
   // var template = '<div class="codemirror-container">';
   var template = '<div ui-codemirror="editorOptions" ';
-  template += 'ui-refresh="code" ng-model="code" ';
-  template += 'class="codemirror-instance"></div>';
+  template += 'ui-refresh="code" ng-model="code"> ';
+  template += '</div>';
   // template += '</div';
 
   var link = function (scope, element, attrs, controller, transclude) {

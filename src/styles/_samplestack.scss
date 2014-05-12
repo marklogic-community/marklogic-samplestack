@@ -102,6 +102,13 @@ tbody {
 .codemirror-instance {
   height: 100%;
   width: 100%;
+  background-color: $pre-bg;
+  pre {
+    border: 0px;
+    outline-width: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
 }
 
 .CodeMirror {
