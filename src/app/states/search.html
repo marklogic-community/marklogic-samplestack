@@ -6,12 +6,16 @@
       ml-search-builder
       obj="model.obj"
       code="model.code"
-      class="ml-search-panel"
+      class="ml-search-panel scrollme"
       parses="parses"
       ng-class="{ parses: parses }"
+      ng-scrollbar rebuild-on-resize
     ></div>
 
-    <ml-json-scope class="ml-search-panel"></ml-json-scope>
+    <ml-json-scope
+      class="ml-search-panel scrollme"
+      ng-scrollbar rebuild-on-resize
+    ></ml-json-scope>
   </ml-search>
 
 </div>

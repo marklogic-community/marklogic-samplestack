@@ -9,14 +9,7 @@
 
   var link = function (scope, element, attrs, controller, transclude) {
 
-    scope.editorOptions = {
-      mode: 'javascript',
-      onLoad: scope.onLoaded
-    };
-
     element.addClass('ml-search-builder');
-    scope.cmLoaded = function (_editor) {
-    };
 
     scope.$watch('code', function (newVal, oldVal) {
       try {
@@ -33,6 +26,18 @@
   };
 
   var controller = function ($scope) {
+    $scope.cmLoaded = function (_editor) {
+    };
+
+    $scope.editorOptions = {
+      // mode: 'javascript',
+
+      foldGutter: true,
+      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+      lineNumbers: true,
+      onLoad: $scope.onLoaded
+    };
+
   };
 
 

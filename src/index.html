@@ -14,8 +14,9 @@
     <title ng-bind="pageTitle + ' - samplestack'">samplestack</title>
 
     <link rel="stylesheet" type="text/css" href="/deps/ng-prettyjson/src/ng-prettyjson.css">
-    <link rel="stylesheet" type="text/css" href="/styles/style.css">
     <link rel="stylesheet" type="text/css" href="/deps/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="/deps/ng-scrollbar/dist/ng-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
 
     <!--
     global will be used to load individual objects from self-executing functions
@@ -87,8 +88,13 @@ it will render the spinner with minimal interference
   <script src="deps/angular-marked/angular-marked.js"></script>
   <script src="deps/ng-prettyjson/src/ng-prettyjson.js"></script>
   <script src="deps/codemirror/lib/codemirror.js"></script>
+  <script src="deps/codemirror/addon/fold/foldcode.js"></script>
+  <script src="deps/codemirror/addon/fold/brace-fold.js"></script>
+  <script src="deps/codemirror/addon/fold/indent-fold.js"></script>
+  <script src="deps/codemirror/addon/fold/foldgutter.js"></script>
   <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
   <script src="deps/angular-ui-codemirror/ui-codemirror.js"></script>
+  <script src="deps/ng-scrollbar/dist/ng-scrollbar.js"></script>
 
 <% if (unit) { %>
   <script src="deps/angular-mocks/angular-mocks.js"></script>

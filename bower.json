@@ -25,8 +25,9 @@
     "momentjs": "~2.6.0",
     "marked": "~0.3.2",
     "ng-prettyjson": "*",
-    "codemirror": "~3.24.0",
-    "angular-ui-codemirror": "~0.1.1"
+    "codemirror": "~4.1.0",
+    "angular-ui-codemirror": "~0.1.1",
+    "ng-scrollbar": "asafdav/ng-scrollbar#master"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
@@ -77,6 +78,16 @@
       "main": [
         "src/ng-prettyjson.js",
         "src/ng-prettyjson.css"
+      ]
+    },
+    "codemirror": {
+      "main": [
+        "lib/codemirror.js",
+        "lib/codemirror.css",
+        "addon/fold/brace-fold.js",
+        "addon/fold/foldcode.js",
+        "addon/fold/foldgutter.js",
+        "addon/fold/indent-fold.js"
       ]
     }
   }
