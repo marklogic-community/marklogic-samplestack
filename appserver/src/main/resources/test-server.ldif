@@ -1,7 +1,7 @@
 dn: ou=groups,dc=samplestack,dc=org
 objectclass: top
 objectclass: organizationalUnit
-ou: groups
+ou: people
 
 dn: ou=people,dc=samplestack,dc=org
 objectclass: top
@@ -16,7 +16,9 @@ ou: apps
 
 dn: uid=marklogic-ldap-user,ou=apps,dc=samplestack,dc=org
 objectclass: top
-objectclass: applications
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
 cn: MarkLogic LDAP User
 sn: marklogic-ldap-user
 uid: marklogic-ldap-user
@@ -24,7 +26,9 @@ userPassword: marklogic-ldap-password
 
 dn: uid=samplestack-anonymous,ou=apps,dc=samplestack,dc=org
 objectclass: top
-objectclass: applications
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
 cn: samplestack-anonymous
 sn: samplestack-anonymous
 uid: samplestack-anonymous
@@ -33,7 +37,9 @@ userPassword: sa-pass
 
 dn: uid=samplestack-contributor,ou=apps,dc=samplestack,dc=org
 objectclass: top
-objectclass: applications
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
 cn: samplestack-contributor
 sn: samplestack-contributor
 uid: samplestack-contributor
@@ -71,14 +77,12 @@ uid: maryAdmin
 userPassword: marysPassword
 
 dn: cn=admins,ou=groups,dc=samplestack,dc=org
-objectclass: top
 objectclass: groupOfNames
 cn: admins
 ou: groups
 uniqueMember: uid=maryAdmin,ou=people,dc=samplestack,dc=org
 
 dn: cn=contributors,ou=groups,dc=samplestack,dc=org
-objectclass: top
 objectclass: groupOfNames
 cn: contributors
 ou: groups

@@ -4,6 +4,9 @@
   "external-name": [
     "cn=samplestack-restricted,ou=groups,dc=samplestack,dc=org"
   ],
+  "role": [
+      "rest-writer"
+  ],
   "permission": [
     {
       "role-name": "rest-reader",

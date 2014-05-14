@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.0.1.RELEASE'
+		springBootVersion = '1.0.2.RELEASE'
 	}
     repositories {
         mavenCentral()
@@ -36,8 +36,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
     compile("org.springframework.security:spring-security-ldap:3.2.3.RELEASE")
     compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
+    compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
+    compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
     compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
         exclude(group: 'org.slf4j')
+        exclude(group: 'ch.qos.logback')
     }
     testCompile('com.jayway.jsonpath:json-path:0.9.1') {
         exclude(group: 'org.slf4j')
