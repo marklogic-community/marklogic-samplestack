@@ -20,7 +20,6 @@ import org.apache.directory.server.ldap.handlers.bind.SimpleMechanismHandler;
 import org.apache.directory.server.ldap.handlers.bind.digestMD5.DigestMd5MechanismHandler;
 import org.apache.directory.server.protocol.shared.store.LdifFileLoader;
 import org.apache.directory.server.protocol.shared.transport.TcpTransport;
-import org.apache.directory.server.schema.bootstrap.partition.SchemaPartitionExtractor;
 import org.apache.directory.shared.ldap.exception.LdapNameNotFoundException;
 import org.apache.directory.shared.ldap.name.LdapDN;
 import org.slf4j.Logger;
@@ -36,7 +35,6 @@ public class SampleStackLdapServer {
 	private final Logger logger = LoggerFactory
 			.getLogger(SampleStackLdapServer.class);	
 	
-	private boolean running;
 	private int port = 53389;
 
 	public SampleStackLdapServer() throws Exception {
@@ -71,8 +69,10 @@ public class SampleStackLdapServer {
 		service.setExitVmOnShutdown(false);
 		service.setShutdownHookEnabled(false);
 		service.getChangeLog().setEnabled(false);
-		service.setDenormalizeOpAttrsEnabled(true);
-
+		service.setDenormalizeOpAttrsEnabled(false);
+//		service.setAllowAnonymousAccess(true);
+		service.setAccessControlEnabled(false);
+		
 		File workingDirectory = Files.createTempDirectory("samplestack-ldap").toFile();
 		
 		service.setWorkingDirectory(workingDirectory);
@@ -80,8 +80,12 @@ public class SampleStackLdapServer {
 		
 		server = new LdapServer();
 		server.setDirectoryService(service);
-
+		// default is false server.setConfidentialityRequired(false);
+		
+		//server.setMaxTimeLimit(15000);
 		//SASL
+		logger.error("uses qop?" + server.getSaslQopString());
+
 		server.setSaslHost("cgreer-laptop");  //FIXME this needs config
 		server.setSaslPrincipal("ldap/cgreer-laptop@SAMPLESTACK.ORG");
 		server.setSearchBaseDn("ou=apps,dc=samplestack,dc=org");
@@ -133,8 +137,6 @@ public class SampleStackLdapServer {
 		} catch (Exception e) {
 			logger.error("Lookup failed", e);
 		}
-
-		running = true;
 
 		String ldifFile = new ClassPathResource("samplestack-server.ldif").getPath();
 		logger.info("Loading LDIF file: " + ldifFile);
