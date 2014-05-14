@@ -6,18 +6,18 @@
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
-        "localname": "Id",
-        "namespace-uri": null,
+        "localname": "id",
+        "namespace-uri": "http://marklogic.com/xdmp/json/basic",
         "range-value-positions": false,
-        "scalar-type": "long"
+        "scalar-type": "string"
     },
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
-        "localname": "PostId",
-        "namespace-uri": "",
+        "localname": "postId",
+        "namespace-uri": "http://marklogic.com/xdmp/json/basic",
         "range-value-positions": false,
-        "scalar-type": "long"
+        "scalar-type": "string"
     },
     {
         "collation": "http://marklogic.com/collation/",
