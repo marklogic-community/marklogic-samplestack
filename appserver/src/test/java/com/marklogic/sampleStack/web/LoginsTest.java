@@ -38,13 +38,12 @@ public class LoginsTest {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
 	final String ldapServer = "ldap://localhost:33389";
-	final String ldapSearchBase = "ou=apps,dc=samplestack,dc=org";
+	final String ldapSearchBase = "dc=samplestack,dc=org";
 
 	final String ldapUsername = "uid=marklogic-ldap-user,ou=apps,dc=samplestack,dc=org";
 	final String ldapPassword = "marklogic-ldap-password";
 
-	final String anonAcct = "samplestack-anonymous";
-	final String contribAcct = "samplestack-contributor";
+	final String contributor = "Joe User";
 	
 	Hashtable<String, Object> env;
 	LdapContext ctx;
@@ -73,32 +72,20 @@ public class LoginsTest {
 
 		ctx = new InitialLdapContext(env, null);
 
-		// Read supportedSASLMechanisms from root DSE
-		Attributes attrs = ctx.getAttributes(
-		    ldapServer, new String[]{"supportedSASLMechanisms"});
-		logger.info("LDAP Embedded Server Supported SASL Mechanisms: " + attrs);
-
 	}
 
 
 	@Test
 	public void testFinds() throws NamingException {
-		SearchResult srLdapUser = findAccountByAccountName(anonAcct);
+		SearchResult srLdapUser = findAccountByAccountName(contributor);
 		
-		assertEquals("samplestack-anonymous", srLdapUser.getAttributes().get("uid").get());
+		assertEquals("joeUser", srLdapUser.getAttributes().get("uid").get());
 
-		
-		srLdapUser = findAccountByAccountName(contribAcct);
-		
-		assertEquals("samplestack-contributor", srLdapUser.getAttributes().get("uid").get());
-
-		
-		
 	}
 
 	private SearchResult findAccountByAccountName(String accountName) throws NamingException {
 
-		String searchFilter = "(&(objectClass=applications)(uid="
+		String searchFilter = "(&(objectclass=person)(cn="
 				+ accountName + "))";
 
 		SearchControls searchControls = new SearchControls();

@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
+// TODO remove this.
+
 public class SampleStackLdapServer {
 
 	final DefaultDirectoryService service;
@@ -147,12 +149,12 @@ public class SampleStackLdapServer {
 	
 	
 	public static void main(String args[]) throws Exception {
-		SampleStackLdapServer s = new SampleStackLdapServer();
-		
-		System.out.println("OK, running");
-		
-		System.out.println("OK, running");
-		
+//		SampleStackLdapServer s = new SampleStackLdapServer();
+//		
+//		System.out.println("OK, running");
+//		
+//		System.out.println("OK, running");
+//		
 		
 	}
 }

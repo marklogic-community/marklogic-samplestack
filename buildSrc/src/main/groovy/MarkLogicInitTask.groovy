@@ -88,6 +88,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             client.auth.basic project.adminUser, project.adminPassword
         
             def params = [:]
+            params.queryString = "database=Security&kind=execute"
             params.contentType = "application/json"
             params.body = jsonRole.text
             client.put(params)
