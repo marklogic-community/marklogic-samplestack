@@ -1,12 +1,13 @@
-// this will set up chai and globally register the expect function
+// this file adds global variables -- not generally a good idea but for
+// cucumber tests it's handy
+var path = require('path');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-global.expect = chai.expect;
-// webdriver promises do not derive from Object.prototype, thus should
+// webdriver promises do not derive from Object.prototype, thus `should`
 // cannot influence them
 // chai.should();
-
+global.expect = chai.expect;
 
 global.ptor = require('protractor').getInstance();
 
@@ -17,9 +18,6 @@ function PageBase () {}
 PageBase.prototype.go = function () {
   return ptor.get(this.url);
 };
-
-
-
 
 var pages = {};
 
@@ -36,11 +34,47 @@ function addPage (name, Page) {
 World.addPage = addPage;
 
 Object.defineProperty(World.prototype, 'pageTitle', {
-  get: function () { return ptor.getTitle(); }
+  get: function () {
+    var title = ptor.getTitle();
+    return title;
+  }
 });
 
+var setPrepareStackTrace = function(isOn) {
+  if (isOn) {
 
-// one usually doesn't do this, but within the cucumber tests, we're
-// putting world on the global scope to reduce test code noise
-//
+    // monkey-patch stack trace more-or-less compatible with webdriver
+    var isMyCode = new RegExp(
+      path.join(
+        __dirname,
+        '../..',
+        '[^node_modules/]'
+      )
+          .replace(/\//g, '\\/')
+    );
+
+
+    Error.prepareStackTrace = function (err, stack) {
+      var i;
+      var frame;
+      var results = [];
+      for (i = 0; i < stack.length; i++) {
+        frame = stack[i].toString();
+        if (isMyCode.test(frame)) {
+          results.push('    at ' + frame);
+        }
+      }
+      return results.length ? '\n' + results.join('\n') : '';
+    };
+
+  }
+
+  else {
+    delete Error.prepareStackTrace;
+  }
+
+};
+
+setPrepareStackTrace(true);
+
 global.World = World;

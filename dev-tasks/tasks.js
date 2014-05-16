@@ -725,26 +725,6 @@ tasks['e2e'] = {
     activeServers = [];
     activeServers.push(startServer(h.targets.build, 3002));
 
-
-    // console.oldLog = console.log;
-    // console.log = function (args) {
-    //   /* jshint ignore:start */
-    //   if (!/at <anonymous>/.test(arguments[1])) {
-    //     console.oldLog.apply(console, arguments);
-    //   }
-
-      // if (typeof arguments.stack !== 'undefined') {
-      //   console.oldError.call(console, arguments.stack);
-      // }
-      // else {
-      //   if (typeof arguments[4] !== 'undefined') {
-      //     arguments[4] = '...';
-      //   }
-      //   console.oldError.apply(console, arguments);
-      // }
-      /* jshint ignore:end*/
-    // };
-
     ptorConfig.seleniumAddress = seleniumUrl;
     var Runner = require('protractor/lib/runner');
     var runner = new Runner(ptorConfig);
