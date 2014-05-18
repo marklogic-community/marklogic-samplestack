@@ -1,0 +1,139 @@
+
+/* Application specific styles */
+
+$footer-height: $line-height-computed;
+$header-height: $navbar-height;
+
+.body {
+}
+
+.navbar-brand a {
+  color: $brand-primary;
+}
+
+.header-placeholder {
+  height: $header-height;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+footer.navbar {
+  min-height: $footer-height;
+}
+
+table {
+  max-width: 1000px;
+  margin: auto;
+}
+
+tbody {
+  font-size: $font-size-small;
+}
+
+.modal-body-occupy {
+  max-height: 95%;
+}
+
+.ss-body {
+  // set up the body to position itself within the header and footer
+  // implies that they're both fixed
+  @extend .container;
+  position: absolute;
+  top: $header-height;
+  bottom: $footer-height;
+  width: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
+  // background-color: red;
+}
+
+.ml-json-scope {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  background-color: #FFFFCC;
+  height: $header-height;
+  overflow: auto;
+  pre {
+    font-size: 8pt;
+  }
+}
+
+.ml-search {
+  @extend .row;
+  margin: 0px;
+  height: 100%;
+  // overflow: auto;
+}
+
+.ml-search > * {
+  margin: 0px;
+}
+
+.ml-search .ml-search-panel {
+  padding: 5px;
+  height: 100%;
+}
+
+.ml-search > .ml-json-scope {
+  @extend .col-md-9;
+}
+
+.ml-search-builder {
+  @extend .col-md-3;
+  border-right: 1px solid #000;
+  background-color: $brand-primary;
+  .CodeMirror {
+    background-color: #FFE3E3;
+  }
+  &.parses {
+    .CodeMirror {
+      background-color: white;
+    }
+  }
+  // overflow: auto;
+}
+
+.ml-search-results {
+  @extend .col-md-9;
+}
+
+.codemirror-instance {
+  height: 100%;
+  width: 100%;
+  background-color: $pre-bg;
+  pre {
+    border: 0px;
+    outline-width: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
+.CodeMirror {
+  height: 100%;
+  width: 100%;
+  pre {
+    outline-width: 0px;
+  }
+}
+
+.CodeMirror-foldmarker {
+  font-family: arial;
+}
+.CodeMirror-foldgutter {
+  width: .7em;
+}
+.CodeMirror-foldgutter-open,
+.CodeMirror-foldgutter-folded {
+  color: #555;
+  cursor: pointer;
+}
+.CodeMirror-foldgutter-open:after {
+  content: "\25BE";
+}
+.CodeMirror-foldgutter-folded:after {
+  content: "\25B8";
+}

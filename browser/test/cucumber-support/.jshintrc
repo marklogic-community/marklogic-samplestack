@@ -1,0 +1,36 @@
+{
+  "node": true,
+  "browser": false,
+  "globals": {
+    "browser": false,
+    "By": false,
+    "element": false,
+    "expect": false,
+    "World": false,
+    "ptor": false
+  },
+  "esnext": false,
+  "expr": true,
+  "bitwise": true,
+  "boss": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "immed": true,
+  "latedef": true,
+  "laxbreak": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonbsp": true,
+  "quotmark": "single",
+  "maxlen": 80,
+  "multistr": true,
+  "regexp": true,
+  "sub": true,
+  "trailing": true,
+  "undef": true
+}
+

@@ -1,0 +1,308 @@
+//======================================================================
+//== Tables
+//======================================================================
+
+.table {
+  // Bottom align for column headings
+  > thead > tr > th {
+    @include gradient-vertical($ml-color-off-white, darken($ml-color-off-white, $ml-grad-bg-darken));
+    border-bottom: 0px;
+  }
+}
+
+
+
+// Button styles
+// --------------------------------------------------
+
+// Active without inset shadows
+.btn.active, .btn:active {
+  @include box-shadow(none);
+}
+
+// Alternate buttons
+// --------------------------------------------------
+.btn-default {
+  @include button-variant($btn-default-color, $btn-default-bg, darken($btn-default-bg, $ml-grad-bg-darken), $btn-default-border);
+}
+.btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, darken($btn-primary-bg, $ml-grad-bg-darken), $btn-primary-border);
+}
+// Success appears as green
+.btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, darken($btn-success-bg, $ml-grad-bg-darken), $btn-success-border);
+}
+// Info appears as blue-green
+.btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, darken($btn-info-bg, $ml-grad-bg-darken), $btn-info-border);
+}
+// Warning appears as orange
+.btn-warning {
+  @include button-variant($btn-warning-color, $btn-warning-bg, darken($btn-warning-bg, $ml-grad-bg-darken), $btn-warning-border);
+}
+// Danger and error appear as red
+.btn-danger {
+  @include button-variant($btn-danger-color, $btn-danger-bg, darken($btn-danger-bg, $ml-grad-bg-darken), $btn-danger-border);
+}
+
+
+
+
+//======================================================================
+//== Navs
+//======================================================================
+.nav {
+
+  // Open dropdowns
+  .open > a {
+    &,
+    &:hover,
+    &:focus {
+      border-color: $nav-border-color;
+    }
+  }
+
+}
+
+
+// Tabs
+// --------------------------------------------------
+.nav-tabs {
+  border-bottom: 1px solid $nav-tabs-border-color;
+  > li {
+    float: left;
+    // Make the list-items overlay the bottom border
+    margin-bottom: -1px;
+
+    // Actual tabs (as links)
+    > a {
+      color:$nav-tabs-link-color;
+      margin-right: 2px;
+      line-height: $line-height-base;
+      @include gradient-vertical($ml-color-off-white, darken($ml-color-off-white, $ml-grad-bg-darken));
+      border: 1px solid $nav-tabs-border-color;
+      border-radius: $border-radius-base $border-radius-base 0 0;
+      &:hover {
+        border-color: $nav-tabs-border-color;
+        color:$nav-tabs-link-hover-color;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $nav-tabs-active-link-hover-color;
+        background: $nav-tabs-active-bg;
+        border: 1px solid $nav-tabs-active-link-hover-border-color;
+        border-bottom-color: transparent;
+      }
+    }
+  }
+}
+
+
+
+
+
+// Alternate navbars
+// --------------------------------------------------
+
+
+// Inverse navbar
+
+.navbar-inverse {
+  @include gradient-vertical($ml-color-ex-light-black, $ml-color-black);
+  border-color: $navbar-inverse-border;
+
+
+  .navbar-text {
+    color: $navbar-inverse-color;
+  }
+
+  .navbar-nav {
+    > li > a {
+      color: $navbar-inverse-link-color;
+
+      &:hover {
+        color: $navbar-inverse-link-hover-color;
+        @include gradient-vertical($ml-color-ex-light-black, $ml-color-black);
+      }
+      &:focus {
+        color: $navbar-inverse-link-hover-color;
+        @include gradient-vertical($ml-color-light-black, lighten($ml-color-light-black,10%));
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-active-color;
+        @include gradient-vertical($ml-color-light-black, lighten($ml-color-light-black,10%));
+      }
+    }
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-disabled-color;
+        @include gradient-vertical($ml-color-light-black, lighten($ml-color-light-black,10%));
+      }
+    }
+  }
+}
+
+
+
+
+
+/*********************************************
+OLD WORK
+
+$button-text-color:         $font-color;
+$button-bg-color-top:       #fcfcfc;
+$button-bg-color-bottom:    #e2e3e4;
+$button-border-width:       2px;
+$button-border-color:       #b2b2b2;
+
+.btn, .btn:hover, .btn:active  {
+  padding:4px 5px;
+  font-size:11px;
+  color:$button-text-color;
+  border:$button-border-width solid $button-border-color;
+  @include gradient-background-vert-2-colors($button-bg-color-top,$button-bg-color-bottom);
+}
+*/
+
+
+// STU DEFINITIONS
+// --------------------------------------------------
+
+// $fa-font-path: "/js/bower_components/font-awesome/fonts";
+// @import "../../bower_components/font-awesome/scss/font-awesome";
+
+// for angular-bootstrap's purposes
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.ng-hide {
+  display: block !important;
+  visibility: hidden !important;
+}
+
+.navbar-brand {
+  font-size: $font-size-h2;
+}
+
+.modal-open .modal,.btn:focus{
+    outline:none!important
+}
+span:active, span:focus {
+    outline:none!important
+}
+
+.glyphicon-none:before {
+    content: "\2122";
+    color: transparent !important;
+}
+
+btn-primary {
+  background-color: $gray-dark;
+}
+
+// .model-content {
+//   max-height: 90%;
+
+
+.modal-dialog {
+    // overflow-y:auto;
+    // margin-top:-45%;
+  width: 80%;
+  max-width: 1000px;
+  // bottom: 15px;
+  height: 90%;
+}
+.modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.modal-header {
+  position: relative;
+}
+.modal-body {
+  position: fixed;
+  top: 57px;
+  bottom: 63px;
+  right: 15px;
+  left: 15px;
+}
+.modal-body-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  // margin-top: 15px;
+  // margin-left: 15px;
+  // margin-right: 15px;
+}
+.modal-footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.tab-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-left: 1px;
+  margin-right: 3px;
+  // border: 1px solid $nav-tabs-border-color;
+}
+
+.ml-text-area {
+  position: fixed;
+  // height: 100%;
+  // width: 100%;
+  // margin-bottom: 60px;
+  // padding-left: 20px;
+  left: 20px;
+  right: 12px;
+  // padding-right: 15px;
+  bottom: 80px;
+  top: 115px;
+  overflow: auto;
+  overflow-x: hidden;
+  padding-left: 20px;
+  padding-right: 15px;
+  margin-right: 12px;
+}
+.speech {
+  max-width: 750px;
+  margin: auto;
+}
+// .nav-tabs {
+//   border-bottom: 0px;
+// }
+
+// .datepicker{z-index:1151;}
+.tabbable .nav li {
+  float: left;
+}
+.occupy-remainder {
+  position: absolute;
+  width: 100%;
+  top: ($line-height-computed * 2) + $input-height-base;
+  bottom: 63px;
+}
+.occupy-remainder .form-group, .col {
+  height: 100%;
+  position: relative;
+}
+.occupy-remainder textarea.form-control {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  position: relative;
+}
