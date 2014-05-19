@@ -1,11 +1,11 @@
 (function (undefined) {
 
-  this.app.controller('searchCtlr', [
+  this.app.controller('documentsCtlr', [
 
     '$scope',
     function ($scope) {
 
-      $scope.setPageTitle('search');
+      $scope.setPageTitle('needsaname');
       var facets = {
         'TWIST-ME': {
           'Twist the above': {},

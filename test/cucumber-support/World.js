@@ -1,6 +1,7 @@
 // this file adds global variables -- not generally a good idea but for
 // cucumber tests it's handy
 var path = require('path');
+var _ = require('lodash');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -27,10 +28,15 @@ function World (callback) {
   callback(this);
 }
 
-function addPage (name, Page) {
+function addPage (spec) {
+  var Page = spec.constructor;
   util.inherits(Page, PageBase);
-  pages[name] = new Page();
+  pages[spec.name] = new Page();
+  _.forEach(spec.aliases, function(alias) {
+    pages[alias] = pages[spec.name];
+  })
 }
+
 World.addPage = addPage;
 
 Object.defineProperty(World.prototype, 'pageTitle', {

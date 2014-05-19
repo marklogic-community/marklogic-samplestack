@@ -1,5 +1,6 @@
-World.addPage('speeches',
-  function () {
+World.addPage({
+  name: 'speeches',
+  constructor: function () {
     this.url = '/speeches';
   }
-);
+});

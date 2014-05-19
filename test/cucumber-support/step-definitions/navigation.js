@@ -8,6 +8,13 @@ module.exports = function () {
     }
   );
 
+  this.When(
+    /visit the landing page/,
+    function (next) {
+      this.pages.documents.go().then(next);
+    }
+  );
+
   this.Then(
     /the page title is "(.*)"/,
     function (title, next) {

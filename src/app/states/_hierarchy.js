@@ -18,7 +18,7 @@
   layout.children = [
 
     {
-      name: 'search',
+      name: 'documents',
       url: '/' // there will be a bunch of URL parameters possible
     },
     {
