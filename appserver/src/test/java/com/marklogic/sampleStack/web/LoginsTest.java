@@ -40,8 +40,9 @@ public class LoginsTest {
 	final String ldapServer = "ldap://localhost:33389";
 	final String ldapSearchBase = "dc=samplestack,dc=org";
 
-	final String ldapUsername = "uid=marklogic-ldap-user,ou=apps,dc=samplestack,dc=org";
-	final String ldapPassword = "marklogic-ldap-password";
+	//use one of the existing users...
+	final String ldapUsername = "uid=maryAdmin,ou=people,dc=samplestack,dc=org";
+	final String ldapPassword = "marysPassword";
 
 	final String contributor = "Joe User";
 	
