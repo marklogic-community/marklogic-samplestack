@@ -15,6 +15,7 @@ var gulp = require('gulp');
 var merge = require('event-stream').merge;
 var readArray = require('event-stream').readArray;
 var globule = require('globule');
+var lazypipe =require('lazypipe');
 
 var childProcess = require('child_process');
 var winExt = /^win/.test(process.platform) ? '.cmd' : '';
@@ -243,16 +244,15 @@ var buildStream = function (stream) {
   /***************
   SASS
   ****************/
-  // befoe we rename, do sass because it's incapable of using the in memory
-  // files, thus needs the original path
-  filt = $.filter('**/*.scss');
-  buildStream = buildStream.pipe(filt)
-    .pipe(h.fs.src(path.join(srcDir, '**/*.scss')))
-    .pipe($.sass({
+
+  var sassPipe = lazypipe()
+    .pipe(h.fs.src, path.join(srcDir, '**/*.scss'))
+    .pipe($.sass, {
       sourceComments: 'map',
       includePaths: [bootstrapDir]
-    }));
-  buildStream = buildStream.pipe(filt.restore());
+    });
+
+  buildStream = buildStream.pipe($.if('**/*.scss', sassPipe()));
   buildStream = buildStream
     .pipe(
       $.ignore.exclude(['styles/**/*', '!styles/**/*.css'])
@@ -289,8 +289,6 @@ var buildStream = function (stream) {
     }
   ));
 
-  // return stream.pipe($.filelog());
-  // var filesFromUnit = stream.pipe(filt.restore());
   // for the unit stream, first get everyone in the same place (move the
   // filesFromUnit = filesFromUnit.pipe($.rebase(h.src));
   unitStream = merge(
@@ -301,21 +299,11 @@ var buildStream = function (stream) {
   unitStream = unitStream.pipe($.rebase(h.targets.unit))
     .pipe($.plumber(plumberErrorHandler));
 
-  // var sassed = h.fs.src([path.join(h.src, '**/*.scss'), '!_*.scss']);
-  // sassed = sassed.pipe($.sass({
-  //   sourceComments: 'map',
-  //   includePaths: [bootstrapDir]
-  // }));
-  // sassed = sassed.pipe($.rebase(h.targets.build));
-
   // buildStream = buildStream.pipe($.filter(['!styles/']));
   unitStream = unitStream
     .pipe(
       $.ignore.exclude(['**/*.scss', '**/*.png'])
     );
-
-  // buildStream = merge(buildStream, sassed);
-
 
   // for later -- a dist-style SASS
   // filt = $.filter(['**/*.scss', '!**/_*.scss']);
@@ -370,10 +358,6 @@ var buildStream = function (stream) {
   unitStream = unitStream.pipe(filt)
     .pipe($.template(buildParams.unit))
     .pipe(filt.restore());
-  // filt = $.filter(['**/*.html', '**/*.js']);
-  // dist = dist.pipe(templateFilt)
-  //   .pipe($.template(buildParams.dist))
-  //   .pipe(templateFilt.restore());
 
   /***************
   JSCS
@@ -426,7 +410,6 @@ tasks.build = {
   }
 };
 
-// var buildServer;
 function startServer (path, port) {
   var connect = require('connect');
   var server = connect()
