@@ -90,5 +90,8 @@
         "addon/fold/indent-fold.js"
       ]
     }
+  },
+  "resolutions": {
+    "codemirror": "~4.1.0"
   }
 }
