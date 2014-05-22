@@ -4,14 +4,14 @@ module.exports = function () {
   this.Given(
     /"(.*)" is on the "(.*)" page/,
     function (role, pageName, next) {
-      this.pages[pageName].go().then(next);
+      this.go(this.pages[pageName]).then(next);
     }
   );
 
   this.When(
     /visit the landing page/,
     function (next) {
-      this.pages.documents.go().then(next);
+      this.go(this.pages.documents).then(next);
     }
   );
 

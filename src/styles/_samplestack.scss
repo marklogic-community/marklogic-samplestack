@@ -54,7 +54,7 @@ tbody {
   width: 100%;
   padding: 5px;
   background-color: #FFFFCC;
-  height: $header-height;
+  height: 100%;
   overflow: auto;
   pre {
     font-size: 8pt;
@@ -83,6 +83,7 @@ tbody {
 
 .ml-search-builder {
   @extend .col-md-3;
+  height: 100%;
   border-right: 1px solid #000;
   background-color: $brand-primary;
   .CodeMirror {
