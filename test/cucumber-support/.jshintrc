@@ -7,7 +7,8 @@
     "element": false,
     "expect": false,
     "World": false,
-    "ptor": false
+    "ptor": false,
+    "q": false
   },
   "esnext": false,
   "expr": true,
@@ -33,4 +34,3 @@
   "trailing": true,
   "undef": true
 }
-

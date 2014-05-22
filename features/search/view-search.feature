@@ -5,4 +5,4 @@ Feature: View Search Page
 
   Scenario: anyone can visit and the title is correct
     Given "anyone" is on the "search" page
-    Then the page title is "search - samplestack"
+    Then the page title is "needsaname - samplestack"

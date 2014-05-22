@@ -2,6 +2,7 @@
 // cucumber tests it's handy
 var path = require('path');
 var _ = require('lodash');
+global.q = require('q');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -15,10 +16,6 @@ global.ptor = require('protractor').getInstance();
 var util = require('util');
 
 function PageBase () {}
-
-PageBase.prototype.go = function () {
-  return ptor.get(this.url);
-};
 
 var pages = {};
 
@@ -34,7 +31,7 @@ function addPage (spec) {
   pages[spec.name] = new Page();
   _.forEach(spec.aliases, function(alias) {
     pages[alias] = pages[spec.name];
-  })
+  });
 }
 
 World.addPage = addPage;
@@ -45,6 +42,12 @@ Object.defineProperty(World.prototype, 'pageTitle', {
     return title;
   }
 });
+
+World.prototype.go = function (page) {
+  var ptorPage = ptor.get(page.url);
+  this.currentPage = page;
+  return ptorPage;
+};
 
 var setPrepareStackTrace = function(isOn) {
   if (isOn) {
@@ -81,6 +84,7 @@ var setPrepareStackTrace = function(isOn) {
 
 };
 
-setPrepareStackTrace(true);
+// TODO -- fix this so it doesn't lose the actual error message :)
+// setPrepareStackTrace(true);
 
 global.World = World;

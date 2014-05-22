@@ -54,6 +54,7 @@
     "open": "0.0.5",
     "phantomjs": "^1.9.7-5",
     "protractor": "git://github.com/stu-salsbury/protractor#groners",
+    "q": "^1.0.1",
     "selenium-webdriver": "^2.41.0",
     "through2": "~0.4.1",
     "tiny-lr-fork": "0.0.5",
