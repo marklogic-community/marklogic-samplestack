@@ -9,8 +9,7 @@ public class MarkLogicRESTTask extends MarkLogicTask {
     def transforms = database + "/transforms"
     def extensions = database + "/ext"
     def restExtensions = database + "/rest-ext"
-    def reducers = database + "/reducers"
-    def options = database + "/options"
+    def restOptions = database + "/options"
     def properties = database + "/rest-properties.json"
 
     @TaskAction
@@ -24,6 +23,8 @@ public class MarkLogicRESTTask extends MarkLogicTask {
         def restExtensionsDirectory = new File(restExtensions)
         restExtensionsDirectory.listFiles().each { putRESTExtension(it) }
 
+        def restOptionsDirectory = new File(restOptions)
+        restOptionsDirectory.listFiles().each { putRESTOptions(it) }
         configureProperties()
         println "Done"
     }
@@ -72,6 +73,19 @@ public class MarkLogicRESTTask extends MarkLogicTask {
         def params = [:]
         params.contentType = "application/xquery"
         params.body = extension.text
+        put(client,params)
+    }
+
+    void putRESTOptions(options) {
+        def optionsFileName = options.getPath().replaceAll(~"\\\\","/").replaceAll(~"\\.json","")
+        def optionsName = 
+            optionsFileName.replaceAll(~".*\\/","")
+        println "Saving options " + optionsFileName
+        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":" + project.markLogicPort + "/v1/config/query/" + optionsName)
+        client.auth.basic project.restAdminUser, project.restAdminPassword
+        def params = [:]
+        params.contentType = "application/json"
+        params.body = options.text
         put(client,params)
     }
 

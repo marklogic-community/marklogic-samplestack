@@ -26,9 +26,9 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 	private final String DIR_NAME = "/contributor/";
 
 	@Override
-	public Contributor get(String id) {
+	public Contributor get(Long id) {
 		try {
-			InputStreamHandle handle = jsonDocumentManager.read(DIR_NAME + id + ".json",
+			InputStreamHandle handle = jsonDocumentManager.read(DIR_NAME + Long.toString(id) + ".json",
 					new InputStreamHandle());
 			return mapper.readValue(handle.get(), Contributor.class);
 		} catch (ResourceNotFoundException e) {

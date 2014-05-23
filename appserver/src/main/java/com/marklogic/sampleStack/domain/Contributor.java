@@ -32,7 +32,8 @@ public class Contributor {
 	private String aboutMe;
 	
 	/** The string identifier for this user, a primary key */
-	private String id;
+	// @id
+	private Long id;
 	
 	/** The location of the user, as a String */
 	private String location;
@@ -61,10 +62,10 @@ public class Contributor {
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
 	}
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getLocation() {

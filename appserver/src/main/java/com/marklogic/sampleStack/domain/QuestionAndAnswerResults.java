@@ -18,7 +18,7 @@ public class QuestionAndAnswerResults {
 		return this.getResults().getTotalResults() > 0;
 	}
 
-	public QuestionAndAnswers get(int i) {
+	public Question get(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

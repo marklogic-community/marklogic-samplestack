@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.document.JSONDocumentManager;
+import com.marklogic.client.extra.jackson.JacksonHandle;
 import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
 import com.marklogic.client.io.SearchHandle;
@@ -38,10 +40,10 @@ public class MarkLogicClient implements MarkLogicOperations {
 	protected DatabaseClient client;
 
 	@Override
-	public String getJsonDocument(String uri) {
-		StringHandle stringHandle = client.newJSONDocumentManager().read(
-				uri, new StringHandle());
-		return stringHandle.get();
+	public JsonNode getJsonDocument(String uri) {
+		JacksonHandle jacksonHandle = client.newJSONDocumentManager().read(
+				uri, new JacksonHandle());
+		return jacksonHandle.get();
 	}
 
 //	@Override

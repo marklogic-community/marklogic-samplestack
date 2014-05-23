@@ -1,6 +1,7 @@
 package com.marklogic.sampleStack.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,26 +13,31 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.sampleStack.Application;
 import com.marklogic.sampleStack.Utils;
 import com.marklogic.sampleStack.domain.Contributor;
+import com.marklogic.sampleStack.domain.Question;
 import com.marklogic.sampleStack.domain.QuestionAndAnswerResults;
-import com.marklogic.sampleStack.domain.QuestionAndAnswers;
-import com.marklogic.sampleStack.domain.QuestionAndAnswers.Answer;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {Application.class })
-public class QuestionAndAnswerServiceTest {
+public class QuestionServiceTest {
 
 
 	private final Logger logger = LoggerFactory
-			.getLogger(QuestionAndAnswerServiceTest.class);
+			.getLogger(QuestionServiceTest.class);
 	
 	@Autowired
-	QuestionAndAnswerService service;
+	QuestionService service;
 
+	@Autowired
+	ObjectMapper mapper;
+	
+	
 	@Test
 	public void testAnonymousAccess() {
 
@@ -55,11 +61,11 @@ public class QuestionAndAnswerServiceTest {
 	public void testAskAndAnswer() {
 		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
-		joeUser.setId("1");
+		joeUser.setId(1L);
 
 		Contributor maryUser = Utils.getBasicUser();
 		maryUser.setDisplayName("maryUser");
-		maryUser.setId("2");
+		maryUser.setId(2L);
 		
 
 		// check for existing answers with a naive question
@@ -69,12 +75,11 @@ public class QuestionAndAnswerServiceTest {
 		
 		QuestionAndAnswerResults results = service.search("protoalgonquin");
 		
-		QuestionAndAnswers toAnswer = results.get(0); // maybe
+		Question toAnswer = results.get(0); // maybe
 
+		Question newQuestion = new Question(mapper, "What the heck?");
 		// ask a question.
-		QuestionAndAnswers submittedQuestionAndAnswer = service.ask(joeUser, question);
-
-		assertEquals(submittedQuestionAndAnswer.getQuestion(), question);
+		Question submittedQuestionAndAnswer = service.ask(joeUser, newQuestion);
 
 		QuestionAndAnswerResults myQuestionsAndAnswers = service
 				.search(question);
@@ -83,10 +88,27 @@ public class QuestionAndAnswerServiceTest {
 		
 		submittedQuestionAndAnswer = service.answer(maryUser, toAnswer, "I think your question is very good.");
 		
-		Answer answer = submittedQuestionAndAnswer.getAnswers().get(0);
+		//Answer answer = submittedQuestionAndAnswer.getAnswers().get(0);
 		
 		// need security for this method to make sure asker acks the
-		service.accept(question, answer.getId());
+		service.accept(question,"1");
 	}
 	
+	
+	
+	@Test
+	public void testCRUD() throws JsonProcessingException {
+		Question question = new Question(mapper, "What is my first question?");
+		Contributor joeUser = Utils.getBasicUser();
+		joeUser.setDisplayName("joeUser");
+		joeUser.setId(1L);
+		
+		Question question2 = service.ask(joeUser,  question);
+		
+		logger.debug(mapper.writeValueAsString(question2.getJson()));
+		
+		assertEquals("Persisted question", "What is my first question?",  question2.getJson().get("title").asText());
+		assertNotNull("Persisted question has ts",  question2.getJson().get("creationDate"));
+		
+	}
 }

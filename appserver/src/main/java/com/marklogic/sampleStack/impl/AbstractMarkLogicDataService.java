@@ -1,5 +1,7 @@
 package com.marklogic.sampleStack.impl;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -23,4 +25,11 @@ public abstract class AbstractMarkLogicDataService {
 	@Autowired
 	protected ObjectMapper mapper;
 
+	
+
+	private static Random ids = new Random();
+	
+	protected String generateUri(String prefix) {
+		return prefix + Math.abs(ids.nextLong());
+	}
 }

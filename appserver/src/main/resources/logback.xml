@@ -10,7 +10,7 @@
     <appender-ref ref="stdout"/>
   </root>
 
-<logger name="org.apache.directory" level="DEBUG"/>
+<logger name="org.apache.directory" level="INFO"/>
   <logger name="com.marklogic" level="DEBUG"/>
 
 

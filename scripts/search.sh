@@ -36,3 +36,7 @@ transform results to get related things - 1. search for clojure, find things abo
 AHA
 if a search results is triple file, do result expansion in result transform...
 
+
+
+# details
+curl --user samplestack-contributor:sc-pass --digest -Haccept:application/json "http://localhost:8006/v1/search?directory=/qna/&options=details" | python -mjson.tool | less

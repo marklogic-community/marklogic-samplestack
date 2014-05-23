@@ -11,7 +11,7 @@ public class MarkLogicTask extends DefaultTask {
             println "Success: " + response.status
         }
         catch (ex) {
-            println "Error: " + ex
+            println "Error: " + ex.getMessage()
         }
     }
 

@@ -1,12 +1,17 @@
 apply plugin: "groovy"
 
-task markLogicInit(type: MarkLogicInitTask)
+task dbInit(type: MarkLogicInitTask)
 
-task markLogicTeardown(type: MarkLogicTeardownTask)
+task dbTeardown(type: MarkLogicTeardownTask)
 
-task markLogicManage(type: MarkLogicManageTask) 
+task dbManage(type: MarkLogicManageTask) 
 
-task markLogicExtendREST(type: MarkLogicRESTTask) 
+task dbExtendREST(type: MarkLogicRESTTask) 
+
+task dbConfigure {
+    println "Refreshing Configuration"
+}
+dbConfigure.dependsOn(dbManage, dbExtendREST)
 
 task status << {
     println "Status about the server"
@@ -19,8 +24,8 @@ task props(type: Copy) {
     into 'appserver/src/main/resources'
 }
 
-test.dependsOn(props, markLogicExtendREST, ':appserver:test') 
-assemble.dependsOn(markLogicInit, markLogicManage, test)
+test.dependsOn(props, dbExtendREST, ':appserver:test') 
+assemble.dependsOn(dbInit, dbManage, test)
 
 task fooconfig(type: MarkLogicFooConfigTask)
 
@@ -37,7 +42,7 @@ task boot << {
 
 boot.dependsOn(props, ':appserver:bootRun')
 
-task markLogicClearDatabase(type: MarkLogicClearTask)
+task dbClear(type: MarkLogicClearTask)
 
 
 /* task to generate the gradle wrapper script */

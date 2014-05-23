@@ -2,12 +2,13 @@ package com.marklogic.sampleStack.service;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.SearchHandle;
 
 public interface MarkLogicOperations {
 
-	public String getJsonDocument(String docUri);
+	public JsonNode getJsonDocument(String docUri);
 	
 	// public void insertGraph(String graphIri, String mediaType, InputStream inputStream);
 	// public String sparql(String sparqlQuery);

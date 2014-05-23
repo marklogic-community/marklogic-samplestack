@@ -15,7 +15,7 @@ public interface ContributorService {
 	 * @param id the user's id
 	 * @return a User object
 	 */
-	public Contributor get(String string);
+	public Contributor get(Long id);
 
 	/**
 	 * Store a user object's state in the database.

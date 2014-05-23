@@ -27,7 +27,7 @@ public class UserServiceTest {
 	private Contributor getUser() {
 		Contributor user = new Contributor();
 		user.setAboutMe("Some text about me");
-		user.setId("1");
+		user.setId(1L);
 		user.setDisplayName("grechaw");
 		user.setWebsiteUrl("http://website.com/grechaw");
 		return user;

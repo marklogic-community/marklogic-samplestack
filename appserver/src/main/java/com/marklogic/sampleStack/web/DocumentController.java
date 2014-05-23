@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.sampleStack.service.MarkLogicOperations;
 
 @Controller
@@ -17,7 +18,7 @@ public class DocumentController {
 
 	@RequestMapping(value = "docs", method = RequestMethod.GET)
 	public @ResponseBody
-	String getDocumentByUri(@RequestParam("docUri") String docUri) {
+	JsonNode getDocumentByUri(@RequestParam("docUri") String docUri) {
 		return jsonOps.getJsonDocument(docUri);
 	}
 }
