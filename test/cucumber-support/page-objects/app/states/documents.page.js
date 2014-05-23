@@ -3,19 +3,23 @@ World.addPage({
   aliases: ['search'],
   constructor: function () {
     this.url = '/';
-    this.getFilterCriteria = function() {
-      var deferred = q.defer();
 
-      element(By.model('model.filterCriteria'))
-        .$('.ml-json-scope')
-        .getText().then(
-          function(val) {
-            deferred.resolve(JSON.parse(val));
-          },
-          deferred.reject
-        );
+    Object.defineProperty(this, 'filterCriteria', {
+      get: function() {
+        var deferred = q.defer();
 
-      return deferred.promise;
-    };
+        element(By.model('model.filterCriteria'))
+          .$('.ml-json-scope')
+          .getText().then(
+            function(val) {
+              deferred.resolve(JSON.parse(val));
+            },
+            deferred.reject
+          );
+
+        return deferred.promise;
+      }
+    });
+
   }
 });
