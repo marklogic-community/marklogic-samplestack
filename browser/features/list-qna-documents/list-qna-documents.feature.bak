@@ -1,0 +1,11 @@
+    And the results are all questions in the application
+    And the results are sorted by descending score
+
+  Scenario: guest
+    Given I am a guest
+    When I visit the landing page
+    Then the qna-documents-list is displayed
+    And the filter criteria are set to their default values
+    And the search criteria is empty
+    And the subset is all questions that have an accepted answer
+    And the results are sorted by descending score

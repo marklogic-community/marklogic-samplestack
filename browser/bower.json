@@ -10,6 +10,7 @@
   ],
   "dependencies": {
     "angular": "~1.2.16",
+    "bootstrap-sass-official": "~3.1.1",
     "requirejs": "~2.1.11",
     "modernizr": "~2.7.2",
     "es5-shim": "~2.3.0",
@@ -21,19 +22,72 @@
     "angular-spinner": "~0.4.0",
     "spin.js": "~2.0.0",
     "angular-marked": "~0.0.11",
-    "angular-dialog-service": "~4.0.0",
-    "angular-sanitize": "~1.2.16",
     "momentjs": "~2.6.0",
     "marked": "~0.3.2",
-    "angular-translate": "~2.1.0"
   },
   "devDependencies": {
-    "bootstrap-sass-official": "~3.1.1",
     "mocha": "~1.18.2",
     "chai": "~1.9.1",
     "angular-mocks": "~1.2.16",
     "chai-as-promised": "~4.1.1",
     "sinon-chai": "~2.5.0",
     "sinon-browser-only": "~1.9.0"
+  },
+  "overrides": {
+    "modernizr": {
+      "main": [
+        "modernizr.js"
+      ]
+    },
+    "es5-shim": {
+      "main": [
+        "es5-shim.js"
+      ]
+    },
+    "spin": {
+      "main": [
+        "spin.js"
+      ]
+    },
+    "marked": {
+      "main": [
+        "lib/marked.js"
+      ]
+    },
+    "mocha": {
+      "main": [
+        "mocha.js",
+        "mocha.css"
+      ]
+    },
+    "chai-as-promised": {
+      "main": [
+        "lib/chai-as-promised.js"
+      ]
+    },
+    "sinon-chai": {
+      "main": [
+        "lib/sinon-chai.js"
+      ]
+    },
+    "ng-prettyjson": {
+      "main": [
+        "src/ng-prettyjson.js",
+        "src/ng-prettyjson.css"
+      ]
+    },
+    "codemirror": {
+      "main": [
+        "lib/codemirror.js",
+        "lib/codemirror.css",
+        "addon/fold/brace-fold.js",
+        "addon/fold/foldcode.js",
+        "addon/fold/foldgutter.js",
+        "addon/fold/indent-fold.js"
+      ]
+    }
+  },
+  "resolutions": {
+    "codemirror": "~4.1.0"
   }
 }
