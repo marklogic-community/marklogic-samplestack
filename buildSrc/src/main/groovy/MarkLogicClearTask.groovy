@@ -5,13 +5,11 @@ import org.gradle.api.tasks.TaskAction
 
 public class MarkLogicClearTask extends MarkLogicTask {
 
-    def config = "database/manage-properties.json"
-
     @TaskAction
     void updateDatabase() {
         println "Saving Database Configuration"
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/databases/" + project.applicationName)
-        client.auth.basic project.adminUser, project.adminPassword
+        RESTClient client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/databases/" + project.marklogic.rest.name)
+        client.auth.basic project.marklogic.admin.user, project.marklogic.admin.password
         def params = [:]
         params.contentType = "application/json"
         params.body = '{"operation":"clear-database"}'

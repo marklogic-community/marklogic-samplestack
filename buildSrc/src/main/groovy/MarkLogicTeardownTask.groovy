@@ -12,7 +12,7 @@ public class MarkLogicTeardownTask extends DefaultTask {
     }
 
     void teardownRest() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/v1/rest-apis/" + project.applicationName)
+        RESTClient client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/v1/rest-apis/" + project.applicationName)
         client.auth.basic project.adminUser, project.adminPassword
         def params = [:]
         params.queryString = "include=content&include=modules"
@@ -24,20 +24,20 @@ public class MarkLogicTeardownTask extends DefaultTask {
     }
 
     void removeUsers() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users/rest-admin")
+        RESTClient client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/users/rest-admin")
         def params = [:]
         client.auth.basic project.adminUser, project.adminPassword
         client.delete(params)
-        client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users/samplestack-anonymous")
+        client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/users/samplestack-anonymous")
         client.auth.basic project.adminUser, project.adminPassword
         client.delete(params)
-        client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/users/samplestack-contributor")
+        client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/users/samplestack-contributor")
         client.auth.basic project.adminUser, project.adminPassword
         client.delete(params)
-        client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/roles/samplestack-restricted")
+        client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/roles/samplestack-restricted")
         client.auth.basic project.adminUser, project.adminPassword
         client.delete(params)
-        client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/roles/samplestack-unrestricted")
+        client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/roles/samplestack-unrestricted")
         client.auth.basic project.adminUser, project.adminPassword
         client.delete(params)
     }

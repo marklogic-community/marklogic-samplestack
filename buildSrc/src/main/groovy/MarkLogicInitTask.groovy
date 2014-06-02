@@ -11,6 +11,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
     def users = "database/security/users"
     def privileges = "database/security/privileges"
 
+
     @TaskAction
     void initMarkLogic() {
         adminInit()
@@ -20,7 +21,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
     }
 
     void adminInit() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8001/admin/v1/init")
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/init")
         def params = [:]
         params.contentType = "application/json"
         params.body = "{}"
@@ -40,10 +41,10 @@ public class MarkLogicInitTask extends MarkLogicTask {
     }
 
     void adminSetup() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8001/admin/v1/instance-admin")
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/instance-admin")
         def params = [:]
         params.contentType = "application/json"
-        params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }',project.adminUser, project.adminPassword)
+        params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }', config.marklogic.admin.user, config.marklogic.admin.password)
         try {
             client.post(params)
             println "MarkLogic admin secured.  Waiting for server restart."
@@ -59,9 +60,9 @@ public class MarkLogicInitTask extends MarkLogicTask {
 
     private void create(path, jsonObject) {
         try {
-            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/" + path)
+            RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/" + path)
             client.headers."accept" = "application/json"
-            client.auth.basic project.adminUser, project.adminPassword
+            client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         
             def params = [:]
             params.contentType = "application/json"
@@ -83,10 +84,9 @@ public class MarkLogicInitTask extends MarkLogicTask {
     void assignPrivileges(jsonRole) {
         def privilegeName = jsonRole.name.replaceAll(~".json","")
         try {
-            RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/manage/v2/privileges/" + privilegeName + "/properties")
+            RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/privileges/" + privilegeName + "/properties")
             client.headers."accept" = "application/json"
-            client.auth.basic project.adminUser, project.adminPassword
-        
+            client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
             def params = [:]
             params.queryString = "database=Security&kind=execute"
             params.contentType = "application/json"
@@ -108,14 +108,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
     }
 
     void restBoot() {
-        RESTClient client = new RESTClient("http://" + project.markLogicHost + ":8002/v1/rest-apis").with {
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/v1/rest-apis").with {
             headers."accept" = "application/json"
-            auth.basic project.adminUser, project.adminPassword
+            auth.basic config.marklogic.admin.user, config.marklogic.admin.user
             it
         }
         def params = [:]
         params.contentType = "application/json"
-        params.body = String.format('{"rest-api" : { "name" : "%s", "port" : %s }}', project.applicationName, project.markLogicPort)
+        params.body = String.format('{"rest-api" : { "name" : "%s", "port" : %s }}', config.marklogic.rest.name, config.marklogic.rest.port)
         try {
             post(client, params)
         } catch (ex) {

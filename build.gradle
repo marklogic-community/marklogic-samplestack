@@ -4,7 +4,7 @@ task dbInit(type: MarkLogicInitTask)
 
 task dbTeardown(type: MarkLogicTeardownTask)
 
-task dbManage(type: MarkLogicManageTask) 
+task dbManage(type: MarkLogicConfigureTask) 
 
 task dbExtendREST(type: MarkLogicRESTTask) 
 
@@ -23,8 +23,6 @@ task props(type: Copy) {
 test.dependsOn(props, dbExtendREST, ':appserver:test') 
 assemble.dependsOn(dbInit, dbManage, test)
 
-task fooconfig(type: MarkLogicFooConfigTask)
-
 task load(type: MarkLogicSlurpTask)
 
 //TODO load a bigger dataset from remote server
@@ -39,7 +37,6 @@ task boot << {
 boot.dependsOn(props, ':appserver:bootRun')
 
 task dbClear(type: MarkLogicClearTask)
-
 
 /* task to generate the gradle wrapper script */
 task wrapper(type: Wrapper) {

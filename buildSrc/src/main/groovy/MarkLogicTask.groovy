@@ -5,6 +5,14 @@ import org.gradle.api.tasks.TaskAction
 
 public class MarkLogicTask extends DefaultTask {
 
+    protected props = new Properties()
+
+    MarkLogicTask() {
+        super()
+        project.file("gradle.properties").withInputStream { props.load(it) }
+        ext.config = new ConfigSlurper().parse(props)
+    }
+
     protected put(client, params) {
         try {
             def response = client.put(params)

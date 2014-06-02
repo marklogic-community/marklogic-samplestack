@@ -84,7 +84,7 @@ public class Application {
 	}
 	
 	private DatabaseClient databaseClient(ClientRole role) {
-		String host = env.getProperty("marklogi.host");
+		String host = env.getProperty("marklogic.host");
 		Integer port = Integer.parseInt(env.getProperty("marklogic.port"));
 		String username = env.getProperty(role.getUserParam());
 		String password = env.getProperty(role.getPasswordParam());
