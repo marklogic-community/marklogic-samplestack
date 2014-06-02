@@ -1,9 +1,6 @@
 {
-  "name": "samplestack-unrestricted",
+  "name": "samplestack-writer",
   "description": "role for contributing to samplestack corpus",
-  "external-name": [
-    "cn=samplestack-restricted,ou=groups,dc=samplestack,dc=org"
-  ],
   "role": [
       "rest-writer"
   ],

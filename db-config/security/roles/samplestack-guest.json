@@ -1,0 +1,10 @@
+{
+  "name": "samplestack-guest",
+  "description": "Role for access to limited set of questions and answers, read-only",
+  "permission": [
+    {
+      "role-name": "rest-reader",
+      "capability": "read"
+    }
+  ]
+}

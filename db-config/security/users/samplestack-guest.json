@@ -1,0 +1,8 @@
+{
+  "name": "samplestack-guest",
+  "password": "sa-pass",
+  "description": "user for read-only, restricted access to samplestack data",
+  "role": [
+    "samplestack-guest"
+  ]
+}

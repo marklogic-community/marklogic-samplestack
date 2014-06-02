@@ -1,4 +1,4 @@
 {
-    "role": [ "samplestack-restricted", "rest-reader" ]
+    "role": [ "samplestack-guest", "rest-reader" ]
 }
             
