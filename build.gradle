@@ -13,10 +13,6 @@ task dbConfigure {
 }
 dbConfigure.dependsOn(dbManage, dbExtendREST)
 
-task status << {
-    println "Status about the server"
-}
-
 task props(type: Copy) {
     from('.') {
         include 'gradle.properties'
@@ -32,8 +28,8 @@ task fooconfig(type: MarkLogicFooConfigTask)
 task load(type: MarkLogicSlurpTask)
 
 //TODO load a bigger dataset from remote server
-task loadMore(type: MarkLogicSlurpTask) {
-  // url  = "http://data.githubarchive.org/2012-04-11-15.json.gz"
+task loadRemote(type: MarkLogicSlurpTask) {
+  // url  = "http://developer.marklogic.com/moredata.tgz"
 }
 
 task boot << {

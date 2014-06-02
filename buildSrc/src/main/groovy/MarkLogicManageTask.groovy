@@ -5,7 +5,7 @@ import org.gradle.api.tasks.TaskAction
 
 public class MarkLogicManageTask extends MarkLogicTask {
 
-    def config = "database/manage-properties.json"
+    def config = "database/database-properties.json"
 
     @TaskAction
     void updateDatabase() {
