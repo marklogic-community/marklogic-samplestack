@@ -1,0 +1,6 @@
+{"options":
+{"debug":true,
+    "return-qtext":true,
+    "term":{"empty":{"apply":"all-results"}},
+    "transform-results":{"apply":"empty-snippet"}
+    }}
