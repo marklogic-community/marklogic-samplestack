@@ -37,6 +37,10 @@ AHA
 if a search results is triple file, do result expansion in result transform...
 
 
-
+curl --user admin:admin --digest -d@'dircontrib.xml' -Hcontent-type:application/xml "http://localhost:8006/v1/search?directory=/contributors&format=xml" 
+curl --user admin:admin --digest -Hcontent-type:application/json "http://localhost:8006/v1/search?directory=/contributors&q=&format=xml" 
 # details
-curl --user samplestack-contributor:sc-pass --digest -Haccept:application/json "http://localhost:8006/v1/search?directory=/qna/&options=details" | python -mjson.tool | less
+curl --user admin:admin --digest -Haccept:application/json "http://localhost:8006/v1/search?directory=/qna/&options=details" | python -mjson.tool | less
+
+# bulk
+curl --user admin:admin --digest -Haccept:"multipart/mixed;boundary=multipart-boundary" "http://localhost:8006/v1/search?q=what&directory=/qna/&options=details&view=all&format=json" 
