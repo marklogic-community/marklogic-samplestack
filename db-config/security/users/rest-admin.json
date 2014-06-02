@@ -1,0 +1,11 @@
+{
+  "name": "rest-admin",
+  "password": "rest-admin-password",
+  "description": "user that can administer REST server",
+  "external-name": [
+    "uid=rest-admin,ou=apps,dc=samplestack,dc=org"
+  ],
+  "role": [
+    "rest-admin"
+  ]
+}

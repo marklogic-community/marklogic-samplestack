@@ -1,0 +1,16 @@
+{
+  "name": "samplestack-restricted",
+  "description": "Role for access to limited set of questions and answers, read-only",
+  "external-name": [
+    "cn=samplestack-restricted,ou=groups,dc=samplestack,dc=org"
+  ],
+  "permission": [
+    {
+      "role-name": "rest-reader",
+      "capability": "read"
+    }
+  ],
+  "collection": [
+    "http://example.com/aviation/uris"
+  ]
+}
