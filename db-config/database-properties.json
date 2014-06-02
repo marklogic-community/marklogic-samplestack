@@ -1,13 +1,12 @@
 {
     "triple-index": true,
     "name": "samplestack",
-    "range-element-indexes": {
     "range-element-index": [
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
         "localname": "id",
-        "namespace-uri": "http://marklogic.com/xdmp/json/basic",
+        "namespace-uri": "",
         "range-value-positions": false,
         "scalar-type": "string"
     },
@@ -15,7 +14,7 @@
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
         "localname": "postId",
-        "namespace-uri": "http://marklogic.com/xdmp/json/basic",
+        "namespace-uri": "",
         "range-value-positions": false,
         "scalar-type": "string"
     },
@@ -30,12 +29,12 @@
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
-        "localname": "CreationDate",
+        "localname": "creationDate",
         "namespace-uri": "",
         "range-value-positions": false,
         "scalar-type": "dateTime"
     }
-    ]},
+    ],
     "forests": {
     "forest-name": [
       "samplestack-1"
