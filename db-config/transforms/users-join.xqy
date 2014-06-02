@@ -8,16 +8,15 @@ declare namespace search = "http://marklogic.com/appservices/search";
 
 (:
  : join in user information to the results
- : TODO convert to javascipt reducer
  :)
 declare function users-join:transform(
   $context as map:map,
   $params as map:map,
   $content as document-node())
 as document-node() {
-    let $userids := $content//OwnerUserId/data()
+    let $userids := $content//ownerUserId/data()
     let $userData := 
-        cts:search(/, cts:and-query( (cts:directory-query("/user/"), cts:element-range-query(xs:QName("Id"), "=", $userids)) ) ) 
+        cts:search(/, cts:and-query( (cts:directory-query("/contributors/"), cts:element-range-query(xs:QName("Id"), "=", $userids)) ) ) 
     return document {
         $userData
     }
