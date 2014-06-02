@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.Contributor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,14 +50,6 @@ public class ContributorServiceTest {
 		return contributor;
 	}
 
-	private void compareContributors(String message, Contributor c1,
-			Contributor c2) {
-		assertEquals(message, c1.getAboutMe(), c2.getAboutMe());
-		assertEquals(message, c1.getId(), c2.getId());
-		assertEquals(message, c1.getDisplayName(), c2.getDisplayName());
-		assertEquals(message, c1.getWebsiteUrl(), c2.getWebsiteUrl());
-	}
-	
 	@Before
 	public void cleanout() {
 		operations.deleteDirectory("/contributors/");
@@ -72,7 +65,7 @@ public class ContributorServiceTest {
 
 		logger.debug(mapper.writeValueAsString(c2));
 
-		compareContributors("Compare simple store and retrieve", c1, c2);
+		Utils.compareContributors("Compare simple store and retrieve", c1, c2);
 
 		List<Contributor> contributorList = contributorService
 				.search("grechaw");

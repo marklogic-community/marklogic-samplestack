@@ -41,7 +41,7 @@ public class LoginsTest {
 	final String ldapSearchBase = "dc=samplestack,dc=org";
 
 	//use one of the existing users...
-	final String ldapUsername = "uid=maryAdmin,ou=people,dc=samplestack,dc=org";
+	final String ldapUsername = "uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org";
 	final String ldapPassword = "marysPassword";
 
 	final String contributor = "Joe User";
@@ -80,7 +80,7 @@ public class LoginsTest {
 	public void testFinds() throws NamingException {
 		SearchResult srLdapUser = findAccountByAccountName(contributor);
 		
-		assertEquals("joeUser", srLdapUser.getAttributes().get("uid").get());
+		assertEquals("joeUser@marklogic.com", srLdapUser.getAttributes().get("uid").get());
 
 	}
 

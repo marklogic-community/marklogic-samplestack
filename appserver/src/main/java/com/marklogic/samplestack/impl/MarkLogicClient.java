@@ -41,8 +41,10 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 	@Override
 	public JsonNode getJsonDocument(String uri) {
+		JacksonHandle handle = new JacksonHandle();
+		handle.setFormat(Format.JSON);
 		JacksonHandle jacksonHandle = client.newJSONDocumentManager().read(
-				uri, new JacksonHandle());
+				uri, handle);
 		return jacksonHandle.get();
 	}
 

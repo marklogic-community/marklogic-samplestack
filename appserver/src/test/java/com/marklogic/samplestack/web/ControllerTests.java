@@ -115,54 +115,14 @@ public class ControllerTests {
 	}
 
 
-	@Test
-	/**
-	 * tests /foo/new POST,
-	 * /foo POST,
-	 * /foo/{1} PUT DELETE GET
-	 */
-	public void fooSlashIdLifecycle() throws Exception {
-		HttpSession session = login("joeUser", "joesPassword");
-		this.mockMvc
-				.perform(get("/foo/new").accept(MediaType.APPLICATION_JSON))
-				// .andExpect(content().string("blah"));
-				.andExpect(status().isOk())
-				.andExpect(
-						content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("name").value("name"));
-		this.mockMvc
-				.perform(
-						post("/foo").session((MockHttpSession) session)
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										"{\"name\":\"name1\", \"id\":1, \"startDate\":1395333660050, \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
-				.andExpect(status().isCreated());
-		this.mockMvc
-				.perform(get("/foo/1").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(
-						content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("name").value("name1"));
-		
-		// joe cannot delete
-		this.mockMvc.perform(delete("/foo/1")).andExpect(status().is(302))
-				.andExpect(content().string(""));
-		
-		session = login("maryAdmin", "marysPassword");
-		this.mockMvc.perform(delete("/foo/1").session((MockHttpSession) session)).andExpect(status().is(204))
-		.andExpect(content().string(""));
-
-		this.mockMvc.perform(get("/foo/1").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNotFound());
-	}
-
+	
 	@Test
 	/**
 	 * tests /contributors POST
 	 * /contributors GET
 	 * /docs GET
 	 */
-	public void testContributorList() throws Exception {
+	public void testContributorCRUD() throws Exception {
 		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
 		Contributor joeUser =  Utils.getBasicUser();
 		this.mockMvc
@@ -173,14 +133,16 @@ public class ControllerTests {
 				.andExpect(status().isForbidden());
 
 		session = login("maryAdmin@marklogic.com", "marysPassword");
-		this.mockMvc
+		String returnedString = this.mockMvc
 				.perform(
 						post("/contributors").session((MockHttpSession) session).locale(Locale.ENGLISH)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(mapper.writeValueAsString(joeUser)))
 				.andExpect(status().isCreated())
 				.andReturn()
-				.getResponse().getContentAsString().contains("joeUser@marklogic.com");
+				.getResponse().getContentAsString();
+		Contributor returnedUser = mapper.readValue(returnedString, Contributor.class);
+		assertEquals("joeUser@marklogic.com", returnedUser.getUserName());
 
 		String contributorsList = this.mockMvc.perform(get("/contributors?q=grechaw").session((MockHttpSession) session)
 				).andReturn()
@@ -189,21 +151,18 @@ public class ControllerTests {
 		logger.info("contributors list" + contributorsList);
 		assertTrue(contributorsList.contains("Some text about a basic user"));
 		
-		String getById = this.mockMvc.perform(get("/contributors/" + joeUser.getId())
+		Contributor getById = mapper.readValue(this.mockMvc.perform(get("/contributors/" + returnedUser.getId())
 				.session((MockHttpSession) session).locale(Locale.ENGLISH))
 				.andExpect(status().isOk()).andReturn().getResponse()
-				.getContentAsString();
+				.getContentAsString(), Contributor.class);
 
-		String getByDocURI = this.mockMvc
-				.perform(get("/docs").param("docUri", "/contributors/" + joeUser.getId() + ".json")
+		Contributor getByDocURI = mapper.readValue(this.mockMvc
+				.perform(get("/docs").param("docUri", "/contributors/" + returnedUser.getId() + ".json")
 						.session((MockHttpSession) session).locale(Locale.ENGLISH))
 				.andExpect(status().isOk()).andReturn().getResponse()
-				.getContentAsString();
+				.getContentAsString(), Contributor.class);
 
-		assertEquals("Document and ID crud should get same payload.", getById, getByDocURI);
-
-		this.mockMvc.perform(
-				delete("/foo/2"));
+		Utils.compareContributors("Document and ID crud should get same payload.", getById, getByDocURI);
 
 	}
 
@@ -225,27 +184,6 @@ public class ControllerTests {
 		// 								"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
 		// 		.andExpect(status().isCreated());
 
-	}
-
-	@Test
-	public void testDefaultOptionsSearch() throws Exception {
-		HttpSession session = login("maryAdmin", "marysPassword");
-		this.mockMvc
-				.perform(
-						post("/foo").session((MockHttpSession) session)
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										"{\"name\":\"word word words\", \"id\":15, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
-				.andExpect(status().isCreated());
-		this.mockMvc
-				.perform(
-						get("/foo/search").contentType(
-								MediaType.APPLICATION_JSON).param("q", "word"))
-				.andExpect(status().isOk())
-				// .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				// match has charset
-				.andExpect(content().string(containsString("word")));
-		this.mockMvc.perform(delete("/foo/15"));
 	}
 
 	

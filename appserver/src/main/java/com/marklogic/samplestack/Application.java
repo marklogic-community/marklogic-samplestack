@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
+import com.marklogic.client.document.ServerTransform;
 import com.marklogic.samplestack.domain.DocumentTag;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
 
@@ -84,8 +85,8 @@ public class Application {
 	}
 	
 	private DatabaseClient databaseClient(ClientRole role) {
-		String host = env.getProperty("marklogic.host");
-		Integer port = Integer.parseInt(env.getProperty("marklogic.port"));
+		String host = env.getProperty("marklogic.rest.host");
+		Integer port = Integer.parseInt(env.getProperty("marklogic.rest.port"));
 		String username = env.getProperty(role.getUserParam());
 		String password = env.getProperty(role.getPasswordParam());
 		return DatabaseClientFactory.newClient(host, port, username, password,
@@ -97,6 +98,13 @@ public class Application {
 		return new CustomObjectMapper();
 	}
 	
+	@Bean
+	// wired into qna to trip JSON facade or not
+	// TODO unwire probably, remove.
+	public ServerTransform askTransform() {
+		return new ServerTransform("ask");
+		//return new ServerTransform("identity");
+	}
 
 	@Bean
 	public JAXBContext jaxbContext() {

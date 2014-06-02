@@ -18,10 +18,10 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component
-public class QuestionServiceImpl extends AbstractMarkLogicDataService implements QnAService {
+public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAService {
 
 	private final Logger logger = LoggerFactory
-			.getLogger(QuestionServiceImpl.class);
+			.getLogger(QnAServiceImpl.class);
 	
 	private static String DIRNAME = "/qna/";
 	
@@ -32,13 +32,16 @@ public class QuestionServiceImpl extends AbstractMarkLogicDataService implements
 		return DIRNAME + id + ".json";
 	}
 	
-	
 	@Autowired
 	private MarkLogicOperations operations;
 	
+	@Autowired
+	private ServerTransform askTransform;
+	
+	
 	@Override
 	public QnADocumentResults search(String question) {
-		return new QnADocumentResults(operations.searchDirectory("/question/", question));
+		return new QnADocumentResults(operations.searchDirectory("/qna/", question));
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class QuestionServiceImpl extends AbstractMarkLogicDataService implements
 		jsonDocumentManager
 					.write(documentUri, 
 						new JacksonHandle(question.getJson()),
-						new ServerTransform("ask"));
+						askTransform);
 								
 		return new QnADocument((ObjectNode) operations.getJsonDocument(documentUri));
 	}

@@ -5,7 +5,7 @@ import org.gradle.api.tasks.TaskAction
 
 public class MarkLogicConfigureTask extends MarkLogicTask {
 
-    def dbconfig = "database/database-properties.json"
+    def dbconfig = "db-config/database-properties.json"
 
     @TaskAction
     void updateDatabase() {
@@ -14,7 +14,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         def params = [:]
         params.contentType = "application/json"
-        params.body = config.file(dbconfig).text
+        params.body = project.file(dbconfig).text
         put(client,params)
     }
 

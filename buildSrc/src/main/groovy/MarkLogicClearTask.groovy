@@ -8,8 +8,8 @@ public class MarkLogicClearTask extends MarkLogicTask {
     @TaskAction
     void updateDatabase() {
         println "Saving Database Configuration"
-        RESTClient client = new RESTClient("http://" + project.marklogic.rest.host + ":8002/manage/v2/databases/" + project.marklogic.rest.name)
-        client.auth.basic project.marklogic.admin.user, project.marklogic.admin.password
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/databases/" + config.marklogic.rest.name)
+        client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         def params = [:]
         params.contentType = "application/json"
         params.body = '{"operation":"clear-database"}'

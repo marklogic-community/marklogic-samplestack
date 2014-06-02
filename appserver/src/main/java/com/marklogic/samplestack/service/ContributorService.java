@@ -12,17 +12,14 @@ import com.marklogic.samplestack.domain.Contributor;
 public interface ContributorService {
 
 	/**
-	 * get a User object by Id
-	 * @param id the user's id
-	 * @return a User object
+	 * get a Contributor object from the database by Id
+	 * @param id the contriubtor's identifier
+	 * @return a Contributor object
 	 */
 	public Contributor get(UUID id);
 
 	/**
 	 * Store a user object's state in the database.
-	 * Requires (on the database side) rest-writer privilege.
-	 * A user can update their own record if they are a 'user'
-	 * An expert can update any?
 	 * @param user the user object.
 	 */
 	public void store(Contributor user);

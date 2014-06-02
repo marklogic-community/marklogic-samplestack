@@ -46,6 +46,9 @@ public class Contributor {
 	
 	private String userName;
 	
+	public String getUserName() {
+		return userName;
+	}
 	public String getWebsiteUrl() {
 		return websiteUrl;
 	}

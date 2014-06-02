@@ -9,10 +9,10 @@ import org.gradle.api.tasks.TaskAction
 
 public class MarkLogicSlurpTask extends MarkLogicTask {
 
-    String seedDirectory = "database/seed-data"
+    String seedDirectory = "db-config/seed-data"
 
     void putJson(client, uri, jsonObject) {
-        client.auth.basic project.samplestackContributorUser, project.samplestackContributorPassword
+        client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
         def params = [:]
         params.path = "/v1/documents"
         params.queryString = "uri="+uri
@@ -23,7 +23,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
 
     @TaskAction
     void load() {
-        RESTClient client = new RESTClient("http://" + project.marklogic.rest.host + ":" + project.marklogic.rest.port)
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
         def jsonFiles = project.fileTree(dir: seedDirectory).matching { include '**/*.json' }
         println jsonFiles
         jsonFiles.each { 

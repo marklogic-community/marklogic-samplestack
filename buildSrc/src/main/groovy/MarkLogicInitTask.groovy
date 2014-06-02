@@ -7,9 +7,9 @@ import org.gradle.api.tasks.*
 
 public class MarkLogicInitTask extends MarkLogicTask {
 
-    def roles = "database/security/roles"
-    def users = "database/security/users"
-    def privileges = "database/security/privileges"
+    def roles = "db-config/security/roles"
+    def users = "db-config/security/users"
+    def privileges = "db-config/security/privileges"
 
 
     @TaskAction

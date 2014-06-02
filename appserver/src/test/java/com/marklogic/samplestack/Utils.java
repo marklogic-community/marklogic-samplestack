@@ -1,5 +1,7 @@
 package com.marklogic.samplestack;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,16 @@ public class Utils {
 		contributor.setWebsiteUrl("http://website.com/grechaw");
 		return contributor;
 	}
+	
+
+	public static void compareContributors(String message, Contributor c1,
+			Contributor c2) {
+		assertEquals(message, c1.getAboutMe(), c2.getAboutMe());
+		assertEquals(message, c1.getId(), c2.getId());
+		assertEquals(message, c1.getDisplayName(), c2.getDisplayName());
+		assertEquals(message, c1.getWebsiteUrl(), c2.getWebsiteUrl());
+	}
+	
 
 	public static Contributor maryUser;
 	public static Contributor joeUser;

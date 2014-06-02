@@ -94,6 +94,9 @@ public class QuestionServiceTest {
 	
 	
 	@Test
+	// TODO
+	// this test relies on the current (facade) JSON support in REST API
+	// 
 	public void testCRUD() throws JsonProcessingException {
 		QnADocument question = new QnADocument(mapper, "What is my first question?");
 		Contributor joeUser = Utils.getBasicUser();

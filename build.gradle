@@ -23,7 +23,7 @@ task props(type: Copy) {
 test.dependsOn(props, dbExtendREST, ':appserver:test') 
 assemble.dependsOn(dbInit, dbManage, test)
 
-task load(type: MarkLogicSlurpTask)
+task dbLoad(type: MarkLogicSlurpTask)
 
 //TODO load a bigger dataset from remote server
 task loadRemote(type: MarkLogicSlurpTask) {
