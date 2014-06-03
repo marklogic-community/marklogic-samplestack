@@ -1,5 +1,7 @@
 package com.marklogic.samplestack.domain;
 
+import java.util.List;
+
 import com.marklogic.client.io.SearchHandle;
 
 /**
@@ -10,6 +12,9 @@ public class QnADocumentResults {
 
 	private SearchHandle results;
 	
+	// cache of documents from the search results
+	private List<QnADocument> sidecar;
+	
 	public QnADocumentResults(SearchHandle results) {
 		this.setResults(results);
 	}
@@ -19,8 +24,7 @@ public class QnADocumentResults {
 	}
 
 	public QnADocument get(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		return sidecar.get(i);
 	}
 
 	public SearchHandle getResults() {
@@ -29,6 +33,10 @@ public class QnADocumentResults {
 
 	public void setResults(SearchHandle results) {
 		this.results = results;
+	}
+
+	public void setSidecar(List<QnADocument> sidecar) {
+		this.sidecar = sidecar;
 	}
 
 }

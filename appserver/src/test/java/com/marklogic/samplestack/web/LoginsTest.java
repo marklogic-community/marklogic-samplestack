@@ -68,7 +68,7 @@ public class LoginsTest {
 		// env.put("java.naming.ldap.attributes.binary", "uid");
 
 		// the following is helpful in debugging errors
-		env.put("com.sun.jndi.ldap.trace.ber", System.err);
+		//env.put("com.sun.jndi.ldap.trace.ber", System.err);
 		
 
 		ctx = new InitialLdapContext(env, null);

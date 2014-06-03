@@ -60,30 +60,32 @@ public class QuestionServiceTest {
 	}
 
 	@Test
-	@Ignore
 	public void testAskAndAnswer() {
 		
-		
-
 		// check for existing answers with a naive question
-		String question = "What should I ask about the Protoalgonquin Language Family?";
+		String question = "How do I get to know MarkLogic quickly?";
 		
 		// TODO 'question syntax'
 		
-		QnADocumentResults results = service.search("protoalgonquin");
+		// first step -- send question to the server, get back results
+		QnADocumentResults results = service.search(question);
 		
-		QnADocument toAnswer = results.get(0); // maybe
+		logger.debug("Results came back " + results.getResults().getTotalResults());
+		QnADocument toAnswer = results.get(0);
 
-		QnADocument newQuestion = new QnADocument(mapper, "What the heck?");
+		QnADocument newQuestion = new QnADocument(mapper, question, "I mean, there are several reasons. \n* bullet\n*bullet And so it goes.");
 		// ask a question.
 		QnADocument submittedQuestionAndAnswer = service.ask(Utils.joeUser, newQuestion);
 
-		QnADocumentResults myQuestionsAndAnswers = service
-				.search(question);
+		assertEquals(newQuestion.getJson().get("title"), submittedQuestionAndAnswer.getJson().get("title"));
+		
+		// search for my original question.
+		QnADocumentResults myQuestionsAndAnswers = service.search(question);
+		QnADocument myQuestionCameBack = myQuestionsAndAnswers.get(0);
+		assertEquals(newQuestion.getJson().get("title"), myQuestionCameBack.getJson().get("title"));
 
 		// TODO somehow assert the question I just asked is in this list?
-		
-		submittedQuestionAndAnswer = service.answer(Utils.maryUser, toAnswer, "I think your question is very good.");
+		submittedQuestionAndAnswer = service.answer(Utils.maryUser, submittedQuestionAndAnswer, "I think your question is very good.");
 		
 		//Answer answer = submittedQuestionAndAnswer.getAnswers().get(0);
 		
@@ -98,7 +100,7 @@ public class QuestionServiceTest {
 	// this test relies on the current (facade) JSON support in REST API
 	// 
 	public void testCRUD() throws JsonProcessingException {
-		QnADocument question = new QnADocument(mapper, "What is my first question?");
+		QnADocument question = new QnADocument(mapper, "What is my first question?", "It's body is suspiciously short, like a unit test's.");
 		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
 		joeUser.setId(UUID.randomUUID());

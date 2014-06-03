@@ -1,5 +1,9 @@
 package com.marklogic.samplestack.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extra.jackson.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.RawStructuredQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
@@ -41,7 +46,15 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	
 	@Override
 	public QnADocumentResults search(String question) {
-		return new QnADocumentResults(operations.searchDirectory("/qna/", question));
+		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory("/qna/", question));
+		//simulate bulk:
+		List<QnADocument> sidecar = new ArrayList<QnADocument>();
+		for (MatchDocumentSummary summary : results.getResults().getMatchResults()) {
+				String docUri = summary.getUri();
+				sidecar.add(new QnADocument((ObjectNode) operations.getJsonDocument(docUri)));
+			}
+		results.setSidecar(sidecar);
+		return results;
 	}
 
 	@Override
