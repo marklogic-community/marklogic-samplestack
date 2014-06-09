@@ -27,20 +27,12 @@ import com.marklogic.samplestack.domain.Contributor;
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
 @Category(IntegrationTest.class)
-public class ContributorServiceTest {
+public class ContributorServiceTest extends MarkLogicIntegrationTest {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(ContributorServiceTest.class);
 	
-	@Autowired
-	MarkLogicOperations operations;
 	
-	@Autowired
-	ContributorService contributorService;
-
-	@Autowired
-	ObjectMapper mapper;
-
 	UUID id1 = null;
 
 	private Contributor getContributor() {

@@ -2,23 +2,28 @@ package com.marklogic.samplestack.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.client.MarkLogicIOException;
+import com.marklogic.client.document.DocumentPatchBuilder;
+import com.marklogic.client.document.DocumentPatchBuilder.Position;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extra.jackson.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.RawStructuredQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
+import com.marklogic.samplestack.exception.SampleStackException;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
 
@@ -40,10 +45,6 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	@Autowired
 	private MarkLogicOperations operations;
 	
-	@Autowired
-	private ServerTransform askTransform;
-	
-	
 	@Override
 	public QnADocumentResults search(String question) {
 		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory("/qna/", question));
@@ -61,6 +62,8 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	public QnADocument ask(Contributor user, QnADocument question) {
 		String documentUri = generateUri(DIRNAME);
 		question.setId(documentUri);
+		ServerTransform askTransform = new ServerTransform("ask");
+		askTransform.put("userName", user.getUserName());
 		jsonDocumentManager
 					.write(documentUri, 
 						new JacksonHandle(question.getJson()),
@@ -71,8 +74,21 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 
 	@Override
 	public QnADocument answer(Contributor user,
-			QnADocument toAnswer, String string) {
-		// TODO Auto-generated method stub
+			String toAnswer, String answer) {
+		DocumentPatchBuilder patchBuilder = jsonDocumentManager.newPatchBuilder();
+		ObjectNode json = mapper.createObjectNode();
+		json.put("body", answer);
+		try {
+			DocumentPatchHandle patch = patchBuilder
+					.insertFragment("/answers", 
+							Position.LAST_CHILD, 
+							mapper.writeValueAsString(json)).build();
+			jsonDocumentManager.patch(toAnswer, patch);
+		} catch (MarkLogicIOException e) {
+			throw new SampleStackIOException(e);
+		} catch (JsonProcessingException e) {
+			throw new SampleStackException(e);
+		}
 		return null;
 	}
 

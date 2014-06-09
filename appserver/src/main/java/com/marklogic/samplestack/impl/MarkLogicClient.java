@@ -26,7 +26,7 @@ import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
-import com.marklogic.samplestack.SampleStackException;
+import com.marklogic.samplestack.exception.SampleStackException;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 @Component
@@ -95,7 +95,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 			}
 			return docUrisList;
 		} catch (IOException e) {
-			throw new SampleStackException(e);
+			throw new SampleStackIOException(e);
 		}
 	}
 

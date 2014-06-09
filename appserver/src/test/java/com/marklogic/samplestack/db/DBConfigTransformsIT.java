@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,7 @@ import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.DatabaseExtensionTest;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
@@ -28,15 +30,10 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration(classes = Application.class)
 @Category(DatabaseExtensionTest.class)
-public class DBConfigTransformsIT {
-
-	@Autowired 
-	private ObjectMapper mapper;
-	
-	@Autowired
-	private MarkLogicOperations operations;
+public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
 
 	@Autowired
 	protected JSONDocumentManager jsonDocumentManager;
@@ -44,7 +41,7 @@ public class DBConfigTransformsIT {
 	@Autowired 
 	private ContributorService contributorService;
 	
-	private static String TESTURI = "/dbtest/1.json";
+	private static String TESTURI = "/dbtest/ask-1.json";
 	
 	@Test
     public void askTransform() {
@@ -52,6 +49,8 @@ public class DBConfigTransformsIT {
 		// make a user
 		contributorService.store(Utils.joeUser);
 		
+		// make sure there's no question 
+		jsonDocumentManager.delete(TESTURI);
 		// make a body
         ObjectNode input = mapper.createObjectNode();
         input.put("title", "Title");
@@ -73,7 +72,7 @@ public class DBConfigTransformsIT {
         assertEquals("ask transformed missing owner property id", Utils.joeUser.getId().toString(), ownerNode.get("id").asText());
         assertEquals("ask transformed missing owner property userName", Utils.joeUser.getUserName(), ownerNode.get("userName").asText());
         assertEquals("ask transformed missing owner property displayName", Utils.joeUser.getDisplayName(), ownerNode.get("displayName").asText());
-        jsonDocumentManager.delete(TESTURI);
+        //jsonDocumentManager.delete(TESTURI);
     }
 
 }

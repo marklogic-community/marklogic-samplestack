@@ -36,10 +36,12 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.samplestack.domain.DocumentTag;
+import com.marklogic.samplestack.exception.SampleStackException;
+import com.marklogic.samplestack.exception.SampleStackSecurityException;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
 
 @Configuration
-@ComponentScan(basePackages = {"com.marklogic.samplestack.impl", "com.marklogic.samplestack.web"})
+@ComponentScan
 @PropertySource("classpath:gradle.properties")
 @EnableAutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled=true)

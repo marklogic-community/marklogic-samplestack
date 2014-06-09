@@ -18,8 +18,8 @@ import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
-import com.marklogic.samplestack.SampleStackException;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.exception.SampleStackException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.SamplestackNotFoundException;
 
@@ -43,7 +43,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		} catch (ResourceNotFoundException e) {
 			throw new SamplestackNotFoundException();
 		} catch (IOException e) {
-			throw new SampleStackException(e);
+			throw new SampleStackIOException(e);
 		}
 	}
 

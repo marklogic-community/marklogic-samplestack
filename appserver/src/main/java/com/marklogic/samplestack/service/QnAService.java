@@ -31,7 +31,7 @@ public interface QnAService {
 	 */
 	public QnADocument ask(Contributor contributor, QnADocument question);
 
-	public QnADocument answer(Contributor contributor, QnADocument toAnswer, String string);
+	public QnADocument answer(Contributor contributor, String questionId, String string);
 	
 	public void voteUp(Contributor contributor, String postId);
 	
@@ -41,5 +41,10 @@ public interface QnAService {
 
 	public QnADocument get(String id);
 
+	/**
+	 * The application doesn't ever delete questions, but an API should provide that capability.
+	 * TODO maybe delete?  Is it better to design for no deletes?
+	 * @param id
+	 */
 	public void delete(String id);
 }
