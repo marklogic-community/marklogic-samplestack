@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.UUID;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,21 +18,21 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.IntegrationTest;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
-import com.marklogic.samplestack.service.QnAService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {Application.class })
+@Category(IntegrationTest.class)
 public class QuestionServiceTest {
 
 
-	private final Logger logger = LoggerFactory
-			.getLogger(QuestionServiceTest.class);
+	private final Logger logger = LoggerFactory.getLogger(QuestionServiceTest.class);
 	
 	@Autowired
 	QnAService service;
@@ -40,27 +40,8 @@ public class QuestionServiceTest {
 	@Autowired
 	ObjectMapper mapper;
 	
-	
 	@Test
-	public void testAnonymousAccess() {
-
-		// check for existing answers with a naive question
-		String question = "Protoalgonquin";
-
-		// this might just wrap a SearchHandle. It certainly contains one.
-		QnADocumentResults existingAnswers = service.search(question);
-
-
-		if (existingAnswers.hasResults()) {
-			logger.info(existingAnswers.getResults().getMatchResults()[0].getPath());
-		} else {
-			logger.info("No results from question");
-		}
-		
-	}
-
-	@Test
-	public void testAskAndAnswer() {
+	public void testAskAndAnswerFlow() {
 		
 		// check for existing answers with a naive question
 		String question = "How do I get to know MarkLogic quickly?";
@@ -71,7 +52,7 @@ public class QuestionServiceTest {
 		QnADocumentResults results = service.search(question);
 		
 		logger.debug("Results came back " + results.getResults().getTotalResults());
-		QnADocument toAnswer = results.get(0);
+		assertEquals("Nothing in the database yet to match results", 0, results.getResults().getTotalResults());
 
 		QnADocument newQuestion = new QnADocument(mapper, question, "I mean, there are several reasons. \n* bullet\n*bullet And so it goes.");
 		// ask a question.
@@ -100,7 +81,7 @@ public class QuestionServiceTest {
 	// this test relies on the current (facade) JSON support in REST API
 	// 
 	public void testCRUD() throws JsonProcessingException {
-		QnADocument question = new QnADocument(mapper, "What is my first question?", "It's body is suspiciously short, like a unit test's.");
+		QnADocument question = new QnADocument(mapper, "What is my first question?", "Its body is suspiciously short, like a unit test's.");
 		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
 		joeUser.setId(UUID.randomUUID());

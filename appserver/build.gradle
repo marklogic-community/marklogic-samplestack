@@ -47,3 +47,15 @@ dependencies {
     }
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
+
+test {
+    useJUnit {
+        includeCategories 'com.marklogic.samplestack.UnitTest'
+    }
+}
+
+task dbTest(type: Test) {
+    useJUnit {
+        includeCategories 'com.marklogic.samplestack.DatabaseExtensionTest'
+    }
+}

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +19,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.IntegrationTest;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.Contributor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
+@Category(IntegrationTest.class)
 public class ContributorServiceTest {
 
 	private final Logger logger = LoggerFactory

@@ -4,10 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public class Utils {
 	

@@ -1,3 +1,5 @@
+package com.marklogic.samplestack.db;
+
 /*
  * Copyright 2012-2014 MarkLogic Corporation
  *
@@ -13,11 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-@javax.xml.bind.annotation.XmlSchema (               
-    xmlns = { 
-            @javax.xml.bind.annotation.XmlNs(prefix = "sem", 
-                     namespaceURI="http://marklogic.com/semantics")
-           },    
-    elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED        
-)
-package com.marklogic.samplestack.domain;
+/**
+ * This package contains tests specifically for the server-side
+ * artifacts and extensions installed on the server to support samplestack.
+ */

@@ -26,7 +26,11 @@ as document-node() {
     let $_ := xdmp:log(("PARAMS", $params))
 
     (: get the user that matches parameter :)
-    let $user := cts:search(collection(), cts:json-property-value-query("userName", $username))
+    (: this transform gets the first match.  If there are duplicates in userName
+     : then the answer will be non-deterministic
+     : TODO should that be an error?
+     :)
+    let $user := cts:search(collection(), cts:json-property-value-query("userName", $username))[1]
     let $json-doc := map:new( (
                 for $n in $root/* 
                 return 

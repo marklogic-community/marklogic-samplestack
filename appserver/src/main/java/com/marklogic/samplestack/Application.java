@@ -39,7 +39,7 @@ import com.marklogic.samplestack.domain.DocumentTag;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = {"com.marklogic.samplestack.impl", "com.marklogic.samplestack.web"})
 @PropertySource("classpath:gradle.properties")
 @EnableAutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled=true)
