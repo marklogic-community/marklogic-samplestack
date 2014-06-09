@@ -165,25 +165,5 @@ public class ControllerTests {
 
 	}
 
-	@Test
-	public void testDocumentTags() throws Exception {
-		// invalid JSON is 400
-		this.mockMvc
-				.perform(
-						post("/tags")
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										"{\"name\":\"name2\", \"id\":2, \"startDate\":\"2014-03-20T16:41:00.050+0000\", \"doubleValue\":0.221612619207606, \"point\":\"-14,-113\"}"))
-				.andExpect(status().isBadRequest());
-		// this.mockMvc
-		// 		.perform(
-		// 				post("/tags")
-		// 						.contentType(MediaType.APPLICATION_JSON)
-		// 						.content(
-		// 								"{\"userName\":\"name2\", \"tagName\":\"testTag\", \"createdAt\":\"2014-03-20T16:41:00.050+0000\", \"conceptUri\":\"http://blah\"}"))
-		// 		.andExpect(status().isCreated());
-
-	}
-
 	
 }

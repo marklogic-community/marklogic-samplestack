@@ -2,7 +2,6 @@ package com.marklogic.samplestack.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.UUID;
 
@@ -20,7 +19,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.IntegrationTest;
 import com.marklogic.samplestack.Utils;

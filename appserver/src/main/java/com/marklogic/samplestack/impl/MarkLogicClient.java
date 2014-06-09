@@ -26,7 +26,6 @@ import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
-import com.marklogic.samplestack.exception.SampleStackException;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 @Component

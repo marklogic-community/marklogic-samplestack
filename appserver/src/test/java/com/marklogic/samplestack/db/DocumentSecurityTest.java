@@ -9,6 +9,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.DatabaseExtensionTest;
+import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 
 /**
  * This test explicitly makes sure that the two database configurations have
@@ -18,10 +19,12 @@ import com.marklogic.samplestack.DatabaseExtensionTest;
 @WebAppConfiguration
 @ContextConfiguration(classes = Application.class)
 @Category(DatabaseExtensionTest.class)
-public class DocumentSecurityTest {
+public class DocumentSecurityTest extends MarkLogicIntegrationTest {
 
 	@Test
 	public void testDocumentSecurity() {
+		// write a document using writer connection.
+		
 		
 	}
 }

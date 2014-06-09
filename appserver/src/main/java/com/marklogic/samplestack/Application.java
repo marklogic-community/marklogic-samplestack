@@ -15,9 +15,6 @@
  */
 package com.marklogic.samplestack;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +32,6 @@ import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.client.document.ServerTransform;
-import com.marklogic.samplestack.domain.DocumentTag;
-import com.marklogic.samplestack.exception.SampleStackException;
 import com.marklogic.samplestack.exception.SampleStackSecurityException;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
 
@@ -108,18 +103,6 @@ public class Application {
 		//return new ServerTransform("identity");
 	}
 
-	@Bean
-	public JAXBContext jaxbContext() {
-		JAXBContext context = null;
-		try {
-			context = JAXBContext.newInstance(DocumentTag.class);
-		} catch (JAXBException e) {
-			throw new SampleStackException(e);
-		}
-		return context;
-	}
-
-	
 	public static void main(String[] args) {
 		logger.debug("Starting Spring Boot SampleStack Application");
 		SpringApplication.run(Application.class, args);
