@@ -8,6 +8,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+/**
+ * The Spring Security configuration for Samplestack.
+ * Contains configuration for the web-tier security,
+ * including the embedded LDAP backend configuration and the
+ * user-facing method for securing the application's endpoints.
+ */
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override

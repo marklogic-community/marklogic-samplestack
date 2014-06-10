@@ -21,6 +21,7 @@ import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackException;
+import com.marklogic.samplestack.exception.SampleStackIOException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.SamplestackNotFoundException;
 

@@ -13,11 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-@javax.xml.bind.annotation.XmlSchema (               
-    xmlns = { 
-            @javax.xml.bind.annotation.XmlNs(prefix = "sem", 
-                     namespaceURI="http://marklogic.com/semantics")
-           },    
-    elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED        
-)
 package com.marklogic.samplestack.domain;

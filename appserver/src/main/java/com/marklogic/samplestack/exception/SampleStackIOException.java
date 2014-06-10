@@ -1,6 +1,5 @@
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.exception;
 
-import com.marklogic.samplestack.exception.SampleStackException;
 
 @SuppressWarnings("serial")
 public class SampleStackIOException extends SampleStackException {

@@ -24,7 +24,6 @@ import com.marklogic.samplestack.service.ContributorService;
  * Contributors are the applications users whose content
  * makes up a samplestack corpus.
  * This is a typical CRUD interface to POJOs
- * @author cgreer
  *
  */
 @Controller

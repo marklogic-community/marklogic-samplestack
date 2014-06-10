@@ -8,7 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.DatabaseClient;
@@ -28,6 +27,7 @@ import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.exception.SampleStackIOException;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public class MarkLogicClient implements MarkLogicOperations {
@@ -55,27 +55,6 @@ public class MarkLogicClient implements MarkLogicOperations {
 				uri, handle);
 		return jacksonHandle.get();
 	}
-//	@Override
-//	public void insertGraph(String graphIri, String mediaType,
-//			InputStream inputStream) {
-//		GraphManager graphManager = client.newGraphManager();
-//		graphManager.insert(graphIri, Format.TURTLE, new InputStreamHandle(
-//				inputStream));
-//	}
-
-//	@Override
-//	public String sparql(String sparqlQuery) {
-//		SPARQLManager sparqlManager = client.newSPARQLManager();
-//		StringHandle queryHandle = new StringHandle(sparqlQuery)
-//				.withFormat(Format.SPARQL_QUERY);
-//		// TODO query handles should set format themselves. fix marker
-//		// interfaces.
-//		StringHandle responseHandle = new StringHandle()
-//				.withFormat(Format.JSON);
-//		responseHandle = sparqlManager.sparql(queryHandle, responseHandle);
-//		return responseHandle.get();
-//	}
-
 	
 	@Override
 	public List<String> getDocumentUris(ClientRole role, String directory) {

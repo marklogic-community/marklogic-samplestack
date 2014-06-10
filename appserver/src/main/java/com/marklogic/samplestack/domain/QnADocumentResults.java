@@ -6,7 +6,6 @@ import com.marklogic.client.io.SearchHandle;
 
 /**
  * Wraps a SearchResponse so that I can get sparse data out of the payload.
- *
  */
 public class QnADocumentResults {
 

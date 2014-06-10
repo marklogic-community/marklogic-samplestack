@@ -24,6 +24,7 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.exception.SampleStackException;
+import com.marklogic.samplestack.exception.SampleStackIOException;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component

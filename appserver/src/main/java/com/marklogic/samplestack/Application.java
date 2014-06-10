@@ -57,7 +57,11 @@ public class Application {
 	Environment env;
 	
 	@Bean
-	@Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+	/**
+	 * Initializes the connector to MarkLogic, 
+	 * which pools two DatabaseClient instances for the two security roles in Samplestack.
+	 * @return A MarkLogicOperations bean for the Spring IoC container
+	 */
 	public MarkLogicOperations markLogicOperations() {
 		MarkLogicClient c = new MarkLogicClient();
 		DatabaseClient writerClient = databaseClient(ClientRole.SAMPLESTACK_CONTRIBUTOR);
@@ -77,10 +81,18 @@ public class Application {
 	}
 	
 	@Bean
+	/**
+	 * Initializes a singleton ObjectMapper.
+	 * @return A Jackson ObjectMapper implementation for the Spring IoC container
+	 */
 	public ObjectMapper mapper() {
 		return new CustomObjectMapper();
 	}
 	
+	/**
+	 * Boilerplate main method for Spring Boot's execution hook.
+	 * @param args System arguments for the application.
+	 */
 	public static void main(String[] args) {
 		logger.debug("Starting Spring Boot SampleStack Application");
 		SpringApplication.run(Application.class, args);
