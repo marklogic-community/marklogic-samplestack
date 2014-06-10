@@ -8,17 +8,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 @Controller
 public class DocumentController {
 
 	@Autowired
-	private MarkLogicOperations jsonOps;
+	private MarkLogicOperations operations;
 
 	@RequestMapping(value = "docs", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode getDocumentByUri(@RequestParam("docUri") String docUri) {
-		return jsonOps.getJsonDocument(docUri);
+		//TODO choose role for operations
+		return operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR, docUri);
 	}
 }

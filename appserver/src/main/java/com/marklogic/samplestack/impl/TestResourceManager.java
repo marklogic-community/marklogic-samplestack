@@ -5,12 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.extensions.ResourceServices.ServiceResult;
 import com.marklogic.client.extensions.ResourceServices.ServiceResultIterator;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.util.RequestParameters;
+import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.service.MarkLogicOperations;
 
 
 /**
@@ -27,11 +28,11 @@ public class TestResourceManager extends ResourceManager {
 			.getLogger(TestResourceManager.class);
 	
 	@Autowired
-	DatabaseClient client;
+	MarkLogicOperations operations;
 	
 	
 	public String checkExecution() {
-		client.init(name,  this);  // is this expensive?
+		operations.initResource(ClientRole.SAMPLESTACK_CONTRIBUTOR, name,  this);  // is this expensive?
 		RequestParameters params = new RequestParameters();
 		params.add("param1", "value1");
 		String[] mimetypes = new String[] { "application/json" };

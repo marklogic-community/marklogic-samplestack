@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.IntegrationTest;
 import com.marklogic.samplestack.Utils;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
@@ -44,7 +45,7 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 	
 	@Before
 	public void cleanout() {
-		operations.deleteDirectory("/qna/");
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/qna/");
 		contributorService.store(Utils.joeUser);
 	}
 	
@@ -72,7 +73,7 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		// TODO 'question syntax'
 		
 		// first step -- send question to the server, get back results
-		QnADocumentResults results = service.search(question);
+		QnADocumentResults results = service.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
 		
 		logger.debug("Results came back " + results.getResults().getTotalResults());
 		assertEquals("Nothing in the database yet to match results", 0, results.getResults().getTotalResults());
@@ -84,7 +85,7 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		assertEquals(newQuestion.getJson().get("title"), submittedQuestionAndAnswer.getJson().get("title"));
 		
 		// search for my original question.
-		QnADocumentResults myQuestionsAndAnswers = service.search(question);
+		QnADocumentResults myQuestionsAndAnswers = service.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
 		questionFromSearch = myQuestionsAndAnswers.get(0);
 		
 		logger.info(mapper.writeValueAsString(questionFromSearch));

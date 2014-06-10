@@ -19,6 +19,7 @@ import com.marklogic.client.extra.jackson.JacksonHandle;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.DatabaseExtensionTest;
 import com.marklogic.samplestack.Utils;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 
@@ -33,9 +34,6 @@ import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 @Category(DatabaseExtensionTest.class)
 public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
 
-	@Autowired
-	protected JSONDocumentManager jsonDocumentManager;
-	
 	@Autowired 
 	private ContributorService contributorService;
 	
@@ -48,7 +46,7 @@ public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
 		contributorService.store(Utils.joeUser);
 		
 		// make sure there's no question 
-		jsonDocumentManager.delete(TESTURI);
+		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TESTURI);
 		// make a body
         ObjectNode input = mapper.createObjectNode();
         input.put("title", "Title");
@@ -57,9 +55,9 @@ public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
         ServerTransform askTransform = new ServerTransform("ask");
         askTransform.add("userName", Utils.joeUser.getUserName());
         
-        jsonDocumentManager.write(TESTURI, new JacksonHandle(input), askTransform);
+        operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(TESTURI, new JacksonHandle(input), askTransform);
         
-        JsonNode output = operations.getJsonDocument(TESTURI);
+        JsonNode output = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR, TESTURI);
         
         assertTrue("ask transformed missing creationDate key", output.get("creationDate") != null);
         assertTrue("ask transformed missing comments array", output.get("comments").size() == 0);

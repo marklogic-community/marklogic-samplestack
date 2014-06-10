@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
@@ -31,7 +32,9 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions", method = RequestMethod.GET)
 	public @ResponseBody
 	QnADocumentResults getQnADocuments(@RequestParam String q) {
-		return qnaService.search(q);
+		
+		//TODO Role
+		return qnaService.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, q);
 	}
 
 	@RequestMapping(value = "questions", method = RequestMethod.POST)
@@ -48,7 +51,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	QnADocument getFoo(@PathVariable(value = "id") String id) {
 		// validate
-		return qnaService.get("/foo/" + id);
+		return qnaService.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/foo/" + id);
 	}
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.DELETE)

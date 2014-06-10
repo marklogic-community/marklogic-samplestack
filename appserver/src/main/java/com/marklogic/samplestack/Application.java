@@ -24,6 +24,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
@@ -31,9 +33,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
-import com.marklogic.client.document.ServerTransform;
-import com.marklogic.samplestack.exception.SampleStackSecurityException;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
+import com.marklogic.samplestack.impl.MarkLogicClient;
+import com.marklogic.samplestack.service.MarkLogicOperations;
 
 @Configuration
 @ComponentScan
@@ -50,35 +53,18 @@ public class Application {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
-	/**
-	 * An enum to index the properties that configure database connections.
-	 * TODO - prune to contrib and guest.
-	 */
-	public enum ClientRole {
-		ADMIN, REST_ADMIN, SAMPLESTACK_CONTRIBUTOR, SAMPLESTACK_GUEST;
-		private String getPrefix() {
-			switch(this) {
-	    	case ADMIN: return "marklogic.admin"; 
-	    	case REST_ADMIN: return "marklogic.rest.admin"; 
-	    	case SAMPLESTACK_CONTRIBUTOR: return "marklogic.writer"; 
-	    	case SAMPLESTACK_GUEST: return "marklogic.guest";
-	    	default: throw new SampleStackSecurityException();
-			}
-		}
-		public String getUserParam() {
-			return getPrefix() + ".user";
-		}
-		public String getPasswordParam() {
-			return getPrefix() + ".password";
-		}
-	};
-	
 	@Autowired
 	Environment env;
 	
 	@Bean
-	public DatabaseClient databaseClient() {
-		return databaseClient(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+	@Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+	public MarkLogicOperations markLogicOperations() {
+		MarkLogicClient c = new MarkLogicClient();
+		DatabaseClient writerClient = databaseClient(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		c.putClient(ClientRole.SAMPLESTACK_CONTRIBUTOR, writerClient);
+		DatabaseClient guestClient = databaseClient(ClientRole.SAMPLESTACK_GUEST);
+		c.putClient(ClientRole.SAMPLESTACK_GUEST, guestClient);
+		return c;
 	}
 	
 	private DatabaseClient databaseClient(ClientRole role) {
@@ -95,14 +81,6 @@ public class Application {
 		return new CustomObjectMapper();
 	}
 	
-	@Bean
-	// wired into qna to trip JSON facade or not
-	// TODO unwire probably, remove.
-	public ServerTransform askTransform() {
-		return new ServerTransform("ask");
-		//return new ServerTransform("identity");
-	}
-
 	public static void main(String[] args) {
 		logger.debug("Starting Spring Boot SampleStack Application");
 		SpringApplication.run(Application.class, args);

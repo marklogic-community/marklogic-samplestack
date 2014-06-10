@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,11 +19,11 @@ import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.RawStructuredQueryDefinition;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.exception.SampleStackException;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component
@@ -42,17 +41,14 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 		return DIRNAME + id + ".json";
 	}
 	
-	@Autowired
-	private MarkLogicOperations operations;
-	
 	@Override
-	public QnADocumentResults search(String question) {
-		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory("/qna/", question));
+	public QnADocumentResults search(ClientRole role, String question) {
+		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/qna/", question));
 		//simulate bulk:
 		List<QnADocument> sidecar = new ArrayList<QnADocument>();
 		for (MatchDocumentSummary summary : results.getResults().getMatchResults()) {
 				String docUri = summary.getUri();
-				sidecar.add(new QnADocument((ObjectNode) operations.getJsonDocument(docUri)));
+				sidecar.add(new QnADocument((ObjectNode) operations.getJsonDocument(role, docUri)));
 			}
 		results.setSidecar(sidecar);
 		return results;
@@ -64,18 +60,18 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 		question.setId(documentUri);
 		ServerTransform askTransform = new ServerTransform("ask");
 		askTransform.put("userName", user.getUserName());
-		jsonDocumentManager
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR)
 					.write(documentUri, 
 						new JacksonHandle(question.getJson()),
 						askTransform);
 								
-		return new QnADocument((ObjectNode) operations.getJsonDocument(documentUri));
+		return new QnADocument((ObjectNode) operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR, documentUri));
 	}
 
 	@Override
 	public QnADocument answer(Contributor user,
 			String toAnswer, String answer) {
-		DocumentPatchBuilder patchBuilder = jsonDocumentManager.newPatchBuilder();
+		DocumentPatchBuilder patchBuilder = jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 		ObjectNode json = mapper.createObjectNode();
 		json.put("body", answer);
 		try {
@@ -83,7 +79,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 					.insertFragment("/answers", 
 							Position.LAST_CHILD, 
 							mapper.writeValueAsString(json)).build();
-			jsonDocumentManager.patch(toAnswer, patch);
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(toAnswer, patch);
 		} catch (MarkLogicIOException e) {
 			throw new SampleStackIOException(e);
 		} catch (JsonProcessingException e) {
@@ -98,17 +94,17 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 
 	@Override
-	public QnADocument get(String id) {
+	public QnADocument get(ClientRole role, String id) {
 		logger.debug(id);
-		JsonNode json = operations.getJsonDocument(uriFromId(id));
+		JsonNode json = operations.getJsonDocument(role, uriFromId(id));
 		QnADocument question = new QnADocument((ObjectNode) json);
 		return question;
 	}
 	
 	@Override
-	public QnADocumentResults search(
+	public QnADocumentResults search(ClientRole role,
 			RawStructuredQueryDefinition structuredQuery) {
-		SearchHandle results = operations.search(structuredQuery);
+		SearchHandle results = operations.search(role, structuredQuery);
 		return new QnADocumentResults(results);
 	}
 	
@@ -122,7 +118,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 	@Override
 	public void delete(String id) {
-		jsonDocumentManager.delete(uriFromId(id));
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(uriFromId(id));
 	}
 
 }

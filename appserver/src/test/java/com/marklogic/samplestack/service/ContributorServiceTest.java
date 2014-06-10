@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.IntegrationTest;
 import com.marklogic.samplestack.Utils;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,7 +46,7 @@ public class ContributorServiceTest extends MarkLogicIntegrationTest {
 
 	@Before
 	public void cleanout() {
-		operations.deleteDirectory("/contributors/");
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/contributors/");
 	}
 
 	@Test

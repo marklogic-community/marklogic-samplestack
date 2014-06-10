@@ -18,6 +18,7 @@ import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackException;
 import com.marklogic.samplestack.service.ContributorService;
@@ -37,7 +38,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		try {
 			String documentUri = DIR_NAME + id.toString() + ".json";
 			logger.debug("Fetching document uri +" + documentUri);
-			InputStreamHandle handle = jsonDocumentManager.read(documentUri,
+			InputStreamHandle handle = jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).read(documentUri,
 					new InputStreamHandle());
 			return mapper.readValue(handle.get(), Contributor.class);
 		} catch (ResourceNotFoundException e) {
@@ -59,19 +60,19 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		}
 		//TODO after native JSON remove this transform
 		ServerTransform inputTransform = new ServerTransform("json-in");
-		jsonDocumentManager.write(DIR_NAME + contributor.getId() + ".json", new StringHandle(
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(DIR_NAME + contributor.getId() + ".json", new StringHandle(
 				jsonString), inputTransform);
 	}
 
 	@Override
 	public void delete(UUID id) {
-		jsonDocumentManager.delete(DIR_NAME + id.toString() + ".json");
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(DIR_NAME + id.toString() + ".json");
 	}
 
 	@Override
 	public List<Contributor> search(String queryString) {
 		// TODO fix with multipart response
-		SearchHandle handle = operations.searchDirectory(DIR_NAME, queryString);
+		SearchHandle handle = operations.searchDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, DIR_NAME, queryString);
 		return asList(handle);
 	}
 
@@ -89,7 +90,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 	public List<Contributor> list(long start) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
 		QueryDefinition qdef = qb.directory(true, "/contributors/");
-		SearchHandle handle = operations.search(qdef, start);
+		SearchHandle handle = operations.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start);
 		return asList(handle);
 	}
 
