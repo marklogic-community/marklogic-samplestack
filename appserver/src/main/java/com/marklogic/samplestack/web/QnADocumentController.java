@@ -1,5 +1,7 @@
 package com.marklogic.samplestack.web;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
 @RestController
@@ -29,12 +32,13 @@ public class QnADocumentController {
 	@Autowired
 	private QnAService qnaService;
 
+	@Autowired
+	private ContributorService contributorService; 
+	
 	@RequestMapping(value = "questions", method = RequestMethod.GET)
 	public @ResponseBody
 	QnADocumentResults getQnADocuments(@RequestParam String q) {
-		
-		//TODO Role
-		return qnaService.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, q);
+		return qnaService.search(ClientRole.securityContextRole(), q);
 	}
 
 	@RequestMapping(value = "questions", method = RequestMethod.POST)
@@ -42,8 +46,7 @@ public class QnADocumentController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
 	QnADocument ask(@RequestBody QnADocument question) {
-		// validate
-		Contributor contributor = null; // TODO get contributor as filter op.
+		Contributor contributor = contributorService.getByUserName(ClientRole.securityContextUserName());
 		return qnaService.ask(contributor, question);
 	}
 
@@ -51,7 +54,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	QnADocument getFoo(@PathVariable(value = "id") String id) {
 		// validate
-		return qnaService.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/foo/" + id);
+		return qnaService.get(ClientRole.securityContextRole(), "/foo/" + id);
 	}
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.DELETE)

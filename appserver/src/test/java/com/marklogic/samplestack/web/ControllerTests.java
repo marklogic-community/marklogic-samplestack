@@ -141,7 +141,7 @@ public class ControllerTests {
 				.andReturn()
 				.getResponse().getContentAsString();
 		Contributor returnedUser = mapper.readValue(returnedString, Contributor.class);
-		assertEquals("joeUser@marklogic.com", returnedUser.getUserName());
+		assertEquals("cgreer@marklogic.com", returnedUser.getUserName());
 
 		String contributorsList = this.mockMvc.perform(get("/contributors?q=grechaw").session((MockHttpSession) session)
 				).andReturn()
@@ -164,6 +164,10 @@ public class ControllerTests {
 		Utils.compareContributors("Document and ID crud should get same payload.", getById, getByDocURI);
 
 	}
-
 	
+	@Test
+	public void testAskQuestion() {
+		
+	}
+
 }

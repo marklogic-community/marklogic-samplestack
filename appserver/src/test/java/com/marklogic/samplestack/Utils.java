@@ -18,7 +18,7 @@ public class Utils {
 		Contributor contributor = new Contributor();
 		contributor.setAboutMe("Some text about a basic user");
 		contributor.setId(basicUserUUID);
-		contributor.setUserName("joeUser@marklogic.com");
+		contributor.setUserName("cgreer@marklogic.com");
 		contributor.setDisplayName("grechaw");
 		contributor.setWebsiteUrl("http://website.com/grechaw");
 		return contributor;

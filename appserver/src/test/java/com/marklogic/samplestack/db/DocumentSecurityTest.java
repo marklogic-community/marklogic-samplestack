@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extra.jackson.JacksonHandle;
-import com.marklogic.client.io.StringHandle;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.DatabaseExtensionTest;
 import com.marklogic.samplestack.domain.ClientRole;
@@ -39,6 +38,7 @@ public class DocumentSecurityTest extends MarkLogicIntegrationTest {
 		
 		// verify no read with GUEST
 		try {
+			@SuppressWarnings("unused")
 			JacksonHandle invisibleDoc = operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_GUEST).read("/test/security.json", new JacksonHandle());
 			fail("Guest could see invisible documwent");
 		} catch(ResourceNotFoundException e) {

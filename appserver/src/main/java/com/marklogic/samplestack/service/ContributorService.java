@@ -50,4 +50,11 @@ public interface ContributorService {
 	 */
 	public List<Contributor> search(String queryString);
 
+	/**
+	 * Get a specific user by UserName
+	 * @param userName
+	 * @return a Contributor object fetched from the database by userName
+	 */
+	public Contributor getByUserName(String userName);
+
 }

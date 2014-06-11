@@ -95,5 +95,18 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		return asList(handle);
 	}
 
+	@Override
+	public Contributor getByUserName(String userName) {
+		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
+		//TODO repository/facade/json property
+		QueryDefinition qdef = qb.and(
+				qb.directory(true, "/contributors/"),
+				qb.value(qb.element("userName"), userName));
+				
+		SearchHandle handle = operations.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef);
+		List<Contributor> results = asList(handle);
+		return results.get(0);
+	}
+
 	
 }
