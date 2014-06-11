@@ -9,10 +9,8 @@ import com.marklogic.samplestack.domain.Contributor;
 public class Utils {
 	
 	
-	private static UUID basicUserUUID = UUID
-			.fromString("779b383c-dbf3-4008-b9d8-64f0491f1d4a");
-	private static UUID JoesUUID = UUID
-			.fromString("cf99542d-f024-4478-a6dc-7e723a51b040");
+	private static String basicUserUUID = "779b383c-dbf3-4008-b9d8-64f0491f1d4a";
+	private static String JoesUUID = "cf99542d-f024-4478-a6dc-7e723a51b040";
 
 	public static Contributor getBasicUser() {
 		Contributor contributor = new Contributor();
@@ -47,7 +45,7 @@ public class Utils {
 		maryUser = Utils.getBasicUser();
 		maryUser.setDisplayName("maryUser");
 		maryUser.setUserName("maryAdmin@marklogic.com");
-		maryUser.setId(UUID.randomUUID());
+		maryUser.setId(UUID.randomUUID().toString());
 	}
 
 }

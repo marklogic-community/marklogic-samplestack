@@ -37,9 +37,12 @@ public class Contributor {
 	/** A markdown mini bio of the contributor */
 	private String aboutMe;
 	
-	/** The UUID identifier for this user, a primary key */
+	/** The String identifier for this user, a primary key.
+	 * We use UUIDs to generate new ids, but support String
+	 * in order to use legacy data as-is 
+	 */
 	//@id
-	private UUID id;
+	private String id;
 	
 	/** The location of the user, as a String */
 	private String location;
@@ -73,10 +76,10 @@ public class Contributor {
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
 	}
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getLocation() {

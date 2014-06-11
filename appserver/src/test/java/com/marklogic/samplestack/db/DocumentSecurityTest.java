@@ -34,7 +34,7 @@ public class DocumentSecurityTest extends MarkLogicIntegrationTest {
 		// write a document using writer connection.
 		ObjectNode content = mapper.createObjectNode();
 		content.put("body",  "content");
-		operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write("/test/security.json", new JacksonHandle(content), new ServerTransform("json-in"));
+		operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write("/test/security.json", new JacksonHandle(content));
 		
 		// verify no read with GUEST
 		try {

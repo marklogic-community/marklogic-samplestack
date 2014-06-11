@@ -32,12 +32,12 @@ public class ContributorServiceTest extends MarkLogicIntegrationTest {
 			.getLogger(ContributorServiceTest.class);
 	
 	
-	UUID id1 = null;
+	String id1 = null;
 
 	private Contributor getContributor() {
 		Contributor contributor = new Contributor();
 		contributor.setAboutMe("Some text about me");
-		id1 = UUID.randomUUID();
+		id1 = UUID.randomUUID().toString();
 		contributor.setId(id1);
 		contributor.setDisplayName("grechaw");
 		contributor.setWebsiteUrl("http://website.com/grechaw");

@@ -119,7 +119,7 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		QnADocument question = new QnADocument(mapper, "What is my first question?", "Its body is suspiciously short, like a unit test's.");
 		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
-		joeUser.setId(UUID.randomUUID());
+		joeUser.setId(UUID.randomUUID().toString());
 		
 		QnADocument question2 = service.ask(joeUser,  question);
 		

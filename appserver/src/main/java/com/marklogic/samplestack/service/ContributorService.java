@@ -16,7 +16,7 @@ public interface ContributorService {
 	 * @param id the contriubtor's identifier
 	 * @return a Contributor object
 	 */
-	public Contributor get(UUID id);
+	public Contributor get(String id);
 
 	/**
 	 * Store a user object's state in the database.
@@ -30,7 +30,7 @@ public interface ContributorService {
 	 * An expert can update any?
 	 * @param user the user object.
 	 */
-	public void delete(UUID id);
+	public void delete(String id);
 
 	/**
 	 * Get a page's worth of Contributor objects

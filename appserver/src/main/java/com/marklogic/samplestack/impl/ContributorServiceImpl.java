@@ -35,7 +35,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 	private final String DIR_NAME = "/contributors/";
 
 	@Override
-	public Contributor get(UUID id) {
+	public Contributor get(String id) {
 		try {
 			String documentUri = DIR_NAME + id.toString() + ".json";
 			logger.debug("Fetching document uri +" + documentUri);
@@ -59,29 +59,30 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		} catch (JsonProcessingException e) {
 			throw new SampleStackException(e);
 		}
-		//TODO after native JSON remove this transform
-		ServerTransform inputTransform = new ServerTransform("json-in");
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(DIR_NAME + contributor.getId() + ".json", new StringHandle(
-				jsonString), inputTransform);
+				jsonString));
 	}
 
 	@Override
-	public void delete(UUID id) {
+	public void delete(String id) {
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(DIR_NAME + id.toString() + ".json");
 	}
 
 	@Override
+	// TODO remove, not needed?
 	public List<Contributor> search(String queryString) {
-		// TODO fix with multipart response
 		SearchHandle handle = operations.searchDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, DIR_NAME, queryString);
 		return asList(handle);
 	}
 
+	
+	// TODO refactor to use multipart response
 	private List<Contributor> asList(SearchHandle handle) {
 		List<Contributor> l = new ArrayList<Contributor>();
 		for (MatchDocumentSummary summary : handle.getMatchResults()) {
 			String docUri = summary.getUri();
-			UUID id = UUID.fromString(docUri.replace(DIR_NAME, "").replace(".json", ""));
+			String id;
+			id =docUri.replace(DIR_NAME, "").replace(".json", "");
 			l.add(get(id));
 		}
 		return l;

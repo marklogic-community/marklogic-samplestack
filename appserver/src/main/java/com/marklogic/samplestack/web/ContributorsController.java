@@ -37,14 +37,14 @@ public class ContributorsController {
 	@RequestMapping(value = "contributors", method = RequestMethod.GET)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
-	List<Contributor> searchContributors(@RequestParam("q") String searchString) {
-		return service.search(searchString);
+	List<Contributor> listContributors(@RequestParam("q") String queryString) {
+		return service.search(queryString);
 	}
 
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
-	Contributor get(@PathVariable("id") UUID id) {
+	Contributor get(@PathVariable("id") String id) {
 		return service.get(id);
 	}
 	
@@ -53,7 +53,7 @@ public class ContributorsController {
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	@ResponseStatus(HttpStatus.CREATED)
 	Contributor newContributor(@RequestBody Contributor contributor) {
-		contributor.setId(UUID.randomUUID());
+		contributor.setId(UUID.randomUUID().toString());
 		service.store(contributor);
 		return contributor;
 	}
@@ -61,7 +61,7 @@ public class ContributorsController {
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
-	Contributor replaceContributor(@PathVariable("id") UUID id, @RequestBody Contributor contributor) {
+	Contributor replaceContributor(@PathVariable("id") String id, @RequestBody Contributor contributor) {
 		service.store(contributor);
 		return contributor;
 	}
@@ -69,7 +69,7 @@ public class ContributorsController {
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
-	void removeContributor(@PathVariable("id") UUID id) {
+	void removeContributor(@PathVariable("id") String id) {
 		service.delete(id);	
 	}
 }

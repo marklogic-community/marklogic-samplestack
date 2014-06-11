@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 /**
  * Abstract class to support a thinly wrapped JSON node, 
  * intended largely as a pass-through object to the browser client.
- * @author cgreer
+ * TODO use facade annotation to determine field name for Id.
  *
  */
 public abstract class JsonObjectWrapper {
