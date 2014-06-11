@@ -19,11 +19,10 @@ declare function ask:transform(
   $params as map:map,
   $content as document-node())
 as document-node() {
-    let $root := $content/node()
+    let $root := $content/object-node()
+    let $_ := xdmp:log(("ROOT", $root))
     let $uri := map:get($params, "uri")
     let $username := map:get($params, "userName")
-
-    let $_ := xdmp:log(("PARAMS", $params))
 
     (: get the user that matches parameter :)
     (: this transform gets the first match.  If there are duplicates in userName
@@ -31,22 +30,20 @@ as document-node() {
      : TODO should that be an error?
      :)
     let $user := cts:search(collection(), cts:json-property-value-query("userName", $username))[1]
-    let $json-doc := map:new( (
-                for $n in $root/* 
-                return 
-                map:entry(local-name($n), data($n)),
-                map:entry("creationDate", current-dateTime()),
-                map:entry("comments", json:array()),
-                map:entry("answers", json:array()),
-                map:entry("owner", 
-                    map:new((
-                        map:entry("userName", $user/userName),
-                        map:entry("id", $user/id),
-                        map:entry("displayName", $user/displayName)
-                    )))
-                ) )
+    let $json-doc :=
+                $root +
+                object-node { 
+                    "creationDate" : current-dateTime(),
+                    "comments": array-node { }, 
+                    "answers": array-node { }, 
+                    "owner": object-node 
+                    { "userName": $user/userName/data(),
+                        "id": $user/id/data(),
+                        "displayName": $user/displayName/data()
+                    }
+                }
     return
         document {
-            xdmp:to-json( $json-doc )
+            $json-doc 
         }
 };
