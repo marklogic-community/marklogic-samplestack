@@ -4,26 +4,10 @@ task dbInit(type: MarkLogicInitTask)
 
 task dbTeardown(type: MarkLogicTeardownTask)
 
-task dbManage(type: MarkLogicConfigureTask) 
-
-task dbExtendREST(type: MarkLogicRESTTask) 
-
-task dbConfigure {
-    println "Refreshing Configuration"
-}
-
-dbConfigure.dependsOn(dbManage, dbExtendREST)
-
-
-sourceSets {
-    dbTest {
-        groovy.srcDir file('buildsrc/dbTest/groovy')
-    }
-}
-task dbTest(type: Test) {
-    testSrcDirs = ['buildSrc/src/dbTest/groovy']
-    classpath = runtimeClasspath
-}
+task dbConfigure(type: MarkLogicConfigureTask)
+dbConfigure.inputDir = file('db-config')
+dbConfigure.outputDir = file("$buildDir/db-config")
+dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
 
 task props(type: Copy) {
     from('.') {
@@ -32,8 +16,8 @@ task props(type: Copy) {
     into 'appserver/src/main/resources'
 }
 
-test.dependsOn(props, dbExtendREST, ':appserver:test') 
-assemble.dependsOn(dbInit, dbManage, test)
+test.dependsOn(props, dbConfigure, ':appserver:test') 
+assemble.dependsOn(dbInit, dbConfigure, test)
 
 task dbLoad(type: MarkLogicSlurpTask)
 
@@ -52,7 +36,7 @@ task dbClear(type: MarkLogicClearTask)
 
 /* task to generate the gradle wrapper script */
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+    gradleVersion = '1.12'
 }
 
 repositories {
