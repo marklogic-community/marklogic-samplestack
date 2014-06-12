@@ -20,25 +20,28 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.ContributorService;
 
 /**
- * Provides HTTP access to contributor objects.
- * Contributors are the applications users whose content
- * makes up a samplestack corpus.
- * This is a typical CRUD interface to POJOs
- *
+ * Provides HTTP access to contributor objects. Contributors are the
+ * applications users whose content makes up a samplestack corpus. This is a
+ * typical CRUD interface to POJOs
+ * 
  */
 @Controller
 public class ContributorsController {
 
 	static Random random = new Random();
-	
+
 	@Autowired
 	private ContributorService service;
 
 	@RequestMapping(value = "contributors", method = RequestMethod.GET)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
-	List<Contributor> listContributors(@RequestParam("q") String queryString) {
-		return service.search(queryString);
+	List<Contributor> listContributors(@RequestParam(required = false) String q) {
+		if (q == null) {
+			return service.list(0);
+		} else {
+			return service.search(q);
+		}
 	}
 
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.GET)
@@ -47,7 +50,7 @@ public class ContributorsController {
 	Contributor get(@PathVariable("id") String id) {
 		return service.get(id);
 	}
-	
+
 	@RequestMapping(value = "contributors", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
@@ -57,19 +60,20 @@ public class ContributorsController {
 		service.store(contributor);
 		return contributor;
 	}
-	
+
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
-	Contributor replaceContributor(@PathVariable("id") String id, @RequestBody Contributor contributor) {
+	Contributor replaceContributor(@PathVariable("id") String id,
+			@RequestBody Contributor contributor) {
 		service.store(contributor);
 		return contributor;
 	}
-	
+
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	void removeContributor(@PathVariable("id") String id) {
-		service.delete(id);	
+		service.delete(id);
 	}
 }

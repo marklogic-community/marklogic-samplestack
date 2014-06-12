@@ -43,7 +43,7 @@ task loadRemote(type: MarkLogicSlurpTask) {
 }
 
 task boot << {
-  println "running the angular app"
+  println "running the middle tier app"
 }
 
 boot.dependsOn(props, ':appserver:bootRun')

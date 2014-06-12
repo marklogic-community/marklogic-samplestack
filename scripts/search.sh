@@ -43,5 +43,5 @@ curl --user admin:admin --digest -Hcontent-type:application/json "http://localho
 curl --user admin:admin --digest -Haccept:application/json "http://localhost:8006/v1/search?directory=/qna/&options=details" | python -mjson.tool | less
 
 # bulk
-curl --user admin:admin --digest -Haccept:"multipart/mixed;boundary=multipart-boundary" "http://localhost:8006/v1/search?q=what&directory=/qna/&options=qnaSearch&view=facets&format=json" 
+curl --user admin:admin --digest -Haccept:"multipart/mixed;boundary=multipart-boundary" "http://localhost:8006/v1/search?q=what&directory=/qna/&options=qnaSearch&view=all&format=json" 
 curl --user admin:admin --digest -Haccept:"application/json" "http://localhost:8006/v1/search?q=&directory=/qna/&options=qnaSearch&view=facets&format=json" 

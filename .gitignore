@@ -28,3 +28,4 @@ node_modules/*
 build
 dist
 unit
+/bin

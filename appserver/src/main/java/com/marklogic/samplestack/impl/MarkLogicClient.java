@@ -32,13 +32,11 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public class MarkLogicClient implements MarkLogicOperations {
 
-
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicClient.class);
 
-	
 	protected HashMap<ClientRole, DatabaseClient> clients;
-	
+
 	private DatabaseClient getClient(ClientRole role) {
 		return clients.get(role);
 	}
@@ -46,16 +44,16 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public MarkLogicClient() {
 		clients = new HashMap<ClientRole, DatabaseClient>();
 	}
-	
+
 	@Override
 	public JsonNode getJsonDocument(ClientRole role, String uri) {
 		JacksonHandle handle = new JacksonHandle();
 		handle.setFormat(Format.JSON);
-		JacksonHandle jacksonHandle = getClient(role).newJSONDocumentManager().read(
-				uri, handle);
+		JacksonHandle jacksonHandle = getClient(role).newJSONDocumentManager()
+				.read(uri, handle);
 		return jacksonHandle.get();
 	}
-	
+
 	@Override
 	public List<String> getDocumentUris(ClientRole role, String directory) {
 		ClassPathResource values1 = new ClassPathResource("doc-uris.json");
@@ -76,8 +74,8 @@ public class MarkLogicClient implements MarkLogicOperations {
 				// TODO refactor to actually query properly.
 				if (valueString.startsWith(directory)) {
 					docUrisList.add(value.get("string", String.class));
+				} else {
 				}
-				else {}
 			}
 			return docUrisList;
 		} catch (IOException e) {
@@ -86,11 +84,19 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	//TODO refactor to use multipart search capability.
-	public SearchHandle searchDirectory(ClientRole role, String directory, String queryString) {
+	// TODO refactor to use multipart search capability.
+	public SearchHandle searchDirectory(ClientRole role, String directory,
+			String queryString) {
 		QueryManager queryManager = getClient(role).newQueryManager();
-		StructuredQueryBuilder qb = new StructuredQueryBuilder(directory.replaceAll("/", ""));
-		StructuredQueryDefinition qdef = qb.term(queryString);
+		StructuredQueryBuilder qb = new StructuredQueryBuilder(
+				directory.replaceAll("/", ""));
+		StructuredQueryDefinition qdef;
+		if (queryString != null) {
+			qdef = qb.term(queryString);
+		} else {
+			qdef = qb.and();
+		}
+
 		qdef.setDirectory(directory);
 		logger.debug(qdef.serialize());
 		return queryManager.search(qdef, new SearchHandle());
@@ -103,8 +109,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 		deleteDef.setDirectory(directory);
 		queryManager.delete(deleteDef);
 	}
-	
-	
+
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role) {
 		return getClient(role).newJSONDocumentManager();
 	}
@@ -113,22 +118,22 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public SearchHandle search(ClientRole role, QueryDefinition queryDefinition) {
 		return search(role, queryDefinition, 1);
 	}
-	
+
 	@Override
-	public SearchHandle search(ClientRole role, QueryDefinition queryDefinition, long start) {
+	public SearchHandle search(ClientRole role,
+			QueryDefinition queryDefinition, long start) {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		return queryManager.search(queryDefinition, new SearchHandle(), start);
 	}
 
-	public void putClient(ClientRole role,
-			DatabaseClient client) {
+	public void putClient(ClientRole role, DatabaseClient client) {
 		clients.put(role, client);
 	}
 
 	@Override
-	public <T extends ResourceManager> void initResource(ClientRole role, String name,
-			T resourceManager) {
-		getClient(role).init(name,  resourceManager);
+	public <T extends ResourceManager> void initResource(ClientRole role,
+			String name, T resourceManager) {
+		getClient(role).init(name, resourceManager);
 	}
 
 	@Override
