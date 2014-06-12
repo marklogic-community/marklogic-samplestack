@@ -15,7 +15,7 @@
         "range":{
             "type":"xs:string",
             "facet":true,
-            "element":{"ns":"","name":"tags"}
+            "json-property":"tags"
         }
     }],
     "transform-results":{"apply":"empty-snippet"}
