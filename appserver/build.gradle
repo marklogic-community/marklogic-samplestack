@@ -1,3 +1,7 @@
+/* build.gradle for samplestack, java-spring implementation */
+
+
+/* spring boot build dependency */
 buildscript {
 	ext {
 		springBootVersion = '1.0.2.RELEASE'
@@ -13,10 +17,47 @@ buildscript {
     }
 }
 
+apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+/*
+ * Run this task to initialize a fresh MarkLogic server
+ * and install security objects.
+ */
+task dbInit(type: MarkLogicInitTask)
+
+/*
+ * This task removes all trace of samplestack
+ */
+task dbTeardown(type: MarkLogicTeardownTask)
+
+/*
+ * This task configures the database and REST API instance
+ * based on files in db-config directory
+ */
+task dbConfigure(type: MarkLogicConfigureTask)
+dbConfigure.inputDir = file('../db-config')
+dbConfigure.outputDir = file("$buildDir/db-config")
+dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
+dbConfigure.shouldRunAfter dbInit
+
+task props(type: Copy) {
+    from('.') {
+        include 'gradle.properties'
+    }
+    into 'src/main/resources'
+}
+
+assemble.dependsOn(dbInit, dbConfigure, test)
+
+task dbLoad(type: MarkLogicSlurpTask)
+
+//TODO load a bigger dataset from remote server
+task loadRemote(type: MarkLogicSlurpTask) {
+  // url  = "http://developer.marklogic.com/moredata.tgz"
+}
 
 /* The code repositories to consult for dependencies */
 repositories {
@@ -29,6 +70,7 @@ repositories {
 dependencies {
     // compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
     // compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+    compile "org.codehaus.groovy:groovy-all:2.2.2"
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
@@ -54,8 +96,15 @@ test {
     }
 }
 
+test.dependsOn(props, dbConfigure) 
+
 task dbTest(type: Test) {
     useJUnit {
         includeCategories 'com.marklogic.samplestack.DatabaseExtensionTest'
     }
+}
+
+/* task to generate the gradle wrapper script */
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
 }

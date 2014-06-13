@@ -20,8 +20,8 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     @Input
     def inputProperty
 
-    def dbProperties = "db-config/database-properties.json"
     def dbConfig = "db-config"
+    def dbProperties = dbConfig + "/database-properties.json"
     def transforms = dbConfig + "/transforms"
     def restExtensions = dbConfig + "/ext"
     def services = dbConfig + "/services"
@@ -39,23 +39,26 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             targetFile.text = "done"
             println "Processing file " + change.file.path
             def changeFile = change.file
-            if (change.file.path.contains(transforms)) {
+            if (changeFile.path =~ /^\./) {
+                println "Skipping hidden file"
+            }
+            else if (changeFile.path.contains(transforms)) {
                 putTransform(changeFile)
             }
-            else if (change.file.path.contains(restExtensions)) {
+            else if (changeFile.path.contains(restExtensions)) {
                 putExtension(changeFile)
             }
-            else if (change.file.path.contains(services)) {
+            else if (changeFile.path.contains(services)) {
                 putServiceExtension(changeFile)
             }
-            else if (change.file.path.contains(options)) {
+            else if (changeFile.path.contains(options)) {
                 putOptions(changeFile)
             }
-            else if (change.file.path.contains(dbProperties)) {
-                putDatabaseConfig()
+            else if (changeFile.path.contains(dbProperties)) {
+                putDatabaseConfig(changeFile)
             }
-            else if (change.file.path.contains(restProperties)) {
-                putRESTProperties()
+            else if (changeFile.path.contains(restProperties)) {
+                putRESTProperties(changeFile)
             } else {
                 println "No handler for file " + change.file.path
             }
@@ -67,26 +70,15 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             targetFile.delete()
         }
 
-//        FileTree fileTree = project.fileTree(dbConfig)
-//        // if caller passed a file, just process that
-//        if (file != null) {
-//           println file
-//           fileTree.include(file)
-//        } else {
-//        // otherwise traverse db-config
-//           fileTree.include('**').exclude('**/.*').exclude('security/**').exclude('seed-data/**')
-//        }
-//        fileTree.each {
-        //}
     }
 
-    void putDatabaseConfig() {
+    void putDatabaseConfig(c) {
         println "Saving Database Configuration"
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/databases/" + config.marklogic.rest.name + "/properties")
         client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         def params = [:]
         params.contentType = "application/json"
-        params.body = project.file(dbProperties).text
+        params.body = c.text
         put(client,params)
     }
 
@@ -150,12 +142,12 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         put(client,params)
     }
 
-    void putRESTProperties() {
+    void putRESTProperties(File f) {
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/properties")
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
         def params = [:]
         params.contentType = "application/json"
-        params.body = new File(restProperties).text
+        params.body = f.text
         println "Configuring Properties"
         put(client,params)
     }
