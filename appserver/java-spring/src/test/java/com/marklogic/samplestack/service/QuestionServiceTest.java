@@ -78,11 +78,16 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		logger.debug("Results came back " + results.getResults().getTotalResults());
 		assertEquals("Nothing in the database yet to match results", 0, results.getResults().getTotalResults());
 
-		newQuestion = new QnADocument(mapper, question, "I mean, there are several reasons. \n* bullet\n*bullet And so it goes.");
+		newQuestion = new QnADocument(mapper, 
+				question, 
+				"I mean, there are several reasons. \n* bullet\n*bullet And so it goes.", 
+				"xquery", "javascript", "programming");
+		
 		// ask a question.
 		submittedQuestionAndAnswer = service.ask(Utils.joeUser, newQuestion);
 
 		assertEquals(newQuestion.getJson().get("title"), submittedQuestionAndAnswer.getJson().get("title"));
+		assertEquals(newQuestion.getJson().get("tags"),  submittedQuestionAndAnswer.getJson().get("tags"));
 		
 		// search for my original question.
 		QnADocumentResults myQuestionsAndAnswers = service.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
@@ -96,12 +101,12 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		
 		// TODO somehow assert the question I just asked is in this list?
 		// this will not work without the native json patch support.
-		// answeredQuestion = service.answer(Utils.maryUser, submittedQuestionAndAnswer.getId(), "I think your question is very good.");
+		answeredQuestion = service.answer(Utils.maryUser, submittedQuestionAndAnswer.getId(), "I think your question is very good.");
 		
-		// logger.debug(mapper.writeValueAsString(answeredQuestion));
+		logger.debug(mapper.writeValueAsString(answeredQuestion));
 		
-	//	JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
-		//assertEquals("answered question has an answer", Utils.maryUser.getUserName(), answer.get("owner").get("userName").asText());
+	  	JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
+		assertEquals("answered question has an answer", Utils.maryUser.getUserName(), answer.get("owner").get("userName").asText());
 		
 		//Answer answer = submittedQuestionAndAnswer.getAnswers().get(0);
 		
@@ -116,7 +121,7 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 	// this test relies on the current (facade) JSON support in REST API
 	// 
 	public void testCRUD() throws JsonProcessingException {
-		QnADocument question = new QnADocument(mapper, "What is my first question?", "Its body is suspiciously short, like a unit test's.");
+		QnADocument question = new QnADocument(mapper, "What is my first question?", "Its body is suspiciously short, like a unit test's.", "tag1", "tag2");
 		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
 		joeUser.setId(UUID.randomUUID().toString());

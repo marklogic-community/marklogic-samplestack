@@ -7,9 +7,9 @@ import org.gradle.api.tasks.*
 
 public class MarkLogicInitTask extends MarkLogicTask {
 
-    def roles = "../db-config/security/roles"
-    def users = "../db-config/security/users"
-    def privileges = "../db-config/security/privileges"
+    def roles = "../../database/security/roles"
+    def users = "../../database/security/users"
+    def privileges = "../../database/security/privileges"
 
 
     @TaskAction
@@ -27,14 +27,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = "{}"
         try {
             client.post(params)
-            println "MarkLogic initialized.  Waiting for server restart."
+            logger.info("MarkLogic initialized.  Waiting for server restart.")
             Thread.sleep(5000)
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
-                println "Server already secured.  Initialization skipped."
+                logger.info("Server already secured.  Initialization skipped.")
             else if ( ex.response.status == 500 )
-                println "Server already initialized.  Initialization skipped"
+                logger.info("Server already initialized.  Initialization skipped")
             else 
                throw ex;
         }
@@ -47,14 +47,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }', config.marklogic.admin.user, config.marklogic.admin.password)
         try {
             client.post(params)
-            println "MarkLogic admin secured.  Waiting for server restart."
+            logger.info("MarkLogic admin secured.  Waiting for server restart.")
             Thread.sleep(5000)
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
-                println "Server already secured.  Initialization skipped"
+                logger.info("Server already secured.  Initialization skipped")
             else 
-                println "Got " + ex.response.status
+                logger.info("Got " + ex.response.status)
         }
     }
 
@@ -69,7 +69,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             params.body = jsonObject.text
             client.post(params)
         } catch (ex) {
-            println "Error creating security object.  Payload: "+jsonObject.text+" .  Skipping..."
+            logger.error("Error creating security object.  Payload: "+jsonObject.text+" .  Skipping...")
         }
     }
 
@@ -93,7 +93,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             params.body = jsonRole.text
             client.put(params)
         } catch (ex) {
-            println "Error creating security object.  Privilege name: " + privilegeName + ". Payload: "+jsonRole.text+" .  Skipping..."
+            logger.error("Error creating security object.  Privilege name: " + privilegeName + ". Payload: "+jsonRole.text+" .  Skipping...")
         }
 
     }
@@ -119,7 +119,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
         try {
             post(client, params)
         } catch (ex) {
-            println "Ignoring server creation error... "
+            logger.info("Ignoring server creation error... ")
         }
     }
 }

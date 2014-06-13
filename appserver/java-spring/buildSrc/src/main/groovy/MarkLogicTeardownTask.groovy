@@ -19,7 +19,7 @@ public class MarkLogicTeardownTask extends MarkLogicTask {
         try {
             client.delete(params)
         } catch (ex) {
-            println "REST Teardown failed: " + ex.response.status
+            logger.error("REST Teardown failed: " + ex.response.status)
         }
     }
 

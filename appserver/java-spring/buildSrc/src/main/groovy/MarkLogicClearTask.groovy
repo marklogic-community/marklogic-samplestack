@@ -7,7 +7,7 @@ public class MarkLogicClearTask extends MarkLogicTask {
 
     @TaskAction
     void updateDatabase() {
-        println "Saving Database Configuration"
+        logger.error("Saving Database Configuration")
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/databases/" + config.marklogic.rest.name)
         client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         def params = [:]

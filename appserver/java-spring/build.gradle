@@ -35,13 +35,23 @@ task dbTeardown(type: MarkLogicTeardownTask)
 
 /*
  * This task configures the database and REST API instance
- * based on files in db-config directory
+ * based on files in the database directory
  */
+task dbConfigureClean << {
+    delete("$buildDir/database")
+}
+
 task dbConfigure(type: MarkLogicConfigureTask)
-dbConfigure.inputDir = file('../db-config')
-dbConfigure.outputDir = file("$buildDir/db-config")
+dbConfigure.inputDir = file('../../database')
+dbConfigure.outputDir = file("$buildDir/database")
 dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
-dbConfigure.shouldRunAfter dbInit
+dbConfigure.shouldRunAfter dbInit 
+dbConfigure.shouldRunAfter dbConfigureClean
+
+task dbConfigureAll
+dbConfigureAll.dependsOn dbConfigureClean
+dbConfigureAll.dependsOn dbConfigure
+
 
 task props(type: Copy) {
     from('.') {
@@ -53,6 +63,8 @@ task props(type: Copy) {
 assemble.dependsOn(dbInit, dbConfigure, test)
 
 task dbLoad(type: MarkLogicSlurpTask)
+
+task dbClear(type: MarkLogicClearTask)
 
 //TODO load a bigger dataset from remote server
 task loadRemote(type: MarkLogicSlurpTask) {

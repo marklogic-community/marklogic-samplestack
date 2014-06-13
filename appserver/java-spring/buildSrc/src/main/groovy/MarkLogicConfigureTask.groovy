@@ -20,27 +20,27 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     @Input
     def inputProperty
 
-    def dbConfig = "db-config"
-    def dbProperties = dbConfig + "/database-properties.json"
-    def transforms = dbConfig + "/transforms"
-    def restExtensions = dbConfig + "/ext"
-    def services = dbConfig + "/services"
-    def options = dbConfig + "/options"
-    def restProperties = dbConfig + "/rest-properties.json"
+    def database = "database"
+    def dbProperties = database + "/database-properties.json"
+    def transforms = database + "/transforms"
+    def restExtensions = database + "/ext"
+    def services = database + "/services"
+    def options = database + "/options"
+    def restProperties = database + "/rest-properties.json"
     def file = null
 
     
     @TaskAction
     void configureREST(IncrementalTaskInputs inputs) {
-        println inputs.incremental ? "CHANGED inputs considered out of date" : "ALL inputs considered out of date"
+        logger.info(inputs.incremental ? "CHANGED inputs considered out of date" : "ALL inputs considered out of date")
         inputs.outOfDate { change -> 
-            println "out of date: ${change.file.name}"
+            logger.info("out of date: ${change.file.name}")
             def targetFile = new File(outputDir, change.file.name)
             targetFile.text = "done"
-            println "Processing file " + change.file.path
+            logger.info("Processing file " + change.file.path)
             def changeFile = change.file
             if (changeFile.path =~ /^\./) {
-                println "Skipping hidden file"
+                logger.debug("Skipping hidden file")
             }
             else if (changeFile.path.contains(transforms)) {
                 putTransform(changeFile)
@@ -60,12 +60,12 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             else if (changeFile.path.contains(restProperties)) {
                 putRESTProperties(changeFile)
             } else {
-                println "No handler for file " + change.file.path
+                logger.info("No handler for file " + change.file.path)
             }
         }
 
         inputs.removed { change ->
-            println "removed: ${change.file.name}"
+            logger.debug( "removed: ${change.file.name}")
             def targetFile = new File(outputDir, change.file.path)
             targetFile.delete()
         }
@@ -73,7 +73,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     }
 
     void putDatabaseConfig(c) {
-        println "Saving Database Configuration"
+        logger.info( "Saving Database Configuration")
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/databases/" + config.marklogic.rest.name + "/properties")
         client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         def params = [:]
@@ -87,7 +87,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         def transformName = transformFileName.replaceAll(~"\\.[^\\.]+", "").replaceAll(~".*\\/","")
 
         if (transformName) {
-            println "Saving transform " + transformName
+            logger.info( "Saving transform " + transformName)
             RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/transforms/" + transformName)
             client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
             client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
@@ -97,7 +97,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             put(client, params)
         }
         else {
-            println "Skipping filename " + transformName
+            logger.debug( "Skipping filename " + transformName)
         }
     }
 
@@ -105,7 +105,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         def extensionFileName = extension.getPath().replaceAll(~"\\\\","/")
         def extensionName = 
             extensionFileName.replaceAll(~".*\\/","")
-        println "Saving extension " + extensionFileName
+        logger.info( "Saving extension " + extensionFileName)
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/ext/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
@@ -119,7 +119,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         def extensionFileName = extension.getPath().replaceAll(~"\\\\","/")
         def extensionName = 
             extensionFileName.replaceAll(~".*\\/","")
-        println "Saving extension " + extensionFileName
+        logger.info( "Saving extension " + extensionFileName)
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/resources/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
@@ -133,7 +133,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         def optionsFileName = options.getPath().replaceAll(~"\\\\","/").replaceAll(~"\\.json","")
         def optionsName = 
             optionsFileName.replaceAll(~".*\\/","")
-        println "Saving options " + optionsFileName
+        logger.info( "Saving options " + optionsFileName)
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/query/" + optionsName)
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
         def params = [:]
@@ -148,7 +148,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         def params = [:]
         params.contentType = "application/json"
         params.body = f.text
-        println "Configuring Properties"
+        logger.info( "Configuring Properties")
         put(client,params)
     }
 }
