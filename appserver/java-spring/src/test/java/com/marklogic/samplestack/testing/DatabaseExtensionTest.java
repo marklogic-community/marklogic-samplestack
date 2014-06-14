@@ -1,4 +1,4 @@
-package com.marklogic.samplestack;
+package com.marklogic.samplestack.testing;
 
 public interface DatabaseExtensionTest {
 

@@ -3,6 +3,7 @@ package com.marklogic.samplestack.db;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -16,11 +17,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extra.jackson.JacksonHandle;
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.DatabaseExtensionTest;
-import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
+import com.marklogic.samplestack.testing.DatabaseExtensionTest;
+import com.marklogic.samplestack.testing.Utils;
 
 /**
  * Tests the transforms installed in the
@@ -31,12 +32,17 @@ import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 @WebAppConfiguration
 @ContextConfiguration(classes = Application.class)
 @Category(DatabaseExtensionTest.class)
-public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
+public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 
 	@Autowired 
 	private ContributorService contributorService;
 	
-	private static String TESTURI = "/dbtest/ask-1.json";
+	private static String TEST_URI = "/dbtest/ask-1.json";
+	
+	@Before
+	public void setup() {
+		super.setup(TEST_URI);
+	}
 	
 	@Test
     public void askTransform() {
@@ -45,18 +51,18 @@ public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
 		contributorService.store(Utils.joeUser);
 		
 		// make sure there's no question 
-		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TESTURI);
+		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 		// make a body
         ObjectNode input = mapper.createObjectNode();
         input.put("title", "Title");
-        input.put("body", TESTURI);
+        input.put("body", TEST_URI);
         
         ServerTransform askTransform = new ServerTransform("ask");
         askTransform.add("userName", Utils.joeUser.getUserName());
         
-        operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(TESTURI, new JacksonHandle(input), askTransform);
+        contribManager.write(TEST_URI, new JacksonHandle(input), askTransform);
         
-        JsonNode output = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR, TESTURI);
+        JsonNode output = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
         
         assertTrue("ask transformed missing creationDate key", output.get("creationDate") != null);
         assertTrue("ask transformed missing comments array", output.get("comments").size() == 0);
@@ -67,7 +73,7 @@ public class DBConfigTransformsIT extends MarkLogicIntegrationTest {
         assertEquals("ask transformed missing owner property id", Utils.joeUser.getId().toString(), ownerNode.get("id").asText());
         assertEquals("ask transformed missing owner property userName", Utils.joeUser.getUserName(), ownerNode.get("userName").asText());
         assertEquals("ask transformed missing owner property displayName", Utils.joeUser.getDisplayName(), ownerNode.get("displayName").asText());
-        //jsonDocumentManager.delete(TESTURI);
+        contribManager.delete(TEST_URI);
     }
 
 }

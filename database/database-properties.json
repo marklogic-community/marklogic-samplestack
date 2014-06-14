@@ -37,6 +37,14 @@
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
+        "localname": "lastActivityDate",
+        "namespace-uri": "",
+        "range-value-positions": false,
+        "scalar-type": "dateTime"
+    },
+    {
+        "collation": "http://marklogic.com/collation/",
+        "invalid-values": "reject",
         "localname": "tags",
         "namespace-uri": "",
         "range-value-positions": false,

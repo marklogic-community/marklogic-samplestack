@@ -24,7 +24,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
     @TaskAction
     void load() {
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
-        def jsonFiles = project.fileTree(dir: seedDirectory).matching { include '**/*.json' }
+        def jsonFiles = project.fileTree(dir: "../../" + seedDirectory).matching { include '**/*.json' }
         jsonFiles.each { 
             def pattern = Pattern.compile(".*" + seedDirectory)
             def docUri = it.path.replaceAll(pattern, "")

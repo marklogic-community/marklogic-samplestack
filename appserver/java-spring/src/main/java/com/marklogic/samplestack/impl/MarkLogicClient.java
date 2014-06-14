@@ -23,7 +23,7 @@ import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.RawCombinedQueryDefinition;
-import com.marklogic.client.query.StructuredQueryBuilder;
+import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
@@ -88,18 +88,12 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public SearchHandle searchDirectory(ClientRole role, String directory,
 			String queryString) {
 		QueryManager queryManager = getClient(role).newQueryManager();
-		StructuredQueryBuilder qb = new StructuredQueryBuilder(
-				directory.replaceAll("/", ""));
-		StructuredQueryDefinition qdef;
-		if (queryString != null) {
-			qdef = qb.term(queryString);
-		} else {
-			qdef = qb.and();
-		}
+		StringQueryDefinition stringQuery = 
+				queryManager.newStringDefinition(directory.replaceAll("\\/",  ""))
+				.withCriteria(queryString);
 
-		qdef.setDirectory(directory);
-		logger.debug(qdef.serialize());
-		return queryManager.search(qdef, new SearchHandle());
+		stringQuery.setDirectory(directory);
+		return queryManager.search(stringQuery, new SearchHandle());
 	}
 
 	@Override

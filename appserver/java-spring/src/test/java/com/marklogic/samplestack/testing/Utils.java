@@ -1,4 +1,4 @@
-package com.marklogic.samplestack;
+package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
 

@@ -37,7 +37,10 @@ public class QnADocumentController {
 	
 	@RequestMapping(value = "questions", method = RequestMethod.GET)
 	public @ResponseBody
-	QnADocumentResults getQnADocuments(@RequestParam String q) {
+	QnADocumentResults getQnADocuments(@RequestParam(required = false) String q) {
+		if (q == null) {
+			q = "sort:active";
+		}
 		return qnaService.search(ClientRole.securityContextRole(), q);
 	}
 

@@ -33,8 +33,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.UnitTest;
-import com.marklogic.samplestack.Utils;
+import com.marklogic.samplestack.testing.UnitTest;
+import com.marklogic.samplestack.testing.Utils;
 import com.marklogic.samplestack.domain.Contributor;
 
 @RunWith(SpringJUnit4ClassRunner.class)

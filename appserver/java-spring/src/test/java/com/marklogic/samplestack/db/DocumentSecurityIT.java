@@ -3,6 +3,7 @@ package com.marklogic.samplestack.db;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -10,14 +11,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extra.jackson.JacksonHandle;
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.DatabaseExtensionTest;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
+import com.marklogic.samplestack.testing.DatabaseExtensionTest;
 
 /**
  * This test explicitly makes sure that the two database configurations have
@@ -27,29 +26,34 @@ import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 @WebAppConfiguration
 @ContextConfiguration(classes = Application.class)
 @Category(DatabaseExtensionTest.class)
-public class DocumentSecurityTest extends MarkLogicIntegrationTest {
+public class DocumentSecurityIT extends MarkLogicIntegrationTest {
+
+	private static final String TEST_URI = "/test/security.json";
+	
+	@Before
+	public void setup() {
+		super.setup(TEST_URI);
+	}
+		
 
 	@Test
 	public void testDocumentSecurity() {
-		// write a document using writer connection.
-		ObjectNode content = mapper.createObjectNode();
-		content.put("body",  "content");
-		operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write("/test/security.json", new JacksonHandle(content));
-		
 		// verify no read with GUEST
 		try {
 			@SuppressWarnings("unused")
-			JacksonHandle invisibleDoc = operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_GUEST).read("/test/security.json", new JacksonHandle());
+			JacksonHandle invisibleDoc = operations.newJSONDocumentManager(
+					ClientRole.SAMPLESTACK_GUEST).read(TEST_URI,
+					new JacksonHandle());
 			fail("Guest could see invisible documwent");
-		} catch(ResourceNotFoundException e) {
-			//pass
+		} catch (ResourceNotFoundException e) {
+			// pass
 		}
-		
+
 		// verify read with CONTRIBUTOR
-		JacksonHandle foundDoc = operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).read("/test/security.json", new JacksonHandle());
+		JacksonHandle foundDoc = contribManager.read(TEST_URI,
+				new JacksonHandle());
 		assertEquals("Contributor got back document", content, foundDoc.get());
-			
-		
-		
+		contribManager.delete(TEST_URI);
+
 	}
 }
