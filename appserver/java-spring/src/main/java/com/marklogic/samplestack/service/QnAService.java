@@ -28,11 +28,11 @@ public interface QnAService {
 	
 	/**
 	 * Publishes a new Question to the Samplestack database.
-	 * @param contributor The contributor who asks this question.
+	 * @param userName The userName who asked the question
 	 * @param question The new completed details section.
 	 * @return The QnADocument created by the ask operation
 	 */
-	public QnADocument ask(Contributor contributor, QnADocument question);
+	public QnADocument ask(String userName, QnADocument question);
 
 	/**
 	 * Adds an answer to an existing QnADocument

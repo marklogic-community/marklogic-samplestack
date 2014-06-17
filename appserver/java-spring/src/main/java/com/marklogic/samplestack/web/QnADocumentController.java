@@ -1,6 +1,6 @@
 package com.marklogic.samplestack.web;
 
-import java.util.List;
+import java.io.InputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
+import com.marklogic.samplestack.domain.SparseQuestion;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
@@ -32,6 +35,8 @@ public class QnADocumentController {
 	@Autowired
 	private QnAService qnaService;
 
+	@Autowired ObjectMapper mapper;
+	
 	@Autowired
 	private ContributorService contributorService; 
 	
@@ -48,9 +53,10 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
-	QnADocument ask(@RequestBody QnADocument question) {
-		Contributor contributor = contributorService.getByUserName(ClientRole.securityContextUserName());
-		return qnaService.ask(contributor, question);
+	QnADocument ask(@RequestBody SparseQuestion sparseQuestion) {
+		// TODO validate SparseQuestion
+		QnADocument qnaDoc = new QnADocument(mapper, sparseQuestion.getTitle(), sparseQuestion.getText(), sparseQuestion.getTags() );
+		return qnaService.ask(ClientRole.securityContextUserName(), qnaDoc);
 	}
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)

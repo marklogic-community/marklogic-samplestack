@@ -84,7 +84,7 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 				"xquery", "javascript", "programming");
 		
 		// ask a question.
-		submittedQuestionAndAnswer = service.ask(Utils.joeUser, newQuestion);
+		submittedQuestionAndAnswer = service.ask(Utils.joeUser.getUserName(), newQuestion);
 
 		assertEquals(newQuestion.getJson().get("title"), submittedQuestionAndAnswer.getJson().get("title"));
 		assertEquals(newQuestion.getJson().get("tags"),  submittedQuestionAndAnswer.getJson().get("tags"));
@@ -115,18 +115,14 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 	}
 	
 	
-	
 	@Test
-	// TODO
-	// this test relies on the current (facade) JSON support in REST API
-	// 
 	public void testCRUD() throws JsonProcessingException {
 		QnADocument question = new QnADocument(mapper, "What is my first question?", "Its body is suspiciously short, like a unit test's.", "tag1", "tag2");
 		Contributor joeUser = Utils.getBasicUser();
 		joeUser.setDisplayName("joeUser");
 		joeUser.setId(UUID.randomUUID().toString());
 		
-		QnADocument question2 = service.ask(joeUser,  question);
+		QnADocument question2 = service.ask(joeUser.getUserName(),  question);
 		
 		logger.debug(mapper.writeValueAsString(question2.getJson()));
 		

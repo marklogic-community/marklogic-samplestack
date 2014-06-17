@@ -14,7 +14,7 @@ import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
 import com.marklogic.client.document.ServerTransform;
-import com.marklogic.client.extra.jackson.JacksonHandle;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
@@ -56,11 +56,12 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 
 	@Override
-	public QnADocument ask(Contributor user, QnADocument question) {
+	public QnADocument ask(String userName, QnADocument question) {
 		String documentUri = generateUri(DIRNAME);
 		question.setId(documentUri);
 		ServerTransform askTransform = new ServerTransform("ask");
-		askTransform.put("userName", user.getUserName());
+		askTransform.put("userName", userName);
+		
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR)
 					.write(documentUri, 
 						new JacksonHandle(question.getJson()),

@@ -20,6 +20,7 @@ public class MarkLogicTask extends DefaultTask {
         }
         catch (ex) {
             logger.error("HTTPError: " + ex.getMessage())
+            logger.error(params.body)
         }
     }
 
@@ -30,6 +31,7 @@ public class MarkLogicTask extends DefaultTask {
         }
         catch (ex) {
             logger.error("HTTPError: " + ex.getMessage())
+            logger.error(params.body)
         }
     }
 

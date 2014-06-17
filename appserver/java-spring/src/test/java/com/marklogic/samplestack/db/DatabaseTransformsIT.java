@@ -15,7 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.ServerTransform;
-import com.marklogic.client.extra.jackson.JacksonHandle;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;

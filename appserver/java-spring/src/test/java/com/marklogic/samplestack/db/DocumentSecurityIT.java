@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.extra.jackson.JacksonHandle;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
