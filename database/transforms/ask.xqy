@@ -29,7 +29,13 @@ as document-node() {
      : then the answer will be non-deterministic
      : TODO should that be an error?
      :)
-    let $user := cts:search(collection(), cts:json-property-value-query("userName", $username))[1]
+    let $user := cts:search(collection(), 
+        cts:and-query(
+            (
+            cts:directory-query("/contributors/"),
+            cts:json-property-value-query("userName", $username)
+            )))[1]
+    let $_ := xdmp:log(("USER", $user))
     let $json-doc :=
                 $root +
                 object-node { 
