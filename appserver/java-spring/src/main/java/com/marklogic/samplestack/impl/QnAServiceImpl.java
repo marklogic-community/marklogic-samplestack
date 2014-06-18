@@ -23,8 +23,8 @@ import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
-import com.marklogic.samplestack.exception.SampleStackException;
-import com.marklogic.samplestack.exception.SampleStackIOException;
+import com.marklogic.samplestack.exception.SamplestackException;
+import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component
@@ -71,23 +71,29 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 
 	@Override
+	// TODO consider working around patch, consider implementing native patch
 	public QnADocument answer(Contributor user,
 			String toAnswer, String answer) {
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 		ObjectNode json = mapper.createObjectNode();
-		json.put("body", answer);
+		json.put("text", answer);
+		ServerTransform answerPatchTransform = new ServerTransform("answer-patch");
+		answerPatchTransform.put("userName", user.getUserName());
 		try {
-			DocumentPatchHandle patch = patchBuilder
-					.insertFragment("/answers", 
-							Position.LAST_CHILD, 
-							mapper.writeValueAsString(json)).build();
-			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(toAnswer, patch);
+//			DocumentPatchHandle patch = patchBuilder
+//					.insertFragment("/answers", 
+//							Position.LAST_CHILD, 
+//							mapper.writeValueAsString(json)).build();
+//			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(toAnswer, patch);
+			
+			JacksonHandle handle = new JacksonHandle(json);
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(toAnswer, handle,answerPatchTransform);
 		} catch (MarkLogicIOException e) {
-			throw new SampleStackIOException(e);
-		} catch (JsonProcessingException e) {
-			throw new SampleStackException(e);
+			throw new SamplestackIOException(e);
+//		} catch (JsonProcessingException e) {
+//			throw new SampleStackException(e);
 		}
-		return null;
+		return get(ClientRole.SAMPLESTACK_CONTRIBUTOR, idFromUri(toAnswer));
 	}
 
 	@Override

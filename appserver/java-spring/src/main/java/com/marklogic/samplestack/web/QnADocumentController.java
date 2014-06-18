@@ -61,9 +61,9 @@ public class QnADocumentController {
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	QnADocument getFoo(@PathVariable(value = "id") String id) {
+	QnADocument get(@PathVariable(value = "id") String id) {
 		// validate
-		return qnaService.get(ClientRole.securityContextRole(), "/foo/" + id);
+		return qnaService.get(ClientRole.securityContextRole(), id);
 	}
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.DELETE)

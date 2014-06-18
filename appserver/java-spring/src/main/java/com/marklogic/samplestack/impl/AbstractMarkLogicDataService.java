@@ -25,4 +25,5 @@ public abstract class AbstractMarkLogicDataService {
 	protected String generateUri(String prefix) {
 		return prefix + UUID.randomUUID() + ".json";
 	}
+	
 }

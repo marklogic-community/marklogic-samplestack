@@ -20,8 +20,8 @@ import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.exception.SampleStackException;
-import com.marklogic.samplestack.exception.SampleStackIOException;
+import com.marklogic.samplestack.exception.SamplestackException;
+import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.SamplestackNotFoundException;
 
@@ -45,7 +45,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		} catch (ResourceNotFoundException e) {
 			throw new SamplestackNotFoundException();
 		} catch (IOException e) {
-			throw new SampleStackIOException(e);
+			throw new SamplestackIOException(e);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService impleme
 		try {
 			jsonString = mapper.writeValueAsString(contributor);
 		} catch (JsonProcessingException e) {
-			throw new SampleStackException(e);
+			throw new SamplestackException(e);
 		}
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(DIR_NAME + contributor.getId() + ".json", new StringHandle(
 				jsonString));

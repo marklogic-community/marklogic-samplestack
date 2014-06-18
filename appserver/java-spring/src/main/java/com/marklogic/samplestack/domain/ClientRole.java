@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.marklogic.samplestack.exception.SampleStackSecurityException;
+import com.marklogic.samplestack.exception.SamplestackSecurityException;
 
 /**
  * An enum to index the properties that configure database connections.
@@ -22,7 +22,7 @@ public enum ClientRole {
     	case REST_ADMIN: return "marklogic.rest.admin"; 
     	case SAMPLESTACK_CONTRIBUTOR: return "marklogic.writer"; 
     	case SAMPLESTACK_GUEST: return "marklogic.guest";
-    	default: throw new SampleStackSecurityException();
+    	default: throw new SamplestackSecurityException();
 		}
 	}
 	

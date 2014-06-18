@@ -27,7 +27,7 @@ import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.exception.SampleStackIOException;
+import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public class MarkLogicClient implements MarkLogicOperations {
@@ -79,7 +79,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 			}
 			return docUrisList;
 		} catch (IOException e) {
-			throw new SampleStackIOException(e);
+			throw new SamplestackIOException(e);
 		}
 	}
 
