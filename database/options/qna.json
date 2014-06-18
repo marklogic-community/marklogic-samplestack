@@ -2,6 +2,13 @@
 {"debug":true,
     "return-qtext":true,
     "term":{"empty":{"apply":"all-results"}},
+    "constraint":[
+        {"name":"tags",
+        "range":{
+            "type":"xs:string",
+            "facet":"true",
+            "json-property":"tags"}}
+    ],
     "operator":{
         "name":"sort",
         "state":[
