@@ -2,6 +2,7 @@ package com.marklogic.samplestack.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -32,10 +33,10 @@ import com.marklogic.samplestack.testing.Utils;
 @WebAppConfiguration
 @ContextConfiguration(classes = {Application.class })
 @Category(IntegrationTest.class)
-public class QuestionServiceTest  extends MarkLogicIntegrationTest {
+public class QnAServiceTest  extends MarkLogicIntegrationTest {
 
 
-	private final Logger logger = LoggerFactory.getLogger(QuestionServiceTest.class);
+	private final Logger logger = LoggerFactory.getLogger(QnAServiceTest.class);
 	
 	@Autowired
 	QnAService service;
@@ -65,8 +66,11 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		QnADocument questionFromSearch;
 		// state after answering
 		QnADocument answeredQuestion;
+		// state after two answers
+		QnADocument answeredTwiceQuestion;
+				
 		// state after acceptance
-		QnADocument answerAccepted;
+		QnADocument acceptedQuestion;
 		
 		// check for existing answers with a naive question
 		String question = "How do I get to know MarkLogic quickly?";
@@ -109,24 +113,33 @@ public class QuestionServiceTest  extends MarkLogicIntegrationTest {
 		assertEquals("answered question has an answer", Utils.maryUser.getUserName(), answer.get("owner").get("userName").asText());
 		
 		// add another answer
-		QnADocument answeredTwiceQuestion = service.answer(Utils.maryUser, answeredQuestion.getId(), "I think the question has merit, but is inherently unanswerable.");
+		answeredTwiceQuestion = service.answer(Utils.maryUser, answeredQuestion.getId(), "I think the question has merit, but is inherently unanswerable.");
 		assertEquals("twice answered question has two answers", 2, answeredTwiceQuestion.getJson().get("answers").size());
 		
-		String answerToAccept = answer.get("id").asText();
+		String firstAnswerId = answer.get("id").asText();
+		String secondAnswerId = answeredTwiceQuestion.getJson().get("answers").get(1).get("id").asText();
 		
-		//this must fail -- joe asked the question, not mary
-		try {
-			service.accept(Utils.maryUser, answerToAccept);
-			fail("Mary should not be able to accept Joe's question.");
-		} catch (SamplestackSecurityException e) {
-			//pass
-		}
-		service.accept(Utils.joeUser, answerToAccept);
+		acceptedQuestion = service.accept(firstAnswerId);
+		
+		
+		assertEquals("Accepted answer id is correct", firstAnswerId, acceptedQuestion.getJson().get("acceptedAnswerId").asText());
+		assertTrue("The right answer has been accepted", acceptedQuestion.getJson().get("answers").get(0).get("accepted").asBoolean());
+		
+		// accept another answer
+		acceptedQuestion = service.accept(secondAnswerId);
+		assertEquals("Accepted answer id is correct", secondAnswerId, acceptedQuestion.getJson().get("acceptedAnswerId").asText());
+		assertTrue("The right answer has been accepted", acceptedQuestion.getJson().get("answers").get(1).get("accepted").asBoolean());
+		
 		
 		//Answer answer = submittedQuestionAndAnswer.getAnswers().get(0);
 		
 		// need security for this method to make sure asker acks the
 		//service.accept(Utils.joeUser,"1");
+	}
+	
+	@Test
+	public void testVoting() {
+		
 	}
 	
 	

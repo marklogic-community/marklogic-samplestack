@@ -3,6 +3,11 @@
     "return-qtext":true,
     "term":{"empty":{"apply":"all-results"}},
     "constraint":[
+        {"name":"id",
+        "range":{
+            "type":"xs:string",
+            "facet":"false",
+            "json-property":"id"}},
         {"name":"tags",
         "range":{
             "type":"xs:string",

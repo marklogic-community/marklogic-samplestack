@@ -7,23 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.document.DocumentPatchBuilder;
-import com.marklogic.client.document.DocumentPatchBuilder.Position;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
-import com.marklogic.client.io.marker.DocumentPatchHandle;
+import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.RawStructuredQueryDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
-import com.marklogic.samplestack.exception.SamplestackException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.QnAService;
 
@@ -34,6 +31,8 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 			.getLogger(QnAServiceImpl.class);
 	
 	private static String DIRNAME = "/qna/";
+	
+	private static String DUMMY_URI = "/nodoc.json";
 	
 	private static String idFromUri(String uri) {
 		return uri.replace(DIRNAME, "").replace(".json", "");
@@ -97,16 +96,29 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 
 	@Override
-	public void accept(Contributor contributor, String answerId) {
-		//PatchBuilder
+	public QnADocument accept(String answerId) {
+		ServerTransform acceptPatchTransform = new ServerTransform("accept-patch");
+		acceptPatchTransform.put("answerId",  answerId);
+		
+		// TODO PatchBuilder
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(DUMMY_URI, new StringHandle(""), acceptPatchTransform);
+		//NOTE document URI is thrown away in this workaround method
+		
+		return getByAnswerId(answerId);
 	}
 
 	@Override
+	//TODO implement cache
 	public QnADocument get(ClientRole role, String id) {
 		logger.debug(id);
 		JsonNode json = operations.getJsonDocument(role, uriFromId(id));
 		QnADocument question = new QnADocument((ObjectNode) json);
 		return question;
+	}
+	
+	private QnADocument getByAnswerId(String answerId) {
+		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId);
+		return results.get(0);
 	}
 	
 	@Override

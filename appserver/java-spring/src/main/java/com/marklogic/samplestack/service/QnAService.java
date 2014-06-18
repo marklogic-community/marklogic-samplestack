@@ -58,11 +58,13 @@ public interface QnAService {
 	public void voteDown(Contributor contributor, String postId);
 
 	/**
-	 * Marks a particular answer as accepted.  An accepted answer answeres a given question.
-	 * @param contributor The contributor accepting the answer.  Must match the author of the question.
+	 * Marks a particular answer as accepted.  Note -- requirement 
+	 * that only owner may accept an answer is enforced in UI.
+	 * In the service/data layer the author of the question
+	 * isn't important or recorded.
 	 * @param postId The identifier of the answer to be accepted.
 	 */
-	public void accept(Contributor contributor, String postId);
+	public QnADocument accept(String postId);
 
 	/**
 	 * Retrieves a QnADocument by id.
