@@ -46,7 +46,7 @@ public class QnAServiceTest  extends MarkLogicIntegrationTest {
 	
 	@Before
 	public void cleanout() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/qna/");
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/questions/");
 		contributorService.store(Utils.joeUser);
 		contributorService.store(Utils.maryUser);
 	}

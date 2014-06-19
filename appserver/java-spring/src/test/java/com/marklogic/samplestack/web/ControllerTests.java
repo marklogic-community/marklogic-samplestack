@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.UnitTest;
 import com.marklogic.samplestack.testing.Utils;
 
@@ -52,12 +53,15 @@ public class ControllerTests {
 	private WebApplicationContext wac;
 
 	@Autowired
+	protected ContributorService contribService;
+	      
+	@Autowired
 	private FilterChainProxy springSecurityFilter;
 
 	@Autowired
-	private ObjectMapper mapper;
+	protected ObjectMapper mapper;
 
-	private MockMvc mockMvc;
+	protected MockMvc mockMvc;
 
 	@Before
 	public void setup() {
@@ -66,7 +70,7 @@ public class ControllerTests {
 	}
 	
 
-	private HttpSession login(String username, String password)
+	protected HttpSession login(String username, String password)
 			throws Exception {
 		HttpSession session = mockMvc
 				.perform(
@@ -78,7 +82,7 @@ public class ControllerTests {
 		return session;
 	}
 
-	private HttpSession logout() throws Exception {
+	protected HttpSession logout() throws Exception {
 		return this.mockMvc.perform(get("/logout")).andReturn().getRequest()
 				.getSession();
 	}
@@ -190,92 +194,6 @@ public class ControllerTests {
 
 	}
 
-	@Test
-	public void testAnonymousCanSearch() throws UnsupportedEncodingException,
-			Exception {
-		String questionResponse = this.mockMvc.perform(get("/questions"))
-				.andExpect(status().isOk()).andReturn().getResponse()
-				.getContentAsString();
-		logger.debug(questionResponse);
-		assertTrue("response from mock controller question is search response", questionResponse.contains("{\"results\""));
-	}
-
-	@Test
-	public void testAnonymousCannotAsk() throws JsonProcessingException, Exception {
-		
-		QnADocument qnaDoc = new QnADocument(mapper, "I'm a guest", "I cannot ask questions");
-		
-		this.mockMvc.perform(
-				post("/questions").contentType(MediaType.APPLICATION_JSON)
-						.content(mapper.writeValueAsString(qnaDoc.getJson())))
-				//TODO fix for forbidden
-						.andExpect(status().is3xxRedirection());
-	}
-
-	@Test
-	public void testAskMalformedQuestions() throws JsonProcessingException, Exception {	
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
-		
-		// send a contributor to the questions endpoint
-		this.mockMvc.perform(
-				post("/questions")
-				.session((MockHttpSession) session)
-				.locale(Locale.ENGLISH).contentType(MediaType.APPLICATION_JSON)
-						.content(mapper.writeValueAsString(Utils.joeUser)))
-				.andExpect(status().isBadRequest());
-		
-		
-		QnADocument qnaDoc = new QnADocument(mapper, "I'm a contributor", "I ask questions", "tag1", "tag2");
-		
-	}
-
-	@Test
-	public void testAskQuestion() throws JsonProcessingException, Exception {	
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
-		
-		QnADocument qnaDoc = new QnADocument(mapper, "Question from contributor", "I ask questions", "tag1", "tag2");
-
-		String payload = mapper.writeValueAsString(qnaDoc.getJson());
-		
-		// send a contributor to the questions endpoint
-		String askedQuestion =
-				this.mockMvc.perform(
-				post("/questions").session((MockHttpSession) session)
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(payload))
-				.andExpect(status().isCreated())
-				.andReturn().getResponse().getContentAsString();
-		logger.debug(askedQuestion);
-		
-		assertTrue("question returned contains original question", askedQuestion.contains("I ask questions"));
-	}
-
-	@Test
-	public void commentOnQuestion() {
-		
-	}
-	
-	@Test
-	public void answerQuestion() {
-		
-	}
-	
-	@Test
-	public void commentOnAnswer() {
-	
-	}
-	
-	@Test public void voteUpQuestion() {	}
-	
-	@Test public void voteDownQuestion() { }
-	@Test public void voteUpAnswer() { }
-	@Test public void voteDownAnswer() { }
-	@Test public void prohibitDuplicateVotes() { }
-	@Test public void acceptAnswer() { }
-	@Test public void testAnonymousAccessToAccepted() { }
-	@Test public void acceptAnotherAnswer() {  // adjust reputation 
-		
-	}
 	
 	
 }

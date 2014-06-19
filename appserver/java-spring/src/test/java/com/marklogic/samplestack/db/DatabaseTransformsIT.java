@@ -39,7 +39,7 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 	@Autowired
 	private ContributorService contributorService;
 
-	private static String TEST_URI = "/qna/transform-doc.json";
+	private static String TEST_URI = "/questions/transform-doc.json";
 	private static String DUMMY_URI = "/nodoc.json";
 	
 	@Before

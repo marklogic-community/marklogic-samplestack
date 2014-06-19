@@ -30,20 +30,20 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	private final Logger logger = LoggerFactory
 			.getLogger(QnAServiceImpl.class);
 	
-	private static String DIRNAME = "/qna/";
+	private static String DIR_NAME = "/questions/";
 	
 	private static String DUMMY_URI = "/nodoc.json";
 	
 	private static String idFromUri(String uri) {
-		return uri.replace(DIRNAME, "").replace(".json", "");
+		return uri.replace(DIR_NAME, "").replace(".json", "");
 	}
 	private static String uriFromId(String id) {
-		return DIRNAME + id + ".json";
+		return DIR_NAME + id + ".json";
 	}
 	
 	@Override
 	public QnADocumentResults search(ClientRole role, String question) {
-		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/qna/", question));
+		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/questions/", question));
 		//simulate bulk:
 		List<QnADocument> sidecar = new ArrayList<QnADocument>();
 		for (MatchDocumentSummary summary : results.getResults().getMatchResults()) {
@@ -56,7 +56,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 
 	@Override
 	public QnADocument ask(String userName, QnADocument question) {
-		String documentUri = generateUri(DIRNAME);
+		String documentUri = generateUri(DIR_NAME);
 		question.setId(documentUri);
 		ServerTransform askTransform = new ServerTransform("ask");
 		askTransform.put("userName", userName);
