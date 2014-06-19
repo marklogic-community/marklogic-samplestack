@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.service;
+package com.marklogic.samplestack.exception;
 
 
 import org.slf4j.Logger;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @SuppressWarnings("serial")
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class SampleStackNotFoundException extends RuntimeException {
+public class SamplestackNotFoundException extends RuntimeException {
 
 	private final Logger logger = LoggerFactory
-			.getLogger(SampleStackNotFoundException.class);
+			.getLogger(SamplestackNotFoundException.class);
 
-	public SampleStackNotFoundException() {
+	public SamplestackNotFoundException() {
 		logger.info("Resource Not Found Exception thrown by MarkLogic Client API");
 	}
 

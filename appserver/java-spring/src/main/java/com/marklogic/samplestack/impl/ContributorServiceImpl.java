@@ -20,8 +20,8 @@ import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SamplestackException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.exception.SamplestackNotFoundException;
 import com.marklogic.samplestack.service.ContributorService;
-import com.marklogic.samplestack.service.SamplestackNotFoundException;
 
 @Component
 public class ContributorServiceImpl extends AbstractMarkLogicDataService

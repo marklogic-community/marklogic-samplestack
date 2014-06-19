@@ -28,6 +28,9 @@ public class QnADocumentControllerTests extends ControllerTests {
 	private Logger logger = LoggerFactory
 			.getLogger(QnADocumentControllerTests.class);
 
+	private QnADocument askedQuestion;
+	private QnADocument answeredQuestion;
+
 	@Test
 	public void testAnonymousCanSearch() throws UnsupportedEncodingException,
 			Exception {
@@ -56,7 +59,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 	@Test
 	public void testAskMalformedQuestions() throws JsonProcessingException,
 			Exception {
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
+		login("joeUser@marklogic.com", "joesPassword");
 
 		// send a contributor to the questions endpoint
 		this.mockMvc.perform(
@@ -75,58 +78,93 @@ public class QnADocumentControllerTests extends ControllerTests {
 	public void testAskQuestion() throws JsonProcessingException, Exception {
 		contribService.store(Utils.joeUser);
 
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
+		login("joeUser@marklogic.com", "joesPassword");
 
-		QnADocument askedQuestion = askQuestion();
+		askQuestion();
 
 		assertEquals("question returned contains original question",
 				"Question from contributor",
 				askedQuestion.getJson().get("title").asText());
 	}
 
-	private QnADocument askQuestion() throws Exception {
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
+	private void askQuestion() throws Exception {
+		if (askedQuestion == null) {
+			login("joeUser@marklogic.com", "joesPassword");
 
-		QnADocument qnaDoc = new QnADocument(mapper,
-				"Question from contributor", "I ask questions", "tag1", "tag2");
+			QnADocument qnaDoc = new QnADocument(mapper,
+					"Question from contributor", "I ask questions", "tag1",
+					"tag2");
 
-		String payload = mapper.writeValueAsString(qnaDoc.getJson());
+			String payload = mapper.writeValueAsString(qnaDoc.getJson());
 
-		// send a contributor to the questions endpoint
-		String askedQuestion = this.mockMvc
+			// send a contributor to the questions endpoint
+			String askedQuestion = this.mockMvc
+					.perform(
+							post("/questions")
+									.session((MockHttpSession) session)
+									.contentType(MediaType.APPLICATION_JSON)
+									.content(payload))
+					.andExpect(status().isCreated()).andReturn().getResponse()
+					.getContentAsString();
+			logger.debug(askedQuestion);
+
+			ObjectNode node = mapper.readValue(askedQuestion, ObjectNode.class);
+			this.askedQuestion = new QnADocument(node);
+		}
+	}
+
+	@Test
+	public void commentOnQuestion() throws Exception {
+		contribService.store(Utils.joeUser);
+
+		login("joeUser@marklogic.com", "joesPassword");
+		askQuestion();
+
+		String commentedQuestion = this.mockMvc
 				.perform(
-						post("/questions").session((MockHttpSession) session)
+						post(askedQuestion.getId().replace(".json", ""))
+								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(payload))
-				.andExpect(status().isCreated()).andReturn().getResponse()
+								.content("{\"text\":\"no comment.\"}"))
+				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
-		logger.debug(askedQuestion);
-
-		ObjectNode node = mapper.readValue(askedQuestion, ObjectNode.class);
-		return new QnADocument(node);
-	}
-
-	@Test
-	public void commentOnQuestion() {
 
 	}
 
-	@Test
-	public void answerQuestion() throws Exception {
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
+	private void answerQuestion() throws Exception {
+		login("joeUser@marklogic.com", "joesPassword");
 
-		QnADocument askedQuestion = askQuestion();
-		String docId = askedQuestion.getId();
+		String docId = askedQuestion.getId().replace(".json", "");
 		logger.debug(docId);
 		// send a contributor to the questions endpoint
 		String answeredQuestion = this.mockMvc
 				.perform(
-						post(docId + "/answers").session((MockHttpSession) session)
+						post(docId + "/answers")
+								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
-								.content("{}"))
+								.content(
+										"{\"text\":\"here's an answer for ya\"}"))
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(answeredQuestion);
+		ObjectNode node = mapper.readValue(answeredQuestion, ObjectNode.class);
+		this.answeredQuestion = new QnADocument(node);
+	}
+
+	@Test
+	public void testAnswerQuestion() throws Exception {
+		contribService.store(Utils.joeUser);
+		contribService.store(Utils.maryUser);
+
+		askQuestion();
+
+		answerQuestion();
+
+		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
+		assertEquals("answered question has an answer",
+				Utils.joeUser.getUserName(), answer.get("owner")
+						.get("userName").asText());
+
 	}
 
 	@Test
@@ -155,15 +193,55 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	@Test
-	public void acceptAnswer() {
+	public void testAcceptAnswer() throws Exception {
+		contribService.store(Utils.joeUser);
+		contribService.store(Utils.maryUser);
+		login("joeUser@marklogic.com", "joesPassword");
+		askQuestion();
+		answerQuestion();
+
+		String docId = answeredQuestion.getJson().get("id").asText()
+				.replaceAll(".json", "");
+		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
+		String firstAnswerId = answer.get("id").asText();
+
+		login("maryAdmin@marklogic.com", "marysPassword");
+		failAcceptQuestion(docId, firstAnswerId);
+
+		login("joeUser@marklogic.com", "joesPassword");
+		QnADocument acceptedQuestion = succeedAcceptQuestion(docId,
+				firstAnswerId);
+
+		assertEquals("Answer accepted", firstAnswerId, acceptedQuestion
+				.getJson().get("acceptedAnswerId").asText());
+
+	}
+
+	private void failAcceptQuestion( String docId,
+			String answerId) throws UnsupportedEncodingException, Exception {
+		this.mockMvc.perform(
+				post(docId + answerId + "/accept")
+						.session((MockHttpSession) session)
+						.contentType(MediaType.APPLICATION_JSON).content("{}"))
+				.andExpect(status().is4xxClientError());
+	}
+
+	private QnADocument succeedAcceptQuestion(String docId, String answerId) throws UnsupportedEncodingException,
+			Exception {
+		String acceptedQuestion = this.mockMvc
+				.perform(
+						post(docId + answerId + "/accept")
+								.session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{}")).andExpect(status().isOk())
+				.andReturn().getResponse().getContentAsString();
+		logger.debug(acceptedQuestion);
+		ObjectNode node = mapper.readValue(acceptedQuestion, ObjectNode.class);
+		return new QnADocument(node);
 	}
 
 	@Test
 	public void testAnonymousAccessToAccepted() {
-	}
-
-	@Test
-	public void acceptAnotherAnswer() { // adjust reputation
 
 	}
 

@@ -36,12 +36,12 @@ public interface QnAService {
 
 	/**
 	 * Adds an answer to an existing QnADocument
-	 * @param contributor The contributor who is adding an answer to the question.
+	 * @param userName The userName of the contributor adding an answer to the question.
 	 * @param questionId The identifier for the question to be answered (document URI)
 	 * @param answer The answer, in Markdown text representation
 	 * @return The QnADocument as modified by the answer operation
 	 */
-	public QnADocument answer(Contributor contributor, String questionId, String answer);
+	public QnADocument answer(String userName, String questionId, String answer);
 	
 	/**
 	 * Adds a vote-up score to a particular question or answer.
@@ -75,7 +75,16 @@ public interface QnAService {
 
 	/**
      * Removes a QnA document from the database.  Not used by the runtime application.
-	 * @param id The id of the document to delete.
+	 * @param postId The id of the document to delete.
 	 */
-	public void delete(String id);
+	public void delete(String postId);
+
+	/**
+	 * Adds a comment to a given post Id.
+	 * @param userName The owner of the comment
+	 * @param postId The target post id (question or answer) for the comment.
+	 * @param text the text of the comment
+	 * @return The updated QnADocument
+	 */
+	public QnADocument comment(String userName, String postId, String text);
 }

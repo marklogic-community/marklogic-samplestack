@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -32,11 +31,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.UnitTest;
 import com.marklogic.samplestack.testing.Utils;
@@ -54,7 +51,7 @@ public class ControllerTests {
 
 	@Autowired
 	protected ContributorService contribService;
-	      
+
 	@Autowired
 	private FilterChainProxy springSecurityFilter;
 
@@ -63,33 +60,33 @@ public class ControllerTests {
 
 	protected MockMvc mockMvc;
 
+	protected HttpSession session;
+
 	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
 				.addFilter(this.springSecurityFilter, "/*").build();
 	}
-	
 
-	protected HttpSession login(String username, String password)
-			throws Exception {
-		HttpSession session = mockMvc
+	protected void login(String username, String password) throws Exception {
+		this.session = mockMvc
 				.perform(
 						post("/login").param("username", username).param(
 								"password", password))
 				.andExpect(status().is(HttpStatus.FOUND.value()))
 				.andExpect(redirectedUrl("/")).andReturn().getRequest()
 				.getSession();
-		return session;
+
 	}
 
-	protected HttpSession logout() throws Exception {
-		return this.mockMvc.perform(get("/logout")).andReturn().getRequest()
+	protected void logout() throws Exception {
+		this.session = this.mockMvc.perform(get("/logout")).andReturn().getRequest()
 				.getSession();
 	}
 
 	@Test
 	public void testLogin() throws Exception {
-		HttpSession session = mockMvc
+		mockMvc
 				.perform(
 						post("/login").param("username", "nobody").param(
 								"password", "nopassword"))
@@ -99,7 +96,7 @@ public class ControllerTests {
 		// (session);
 
 		// another bad credential case
-		session = mockMvc
+		mockMvc
 				.perform(
 						post("/login").param("username",
 								"joeUser@marklogic.com").param("password",
@@ -109,7 +106,7 @@ public class ControllerTests {
 				.getRequest().getSession();
 		// assertNull(session);
 
-		session = login("joeUser@marklogic.com", "joesPassword");
+		login("joeUser@marklogic.com", "joesPassword");
 
 		assertNotNull(session);
 
@@ -118,12 +115,12 @@ public class ControllerTests {
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isOk());
 
-		session = logout();
+		logout();
 		mockMvc.perform(
 				get("/").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
-				// TODO log bug for fixing login .andExpect(status().isForbidden());
-						.andExpect(status().is3xxRedirection());
+		// TODO log bug for fixing login .andExpect(status().isForbidden());
+				.andExpect(status().is3xxRedirection());
 
 	}
 
@@ -134,7 +131,7 @@ public class ControllerTests {
 	 * /docs GET
 	 */
 	public void testContributorCRUD() throws Exception {
-		HttpSession session = login("joeUser@marklogic.com", "joesPassword");
+		login("joeUser@marklogic.com", "joesPassword");
 		Contributor joeUser = Utils.getBasicUser();
 		this.mockMvc.perform(
 				post("/contributors").session((MockHttpSession) session)
@@ -143,7 +140,7 @@ public class ControllerTests {
 						.content(mapper.writeValueAsString(joeUser)))
 				.andExpect(status().isForbidden());
 
-		session = login("maryAdmin@marklogic.com", "marysPassword");
+		login("maryAdmin@marklogic.com", "marysPassword");
 		String returnedString = this.mockMvc
 				.perform(
 						post("/contributors")
@@ -194,6 +191,4 @@ public class ControllerTests {
 
 	}
 
-	
-	
 }
