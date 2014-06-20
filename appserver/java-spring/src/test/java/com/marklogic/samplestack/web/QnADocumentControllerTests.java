@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import groovy.lang.Category;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -21,8 +22,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.QnADocument;
+import com.marklogic.samplestack.testing.IntegrationTest;
 import com.marklogic.samplestack.testing.Utils;
 
+@Category(IntegrationTest.class)
 public class QnADocumentControllerTests extends ControllerTests {
 
 	private Logger logger = LoggerFactory

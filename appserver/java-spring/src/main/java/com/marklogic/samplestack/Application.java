@@ -37,7 +37,7 @@ import com.marklogic.samplestack.impl.MarkLogicClient;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages="com.marklogic.samplestack.impl")
 @PropertySource("classpath:gradle.properties")
 @EnableAutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled=true)
@@ -87,13 +87,5 @@ public class Application {
 		return new CustomObjectMapper();
 	}
 	
-	/**
-	 * Boilerplate main method for Spring Boot's execution hook.
-	 * @param args System arguments for the application.
-	 */
-	public static void main(String[] args) {
-		logger.debug("Starting Spring Boot SampleStack Application");
-		SpringApplication.run(Application.class, args);
-	}
 	
 }

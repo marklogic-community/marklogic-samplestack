@@ -23,7 +23,6 @@ import com.marklogic.samplestack.testing.DatabaseExtensionTest;
  * appropriate privileges.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
 @ContextConfiguration(classes = Application.class)
 @Category(DatabaseExtensionTest.class)
 public class DocumentSecurityIT extends MarkLogicIntegrationTest {

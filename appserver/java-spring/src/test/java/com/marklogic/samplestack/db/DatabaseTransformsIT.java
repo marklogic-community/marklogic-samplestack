@@ -31,7 +31,6 @@ import com.marklogic.samplestack.testing.Utils;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
 @ContextConfiguration(classes = Application.class)
 @Category(DatabaseExtensionTest.class)
 public class DatabaseTransformsIT extends MarkLogicIntegrationTest {

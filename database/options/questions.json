@@ -3,6 +3,8 @@
     "return-qtext":true,
     "term":{"empty":{"apply":"all-results"}},
     "constraint":[
+        {"name":"userName",
+            "value":{"json-property":"userName"}}
         {"name":"id",
         "range":{
             "type":"xs:string",
@@ -12,8 +14,10 @@
         "range":{
             "type":"xs:string",
             "facet":"true",
-            "json-property":"tags"}}
+            "json-property":"tags",
+            "facet-option":["frequency-order","descending", "limit=10"]}}
     ],
+    "transform-results":{"apply":"raw"},
     "operator":{
         "name":"sort",
         "state":[
