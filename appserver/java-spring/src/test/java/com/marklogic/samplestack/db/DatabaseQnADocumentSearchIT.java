@@ -11,8 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.marklogic.client.io.SearchHandle;
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.testing.DatabaseExtensionTest;
 
@@ -23,7 +23,7 @@ import com.marklogic.samplestack.testing.DatabaseExtensionTest;
  * Depends on security setup
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = DatabaseContext.class)
 @Category(DatabaseExtensionTest.class)
 public class DatabaseQnADocumentSearchIT {
 

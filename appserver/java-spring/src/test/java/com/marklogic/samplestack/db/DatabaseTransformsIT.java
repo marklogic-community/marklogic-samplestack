@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -18,8 +17,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 import com.marklogic.samplestack.testing.DatabaseExtensionTest;
@@ -31,7 +30,7 @@ import com.marklogic.samplestack.testing.Utils;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = DatabaseContext.class)
 @Category(DatabaseExtensionTest.class)
 public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 

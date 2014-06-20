@@ -10,18 +10,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.FileCopyUtils;
 
-import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /*
  * Basic test for RDF ingestion and query
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = DatabaseContext.class)
 public class RDFTest {
 
 	@Autowired

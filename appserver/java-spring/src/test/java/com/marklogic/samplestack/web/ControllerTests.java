@@ -34,6 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.UnitTest;
 import com.marklogic.samplestack.testing.Utils;

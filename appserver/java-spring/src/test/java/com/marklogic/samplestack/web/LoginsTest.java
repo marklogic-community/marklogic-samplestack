@@ -37,7 +37,7 @@ import com.marklogic.samplestack.testing.RESTAPITest;
 @Category(RESTAPITest.class)
 public class LoginsTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginsTest.class);
 
 	final String ldapServer = "ldap://localhost:33389";
 	final String ldapSearchBase = "dc=samplestack,dc=org";

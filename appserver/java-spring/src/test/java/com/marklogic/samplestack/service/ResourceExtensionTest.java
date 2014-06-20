@@ -12,13 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.impl.TestResourceManager;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = {Application.class })
+@ContextConfiguration(classes = {DatabaseContext.class })
 public class ResourceExtensionTest {
 
 
