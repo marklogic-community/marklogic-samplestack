@@ -1,6 +1,3 @@
-/* build.gradle for samplestack, java-spring implementation */
-
-
 /* spring boot build dependency */
 buildscript {
 	ext {
@@ -17,42 +14,68 @@ buildscript {
     }
 }
 
+/* plugins */
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+/* build.gradle for samplestack, java-spring implementation */
+
+
 /*
+ * INIT
  * Run this task to initialize a fresh MarkLogic server
  * and install security objects.
  */
 task dbInit(type: MarkLogicInitTask)
 
 /*
+ * TEARDOWN
  * This task removes all trace of samplestack
  */
 task dbTeardown(type: MarkLogicTeardownTask)
 
 /*
+ * CONFIGURE
+ *
  * This task configures the database and REST API instance
  * based on files in the database directory
  */
+task dbConfigure(type: MarkLogicConfigureTask)
+
 task dbConfigureClean << {
     delete("$buildDir/database")
 }
 
-task dbConfigure(type: MarkLogicConfigureTask)
 dbConfigure.inputDir = file('../../database')
 dbConfigure.outputDir = file("$buildDir/database")
 dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
 dbConfigure.shouldRunAfter dbInit 
 dbConfigure.shouldRunAfter dbConfigureClean
 
+
 task dbConfigureAll
 dbConfigureAll.dependsOn dbConfigureClean
 dbConfigureAll.dependsOn dbConfigure
 
+/**
+ * ASSEMBLE
+ */
+assemble.dependsOn(dbInit, dbConfigure, test)
 
+/*
+ * LOAD
+ */
+task dbLoad(type: MarkLogicSlurpTask)
+
+/*
+ * CLEAR
+ */
+task dbClear(type: MarkLogicClearTask)
+
+
+/* use same properties for gradle and runtime */
 task props(type: Copy) {
     from('.') {
         include 'gradle.properties'
@@ -60,11 +83,6 @@ task props(type: Copy) {
     into 'src/main/resources'
 }
 
-assemble.dependsOn(dbInit, dbConfigure, test)
-
-task dbLoad(type: MarkLogicSlurpTask)
-
-task dbClear(type: MarkLogicClearTask)
 
 //TODO load a bigger dataset from remote server
 task loadRemote(type: MarkLogicSlurpTask) {
@@ -102,7 +120,7 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
-test {
+task unitTest(type: Test) {
     useJUnit {
         includeCategories 'com.marklogic.samplestack.testing.UnitTest'
     }

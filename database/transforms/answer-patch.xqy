@@ -59,8 +59,10 @@ as document-node() {
             }
     let $p := json:array-push($answers, 
         object-node { 
+            "creationDate" : current-dateTime(),
             "id" : "/answers/" || sem:uuid-string(),
             "text" : $root/text/data(),
+            "comments" : array-node { },
             "owner": $denormalizedUser
         })
 

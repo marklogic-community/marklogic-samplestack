@@ -16,15 +16,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.testing.IntegrationTest;
 import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = { Application.class })
+@ContextConfiguration(classes = { DatabaseContext.class })
 @Category(IntegrationTest.class)
 public class ContributorServiceTest extends MarkLogicIntegrationTest {
 

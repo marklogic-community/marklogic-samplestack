@@ -24,22 +24,26 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.domain.SparseQuestion;
+import com.marklogic.samplestack.exception.SamplestackAcceptException;
+import com.marklogic.samplestack.exception.SamplestackSecurityException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
 @RestController
 public class QnADocumentController {
 
-	private final Logger logger = LoggerFactory.getLogger(QnADocumentController.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(QnADocumentController.class);
 
 	@Autowired
 	private QnAService qnaService;
 
-	@Autowired ObjectMapper mapper;
-	
 	@Autowired
-	private ContributorService contributorService; 
-	
+	ObjectMapper mapper;
+
+	@Autowired
+	private ContributorService contributorService;
+
 	@RequestMapping(value = "questions", method = RequestMethod.GET)
 	public @ResponseBody
 	QnADocumentResults getQnADocuments(@RequestParam(required = false) String q) {
@@ -53,17 +57,21 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
-	QnADocument ask(@RequestBody SparseQuestion sparseQuestion) {
+	JsonNode ask(@RequestBody SparseQuestion sparseQuestion) {
 		// TODO validate SparseQuestion
-		QnADocument qnaDoc = new QnADocument(mapper, sparseQuestion.getTitle(), sparseQuestion.getText(), sparseQuestion.getTags() );
-		return qnaService.ask(ClientRole.securityContextUserName(), qnaDoc);
+		QnADocument qnaDoc = new QnADocument(mapper, sparseQuestion.getTitle(),
+				sparseQuestion.getText(), sparseQuestion.getTags());
+		QnADocument answered = qnaService.ask(
+				ClientRole.securityContextUserName(), qnaDoc);
+		return answered.getJson();
 	}
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	QnADocument get(@PathVariable(value = "id") String id) {
-		// validate
-		return qnaService.get(ClientRole.securityContextRole(), id);
+	JsonNode get(@PathVariable(value = "id") String id) {
+		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(),
+				id);
+		return qnaDoc.getJson();
 	}
 
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.DELETE)
@@ -74,4 +82,52 @@ public class QnADocumentController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
+	@RequestMapping(value = "questions/{id}/answers", method = RequestMethod.POST)
+	public @ResponseBody
+	@ResponseStatus(HttpStatus.CREATED)
+	JsonNode answer(@RequestBody JsonNode answer,
+			@PathVariable(value = "id") String id) {
+		//validate TODO
+		String docUri = "/questions/" + id + ".json";
+		QnADocument answered = qnaService.answer(
+				ClientRole.securityContextUserName(), docUri, answer.get("text").asText());
+		return answered.getJson();
+	}
+	
+	@RequestMapping(value = "questions/{id}/answers/{answerId}/accept", method = RequestMethod.POST)
+	public @ResponseBody
+	JsonNode accept(@RequestBody JsonNode answer,
+			@PathVariable(value = "answerId") String answerIdPart) {
+		//validate TODO
+		String userName = ClientRole.securityContextUserName();
+		String answerId = "/answers/" + answerIdPart;
+		QnADocument toAccept = qnaService.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId).get(0);
+		if (toAccept.getOwnerUserName().equals(userName)) {
+			QnADocument accepted = qnaService.accept(answerId);
+			return accepted.getJson();			
+		}
+		else {
+			throw new SamplestackAcceptException("Current user does not match owner of question");
+		}
+	}
+	
+	@RequestMapping(value = "questions/{id}/comments", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode comment(@RequestBody JsonNode comment,
+			@PathVariable(value = "id") String questionId) {
+		String postId = "/questions/" + questionId + ".json";
+		QnADocument toAccept = qnaService.comment(ClientRole.securityContextUserName(), postId, comment.get("text").asText());
+		return toAccept.getJson();
+	}
+	
+	@RequestMapping(value = "questions/{id}/answers/{answerId}/comments", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode commentAnswer(@RequestBody JsonNode comment,
+			@PathVariable(value = "answerId") String answerIdPart) {
+		String answerId = "/answers/" + answerIdPart;
+		QnADocument toAccept = qnaService.comment(ClientRole.securityContextUserName(), answerId, comment.get("text").asText());
+		return toAccept.getJson();
+	}
 }

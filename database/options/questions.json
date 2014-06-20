@@ -1,5 +1,30 @@
 {"options":
 {"debug":true,
     "return-qtext":true,
-    "term":{"empty":{"apply":"all-results"}}
-    }}
+    "term":{"empty":{"apply":"all-results"}},
+    "constraint":[
+        {"name":"userName",
+            "value":{"json-property":"userName"}}
+        {"name":"id",
+        "range":{
+            "type":"xs:string",
+            "facet":"false",
+            "json-property":"id"}},
+        {"name":"tags",
+        "range":{
+            "type":"xs:string",
+            "facet":"true",
+            "json-property":"tags",
+            "facet-option":["frequency-order","descending", "limit=10"]}}
+    ],
+    "transform-results":{"apply":"raw"},
+    "operator":{
+        "name":"sort",
+        "state":[
+            {"name":"active",
+             "sort-order":
+             {"direction":"descending",
+              "json-property":"lastActivityDate"}},
+            {"name":"score",
+             "sort-order":
+             {"score":null}}]}}}

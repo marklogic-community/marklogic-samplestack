@@ -35,18 +35,22 @@ as document-node() {
             cts:json-property-value-query("userName", $username)
             )))[1]
     let $_ := xdmp:log(("USER", $user))
+    let $dt := current-dateTime()
+    let $dt2 := current-dateTime()
     let $json-doc :=
                 $root +
                 object-node { 
-                    "creationDate" : current-dateTime(),
+                    "creationDate" : $dt,
                     "comments": array-node { }, 
                     "answers": array-node { }, 
                     "owner": object-node 
                     { "userName": $user/userName/data(),
                         "id": $user/id/data(),
                         "displayName": $user/displayName/data()
-                    }
+                    },
+                    "lastActivityDate" : null-node { }
                 }
+                
     return
         document {
             $json-doc 

@@ -28,5 +28,14 @@ public class QnADocument extends JsonObjectWrapper {
 		}
 		this.json.put("tags", tagNode);
 	}
+
+
+	/**
+	 * Access to the owner username is required for knowing whether to allow a question acceptance.
+	 * @return The userName of the QnA document's question.
+	 */
+	public String getOwnerUserName() {
+		return getJson().get("owner").get("userName").asText();
+	}
 	
 }

@@ -24,7 +24,7 @@ as document-node() {
         cts:search(collection(), 
             cts:and-query(
                 (
-                cts:directory-query("/qna/"),
+                cts:directory-query("/questions/"),
                 cts:json-property-value-query("id", $answer-id)
                 )))[1]
     let $doc-uri := $parent-qna-doc/base-uri()

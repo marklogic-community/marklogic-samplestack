@@ -1,14 +1,14 @@
-package com.marklogic.samplestack;
+package com.marklogic.samplestack.web;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.stereotype.Component;
 
-@Configuration
 @EnableWebSecurity
+@Component
 /**
  * The Spring Security configuration for Samplestack.
  * Contains configuration for the web-tier security,

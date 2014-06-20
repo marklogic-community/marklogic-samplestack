@@ -44,5 +44,5 @@ curl --user admin:admin --digest -Haccept:application/json "http://localhost:800
 
 # bulk
 curl --user admin:admin --digest -Haccept:"multipart/mixed;boundary=multipart-boundary" "http://localhost:8006/v1/search?q=what&directory=/qna/&options=qna&view=all&format=json" 
-curl --user admin:admin --digest -Haccept:"application/json" "http://localhost:8006/v1/search?q=go&directory=/qna/&options=qna&view=all&format=json"  | python -mjson.tool
+curl --user admin:admin --digest -Haccept:"application/json" "http://localhost:8006/v1/search?q=&directory=/questions/&options=questions&view=facets&format=json"  | python -mjson.tool
 

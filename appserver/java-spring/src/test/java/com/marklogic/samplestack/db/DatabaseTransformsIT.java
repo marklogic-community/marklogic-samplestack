@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -18,8 +17,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 import com.marklogic.samplestack.testing.DatabaseExtensionTest;
@@ -31,15 +30,14 @@ import com.marklogic.samplestack.testing.Utils;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = DatabaseContext.class)
 @Category(DatabaseExtensionTest.class)
 public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 
 	@Autowired
 	private ContributorService contributorService;
 
-	private static String TEST_URI = "/qna/transform-doc.json";
+	private static String TEST_URI = "/questions/transform-doc.json";
 	private static String DUMMY_URI = "/nodoc.json";
 	
 	@Before
@@ -47,8 +45,7 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 		super.setup(TEST_URI);
 	}
 
-	@Test
-	public void askTransform() {
+	private void askQuestion() {
 
 		// make a user
 		contributorService.store(Utils.joeUser);
@@ -58,13 +55,21 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 		// make a body
 		ObjectNode input = mapper.createObjectNode();
 		input.put("title", "Title");
-		input.put("body", TEST_URI);
+		input.put("text", "question");
+		input.put("id", TEST_URI);
 
 		ServerTransform askTransform = new ServerTransform("ask");
 		askTransform.add("userName", Utils.joeUser.getUserName());
 
 		contribManager.write(TEST_URI, new JacksonHandle(input), askTransform);
 
+	}
+	
+	@Test
+	public void askTransform() {
+
+		askQuestion();
+		
 		JsonNode output = operations.getJsonDocument(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 
@@ -88,12 +93,10 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 	}
 
 	private void askAndAnswer() {
-		// make a doc
-		ObjectNode state = mapper.createObjectNode();
-		state.put("text", "this is the text of my question");
-		state.put("answers", mapper.createArrayNode());
-		contribManager.write(TEST_URI, new JacksonHandle(state));
-
+		
+		askQuestion();
+		
+		
 		// add the answer
 		ObjectNode input = mapper.createObjectNode();
 		input.put("text", "this is the text of my answer");
@@ -126,6 +129,7 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 						.asText());
 		assertEquals("transform added a user", Utils.joeUser.getUserName(),
 				answers.get(0).get("owner").get("userName").asText());
+		assertTrue("transform added empty comments", answers.get(0).get("comments") != null);
 
 		contribManager.delete(TEST_URI);
 	}
@@ -159,6 +163,51 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 		
 		assertEquals("doc has acceptedAnswerId", answerId, qnaDoc.get("acceptedAnswerId").asText());
 		assertTrue("answerid is accepted", qnaDoc.get("answers").get(0).get("accepted").asBoolean());
+
+	}
+	
+	@Test
+	public void commentPatchTransform() {
+		// make a user
+		contributorService.store(Utils.joeUser);
+
+		// make sure there's no question
+		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
+
+		askAndAnswer();
+
+		// now we can comment on an answer.
+		JsonNode qnaDoc = operations.getJsonDocument(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
+
+		ArrayNode answers = (ArrayNode) qnaDoc.get("answers");
+		String answerId = answers.get(0).get("id").asText();
+		
+		ServerTransform commentTransform = new ServerTransform("comment-patch");
+		commentTransform.put("postId", answerId);
+		commentTransform.put("text", "text of comment on answer");
+		commentTransform.put("userName", Utils.joeUser.getUserName());
+
+		// dummy uri because this transform does an update on parent doc.
+		contribManager.write(DUMMY_URI, new StringHandle(""), commentTransform);
+		
+		commentTransform = new ServerTransform("comment-patch");
+		commentTransform.put("postId", TEST_URI);
+		commentTransform.put("text", "text of comment on question");
+		commentTransform.put("userName", Utils.joeUser.getUserName());
+
+		// dummy uri because this transform does an update on parent doc.
+		contribManager.write(DUMMY_URI, new StringHandle(""), commentTransform);
+
+		
+		// check comments
+		qnaDoc = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				TEST_URI);
+		
+		assertEquals("doc has comment", 1, qnaDoc.get("comments").size());
+		assertEquals("answer has comment", 1, qnaDoc.get("answers").get(0).get("comments").size());
+		assertEquals("doc has right", "text of comment on question", qnaDoc.get("comments").get(0).get("text").asText());
+		assertEquals("answer has right", "text of comment on answer", qnaDoc.get("answers").get(0).get("comments").get(0).get("text").asText());
 
 	}
 }

@@ -30,20 +30,20 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	private final Logger logger = LoggerFactory
 			.getLogger(QnAServiceImpl.class);
 	
-	private static String DIRNAME = "/qna/";
+	private static String DIR_NAME = "/questions/";
 	
 	private static String DUMMY_URI = "/nodoc.json";
 	
 	private static String idFromUri(String uri) {
-		return uri.replace(DIRNAME, "").replace(".json", "");
+		return uri.replace(DIR_NAME, "").replace(".json", "");
 	}
 	private static String uriFromId(String id) {
-		return DIRNAME + id + ".json";
+		return DIR_NAME + id + ".json";
 	}
 	
 	@Override
 	public QnADocumentResults search(ClientRole role, String question) {
-		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/qna/", question));
+		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/questions/", question));
 		//simulate bulk:
 		List<QnADocument> sidecar = new ArrayList<QnADocument>();
 		for (MatchDocumentSummary summary : results.getResults().getMatchResults()) {
@@ -56,7 +56,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 
 	@Override
 	public QnADocument ask(String userName, QnADocument question) {
-		String documentUri = generateUri(DIRNAME);
+		String documentUri = generateUri(DIR_NAME);
 		question.setId(documentUri);
 		ServerTransform askTransform = new ServerTransform("ask");
 		askTransform.put("userName", userName);
@@ -71,13 +71,13 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 
 	@Override
 	// TODO consider working around patch, consider implementing native patch
-	public QnADocument answer(Contributor user,
+	public QnADocument answer(String userName,
 			String toAnswer, String answer) {
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 		ObjectNode json = mapper.createObjectNode();
 		json.put("text", answer);
 		ServerTransform answerPatchTransform = new ServerTransform("answer-patch");
-		answerPatchTransform.put("userName", user.getUserName());
+		answerPatchTransform.put("userName", userName);
 		try {
 //			DocumentPatchHandle patch = patchBuilder
 //					.insertFragment("/answers", 
@@ -104,7 +104,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(DUMMY_URI, new StringHandle(""), acceptPatchTransform);
 		//NOTE document URI is thrown away in this workaround method
 		
-		return getByAnswerId(answerId);
+		return getByPostId(answerId);
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 		return question;
 	}
 	
-	private QnADocument getByAnswerId(String answerId) {
+	private QnADocument getByPostId(String answerId) {
 		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId);
 		return results.get(0);
 	}
@@ -139,6 +139,18 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	@Override
 	public void delete(String id) {
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(uriFromId(id));
+	}
+	@Override
+	public QnADocument comment(String userName, String postId, String text) {
+		//TODO redo with patch.
+		ServerTransform acceptPatchTransform = new ServerTransform("comment-patch");
+		acceptPatchTransform.put("postId", postId);
+		acceptPatchTransform.put("text", text);
+		
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(DUMMY_URI, new StringHandle(""), acceptPatchTransform);
+		//NOTE document URI is thrown away in this workaround method
+		
+		return getByPostId(postId);
 	}
 
 }

@@ -9,12 +9,11 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 import com.marklogic.samplestack.testing.DatabaseExtensionTest;
 
@@ -23,8 +22,7 @@ import com.marklogic.samplestack.testing.DatabaseExtensionTest;
  * appropriate privileges.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration(classes = DatabaseContext.class)
 @Category(DatabaseExtensionTest.class)
 public class DocumentSecurityIT extends MarkLogicIntegrationTest {
 

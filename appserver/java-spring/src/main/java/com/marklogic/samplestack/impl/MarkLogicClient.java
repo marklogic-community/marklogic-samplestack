@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.document.DocumentDescriptor;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
