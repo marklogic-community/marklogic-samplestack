@@ -84,6 +84,7 @@ public class QnADocumentController {
 
 	@RequestMapping(value = "questions/{id}/answers", method = RequestMethod.POST)
 	public @ResponseBody
+	@ResponseStatus(HttpStatus.CREATED)
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
 		//validate TODO
@@ -108,5 +109,25 @@ public class QnADocumentController {
 		else {
 			throw new SamplestackAcceptException("Current user does not match owner of question");
 		}
+	}
+	
+	@RequestMapping(value = "questions/{id}/comments", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode comment(@RequestBody JsonNode comment,
+			@PathVariable(value = "id") String questionId) {
+		String postId = "/questions/" + questionId + ".json";
+		QnADocument toAccept = qnaService.comment(ClientRole.securityContextUserName(), postId, comment.get("text").asText());
+		return toAccept.getJson();
+	}
+	
+	@RequestMapping(value = "questions/{id}/answers/{answerId}/comments", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode commentAnswer(@RequestBody JsonNode comment,
+			@PathVariable(value = "answerId") String answerIdPart) {
+		String answerId = "/answers/" + answerIdPart;
+		QnADocument toAccept = qnaService.comment(ClientRole.securityContextUserName(), answerId, comment.get("text").asText());
+		return toAccept.getJson();
 	}
 }

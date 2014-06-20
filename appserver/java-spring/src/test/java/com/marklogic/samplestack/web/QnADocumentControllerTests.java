@@ -118,7 +118,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	@Test
-	@Ignore
 	public void commentOnQuestion() throws Exception {
 		contribService.store(Utils.joeUser);
 
@@ -127,13 +126,14 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 		String commentedQuestion = this.mockMvc
 				.perform(
-						post(askedQuestion.getId().replace(".json", ""))
+						post(askedQuestion.getId().replace(".json", "") + "/comments")
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"text\":\"no comment.\"}"))
-				.andExpect(status().isOk()).andReturn().getResponse()
+				.andExpect(status().isCreated()).andReturn().getResponse()
 				.getContentAsString();
 
+		
 	}
 
 	private void answerQuestion() throws Exception {
@@ -149,7 +149,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(
 										"{\"text\":\"here's an answer for ya\"}"))
-				.andExpect(status().isOk()).andReturn().getResponse()
+				.andExpect(status().isCreated()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(answeredQuestion);
 		ObjectNode node = mapper.readValue(answeredQuestion, ObjectNode.class);
@@ -173,8 +173,24 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	@Test
-	public void commentOnAnswer() {
+	public void commentOnAnswer() throws Exception {
+		contribService.store(Utils.joeUser);
 
+		login("joeUser@marklogic.com", "joesPassword");
+		askQuestion();
+		answerQuestion();
+		String answerId = answeredQuestion.getJson().get("answers").get(0).get("id").asText();
+		String url = askedQuestion.getId().replace(".json", "") + answerId + "/comments";
+		
+		String commentedQuestion = this.mockMvc
+				.perform(
+						post(url)
+							.session((MockHttpSession) session)
+							.contentType(MediaType.APPLICATION_JSON)
+							.content("{\"text\":\"no comment.\"}"))
+				.andExpect(status().isCreated()).andReturn().getResponse()
+				.getContentAsString();
+		// TODO assertion
 	}
 
 	@Test
