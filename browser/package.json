@@ -53,7 +53,7 @@
     "minimist": "0.0.8",
     "open": "0.0.5",
     "phantomjs": "^1.9.7-5",
-    "protractor": "git://github.com/stu-salsbury/protractor#groners",
+    "protractor": "^0.24.2",
     "q": "^1.0.1",
     "selenium-webdriver": "^2.41.0",
     "through2": "~0.4.1",

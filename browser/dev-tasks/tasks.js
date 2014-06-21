@@ -677,7 +677,7 @@ var ptorConfig = {
   chromeOnly: false,
   framework: 'cucumber',
   specs: [
-    path.join(__dirname, '../features/**/*.feature')
+    path.join(__dirname, '../../specs/features')
   ],
   params: {
     login: {
