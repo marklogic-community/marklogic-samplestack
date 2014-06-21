@@ -25,6 +25,7 @@
     "gulp": "~3.6.0",
     "gulp-bower-files": "^0.2.2",
     "gulp-browserify": "^0.5.0",
+    "gulp-clone": "~1.0.0",
     "gulp-debug": "~0.3.0",
     "gulp-embedlr": "~0.5.2",
     "gulp-filelog": "~0.2.0",

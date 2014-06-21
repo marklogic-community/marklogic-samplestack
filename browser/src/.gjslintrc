@@ -1,4 +1,0 @@
---jsdoc
---exclude_directories=node_modules
---max_line_length=500
---custom_jsdoc_tags=property,module,alias
