@@ -1,6 +1,7 @@
 {
   "disallowMultipleVarDecl": true,
   "requireSpaceBeforeBinaryOperators": [
+    "?",
     "+",
     "-",
     "/",
@@ -12,6 +13,7 @@
     "!=="
   ],
   "requireSpaceAfterBinaryOperators": [
+    "?",
     "+",
     "-",
     "/",
@@ -23,39 +25,6 @@
     "!=="
   ],
   "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
-  "requireLeftStickedOperators": [","],
-  "disallowRightStickedOperators": [
-    "?",
-    "+",
-    "/",
-    "*",
-    ":",
-    "=",
-    "==",
-    "===",
-    "!=",
-    "!==",
-    ">",
-    ">=",
-    "<",
-    "<="
-  ],
-  "disallowLeftStickedOperators": [
-    "?",
-    "+",
-    "-",
-    "/",
-    "*",
-    "=",
-    "==",
-    "===",
-    "!=",
-    "!==",
-    ">",
-    ">=",
-    "<",
-    "<="
-  ],
   "validateIndentation": 2,
   "requireKeywordsOnNewLine": ["else"],
   "disallowKeywordsOnNewLine": [],
@@ -63,6 +32,12 @@
   "requireSpacesInFunctionExpression": {
       "beforeOpeningRoundBrace": true,
       "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInConditionalExpression": {
+      "afterTest": true,
+      "beforeConsequent": true,
+      "afterConsequent": true,
+      "beforeAlternate": true
   },
   "validateJSDoc": {
     "checkParamNames": true,
