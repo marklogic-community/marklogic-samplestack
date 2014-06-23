@@ -25,6 +25,7 @@ import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.testing.IntegrationTest;
 import com.marklogic.samplestack.testing.Utils;
@@ -46,7 +47,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 	@Before
 	public void cleanout() {
 		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				"/questions/");
+				SamplestackType.QUESTIONS);
 		contributorService.store(Utils.joeUser);
 		contributorService.store(Utils.maryUser);
 	}
