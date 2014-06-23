@@ -37,10 +37,10 @@
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
-        "localname": "creationDate",
+        "localname": "creationYearMonth",
         "namespace-uri": "",
         "range-value-positions": false,
-        "scalar-type": "dateTime"
+        "scalar-type": "string"
     },
     {
         "collation": "http://marklogic.com/collation/",
