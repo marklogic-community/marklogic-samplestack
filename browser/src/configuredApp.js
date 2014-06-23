@@ -3,7 +3,6 @@ config.js
 
 Configure the application module and expose it..
  */
-
 define(['app/app'], function (appModule) {
 
   appModule.config([

@@ -28,12 +28,16 @@ the files individually.
   './filters/point',
   // './filters/restTranslate',
   './services/appRouting',
+  './services/stubData',
   // './services/rest',
   './states/_layout',
   './states/_root',
   './states/_statesHierarchy',
-  './states/documents',
+  './states/ask',
+  './states/explore',
+  // './states/documents',
   './states/fourOhFour',
-  './states/speeches'
+  './states/qnaDoc'
+  // './states/speeches'
 
 ], function () {});

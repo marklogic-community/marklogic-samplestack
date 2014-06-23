@@ -111,11 +111,17 @@ define(['app/module'], function (module) {
 
       // TODO -- lots of stuff to be done here
       this.$get = [
-        '$rootScope',
-        function ($rootScope) {
+        '$rootScope', '$state',
+        function ($rootScope, $state) {
           attachEvents($rootScope);
           return {
+
             // TODO: all of the runtime functionality of the aooRouting service
+
+            go: function (toStateShort) {
+              $state.go('root.layout.' + toStateShort);
+            }
+
           };
         }
       ];

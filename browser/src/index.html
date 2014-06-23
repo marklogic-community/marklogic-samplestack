@@ -7,6 +7,7 @@
   a message will be delivered that this application requires a script
   endabled browser or other script-enabled assistive technology
   -->
+  <base href="/"/>
   <noscript><%= noscriptHtml %></noscript>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,8 +20,8 @@
   An honest effort to maintain consistency across less-than modern
   browsers.  (In the not too distant future this will be an es6 shim.)
   -->
-  <script src="deps/modernizr/modernizr.js"></script>
-  <script src="deps/es5-shim/es5-shim.js"></script>
+  <script src="/deps/modernizr/modernizr.js"></script>
+  <script src="/deps/es5-shim/es5-shim.js"></script>
 
   <!--
   Downloading and running the rest of the app is delayed in order to
@@ -30,21 +31,7 @@
 
 <body>
 
-  <!--
-  CSS will cause this animated overlay to fade out when the application
-  has been bootstrapped. TODO: replace this with a better/branded spinner
-  -->
-  <div class="initspin">
-    <div id="initspinContainer">
-      <div class="stick"></div>
-      <div class="stick"></div>
-      <div class="stick"></div>
-      <div class="stick"></div>
-      <div class="stick"></div>
-      <div class="stick"></div>
-      <h1>Loading...</h1>
-    </div>
-  </div>
+  <!-- TODO: add a spinner -->
 
   <!--
   This is the real body of the app.  It is initially hidden until it is
@@ -60,7 +47,6 @@
     <ui-view/>
 
   </div>
-
 
 </body>
 
@@ -80,16 +66,16 @@ entering running state.
 See app/services/appRouting.js
  */
 require(['/configuredApp.js'], function (appModule) {
-  var htmlEl = angular.element(window.document.children[0]);
-  // angular.bootstrap(
-  //   htmlEl,
-  //   [
-  //     '<%=appName%>',
-  //     function() {
+  var htmlEl = angular.element(window.document.childNodes[1]);
+  angular.bootstrap(
+    htmlEl,
+    [
+      '<%=appName%>',
+      function() {
         htmlEl.attr('ng-app', '<%=appName%>');
-  //     }
-  //   ]
-  // );
+      }
+    ]
+  );
   appModule.run(['appRouting', function (appRouting) {}]);
 });
 
