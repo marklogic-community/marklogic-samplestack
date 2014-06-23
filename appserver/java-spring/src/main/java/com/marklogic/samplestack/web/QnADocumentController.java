@@ -46,11 +46,12 @@ public class QnADocumentController {
 
 	@RequestMapping(value = "questions", method = RequestMethod.GET)
 	public @ResponseBody
-	QnADocumentResults getQnADocuments(@RequestParam(required = false) String q) {
+	QnADocumentResults getQnADocuments(@RequestParam(required = false) String q,
+			@RequestParam(required = false, defaultValue = "1") long start) {
 		if (q == null) {
 			q = "sort:active";
 		}
-		return qnaService.search(ClientRole.securityContextRole(), q);
+		return qnaService.search(ClientRole.securityContextRole(), q, start);
 	}
 
 	@RequestMapping(value = "questions", method = RequestMethod.POST)
@@ -101,7 +102,7 @@ public class QnADocumentController {
 		//validate TODO
 		String userName = ClientRole.securityContextUserName();
 		String answerId = "/answers/" + answerIdPart;
-		QnADocument toAccept = qnaService.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId).get(0);
+		QnADocument toAccept = qnaService.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1).get(0);
 		if (toAccept.getOwnerUserName().equals(userName)) {
 			QnADocument accepted = qnaService.accept(answerId);
 			return accepted.getJson();			

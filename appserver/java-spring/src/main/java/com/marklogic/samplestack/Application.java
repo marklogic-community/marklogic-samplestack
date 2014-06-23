@@ -26,7 +26,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@EnableGlobalMethodSecurity(prePostEnabled=true)
 /**
  * Top-Level application runner and application context configuration for
  * Samplestack.
