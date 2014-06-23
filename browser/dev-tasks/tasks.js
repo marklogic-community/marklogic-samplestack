@@ -248,7 +248,10 @@ var buildStream = function (stream) {
   var sassPipe = lazypipe()
     .pipe(h.fs.src, path.join(srcDir, '**/*.scss'))
     .pipe($.sass, {
-      sourceComments: 'map',
+      // TODO: temporarily removed source map because bug in node-sass
+      // prevents comipiling
+      // https://github.com/sass/node-sass/issues/337
+      // sourceComments: 'map',
       includePaths: [bootstrapDir]
     });
 
@@ -674,7 +677,7 @@ var ptorConfig = {
   chromeOnly: false,
   framework: 'cucumber',
   specs: [
-    path.join(__dirname, '../features/**/*.feature')
+    path.join(__dirname, '../../specs/features')
   ],
   params: {
     login: {
