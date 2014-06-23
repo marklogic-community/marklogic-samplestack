@@ -5,10 +5,15 @@ define(['app/module'], function (module) {
 
   module.controller('layoutCtlr', [
 
-    '$scope',
-    function ($scope) {
+    '$scope', 'appRouting',
+    function ($scope, appRouting) {
       // TODO: this is dead code, do we need a controller?
       // $scope.collapsed = true;
+
+
+      $scope.ask = function () {
+        appRouting.go('ask');
+      };
     }
 
   ]);

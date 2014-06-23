@@ -19,7 +19,6 @@ define(
     root.children.push(layout);
 
     layout.children = [
-
       // {
       //   name: 'documents',
       //   url: '/' // there will be a bunch of URL parameters possible
@@ -27,12 +26,21 @@ define(
       {
         name: 'fourOhFour',
         url: '/404',
+      },
+      {
+        name: 'explore',
+        // will deal with all sorts of parameters here, potentially
+        // as sub-states
+        url: '/'
+      },
+      {
+        name: 'qnaDoc',
+        url: '/doc/:id'
+      },
+      {
+        name: 'ask',
+        url: '/ask'
       }
-      // {
-      //   name: 'speeches',
-      //   url: '/speeches' // there will be a bunch of URL parameters possible
-      // },
-
     ];
 
     module.constant('statesHierarchy', root);

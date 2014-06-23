@@ -1,0 +1,59 @@
+<section class="ss-search-bar">
+  <form>
+    <input type="text" />
+    <button>Search</button>
+    <div class="ss-search-tips">Search Tips</label>
+  </form>
+</section>
+
+<section class="ss-explore">
+
+  <section class="ss-filters">
+    <header>
+      <h2>Filter Results</h2>
+    </header>
+    <div class="ss-filters-entries"><input type="checkbox" /> Show my entries only</div>
+    <div class="ss-filters-resolved"><input type="checkbox" /> Show resolved only</div>
+    <div class="ss-filters-date">
+      <h3>Date</h3>
+      <div class="date-placeholder">&nbsp;</div>
+    </div>
+    <div class="ss-filters-tags">
+      <h3>Tags</h3>
+      <ul ng-repeat="facet in searchResults.facets">
+        <div ng-switch="facet.name">
+          <div ng-switch-when="tags">
+            <div ng-repeat="item in facet.items">
+              <li><input type="checkbox" /> {{item.name}} ({{item.count}})</li>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ss-results">
+    <header>
+      <h2>Browsing Questions</h2>
+      <ul class="ss-sort">
+        <li class="ss-sort-active">relevance</li>
+        <li>newest</li>
+        <li>votes</li>
+      </ul>
+    </header>
+    <section class="ss-result" ng-repeat="result in searchResults.results">
+      <div class="ss-votes">votes</div>
+      <div class="ss-result-title">
+        <a ui-sref="root.layout.qnaDoc">Q: {{result.title}}</a>
+      </div>
+      <p>This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet.</p>
+      <div class="ss-metadata">
+        <ul class="ss-tags">
+          <li ng-repeat="tag in result.tags">{{tag}}</li>
+        </ul>
+        <div class="ss-author">asked {{dateDisplay(result.creationDate)}} by {{result.owner.displayName}} [{{result.owner.reputation}}]</div>
+      </div>
+    </section>
+  </section>
+
+</section>
