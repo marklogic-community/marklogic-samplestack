@@ -1,120 +1,98 @@
 <!doctype html>
-<html lang="en" ng-app="app" lass="nojs">
+<html lang="en" class="nojs">
 
-  <head>
+<head>
 
-    <!--
-    a message will be delivered that this application requires a script
-    endabled browser or other script-enabled assistive technology
-    -->
-    <noscript><%= noscriptHtml %></noscript>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+  a message will be delivered that this application requires a script
+  endabled browser or other script-enabled assistive technology
+  -->
+  <noscript><%= noscriptHtml %></noscript>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title ng-bind="pageTitle + ' - samplestack'">samplestack</title>
+  <title ng-bind="pageTitle + ' - samplestack'">samplestack</title>
 
-    <link rel="stylesheet" type="text/css" href="/deps/ng-prettyjson/src/ng-prettyjson.css">
-    <link rel="stylesheet" type="text/css" href="/deps/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" type="text/css" href="/deps/ng-scrollbar/dist/ng-scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+  <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
 
-    <!--
-    global will be used to load individual objects from self-executing functions
-    -->
-    <script>
-      window.global = window;
-    </script>
+  <!--
+  An honest effort to maintain consistency across less-than modern
+  browsers.  (In the not too distant future this will be an es6 shim.)
+  -->
+  <script src="deps/modernizr/modernizr.js"></script>
+  <script src="deps/es5-shim/es5-shim.js"></script>
 
-    <!--
-    honest effort to maintain consistency across less-than perfect
-    browsers
-    -->
-    <script src="deps/modernizr/modernizr.js"></script>
-    <script src="deps/es5-shim/es5-shim.js"></script>
+  <!--
+  Downloading and running the rest of the app is delayed in order to
+  get the basic layout and spinner displayed quickly.
+  -->
+</head>
 
+<body>
 
-    <!-- the rest of the app is loaded last for speed of initial view -->
-  </head>
-
-  <body>
-
-    <!--
-    CSS will cause this animated overlay to fade out when the application
-    has been bootstrapped. TODO: replace this with a better/branded spinner
-    -->
-    <div class="initspin">
-      <div id="initspinContainer">
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <h1>Loading...</h1>
-      </div>
+  <!--
+  CSS will cause this animated overlay to fade out when the application
+  has been bootstrapped. TODO: replace this with a better/branded spinner
+  -->
+  <div class="initspin">
+    <div id="initspinContainer">
+      <div class="stick"></div>
+      <div class="stick"></div>
+      <div class="stick"></div>
+      <div class="stick"></div>
+      <div class="stick"></div>
+      <div class="stick"></div>
+      <h1>Loading...</h1>
     </div>
+  </div>
+
+  <!--
+  This is the real body of the app.  It is initially hidden until it is
+  bootstrapped.  ng-cloak allows it to be invisible until template code
+  has been compiled by Angular.
+  -->
+  <div class="body ng-cloak" ng-cloak>
 
     <!--
-    This is the real body of the app.  It is initially hidden until it is
-    bootstrapped.  ng-cloak allows it to be invisible until template code
-    has been compiled by Angular.
+    This is the main ui-view, corresponding to the _root state in the
+    ui-router hierarchy.
     -->
-    <div class="body ng-cloak" ng-cloak>
+    <ui-view/>
 
-      <!--
-      This is the main ui-view, corresponding to the _root state in the
-      ui-router hierarchy.
-      -->
-      <ui-view/>
-
-    </div>
+  </div>
 
 
 </body>
 
-<!--
+<script src="/deps/requirejs/require<%=min%>.js"></script>
+
+<script>
+
+/*
 delay the browser seeing this until it's already seen the body so that
 it will render the spinner with minimal interference
--->
 
-  <script src="deps/lodash/dist/lodash.compat.js"></script>
-  <script src="deps/angular/angular.js"></script>
-  <script src="deps/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="deps/angular-ui-router.stateHelper/statehelper.js"></script>
-  <script src="deps/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="deps/spin.js/spin.js"></script>
-  <script src="deps/momentjs/moment.js"></script>
-  <script src="deps/marked/lib/marked.js"></script>
-  <script src="deps/angular-marked/angular-marked.js"></script>
-  <script src="deps/ng-prettyjson/src/ng-prettyjson.js"></script>
-  <script src="deps/codemirror/lib/codemirror.js"></script>
-  <script src="deps/codemirror/addon/fold/foldcode.js"></script>
-  <script src="deps/codemirror/addon/fold/brace-fold.js"></script>
-  <script src="deps/codemirror/addon/fold/indent-fold.js"></script>
-  <script src="deps/codemirror/addon/fold/foldgutter.js"></script>
-  <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
-  <script src="deps/angular-ui-codemirror/ui-codemirror.js"></script>
-  <script src="deps/ng-scrollbar/dist/ng-scrollbar.js"></script>
+TODO: parameterize for dist-style minimized version?
 
-<% if (unit) { %>
-  <script src="deps/angular-mocks/angular-mocks.js"></script>
-<% } %>
+Place the application in run mode and inject service(s) that participate in
+entering running state.
 
-  <script src="init.js"></script>
+See app/services/appRouting.js
+ */
+require(['/configuredApp.js'], function (appModule) {
+  var htmlEl = angular.element(window.document.children[0]);
+  // angular.bootstrap(
+  //   htmlEl,
+  //   [
+  //     '<%=appName%>',
+  //     function() {
+        htmlEl.attr('ng-app', '<%=appName%>');
+  //     }
+  //   ]
+  // );
+  appModule.run(['appRouting', function (appRouting) {}]);
+});
 
-<% _.forEach(mlComponents, function(component) { %>
-  <script src="<%- component %>"></script>
-<% }); %>
-
-  <script src="app.js"></script>
-
-<% _.forEach(appComponents, function(component) { %>
-  <script src="<%- component %>"></script>
-<% }); %>
-
-
-<% if (!unit) { %>
-  <script src="run.js"></script>
-<% } %>
+</script>
 
 </html>
