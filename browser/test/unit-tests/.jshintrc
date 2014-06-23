@@ -3,6 +3,9 @@
   "browser": true,
   "globals": {
     "global": false,
+    "angular": false,
+    "define": false,
+    "require": false,
     "describe": false,
     "it": false,
     "module": false,

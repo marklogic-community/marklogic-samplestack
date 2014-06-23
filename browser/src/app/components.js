@@ -21,14 +21,14 @@ finds all components.  This pattern enables us to add/remove components
 from the component directories without requiring us to reference/de-reference
 the files individually.
 */
-  './dialogs/speech',
-  './directives/mlssRating',
-  './directives/version',
-  './filters/moment',
+  // './dialogs/speech',
+  // './directives/mlssRating',
+  // './directives/version',
+  // './filters/moment',
   './filters/point',
-  './filters/restTranslate',
+  // './filters/restTranslate',
   './services/appRouting',
-  './services/rest',
+  // './services/rest',
   './states/_layout',
   './states/_root',
   './states/_statesHierarchy',
