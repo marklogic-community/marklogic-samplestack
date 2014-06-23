@@ -53,7 +53,7 @@ public interface MarkLogicOperations {
 	public DocumentPage search(ClientRole role, QueryDefinition queryDefinition, 
 			long start, SearchHandle handle);
 
-	public void deleteDirectory(ClientRole role, String string);
+	public void deleteDirectory(ClientRole role, SamplestackType type);
 	
 	public void delete(ClientRole role, String documentUri);
 

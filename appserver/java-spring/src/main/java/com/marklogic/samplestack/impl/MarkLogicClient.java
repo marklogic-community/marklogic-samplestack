@@ -78,10 +78,10 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	public void deleteDirectory(ClientRole role, String directory) {
+	public void deleteDirectory(ClientRole role, SamplestackType type) {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
-		deleteDef.setDirectory(directory);
+		deleteDef.setDirectory(type.directoryName());
 		queryManager.delete(deleteDef);
 	}
 

@@ -22,6 +22,9 @@ public abstract class MarkLogicIntegrationTest {
 	protected ContributorService contributorService;
 
 	@Autowired
+	protected QnAService qnaService;
+	
+	@Autowired
 	protected ObjectMapper mapper;
 
 	protected JSONDocumentManager contribManager;
