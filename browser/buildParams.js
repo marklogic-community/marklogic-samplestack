@@ -1,4 +1,5 @@
 var defaultParams = {
+  min: '',
   appName: 'app',
   noscriptHtml: '<p>You need a script-enabled browser.</p>',
   unit: false,
@@ -15,6 +16,12 @@ var defaultParams = {
   ],
   html5Mode: true,
   seleniumAddress: 'http://localhost:4445'
+};
+
+defaultParams.appSettings = {
+  version: defaultParams.pkg.version,
+  appName: defaultParams.appName,
+  html5Mode: true
 };
 
 var targetParams = {

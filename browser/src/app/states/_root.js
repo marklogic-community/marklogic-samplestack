@@ -1,6 +1,9 @@
-(function (undefined) {
+/*
+app/states/_root.js
+ */
+define(['app/module'], function (module) {
 
-  this.app.controller('rootCtlr', [
+  module.controller('rootCtlr', [
 
     '$scope', '$rootScope',
     function ($scope, $rootScope) {
@@ -17,4 +20,4 @@
 
   ]);
 
-}).call(global);
+});
