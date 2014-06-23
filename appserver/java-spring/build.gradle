@@ -48,12 +48,13 @@ task dbConfigureClean << {
     delete("$buildDir/database")
 }
 
+
 dbConfigure.inputDir = file('../../database')
 dbConfigure.outputDir = file("$buildDir/database")
 dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
 dbConfigure.shouldRunAfter dbInit 
 dbConfigure.shouldRunAfter dbConfigureClean
-
+dbInit.dependsOn(dbConfigureClean)
 
 task dbConfigureAll
 dbConfigureAll.dependsOn dbConfigureClean

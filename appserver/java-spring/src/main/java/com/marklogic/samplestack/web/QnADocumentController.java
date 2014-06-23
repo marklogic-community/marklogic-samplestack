@@ -131,4 +131,12 @@ public class QnADocumentController {
 		QnADocument toAccept = qnaService.comment(ClientRole.securityContextUserName(), answerId, comment.get("text").asText());
 		return toAccept.getJson();
 	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public @ResponseBody
+	JsonNode search(@RequestBody JsonNode structuredQuery,
+			@RequestParam(defaultValue = "1", required = false) long start) {
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
+	}
+	
 }

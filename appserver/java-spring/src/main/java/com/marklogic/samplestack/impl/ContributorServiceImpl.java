@@ -8,19 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentRecord;
 import com.marklogic.client.io.InputStreamHandle;
-import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SamplestackException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
@@ -33,10 +31,10 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	private final Logger logger = LoggerFactory
 			.getLogger(ContributorServiceImpl.class);
 
-	private final String DIR_NAME = "/contributors/";
+	private final SamplestackType type = SamplestackType.CONTRIBUTORS;
 
 	private String docUri(String id) {
-		return DIR_NAME + id + ".json";
+		return type.directoryName() + id + ".json";
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	// TODO remove, not needed?
 	public List<Contributor> search(String queryString) {
 		DocumentPage page = operations.searchDirectory(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, DIR_NAME, queryString);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, type, queryString);
 		return asList(page);
 	}
 
@@ -100,7 +98,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	@Override
 	public List<Contributor> list(long start) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
-		QueryDefinition qdef = qb.directory(true, DIR_NAME);
+		QueryDefinition qdef = qb.directory(true, type.directoryName());
 		DocumentPage page = operations.search(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start, null);
 		return asList(page);
@@ -110,7 +108,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	public Contributor getByUserName(String userName) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
 		// TODO repository/facade/json property
-		QueryDefinition qdef = qb.and(qb.directory(true,  DIR_NAME),
+		QueryDefinition qdef = qb.and(qb.directory(true,  type.directoryName()),
 				qb.value(qb.element("userName"), userName));
 
 		DocumentPage page = operations.search(
