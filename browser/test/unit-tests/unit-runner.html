@@ -21,61 +21,14 @@
     <script src="deps/sinon-browser-only/sinon.js"></script>
 
     <script>
-      window.global = window;
-    </script>
-
-    <script>
       mocha.setup('bdd');
       var should = chai.should();
-      window.global.should = should;
     </script>
-    <script src="deps/modernizr/modernizr.js"></script>
-    <script src="deps/es5-shim/es5-shim.js"></script>
 
-    <script src="deps/lodash/dist/lodash.compat.js"></script>
-    <script src="deps/angular/angular.js"></script>
-    <script src="deps/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="deps/angular-ui-router.stateHelper/statehelper.js"></script>
-    <script src="deps/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="deps/spin.js/spin.js"></script>
-    <script src="deps/momentjs/moment.js"></script>
-    <script src="deps/marked/lib/marked.js"></script>
-    <script src="deps/angular-marked/angular-marked.js"></script>
-    <script src="deps/ng-prettyjson/src/ng-prettyjson.js"></script>
-    <script src="deps/codemirror/lib/codemirror.js"></script>
-    <script src="deps/codemirror/addon/fold/foldcode.js"></script>
-    <script src="deps/codemirror/addon/fold/brace-fold.js"></script>
-    <script src="deps/codemirror/addon/fold/indent-fold.js"></script>
-    <script src="deps/codemirror/addon/fold/foldgutter.js"></script>
-    <script src="http://codemirror.net/mode/javascript/javascript.js"></script>
-    <script src="deps/angular-ui-codemirror/ui-codemirror.js"></script>
-    <script src="deps/ng-scrollbar/dist/ng-scrollbar.js"></script>
-
-
-<% if (unit) { %>
-    <script src="deps/angular-mocks/angular-mocks.js"></script>
-<% } %>
-
-    <script src="init.js"></script>
-
-<% _.forEach(mlComponents, function(component) { %>
-    <script src="<%- component %>"></script>
-<% }); %>
-
-    <script src="app.js"></script>
-
-<% _.forEach(appComponents, function(component) { %>
-    <script src="<%- component %>"></script>
-<% }); %>
-
-<% _.forEach(unitComponents, function(component) { %>
-    <script src="<%- component %>"></script>
-<% }); %>
-
-    <script>
-      var myMocha = window.mochaPhantomJS ? window.mochaPhantomJS : mocha;
-      myMocha.run();
-    </script>
+    <script
+      data-main="unit-runner.js"
+      src="deps/requirejs/require.js"
+    ></script>
 
   </body>
 </html>
