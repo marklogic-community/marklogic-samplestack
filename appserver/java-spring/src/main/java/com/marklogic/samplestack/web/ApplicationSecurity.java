@@ -25,6 +25,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/questions")
 				.anonymous()
 				.and()
+		    .authorizeRequests()
+		        .antMatchers(HttpMethod.POST, "/search")
+		        .anonymous()
+		        .and()
 			.authorizeRequests().anyRequest()
 			.authenticated();
 		http.formLogin().permitAll().and().logout().permitAll();
