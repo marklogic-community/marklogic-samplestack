@@ -4,7 +4,9 @@
   "globals": {
     "_": false,
     "global": false,
-    "angular": false
+    "angular": false,
+    "define": false,
+    "require": false
   },
   "esnext": false,
   "expr": true,
