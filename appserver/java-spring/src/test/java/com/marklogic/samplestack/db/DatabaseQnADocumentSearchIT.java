@@ -27,7 +27,6 @@ import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.MarkLogicOperations;
-import com.marklogic.samplestack.testing.DatabaseExtensionTest;
 
 /**
  * Tests the functionality of the search services installed on the server.

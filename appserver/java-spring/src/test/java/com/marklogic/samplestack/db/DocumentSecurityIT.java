@@ -15,7 +15,6 @@ import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
-import com.marklogic.samplestack.testing.DatabaseExtensionTest;
 
 /**
  * This test explicitly makes sure that the two database configurations have

@@ -31,19 +31,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.domain.UnitTests;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
-import com.marklogic.samplestack.testing.UnitTest;
-import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
-@Category(UnitTest.class)
+@Category(UnitTests.class)
 public class ControllerTests extends MarkLogicIntegrationTest {
 
 	private Logger logger = LoggerFactory.getLogger(ControllerTests.class);

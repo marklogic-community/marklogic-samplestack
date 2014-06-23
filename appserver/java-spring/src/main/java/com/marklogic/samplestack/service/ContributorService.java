@@ -1,7 +1,6 @@
 package com.marklogic.samplestack.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.marklogic.samplestack.domain.Contributor;
 

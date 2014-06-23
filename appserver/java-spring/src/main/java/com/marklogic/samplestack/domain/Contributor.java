@@ -1,6 +1,5 @@
 package com.marklogic.samplestack.domain;
 
-import java.util.UUID;
 
 
 /**
