@@ -27,14 +27,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = "{}"
         try {
             client.post(params)
-            logger.info("MarkLogic initialized.  Waiting for server restart.")
+            logger.warn("MarkLogic initialized.  Waiting for server restart.")
             Thread.sleep(5000)
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
-                logger.info("Server already secured.  Initialization skipped.")
+                logger.warn("Server already secured.  Initialization skipped.")
             else if ( ex.response.status == 500 )
-                logger.info("Server already initialized.  Initialization skipped")
+                logger.warn("Server already initialized.  Initialization skipped")
             else 
                throw ex;
         }
@@ -47,14 +47,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }', config.marklogic.admin.user, config.marklogic.admin.password)
         try {
             client.post(params)
-            logger.info("MarkLogic admin secured.  Waiting for server restart.")
+            logger.warn("MarkLogic admin secured.  Waiting for server restart.")
             Thread.sleep(5000)
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
-                logger.info("Server already secured.  Initialization skipped")
+                logger.warn("Server already secured.  Initialization skipped")
             else 
-                logger.info("Got " + ex.response.status)
+                logger.warn("Got " + ex.response.status)
         }
     }
 
@@ -119,7 +119,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
         try {
             post(client, params)
         } catch (ex) {
-            logger.info("Ignoring server creation error... ")
+            logger.warn("Ignoring server creation error... ")
         }
     }
 }
