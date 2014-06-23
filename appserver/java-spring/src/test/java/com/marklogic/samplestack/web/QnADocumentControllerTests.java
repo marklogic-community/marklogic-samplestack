@@ -2,6 +2,7 @@ package com.marklogic.samplestack.web;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -194,23 +195,33 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	@Test
+	@Ignore
 	public void voteUpQuestion() {
+		fail("Not Implemented");
 	}
 
 	@Test
+	@Ignore
 	public void voteDownQuestion() {
+		fail("Not Implemented");
 	}
 
 	@Test
+	@Ignore
 	public void voteUpAnswer() {
+		fail("Not Implemented");
 	}
 
 	@Test
+	@Ignore
 	public void voteDownAnswer() {
+		fail("Not Implemented");
 	}
 
 	@Test
+	@Ignore
 	public void prohibitDuplicateVotes() {
+		fail("Not Implemented");
 	}
 
 	@Test
@@ -263,6 +274,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void testAnonymousAccessToAccepted() throws Exception {
+		qnaService.deleteAll();
 		contributorService.store(Utils.joeUser);
 		contributorService.store(Utils.maryUser);
 		login("joeUser@marklogic.com", "joesPassword");

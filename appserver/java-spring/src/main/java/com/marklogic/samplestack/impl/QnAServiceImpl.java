@@ -13,7 +13,6 @@ import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
@@ -136,6 +135,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	public void delete(String id) {
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(uriFromId(id));
 	}
+	
 	@Override
 	public QnADocument comment(String userName, String postId, String text) {
 		//TODO redo with patch.
@@ -147,6 +147,10 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 		//NOTE document URI is thrown away in this workaround method
 		
 		return getByPostId(postId);
+	}
+	@Override
+	public void deleteAll() {
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS);
 	}
 
 }
