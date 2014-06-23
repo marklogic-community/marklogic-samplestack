@@ -14,20 +14,15 @@
     "requirejs": "~2.1.11",
     "modernizr": "~2.7.2",
     "es5-shim": "~2.3.0",
-    "angular-ui-router": "~0.2.10",
+    "angular-ui-router": "stu-salsbury/ui-router#2014-06-22",
     "angular-ui-router.stateHelper": "~1.1.0",
     "lodash": "~2.4.1",
     "angular-bootstrap": "~0.10.0",
-    "ng-table": "~0.3.2",
     "angular-spinner": "~0.4.0",
     "spin.js": "~2.0.0",
     "angular-marked": "~0.0.11",
     "momentjs": "~2.6.0",
-    "marked": "~0.3.2",
-    "ng-prettyjson": "*",
-    "codemirror": "~4.1.0",
-    "angular-ui-codemirror": "~0.1.1",
-    "ng-scrollbar": "asafdav/ng-scrollbar#master"
+    "marked": "~0.3.2"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
@@ -73,25 +68,9 @@
       "main": [
         "lib/sinon-chai.js"
       ]
-    },
-    "ng-prettyjson": {
-      "main": [
-        "src/ng-prettyjson.js",
-        "src/ng-prettyjson.css"
-      ]
-    },
-    "codemirror": {
-      "main": [
-        "lib/codemirror.js",
-        "lib/codemirror.css",
-        "addon/fold/brace-fold.js",
-        "addon/fold/foldcode.js",
-        "addon/fold/foldgutter.js",
-        "addon/fold/indent-fold.js"
-      ]
     }
   },
   "resolutions": {
-    "codemirror": "~4.1.0"
+    "angular-ui-router": "2014-06-22"
   }
 }
