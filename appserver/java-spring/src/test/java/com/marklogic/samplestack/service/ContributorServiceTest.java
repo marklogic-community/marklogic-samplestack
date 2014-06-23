@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.testing.IntegrationTest;
 import com.marklogic.samplestack.testing.Utils;
@@ -45,7 +46,7 @@ public class ContributorServiceTest extends MarkLogicIntegrationTest {
 
 	@Before
 	public void cleanout() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, "/contributors/");
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.CONTRIBUTORS);
 	}
 
 	@Test

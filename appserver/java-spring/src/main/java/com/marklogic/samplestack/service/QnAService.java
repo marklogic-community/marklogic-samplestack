@@ -90,4 +90,11 @@ public interface QnAService {
 	 * @return The updated QnADocument
 	 */
 	public QnADocument comment(String userName, String postId, String text);
+
+	/**
+	 * Removes all the QnA documents from the database.
+	 * Convenient for testing.
+	 */
+	public void deleteAll();
+
 }
