@@ -21,19 +21,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.testing.IntegrationTest;
-import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { DatabaseContext.class })
-@Category(IntegrationTest.class)
+@Category(MiddleTierIntegrationTest.class)
 public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceTest.class);

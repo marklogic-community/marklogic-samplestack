@@ -17,12 +17,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
-import com.marklogic.samplestack.testing.DatabaseExtensionTest;
-import com.marklogic.samplestack.testing.Utils;
 
 /**
  * Tests the transforms installed in the db-config/transforms directory upon

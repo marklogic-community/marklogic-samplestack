@@ -12,9 +12,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
-import com.marklogic.samplestack.testing.UnitTest;
 
-@Category(UnitTest.class)
+@Category(UnitTests.class)
 public class QnADocumentTest {
 
 	ObjectMapper mapper = new CustomObjectMapper();
