@@ -1,0 +1,111 @@
+<header role="navigation" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+<!--
+      <button
+        type="button"
+        class="navbar-toggle"
+        ng-click="collapsed = !collapsed"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+-->
+      <span class="navbar-brand visible-xs">
+        <a ui-sref="home">samplestack</a>
+        /
+        <img src="/images/marklogic-small.png"/>
+      </span>
+
+    </div>
+
+    <!-- show when not extra small -->
+    <nav class="hidden-xs">
+      <ul class="nav navbar-nav">
+        <span class="navbar-brand">
+          <a
+          ui-sref="home"
+          role="button"
+          >
+          samplestack
+          </a>
+        </span>
+<!--
+        <li class="dropdown">
+          <a
+          href="#nav1"
+          role="button"
+          class="dropdown-toggle"
+          >
+          Nav 1 <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="">Choice 1</a>
+            </li>
+            <li>
+              <a href="">Choice 2</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#nav2">Nav 2</a>
+        </li>
+-->
+      </ul>
+      <span class="navbar-brand navbar-right">
+        <em>powered by</em>
+        <img src="/images/marklogic-small.png"/>
+      </span>
+    </nav>
+    <!--
+    <div class="mlss-navbar-logo"></div>
+    -->
+<!--
+    <div
+      class="visible-xs"
+    >
+      <nav
+        collapse="collapsed"
+        style="height: 0px;"
+      >
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a
+            href="#nav1"
+            role="button"
+            class="dropdown-toggle"
+            >
+            Nav 1 <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="">Choice 1</a>
+              </li>
+              <li>
+                <a href="">Choice 2</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="" ng-click="">
+            Nav 2
+            </a>
+          </li>
+        </ul>
+      </nav>
+-->
+    <div>
+  </div>
+</header>
+<div class="header-placeholder"></div>
+<div id="layout" role="main">
+  <ui-view/>
+</div>
+<footer class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+    <span>Version:&nbsp;</span><span app-version/>
+  </div>
+</footer>

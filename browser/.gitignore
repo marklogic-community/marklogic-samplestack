@@ -1,6 +1,4 @@
 bower_components
-node_modules/*
-!node_modules/gulp-marklogic
-build
-dist
-unit
+node_modules
+builds/*
+!builds/README.md

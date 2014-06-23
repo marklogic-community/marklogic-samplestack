@@ -16,7 +16,7 @@
 
 var gulp = require('gulp');
 var _ = require('lodash');
-var tasks = require('./gulp/tasks');
+var tasks = require('./dev-tasks/tasks');
 var log = require('gulp-util').log;
 var chalk = require('chalk');
 
@@ -39,7 +39,7 @@ var unremarkablesExpr;
 //   },
 //   []
 // );
-unremarkables = ['watch'];
+var unremarkables = ['watch'];
 if (unremarkables.length) {
   unremarkablesExpr = new RegExp(unremarkables.join('|'));
 }
@@ -53,9 +53,9 @@ console.log = function() {
   var args = Array.prototype.slice.call(arguments);
   if (args.length > 1 && (args[1] === 'Starting' || args[1] === 'Finished') &&
       unremarkablesExpr &&
-      unremarkablesExpr.test(chalk.stripColor(args[2]))) {
-
-      return;
+      unremarkablesExpr.test(chalk.stripColor(args[2])))
+  {
+    return;
   }
   return cl.apply(console, args);
 };

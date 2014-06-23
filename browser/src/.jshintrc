@@ -2,20 +2,10 @@
   "node": false,
   "browser": true,
   "globals": {
-    "define": false,
-    "require": false,
     "_": false,
-    "console": false,
-    "describe": false,
-    "it": false,
-    "angular": false,
-    "mocha": false,
-    "inject": false,
-    "beforeEach": false,
-    "before": false,
-    "sinon": false
+    "global": false,
+    "angular": false
   },
-
   "esnext": false,
   "expr": true,
   "bitwise": true,
