@@ -8,12 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.ResourceNotFoundException;
+import com.marklogic.client.document.DocumentPage;
+import com.marklogic.client.document.DocumentRecord;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.samplestack.domain.ClientRole;
@@ -74,19 +77,22 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	@Override
 	// TODO remove, not needed?
 	public List<Contributor> search(String queryString) {
-		SearchHandle handle = operations.searchDirectory(
+		DocumentPage page = operations.searchDirectory(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, DIR_NAME, queryString);
-		return asList(handle);
+		return asList(page);
 	}
 
 	// TODO refactor to use multipart response
-	private List<Contributor> asList(SearchHandle handle) {
+	private List<Contributor> asList(DocumentPage page) {
 		List<Contributor> l = new ArrayList<Contributor>();
-		for (MatchDocumentSummary summary : handle.getMatchResults()) {
-			String docUri = summary.getUri();
-			String id;
-			id = docUri.replace(DIR_NAME, "").replace(".json", "");
-			l.add(get(id));
+		while (page.hasNext()) {
+			DocumentRecord record = page.next();
+			InputStreamHandle handle = record.getContent(new InputStreamHandle());
+			try {
+				l.add(mapper.readValue(handle.get(), Contributor.class));
+			} catch (IOException e) {
+				throw new SamplestackIOException(e);
+			}
 		}
 		return l;
 	}
@@ -95,9 +101,9 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	public List<Contributor> list(long start) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
 		QueryDefinition qdef = qb.directory(true, DIR_NAME);
-		SearchHandle handle = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start);
-		return asList(handle);
+		DocumentPage page = operations.search(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start, null);
+		return asList(page);
 	}
 
 	@Override
@@ -107,9 +113,9 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		QueryDefinition qdef = qb.and(qb.directory(true,  DIR_NAME),
 				qb.value(qb.element("userName"), userName));
 
-		SearchHandle handle = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef);
-		List<Contributor> results = asList(handle);
+		DocumentPage page = operations.search(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1, null);
+		List<Contributor> results = asList(page);
 		return results.get(0);
 	}
 

@@ -16,22 +16,34 @@ public class MarkLogicTask extends DefaultTask {
     protected put(client, params) {
         try {
             def response = client.put(params)
-            logger.info("Success: " + response.status)
-        }
-        catch (ex) {
-            logger.error("HTTPError: " + ex.getMessage())
-            logger.error(params.body)
+            logger.warn("Success: " + response.status)
+        } catch (ex)
+        { 
+          if (ex.response) 
+          {
+             logger.warn("" + ex.response.data) 
+          }
+          else 
+          {
+             logger.warn("No response") 
+          }
         }
     }
 
     protected post(client, params) {
         try {
             def response = client.post(params)
-            logger.info("Success: " + response.status)
-        }
-        catch (ex) {
-            logger.error("HTTPError: " + ex.getMessage())
-            logger.error(params.body)
+            logger.warn("Success: " + response.status)
+        } catch (ex)
+        { 
+          if (ex.response) 
+            { 
+                logger.warn("" + ex.response.data)
+            }
+          else 
+            { 
+                logger.warn("No response")
+            }
         }
     }
 

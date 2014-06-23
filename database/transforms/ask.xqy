@@ -48,7 +48,7 @@ as document-node() {
                         "id": $user/id/data(),
                         "displayName": $user/displayName/data()
                     },
-                    "lastActivityDate" : null-node { }
+                    "lastActivityDate" : $dt
                 }
                 
     return

@@ -79,7 +79,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 		// first step -- send question to the server, get back results
 		QnADocumentResults results = service.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
 
 		logger.debug("Results came back "
 				+ results.getResults().getTotalResults());
@@ -103,7 +103,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 		// search for my original question.
 		QnADocumentResults myQuestionsAndAnswers = service.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
 		questionFromSearch = myQuestionsAndAnswers.get(0);
 
 		logger.info(mapper.writeValueAsString(questionFromSearch));
