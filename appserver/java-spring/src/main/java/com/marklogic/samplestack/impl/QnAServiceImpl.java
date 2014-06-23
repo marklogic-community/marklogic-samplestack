@@ -1,8 +1,5 @@
 package com.marklogic.samplestack.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -10,12 +7,13 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
+import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.client.query.MatchDocumentSummary;
+import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.RawStructuredQueryDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
@@ -42,15 +40,11 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 	
 	@Override
-	public QnADocumentResults search(ClientRole role, String question) {
-		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/questions/", question));
-		//simulate bulk:
-		List<QnADocument> sidecar = new ArrayList<QnADocument>();
-		for (MatchDocumentSummary summary : results.getResults().getMatchResults()) {
-				String docUri = summary.getUri();
-				sidecar.add(new QnADocument((ObjectNode) operations.getJsonDocument(role, docUri)));
-			}
-		results.setSidecar(sidecar);
+	public QnADocumentResults search(ClientRole role, String question, long start) {
+		SearchHandle handle = new SearchHandle();
+		DocumentPage page = operations.searchDirectory(role, "/questions/", question, start, handle);
+		QnADocumentResults results = new QnADocumentResults(handle, page);
+		
 		return results;
 	}
 
@@ -117,15 +111,17 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 	
 	private QnADocument getByPostId(String answerId) {
-		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId);
+		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1);
 		return results.get(0);
 	}
 	
 	@Override
 	public QnADocumentResults search(ClientRole role,
-			RawStructuredQueryDefinition structuredQuery) {
-		SearchHandle results = operations.search(role, structuredQuery);
-		return new QnADocumentResults(results);
+			RawStructuredQueryDefinition structuredQuery, long start) {
+		QueryDefinition qdef = structuredQuery;
+		SearchHandle handle = new SearchHandle();
+		DocumentPage results = operations.search(role, qdef, start, handle);
+		return new QnADocumentResults(handle, results);
 	}
 	
 	@Override
