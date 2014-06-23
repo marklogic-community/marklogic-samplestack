@@ -13,19 +13,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.testing.IntegrationTest;
-import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { DatabaseContext.class })
-@Category(IntegrationTest.class)
+@Category(MiddleTierIntegrationTest.class)
 public class ContributorServiceTest extends MarkLogicIntegrationTest {
 
 	private final Logger logger = LoggerFactory

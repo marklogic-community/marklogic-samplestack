@@ -1,7 +1,5 @@
 package com.marklogic.samplestack.web;
 
-import java.io.InputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.domain.SparseQuestion;
 import com.marklogic.samplestack.exception.SamplestackAcceptException;
-import com.marklogic.samplestack.exception.SamplestackSecurityException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 

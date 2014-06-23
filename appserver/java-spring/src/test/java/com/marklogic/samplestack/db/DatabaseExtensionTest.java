@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.testing;
+package com.marklogic.samplestack.db;
 
 /**
  * Database extensions do not test the code in the samplestack middle tier, but rather

@@ -21,11 +21,11 @@ import org.springframework.mock.web.MockHttpSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.testing.IntegrationTest;
-import com.marklogic.samplestack.testing.Utils;
+import com.marklogic.samplestack.service.MiddleTierIntegrationTest;
 
-@Category(IntegrationTest.class)
+@Category(MiddleTierIntegrationTest.class)
 public class QnADocumentControllerTests extends ControllerTests {
 
 	private Logger logger = LoggerFactory
@@ -76,7 +76,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 		QnADocument qnaDoc = new QnADocument(mapper, "I'm a contributor",
 				"I ask questions", "tag1", "tag2");
-
+		// TODO MS 3 what's a malformed question?
 	}
 
 	@Test

@@ -123,7 +123,7 @@ dependencies {
 
 task unitTest(type: Test) {
     useJUnit {
-        includeCategories 'com.marklogic.samplestack.testing.UnitTest'
+        includeCategories 'com.marklogic.samplestack.domain.UnitTests'
     }
 }
 
@@ -131,7 +131,7 @@ test.dependsOn(props, dbConfigure)
 
 task dbTest(type: Test) {
     useJUnit {
-        includeCategories 'com.marklogic.samplestack.testing.DatabaseExtensionTest'
+        includeCategories 'com.marklogic.samplestack.db.DatabaseExtensionTest'
     }
 }
 

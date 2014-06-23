@@ -1,7 +1,5 @@
 package com.marklogic.samplestack.service;
 
-import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.DocumentPage;
