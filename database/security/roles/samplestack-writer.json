@@ -1,0 +1,21 @@
+{
+  "name": "samplestack-writer",
+  "description": "role for contributing to samplestack corpus",
+  "role": [
+      "rest-writer"
+  ],
+  "permission": [
+    {
+      "role-name": "rest-reader",
+      "capability": "read"
+    },
+    {
+      "role-name": "rest-writer",
+      "capability": "read"
+    },
+    {
+      "role-name": "rest-writer",
+      "capability": "update"
+    }
+  ]
+}

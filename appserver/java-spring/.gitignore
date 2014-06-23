@@ -1,0 +1,23 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+*.swp
+*.swo
+
+# allow gradle-wrapper into repo
+!/gradle/wrapper/gradle-wrapper.jar
+# exclude .gradle working directory
+.gradle
+
+build
+static
+public
+.classpath
+.project
+.settings
+bin
+src/main/resources/test-server.ldif~

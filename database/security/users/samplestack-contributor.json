@@ -1,0 +1,8 @@
+{
+  "name": "samplestack-contributor",
+  "password": "sc-pass",
+  "description": "user for write unrestricted access to samplestack data",
+  "role": [
+    "samplestack-writer"
+  ]
+}

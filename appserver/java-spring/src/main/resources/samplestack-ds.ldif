@@ -1,0 +1,43 @@
+dn: ou=groups,dc=samplestack,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: ou=people,dc=samplestack,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+dn: uid=joeUser@marklogic.com,ou=people,dc=samplestack,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Joe User
+sn: User
+uid: joeUser@marklogic.com
+userPassword: joesPassword
+
+dn: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Mary Admin
+sn: User
+uid: maryAdmin@marklogic.com
+userPassword: marysPassword
+
+dn: cn=admins,ou=groups,dc=samplestack,dc=org
+objectclass: groupOfNames
+cn: admins
+ou: groups
+uniqueMember: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+
+dn: cn=contributors,ou=groups,dc=samplestack,dc=org
+objectclass: groupOfNames
+cn: contributors
+ou: groups
+uniqueMember: uid=joeUser@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+

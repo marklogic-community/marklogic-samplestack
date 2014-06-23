@@ -1,0 +1,140 @@
+/* spring boot build dependency */
+buildscript {
+	ext {
+		springBootVersion = '1.0.2.RELEASE'
+	}
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+/* plugins */
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+/* build.gradle for samplestack, java-spring implementation */
+
+
+/*
+ * INIT
+ * Run this task to initialize a fresh MarkLogic server
+ * and install security objects.
+ */
+task dbInit(type: MarkLogicInitTask)
+
+/*
+ * TEARDOWN
+ * This task removes all trace of samplestack
+ */
+task dbTeardown(type: MarkLogicTeardownTask)
+
+/*
+ * CONFIGURE
+ *
+ * This task configures the database and REST API instance
+ * based on files in the database directory
+ */
+task dbConfigure(type: MarkLogicConfigureTask)
+
+task dbConfigureClean << {
+    delete("$buildDir/database")
+}
+
+dbConfigure.inputDir = file('../../database')
+dbConfigure.outputDir = file("$buildDir/database")
+dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
+dbConfigure.shouldRunAfter dbInit 
+dbConfigure.shouldRunAfter dbConfigureClean
+
+
+task dbConfigureAll
+dbConfigureAll.dependsOn dbConfigureClean
+dbConfigureAll.dependsOn dbConfigure
+
+/**
+ * ASSEMBLE
+ */
+assemble.dependsOn(dbInit, dbConfigure, test)
+
+/*
+ * LOAD
+ */
+task dbLoad(type: MarkLogicSlurpTask)
+
+/*
+ * CLEAR
+ */
+task dbClear(type: MarkLogicClearTask)
+
+
+/* use same properties for gradle and runtime */
+task props(type: Copy) {
+    from('.') {
+        include 'gradle.properties'
+    }
+    into 'src/main/resources'
+}
+
+
+//TODO load a bigger dataset from remote server
+task loadRemote(type: MarkLogicSlurpTask) {
+  // url  = "http://developer.marklogic.com/moredata.tgz"
+}
+
+/* The code repositories to consult for dependencies */
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+    // compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
+    // compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+    compile "org.codehaus.groovy:groovy-all:2.2.2"
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+        exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.security:spring-security-ldap:3.2.3.RELEASE")
+    compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
+    compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
+    compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
+    compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
+        exclude(group: 'org.slf4j')
+        exclude(group: 'ch.qos.logback')
+    }
+    testCompile('com.jayway.jsonpath:json-path:0.9.1') {
+        exclude(group: 'org.slf4j')
+    }
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
+
+task unitTest(type: Test) {
+    useJUnit {
+        includeCategories 'com.marklogic.samplestack.testing.UnitTest'
+    }
+}
+
+test.dependsOn(props, dbConfigure) 
+
+task dbTest(type: Test) {
+    useJUnit {
+        includeCategories 'com.marklogic.samplestack.testing.DatabaseExtensionTest'
+    }
+}
+
+/* task to generate the gradle wrapper script */
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}

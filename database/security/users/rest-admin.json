@@ -1,0 +1,8 @@
+{
+  "name": "rest-admin",
+  "password": "rest-admin-password",
+  "description": "user that can administer REST server",
+  "role": [
+    "rest-admin"
+  ]
+}

@@ -4,6 +4,7 @@
 
 # this is rdf from dbpedia
 ~/source/xcc/mlcp/mlcp-Hadoop1-1.3/bin/mlcp.sh IMPORT -username admin -password admin -host localhost -port 8009 -mode local -output_cleandir true -output_directory /dbpedia/ -input_file_type RDF -input_file_path ../sasquatch-data/dbp-tmp
+~/source/xcc/mlcp/mlcp-Hadoop1-1.3/bin/mlcp.sh IMPORT -username admin -password admin -host cgreer.marklogic.com -port 8009 -mode local -output_cleandir true -output_directory /dbpedia/ -input_file_type RDF -input_file_path ../sasquatch-data/dbpedia
 
 # this is json all stored by curl at src/test/resources/github
 # DOESNT WORK WITH MLCP at this time.

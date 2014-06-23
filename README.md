@@ -1,21 +1,34 @@
-# samplestack
+# marklogic-samplestack
 
-An application to demonstrate using MarkLogic in a Java Application Server environment.
+A complete application that demonstrates using MarkLogic in a three-tier application architecture.
+
+The application implements a "Question and Answer" Scenario.
+
+[ Scenario ]
+
+This repository contains two implementations of the application, 
+
+* One is for the Java Enterprise Developer, and implemented using Java, Spring, and Gradle.
+* One is for the JavaScript developer, and implemented using JavaScript, node.js and Gulp.
+
+These two applications share the same view of the three application tiers.
 
 ## Usage
 
+# Java/Spring implementation
 
-```bash
-git clone https://github.com/marklogic/samplestack-java.git
-```
-
-**One-time setup**:
-
-* install MarklLogic
-* build and install ML java client from trunk as Maven package.. in a separate directory:
+* install MarklLogic and start it
+* ```cd appserver/java-spring```
+* TEMPORARY STEP: build and install ML java client from trunk as Maven package.. in a separate directory:
 ** git clone https://github.com/marklogic/java-client-api
 ** cd java-client-api
 ** mvn -Dmaven.test.skip=true install
+
+See README.md in appserver/java-spring for further information on the samplestack-java
+
+
+# JavaScript/Node implementation
+
 * **install node/npm**
 * `npm install -g bower`
 * `npm install -g gulp`
@@ -23,56 +36,31 @@ git clone https://github.com/marklogic/samplestack-java.git
 * `npm install`
 * `bower install`
 
-**Development Steps**:
-
-*(Do these the first time you run.  You may need to repeat them if you pull
-code changes in the future)*
-
-* clear MarkLogic data directory and start MarkLogic Server
-with fresh data dir
-* `./gradlew assemble`
-* `./gradlew fooconfig`
-
 *(in a separate terminal session...)*
 
 * `cd browser`
 * `npm install`
 * `bower install`
 
-**To run Java unit tests**:
+# marklogic-samplestack-angular
 
-* `./gradlew test`
+* npm update
+* bower update
+* gulp <command>
 
-**To run the Java application**:
+<command> may be `build`, `unit`, `watch`.
 
-* `./gradlew boot` -- builds and runs the app (on localhost:8080) and enters
-watch mode (subsequent changes are instantaneously applied to the running
-server)
+In watch mode, you may use these URLs:
 
-**To run the Angular unit tests and launch the web application**
-(in a separate terminal):
+[https://localhost:3000](https://localhost:3000) -- view the running app.
+Livereload is enabled by a script embedded in the app so changes should
+be instantly seen in a browser.
 
-* `cd browser`
-* `gulp unit`
-* `gulp run`
+[https://localhost:3001/unit-runner.html](https://localhost:3001/unit-runner.html) -- run
+unit tests within the browser.  Unit tests are run upon build and upon changes
+during watch mode using PhantomJS and results are reported in the console.
+It may also be useful to run the tests from within the browser to debug.
 
-### Endpoints currently supported
-
-* GET /foo/new    generate a new foo object
-* GET /foo        list of foo object URIs as JSON array
-* GET /foo/{id}   get a particular foo
-* PUT /foo/{id}   replace a foo
-* DELETE /foo/{id} delete a foo
-
-GET /foo/search?q=search    simple search over foos
-
-### Accessing the web application
-
-[http://localhost:3000](http://localhost:3000)
-
-### To run web application unit tests in a browser:
-
-[http://localhost:3001](http://localhost:3001/unit-runner.html)
 
 ## License
 
@@ -89,4 +77,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
