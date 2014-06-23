@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public abstract class AbstractMarkLogicDataService {
@@ -22,8 +23,8 @@ public abstract class AbstractMarkLogicDataService {
 	protected ObjectMapper mapper;
 
 	
-	protected String generateUri(String prefix) {
-		return prefix + UUID.randomUUID() + ".json";
+	protected String generateUri(SamplestackType type) {
+		return type.directoryName() + UUID.randomUUID() + ".json";
 	}
 	
 }

@@ -29,16 +29,8 @@ public class QnADocumentResults {
 		this.sidecar = sidecar;
 	}
 
-	public boolean hasResults() {
-		return this.getResults().getTotalResults() > 0;
-	}
-
 	public QnADocument get(int i) {
 		return sidecar.get(i);
-	}
-
-	public SearchHandle getResults() {
-		return results;
 	}
 
 	public void setResults(SearchHandle results) {

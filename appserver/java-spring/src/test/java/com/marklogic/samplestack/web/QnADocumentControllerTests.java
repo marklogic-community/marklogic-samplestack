@@ -80,7 +80,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void testAskQuestion() throws JsonProcessingException, Exception {
-		contribService.store(Utils.joeUser);
+		contributorService.store(Utils.joeUser);
 
 		login("joeUser@marklogic.com", "joesPassword");
 
@@ -119,7 +119,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void commentOnQuestion() throws Exception {
-		contribService.store(Utils.joeUser);
+		contributorService.store(Utils.joeUser);
 
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
@@ -158,8 +158,8 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void testAnswerQuestion() throws Exception {
-		contribService.store(Utils.joeUser);
-		contribService.store(Utils.maryUser);
+		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryUser);
 
 		askQuestion();
 
@@ -174,7 +174,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void commentOnAnswer() throws Exception {
-		contribService.store(Utils.joeUser);
+		contributorService.store(Utils.joeUser);
 
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
@@ -215,8 +215,8 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void testAcceptAnswer() throws Exception {
-		contribService.store(Utils.joeUser);
-		contribService.store(Utils.maryUser);
+		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryUser);
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -262,8 +262,59 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	@Test
-	public void testAnonymousAccessToAccepted() {
+	public void testAnonymousAccessToAccepted() throws Exception {
+		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryUser);
+		login("joeUser@marklogic.com", "joesPassword");
+		askQuestion();
+		answerQuestion();
 
+		String docId = answeredQuestion.getJson().get("id").asText()
+				.replaceAll(".json", "");
+		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
+		String answerId = answer.get("id").asText();
+
+		logout();
+		
+		JsonNode blankQuery = getTestJson("queries/blank.json");
+		
+		
+		String searchAnon = this.mockMvc
+				.perform(
+						post("/search")
+								.session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(mapper.writeValueAsString(blankQuery))).andExpect(status().isOk())
+				.andReturn().getResponse().getContentAsString();
+		JsonNode results = mapper.readValue(searchAnon, JsonNode.class);
+		
+		assertEquals("No results for anonymous. ", 0, results.get("results").size());
+		
+		login("joeUser@marklogic.com", "joesPassword");
+
+		String acceptedQuestion = this.mockMvc
+				.perform(
+						post(docId + answerId + "/accept")
+								.session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{}")).andExpect(status().isOk())
+				.andReturn().getResponse().getContentAsString();
+		
+		logout();
+		
+		searchAnon = this.mockMvc
+				.perform(
+						post("/search")
+								.session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(mapper.writeValueAsString(blankQuery))).andExpect(status().isOk())
+				.andReturn().getResponse().getContentAsString();
+		results = mapper.readValue(searchAnon, JsonNode.class);
+		
+		assertEquals("No results for anonymous. ", 1, results.get("results").size());
+		
+		
 	}
-
+	
+	
 }
