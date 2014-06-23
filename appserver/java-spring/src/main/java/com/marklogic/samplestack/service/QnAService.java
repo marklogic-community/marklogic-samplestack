@@ -13,9 +13,10 @@ public interface QnAService {
 	 * Search for a particular string, as entered in the Samplestack search box.
 	 * @param role ClientRole on whose behalf to execute the search.
 	 * @param question The question/terms to search for
+	 * @param start The index of the first result in the result set.
 	 * @return A QuestionResults object containing results/snippets for the search.
 	 */
-	public QnADocumentResults search(ClientRole role, String question);
+	public QnADocumentResults search(ClientRole role, String question, long start);
 	
 	/**
 	 * Send a [JSON] raw structured query to the server, using the options
@@ -24,7 +25,7 @@ public interface QnAService {
 	 * @param structuredQuery A JSON structured query payload.
 	 * @return A QuestionResults object containing results/snippets for the search.
 	 */
-	public QnADocumentResults search(ClientRole role, RawStructuredQueryDefinition structuredQuery);
+	public QnADocumentResults search(ClientRole role, RawStructuredQueryDefinition structuredQuery, long start);
 	
 	/**
 	 * Publishes a new Question to the Samplestack database.

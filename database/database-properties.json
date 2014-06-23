@@ -1,6 +1,14 @@
 {
     "triple-index": true,
     "name": "samplestack",
+    "element-word-index": [
+        {
+            "collation": "http://marklogic.com/collation/",
+            "localname": "tags",
+            "namespace-uri": "",
+            "scalar-type": "string"
+        }
+        ],
     "range-element-index": [
     {
         "collation": "http://marklogic.com/collation/",
@@ -57,6 +65,14 @@
         "namespace-uri": "",
         "range-value-positions": false,
         "scalar-type": "string"
+    },
+    {
+        "collation": "http://marklogic.com/collation/",
+        "invalid-values": "reject",
+        "localname": "docScore",
+        "namespace-uri": "",
+        "range-value-positions": false,
+        "scalar-type": "long"
     }
     ],
     "forests": {

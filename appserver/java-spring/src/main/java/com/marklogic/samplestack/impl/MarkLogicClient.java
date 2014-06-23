@@ -12,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.document.DocumentDescriptor;
+import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
@@ -85,16 +86,21 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	// TODO refactor to use multipart search capability.
-	public SearchHandle searchDirectory(ClientRole role, String directory,
+	public DocumentPage searchDirectory(ClientRole role, String directory,
 			String queryString) {
+		return searchDirectory(role, directory, queryString, 1, null);
+	}
+	
+	@Override
+	public DocumentPage searchDirectory(ClientRole role, String directory,
+			String queryString, long start, SearchHandle handle) {
 		QueryManager queryManager = getClient(role).newQueryManager();
-		StringQueryDefinition stringQuery = 
+		QueryDefinition stringQuery = 
 				queryManager.newStringDefinition(directory.replaceAll("\\/",  ""))
 				.withCriteria(queryString);
 
 		stringQuery.setDirectory(directory);
-		return queryManager.search(stringQuery, new SearchHandle());
+		return newJSONDocumentManager(role).search(stringQuery, start, handle);
 	}
 
 	@Override
@@ -109,16 +115,11 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return getClient(role).newJSONDocumentManager();
 	}
 
+	
 	@Override
-	public SearchHandle search(ClientRole role, QueryDefinition queryDefinition) {
-		return search(role, queryDefinition, 1);
-	}
-
-	@Override
-	public SearchHandle search(ClientRole role,
-			QueryDefinition queryDefinition, long start) {
-		QueryManager queryManager = getClient(role).newQueryManager();
-		return queryManager.search(queryDefinition, new SearchHandle(), start);
+	public DocumentPage search(ClientRole role,
+			QueryDefinition queryDefinition, long start, SearchHandle handle) {
+		return newJSONDocumentManager(role).search(queryDefinition, start, handle);
 	}
 
 	public void putClient(ClientRole role, DatabaseClient client) {
