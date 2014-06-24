@@ -80,6 +80,13 @@ public interface MarkLogicOperations {
 	public ObjectNode rawStructuredSearch(ClientRole role, SamplestackType type,
 			JsonNode structuredQuery, long start,
 			QueryView view);
+	
+	/**
+	 * Wraps a call to the MarkLogic suggest capability
+	 * @param suggestPattern
+	 * @return An array of Strings matching the suggest pattern.
+	 */
+	public String[] suggestTags(ClientRole role, String suggestPattern);
 
 	
 }

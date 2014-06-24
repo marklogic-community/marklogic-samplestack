@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,7 +21,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.client.FailedRequestException;
+import com.marklogic.client.ForbiddenUserException;
+import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.document.DocumentPage;
+import com.marklogic.client.document.JSONDocumentManager;
+import com.marklogic.client.io.Format;
+import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.SamplestackType;
@@ -47,10 +54,19 @@ public class DatabaseQnADocumentSearchIT {
 	@Autowired
 	private MarkLogicOperations operations;
 
+	
+	private void loadJson(String path) throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
+		ClassPathResource resource = new ClassPathResource(path);
+		JSONDocumentManager docMgr = operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		docMgr.write("/" + path, new InputStreamHandle(resource.getInputStream()).withFormat(Format.JSON));
+		
+	}
+	
 	@Before
-	public void setupSearch() {
-		// make sure there's data TODO
-		// right now this test relies on having run gradle dbLoad
+	public void setupSearch() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
+		loadJson("questions/20864442.json");
+		loadJson("questions/20864445.json");
+		loadJson("questions/20864449.json");
 	}
 
 	@Test
@@ -84,7 +100,6 @@ public class DatabaseQnADocumentSearchIT {
 		DocumentPage results = operations.searchDirectory(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.CONTRIBUTORS, "");
 		assertTrue("Need data to test searches", results.getTotalSize() > 0);
-
 	}
 
 	@Test
@@ -145,8 +160,4 @@ public class DatabaseQnADocumentSearchIT {
 				.get("tag"));
 	}
 
-	@Test
-	public void testSuggest() {
-
-	}
 }

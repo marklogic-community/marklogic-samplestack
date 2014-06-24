@@ -1,12 +1,11 @@
 {
     "triple-index": true,
     "name": "samplestack",
-    "element-word-index": [
+    "element-word-lexicon": [
         {
             "collation": "http://marklogic.com/collation/",
             "localname": "tags",
-            "namespace-uri": "",
-            "scalar-type": "string"
+            "namespace-uri": ""
         }
         ],
     "range-element-index": [

@@ -26,7 +26,7 @@
     ],
         "transform-results":{"apply":"raw"},
     "default-suggestion-source":
-        {"word":{"json-property":"tags"}},
+        {"word":{"json-property":"title"}},
     "search-option":["unfiltered"],
     "operator":{
         "name":"sort",
@@ -35,10 +35,6 @@
              "sort-order":
              {"direction":"descending",
               "json-property":"lastActivityDate"}},
-            {"name":"alpha",
-             "sort-order":
-             {"direction":"ascending",
-              "json-property":"title"}},
             {"name":"score",
              "sort-order":
              {"direction":"descending",

@@ -19,6 +19,7 @@ import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.client.query.RawQueryDefinition;
+import com.marklogic.client.query.SuggestDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.service.MarkLogicOperations;
@@ -113,6 +114,14 @@ public class MarkLogicClient implements MarkLogicOperations {
 		
 		handle = queryManager.search(qdef, handle, start);
 		return (ObjectNode) handle.get();
+	}
+
+	@Override
+	public String[] suggestTags(ClientRole role, String suggestPattern) {
+		QueryManager mgr = getClient(role).newQueryManager();
+		SuggestDefinition suggestDefinition = mgr.newSuggestDefinition("tags");
+		suggestDefinition.setStringCriteria(suggestPattern);
+		return getClient(role).newQueryManager().suggest(suggestDefinition);
 	}
 
 }

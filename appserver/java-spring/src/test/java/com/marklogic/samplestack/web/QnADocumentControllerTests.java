@@ -13,25 +13,33 @@ import java.util.Locale;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.service.MiddleTierIntegrationTest;
 
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = { Application.class })
 @Category(MiddleTierIntegrationTest.class)
 public class QnADocumentControllerTests extends ControllerTests {
 
-	private Logger logger = LoggerFactory
+	Logger logger = LoggerFactory
 			.getLogger(QnADocumentControllerTests.class);
 
-	private QnADocument askedQuestion;
 	private QnADocument answeredQuestion;
 
 	@Test
@@ -90,32 +98,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 		assertEquals("question returned contains original question",
 				"Question from contributor",
 				askedQuestion.getJson().get("title").asText());
-	}
-
-	private void askQuestion() throws Exception {
-		if (askedQuestion == null) {
-			login("joeUser@marklogic.com", "joesPassword");
-
-			QnADocument qnaDoc = new QnADocument(mapper,
-					"Question from contributor", "I ask questions", "tag1",
-					"tag2");
-
-			String payload = mapper.writeValueAsString(qnaDoc.getJson());
-
-			// send a contributor to the questions endpoint
-			String askedQuestion = this.mockMvc
-					.perform(
-							post("/questions")
-									.session((MockHttpSession) session)
-									.contentType(MediaType.APPLICATION_JSON)
-									.content(payload))
-					.andExpect(status().isCreated()).andReturn().getResponse()
-					.getContentAsString();
-			logger.debug(askedQuestion);
-
-			ObjectNode node = mapper.readValue(askedQuestion, ObjectNode.class);
-			this.askedQuestion = new QnADocument(node);
-		}
 	}
 
 	@Test

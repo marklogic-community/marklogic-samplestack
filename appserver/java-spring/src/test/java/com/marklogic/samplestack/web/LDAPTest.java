@@ -34,10 +34,10 @@ import com.marklogic.samplestack.Application;
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
 @Category(RESTAPITests.class)
-public class LoginsTest {
+public class LDAPTest {
 
 	@SuppressWarnings("unused")
-	private static final Logger logger = LoggerFactory.getLogger(LoginsTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(LDAPTest.class);
 
 	final String ldapServer = "ldap://localhost:33389";
 	final String ldapSearchBase = "dc=samplestack,dc=org";
