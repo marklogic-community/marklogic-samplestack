@@ -290,6 +290,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 		
 		JsonNode blankQuery = getTestJson("queries/blank.json");
 		
+		logout();
 		
 		String searchAnon = this.mockMvc
 				.perform(
