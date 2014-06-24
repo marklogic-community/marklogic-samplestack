@@ -34,13 +34,13 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     void configureREST(IncrementalTaskInputs inputs) {
         logger.info(inputs.incremental ? "CHANGED inputs considered out of date" : "ALL inputs considered out of date")
         inputs.outOfDate { change -> 
-            logger.info("out of date: ${change.file.name}")
+            logger.warn("out of date: ${change.file.name}")
             def targetFile = new File(outputDir, change.file.name)
             targetFile.text = "done"
-            logger.info("Processing file " + change.file.path)
+            logger.warn("Processing file " + change.file.path)
             def changeFile = change.file
-            if (changeFile.path =~ /^\./) {
-                logger.debug("Skipping hidden file")
+            if (changeFile.path =~ /\/\./) {
+                logger.error("Skipping hidden file")
             }
             else if (changeFile.path.contains(transforms)) {
                 putTransform(changeFile)
