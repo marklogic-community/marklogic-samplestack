@@ -1,23 +1,32 @@
 {"options":
 {"debug":true,
     "return-qtext":true,
+    "return-facets":true,
     "term":{"empty":{"apply":"all-results"}},
     "constraint":[
         {"name":"userName",
-            "value":{"json-property":"userName"}}
+            "value":{"json-property":"userName"}},
         {"name":"id",
         "range":{
             "type":"xs:string",
             "facet":"false",
             "json-property":"id"}},
-        {"name":"tags",
+        {"name":"date",
+        "range":{
+            "type":"xs:string",
+            "facet":"true",
+            "json-property":"creationYearMonth"}},
+        {"name":"tag",
         "range":{
             "type":"xs:string",
             "facet":"true",
             "json-property":"tags",
             "facet-option":["frequency-order","descending", "limit=10"]}}
     ],
-    "transform-results":{"apply":"raw"},
+        "transform-results":{"apply":"raw"},
+    "default-suggestion-source":
+        {"word":{"json-property":"tags"}},
+    "search-option":["unfiltered"],
     "operator":{
         "name":"sort",
         "state":[
@@ -25,6 +34,15 @@
              "sort-order":
              {"direction":"descending",
               "json-property":"lastActivityDate"}},
+            {"name":"alpha",
+             "sort-order":
+             {"direction":"ascending",
+              "json-property":"title"}},
             {"name":"score",
              "sort-order":
-             {"score":null}}]}}}
+             {"direction":"descending",
+              "json-property":"docScore"}},
+            {"name":"relevance",
+             "sort-order":
+             {"direction":"descending",
+              "score":null}}]}}}

@@ -1,6 +1,7 @@
 package com.marklogic.samplestack.service;
 
-import com.marklogic.client.query.RawStructuredQueryDefinition;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
@@ -13,18 +14,20 @@ public interface QnAService {
 	 * Search for a particular string, as entered in the Samplestack search box.
 	 * @param role ClientRole on whose behalf to execute the search.
 	 * @param question The question/terms to search for
+	 * @param start The index of the first result in the result set.
 	 * @return A QuestionResults object containing results/snippets for the search.
 	 */
-	public QnADocumentResults search(ClientRole role, String question);
+	public QnADocumentResults search(ClientRole role, String question, long start);
 	
 	/**
 	 * Send a [JSON] raw structured query to the server, using the options
 	 * configured for a QuestionAndAnswer search.
 	 * @param role ClientRole on whose behalf to execute the search.
-	 * @param structuredQuery A JSON structured query payload.
+	 * @param structuredQuery A JSON structured query payload, as a JSONNode.
 	 * @return A QuestionResults object containing results/snippets for the search.
 	 */
-	public QnADocumentResults search(ClientRole role, RawStructuredQueryDefinition structuredQuery);
+	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery, long start);
+	//TODO better to provide InputStream method too to avoid parse?  or better to have valid json assured?
 	
 	/**
 	 * Publishes a new Question to the Samplestack database.
@@ -87,4 +90,11 @@ public interface QnAService {
 	 * @return The updated QnADocument
 	 */
 	public QnADocument comment(String userName, String postId, String text);
+
+	/**
+	 * Removes all the QnA documents from the database.
+	 * Convenient for testing.
+	 */
+	public void deleteAll();
+
 }

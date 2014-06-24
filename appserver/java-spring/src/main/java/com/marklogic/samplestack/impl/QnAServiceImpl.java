@@ -1,8 +1,5 @@
 package com.marklogic.samplestack.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -10,17 +7,18 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
+import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.client.query.MatchDocumentSummary;
-import com.marklogic.client.query.RawStructuredQueryDefinition;
+import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.QnAService;
 
@@ -30,33 +28,29 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	private final Logger logger = LoggerFactory
 			.getLogger(QnAServiceImpl.class);
 	
-	private static String DIR_NAME = "/questions/";
+	private static SamplestackType type = SamplestackType.QUESTIONS;
 	
 	private static String DUMMY_URI = "/nodoc.json";
 	
 	private static String idFromUri(String uri) {
-		return uri.replace(DIR_NAME, "").replace(".json", "");
+		return uri.replace(type.directoryName(), "").replace(".json", "");
 	}
 	private static String uriFromId(String id) {
-		return DIR_NAME + id + ".json";
+		return type.directoryName() + id + ".json";
 	}
 	
 	@Override
-	public QnADocumentResults search(ClientRole role, String question) {
-		QnADocumentResults results = new QnADocumentResults(operations.searchDirectory(role, "/questions/", question));
-		//simulate bulk:
-		List<QnADocument> sidecar = new ArrayList<QnADocument>();
-		for (MatchDocumentSummary summary : results.getResults().getMatchResults()) {
-				String docUri = summary.getUri();
-				sidecar.add(new QnADocument((ObjectNode) operations.getJsonDocument(role, docUri)));
-			}
-		results.setSidecar(sidecar);
+	public QnADocumentResults search(ClientRole role, String question, long start) {
+		SearchHandle handle = new SearchHandle();
+		DocumentPage page = operations.searchDirectory(role, SamplestackType.QUESTIONS, question, start);
+		QnADocumentResults results = new QnADocumentResults(handle, page);
+		
 		return results;
 	}
 
 	@Override
 	public QnADocument ask(String userName, QnADocument question) {
-		String documentUri = generateUri(DIR_NAME);
+		String documentUri = generateUri(type);
 		question.setId(documentUri);
 		ServerTransform askTransform = new ServerTransform("ask");
 		askTransform.put("userName", userName);
@@ -117,15 +111,16 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	}
 	
 	private QnADocument getByPostId(String answerId) {
-		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId);
+		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1);
 		return results.get(0);
 	}
 	
 	@Override
-	public QnADocumentResults search(ClientRole role,
-			RawStructuredQueryDefinition structuredQuery) {
-		SearchHandle results = operations.search(role, structuredQuery);
-		return new QnADocumentResults(results);
+	public ObjectNode rawSearch(ClientRole role,
+			JsonNode structuredQuery, long start) {
+		return operations.rawStructuredSearch(role, 
+				SamplestackType.QUESTIONS, 
+				structuredQuery, start, QueryView.ALL);
 	}
 	
 	@Override
@@ -140,6 +135,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 	public void delete(String id) {
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(uriFromId(id));
 	}
+	
 	@Override
 	public QnADocument comment(String userName, String postId, String text) {
 		//TODO redo with patch.
@@ -151,6 +147,10 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements QnAS
 		//NOTE document URI is thrown away in this workaround method
 		
 		return getByPostId(postId);
+	}
+	@Override
+	public void deleteAll() {
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS);
 	}
 
 }

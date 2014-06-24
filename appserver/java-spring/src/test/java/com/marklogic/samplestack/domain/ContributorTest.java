@@ -12,10 +12,9 @@ import org.springframework.core.io.ClassPathResource;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marklogic.samplestack.testing.UnitTest;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
 
-@Category(UnitTest.class)
+@Category(UnitTests.class)
 public class ContributorTest {
 
 	Contributor joe, mary;

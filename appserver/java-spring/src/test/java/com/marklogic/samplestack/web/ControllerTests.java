@@ -31,19 +31,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.service.ContributorService;
-import com.marklogic.samplestack.testing.UnitTest;
-import com.marklogic.samplestack.testing.Utils;
+import com.marklogic.samplestack.domain.UnitTests;
+import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
-@Category(UnitTest.class)
-public class ControllerTests {
+@Category(UnitTests.class)
+public class ControllerTests extends MarkLogicIntegrationTest {
 
 	private Logger logger = LoggerFactory.getLogger(ControllerTests.class);
 
@@ -51,13 +49,7 @@ public class ControllerTests {
 	private WebApplicationContext wac;
 
 	@Autowired
-	protected ContributorService contribService;
-
-	@Autowired
 	private FilterChainProxy springSecurityFilter;
-
-	@Autowired
-	protected ObjectMapper mapper;
 
 	protected MockMvc mockMvc;
 
