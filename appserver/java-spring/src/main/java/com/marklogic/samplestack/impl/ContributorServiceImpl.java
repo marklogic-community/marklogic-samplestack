@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.client.ResourceNotFoundException;
+import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentRecord;
 import com.marklogic.client.io.InputStreamHandle;
@@ -55,8 +56,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 
 	@Override
 	public void store(Contributor contributor) {
-		logger.info("Storing contributor id " + contributor.getId());
-
+		logger.debug("Storing contributor id " + contributor.getId());
 		String jsonString = null;
 		try {
 			jsonString = mapper.writeValueAsString(contributor);
@@ -66,6 +66,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(docUri(contributor.getId()),
 				new StringHandle(jsonString));
 	}
+	
 
 	@Override
 	public void delete(String id) {
@@ -115,6 +116,18 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1, null);
 		List<Contributor> results = asList(page);
 		return results.get(0);
+	}
+
+	@Override
+	public void store(Contributor contributor, Transaction transaction) {
+		String jsonString = null;
+		try {
+			jsonString = mapper.writeValueAsString(contributor);
+		} catch (JsonProcessingException e) {
+			throw new SamplestackException(e);
+		}
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(docUri(contributor.getId()),
+				new StringHandle(jsonString), transaction);
 	}
 
 }

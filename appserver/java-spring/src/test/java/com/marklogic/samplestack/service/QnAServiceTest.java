@@ -155,10 +155,56 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 	}
 
 	@Test
-	@Ignore
 	public void testVoting() {
-		fail("Not implemented");
+		QnADocument newQuestion = new QnADocument(mapper,
+				"How does voting work?",
+				"I want lots of up votes on my document",
+				"voting", "votes");
+		QnADocument submitted = service.ask(Utils.joeUser.getUserName(),
+				newQuestion);
+		
+		int docScore = submitted.getJson().get("docScore").asInt();
+		
+		QnADocument answered = service.answer(Utils.maryUser.getUserName(),
+				submitted.getId(), "I think your question is very good.  I want lots of votes too.");
+		String answerId = answered.getJson().get("answers").get(0).get("id")
+				.asText();
+
+		service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
+		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
+		int newScore = votedOn.getJson().get("docScore").asInt();
+		assertEquals("Vote score should be one higher than before", docScore + 1, newScore);
+		
+		try {
+			service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
+			fail("Same person cannot vote twice on same post");
+		} catch (Exception e) {
+			// pass
+		}
+		try {
+			service.voteDown(Utils.joeUser.getUserName(), submitted.getId());
+			fail("Same person cannot vote twice on same post");
+		} catch (Exception e) {
+			// pass
+		}
+		
+		service.voteDown(Utils.maryUser.getUserName(), answerId);
+		QnADocument votedTwiceOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
+		int newerScore = votedTwiceOn.getJson().get("docScore").asInt();
+		assertEquals("Vote score should be one higher than before", newScore - 1, newerScore);
+		
+		Contributor joesState = contributorService.get(Utils.joeUser.getId());
+		assertEquals("joe has voted once", 1, joesState.getVotes().size());
+		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
+
+
+		Contributor marysState = contributorService.get(Utils.maryUser.getId());
+		assertEquals("mary has voted once", 1, marysState.getVotes().size());
+		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
+		
+
 	}
+	
 
 	@Test
 	public void testComments() {

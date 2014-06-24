@@ -28,6 +28,7 @@ import com.marklogic.samplestack.service.QnAService;
 @RestController
 public class QnADocumentController {
 
+	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(QnADocumentController.class);
 
@@ -66,8 +67,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode get(@PathVariable(value = "id") String id) {
-		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(),
-				id);
+		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), id);
 		return qnaDoc.getJson();
 	}
 
@@ -75,7 +75,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	ResponseEntity<?> delete(@PathVariable(value = "id") String id) {
-		qnaService.delete("/foo/" + id);
+		qnaService.delete("/questions/" + id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
@@ -85,9 +85,9 @@ public class QnADocumentController {
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
 		//validate TODO
-		String docUri = "/questions/" + id + ".json";
+		String answerId = "/questions/" + id;
 		QnADocument answered = qnaService.answer(
-				ClientRole.securityContextUserName(), docUri, answer.get("text").asText());
+				ClientRole.securityContextUserName(), answerId, answer.get("text").asText());
 		return answered.getJson();
 	}
 	
@@ -113,7 +113,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	JsonNode comment(@RequestBody JsonNode comment,
 			@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId + ".json";
+		String postId = "/questions/" + questionId;
 		QnADocument toAccept = qnaService.comment(ClientRole.securityContextUserName(), postId, comment.get("text").asText());
 		return toAccept.getJson();
 	}

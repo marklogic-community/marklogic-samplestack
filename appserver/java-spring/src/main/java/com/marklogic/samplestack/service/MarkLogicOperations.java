@@ -2,6 +2,7 @@ package com.marklogic.samplestack.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
@@ -59,6 +60,7 @@ public interface MarkLogicOperations {
 	
 	/**
 	 * Initializes a resource manager, part of setup for application context
+	 * @param role Role to search with
 	 * @param name name or resource extension
 	 * @param testResourceManager
 	 */
@@ -70,7 +72,7 @@ public interface MarkLogicOperations {
 	 * a pass-through response from the middle tier to the browser,
 	 * so that the browser can simply use search results from the MarkLogic JSON
 	 * Search API response.
-	 * @param samplestackContributor Role to search with
+	 * @param role Role to search with
 	 * @param type type of search
 	 * @param structuredQuery structured query, JSON String, from browser
 	 * @param start cursor position
@@ -83,10 +85,19 @@ public interface MarkLogicOperations {
 	
 	/**
 	 * Wraps a call to the MarkLogic suggest capability
+	 * @param role Role to search with
 	 * @param suggestPattern
 	 * @return An array of Strings matching the suggest pattern.
 	 */
 	public String[] suggestTags(ClientRole role, String suggestPattern);
+
+	
+	/**
+	 * Start a transaction
+	 * @param role Role to search with
+	 * @return A transaction to use in subsequent calls to MarkLogic 
+	 */
+	public Transaction start(ClientRole role);
 
 	
 }

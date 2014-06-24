@@ -42,6 +42,8 @@ as document-node() {
                 object-node { 
                     "creationDate" : $dt,
                     "creationYearMonth" : $yearMonth,
+                    "docScore":0,
+                    "itemTally":0,
                     "comments": array-node { }, 
                     "answers": array-node { }, 
                     "owner": object-node 
