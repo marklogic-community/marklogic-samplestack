@@ -62,6 +62,7 @@ as document-node() {
             "creationDate" : current-dateTime(),
             "id" : "/answers/" || sem:uuid-string(),
             "text" : $root/text/data(),
+            "itemTally":0,
             "comments" : array-node { },
             "owner": $denormalizedUser
         })

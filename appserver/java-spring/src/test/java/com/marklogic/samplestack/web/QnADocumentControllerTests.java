@@ -109,7 +109,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 		String commentedQuestion = this.mockMvc
 				.perform(
-						post(askedQuestion.getId().replace(".json", "") + "/comments")
+						post(askedQuestion.getId() + "/comments")
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"text\":\"no comment.\"}"))

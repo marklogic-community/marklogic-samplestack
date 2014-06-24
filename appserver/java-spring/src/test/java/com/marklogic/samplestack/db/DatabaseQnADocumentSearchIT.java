@@ -98,7 +98,7 @@ public class DatabaseQnADocumentSearchIT {
 	 */
 	public void defaultSearchOrdersByActivityDescending() {
 		DocumentPage results = operations.searchDirectory(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.CONTRIBUTORS, "");
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS, "");
 		assertTrue("Need data to test searches", results.getTotalSize() > 0);
 	}
 

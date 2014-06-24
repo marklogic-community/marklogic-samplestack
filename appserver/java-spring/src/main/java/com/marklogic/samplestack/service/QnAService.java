@@ -48,17 +48,19 @@ public interface QnAService {
 	
 	/**
 	 * Adds a vote-up score to a particular question or answer.
-	 * @param contributor The contributor who is voting on the question or answer.
+	 * @param userName The contributor who is voting on the question or answer.
 	 * @param postId the id of the question or answer to vote on.
+	 * @return the modified QnADocument, with new score
 	 */
-	public void voteUp(Contributor contributor, String postId);
+	public QnADocument voteUp(String userName, String postId);
 	
 	/**
 	 * Adds a vote-down score to a particular question or answer.
-	 * @param contributor The contributor who is voting on the question or answer.
+	 * @param userName The contributor who is voting on the question or answer.
 	 * @param postId the id of the question or answer to vote on.
+	 * @return the modified QnADocument, with new score
 	 */
-	public void voteDown(Contributor contributor, String postId);
+	public QnADocument voteDown(String userName, String postId);
 
 	/**
 	 * Marks a particular answer as accepted.  Note -- requirement 

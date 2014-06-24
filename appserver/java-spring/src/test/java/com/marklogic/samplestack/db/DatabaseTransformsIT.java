@@ -19,6 +19,7 @@ import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
@@ -38,7 +39,7 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 
 	private static String TEST_URI = "/questions/transform-doc.json";
 	private static String DUMMY_URI = "/nodoc.json";
-	
+
 	@Before
 	public void setup() {
 		super.setup(TEST_URI);
@@ -63,12 +64,12 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 		contribManager.write(TEST_URI, new JacksonHandle(input), askTransform);
 
 	}
-	
+
 	@Test
 	public void askTransform() {
 
 		askQuestion();
-		
+
 		JsonNode output = operations.getJsonDocument(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 
@@ -92,10 +93,9 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 	}
 
 	private void askAndAnswer() {
-		
+
 		askQuestion();
-		
-		
+
 		// add the answer
 		ObjectNode input = mapper.createObjectNode();
 		input.put("text", "this is the text of my answer");
@@ -128,7 +128,8 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 						.asText());
 		assertEquals("transform added a user", Utils.joeUser.getUserName(),
 				answers.get(0).get("owner").get("userName").asText());
-		assertTrue("transform added empty comments", answers.get(0).get("comments") != null);
+		assertTrue("transform added empty comments",
+				answers.get(0).get("comments") != null);
 
 		contribManager.delete(TEST_URI);
 	}
@@ -159,12 +160,14 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 		// check accept
 		qnaDoc = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				TEST_URI);
-		
-		assertEquals("doc has acceptedAnswerId", answerId, qnaDoc.get("acceptedAnswerId").asText());
-		assertTrue("answerid is accepted", qnaDoc.get("answers").get(0).get("accepted").asBoolean());
+
+		assertEquals("doc has acceptedAnswerId", answerId,
+				qnaDoc.get("acceptedAnswerId").asText());
+		assertTrue("answerid is accepted",
+				qnaDoc.get("answers").get(0).get("accepted").asBoolean());
 
 	}
-	
+
 	@Test
 	public void commentPatchTransform() {
 		// make a user
@@ -181,7 +184,7 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 
 		ArrayNode answers = (ArrayNode) qnaDoc.get("answers");
 		String answerId = answers.get(0).get("id").asText();
-		
+
 		ServerTransform commentTransform = new ServerTransform("comment-patch");
 		commentTransform.put("postId", answerId);
 		commentTransform.put("text", "text of comment on answer");
@@ -189,7 +192,7 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 
 		// dummy uri because this transform does an update on parent doc.
 		contribManager.write(DUMMY_URI, new StringHandle(""), commentTransform);
-		
+
 		commentTransform = new ServerTransform("comment-patch");
 		commentTransform.put("postId", TEST_URI);
 		commentTransform.put("text", "text of comment on question");
@@ -198,15 +201,71 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationTest {
 		// dummy uri because this transform does an update on parent doc.
 		contribManager.write(DUMMY_URI, new StringHandle(""), commentTransform);
 
-		
 		// check comments
 		qnaDoc = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				TEST_URI);
-		
-		assertEquals("doc has comment", 1, qnaDoc.get("comments").size());
-		assertEquals("answer has comment", 1, qnaDoc.get("answers").get(0).get("comments").size());
-		assertEquals("doc has right", "text of comment on question", qnaDoc.get("comments").get(0).get("text").asText());
-		assertEquals("answer has right", "text of comment on answer", qnaDoc.get("answers").get(0).get("comments").get(0).get("text").asText());
 
+		assertEquals("doc has comment", 1, qnaDoc.get("comments").size());
+		assertEquals("answer has comment", 1,
+				qnaDoc.get("answers").get(0).get("comments").size());
+		assertEquals("doc has right", "text of comment on question", qnaDoc
+				.get("comments").get(0).get("text").asText());
+		assertEquals("answer has right", "text of comment on answer", qnaDoc
+				.get("answers").get(0).get("comments").get(0).get("text")
+				.asText());
+
+	}
+
+	@Test
+	public void votePatchTransform() {
+		// make a user
+		contributorService.store(Utils.joeUser);
+
+		// make sure there's no question
+		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
+
+		askAndAnswer();
+
+		// now we can comment on an answer.
+		JsonNode qnaDoc = operations.getJsonDocument(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
+
+		ArrayNode answers = (ArrayNode) qnaDoc.get("answers");
+		String answerId = answers.get(0).get("id").asText();
+		String postId = qnaDoc.get("id").asText();
+
+		ServerTransform voteTransform = new ServerTransform("vote-patch");
+		voteTransform.put("postId", postId);
+		voteTransform.put("delta", "1");
+		voteTransform.put("userName", Utils.joeUser.getUserName());
+
+		// dummy uri because this transform does an update on parent doc.
+		contribManager.write(DUMMY_URI, new StringHandle(""), voteTransform);
+
+		qnaDoc = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				TEST_URI);
+		
+		assertEquals("question has updated itemTally", "1", qnaDoc
+				.get("itemTally").asText());
+		assertEquals("question has updated score", "1", qnaDoc.get("docScore").asText());
+
+		voteTransform = new ServerTransform("vote-patch");
+		voteTransform.put("postId", answerId);
+		voteTransform.put("delta", "-1");
+		voteTransform.put("userName", Utils.joeUser.getUserName());
+
+		// dummy uri because this transform does an update on parent doc.
+		// this should FAIL, joe cant vote twice.
+		contribManager.write(DUMMY_URI, new StringHandle(""), voteTransform);
+		// check comments
+		qnaDoc = operations.getJsonDocument(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				TEST_URI);
+		assertEquals("question has untouched itemTally", "1", qnaDoc
+				.get("itemTally").asText());
+		assertEquals("question has updated score", "0", qnaDoc.get("docScore").asText());
+		assertEquals("answer has updated itemTally", "-1", qnaDoc.get("answers").get(0)
+				.get("itemTally").asText());
+		
+		
 	}
 }

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
@@ -122,6 +123,11 @@ public class MarkLogicClient implements MarkLogicOperations {
 		SuggestDefinition suggestDefinition = mgr.newSuggestDefinition("tags");
 		suggestDefinition.setStringCriteria(suggestPattern);
 		return getClient(role).newQueryManager().suggest(suggestDefinition);
+	}
+
+	@Override
+	public Transaction start(ClientRole role) {
+		return getClient(role).openTransaction();
 	}
 
 }
