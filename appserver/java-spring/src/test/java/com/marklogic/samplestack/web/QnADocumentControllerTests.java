@@ -286,8 +286,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
 		String answerId = answer.get("id").asText();
 
-		logout();
-		
 		JsonNode blankQuery = getTestJson("queries/blank.json");
 		
 		
