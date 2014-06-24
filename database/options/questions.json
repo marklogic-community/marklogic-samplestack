@@ -15,7 +15,8 @@
         "range":{
             "type":"xs:string",
             "facet":"true",
-            "json-property":"creationYearMonth"}},
+            "json-property":"creationYearMonth"
+        }},
         {"name":"tag",
         "range":{
             "type":"xs:string",
