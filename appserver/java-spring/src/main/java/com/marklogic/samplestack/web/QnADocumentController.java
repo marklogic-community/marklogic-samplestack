@@ -118,6 +118,46 @@ public class QnADocumentController {
 		return toAccept.getJson();
 	}
 	
+	@RequestMapping(value = "questions/{id}/upvotes", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode voteUp(@RequestBody JsonNode comment,
+			@PathVariable(value = "id") String questionId) {
+		String postId = "/questions/" + questionId;
+		QnADocument toAccept = qnaService.voteUp(ClientRole.securityContextUserName(), postId);
+		return toAccept.getJson();
+	}
+	
+	@RequestMapping(value = "questions/{id}/downvotes", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode voteDown(@RequestBody JsonNode comment,
+			@PathVariable(value = "id") String questionId) {
+		String postId = "/questions/" + questionId;
+		QnADocument toAccept = qnaService.voteDown(ClientRole.securityContextUserName(), postId);
+		return toAccept.getJson();
+	}
+	
+	@RequestMapping(value = "questions/{id}/answers/{answerId}/upvotes", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode upVoteAnswer(@RequestBody JsonNode comment,
+			@PathVariable(value = "answerId") String answerIdPart) {
+		String answerId = "/answers/" + answerIdPart;
+		QnADocument toAccept = qnaService.voteUp(ClientRole.securityContextUserName(), answerId);
+		return toAccept.getJson();
+	}
+	
+	@RequestMapping(value = "questions/{id}/answers/{answerId}/downvotes", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody
+	JsonNode downVoteAnswer(@RequestBody JsonNode comment,
+			@PathVariable(value = "answerId") String answerIdPart) {
+		String answerId = "/answers/" + answerIdPart;
+		QnADocument toAccept = qnaService.voteDown(ClientRole.securityContextUserName(), answerId);
+		return toAccept.getJson();
+	}
+	
 	@RequestMapping(value = "questions/{id}/answers/{answerId}/comments", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
@@ -134,5 +174,5 @@ public class QnADocumentController {
 			@RequestParam(defaultValue = "1", required = false) long start) {
 		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
 	}
-	
+
 }
