@@ -23,7 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.testing.RESTAPITest;
 
 /**
  * This class is just an experiment to prove out LDAP configuration.
@@ -34,9 +33,10 @@ import com.marklogic.samplestack.testing.RESTAPITest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { Application.class })
-@Category(RESTAPITest.class)
+@Category(RESTAPITests.class)
 public class LoginsTest {
 
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(LoginsTest.class);
 
 	final String ldapServer = "ldap://localhost:33389";

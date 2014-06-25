@@ -7,13 +7,22 @@ The implementation of samplestack that runs using
 * Spring Boot as application framework
 * MarkLogic as database tier
 
-**To run Java unit tests**:
+## Quickstart 
 
-* `./gradlew test`
+You got here from ../../README.md, yes?
 
-**To run the Java application**:
+*To build and run:*
 
-* `./gradlew boot` -- builds and runs the app (on localhost:8080)
+* `./gradlew assemble`   This command bootstraps the middle tier and builds the Java project
+* `./gradlew dbLoad`     This command loads some sample data
+* `./gradlew boot`       This command runs the middle tier and MarkLogic services
+* [ browser instructions ]
+
+*To begin developing*
+
+* `./gradlew test` This command runs unit tests
+eclipse plugin/import
+
 
 
 ### Endpoints currently supported

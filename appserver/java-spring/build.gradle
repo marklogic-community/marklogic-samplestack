@@ -48,12 +48,13 @@ task dbConfigureClean << {
     delete("$buildDir/database")
 }
 
+
 dbConfigure.inputDir = file('../../database')
 dbConfigure.outputDir = file("$buildDir/database")
 dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
 dbConfigure.shouldRunAfter dbInit 
 dbConfigure.shouldRunAfter dbConfigureClean
-
+dbInit.dependsOn(dbConfigureClean)
 
 task dbConfigureAll
 dbConfigureAll.dependsOn dbConfigureClean
@@ -122,7 +123,7 @@ dependencies {
 
 task unitTest(type: Test) {
     useJUnit {
-        includeCategories 'com.marklogic.samplestack.testing.UnitTest'
+        includeCategories 'com.marklogic.samplestack.domain.UnitTests'
     }
 }
 
@@ -130,7 +131,7 @@ test.dependsOn(props, dbConfigure)
 
 task dbTest(type: Test) {
     useJUnit {
-        includeCategories 'com.marklogic.samplestack.testing.DatabaseExtensionTest'
+        includeCategories 'com.marklogic.samplestack.db.DatabaseExtensionTest'
     }
 }
 
