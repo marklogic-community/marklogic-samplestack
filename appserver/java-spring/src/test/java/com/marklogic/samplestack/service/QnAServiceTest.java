@@ -144,6 +144,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 	@Test
 	public void testVoting() {
+		cleanout();
 		QnADocument newQuestion = new QnADocument(mapper,
 				"How does voting work?",
 				"I want lots of up votes on my document", "voting", "votes");
