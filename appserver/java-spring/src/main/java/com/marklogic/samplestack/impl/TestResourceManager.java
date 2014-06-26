@@ -24,6 +24,7 @@ public class TestResourceManager extends ResourceManager {
 
 	public static final String name = "test-ext.xqy";
 
+	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(TestResourceManager.class);
 	

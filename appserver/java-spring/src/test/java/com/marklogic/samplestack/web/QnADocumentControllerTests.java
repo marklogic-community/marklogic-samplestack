@@ -41,16 +41,15 @@ public class QnADocumentControllerTests extends ControllerTests {
 	private QnADocument answeredQuestion;
 
 	@Test
-	@Ignore
 	// need to fix lastActivityDate value
 	public void testAnonymousCanSearch() throws UnsupportedEncodingException,
 			Exception {
-		String questionResponse = this.mockMvc.perform(get("/questions"))
+		String questionResponse = this.mockMvc.perform(get("/questions").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
 		assertTrue("response from mock controller question is search response",
-				questionResponse.contains("{\"results\""));
+				questionResponse.contains("/questions/79651f1e-9d4e-4fc3-a699-5b7d86cd8346.json"));
 	}
 
 	@Test

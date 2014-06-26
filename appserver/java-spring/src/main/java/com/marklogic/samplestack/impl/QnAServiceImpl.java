@@ -13,14 +13,13 @@ import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.domain.SamplestackType;
+import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
@@ -31,7 +30,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 
 	@Autowired
 	private ContributorService contributorService;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
 
 	private static SamplestackType type = SamplestackType.QUESTIONS;
@@ -47,14 +46,17 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
-	public QnADocumentResults search(ClientRole role, String question,
-			long start) {
-		SearchHandle handle = new SearchHandle();
+	public QnADocument findOne(ClientRole role, String stringQuery, long start) {
 		DocumentPage page = operations.searchDirectory(role,
-				SamplestackType.QUESTIONS, question, start);
-		QnADocumentResults results = new QnADocumentResults(handle, page);
-
-		return results;
+				SamplestackType.QUESTIONS, stringQuery, start);
+		if (page.hasNext()) {
+			JacksonHandle jacksonHandle = page.next().getContent(new JacksonHandle());
+			QnADocument newDocument = new QnADocument((ObjectNode) jacksonHandle.get());
+			return newDocument;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -126,9 +128,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	private QnADocument getByPostId(String answerId) {
-		QnADocumentResults results = search(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				"id:" + answerId, 1);
-		return results.get(0);
+		return findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:" + answerId, 1);
 	}
 
 	@Override
@@ -144,30 +144,30 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 		return getByPostId(postId);
 	}
 
-	
-	
 	private void vote(String userName, String postId, int delta) {
 		Contributor contributor = contributorService.getByUserName(userName);
 		if (contributor.hasVotedOn(postId)) {
-			throw new SampleStackVotingException("Contributor cannot vote on the same post twice");
+			throw new SampleStackDataIntegrityException(
+					"Contributor cannot vote on the same post twice");
 		}
-		
-		Transaction transaction = operations.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-				
+
+		Transaction transaction = operations
+				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+
 		ServerTransform votePatchTransform = new ServerTransform("vote-patch");
 		votePatchTransform.put("postId", postId);
 		votePatchTransform.put("delta", Integer.toString(delta));
 		// TODO PatchBuilder
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-				DUMMY_URI, new StringHandle(""), votePatchTransform, transaction);
-		
-		
+				DUMMY_URI, new StringHandle(""), votePatchTransform,
+				transaction);
+
 		// update the contributor record with vote
 		contributor.getVotes().add(postId);
 		contributorService.store(contributor, transaction);
-		
+
 		transaction.commit();
-		
+
 	}
 
 	@Override

@@ -19,7 +19,6 @@ import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
