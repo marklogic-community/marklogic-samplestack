@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.client.FailedRequestException;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
@@ -50,11 +51,12 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 		DocumentPage page = operations.searchDirectory(role,
 				SamplestackType.QUESTIONS, stringQuery, start);
 		if (page.hasNext()) {
-			JacksonHandle jacksonHandle = page.next().getContent(new JacksonHandle());
-			QnADocument newDocument = new QnADocument((ObjectNode) jacksonHandle.get());
+			JacksonHandle jacksonHandle = page.next().getContent(
+					new JacksonHandle());
+			QnADocument newDocument = new QnADocument(
+					(ObjectNode) jacksonHandle.get());
 			return newDocument;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -150,24 +152,29 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 			throw new SampleStackDataIntegrityException(
 					"Contributor cannot vote on the same post twice");
 		}
-
 		Transaction transaction = operations
 				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
-		ServerTransform votePatchTransform = new ServerTransform("vote-patch");
-		votePatchTransform.put("postId", postId);
-		votePatchTransform.put("delta", Integer.toString(delta));
-		// TODO PatchBuilder
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-				DUMMY_URI, new StringHandle(""), votePatchTransform,
-				transaction);
+		try {
 
-		// update the contributor record with vote
-		contributor.getVotes().add(postId);
-		contributorService.store(contributor, transaction);
+			ServerTransform votePatchTransform = new ServerTransform(
+					"vote-patch");
+			votePatchTransform.put("postId", postId);
+			votePatchTransform.put("delta", Integer.toString(delta));
+			// TODO PatchBuilder
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
+					DUMMY_URI, new StringHandle(""), votePatchTransform,
+					transaction);
 
-		transaction.commit();
+			// update the contributor record with vote
+			contributor.getVotes().add(postId);
+			contributorService.store(contributor, transaction);
 
+			transaction.commit();
+		} catch (SampleStackDataIntegrityException ex) {
+			transaction.rollback();
+			throw ex;
+		}
 	}
 
 	@Override

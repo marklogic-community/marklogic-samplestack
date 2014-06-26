@@ -49,7 +49,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 				.getContentAsString();
 		logger.debug(questionResponse);
 		assertTrue("response from mock controller question is search response",
-				questionResponse.contains("/questions/79651f1e-9d4e-4fc3-a699-5b7d86cd8346.json"));
+				questionResponse.contains("\"snippet-format\":\"raw\""));
 	}
 
 	@Test
