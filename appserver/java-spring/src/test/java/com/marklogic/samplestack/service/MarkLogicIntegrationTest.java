@@ -2,6 +2,7 @@ package com.marklogic.samplestack.service;
 
 import java.io.IOException;
 
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
@@ -10,7 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 
 public abstract class MarkLogicIntegrationTest {
@@ -47,5 +50,15 @@ public abstract class MarkLogicIntegrationTest {
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
+	}
+
+	@Before
+	public void cleanout() {
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				SamplestackType.QUESTIONS);
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				SamplestackType.CONTRIBUTORS);
+		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryUser);
 	}
 }

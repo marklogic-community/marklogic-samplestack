@@ -8,18 +8,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentRecord;
+import com.marklogic.client.io.Format;
 import com.marklogic.client.io.InputStreamHandle;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.SamplestackType;
+import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
@@ -42,7 +47,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	public Contributor get(String id) {
 		try {
 			String documentUri = docUri(id);
-			logger.debug("Fetching document uri +" + documentUri);
+			logger.debug("Fetching document uri " + documentUri);
 			InputStreamHandle handle = jsonDocumentManager(
 					ClientRole.SAMPLESTACK_CONTRIBUTOR).read(documentUri,
 					new InputStreamHandle());
@@ -55,22 +60,9 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	}
 
 	@Override
-	public void store(Contributor contributor) {
-		logger.debug("Storing contributor id " + contributor.getId());
-		String jsonString = null;
-		try {
-			jsonString = mapper.writeValueAsString(contributor);
-		} catch (JsonProcessingException e) {
-			throw new SamplestackException(e);
-		}
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(docUri(contributor.getId()),
-				new StringHandle(jsonString));
-	}
-	
-
-	@Override
 	public void delete(String id) {
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(docUri(id));
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(
+				docUri(id));
 	}
 
 	@Override
@@ -86,7 +78,8 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		List<Contributor> l = new ArrayList<Contributor>();
 		while (page.hasNext()) {
 			DocumentRecord record = page.next();
-			InputStreamHandle handle = record.getContent(new InputStreamHandle());
+			InputStreamHandle handle = record
+					.getContent(new InputStreamHandle());
 			try {
 				l.add(mapper.readValue(handle.get(), Contributor.class));
 			} catch (IOException e) {
@@ -109,25 +102,57 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	public Contributor getByUserName(String userName) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
 		// TODO repository/facade/json property
-		QueryDefinition qdef = qb.and(qb.directory(true,  type.directoryName()),
+		QueryDefinition qdef = qb.and(qb.directory(true, type.directoryName()),
 				qb.value(qb.element("userName"), userName));
 
 		DocumentPage page = operations.search(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1, null);
-		List<Contributor> results = asList(page);
-		return results.get(0);
+		if (page.getTotalSize() == 1) {
+			InputStreamHandle handle = page.nextContent(new InputStreamHandle().withFormat(Format.JSON));
+			try {
+				return mapper.readValue(handle.get(), Contributor.class);
+			} catch (IOException e) {
+				throw new SamplestackIOException(e);
+			}
+		} else if (page.size() > 1) {
+			throw new SampleStackDataIntegrityException(
+					"Cardinality violation for userName " + userName);
+		} else {
+			return null;
+		}
+
+	}
+
+	@Override
+	public void store(Contributor contributor) {
+		store(contributor, null);
 	}
 
 	@Override
 	public void store(Contributor contributor, Transaction transaction) {
+		logger.debug("Storing contributor id " + contributor.getId());
+		// TODO cache will speed this up.
+		Contributor cachedContributor = getByUserName(contributor.getUserName());
+		if (cachedContributor != null && cachedContributor.getId() != contributor.getId()) {
+			throw new SampleStackDataIntegrityException("username "
+					+ contributor.getUserName()
+					+ " collides with pre-existing one");
+		}
+
 		String jsonString = null;
 		try {
 			jsonString = mapper.writeValueAsString(contributor);
 		} catch (JsonProcessingException e) {
 			throw new SamplestackException(e);
 		}
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(docUri(contributor.getId()),
-				new StringHandle(jsonString), transaction);
+		if (transaction == null) {
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
+					docUri(contributor.getId()), new StringHandle(jsonString));
+		} else {
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
+					docUri(contributor.getId()), new StringHandle(jsonString),
+					transaction);
+		}
 	}
 
 }

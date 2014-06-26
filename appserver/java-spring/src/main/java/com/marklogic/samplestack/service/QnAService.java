@@ -3,9 +3,7 @@ package com.marklogic.samplestack.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.domain.QnADocumentResults;
 
 
 public interface QnAService {
@@ -13,11 +11,11 @@ public interface QnAService {
 	/** 
 	 * Search for a particular string, as entered in the Samplestack search box.
 	 * @param role ClientRole on whose behalf to execute the search.
-	 * @param question The question/terms to search for
+	 * @param queryString The question/terms to search for
 	 * @param start The index of the first result in the result set.
 	 * @return A QuestionResults object containing results/snippets for the search.
 	 */
-	public QnADocumentResults search(ClientRole role, String question, long start);
+	public QnADocument findOne(ClientRole role, String queryString, long start);
 	
 	/**
 	 * Send a [JSON] raw structured query to the server, using the options
