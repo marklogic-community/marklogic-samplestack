@@ -8,16 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentRecord;
 import com.marklogic.client.io.Format;
 import com.marklogic.client.io.InputStreamHandle;
-import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
@@ -133,7 +130,10 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		logger.debug("Storing contributor id " + contributor.getId());
 		// TODO cache will speed this up.
 		Contributor cachedContributor = getByUserName(contributor.getUserName());
-		if (cachedContributor != null && cachedContributor.getId() != contributor.getId()) {
+		if (cachedContributor != null) logger.debug("cached" + cachedContributor.getId());
+		if (contributor != null) logger.debug("cont" + contributor.getId());
+		
+		if (cachedContributor != null && !(cachedContributor.getId().equals(contributor.getId()))) {
 			throw new SampleStackDataIntegrityException("username "
 					+ contributor.getUserName()
 					+ " collides with pre-existing one");
