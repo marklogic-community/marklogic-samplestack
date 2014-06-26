@@ -159,13 +159,19 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 		String answerId = answered.getJson().get("answers").get(0).get("id")
 				.asText();
 
+		
+		// vote up
+		int joesReputation = Utils.joeUser.getReputation();
+		int marysReputation = Utils.joeUser.getReputation();
+		
+		// joe votes his own question up, reputation +1 for joe.
 		service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
 		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				submitted.getId());
 		int newScore = votedOn.getJson().get("docScore").asInt();
 		assertEquals("Vote score should be one higher than before",
 				docScore + 1, newScore);
-
+		
 		try {
 			service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
 			fail("Same person cannot vote twice on same post");
@@ -179,6 +185,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 			// pass
 		}
 
+		// mary votes her own answer down, her rep should be -1
 		service.voteDown(Utils.maryUser.getUserName(), answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
@@ -189,11 +196,13 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 		Contributor joesState = contributorService.get(Utils.joeUser.getId());
 		assertEquals("joe has voted once", 1, joesState.getVotes().size());
 		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
-
+		assertEquals("joe reputation has gained", joesReputation + 1, joesState.getReputation());
+		
 		Contributor marysState = contributorService.get(Utils.maryUser.getId());
 		assertEquals("mary has voted once", 1, marysState.getVotes().size());
 		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
-
+		assertEquals("marys reputation has suffered", marysReputation - 1, marysState.getReputation());
+		
 	}
 
 	@Test
@@ -232,12 +241,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 				.get(0).get("comments").get(0).get("text").asText());
 	}
 
-	@Ignore
-	@Test
-	public void testReputation() {
-		fail("Not implemented");
-	}
-
+	
 	@Test
 	public void testCRUD() throws JsonProcessingException {
 		QnADocument question = new QnADocument(mapper,

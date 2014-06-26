@@ -168,6 +168,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 
 			// update the contributor record with vote
 			contributor.getVotes().add(postId);
+			contributor.setReputation(contributor.getReputation() + delta);
 			contributorService.store(contributor, transaction);
 
 			transaction.commit();
