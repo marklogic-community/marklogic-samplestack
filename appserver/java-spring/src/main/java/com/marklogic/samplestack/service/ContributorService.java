@@ -1,8 +1,8 @@
 package com.marklogic.samplestack.service;
 
 import java.util.List;
-import java.util.UUID;
 
+import com.marklogic.client.Transaction;
 import com.marklogic.samplestack.domain.Contributor;
 
 /**
@@ -56,5 +56,13 @@ public interface ContributorService {
 	 * @return a Contributor object fetched from the database by userName
 	 */
 	public Contributor getByUserName(String userName);
+
+	/**
+	 * Store a contributor within a multi-statement transaction scope
+	 * @param contributor The contributor object to persist
+	 * @param transaction The transaction to use for this update.
+	 *   Obtained from a queryManager.  Use transaction.commit() to commit the change.
+	 */
+	public void store(Contributor contributor, Transaction transaction);
 
 }

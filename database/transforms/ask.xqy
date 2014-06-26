@@ -36,11 +36,14 @@ as document-node() {
             )))[1]
     let $_ := xdmp:log(("USER", $user))
     let $dt := current-dateTime()
-    let $dt2 := current-dateTime()
+    let $yearMonth := format-dateTime($dt, "[Y0001][M01]")
     let $json-doc :=
                 $root +
                 object-node { 
                     "creationDate" : $dt,
+                    "creationYearMonth" : $yearMonth,
+                    "docScore":0,
+                    "itemTally":0,
                     "comments": array-node { }, 
                     "answers": array-node { }, 
                     "owner": object-node 
@@ -48,7 +51,7 @@ as document-node() {
                         "id": $user/id/data(),
                         "displayName": $user/displayName/data()
                     },
-                    "lastActivityDate" : null-node { }
+                    "lastActivityDate" : $dt
                 }
                 
     return

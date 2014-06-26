@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,18 +20,19 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.QnADocumentResults;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.testing.IntegrationTest;
-import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = { DatabaseContext.class })
-@Category(IntegrationTest.class)
+@Category(MiddleTierIntegrationTest.class)
 public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceTest.class);
@@ -46,7 +46,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 	@Before
 	public void cleanout() {
 		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				"/questions/");
+				SamplestackType.QUESTIONS);
 		contributorService.store(Utils.joeUser);
 		contributorService.store(Utils.maryUser);
 	}
@@ -79,12 +79,12 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 		// first step -- send question to the server, get back results
 		QnADocumentResults results = service.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
 
-		logger.debug("Results came back "
-				+ results.getResults().getTotalResults());
-		assertEquals("Nothing in the database yet to match results", 0, results
-				.getResults().getTotalResults());
+//		logger.debug("Results came back "
+//				+ results.getResults().getTotalResults());
+//		assertEquals("Nothing in the database yet to match results", 0, results
+//				.getResults().getTotalResults());
 
 		newQuestion = new QnADocument(
 				mapper,
@@ -103,7 +103,7 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 
 		// search for my original question.
 		QnADocumentResults myQuestionsAndAnswers = service.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, question);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
 		questionFromSearch = myQuestionsAndAnswers.get(0);
 
 		logger.info(mapper.writeValueAsString(questionFromSearch));
@@ -155,12 +155,58 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 	}
 
 	@Test
-	@Ignore
 	public void testVoting() {
-		fail("Not implemented");
-	}
+		QnADocument newQuestion = new QnADocument(mapper,
+				"How does voting work?",
+				"I want lots of up votes on my document",
+				"voting", "votes");
+		QnADocument submitted = service.ask(Utils.joeUser.getUserName(),
+				newQuestion);
+		
+		int docScore = submitted.getJson().get("docScore").asInt();
+		
+		QnADocument answered = service.answer(Utils.maryUser.getUserName(),
+				submitted.getId(), "I think your question is very good.  I want lots of votes too.");
+		String answerId = answered.getJson().get("answers").get(0).get("id")
+				.asText();
 
-	@After()
+		service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
+		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
+		int newScore = votedOn.getJson().get("docScore").asInt();
+		assertEquals("Vote score should be one higher than before", docScore + 1, newScore);
+		
+		try {
+			service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
+			fail("Same person cannot vote twice on same post");
+		} catch (Exception e) {
+			// pass
+		}
+		try {
+			service.voteDown(Utils.joeUser.getUserName(), submitted.getId());
+			fail("Same person cannot vote twice on same post");
+		} catch (Exception e) {
+			// pass
+		}
+		
+		service.voteDown(Utils.maryUser.getUserName(), answerId);
+		QnADocument votedTwiceOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
+		int newerScore = votedTwiceOn.getJson().get("docScore").asInt();
+		assertEquals("Vote score should be one higher than before", newScore - 1, newerScore);
+		
+		Contributor joesState = contributorService.get(Utils.joeUser.getId());
+		assertEquals("joe has voted once", 1, joesState.getVotes().size());
+		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
+
+
+		Contributor marysState = contributorService.get(Utils.maryUser.getId());
+		assertEquals("mary has voted once", 1, marysState.getVotes().size());
+		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
+		
+
+	}
+	
+
+	@Test
 	public void testComments() {
 
 		QnADocument newQuestion = new QnADocument(mapper,
@@ -221,6 +267,21 @@ public class QnAServiceTest extends MarkLogicIntegrationTest {
 				question2.getJson().get("title").asText());
 		assertNotNull("Persisted question has ts",
 				question2.getJson().get("creationDate"));
+
+	}
+	
+	@Test
+	public void testDefaultSearchService() throws JsonProcessingException {
+		testComments();  // get a document in there.
+		JsonNode structuredQuery = getTestJson("queries/blank.json");
+		// test view-all
+		ObjectNode jsonResults = service.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1);
+		
+		logger.info(mapper.writeValueAsString(jsonResults));
+		assertTrue("Blank query got back results", jsonResults.get("results").size() > 0);
+		assertEquals("Blank query got back facets", 2, jsonResults.get("facets").size());
+		assertNotNull("Blank query got back date facet", jsonResults.get("facets").get("date"));
+		assertNotNull("Blank query got back tag facet", jsonResults.get("facets").get("tag"));
 
 	}
 }

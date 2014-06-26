@@ -1,34 +1,28 @@
 package com.marklogic.samplestack.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.DatabaseClient;
-import com.marklogic.client.document.DocumentDescriptor;
+import com.marklogic.client.Transaction;
+import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
-import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.FileHandle;
 import com.marklogic.client.io.Format;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
-import com.marklogic.client.io.ValuesHandle;
-import com.marklogic.client.query.CountedDistinctValue;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
-import com.marklogic.client.query.RawCombinedQueryDefinition;
-import com.marklogic.client.query.StringQueryDefinition;
-import com.marklogic.client.query.StructuredQueryDefinition;
-import com.marklogic.client.query.ValuesDefinition;
+import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.client.query.RawQueryDefinition;
+import com.marklogic.client.query.SuggestDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public class MarkLogicClient implements MarkLogicOperations {
@@ -55,53 +49,30 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return jacksonHandle.get();
 	}
 
+	
 	@Override
-	public List<String> getDocumentUris(ClientRole role, String directory) {
-		ClassPathResource values1 = new ClassPathResource("doc-uris.json");
-		try {
-			FileHandle fileHandle = new FileHandle(values1.getFile())
-					.withFormat(Format.JSON);
-			QueryManager queryManager = getClient(role).newQueryManager();
-			RawCombinedQueryDefinition qdef = queryManager
-					.newRawCombinedQueryDefinition(fileHandle);
-			ValuesDefinition valdef = queryManager.newValuesDefinition("docs");
-			valdef.setQueryDefinition(qdef);
-			ValuesHandle handle = queryManager.values(valdef,
-					new ValuesHandle());
-
-			List<String> docUrisList = new ArrayList<String>();
-			for (CountedDistinctValue value : handle.getValues()) {
-				String valueString = value.get("string", String.class);
-				// TODO refactor to actually query properly.
-				if (valueString.startsWith(directory)) {
-					docUrisList.add(value.get("string", String.class));
-				} else {
-				}
-			}
-			return docUrisList;
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
-	}
-
-	@Override
-	// TODO refactor to use multipart search capability.
-	public SearchHandle searchDirectory(ClientRole role, String directory,
+	public DocumentPage searchDirectory(ClientRole role, SamplestackType type,
 			String queryString) {
+		return searchDirectory(role, type, queryString, 1);
+	}
+	
+	@Override
+	public DocumentPage searchDirectory(ClientRole role, SamplestackType type,
+			String queryString, long start) {
 		QueryManager queryManager = getClient(role).newQueryManager();
-		StringQueryDefinition stringQuery = 
-				queryManager.newStringDefinition(directory.replaceAll("\\/",  ""))
+		QueryDefinition stringQuery = 
+				queryManager.newStringDefinition(type.optionsName())
 				.withCriteria(queryString);
 
-		stringQuery.setDirectory(directory);
-		return queryManager.search(stringQuery, new SearchHandle());
+		stringQuery.setDirectory(type.directoryName());
+		return newJSONDocumentManager(role).search(stringQuery, start);
 	}
 
 	@Override
-	public void deleteDirectory(ClientRole role, String directory) {
+	public void deleteDirectory(ClientRole role, SamplestackType type) {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
-		deleteDef.setDirectory(directory);
+		deleteDef.setDirectory(type.directoryName());
 		queryManager.delete(deleteDef);
 	}
 
@@ -109,16 +80,11 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return getClient(role).newJSONDocumentManager();
 	}
 
+	
 	@Override
-	public SearchHandle search(ClientRole role, QueryDefinition queryDefinition) {
-		return search(role, queryDefinition, 1);
-	}
-
-	@Override
-	public SearchHandle search(ClientRole role,
-			QueryDefinition queryDefinition, long start) {
-		QueryManager queryManager = getClient(role).newQueryManager();
-		return queryManager.search(queryDefinition, new SearchHandle(), start);
+	public DocumentPage search(ClientRole role,
+			QueryDefinition queryDefinition, long start, SearchHandle handle) {
+		return newJSONDocumentManager(role).search(queryDefinition, start, handle);
 	}
 
 	public void putClient(ClientRole role, DatabaseClient client) {
@@ -134,6 +100,34 @@ public class MarkLogicClient implements MarkLogicOperations {
 	@Override
 	public void delete(ClientRole role, String documentUri) {
 		getClient(role).newJSONDocumentManager().delete(documentUri);
+	}
+
+	@Override
+	public ObjectNode rawStructuredSearch(ClientRole role, SamplestackType searchType,
+			JsonNode structuredQuery, long start, QueryView view) {
+		JacksonHandle handle = new JacksonHandle();
+		String qnaDirName =  searchType.directoryName();
+		String optionsName = searchType.optionsName();
+		QueryManager queryManager = getClient(role).newQueryManager();
+		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(new JacksonHandle(structuredQuery), optionsName);
+		qdef.setDirectory(qnaDirName);
+		queryManager.setView(view);
+		
+		handle = queryManager.search(qdef, handle, start);
+		return (ObjectNode) handle.get();
+	}
+
+	@Override
+	public String[] suggestTags(ClientRole role, String suggestPattern) {
+		QueryManager mgr = getClient(role).newQueryManager();
+		SuggestDefinition suggestDefinition = mgr.newSuggestDefinition("tags");
+		suggestDefinition.setStringCriteria(suggestPattern);
+		return getClient(role).newQueryManager().suggest(suggestDefinition);
+	}
+
+	@Override
+	public Transaction start(ClientRole role) {
+		return getClient(role).openTransaction();
 	}
 
 }

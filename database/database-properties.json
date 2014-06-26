@@ -1,6 +1,13 @@
 {
     "triple-index": true,
     "name": "samplestack",
+    "element-word-lexicon": [
+        {
+            "collation": "http://marklogic.com/collation/",
+            "localname": "tags",
+            "namespace-uri": ""
+        }
+        ],
     "range-element-index": [
     {
         "collation": "http://marklogic.com/collation/",
@@ -29,10 +36,10 @@
     {
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
-        "localname": "creationDate",
+        "localname": "creationYearMonth",
         "namespace-uri": "",
         "range-value-positions": false,
-        "scalar-type": "dateTime"
+        "scalar-type": "string"
     },
     {
         "collation": "http://marklogic.com/collation/",
@@ -54,6 +61,22 @@
         "collation": "http://marklogic.com/collation/",
         "invalid-values": "reject",
         "localname": "userName",
+        "namespace-uri": "",
+        "range-value-positions": false,
+        "scalar-type": "string"
+    },
+    {
+        "collation": "http://marklogic.com/collation/",
+        "invalid-values": "reject",
+        "localname": "docScore",
+        "namespace-uri": "",
+        "range-value-positions": false,
+        "scalar-type": "long"
+    },
+    {
+        "collation": "http://marklogic.com/collation/",
+        "invalid-values": "reject",
+        "localname": "title",
         "namespace-uri": "",
         "range-value-positions": false,
         "scalar-type": "string"

@@ -10,14 +10,16 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.client.ResourceNotFoundException;
+import com.marklogic.client.Transaction;
+import com.marklogic.client.document.DocumentPage;
+import com.marklogic.client.document.DocumentRecord;
 import com.marklogic.client.io.InputStreamHandle;
-import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.io.StringHandle;
-import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SamplestackException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
@@ -30,10 +32,10 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	private final Logger logger = LoggerFactory
 			.getLogger(ContributorServiceImpl.class);
 
-	private final String DIR_NAME = "/contributors/";
+	private final SamplestackType type = SamplestackType.CONTRIBUTORS;
 
 	private String docUri(String id) {
-		return DIR_NAME + id + ".json";
+		return type.directoryName() + id + ".json";
 	}
 
 	@Override
@@ -54,8 +56,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 
 	@Override
 	public void store(Contributor contributor) {
-		logger.info("Storing contributor id " + contributor.getId());
-
+		logger.debug("Storing contributor id " + contributor.getId());
 		String jsonString = null;
 		try {
 			jsonString = mapper.writeValueAsString(contributor);
@@ -65,6 +66,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(docUri(contributor.getId()),
 				new StringHandle(jsonString));
 	}
+	
 
 	@Override
 	public void delete(String id) {
@@ -74,19 +76,22 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	@Override
 	// TODO remove, not needed?
 	public List<Contributor> search(String queryString) {
-		SearchHandle handle = operations.searchDirectory(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, DIR_NAME, queryString);
-		return asList(handle);
+		DocumentPage page = operations.searchDirectory(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, type, queryString);
+		return asList(page);
 	}
 
 	// TODO refactor to use multipart response
-	private List<Contributor> asList(SearchHandle handle) {
+	private List<Contributor> asList(DocumentPage page) {
 		List<Contributor> l = new ArrayList<Contributor>();
-		for (MatchDocumentSummary summary : handle.getMatchResults()) {
-			String docUri = summary.getUri();
-			String id;
-			id = docUri.replace(DIR_NAME, "").replace(".json", "");
-			l.add(get(id));
+		while (page.hasNext()) {
+			DocumentRecord record = page.next();
+			InputStreamHandle handle = record.getContent(new InputStreamHandle());
+			try {
+				l.add(mapper.readValue(handle.get(), Contributor.class));
+			} catch (IOException e) {
+				throw new SamplestackIOException(e);
+			}
 		}
 		return l;
 	}
@@ -94,23 +99,35 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	@Override
 	public List<Contributor> list(long start) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
-		QueryDefinition qdef = qb.directory(true, DIR_NAME);
-		SearchHandle handle = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start);
-		return asList(handle);
+		QueryDefinition qdef = qb.directory(true, type.directoryName());
+		DocumentPage page = operations.search(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start, null);
+		return asList(page);
 	}
 
 	@Override
 	public Contributor getByUserName(String userName) {
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
 		// TODO repository/facade/json property
-		QueryDefinition qdef = qb.and(qb.directory(true,  DIR_NAME),
+		QueryDefinition qdef = qb.and(qb.directory(true,  type.directoryName()),
 				qb.value(qb.element("userName"), userName));
 
-		SearchHandle handle = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef);
-		List<Contributor> results = asList(handle);
+		DocumentPage page = operations.search(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1, null);
+		List<Contributor> results = asList(page);
 		return results.get(0);
+	}
+
+	@Override
+	public void store(Contributor contributor, Transaction transaction) {
+		String jsonString = null;
+		try {
+			jsonString = mapper.writeValueAsString(contributor);
+		} catch (JsonProcessingException e) {
+			throw new SamplestackException(e);
+		}
+		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(docUri(contributor.getId()),
+				new StringHandle(jsonString), transaction);
 	}
 
 }
