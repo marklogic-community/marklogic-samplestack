@@ -6,19 +6,19 @@ import java.util.List;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.marker.SearchReadHandle;
 
 /**
  * Wraps a SearchResponse so that I can get sparse data out of the payload.
  */
-public class QnADocumentResults {
+public class QnADocumentResults  {
 
-	private SearchHandle results;
+	private SearchReadHandle results;
 	
 	// cache of documents from the search results
 	private List<QnADocument> sidecar;
 	
-	public QnADocumentResults(SearchHandle results, DocumentPage page) {
+	public QnADocumentResults(SearchReadHandle results, DocumentPage page) {
 		this.setResults(results);
 		List<QnADocument> sidecar = new ArrayList<QnADocument>();
 		while (page.hasNext()) {
@@ -33,7 +33,7 @@ public class QnADocumentResults {
 		return sidecar.get(i);
 	}
 
-	public void setResults(SearchHandle results) {
+	public void setResults(SearchReadHandle results) {
 		this.results = results;
 	}
 

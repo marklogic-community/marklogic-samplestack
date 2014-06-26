@@ -18,6 +18,7 @@ public class TagsController {
 	@Autowired
 	private TagsService tagsService;
 	
+	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(TagsController.class);
 

@@ -16,9 +16,12 @@ ldapsearch -h localhost -p 53389 -b"dc=samplestack,dc=org" "(&(cn=samplestack-co
 
 
 
+curl --anyauth --user admin:admin -X POST -i -Hcontent-type:application/json -d@database/security/roles/samplestack-writer.json http://localhost:8002/manage/v2/roles
+curl --anyauth --user admin:admin -X DELETE http://localhost:8002/manage/v2/roles/samplestack-guest
+
 curl --anyauth --user admin:admin -X POST -i -Hcontent-type:application/json -d@database/security/users/rest-admin.json http://localhost:8002/manage/v2/users
 
-curl --anyauth --user admin:admin -X GET -i -Haccept:application/xml http://localhost:8002/manage/v2/roles/samplestack-unrestricted
+curl --anyauth --user admin:admin -X GET -i -Haccept:application/xml http://localhost:8002/manage/v2/roles/samplestack-guest
 
 curl --anyauth --user admin:admin -X GET -Haccept:application/json "http://localhost:8002/manage/v2/privileges/rest-reader?database=Security&kind=execute" | python -mjson.tool
 

@@ -1,8 +1,11 @@
 package com.marklogic.samplestack.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -19,6 +22,7 @@ import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.SamplestackType;
+import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.impl.DatabaseContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,8 +41,13 @@ public class ContributorServiceTest extends MarkLogicIntegrationTest {
 		contributor.setAboutMe("Some text about me");
 		id1 = UUID.randomUUID().toString();
 		contributor.setId(id1);
+		contributor.setUserName("grechaw@marklogic.com");
 		contributor.setDisplayName("grechaw");
 		contributor.setWebsiteUrl("http://website.com/grechaw");
+		Set<String> votes =  new HashSet<String>();
+		votes.add("/questions/1");
+		votes.add("/answers/123");
+		contributor.setVotes(votes);
 		return contributor;
 	}
 
@@ -76,9 +85,13 @@ public class ContributorServiceTest extends MarkLogicIntegrationTest {
 		
 	}
 	
-	@Test
-	public void testVoting() {
-		
-	}
+	@Test(expected=SampleStackDataIntegrityException.class)
+	public void testUserNameCardinality() {
+		Contributor c1 = getContributor();
+		contributorService.store(c1);
 
+		c1.setId(UUID.randomUUID().toString());
+		contributorService.store(c1);
+		fail("Updated ID of a contributor");
+	}
 }

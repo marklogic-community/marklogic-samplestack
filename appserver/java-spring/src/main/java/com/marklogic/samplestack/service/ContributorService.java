@@ -20,22 +20,18 @@ public interface ContributorService {
 
 	/**
 	 * Store a user object's state in the database.
-	 * @param user the user object.
+	 * @param contributor the user object.
 	 */
-	public void store(Contributor user);
+	public void store(Contributor contributor);
 
 	/**
-	 * Delete the contriubtor at UUID id
-	 * A user can update their own record if they are a 'user'
-	 * An expert can update any?
-	 * @param user the user object.
+	 * Delete a contributor object
+	 * @param id the id of a contributor object.
 	 */
 	public void delete(String id);
 
 	/**
 	 * Get a page's worth of Contributor objects
-	 * (as defined in "contributors" options node)
-	 * TODO replace with facade item.
 	 * @param start the index of the first item to return
 	 * @return List of contributors starting at start
 	 */
@@ -43,8 +39,6 @@ public interface ContributorService {
 	
 	/**
 	 * Search for contributors with a query string
-	 * (as defined in "contributors" options node
-	 * TODO replace with facade item.
 	 * @param start the index of the first item to return
 	 * @return List of contributors starting at start
 	 */

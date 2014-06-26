@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.domain.QnADocumentResults;
 import com.marklogic.samplestack.domain.SparseQuestion;
-import com.marklogic.samplestack.exception.SamplestackAcceptException;
+import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
@@ -43,12 +43,16 @@ public class QnADocumentController {
 
 	@RequestMapping(value = "questions", method = RequestMethod.GET)
 	public @ResponseBody
-	QnADocumentResults getQnADocuments(@RequestParam(required = false) String q,
+	JsonNode getQnADocuments(@RequestParam(required = false) String q,
 			@RequestParam(required = false, defaultValue = "1") long start) {
 		if (q == null) {
 			q = "sort:active";
 		}
-		return qnaService.search(ClientRole.securityContextRole(), q, start);
+		ObjectNode structuredQuery = mapper.createObjectNode();
+		ObjectNode qtext = mapper.createObjectNode();
+		qtext.put("qtext",q);
+		structuredQuery.put("query", qtext);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
 	}
 
 	@RequestMapping(value = "questions", method = RequestMethod.POST)
@@ -98,13 +102,13 @@ public class QnADocumentController {
 		//validate TODO
 		String userName = ClientRole.securityContextUserName();
 		String answerId = "/answers/" + answerIdPart;
-		QnADocument toAccept = qnaService.search(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1).get(0);
+		QnADocument toAccept = qnaService.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1);
 		if (toAccept.getOwnerUserName().equals(userName)) {
 			QnADocument accepted = qnaService.accept(answerId);
 			return accepted.getJson();			
 		}
 		else {
-			throw new SamplestackAcceptException("Current user does not match owner of question");
+			throw new SampleStackDataIntegrityException("Current user does not match owner of question");
 		}
 	}
 	
