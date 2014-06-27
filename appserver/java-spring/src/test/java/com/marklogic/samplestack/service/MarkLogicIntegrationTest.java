@@ -2,7 +2,8 @@ package com.marklogic.samplestack.service;
 
 import java.io.IOException;
 
-import org.junit.Before;
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
@@ -52,7 +53,7 @@ public abstract class MarkLogicIntegrationTest {
 		}
 	}
 
-	@Before
+	@PostConstruct
 	public void cleanout() {
 		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				SamplestackType.QUESTIONS);
