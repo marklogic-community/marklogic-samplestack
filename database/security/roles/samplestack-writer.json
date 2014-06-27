@@ -2,7 +2,7 @@
   "name": "samplestack-writer",
   "description": "role for contributing to samplestack corpus",
   "role": [
-      "rest-writer"
+      "rest-writer", "samplestack-guest"
   ],
   "permission": [
     {
