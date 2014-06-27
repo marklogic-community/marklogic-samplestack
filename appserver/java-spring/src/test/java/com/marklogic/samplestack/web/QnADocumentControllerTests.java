@@ -44,7 +44,8 @@ public class QnADocumentControllerTests extends ControllerTests {
 	// need to fix lastActivityDate value
 	public void testAnonymousCanSearch() throws UnsupportedEncodingException,
 			Exception {
-		String questionResponse = this.mockMvc.perform(get("/questions").accept(MediaType.APPLICATION_JSON))
+		String questionResponse = this.mockMvc
+				.perform(get("/questions").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
@@ -86,8 +87,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void testAskQuestion() throws JsonProcessingException, Exception {
-		contributorService.store(Utils.joeUser);
-
 		login("joeUser@marklogic.com", "joesPassword");
 
 		askQuestion();
@@ -99,7 +98,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void commentOnQuestion() throws Exception {
-		contributorService.store(Utils.joeUser);
 
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
@@ -116,30 +114,30 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	private void answerQuestion() throws Exception {
-		login("joeUser@marklogic.com", "joesPassword");
+		if (answeredQuestion == null) {
+			login("joeUser@marklogic.com", "joesPassword");
 
-		String docId = askedQuestion.getId().replace(".json", "");
-		logger.debug(docId);
-		// send a contributor to the questions endpoint
-		String answeredQuestion = this.mockMvc
-				.perform(
-						post(docId + "/answers")
-								.session((MockHttpSession) session)
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										"{\"text\":\"here's an answer for ya\"}"))
-				.andExpect(status().isCreated()).andReturn().getResponse()
-				.getContentAsString();
-		logger.debug(answeredQuestion);
-		ObjectNode node = mapper.readValue(answeredQuestion, ObjectNode.class);
-		this.answeredQuestion = new QnADocument(node);
+			String docId = askedQuestion.getId().replace(".json", "");
+			logger.debug(docId);
+			// send a contributor to the questions endpoint
+			String answeredQuestion = this.mockMvc
+					.perform(
+							post(docId + "/answers")
+									.session((MockHttpSession) session)
+									.contentType(MediaType.APPLICATION_JSON)
+									.content(
+											"{\"text\":\"here's an answer for ya\"}"))
+					.andExpect(status().isCreated()).andReturn().getResponse()
+					.getContentAsString();
+			logger.debug(answeredQuestion);
+			ObjectNode node = mapper.readValue(answeredQuestion,
+					ObjectNode.class);
+			this.answeredQuestion = new QnADocument(node);
+		}
 	}
 
 	@Test
 	public void testAnswerQuestion() throws Exception {
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryUser);
-
 		askQuestion();
 
 		answerQuestion();
@@ -153,8 +151,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void commentOnAnswer() throws Exception {
-		contributorService.store(Utils.joeUser);
-
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -175,8 +171,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void voteUpQuestion() throws Exception {
-		contributorService.store(Utils.joeUser);
-
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		String votedOnQuestion = this.mockMvc
@@ -191,8 +185,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void voteDownQuestion() throws Exception {
-		contributorService.store(Utils.joeUser);
-
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		String votedOnQuestion = this.mockMvc
@@ -206,8 +198,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void voteUpAnswer() throws Exception {
-		contributorService.store(Utils.joeUser);
-
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -225,8 +215,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 	@Test
 	public void voteDownAnswer() throws Exception {
-		contributorService.store(Utils.joeUser);
-
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -235,7 +223,9 @@ public class QnADocumentControllerTests extends ControllerTests {
 
 		String votedOnQuestion = this.mockMvc
 				.perform(
-						post(this.askedQuestion.getId() + answerId + "/downvotes")
+						post(
+								this.askedQuestion.getId() + answerId
+										+ "/downvotes")
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
@@ -243,15 +233,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 	}
 
 	@Test
-	@Ignore
-	public void prohibitDuplicateVotes() {
-		fail("Not Implemented");
-	}
-
-	@Test
 	public void testAcceptAnswer() throws Exception {
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryUser);
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -299,8 +281,6 @@ public class QnADocumentControllerTests extends ControllerTests {
 	@Test
 	public void testAnonymousAccessToAccepted() throws Exception {
 		qnaService.deleteAll();
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryUser);
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -311,7 +291,7 @@ public class QnADocumentControllerTests extends ControllerTests {
 		String answerId = answer.get("id").asText();
 
 		logout();
-		
+
 		JsonNode blankQuery = getTestJson("queries/blank.json");
 
 		logout();

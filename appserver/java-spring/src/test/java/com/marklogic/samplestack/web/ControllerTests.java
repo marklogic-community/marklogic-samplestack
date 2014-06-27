@@ -5,9 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
-import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +39,12 @@ public class ControllerTests extends MarkLogicIntegrationTest {
 	
 	protected QnADocument askedQuestion;
 	
-	@Before
+	@PostConstruct
 	public void setup() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
+		if (this.mockMvc == null) {
+			this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
 				.addFilter(this.springSecurityFilter, "/*").build();
+		}
 	}
 
 	protected void login(String username, String password) throws Exception {

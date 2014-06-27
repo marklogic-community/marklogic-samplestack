@@ -51,13 +51,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 	
 	@Override
-	public DocumentPage searchDirectory(ClientRole role, SamplestackType type,
-			String queryString) {
-		return searchDirectory(role, type, queryString, 1);
-	}
-	
-	@Override
-	public DocumentPage searchDirectory(ClientRole role, SamplestackType type,
+	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
 			String queryString, long start) {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		QueryDefinition stringQuery = 
@@ -83,8 +77,8 @@ public class MarkLogicClient implements MarkLogicOperations {
 	
 	@Override
 	public DocumentPage search(ClientRole role,
-			QueryDefinition queryDefinition, long start, SearchHandle handle) {
-		return newJSONDocumentManager(role).search(queryDefinition, start, handle);
+			QueryDefinition queryDefinition, long start) {
+		return newJSONDocumentManager(role).search(queryDefinition, start);
 	}
 
 	public void putClient(ClientRole role, DatabaseClient client) {
@@ -103,11 +97,11 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	public ObjectNode rawStructuredSearch(ClientRole role, SamplestackType searchType,
-			JsonNode structuredQuery, long start, QueryView view) {
+	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
+			long start, QueryView view) {
 		JacksonHandle handle = new JacksonHandle();
-		String qnaDirName =  searchType.directoryName();
-		String optionsName = searchType.optionsName();
+		String qnaDirName =  SamplestackType.QUESTIONS.directoryName();
+		String optionsName = SamplestackType.QUESTIONS.optionsName();
 		QueryManager queryManager = getClient(role).newQueryManager();
 		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(new JacksonHandle(structuredQuery), optionsName);
 		qdef.setDirectory(qnaDirName);
@@ -129,5 +123,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public Transaction start(ClientRole role) {
 		return getClient(role).openTransaction();
 	}
+
+
 
 }

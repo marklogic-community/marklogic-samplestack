@@ -65,8 +65,8 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	@Override
 	// TODO remove, not needed?
 	public List<Contributor> search(String queryString) {
-		DocumentPage page = operations.searchDirectory(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, type, queryString);
+		DocumentPage page = operations.searchInClass(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, type, queryString, 1);
 		return asList(page);
 	}
 
@@ -91,7 +91,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
 		QueryDefinition qdef = qb.directory(true, type.directoryName());
 		DocumentPage page = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start, null);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start);
 		return asList(page);
 	}
 
@@ -103,7 +103,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 				qb.value(qb.element("userName"), userName));
 
 		DocumentPage page = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1, null);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1);
 		if (page.getTotalSize() == 1) {
 			InputStreamHandle handle = page.nextContent(new InputStreamHandle().withFormat(Format.JSON));
 			try {

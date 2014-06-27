@@ -2,8 +2,7 @@ package com.marklogic.samplestack.service;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
-
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
@@ -27,7 +26,7 @@ public abstract class MarkLogicIntegrationTest {
 
 	@Autowired
 	protected QnAService qnaService;
-	
+
 	@Autowired
 	protected ObjectMapper mapper;
 
@@ -53,13 +52,19 @@ public abstract class MarkLogicIntegrationTest {
 		}
 	}
 
-	@PostConstruct
+	private boolean initialized = false;
+
+	@Before
 	public void cleanout() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				SamplestackType.QUESTIONS);
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				SamplestackType.CONTRIBUTORS);
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryUser);
+		if (!initialized) {
+			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+
+			SamplestackType.QUESTIONS);
+			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					SamplestackType.CONTRIBUTORS);
+			contributorService.store(Utils.joeUser);
+			contributorService.store(Utils.maryUser);
+		}
+		initialized = true;
 	}
 }

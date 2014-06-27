@@ -26,18 +26,6 @@ public interface MarkLogicOperations {
 	 * Convenience method to send a String query over a particular range of documents.
 	 * The expectation is that there will be an options node on the server that corresponds
 	 * to this directory/Class of objects, and which configures the search string
-	 * that the client uses here.
-	 * @param role The security role under which to run the query.
-	 * @param type The type of the domain object.
-	 * @param queryString The Search API query string, as configured by a persisted options file.
-	 * @return A page of results.
-	 */
-	public DocumentPage searchDirectory(ClientRole role, SamplestackType type, String queryString);
-
-	/**
-	 * Convenience method to send a String query over a particular range of documents.
-	 * The expectation is that there will be an options node on the server that corresponds
-	 * to this directory/Class of objects, and which configures the search string
 	 * that the client uses here.  This version of search provides a SearchHandle object
 	 * which is populated by data from the Search API response object.
 	 * @param role The security role under which to run the query.
@@ -46,11 +34,11 @@ public interface MarkLogicOperations {
 	 * @param start The index of the first result returned.
 	 * @return A page of results.
 	 */
-	public DocumentPage searchDirectory(ClientRole role, SamplestackType type,
+	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
 			String queryString, long start);
 	
 	public DocumentPage search(ClientRole role, QueryDefinition queryDefinition, 
-			long start, SearchHandle handle);
+			long start);
 
 	public void deleteDirectory(ClientRole role, SamplestackType type);
 	
@@ -73,15 +61,13 @@ public interface MarkLogicOperations {
 	 * so that the browser can simply use search results from the MarkLogic JSON
 	 * Search API response.
 	 * @param role Role to search with
-	 * @param type type of search
 	 * @param structuredQuery structured query, JSON String, from browser
 	 * @param start cursor position
 	 * @param view Client can specify which view to retrieve.
 	 * @return A JSON representation of MarkLogic query results.
 	 */
-	public ObjectNode rawStructuredSearch(ClientRole role, SamplestackType type,
-			JsonNode structuredQuery, long start,
-			QueryView view);
+	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
+			long start, QueryView view);
 	
 	/**
 	 * Wraps a call to the MarkLogic suggest capability
