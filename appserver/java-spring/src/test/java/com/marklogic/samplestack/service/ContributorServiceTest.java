@@ -51,14 +51,10 @@ public class ContributorServiceTest extends MarkLogicIntegrationTest {
 		return contributor;
 	}
 
-	@Before
-	public void cleanout() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.CONTRIBUTORS);
-	}
-
 	@Test
 	public void testContributorCRUD() throws JsonProcessingException {
 		
+		cleanout();
 		Contributor c1 = getContributor();
 		contributorService.store(c1);
 
