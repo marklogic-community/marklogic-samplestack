@@ -48,7 +48,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 
 	@Override
 	public QnADocument findOne(ClientRole role, String stringQuery, long start) {
-		DocumentPage page = operations.searchDirectory(role,
+		DocumentPage page = operations.searchInClass(role,
 				SamplestackType.QUESTIONS, stringQuery, start);
 		if (page.hasNext()) {
 			JacksonHandle jacksonHandle = page.next().getContent(
@@ -136,8 +136,8 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	@Override
 	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery,
 			long start) {
-		return operations.rawStructuredSearch(role, SamplestackType.QUESTIONS,
-				structuredQuery, start, QueryView.ALL);
+		return operations.qnaSearch(role, structuredQuery,
+				start, QueryView.ALL);
 	}
 
 	@Override

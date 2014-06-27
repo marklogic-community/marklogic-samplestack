@@ -97,8 +97,8 @@ public class DatabaseQnADocumentSearchIT {
 	 * sort by relevance (score)
 	 */
 	public void defaultSearchOrdersByActivityDescending() {
-		DocumentPage results = operations.searchDirectory(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS, "");
+		DocumentPage results = operations.searchInClass(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS, "", 1);
 		assertTrue("Need data to test searches", results.getTotalSize() > 0);
 	}
 
@@ -127,9 +127,9 @@ public class DatabaseQnADocumentSearchIT {
 			query = mapper
 					.readValue("{\"query\":{\"qtext\":\"tag:monotouch\"}}",
 							JsonNode.class);
-			results = operations.rawStructuredSearch(
+			results = operations.qnaSearch(
 					ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					SamplestackType.QUESTIONS, query, 1, QueryView.FACETS);
+					query, 1, QueryView.FACETS);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 		} catch (IOException e) {
@@ -148,9 +148,9 @@ public class DatabaseQnADocumentSearchIT {
 					.readValue(
 							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"monotouch\"}}}",
 							JsonNode.class);
-			results = operations.rawStructuredSearch(
+			results = operations.qnaSearch(
 					ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					SamplestackType.QUESTIONS, query, 1, QueryView.FACETS);
+					query, 1, QueryView.FACETS);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 		} catch (IOException e) {
