@@ -20,9 +20,9 @@ These two applications share the same view of the three application tiers.
 * install MarklLogic and start it
 * ```cd appserver/java-spring```
 * TEMPORARY STEP: build and install ML java client from trunk as Maven package.. in a separate directory:
-** git clone https://github.com/marklogic/java-client-api
-** cd java-client-api
-** mvn -Dmaven.test.skip=true install
+  * `git clone https://github.com/marklogic/java-client-api`
+  * `cd java-client-api`
+  * `mvn -Dmaven.test.skip=true install`
 
 See README.md in appserver/java-spring for further information on the samplestack-java
 
