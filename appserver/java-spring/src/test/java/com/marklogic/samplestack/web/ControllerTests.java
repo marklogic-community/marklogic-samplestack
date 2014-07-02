@@ -5,12 +5,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
@@ -19,11 +22,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.service.MarkLogicIntegrationTest;
+import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.service.QnAService;
 
-public class ControllerTests extends MarkLogicIntegrationTest {
+public class ControllerTests {
 
 	private Logger logger = LoggerFactory.getLogger(ControllerTests.class);
 
@@ -33,17 +39,33 @@ public class ControllerTests extends MarkLogicIntegrationTest {
 	@Autowired
 	private FilterChainProxy springSecurityFilter;
 
+	@Autowired
+	protected ObjectMapper mapper;
+	
 	protected MockMvc mockMvc;
 
 	protected HttpSession session;
 	
 	protected QnADocument askedQuestion;
 	
+	@Autowired
+	protected QnAService qnaService;
+	
+	
 	@PostConstruct
 	public void setup() {
 		if (this.mockMvc == null) {
 			this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
 				.addFilter(this.springSecurityFilter, "/*").build();
+		}
+	}
+	
+	protected JsonNode getTestJson(String testPath) {
+		ClassPathResource r = new ClassPathResource(testPath);
+		try {
+			return mapper.readValue(r.getInputStream(), JsonNode.class);
+		} catch (IOException e) {
+			throw new SamplestackIOException(e);
 		}
 	}
 
