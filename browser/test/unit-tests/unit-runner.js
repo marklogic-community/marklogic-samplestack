@@ -1,0 +1,25 @@
+require.config({
+
+  paths: {
+    'angular-mocks': 'deps/angular-mocks/angular-mocks'
+  }
+
+});
+
+require(['configuredApp'], function () {
+  require(['angular-mocks'], function () {
+
+    require(['all.unit'], function () {
+
+      // window.sinon = sinon;
+      var myMocha = window.mochaPhantomJS ?
+          window.mochaPhantomJS :
+          window.mocha;
+
+      // mocha.setup('bdd');
+      myMocha.run();
+
+    });
+
+  });
+});

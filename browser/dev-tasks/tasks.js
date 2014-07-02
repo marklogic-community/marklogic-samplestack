@@ -251,7 +251,8 @@ var buildStream = function (stream) {
       // TODO: temporarily removed source map because bug in node-sass
       // prevents comipiling
       // https://github.com/sass/node-sass/issues/337
-      // sourceComments: 'map',
+      sourceComments: 'map',
+      sourceMap: 'sass',
       includePaths: [bootstrapDir]
     });
 

@@ -1,5 +1,5 @@
-(function (undefined) {
-  this.app.filter('fromPoint', function () {
+define(['app/module'], function (module) {
+  module.filter('fromPoint', function () {
     return function (point) {
       if (!point) {
         return null;
@@ -10,24 +10,21 @@
     };
   });
 
-  this.app.filter('toPoint', function () {
-    // octal not supported
-    var parseNum = function (str) {
-      if (str.indexOf('.') > -1) {
-        return parseFloat(str);
-      }
-      else {
-        return parseInt(str);
-      }
+  var parseNum = function (str) {
+    if (str.indexOf('.') > -1) {
+      return parseFloat(str);
+    }
+    else {
+      return parseInt(str);
+    }
 
-    };
-
+  };
+  module.filter('toPoint', function () {
     return function (str) {
       if (!str) {
         return null;
       }
       else {
-        // [3.2, 6 ] or (  0x3f,-1)
         var ptParser =
             /^\s*[\(\[]\s*([^\,\s]*\s*)\s*,\s*([^\) ]*\s*)\s*[\)|\]]\s*$/;
 
@@ -41,4 +38,4 @@
       }
     };
   });
-}).call(global);
+});

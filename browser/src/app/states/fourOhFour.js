@@ -1,6 +1,9 @@
-(function (undefined) {
+/*
+app/states/fourOhFour.js
+ */
+define(['app/module'], function (module) {
 
-  this.app.controller('fourOhFourCtlr', [
+  module.controller('fourOhFourCtlr', [
 
     '$scope', '$window',
     function ($scope, $window) {
@@ -11,4 +14,4 @@
 
   ]);
 
-}).call(global);
+});

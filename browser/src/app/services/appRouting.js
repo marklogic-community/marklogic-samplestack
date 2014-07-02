@@ -1,6 +1,8 @@
-(function (undefined) {
+/*
+app/appRouting.js
+ */
 
-  var app = this.app;
+define(['app/module'], function (module) {
 
   var setHtmlFiveOrHash = function ($provide, settings, $locationProvider) {
     $provide.decorator('$sniffer', function ($delegate) {
@@ -46,21 +48,49 @@
     });
   };
 
-  this.app.provider('stateManager', [
+  var attachEvents = function ($rootScope) {
+    // TODO: handle these more gracefully!
+    // this should be the role of the stateManager
+    $rootScope.$on('$stateNotFound',
+        function (event, toState, toParams, fromState, fromParams, error) {
+          // console.log(toState);
+        }
+    );
+    $rootScope.$on('$stateChangeStart',
+        function (event, toState, toParams, fromState, fromParams, error) {
+          // console.log(toState);
+        }
+    );
+    $rootScope.$on('$stateChangeError',
+        function (event, toState, toParams, fromState, fromParams, error) {
+          // console.log(toState);
+        }
+    );
+    $rootScope.$on('$stateChangeSuccess',
+        function (event, toState, toParams, fromState, fromParams, error) {
+          // console.log(toState);
+        }
+    );
+
+    // $state.go('home');
+
+  };
+
+  module.provider('appRouting', [
 
     'statesHierarchy',
     'stateHelperProvider',
+    'appSettings',
     '$provide',
     '$locationProvider',
     '$urlRouterProvider',
-    'settings',
     function (
       statesHierarchy,
       stateHelperProvider,
+      appSettings,
       $provide,
       $locationProvider,
-      $urlRouterProvider,
-      settings
+      $urlRouterProvider
     ) {
 
       // define the state defs tree -- secon param
@@ -70,18 +100,32 @@
       // this is done to avoid having to refer to states
       // which are always abstract in state names
 
-      setStateDefaults(statesHierarchy);
-      stateHelperProvider.setNestedState(statesHierarchy);
+      this.configure = function (hierarchy) {
+        setStateDefaults(hierarchy);
+        stateHelperProvider.setNestedState(hierarchy);
+      };
 
       $urlRouterProvider.otherwise('/404');
 
-      setHtmlFiveOrHash($provide, settings, $locationProvider);
+      setHtmlFiveOrHash($provide, appSettings, $locationProvider);
 
       // TODO -- lots of stuff to be done here
-      this.$get = function () {
-        return {};
-      };
+      this.$get = [
+        '$rootScope', '$state',
+        function ($rootScope, $state) {
+          attachEvents($rootScope);
+          return {
+
+            // TODO: all of the runtime functionality of the aooRouting service
+
+            go: function (toStateShort) {
+              $state.go('root.layout.' + toStateShort);
+            }
+
+          };
+        }
+      ];
 
     }
   ]);
-}).call(global);
+});

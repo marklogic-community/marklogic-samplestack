@@ -1,0 +1,420 @@
+/* Copyright 2011-2014 MarkLogic Corporation. All Rights Reserved. */
+
+/* TODO styles need major overhaul */
+
+@import "bootstrap-vars";
+@import "../../_marklogic/styles/marklogic";
+@import "spinner";
+@import "samplestack";
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+table, caption, tbody, tfoot, thead, tr, th, td {  /* breaking out table define, should not have background trasparent, breaks IE usage of BG on TR */
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+:focus {
+	outline: 0;
+}
+
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+div {
+  /* border: solid 1px red; */
+}
+
+/* global minimum width */
+header.global,
+section#main,
+footer.global {
+  min-width: 960px;
+}
+
+/* global header */
+header.global {
+  width: 100%;
+  height: 55px;
+  background-color: #DDDDDD;
+}
+
+header.global h1 {
+  position: relative;
+  float: left;
+  margin: 10px;
+  cursor: pointer;
+}
+
+header.global div#actions {
+  position: relative;
+  float: right;
+  margin: 10px;
+}
+
+header.global div#actions div#login {
+  position: relative;
+  float: left;
+  margin: 10px;
+}
+
+header.global div#actions button {
+  position: relative;
+  float: left;
+  display: block;
+  margin: 2px;
+  font-size: 20px;
+}
+
+/* main */
+section#main {
+  width: 100%;
+}
+
+/* search */
+section#search {
+  width: 100%;
+  height: 50px;
+}
+
+section#search input {
+  position: relative;
+  float: left;
+  width: 600px;
+  margin: 10px;
+  font-size: 20px;
+}
+
+section#search button {
+  position: relative;
+  float: left;
+  margin: 11px;
+  font-size: 20px;
+}
+
+section#search div#search-tips {
+  position: relative;
+  float: left;
+  margin: 20px;
+}
+
+/* browse */
+section#browse {
+  padding-left: 270px;
+}
+
+/* filters */
+section#filters {
+  position: absolute;
+  left: 0;
+  width: 250px;
+  padding: 10px;
+}
+
+section#filters h2 {
+  padding: 3px 0;
+}
+
+section#filters h3 {
+  padding: 3px 0;
+  margin: 0;
+}
+
+section#filters div#date-placeholder {
+  width: 240px;
+  height: 150px;
+  background-color: #DDDDDD;
+}
+
+/* results */
+section#results {
+  padding: 10px;
+}
+
+section#results header {
+  width: 100%;
+  height: 30px;
+  border-bottom: solid 1px black;
+  z-index: -1000;
+}
+
+section#results header h2 {
+  position: relative;
+  float: left;
+  padding: 5px 10px;
+}
+
+/* result */
+section.result {
+  position: relative;
+  padding-left: 85px;
+}
+
+section.result div.votes {
+  position: absolute;
+  left: 0;
+  width: 45px;
+  height: 65px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #DDDDDD;
+}
+
+section.result div.question {
+  padding: 10px 10px 5px 10px;
+  font-size: 16px;
+}
+
+section.result div.snippet {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+section.result div.metadata {
+  min-height: 30px;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+/* document */
+section#document {
+  padding: 10px;
+}
+
+section#document header.question {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0;
+  border-bottom: solid 1px black;
+}
+
+section#document section.question,
+section#document section.answer {
+  padding: 10px 10px 10px 85px;
+}
+
+section#document div.vote {
+  position: absolute;
+  left: 15px;
+  width: 60px;
+  height: 70px;
+  margin-right: 10px;
+  background-color: #DDDDDD;
+}
+
+section#document div.text {
+  padding: 0 10px 5px 0;
+}
+
+section#document div.metadata {
+  min-height: 30px;
+  padding: 5px 10px 5px 0;
+  border-bottom: solid 1px black;
+}
+
+section#document section#answers header.answers {
+  width: 100%;
+  height: 30px;
+  border-bottom: solid 1px black;
+}
+
+section#document section#answers h3 {
+  position: relative;
+  float: left;
+  padding: 5px 10px;
+}
+
+section#document div.comment {
+  padding: 10px 0 10px 30px;
+  border-bottom: solid 1px #AAAAAA;
+}
+
+section#document div.add-comment {
+  padding: 10px 0;
+}
+
+section#document header.answerform {
+  margin: 10px 0;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: solid 1px black;
+}
+
+section#document section.answerform {
+  padding-left: 80px;
+}
+
+section#document section.answerform div.tools,
+section#ask div#askform div.tools  {
+  width: 600px;
+  height: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #DDDDDD;
+  color: #BBBBBB;
+}
+
+section#document section.answerform textarea {
+  display: block;
+  width: 800px;
+  height: 200px;
+}
+
+section#document section.answerform button {
+  display: block;
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+/* ask-container */
+section#ask {
+  padding: 10px;
+}
+
+section#ask h2 {
+  padding: 5px 10px;
+  margin-top: 5px;
+  border-bottom: solid 1px black;
+}
+
+div#askform {
+  padding: 20px 20px 20px 90px;
+}
+
+div#askform label {
+  font-weight: bold;
+}
+
+div#askform input {
+  width: 500px;
+  font-size: 20px;
+  margin: 10px;
+}
+
+div#askform button#similar {
+  font-size: 20px;
+}
+
+div#askform #box textarea {
+  width: 99%;
+  height: 200px;
+}
+
+div#askform button {
+  font-size: 20px;
+}
+
+/* global footer */
+footer.global {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 14px;
+  background-color: #DDDDDD;
+  clear: both;
+}
+
+/* global styles */
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+ul.sort {
+  position: relative;
+  float: right;
+  right: 10px;
+}
+
+li.sort {
+  position: relative;
+  float: left;
+  top: 4px;
+  padding: 5px;
+  margin-right: 10px;
+  background-color: white;
+}
+
+li.sort.active {
+  border: solid 1px black;
+  border-bottom: 0;
+  z-index: 1000;
+}
+
+ul.tags {
+  position: relative;
+  float: left;
+}
+
+li.tag {
+  position: relative;
+  float: left;
+  padding: 3px;
+  margin-right: 5px;
+  background-color: #DDDDDD;
+}
+
+div.author {
+  position: relative;
+  float: right;
+  padding: 5px;
+}
