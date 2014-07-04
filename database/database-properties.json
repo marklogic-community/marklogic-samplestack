@@ -82,10 +82,7 @@
         "scalar-type": "string"
     }
     ],
-    "forests": {
-    "forest-name": [
+    "forest": [
       "samplestack-1"
     ]
-    }
 }
-
