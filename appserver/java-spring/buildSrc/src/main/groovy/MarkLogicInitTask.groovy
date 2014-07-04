@@ -28,14 +28,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
         try {
             client.post(params)
             logger.warn("MarkLogic initialized.  Waiting for server restart.")
-            Thread.sleep(5000)
+            Thread.sleep(10000)
         }
-        catch (ex) { 
+        catch (ex) {
             if ( ex.response.status == 401 )
                 logger.warn("Server already secured.  Initialization skipped.")
             else if ( ex.response.status == 500 )
                 logger.warn("Server already initialized.  Initialization skipped")
-            else 
+            else
                throw ex;
         }
     }
@@ -48,12 +48,12 @@ public class MarkLogicInitTask extends MarkLogicTask {
         try {
             client.post(params)
             logger.warn("MarkLogic admin secured.  Waiting for server restart.")
-            Thread.sleep(5000)
+            Thread.sleep(10000)
         }
-        catch (ex) { 
+        catch (ex) {
             if ( ex.response.status == 401 )
                 logger.warn("Server already secured.  Initialization skipped")
-            else 
+            else
                 logger.warn("Got " + ex.response.status)
         }
     }
@@ -63,7 +63,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/" + path)
             client.headers."accept" = "application/json"
             client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
-        
+
             def params = [:]
             params.contentType = "application/json"
             params.body = jsonObject.text
