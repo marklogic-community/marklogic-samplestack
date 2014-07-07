@@ -17,16 +17,18 @@ public class TagsController {
 
 	@Autowired
 	private TagsService tagsService;
-	
-	@SuppressWarnings("unused")
-	private final Logger logger = LoggerFactory
-			.getLogger(TagsController.class);
 
-	
+	@SuppressWarnings("unused")
+	private final Logger logger = LoggerFactory.getLogger(TagsController.class);
+
 	@RequestMapping(value = "tags", method = RequestMethod.GET)
 	public @ResponseBody
 	String[] suggestTags(@RequestParam(required = false) String q) {
-		//TODO validate
-		return tagsService.suggestTags(ClientRole.securityContextRole(), q);
+		// TODO validate
+		if (q == null) {
+			return tagsService.suggestTags(ClientRole.securityContextRole());
+		} else {
+			return tagsService.suggestTags(ClientRole.securityContextRole(), q);
+		}
 	}
 }
