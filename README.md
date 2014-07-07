@@ -23,6 +23,7 @@ These two applications share the same view of the three application tiers.
   * `git clone https://github.com/marklogic/java-client-api`
   * `cd java-client-api`
   * `mvn -Dmaven.test.skip=true install`
+*Note that the relationship between trunk on the client api and this project is volatile until EA-2*
 
 See README.md in appserver/java-spring for further information on the samplestack-java
 
