@@ -36,16 +36,84 @@ define(['app/module'], function (module) {
       .hashPrefix('');
   };
 
-  var setStateDefaults = function (state) {
-    if (_.isUndefined(state.templateUrl)) {
-      state.templateUrl = '/app/states/' + state.name + '.html';
+  // /**
+  //  * Assign fullnames to states
+  //  * @param {[type]} parentalPrefix [description]
+  //  * @param {[type]} state          [description]
+  //  */
+  // var setFullNames = function (parentalPrefix, state) {
+  //
+  // };
+
+  var setStateDefaults = function (parentPrefix, state) {
+    state.fullName = parentPrefix + state.name;
+    if (_.isUndefined(state.views)) {
+      setViewDefaults(state);
     }
-    if (_.isUndefined(state.controller)) {
-      state.controller = state.name.replace(/-/g, '') + 'Ctlr';
+    else {
+      _.forEach(state.views, function (view, name) {
+        view.fullName = name.indexOf('@') >= 0 ?
+            name :
+            name + '@' + state.fullName;
+
+        // view.fullName = view.fullName
+        //     .replace(/^root\./, '')
+        //     .replace(/@root/, '@')
+        //     .replace(/^layout\./, '')
+        //     .replace(/@\.layout/, '@')
+        //     .replace(/@\./, '@')
+        //     .replace(/@$/, '');
+
+        setViewDefaults(view);
+      });
     }
     _.forEach(state.children, function (child) {
-      setStateDefaults(child);
+      setStateDefaults(state.fullName + '.', child);
     });
+
+  };
+
+  /**
+   * Defaults a filename for a view's template if it is undefined (as opposed to
+   * null).
+   * Defaults a controller for a view if it is undefined (as opposed to null).
+   *
+   * Assumes that a view has already had its fullname inferred.
+   * @param {Object} view A state or view.
+   */
+  var setViewDefaults = function (view) {
+    // make a short name so filenames don't have root and layout all over
+    // the place
+    var shortName = view.fullName
+        .replace(/^root\./, '') //remove root. prefix
+        .replace(/^layout\./, '') //remove remaining layout. prefix
+        .replace(/@root$/, '@') //remove @root suffix
+        .replace(/@\.layout/, '@') //remove @.layout suffix
+        .replace(/@\./, '@') //remove @. suffix
+        .replace(new RegExp('@' + view.name), '@') //remove @viewname suffix
+        .replace(/@$/, ''); //remove trailing @
+
+    if (!shortName.length) {
+      // if there is nothing left of the shortname, use the fullname absent
+      // the @ sign
+      shortName = view.fullName.replace(/@/, '');
+    }
+
+    if (_.isUndefined(view.templateUrl)) {
+      // templateurl needs dashes and $ signs for legality/clarity
+      view.templateUrl = '/app/states/' + shortName
+          .replace(/@/g, '$')
+          .replace(/\./g, '-');
+      view.templateUrl += '.html';
+    }
+    if (_.isUndefined(view.controller)) {
+      // controller name is simplified -- if these rules aren't specific
+      // enough, then name the controller manually
+      view.controller = shortName
+          .replace(/-/g, '')
+          .replace(/@/g, '');
+      view.controller += 'Ctlr';
+    }
   };
 
   var attachEvents = function ($rootScope) {
@@ -101,7 +169,7 @@ define(['app/module'], function (module) {
       // which are always abstract in state names
 
       this.configure = function (hierarchy) {
-        setStateDefaults(hierarchy);
+        setStateDefaults('', hierarchy);
         stateHelperProvider.setNestedState(hierarchy);
       };
 
