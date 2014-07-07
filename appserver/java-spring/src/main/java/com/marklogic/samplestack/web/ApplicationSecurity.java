@@ -23,11 +23,11 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/questions", "/tags")
-				.anonymous()
+				.permitAll()
 				.and()
 		    .authorizeRequests()
 		        .antMatchers(HttpMethod.POST, "/search")
-		        .anonymous()
+		        .permitAll()
 		        .and()
 			.authorizeRequests().anyRequest()
 			.authenticated();
