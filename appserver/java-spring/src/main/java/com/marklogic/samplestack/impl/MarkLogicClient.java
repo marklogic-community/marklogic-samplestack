@@ -14,7 +14,6 @@ import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.Format;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
@@ -27,6 +26,7 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public class MarkLogicClient implements MarkLogicOperations {
 
+	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicClient.class);
 

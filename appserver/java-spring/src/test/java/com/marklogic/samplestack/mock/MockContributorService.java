@@ -14,7 +14,9 @@ public class MockContributorService implements ContributorService {
 
 	@Override
 	public Contributor get(String id) {
-		return new Contributor();
+		Contributor newContributor = new Contributor();
+		newContributor.setId(id);
+		return newContributor;
 	}
 
 	@Override
@@ -30,6 +32,10 @@ public class MockContributorService implements ContributorService {
 	private List<Contributor> contributorList() {
 		Contributor c1 = new Contributor();
 		Contributor c2 = new Contributor();
+		c1.setId("1");
+		c1.setDisplayName("contributor1");
+		c2.setId("2");
+		c2.setDisplayName("contributor2");
 		List<Contributor> l = new ArrayList<Contributor>();
 		l.add(c1);
 		l.add(c2);
@@ -48,7 +54,9 @@ public class MockContributorService implements ContributorService {
 
 	@Override
 	public Contributor getByUserName(String userName) {
-		return new Contributor();
+		Contributor newContributor = new Contributor();
+		newContributor.setUserName(userName);
+		return newContributor;
 	}
 
 	@Override

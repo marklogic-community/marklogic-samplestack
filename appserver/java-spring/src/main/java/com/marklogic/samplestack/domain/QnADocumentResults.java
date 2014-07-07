@@ -36,6 +36,10 @@ public class QnADocumentResults  {
 	public void setResults(SearchReadHandle results) {
 		this.results = results;
 	}
+	
+	public SearchReadHandle getResults() {
+		return this.results;
+	}
 
 	public void setSidecar(List<QnADocument> sidecar) {
 		this.sidecar = sidecar;
