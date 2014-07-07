@@ -9,27 +9,55 @@ The implementation of samplestack that runs using
 
 ## Quickstart 
 
-You got here from ../../README.md, yes?
+Note that this readme is accurate, but there are pending changes to improve the experience for EA-2.
 
 *To build and run:*
 
 * `./gradlew assemble`   This command bootstraps the middle tier and builds the Java project
 * `./gradlew dbLoad`     This command loads some sample data
-* `./gradlew boot`       This command runs the middle tier and MarkLogic services
+* `./gradlew bootrun`       This command runs the middle tier and MarkLogic services
 * [ browser instructions ]
 
 *To begin developing*
 
 * `./gradlew test` This command runs unit tests
-eclipse plugin/import
+
+*To use with Eclipse*
+
+See the eclipse-integration-gradle project of STS 
+
+https://github.com/spring-projects/eclipse-integration-gradle/
 
 
+### Endpoints
 
-### Endpoints currently supported
-
+* POST /login
+* GET /logout
+ 
 * GET /questions  Get a paginated list of questions (snippet form)
-  GET /questions?q=
+* GET /questions?q=term&start=20
+* POST /search?start=10
+
+* POST /questions
+* GET /questions/{id}
+* POST /questions/{id}/comments
+* POST /questions/{id}/answers
+* POST /questions/{id}/upvotes
+* POST /questions/{id}/downvotes
+* POST /questions/{id}/answers/{id}/upvotes
+* POST /questions/{id}/answers/{id}/downvotes
+* POST /questions/{id}/answers/{id}/accept
+
+* GET /tags
+* GET /tags?q=
+
 * GET /contributors paginated list of foo object URIs as JSON array
+* POST /contributors Create a user
+* GET/PUT/DELETE /contributors/{id} Get, update, remove Users
+
+TODO: related tags
+
+
 
 ## License
 
