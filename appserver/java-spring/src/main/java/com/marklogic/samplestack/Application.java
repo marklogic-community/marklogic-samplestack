@@ -23,7 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.impl", "com.marklogic.samplestack.websecurity"})
 @EnableAutoConfiguration
 /**
  * Top-Level application runner and application context configuration for
@@ -41,7 +41,7 @@ public class Application {
 	 * @param args System arguments for the application.
 	 */
 	public static void main(String[] args) {
-		logger.info("Starting Spring Boot SampleStack Application");
+		logger.info("Starting Spring Boot Samplestack Application");
 		SpringApplication.run(Application.class, args);
 	}
 	

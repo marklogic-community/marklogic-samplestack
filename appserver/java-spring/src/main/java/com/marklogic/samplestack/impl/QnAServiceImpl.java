@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.client.FailedRequestException;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;

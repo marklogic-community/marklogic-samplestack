@@ -1,5 +1,7 @@
 # marklogic-samplestack
 
+README for Version 1.0 EA-2
+
 A complete application that demonstrates using MarkLogic in a three-tier application architecture.
 
 The application implements a "Question and Answer" Scenario.
@@ -15,9 +17,13 @@ These two applications share the same view of the three application tiers.
 
 ## Usage
 
+# For either Stack
+ 
+* install MarkLogic and start it  http://ea.marklogic.com/download
+* ``git clone https://github.com/marklogic/marklogic-samplestack.git``
+
 # Java/Spring implementation
 
-* install MarklLogic and start it
 * ```cd appserver/java-spring```
 * TEMPORARY STEP: build and install ML java client from trunk as Maven package.. in a separate directory:
   * `git clone https://github.com/marklogic/java-client-api`

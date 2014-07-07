@@ -19,8 +19,9 @@ import com.marklogic.samplestack.service.QnAService;
 @Component
 public class MockQnAService implements QnAService {
 
-	QnADocument q1;
-	QnADocument answered;
+	private QnADocument asked;
+	private QnADocument answered;
+	private ObjectNode emptySearchResults;
 	
 	@Autowired
 	private ObjectMapper mapper;
@@ -39,21 +40,23 @@ public class MockQnAService implements QnAService {
 	@PostConstruct
 	public void setupDocuments() {
 		
-		q1 = new QnADocument((ObjectNode) getTestJson("questions/20864442.json"));
+		asked = new QnADocument((ObjectNode) getTestJson("questions/20864442.json"));
 		answered = new QnADocument((ObjectNode) getTestJson("questions/3bb58db7-a2f3-401c-8515-469376c0520d.json"));
+		emptySearchResults = (ObjectNode) getTestJson("searchresults/mocksearchempty.json");
+		// searchResults = (ObjectNode) getTestJson("searchresults/mocksearch.json");
 		
 	}
 	
 	@Override
 	public QnADocument findOne(ClientRole role, String question,
 			long start) {
-		return q1;
+		return asked;
 	}
 
 	@Override
 	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery,
 			long start) {
-		return (ObjectNode) q1.getJson();
+		return emptySearchResults;
 	}
 
 	@Override
@@ -73,7 +76,7 @@ public class MockQnAService implements QnAService {
 
 	@Override
 	public QnADocument voteDown(String userName, String postId) {
-		return q1;
+		return asked;
 
 	}
 
@@ -84,7 +87,7 @@ public class MockQnAService implements QnAService {
 
 	@Override
 	public QnADocument get(ClientRole role, String id) {
-		return q1;
+		return asked;
 	}
 
 	@Override
@@ -94,7 +97,7 @@ public class MockQnAService implements QnAService {
 
 	@Override
 	public QnADocument comment(String userName, String postId, String text) {
-		return q1;
+		return asked;
 	}
 
 	@Override
