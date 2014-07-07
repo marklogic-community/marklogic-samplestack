@@ -23,15 +23,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.Utils;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.mock.MockApplication;
 import com.marklogic.samplestack.service.MiddleTierIntegrationTest;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { Application.class })
+@ContextConfiguration(classes = { MockApplication.class })
 @Category(MiddleTierIntegrationTest.class)
 public class ContributorControllerTests extends ControllerTests {
 	

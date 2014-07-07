@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.domain.UnitTests;
+import com.marklogic.samplestack.mock.MockApplication;
 
 /**
  * Tests the service that returns candidate tags given a
@@ -19,7 +19,7 @@ import com.marklogic.samplestack.domain.UnitTests;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { Application.class })
+@ContextConfiguration(classes = { MockApplication.class })
 @Category(UnitTests.class)
 public class TagControllerTest extends ControllerTests {
 

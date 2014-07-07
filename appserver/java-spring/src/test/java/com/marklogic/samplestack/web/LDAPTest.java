@@ -22,7 +22,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.mock.MockApplication;
 
 /**
  * This class is just an experiment to prove out LDAP configuration.
@@ -32,7 +32,7 @@ import com.marklogic.samplestack.Application;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { Application.class })
+@ContextConfiguration(classes = { MockApplication.class })
 @Category(RESTAPITests.class)
 public class LDAPTest {
 
