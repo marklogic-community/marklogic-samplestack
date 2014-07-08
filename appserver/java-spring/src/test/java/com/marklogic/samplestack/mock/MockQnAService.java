@@ -20,7 +20,7 @@ import com.marklogic.samplestack.service.QnAService;
 public class MockQnAService implements QnAService {
 
 	QnADocument q1;
-	QnADocument q2;
+	QnADocument answered;
 	
 	@Autowired
 	private ObjectMapper mapper;
@@ -40,7 +40,7 @@ public class MockQnAService implements QnAService {
 	public void setupDocuments() {
 		
 		q1 = new QnADocument((ObjectNode) getTestJson("questions/20864442.json"));
-		q2 = new QnADocument((ObjectNode) getTestJson("questions/3bb58db7-a2f3-401c-8515-469376c0520d.json"));
+		answered = new QnADocument((ObjectNode) getTestJson("questions/3bb58db7-a2f3-401c-8515-469376c0520d.json"));
 		
 	}
 	
@@ -58,17 +58,17 @@ public class MockQnAService implements QnAService {
 
 	@Override
 	public QnADocument ask(String userName, QnADocument question) {
-		return q2;
+		return answered;
 	}
 
 	@Override
 	public QnADocument answer(String userName, String questionId, String answer) {
-		return q2;
+		return answered;
 	}
 
 	@Override
 	public QnADocument voteUp(String userName, String postId) {
-		return q2;
+		return answered;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class MockQnAService implements QnAService {
 
 	@Override
 	public QnADocument accept(String postId) {
-		return q2;
+		return answered;
 	}
 
 	@Override
