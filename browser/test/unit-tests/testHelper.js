@@ -1,14 +1,18 @@
-(function (undefined) {
+define([], function () {
   var helper = {};
 
-  helper.getTestableController = function ($injector, sut, injected) {
+  helper.getTestableController = function (
+    $injector,
+    controllerName,
+    injected
+  ) {
     var resp = {};
 
     resp.$rootScope = $injector.get('$rootScope');
     resp.$scope = resp.$rootScope.$new();
     var $controller = $injector.get('$controller');
     resp.controller = $controller(
-      sut.controller,
+      controllerName,
       _.merge({$scope: resp.$scope }, injected)
     );
     return resp;
@@ -53,6 +57,6 @@
     return stub;
   };
 
-  this.testHelper = helper;
+  return helper;
 
-}).call(global);
+});
