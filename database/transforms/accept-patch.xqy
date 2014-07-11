@@ -18,6 +18,7 @@ declare function accept-patch:transform(
   $params as map:map,
   $content as document-node())
 as document-node() {
+    let $_ := xdmp:log(("CONTENT", $content))
     let $answer-id := map:get($params, "answerId")
 
     let $parent-qna-doc :=
@@ -40,7 +41,7 @@ as document-node() {
     let $update-top := map:put($doc-update, "acceptedAnswerId", $answer-id)
 
     let $_ := xdmp:log(("UPDATED", $doc-update))
-    let $update-doc := xdmp:document-insert($doc-uri, document {$doc-update})
+    let $update-doc := xdmp:document-insert($doc-uri, document {xdmp:to-json($doc-update)})
     let $add-permissions := xdmp:document-add-permissions($doc-uri, xdmp:permission("samplestack-guest", "read"))
 
     return
