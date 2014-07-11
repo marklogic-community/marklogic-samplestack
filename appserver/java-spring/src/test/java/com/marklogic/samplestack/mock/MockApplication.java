@@ -2,6 +2,7 @@ package com.marklogic.samplestack.mock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -13,16 +14,18 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
+import com.marklogic.samplestack.web.SamplestackAuthenticationSuccessHandler;
 
 @Configuration
 @ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.mock"})
 @EnableAutoConfiguration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MockApplication extends WebSecurityConfigurerAdapter {
+public class MockApplication {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(MockApplication.class);
@@ -49,31 +52,7 @@ public class MockApplication extends WebSecurityConfigurerAdapter {
 		return new CustomObjectMapper();
 	}
 	
-	
-	/*
-	 * Security configuration for the mock application.
-	 * Same as code for "production" but runs LDAP on a different port to avoid collisions.
-	 */
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/questions", "/tags").permitAll()
-				.and().authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/search").permitAll().and()
-				.authorizeRequests().anyRequest().authenticated();
-		http.formLogin().permitAll().and().logout().permitAll();
-		http.csrf().disable();
-	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder authManagerBuilder)
-			throws Exception {
-
-		 authManagerBuilder.inMemoryAuthentication()
-         .withUser("joeUser@marklogic.com").password("joesPassword").roles("CONTRIBUTORS").and()
-         .withUser("maryAdmin@marklogic.com").password("marysPassword").roles("CONTRIBUTORS", "ADMINS");
-
-	}
 	
 	
 }
