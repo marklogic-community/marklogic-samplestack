@@ -59,7 +59,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				post("/questions").contentType(MediaType.APPLICATION_JSON)
 						.content(mapper.writeValueAsString(qnaDoc.getJson())))
 		// TODO fix for forbidden
-				.andExpect(status().is3xxRedirection());
+				.andExpect(status().isUnauthorized());
 	}
 
 	/* (non-Javadoc)
