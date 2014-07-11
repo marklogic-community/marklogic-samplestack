@@ -3,6 +3,8 @@ package com.marklogic.samplestack.testing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.springframework.mock.web.MockHttpSession;
+
 public class TagControllerTestImpl extends ControllerTests {
 	
 	
@@ -15,7 +17,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	public void testTagsNoArgs() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		this.mockMvc.perform(
-				get("/tags"))
+				get("/tags").session((MockHttpSession) session))
 				.andExpect(status().isOk());
 	}
 	

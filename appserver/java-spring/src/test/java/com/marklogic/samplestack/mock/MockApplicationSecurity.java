@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.websecurity;
+package com.marklogic.samplestack.mock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,16 +14,11 @@ import org.springframework.stereotype.Component;
 import com.marklogic.samplestack.web.SamplestackAuthenticationSuccessHandler;
 import com.marklogic.samplestack.web.RestAuthenticationEntryPoint;
 
+
 @EnableWebSecurity
 @Component
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-/**
- * The Spring Security configuration for Samplestack.
- * Contains configuration for the web-tier security,
- * including the embedded LDAP backend configuration and the
- * user-facing method for securing the application's endpoints.
- */
-public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
+public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private SamplestackAuthenticationSuccessHandler successHandler;
@@ -55,17 +50,16 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	}
 
+
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder authManagerBuilder)
 			throws Exception {
 
-		authManagerBuilder.ldapAuthentication()
-
-		.userDnPatterns("uid={0},ou=people", "uid={0},ou=apps")
-				.groupSearchBase("ou=groups").contextSource()
-				.ldif("classpath:samplestack-ds.ldif")
-				.root("dc=samplestack,dc=org");
+		 authManagerBuilder.inMemoryAuthentication()
+         .withUser("joeUser@marklogic.com").password("joesPassword").roles("CONTRIBUTORS").and()
+         .withUser("maryAdmin@marklogic.com").password("marysPassword").roles("CONTRIBUTORS", "ADMINS");
 
 	}
-
+	
 }

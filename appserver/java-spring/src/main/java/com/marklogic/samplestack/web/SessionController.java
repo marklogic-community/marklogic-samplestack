@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class TopController {
+public class SessionController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "session", method = RequestMethod.GET)
 	public @ResponseBody String hello() {
 		return "Hello";
 	}
