@@ -69,6 +69,6 @@ as document-node() {
 
     return
         document {
-            $existing-doc
+            xdmp:to-json($existing-doc)
         }
 };

@@ -56,6 +56,6 @@ as document-node() {
                 
     return
         document {
-            $json-doc 
+            xdmp:to-json($json-doc)
         }
 };
