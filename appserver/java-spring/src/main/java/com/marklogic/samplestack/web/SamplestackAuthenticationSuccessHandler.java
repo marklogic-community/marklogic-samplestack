@@ -42,6 +42,7 @@ public class SamplestackAuthenticationSuccessHandler extends
 		}
 
 		clearAuthenticationAttributes(request);
+		
 	}
 
 	public void setRequestCache(RequestCache requestCache) {

@@ -24,34 +24,38 @@ public class ContributorControllerTestImpl extends ControllerTests {
 	private Logger logger = LoggerFactory
 			.getLogger(ContributorControllerTestImpl.class);
 
-	
 	/**
 	 * Tests the /login functionality
 	 */
 	public void testLogin() throws Exception {
-			mockMvc
-					.perform(
-							post("/login").content(loginBody("nobody", "nopassword")))
-					.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
-					.andReturn()
-					.getRequest().getSession();
-			
-		mockMvc
-				.perform(
-						post("/login").content(loginBody("nobody", "nopassword")))
-				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
-				.andReturn()
-				.getRequest().getSession();
-		// (session);
 
-		// another bad credential case
-		mockMvc
-				.perform(
-						post("/login").content(loginBody("joeUser@marklogic.com","notJoesPassword")))
+		mockMvc.perform(
+				post("/login").param("username", "nobody").param("password", "nopassword"))
 				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
-				.andReturn()
-				.getRequest().getSession();
-		// assertNull(session);
+				.andReturn().getRequest().getSession();
+
+		
+		mockMvc.perform(
+				post("/login").param("username", "joeUser@marklogic.com").param("password", "notJoesPassword"))
+				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
+				.andReturn().getRequest().getSession();
+		/*
+		 * mockMvc .perform( post("/login").content(loginBody("nobody",
+		 * "nopassword")))
+		 * .andExpect(status().is(HttpStatus.UNAUTHORIZED.value())) .andReturn()
+		 * .getRequest().getSession();
+		 * 
+		 * mockMvc .perform( post("/login").content(loginBody("nobody",
+		 * "nopassword")))
+		 * .andExpect(status().is(HttpStatus.UNAUTHORIZED.value())) .andReturn()
+		 * .getRequest().getSession();
+		 * 
+		 * mockMvc .perform(
+		 * post("/login").content(loginBody("joeUser@marklogic.com"
+		 * ,"notJoesPassword")))
+		 * .andExpect(status().is(HttpStatus.UNAUTHORIZED.value())) .andReturn()
+		 * .getRequest().getSession();
+		 */
 
 		login("joeUser@marklogic.com", "joesPassword");
 

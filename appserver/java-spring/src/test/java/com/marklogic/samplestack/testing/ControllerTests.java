@@ -73,9 +73,12 @@ public class ControllerTests {
 	}
 
 	protected void login(String username, String password) throws Exception {
+		
 		this.session = mockMvc
 				.perform(
-						post("/login").content(loginBody(username, password)))
+						post("/login").
+						param("username", username).param("password", password))
+						//content(loginBody(username, password)))
 				.andExpect(status().isOk())
 				.andReturn().getRequest()
 				.getSession();
