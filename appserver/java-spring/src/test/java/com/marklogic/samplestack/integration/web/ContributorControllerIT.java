@@ -28,7 +28,6 @@ public class ContributorControllerIT extends ContributorControllerTestImpl {
 	/**
 	 * tests /contributors POST
 	 * /contributors GET
-	 * /docs GET
 	 */
 	public void testContributorCRUD() throws Exception {
 		super.testContributorCRUD();

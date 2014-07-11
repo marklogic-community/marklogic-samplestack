@@ -2,7 +2,6 @@ package com.marklogic.samplestack.testing;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.web.FilterChainProxy;
@@ -59,6 +57,12 @@ public class ControllerTests {
 		}
 	}
 	
+	protected String loginBody(String username, String password) {
+		return "{\"username\":\"" + username + "\",\"password\":\"" + password
+				+ "\"}";
+	}
+
+	
 	protected JsonNode getTestJson(String testPath) {
 		ClassPathResource r = new ClassPathResource(testPath);
 		try {
@@ -71,10 +75,9 @@ public class ControllerTests {
 	protected void login(String username, String password) throws Exception {
 		this.session = mockMvc
 				.perform(
-						post("/login").param("username", username).param(
-								"password", password))
-				.andExpect(status().is(HttpStatus.FOUND.value()))
-				.andExpect(redirectedUrl("/")).andReturn().getRequest()
+						post("/login").content(loginBody(username, password)))
+				.andExpect(status().isOk())
+				.andReturn().getRequest()
 				.getSession();
 
 	}

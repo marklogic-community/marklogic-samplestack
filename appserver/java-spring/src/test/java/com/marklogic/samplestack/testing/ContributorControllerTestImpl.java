@@ -21,29 +21,35 @@ import com.marklogic.samplestack.domain.Contributor;
 
 public class ContributorControllerTestImpl extends ControllerTests {
 
-	private Logger logger = LoggerFactory.getLogger(ContributorControllerTestImpl.class);
+	private Logger logger = LoggerFactory
+			.getLogger(ContributorControllerTestImpl.class);
+
 	
 	/**
 	 * Tests the /login functionality
 	 */
 	public void testLogin() throws Exception {
+			mockMvc
+					.perform(
+							post("/login").content(loginBody("nobody", "nopassword")))
+					.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
+					.andReturn()
+					.getRequest().getSession();
+			
 		mockMvc
 				.perform(
-						post("/login").param("username", "nobody").param(
-								"password", "nopassword"))
-				.andExpect(status().is(HttpStatus.FOUND.value()))
-				.andExpect(redirectedUrl("/login?error")).andReturn()
+						post("/login").content(loginBody("nobody", "nopassword")))
+				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
+				.andReturn()
 				.getRequest().getSession();
 		// (session);
 
 		// another bad credential case
 		mockMvc
 				.perform(
-						post("/login").param("username",
-								"joeUser@marklogic.com").param("password",
-								"notJoesPassword"))
-				.andExpect(status().is(HttpStatus.FOUND.value()))
-				.andExpect(redirectedUrl("/login?error")).andReturn()
+						post("/login").content(loginBody("joeUser@marklogic.com","notJoesPassword")))
+				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
+				.andReturn()
 				.getRequest().getSession();
 		// assertNull(session);
 
@@ -52,7 +58,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		assertNotNull(session);
 
 		mockMvc.perform(
-				get("/").session((MockHttpSession) session).locale(
+				get("/session").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isOk());
 
@@ -61,14 +67,12 @@ public class ContributorControllerTestImpl extends ControllerTests {
 				get("/").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 		// TODO log bug for fixing login .andExpect(status().isForbidden());
-				.andExpect(status().is3xxRedirection());
+				.andExpect(status().isUnauthorized());
 
 	}
 
 	/**
-	 * tests /contributors POST
-	 * /contributors GET
-	 * /docs GET
+	 * tests /contributors POST /contributors GET /docs GET
 	 */
 	public void testContributorCRUD() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
@@ -112,7 +116,8 @@ public class ContributorControllerTestImpl extends ControllerTests {
 						.andExpect(status().isOk()).andReturn().getResponse()
 						.getContentAsString(), Contributor.class);
 
-		assertEquals("Id name matches when get By ID", getById.getId(), returnedUser.getId());
+		assertEquals("Id name matches when get By ID", getById.getId(),
+				returnedUser.getId());
 	}
-	
+
 }
