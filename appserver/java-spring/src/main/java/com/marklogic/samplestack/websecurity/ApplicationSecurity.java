@@ -32,13 +32,13 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	public SimpleUrlAuthenticationFailureHandler failureHandler() {
 		return new SimpleUrlAuthenticationFailureHandler();
 	};
-	
+
 	@Autowired
 	private SimpleUrlAuthenticationFailureHandler failureHandler;
 
 	@Autowired
 	private RestAuthenticationEntryPoint entryPoint;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -46,10 +46,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/search").permitAll().and()
 				.authorizeRequests().anyRequest().authenticated();
-		http.formLogin()
-		        .failureHandler(failureHandler)
-				.successHandler(successHandler)
-				.permitAll().and().logout().permitAll();
+		http.formLogin().failureHandler(failureHandler)
+				.successHandler(successHandler).permitAll().and().logout()
+				.permitAll();
 		http.csrf().disable();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint);
 
