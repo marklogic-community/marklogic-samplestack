@@ -3,44 +3,51 @@ define(
     'app/module',
   ],
   function (module) {
+
     var root = {
       name: 'root',
       abstract: true,
       url: '',
-      children: [],
-      templateUrl: '/app/states/_root.html'
+      controller: 'rootCtlr',
+      templateUrl: '/app/states/_root.html',
+      children: [
+        {
+          name: 'layout',
+          abstract: true,
+          controller: 'layoutCtlr',
+          templateUrl: '/app/states/_layout.html'
+        }
+      ]
     };
 
-    var layout = {
-      name: 'layout',
-      abstract: true,
-      templateUrl: '/app/states/_layout.html'
-    };
-    root.children.push(layout);
-
-    layout.children = [
-      // {
-      //   name: 'documents',
-      //   url: '/' // there will be a bunch of URL parameters possible
-      // },
+    root.children[0].children = [
       {
         name: 'fourOhFour',
         url: '/404',
+        controller: 'fourOhFourCtlr',
+        templateUrl: '/app/states/fourOhFour.html'
       },
       {
         name: 'explore',
         // will deal with all sorts of parameters here, potentially
         // as sub-states
-        url: '/'
+        url: '/',
+        controller: 'exploreCtlr',
+        templateUrl: '/app/states/explore.html'
       },
       {
         name: 'qnaDoc',
-        url: '/doc/:id'
+        url: '/doc/:id',
+        controller: 'qnaDocCtlr',
+        templateUrl: '/app/states/qnaDoc.html'
       },
       {
         name: 'ask',
-        url: '/ask'
+        url: '/ask',
+        controller: 'askCtlr',
+        templateUrl: '/app/states/ask.html'
       }
+
     ];
 
     module.constant('statesHierarchy', root);
