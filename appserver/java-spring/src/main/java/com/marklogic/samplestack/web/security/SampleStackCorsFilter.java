@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.web;
+package com.marklogic.samplestack.web.security;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.web;
+package com.marklogic.samplestack.web.security;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint{
+public class SamplestackAuthenticationEntryPoint implements AuthenticationEntryPoint{
  
    @Override
    public void commence( HttpServletRequest request, HttpServletResponse response,

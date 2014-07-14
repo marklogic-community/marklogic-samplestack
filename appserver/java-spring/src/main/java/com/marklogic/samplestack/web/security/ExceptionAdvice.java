@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.web;
+package com.marklogic.samplestack.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
