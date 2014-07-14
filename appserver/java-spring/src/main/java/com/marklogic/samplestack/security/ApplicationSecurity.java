@@ -1,18 +1,17 @@
-package com.marklogic.samplestack.websecurity;
+package com.marklogic.samplestack.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import com.marklogic.samplestack.web.SamplestackAuthenticationSuccessHandler;
-import com.marklogic.samplestack.web.RestAuthenticationEntryPoint;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationEntryPoint;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationFailureHandler;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Component
@@ -28,16 +27,11 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SamplestackAuthenticationSuccessHandler successHandler;
 
-	@Bean
-	public SimpleUrlAuthenticationFailureHandler failureHandler() {
-		return new SimpleUrlAuthenticationFailureHandler();
-	};
+	@Autowired
+	private SamplestackAuthenticationFailureHandler failureHandler;
 
 	@Autowired
-	private SimpleUrlAuthenticationFailureHandler failureHandler;
-
-	@Autowired
-	private RestAuthenticationEntryPoint entryPoint;
+	private SamplestackAuthenticationEntryPoint entryPoint;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

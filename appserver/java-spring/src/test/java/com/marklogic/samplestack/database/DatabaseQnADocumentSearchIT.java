@@ -59,7 +59,7 @@ public class DatabaseQnADocumentSearchIT {
 	private void loadJson(String path) throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
 		ClassPathResource resource = new ClassPathResource(path);
 		JSONDocumentManager docMgr = operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		docMgr.write("/" + path, new InputStreamHandle(resource.getInputStream()).withFormat(Format.JSON));
+		docMgr.write("/" + path, new InputStreamHandle(resource.getInputStream()));
 		
 	}
 	

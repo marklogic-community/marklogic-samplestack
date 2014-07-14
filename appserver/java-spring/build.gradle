@@ -1,7 +1,7 @@
 /* spring boot build dependency */
 buildscript {
 	ext {
-		springBootVersion = '1.0.2.RELEASE'
+		springBootVersion = '1.1.4.RELEASE'
 	}
     repositories {
         mavenCentral()
@@ -107,7 +107,7 @@ dependencies {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
-    compile("org.springframework.security:spring-security-ldap:3.2.3.RELEASE")
+    compile("org.springframework.security:spring-security-ldap:3.2.4.RELEASE")
     compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
