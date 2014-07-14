@@ -23,7 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.impl", "com.marklogic.samplestack.websecurity"})
+@ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.impl", "com.marklogic.samplestack.security"})
 @EnableAutoConfiguration
 /**
  * Top-Level application runner and application context configuration for

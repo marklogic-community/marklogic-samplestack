@@ -12,7 +12,6 @@ import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
-import com.marklogic.client.io.Format;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
@@ -43,7 +42,6 @@ public class MarkLogicClient implements MarkLogicOperations {
 	@Override
 	public JsonNode getJsonDocument(ClientRole role, String uri) {
 		JacksonHandle handle = new JacksonHandle();
-		handle.setFormat(Format.JSON);
 		JacksonHandle jacksonHandle = getClient(role).newJSONDocumentManager()
 				.read(uri, handle);
 		return jacksonHandle.get();

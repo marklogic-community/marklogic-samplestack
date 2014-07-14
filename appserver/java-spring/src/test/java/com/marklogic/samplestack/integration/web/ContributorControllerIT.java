@@ -1,6 +1,5 @@
 package com.marklogic.samplestack.integration.web;
 
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -12,17 +11,11 @@ import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.testing.ContributorControllerTestImpl;
 import com.marklogic.samplestack.testing.IntegrationTests;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @SpringApplicationConfiguration(classes = { Application.class })
 @Category(IntegrationTests.class)
 public class ContributorControllerIT extends ContributorControllerTestImpl {
-
-	@Test
-	public void testLogin() throws Exception {
-		super.testLogin();
-	}
 
 	@Test
 	/**
@@ -32,5 +25,5 @@ public class ContributorControllerIT extends ContributorControllerTestImpl {
 	public void testContributorCRUD() throws Exception {
 		super.testContributorCRUD();
 	}
-	
+
 }

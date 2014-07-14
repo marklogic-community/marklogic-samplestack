@@ -24,57 +24,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 	private Logger logger = LoggerFactory
 			.getLogger(ContributorControllerTestImpl.class);
 
-	/**
-	 * Tests the /login functionality
-	 */
-	public void testLogin() throws Exception {
-
-		mockMvc.perform(
-				post("/login").param("username", "nobody").param("password", "nopassword"))
-				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
-				.andReturn().getRequest().getSession();
-
-		
-		mockMvc.perform(
-				post("/login").param("username", "joeUser@marklogic.com").param("password", "notJoesPassword"))
-				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
-				.andReturn().getRequest().getSession();
-		/*
-		 * mockMvc .perform( post("/login").content(loginBody("nobody",
-		 * "nopassword")))
-		 * .andExpect(status().is(HttpStatus.UNAUTHORIZED.value())) .andReturn()
-		 * .getRequest().getSession();
-		 * 
-		 * mockMvc .perform( post("/login").content(loginBody("nobody",
-		 * "nopassword")))
-		 * .andExpect(status().is(HttpStatus.UNAUTHORIZED.value())) .andReturn()
-		 * .getRequest().getSession();
-		 * 
-		 * mockMvc .perform(
-		 * post("/login").content(loginBody("joeUser@marklogic.com"
-		 * ,"notJoesPassword")))
-		 * .andExpect(status().is(HttpStatus.UNAUTHORIZED.value())) .andReturn()
-		 * .getRequest().getSession();
-		 */
-
-		login("joeUser@marklogic.com", "joesPassword");
-
-		assertNotNull(session);
-
-		mockMvc.perform(
-				get("/session").session((MockHttpSession) session).locale(
-						Locale.ENGLISH)).andDo(print())
-				.andExpect(status().isOk());
-
-		logout();
-		mockMvc.perform(
-				get("/").session((MockHttpSession) session).locale(
-						Locale.ENGLISH)).andDo(print())
-		// TODO log bug for fixing login .andExpect(status().isForbidden());
-				.andExpect(status().isUnauthorized());
-
-	}
-
+	
 	/**
 	 * tests /contributors POST /contributors GET /docs GET
 	 */

@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.samplestack.impl.CustomObjectMapper;
-import com.marklogic.samplestack.web.SamplestackAuthenticationSuccessHandler;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
 
 @Configuration
 @ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.mock"})

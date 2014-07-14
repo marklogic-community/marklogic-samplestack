@@ -29,7 +29,7 @@ import com.marklogic.samplestack.service.QnAService;
 
 public class ControllerTests {
 
-	private Logger logger = LoggerFactory.getLogger(ControllerTests.class);
+	protected Logger logger = LoggerFactory.getLogger(ControllerTests.class);
 
 	@Autowired
 	private WebApplicationContext wac;

@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.mock.MockApplication;
-import com.marklogic.samplestack.testing.ContributorControllerTestImpl;
+import com.marklogic.samplestack.testing.LoginTestsImpl;
 import com.marklogic.samplestack.testing.UnitTests;
 
 
@@ -17,17 +17,20 @@ import com.marklogic.samplestack.testing.UnitTests;
 @WebAppConfiguration
 @SpringApplicationConfiguration(classes = { MockApplication.class })
 @Category(UnitTests.class)
-public class ContributorControllerTests extends ContributorControllerTestImpl {
-	
-	
+public class LoginTest extends LoginTestsImpl {
+
 	@Test
-	/**
-	 * tests /contributors POST
-	 * /contributors GET
-	 * /docs GET
-	 */
-	public void testContributorCRUD() throws Exception {
-		super.testContributorCRUD();
+	public void loginBadCredentials() throws Exception {
+		super.loginBadCredentials();
 	}
 	
+	@Test
+	public void loginNormalFlow() throws Exception {
+		super.loginNormalFlow();
+	}
+	
+	@Test
+	public void loginForbidden() throws Exception {
+		super.loginForbidden();
+	}
 }

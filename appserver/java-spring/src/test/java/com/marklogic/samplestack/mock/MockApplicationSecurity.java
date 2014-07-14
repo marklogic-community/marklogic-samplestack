@@ -11,8 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import com.marklogic.samplestack.web.SamplestackAuthenticationSuccessHandler;
-import com.marklogic.samplestack.web.RestAuthenticationEntryPoint;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationEntryPoint;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationFailureHandler;
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
 
 
 @EnableWebSecurity
@@ -23,16 +24,11 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SamplestackAuthenticationSuccessHandler successHandler;
 
-	@Bean
-	public SimpleUrlAuthenticationFailureHandler failureHandler() {
-		return new SimpleUrlAuthenticationFailureHandler();
-	};
-	
 	@Autowired
-	private SimpleUrlAuthenticationFailureHandler failureHandler;
+	private SamplestackAuthenticationFailureHandler failureHandler;
 
 	@Autowired
-	private RestAuthenticationEntryPoint entryPoint;
+	private SamplestackAuthenticationEntryPoint entryPoint;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
