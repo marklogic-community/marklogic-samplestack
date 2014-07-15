@@ -10,8 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
 
 
 @EnableWebSecurity
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private AuthenticationSuccessHandler successHandler;
+	private SamplestackAuthenticationSuccessHandler successHandler;
 
 	@Autowired
 	private AuthenticationFailureHandler failureHandler;

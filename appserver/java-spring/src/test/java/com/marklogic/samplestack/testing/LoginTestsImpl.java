@@ -2,11 +2,11 @@ package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import java.util.Locale;
 
@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpSession;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public class LoginTestsImpl extends ControllerTests {
 
@@ -63,21 +64,25 @@ public class LoginTestsImpl extends ControllerTests {
 
 	public void loginNormalFlow() throws Exception {
 
-		login("joeUser@marklogic.com", "joesPassword");
+		JsonNode loginNode = login("joeUser@marklogic.com", "joesPassword");
+		
+		String userRole = loginNode.get("role").asText();
+		assertEquals("joe's role is CONTRIBUTOR", "SAMPLESTACK_CONTRIBUTOR", userRole);
 
 		assertNotNull(session);
 
 		mockMvc.perform(
 				get("/questions").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
-				.andExpect(status().isOk());
-
+				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+		
+		
 		logout();
 		mockMvc.perform(
 				get("/").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isUnauthorized());
-
+		
 	}
 
 	public void loginForbidden() throws Exception {
