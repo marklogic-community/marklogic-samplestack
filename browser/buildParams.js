@@ -1,8 +1,9 @@
 var defaultParams = {
   min: '',
   appName: 'app',
-  noscriptHtml: '<p>You need a script-enabled browser.</p>',
   unit: false,
+  e2eMock: true,
+  noscriptHtml: '<p>You need a script-enabled browser.</p>',
   pkg: require('./package.json'),
   restUrl: 'http://localhost:8080',
   ngModuleDepencencies: [
@@ -30,7 +31,8 @@ var targetParams = {
   },
   // unit target specifics
   unit: {
-    unit: true
+    unit: true,
+    e2eMock: true,
   },
   // e2e target specifics
   e2e: {
