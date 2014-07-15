@@ -6,6 +6,9 @@ define([
       describe('directives', function () {
 
       });
+      describe('filters', function () {
+
+      });
       describe('services', function () {
 
       });
