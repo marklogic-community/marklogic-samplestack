@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import java.util.Locale;
 
@@ -25,21 +26,27 @@ public class LoginTestsImpl extends ControllerTests {
 
 		// no username/password match
 		mockMvc.perform(
-				post("/login").param("username", "nobody").param("password",
+				post("/login")
+				.with(csrf())
+				.param("username", "nobody").param("password",
 						"nopassword"))
 				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
 				.andReturn().getRequest().getSession();
 
 		// bad credentials, existing user
 		mockMvc.perform(
-				post("/login").param("username", "joeUser@marklogic.com")
+				post("/login")
+				.with(csrf())
+				.param("username", "joeUser@marklogic.com")
 						.param("password", "notJoesPassword"))
 				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
 				.andReturn().getRequest().getSession();
 
 		String errorString = mockMvc
 				.perform(
-						post("/login").param("username",
+						post("/login")
+						.with(csrf())
+						.param("username",
 								"joeUser@marklogic.com").param("password",
 								"notJoesPassword"))
 				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
@@ -61,7 +68,7 @@ public class LoginTestsImpl extends ControllerTests {
 		assertNotNull(session);
 
 		mockMvc.perform(
-				get("/session").session((MockHttpSession) session).locale(
+				get("/questions").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isOk());
 
@@ -79,15 +86,28 @@ public class LoginTestsImpl extends ControllerTests {
 		assertNotNull(session);
 
 		String errorString = mockMvc
-				.perform(
-						get("/").session(
+				.perform(post("/contributors/34")
+						.with(csrf())
+						.session(
+								(MockHttpSession) session).locale(
+								Locale.ENGLISH)).andDo(print())
+				.andExpect(status().isMethodNotAllowed())
+				.andReturn().getResponse().getContentAsString();
+		
+		JsonNode errorNode = mapper.readValue(errorString, JsonNode.class);
+		assertEquals("Error node has 405 in status", errorNode.get("status")
+				.asText(), "405");
+
+		errorString = mockMvc
+				.perform(post("/notaurl/34")
+						.with(csrf())
+						.session(
 								(MockHttpSession) session).locale(
 								Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isForbidden())
 				.andReturn().getResponse().getContentAsString();
 		
-		// ensure parsing
-		JsonNode errorNode = mapper.readValue(errorString, JsonNode.class);
+		errorNode = mapper.readValue(errorString, JsonNode.class);
 		assertEquals("Error node has 403 in status", errorNode.get("status")
 				.asText(), "403");
 
