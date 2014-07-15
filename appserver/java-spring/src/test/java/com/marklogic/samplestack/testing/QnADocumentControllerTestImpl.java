@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -56,7 +58,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				"I cannot ask questions");
 
 		this.mockMvc.perform(
-				post("/questions").contentType(MediaType.APPLICATION_JSON)
+				post("/questions").with(csrf()).contentType(MediaType.APPLICATION_JSON)
 						.content(mapper.writeValueAsString(qnaDoc.getJson())))
 		// TODO fix for forbidden
 				.andExpect(status().isUnauthorized());
@@ -72,7 +74,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		// send a contributor to the questions endpoint
 		this.mockMvc.perform(
-				post("/questions").session((MockHttpSession) session)
+				post("/questions").with(csrf()).session((MockHttpSession) session)
 						.locale(Locale.ENGLISH)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(mapper.writeValueAsString(Utils.joeUser)))
@@ -110,6 +112,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		this.mockMvc
 				.perform(
 						post(askedQuestion.getId() + "/comments")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"text\":\"no comment.\"}"))
@@ -127,7 +130,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 			// send a contributor to the questions endpoint
 			String answeredQuestion = this.mockMvc
 					.perform(
-							post(docId + "/answers")
+							post(docId + "/answers").with(csrf())
 									.session((MockHttpSession) session)
 									.contentType(MediaType.APPLICATION_JSON)
 									.content(
@@ -174,7 +177,9 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		this.mockMvc
 				.perform(
-						post(url).session((MockHttpSession) session)
+						post(url)
+						.with(csrf())
+						.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"text\":\"no comment.\"}"))
 				.andExpect(status().isCreated()).andReturn().getResponse()
@@ -192,6 +197,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		this.mockMvc
 				.perform(
 						post(this.askedQuestion.getId() + "/upvotes")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
@@ -210,6 +216,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		this.mockMvc
 				.perform(
 						post(this.askedQuestion.getId() + "/downvotes")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
@@ -231,6 +238,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		this.mockMvc
 				.perform(
 						post(this.askedQuestion.getId() + answerId + "/upvotes")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
@@ -254,6 +262,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 						post(
 								this.askedQuestion.getId() + answerId
 										+ "/downvotes")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
@@ -291,6 +300,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 			throws UnsupportedEncodingException, Exception {
 		this.mockMvc.perform(
 				post(docId + answerId + "/accept")
+						.with(csrf())
 						.session((MockHttpSession) session)
 						.contentType(MediaType.APPLICATION_JSON).content("{}"))
 				.andExpect(status().is4xxClientError());
@@ -302,6 +312,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		String acceptedQuestion = this.mockMvc
 				.perform(
 						post(docId + answerId + "/accept")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isOk())
@@ -335,7 +346,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		String searchAnon = this.mockMvc
 				.perform(
-						post("/search").session((MockHttpSession) session)
+						post("/search").with(csrf()).session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(mapper.writeValueAsString(blankQuery)))
 				.andExpect(status().isOk()).andReturn().getResponse()
@@ -350,6 +361,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		this.mockMvc
 				.perform(
 						post(docId + answerId + "/accept")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isOk())
@@ -359,7 +371,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		searchAnon = this.mockMvc
 				.perform(
-						post("/search").session((MockHttpSession) session)
+						post("/search").with(csrf()).session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(mapper.writeValueAsString(blankQuery)))
 				.andExpect(status().isOk()).andReturn().getResponse()

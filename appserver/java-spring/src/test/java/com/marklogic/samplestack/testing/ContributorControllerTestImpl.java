@@ -1,19 +1,16 @@
 package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 
@@ -32,7 +29,9 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		login("joeUser@marklogic.com", "joesPassword");
 		Contributor joeUser = Utils.getBasicUser();
 		this.mockMvc.perform(
-				post("/contributors").session((MockHttpSession) session)
+				post("/contributors")
+				.with(csrf())
+				.session((MockHttpSession) session)
 						.locale(Locale.ENGLISH)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(mapper.writeValueAsString(joeUser)))
@@ -42,6 +41,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		String returnedString = this.mockMvc
 				.perform(
 						post("/contributors")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.locale(Locale.ENGLISH)
 								.contentType(MediaType.APPLICATION_JSON)

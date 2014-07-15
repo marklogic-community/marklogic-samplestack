@@ -85,6 +85,7 @@ public class QnADocumentController {
 
 	@RequestMapping(value = "questions/{id}/answers", method = RequestMethod.POST)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
@@ -97,6 +98,7 @@ public class QnADocumentController {
 	
 	@RequestMapping(value = "questions/{id}/answers/{answerId}/accept", method = RequestMethod.POST)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode accept(@RequestBody JsonNode answer,
 			@PathVariable(value = "answerId") String answerIdPart) {
 		//validate TODO
@@ -115,6 +117,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}/comments", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode comment(@RequestBody JsonNode comment,
 			@PathVariable(value = "id") String questionId) {
 		String postId = "/questions/" + questionId;
@@ -125,6 +128,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}/upvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode voteUp(@RequestBody JsonNode comment,
 			@PathVariable(value = "id") String questionId) {
 		String postId = "/questions/" + questionId;
@@ -135,6 +139,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}/downvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode voteDown(@RequestBody JsonNode comment,
 			@PathVariable(value = "id") String questionId) {
 		String postId = "/questions/" + questionId;
@@ -145,6 +150,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}/answers/{answerId}/upvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode upVoteAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
 		String answerId = "/answers/" + answerIdPart;
@@ -155,6 +161,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}/answers/{answerId}/downvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode downVoteAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
 		String answerId = "/answers/" + answerIdPart;
@@ -165,6 +172,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}/answers/{answerId}/comments", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
+	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode commentAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
 		String answerId = "/answers/" + answerIdPart;

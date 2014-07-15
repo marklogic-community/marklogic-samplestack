@@ -1,5 +1,6 @@
 package com.marklogic.samplestack.testing;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -76,8 +77,8 @@ public class ControllerTests {
 		
 		this.session = mockMvc
 				.perform(
-						post("/login").
-						param("username", username).param("password", password))
+						post("/login").with(csrf())
+						.param("username", username).param("password", password))
 						//content(loginBody(username, password)))
 				.andExpect(status().isOk())
 				.andReturn().getRequest()
@@ -105,7 +106,7 @@ public class ControllerTests {
 			// send a contributor to the questions endpoint
 			String askedQuestion = this.mockMvc
 					.perform(
-							post("/questions")
+							post("/questions").with(csrf())
 									.session((MockHttpSession) session)
 									.contentType(MediaType.APPLICATION_JSON)
 									.content(payload))

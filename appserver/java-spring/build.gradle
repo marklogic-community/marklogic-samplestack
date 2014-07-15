@@ -107,7 +107,9 @@ dependencies {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
-    compile("org.springframework.security:spring-security-ldap:3.2.4.RELEASE")
+    compile("org.springframework.security:spring-security-ldap:4.0.0.M1")
+    compile("org.springframework.security:spring-security-web:4.0.0.M1")
+    compile("org.springframework.security:spring-security-test:4.0.0.M1")
     compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")

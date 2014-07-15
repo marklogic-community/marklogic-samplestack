@@ -1,17 +1,18 @@
 package com.marklogic.samplestack.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import com.marklogic.samplestack.web.security.SamplestackAuthenticationEntryPoint;
-import com.marklogic.samplestack.web.security.SamplestackAuthenticationFailureHandler;
-import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Component
@@ -25,27 +26,32 @@ import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHa
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private SamplestackAuthenticationSuccessHandler successHandler;
+	private AuthenticationSuccessHandler successHandler;
 
 	@Autowired
-	private SamplestackAuthenticationFailureHandler failureHandler;
+	private AuthenticationFailureHandler failureHandler;
 
 	@Autowired
-	private SamplestackAuthenticationEntryPoint entryPoint;
+	private AuthenticationEntryPoint entryPoint;
+
+	@Autowired
+	private AccessDeniedHandler samplestackAccessDeniedHandler;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/session", "/questions", "/tags")
+				.antMatchers(HttpMethod.GET, "/questions/**", "/tags/**")
 				.permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/search").permitAll().and()
-				.authorizeRequests().anyRequest().authenticated();
+				.authorizeRequests()
+				.antMatchers("/questions/**", "/contributors/**")
+				.authenticated().and().authorizeRequests().anyRequest()
+				.denyAll();
 		http.formLogin().failureHandler(failureHandler)
 				.successHandler(successHandler).permitAll().and().logout()
 				.permitAll();
-		http.csrf().disable();
-		http.exceptionHandling().authenticationEntryPoint(entryPoint);
-
+		http.exceptionHandling().authenticationEntryPoint(entryPoint)
+				.accessDeniedHandler(samplestackAccessDeniedHandler);
 	}
 
 	@Override
