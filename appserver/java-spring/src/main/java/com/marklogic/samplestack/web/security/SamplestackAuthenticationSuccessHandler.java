@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -52,6 +53,14 @@ public class SamplestackAuthenticationSuccessHandler extends
 		ObjectNode userNode = mapper.createObjectNode();
 		userNode.put("userName", ClientRole.securityContextUserName());
 		userNode.put("role", ClientRole.securityContextRole().toString());
+//		CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+//
+//		String headerName = csrfToken.getHeaderName();
+//		String token = csrfToken.getToken();
+//
+//		userNode.put("csrfHeaderName", headerName);
+//		userNode.put("csrfToken", token);
+
 		mapper.writeValue(writer, userNode);
 		writer.close();
 	}
