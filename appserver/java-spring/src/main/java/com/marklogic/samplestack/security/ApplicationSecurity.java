@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.marklogic.samplestack.web.security.SamplestackSecurityFilters;
+
 @EnableWebSecurity
 @Component
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -36,11 +38,12 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AccessDeniedHandler samplestackAccessDeniedHandler;
-
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/questions/**", "/tags/**")
+				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**")
 				.permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/search").permitAll().and()
 				.authorizeRequests()
@@ -52,6 +55,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 				.accessDeniedHandler(samplestackAccessDeniedHandler);
+		http.csrf().disable();
 	}
 
 	@Override
