@@ -8,6 +8,7 @@
     "require": false,
     "describe": false,
     "it": false,
+    "xit": false,
     "module": false,
     "inject": false,
     "beforeEach": false,
