@@ -1,7 +1,6 @@
 package com.marklogic.samplestack.web.security;
 
 import java.io.IOException;
-import java.io.Writer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +45,6 @@ public class SamplestackAuthenticationSuccessHandler extends
 		clearAuthenticationAttributes(request);
 		HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(
 				response);
-		Writer out = responseWrapper.getWriter();
-		out.write("{success:true}");
-		out.close();
 	}
 
 	public void setRequestCache(RequestCache requestCache) {
