@@ -1,19 +1,16 @@
 package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 
@@ -21,60 +18,20 @@ import com.marklogic.samplestack.domain.Contributor;
 
 public class ContributorControllerTestImpl extends ControllerTests {
 
-	private Logger logger = LoggerFactory.getLogger(ContributorControllerTestImpl.class);
+	private Logger logger = LoggerFactory
+			.getLogger(ContributorControllerTestImpl.class);
+
 	
 	/**
-	 * Tests the /login functionality
-	 */
-	public void testLogin() throws Exception {
-		mockMvc
-				.perform(
-						post("/login").param("username", "nobody").param(
-								"password", "nopassword"))
-				.andExpect(status().is(HttpStatus.FOUND.value()))
-				.andExpect(redirectedUrl("/login?error")).andReturn()
-				.getRequest().getSession();
-		// (session);
-
-		// another bad credential case
-		mockMvc
-				.perform(
-						post("/login").param("username",
-								"joeUser@marklogic.com").param("password",
-								"notJoesPassword"))
-				.andExpect(status().is(HttpStatus.FOUND.value()))
-				.andExpect(redirectedUrl("/login?error")).andReturn()
-				.getRequest().getSession();
-		// assertNull(session);
-
-		login("joeUser@marklogic.com", "joesPassword");
-
-		assertNotNull(session);
-
-		mockMvc.perform(
-				get("/").session((MockHttpSession) session).locale(
-						Locale.ENGLISH)).andDo(print())
-				.andExpect(status().isOk());
-
-		logout();
-		mockMvc.perform(
-				get("/").session((MockHttpSession) session).locale(
-						Locale.ENGLISH)).andDo(print())
-		// TODO log bug for fixing login .andExpect(status().isForbidden());
-				.andExpect(status().is3xxRedirection());
-
-	}
-
-	/**
-	 * tests /contributors POST
-	 * /contributors GET
-	 * /docs GET
+	 * tests /contributors POST /contributors GET /docs GET
 	 */
 	public void testContributorCRUD() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		Contributor joeUser = Utils.getBasicUser();
 		this.mockMvc.perform(
-				post("/contributors").session((MockHttpSession) session)
+				post("/contributors")
+				.with(csrf())
+				.session((MockHttpSession) session)
 						.locale(Locale.ENGLISH)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(mapper.writeValueAsString(joeUser)))
@@ -84,6 +41,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		String returnedString = this.mockMvc
 				.perform(
 						post("/contributors")
+								.with(csrf())
 								.session((MockHttpSession) session)
 								.locale(Locale.ENGLISH)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -112,7 +70,8 @@ public class ContributorControllerTestImpl extends ControllerTests {
 						.andExpect(status().isOk()).andReturn().getResponse()
 						.getContentAsString(), Contributor.class);
 
-		assertEquals("Id name matches when get By ID", getById.getId(), returnedUser.getId());
+		assertEquals("Id name matches when get By ID", getById.getId(),
+				returnedUser.getId());
 	}
-	
+
 }

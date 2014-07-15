@@ -1,29 +1,36 @@
 package com.marklogic.samplestack.integration.web;
 
+import groovy.lang.Category;
+
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.testing.ContributorControllerTestImpl;
-import com.marklogic.samplestack.testing.IntegrationTests;
+import com.marklogic.samplestack.testing.LoginTestsImpl;
+import com.marklogic.samplestack.testing.UnitTests;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @SpringApplicationConfiguration(classes = { Application.class })
-@Category(IntegrationTests.class)
-public class ContributorControllerIT extends ContributorControllerTestImpl {
+@Category(UnitTests.class)
+public class LoginTest extends LoginTestsImpl {
 
 	@Test
-	/**
-	 * tests /contributors POST
-	 * /contributors GET
-	 */
-	public void testContributorCRUD() throws Exception {
-		super.testContributorCRUD();
+	public void loginBadCredentials() throws Exception {
+		super.loginBadCredentials();
 	}
-
+	
+	@Test
+	public void loginNormalFlow() throws Exception {
+		super.loginNormalFlow();
+	}
+	
+	@Test
+	public void loginForbidden() throws Exception {
+		super.loginForbidden();
+	}
 }
