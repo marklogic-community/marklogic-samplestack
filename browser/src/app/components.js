@@ -14,20 +14,6 @@ dependency management that is coming in Angular 2.0 and ECMAScript 6.
  */
 
 define([
-
-/*
-TODO: this should be auto-generated at build time based on a glob pattern that
-finds all components.  This pattern enables us to add/remove components
-from the component directories without requiring us to reference/de-reference
-the files individually.
-*/
-  './services/appRouting',
-  './services/stubData',
-  './states/_layout',
-  './states/_root',
-  './states/_statesHierarchy',
-  './states/ask',
-  './states/explore',
-  './states/fourOhFour',
-  './states/qnaDoc'
+  './services/index',
+  './states/index'
 ], function () {});

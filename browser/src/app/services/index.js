@@ -1,0 +1,4 @@
+define([
+  './appRouting',
+  './stubData'
+], function () {});

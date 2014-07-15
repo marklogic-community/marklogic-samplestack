@@ -9,7 +9,7 @@ require.config({
 require(['configuredApp'], function () {
   require(['angular-mocks'], function () {
 
-    require(['all.unit'], function () {
+    require(['index.unit'], function () {
 
       // window.sinon = sinon;
       var myMocha = window.mochaPhantomJS ?
