@@ -14,7 +14,6 @@
     "requirejs": "~2.1.11",
     "modernizr": "~2.7.2",
     "es5-shim": "~2.3.0",
-    "angular-ui-router": "stu-salsbury/ui-router#2014-06-22",
     "angular-ui-router.stateHelper": "~1.1.0",
     "lodash": "~2.4.1",
     "angular-bootstrap": "~0.10.0",
@@ -22,12 +21,13 @@
     "spin.js": "~2.0.0",
     "angular-marked": "~0.0.11",
     "momentjs": "~2.6.0",
-    "marked": "~0.3.2"
+    "marked": "~0.3.2",
+    "angular-ui-router": "~0.2.10"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
     "chai": "~1.9.1",
-    "angular-mocks": "~1.2.16",
+    "angular-mocks": "~1.2.20",
     "chai-as-promised": "~4.1.1",
     "sinon-chai": "~2.5.0",
     "sinon-browser-only": "~1.9.0"
@@ -71,6 +71,6 @@
     }
   },
   "resolutions": {
-    "angular-ui-router": "2014-06-22"
+    "angular": "1.2.20"
   }
 }
