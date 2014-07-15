@@ -3,7 +3,12 @@ config.js
 
 Configure the application module and expose it..
  */
-define(['app/app'], function (appModule) {
+
+define([
+  'app/assembledApp'
+], function (
+  appModule
+) {
 
   appModule.config([
 
@@ -21,6 +26,8 @@ define(['app/app'], function (appModule) {
     }
 
   ]);
+
+  appModule.run(['appRouting', function (appRouting) {}]);
 
   return appModule;
 
