@@ -53,13 +53,13 @@ public class SamplestackAuthenticationSuccessHandler extends
 		ObjectNode userNode = mapper.createObjectNode();
 		userNode.put("userName", ClientRole.securityContextUserName());
 		userNode.put("role", ClientRole.securityContextRole().toString());
-//		CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
-//
-//		String headerName = csrfToken.getHeaderName();
-//		String token = csrfToken.getToken();
-//
-//		userNode.put("csrfHeaderName", headerName);
-//		userNode.put("csrfToken", token);
+		CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+
+		String headerName = csrfToken.getHeaderName();
+		String token = csrfToken.getToken();
+
+		userNode.put("csrfHeaderName", headerName);
+		userNode.put("csrfToken", token);
 
 		mapper.writeValue(writer, userNode);
 		writer.close();

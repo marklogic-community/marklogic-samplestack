@@ -105,7 +105,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		errorString = mockMvc
 				.perform(post("/notaurl/34")
-						.with(csrf())
+						.with(csrf().asHeader())
 						.session(
 								(MockHttpSession) session).locale(
 								Locale.ENGLISH)).andDo(print())
