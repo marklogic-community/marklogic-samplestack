@@ -32,7 +32,7 @@ var targetParams = {
   // unit target specifics
   unit: {
     unit: true,
-    e2eMock: true,
+    e2eMock: false,
   },
   // e2e target specifics
   e2e: {

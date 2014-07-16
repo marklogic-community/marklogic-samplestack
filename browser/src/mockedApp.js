@@ -5,12 +5,12 @@ require.config({
     'appGo': './appGo'
   },
   shim: {
-    'angular-mocks': { deps: ['appGo'] }
+    'angular-mocks': { deps: ['configuredApp'] }
   }
 });
 
 define([
-  'appGo', 'angular-mocks'
+  'configuredApp', 'angular-mocks'
 ], function (appModule) {
 
   var mockModule = angular.module('mockModule', ['ngMockE2E']);
