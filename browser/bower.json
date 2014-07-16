@@ -9,7 +9,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.16",
+    "angular": "~1.2.21",
     "bootstrap-sass-official": "~3.1.1",
     "requirejs": "~2.1.11",
     "modernizr": "~2.7.2",
@@ -23,12 +23,12 @@
     "momentjs": "~2.6.0",
     "marked": "~0.3.2",
     "angular-ui-router": "~0.2.10",
-    "angular-mocks": "~1.2.20"
+    "angular-mocks": "~1.2.21"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
     "chai": "~1.9.1",
-    "angular-mocks": "~1.2.20",
+    "angular-mocks": "~1.2.21",
     "chai-as-promised": "~4.1.1",
     "sinon-chai": "~2.5.0",
     "sinon-browser-only": "~1.9.0"
@@ -72,6 +72,6 @@
     }
   },
   "resolutions": {
-    "angular": "1.2.20"
+    "angular": "1.2.21"
   }
 }
