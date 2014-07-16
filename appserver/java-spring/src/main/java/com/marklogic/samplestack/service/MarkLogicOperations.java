@@ -21,9 +21,12 @@ import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.SamplestackType;
 
 /**
@@ -85,6 +88,12 @@ public interface MarkLogicOperations {
 	 */
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role);
 	
+
+	/**
+	 * Get the repository for Contributor objects
+	 */
+	public PojoRepository<Contributor, String> getContributors();
+	
 	/**
 	 * Hooks into MarkLogic extension facilities to initialize a server-side extension
 	 * @param role the caller's role
@@ -124,5 +133,11 @@ public interface MarkLogicOperations {
 	 */
 	public Transaction start(ClientRole role);
 
-	
+	/**
+	 * Get a string query definition from the underlying QueryManager
+	 * @param optionsName options name passed to queryManager
+	 * @return a new StringQueryDefinition
+	 */
+	public StringQueryDefinition newStringQueryDefinition(String optionsName);
+
 }

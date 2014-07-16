@@ -18,6 +18,7 @@ package com.marklogic.samplestack.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 
 /**
@@ -69,7 +70,7 @@ public interface QnAService {
 	/**
 	 * Adds an answer to an existing QnADocument
 	 * 
-	 * @param userName
+	 * @param contributor
 	 *            The userName of the contributor adding an answer to the
 	 *            question.
 	 * @param questionId
@@ -78,7 +79,7 @@ public interface QnAService {
 	 *            The answer, in Markdown text representation
 	 * @return The QnADocument as modified by the answer operation
 	 */
-	public QnADocument answer(String userName, String questionId, String answer);
+	public QnADocument answer(Contributor contributor, String questionId, String answer);
 
 	/**
 	 * Adds a vote-up score to a particular question or answer.

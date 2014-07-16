@@ -28,19 +28,23 @@ import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.client.query.RawQueryDefinition;
+import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.client.query.SuggestDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
- * Encapsulates Samplestack's interactions with the database in a single
- * class.  See MarkLogicOperations for documentation of overridden methods.
+ * Encapsulates Samplestack's interactions with the database in a single class.
+ * See MarkLogicOperations for documentation of overridden methods.
+ * 
  * @see com.marklogic.client.DatabaseClient
  */
 public class MarkLogicClient implements MarkLogicOperations {
@@ -54,6 +58,8 @@ public class MarkLogicClient implements MarkLogicOperations {
 	private DatabaseClient getClient(ClientRole role) {
 		return clients.get(role);
 	}
+
+	private PojoRepository<Contributor, String> contributors;
 
 	/**
 	 * No-argument constructor.
@@ -77,7 +83,6 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return jacksonHandle.get();
 	}
 
-	
 	@Override
 	/*
 	 * TODO M3 remove/refactor due to pojo facade/document split.
@@ -85,9 +90,8 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
 			String queryString, long start) {
 		QueryManager queryManager = getClient(role).newQueryManager();
-		QueryDefinition stringQuery = 
-				queryManager.newStringDefinition(type.optionsName())
-				.withCriteria(queryString);
+		QueryDefinition stringQuery = queryManager.newStringDefinition(
+				type.optionsName()).withCriteria(queryString);
 
 		stringQuery.setDirectory(type.directoryName());
 		return newJSONDocumentManager(role).search(stringQuery, start);
@@ -106,18 +110,19 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return getClient(role).newJSONDocumentManager();
 	}
 
-	
-	@Override
 	public DocumentPage search(ClientRole role,
 			QueryDefinition queryDefinition, long start) {
 		return newJSONDocumentManager(role).search(queryDefinition, start);
 	}
 
 	/**
-	 * Part of setup of this object, puts a DatabaseClient connection into
-	 * a pool of connections based on client role.
-	 * @param role the caller's role
-	 * @param client A DatabaseClient object for interacting with MarkLogic
+	 * Part of setup of this object, puts a DatabaseClient connection into a
+	 * pool of connections based on client role.
+	 * 
+	 * @param role
+	 *            the caller's role
+	 * @param client
+	 *            A DatabaseClient object for interacting with MarkLogic
 	 */
 	public void putClient(ClientRole role, DatabaseClient client) {
 		clients.put(role, client);
@@ -138,14 +143,15 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
 			long start, QueryView view) {
 		JacksonHandle handle = new JacksonHandle();
-		String qnaDirName =  SamplestackType.QUESTIONS.directoryName();
+		String qnaDirName = SamplestackType.QUESTIONS.directoryName();
 		String optionsName = SamplestackType.QUESTIONS.optionsName();
 		QueryManager queryManager = getClient(role).newQueryManager();
-		
-		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(new JacksonHandle(structuredQuery), optionsName);
+
+		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
+				new JacksonHandle(structuredQuery), optionsName);
 		qdef.setDirectory(qnaDirName);
 		queryManager.setView(view);
-		
+
 		handle = queryManager.search(qdef, handle, start);
 		return (ObjectNode) handle.get();
 	}
@@ -163,6 +169,20 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return getClient(role).openTransaction();
 	}
 
+	@Override
+	public PojoRepository<Contributor, String> getContributors() {
+		if (this.contributors == null) {
+			this.contributors = getClient(ClientRole.SAMPLESTACK_CONTRIBUTOR)
+					.newPojoRepository(Contributor.class, String.class);
+		}
+		return this.contributors;
+	}
 
+	@Override
+	public StringQueryDefinition newStringQueryDefinition(String optionsName) {
+		QueryManager queryManager = getClient(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR).newQueryManager();
+		return queryManager.newStringDefinition(optionsName);
+	}
 
 }

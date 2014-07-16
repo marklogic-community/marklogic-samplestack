@@ -44,5 +44,4 @@ public abstract class AbstractMarkLogicDataService {
 	protected String generateUri(SamplestackType type) {
 		return type.directoryName() + UUID.randomUUID() + ".json";
 	}
-
 }

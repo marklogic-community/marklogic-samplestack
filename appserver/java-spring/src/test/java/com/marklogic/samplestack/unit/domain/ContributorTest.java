@@ -65,7 +65,6 @@ public class ContributorTest {
 	public void testSparseContributor() throws JsonProcessingException {
 		SparseContributor sparseJoe = Utils.joeUser.asSparseContributor();
 		assertEquals("joeUser", sparseJoe.getDisplayName());
-		assertEquals(Utils.JoesUUID, sparseJoe.getId());
 		assertEquals("joeUser@marklogic.com", sparseJoe.getUserName());
 		
 		String sparseToString = mapper.writeValueAsString(sparseJoe);

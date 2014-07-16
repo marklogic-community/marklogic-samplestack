@@ -34,8 +34,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.QnADocument;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
+import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
@@ -132,10 +133,10 @@ public class QnADocumentController {
 	@ResponseStatus(HttpStatus.CREATED)
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
-		//validate TODO
 		String answerId = "/questions/" + id;
-		QnADocument answered = qnaService.answer(
-				ClientRole.securityContextUserName(), answerId, answer.get("text").asText());
+		Contributor owner = contributorService.getByUserName(
+				ClientRole.securityContextUserName());
+		QnADocument answered = qnaService.answer(owner, answerId, answer.get("text").asText());
 		return answered.getJson();
 	}
 	

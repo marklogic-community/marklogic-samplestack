@@ -15,7 +15,6 @@
  */
 package com.marklogic.samplestack.web;
 
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -31,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.ContributorService;
 
@@ -55,9 +55,9 @@ public class ContributorsController {
 	@RequestMapping(value = "contributors", method = RequestMethod.GET)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
-	List<Contributor> listContributors(@RequestParam(required = false) String q) {
+	PojoPage<Contributor> listContributors(@RequestParam(required = false) String q) {
 		if (q == null) {
-			return service.list(0);
+			return service.readAll(0);
 		} else {
 			return service.search(q);
 		}
@@ -72,7 +72,7 @@ public class ContributorsController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	Contributor get(@PathVariable("id") String id) {
-		return service.get(id);
+		return service.read(id);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class ContributorsController {
 	@ResponseStatus(HttpStatus.CREATED)
 	Contributor newContributor(@RequestBody Contributor contributor) {
 		contributor.setId(UUID.randomUUID().toString());
-		service.store(contributor);
+		service.write(contributor);
 		return contributor;
 	}
 
@@ -101,7 +101,7 @@ public class ContributorsController {
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	Contributor replaceContributor(@PathVariable("id") String id,
 			@RequestBody Contributor contributor) {
-		service.store(contributor);
+		service.write(contributor);
 		return contributor;
 	}
 

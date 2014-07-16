@@ -103,14 +103,14 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	@Override
 	/**
 	 * Uses DocumentPatchBuilder to send a change to the QnADocument JSON.
-	 * @param userName
+	 * @param contributor
 	 * 			The owner of the answer.
 	 * @param toAnswerId
 	 * 			The ID of the question that's being answererd.
 	 * @param answer
 	 * 			Markdown of this answer's body.
 	 */
-	public QnADocument answer(String userName, String toAnswerId, String answer) {
+	public QnADocument answer(Contributor contributor, String toAnswerId, String answer) {
 		String documentUri = uriFromId(toAnswerId);
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
@@ -123,7 +123,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 		json.putArray("comments");
 		
 		// put ths sparse contributor data on this node
-		SparseContributor owner = contributorService.getByUserName(userName).asSparseContributor();
+		SparseContributor owner = contributor.asSparseContributor();
 		JsonNode ownerNode = mapper.convertValue(owner, JsonNode.class);
 		json.put("owner", ownerNode);
 		
@@ -208,7 +208,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 			// update the contributor record with vote
 			contributor.getVotes().add(postId);
 			contributor.setReputation(contributor.getReputation() + delta);
-			contributorService.store(contributor, transaction);
+			contributorService.write(contributor, transaction);
 
 			transaction.commit();
 		} catch (SampleStackDataIntegrityException ex) {

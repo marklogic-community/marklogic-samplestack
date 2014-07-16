@@ -18,6 +18,8 @@ package com.marklogic.samplestack.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.marklogic.client.pojo.annotation.Id;
+
 /**
  * Represents the end-user of the samplestack application. Its canonical JSON
  * representation is
@@ -52,7 +54,13 @@ public class Contributor extends SparseContributor {
 	/** A markdown mini bio of the contributor */
 	private String aboutMe;
 
-	
+
+	@Id
+	/**
+	 * The String identifier for this user, a primary key.
+	 */
+	public String id;
+
 	/** The location of the user, as a String */
 	private String location;
 
@@ -111,6 +119,15 @@ public class Contributor extends SparseContributor {
 		}
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	/**
 	 * return a copy of this object as sparse object, to be used
 	 * within QnADocument serializations
@@ -118,7 +135,6 @@ public class Contributor extends SparseContributor {
 	 */
 	public SparseContributor asSparseContributor() {
 		SparseContributor sparseContributor = new SparseContributor();
-		sparseContributor.setId(this.getId());
 		sparseContributor.setDisplayName(this.getDisplayName());
 		sparseContributor.setUserName(this.getUserName());
 		return sparseContributor;

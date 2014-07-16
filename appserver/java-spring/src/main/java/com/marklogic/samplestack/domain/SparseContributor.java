@@ -16,6 +16,7 @@
 package com.marklogic.samplestack.domain;
 
 
+
 /**
  *  Wraps just those values from a Contributor object
  *  that are denormalized and stored with QnADocuments.
@@ -25,13 +26,7 @@ public class SparseContributor {
 	/** The contributor's display name */
 	public String displayName;
 
-	/**
-	 * The String identifier for this user, a primary key. We use UUIDs to
-	 * generate new ids, but support String in order to use legacy data as-is
-	 */
-	public String id;
-
-
+	
 	/** The username.  */
 	public String userName;
 
@@ -51,15 +46,4 @@ public class SparseContributor {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-
 }

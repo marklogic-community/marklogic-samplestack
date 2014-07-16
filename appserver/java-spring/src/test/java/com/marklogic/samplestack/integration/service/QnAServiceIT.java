@@ -112,7 +112,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				Utils.joeUser.getUserName(), ownerNode.get("userName").asText());
 
 		// TODO somehow assert the question I just asked is in this list?
-		answeredQuestion = service.answer(Utils.maryUser.getUserName(),
+		answeredQuestion = service.answer(Utils.maryUser,
 				submittedQuestionAndAnswer.getId(),
 				"I think your question is very good.");
 
@@ -126,7 +126,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		// add another answer
 		answeredTwiceQuestion = service
-				.answer(Utils.maryUser.getUserName(), answeredQuestion.getId(),
+				.answer(Utils.maryUser, answeredQuestion.getId(),
 						"I think the question has merit, but is inherently unanswerable.");
 		assertEquals("twice answered question has two answers", 2,
 				answeredTwiceQuestion.getJson().get("answers").size());
@@ -162,7 +162,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		int docScore = submitted.getJson().get("docScore").asInt();
 
 		QnADocument answered = service
-				.answer(Utils.maryUser.getUserName(), submitted.getId(),
+				.answer(Utils.maryUser, submitted.getId(),
 						"I think your question is very good.  I want lots of votes too.");
 		String answerId = answered.getJson().get("answers").get(0).get("id")
 				.asText();
@@ -201,12 +201,12 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		assertEquals("Vote score should be one higher than before",
 				newScore - 1, newerScore);
 
-		Contributor joesState = contributorService.get(Utils.joeUser.getId());
+		Contributor joesState = contributorService.read(Utils.joeUser.getId());
 		assertEquals("joe has voted once", 1, joesState.getVotes().size());
 		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
 		assertEquals("joe reputation has gained", joesReputation + 1, joesState.getReputation());
 		
-		Contributor marysState = contributorService.get(Utils.maryUser.getId());
+		Contributor marysState = contributorService.read(Utils.maryUser.getId());
 		assertEquals("mary has voted once", 1, marysState.getVotes().size());
 		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
 		assertEquals("marys reputation has suffered", marysReputation - 1, marysState.getReputation());
@@ -223,7 +223,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		QnADocument submitted = service.ask(Utils.joeUser.getUserName(),
 				newQuestion);
-		QnADocument answered = service.answer(Utils.maryUser.getUserName(),
+		QnADocument answered = service.answer(Utils.maryUser,
 				submitted.getId(), "I think your question is very good.");
 
 		String answerId = answered.getJson().get("answers").get(0).get("id")

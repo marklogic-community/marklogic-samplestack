@@ -26,7 +26,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
@@ -51,6 +53,11 @@ public class DatabaseContext {
 		DatabaseClient guestClient = databaseClient(ClientRole.SAMPLESTACK_GUEST);
 		c.putClient(ClientRole.SAMPLESTACK_GUEST, guestClient);
 		return c;
+	}
+	
+	@Bean
+	public PojoRepository<Contributor, String> repository() {
+		return markLogicOperations().getContributors();
 	}
 	
 	/**

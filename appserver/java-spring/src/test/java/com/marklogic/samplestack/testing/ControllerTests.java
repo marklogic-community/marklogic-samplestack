@@ -99,8 +99,8 @@ public class ControllerTests {
 						post("/login")
 						//.with(csrf().asHeader())
 						.param("username", username)
-								.param("password", password))
-				// content(loginBody(username, password)))
+						.param("password", password))
+				// TODO 'restful' login content(loginBody(username, password)))
 				.andExpect(status().isOk()).andReturn();
 
 		this.session = result.getRequest().getSession();

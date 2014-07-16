@@ -75,11 +75,8 @@ public abstract class MarkLogicIntegrationIT {
 	@Before
 	public void cleanout() {
 		if (!initialized) {
-			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-
-			SamplestackType.QUESTIONS);
-			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					SamplestackType.CONTRIBUTORS);
+			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS);
+			contributorService.deleteAll();
 			contributorService.store(Utils.joeUser);
 			contributorService.store(Utils.maryUser);
 		}

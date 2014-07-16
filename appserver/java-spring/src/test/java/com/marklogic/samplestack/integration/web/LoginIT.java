@@ -44,6 +44,7 @@ public class LoginIT extends LoginTestsImpl {
 	@Before
 	public void setupJoe() {
 		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryUser);
 	}
 	
 	@Test

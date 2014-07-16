@@ -58,14 +58,14 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 	@Before
 	public void setup() {
 		super.setup(TEST_URI);
+
+		contributorService.write(Utils.joeUser);
+		
 	}
 
+	
 	private void askQuestion() {
-
-		// make a user
-		contributorService.store(Utils.joeUser);
-
-		// make sure there's no question
+// make sure there's no question
 		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 		// make a body
 		ObjectNode input = mapper.createObjectNode();
@@ -113,16 +113,13 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 		// add the answer -- use a service though as this refactor is done
 		
-		qnaService.answer( Utils.joeUser.getUserName(), TEST_URI.replace(".json", ""), "this is the text of my answer");
+		qnaService.answer( Utils.joeUser, TEST_URI.replace(".json", ""), "this is the text of my answer");
 
 
 	}
 
 	@Test
 	public void answerPatchTransform() {
-		// make a user
-		contributorService.store(Utils.joeUser);
-
 		// make sure there's no question
 		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 
@@ -146,9 +143,6 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 	@Test
 	public void acceptPatchTransform() {
-		// make a user
-		contributorService.store(Utils.joeUser);
-
 		// make sure there's no question
 		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 
@@ -180,9 +174,6 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 	@Test
 	public void commentPatchTransform() {
-		// make a user
-		contributorService.store(Utils.joeUser);
-
 		// make sure there's no question
 		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 
@@ -228,10 +219,6 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 	@Test
 	public void votePatchTransform() {
-		// make a user
-		contributorService.store(Utils.joeUser);
-
-		// make sure there's no question
 		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);
 
 		askAndAnswer();

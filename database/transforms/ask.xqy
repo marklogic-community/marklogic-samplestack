@@ -31,7 +31,7 @@ as document-node() {
     let $user := cts:search(collection(), 
         cts:and-query(
             (
-            cts:directory-query("/contributors/"),
+            cts:collection-query("com.marklogic.samplestack.domain.Contributor"),
             cts:json-property-value-query("userName", $username)
             )))[1]
     let $_ := xdmp:log(("USER", $user))
@@ -47,9 +47,9 @@ as document-node() {
                     "comments": array-node { }, 
                     "answers": array-node { }, 
                     "owner": object-node 
-                    { "userName": $user/userName/data(),
-                        "id": $user/id/data(),
-                        "displayName": $user/displayName/data()
+                    { "userName": $user//userName/data(),
+                        "id": $user//id/data(),
+                        "displayName": $user//displayName/data()
                     },
                     "lastActivityDate" : $dt
                 }

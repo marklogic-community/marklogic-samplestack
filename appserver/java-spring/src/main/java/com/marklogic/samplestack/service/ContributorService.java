@@ -15,48 +15,16 @@
  */
 package com.marklogic.samplestack.service;
 
-import java.util.List;
-
 import com.marklogic.client.Transaction;
+import com.marklogic.client.pojo.PojoPage;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.Contributor;
 
 /**
  * Defines methods for interacting with the database of User objects.
  * TODO will be replaced by direct use of the Pojo Facade, new for MarkLogic 8.
  */
-public interface ContributorService {
-
-	/**
-	 * get a Contributor object from the database by Id
-	 * @param id the contriubtor's identifier
-	 * @return a Contributor object
-	 */
-	public Contributor get(String id);
-
-	/**
-	 * Store a user object's state in the database.
-	 * @param contributor the user object.
-	 */
-	public void store(Contributor contributor);
-
-	/**
-	 * Delete a contributor object
-	 * @param id the id of a contributor object.
-	 */
-	public void delete(String id);
-
-	/**
-	 * Get a page's worth of Contributor objects
-	 * @param start the index of the first item to return
-	 * @return List of contributors starting at start
-	 */
-	public List<Contributor> list(long start);
-	
-	/**
-	 * Search for contributors with a query string
-	 * @return List of contributors starting at start
-	 */
-	public List<Contributor> search(String queryString);
+public interface ContributorService extends PojoRepository<Contributor, String>{
 
 	/**
 	 * Get a specific user by UserName
@@ -66,11 +34,23 @@ public interface ContributorService {
 	public Contributor getByUserName(String userName);
 
 	/**
-	 * Store a contributor within a multi-statement transaction scope
-	 * @param contributor The contributor object to persist
-	 * @param transaction The transaction to use for this update.
-	 *   Obtained from a queryManager.  Use transaction.commit() to commit the change.
+	 * Search for a generic string, based on stored query options for contributors
+	 * @param q the query string
+	 * @return A PojoPage of Contributors
 	 */
-	public void store(Contributor contributor, Transaction transaction);
+	public PojoPage<Contributor> search(String q);
+	
+	/**
+	 * A wrapper around write, this method provides
+	 * cardinality protection upon insert for userName
+	 */
+	 public void store(Contributor contributor);
 
+	/**
+	 * A wrapper around write, this method provides
+	 * cardinality protection upon insert for userName
+	 * @param contributor
+	 * @param transaction transaction in which to store the contributor.
+	 */
+	void store(Contributor contributor, Transaction transaction);
 }
