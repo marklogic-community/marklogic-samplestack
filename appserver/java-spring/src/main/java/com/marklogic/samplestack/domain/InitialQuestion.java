@@ -1,6 +1,10 @@
 package com.marklogic.samplestack.domain;
 
-public class SparseQuestion {
+import java.util.ArrayList;
+
+import javax.validation.constraints.NotNull;
+
+public class InitialQuestion {
 
 	public String getTitle() {
 		return title;
@@ -20,8 +24,17 @@ public class SparseQuestion {
 	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
+	
+	public InitialQuestion() {
+		this.tags = new String[] {};
+	}
+	
+	@NotNull
 	private String title;
+	
+	@NotNull
 	private String text;
+	
 	private String[] tags;
 	
 }
