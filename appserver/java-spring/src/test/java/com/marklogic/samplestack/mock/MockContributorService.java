@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.marklogic.client.Transaction;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.testing.Utils;
 
 @Component
 public class MockContributorService implements ContributorService {
@@ -54,9 +55,14 @@ public class MockContributorService implements ContributorService {
 
 	@Override
 	public Contributor getByUserName(String userName) {
-		Contributor newContributor = new Contributor();
-		newContributor.setUserName(userName);
-		return newContributor;
+		// for one real values test in login
+		if (userName.equals("joeUser@marklogic.com")) {
+			return Utils.joeUser;
+		} else {
+			Contributor newContributor = new Contributor();
+			newContributor.setUserName(userName);
+			return newContributor;
+		}
 	}
 
 	@Override
