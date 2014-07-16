@@ -6,7 +6,7 @@ require.config({
 
 });
 
-require(['appGo'], function () {
+require(['configuredApp'], function () {
   require(['angular-mocks'], function () {
 
     require(['index.unit'], function () {
