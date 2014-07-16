@@ -5,15 +5,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
+import com.marklogic.client.document.DocumentPatchBuilder.Position;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.StringHandle;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
@@ -83,24 +86,23 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 		ObjectNode json = mapper.createObjectNode();
 		json.put("text", answer);
-		ServerTransform answerPatchTransform = new ServerTransform(
-				"answer-patch");
-		answerPatchTransform.put("userName", userName);
+		// ServerTransform answerPatchTransform = new ServerTransform(
+		// "answer-patch");
+		// answerPatchTransform.put("userName", userName);
 		try {
-			// DocumentPatchHandle patch = patchBuilder
-			// .insertFragment("/answers",
-			// Position.LAST_CHILD,
-			// mapper.writeValueAsString(json)).build();
-			// jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(toAnswer,
-			// patch);
+			DocumentPatchHandle patch = patchBuilder.insertFragment("$.root.answers",
+					Position.LAST_CHILD, mapper.writeValueAsString(json))
+					.build();
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
+					documentUri, patch);
 
-			JacksonHandle handle = new JacksonHandle(json);
-			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-					documentUri, handle, answerPatchTransform);
+			// JacksonHandle handle = new JacksonHandle(json);
+			// jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
+			// documentUri, handle, answerPatchTransform);
 		} catch (MarkLogicIOException e) {
 			throw new SamplestackIOException(e);
-			// } catch (JsonProcessingException e) {
-			// throw new SampleStackException(e);
+		} catch (JsonProcessingException e) {
+			throw new SamplestackIOException(e);
 		}
 		return get(ClientRole.SAMPLESTACK_CONTRIBUTOR, idFromUri(documentUri));
 	}
@@ -135,8 +137,8 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	@Override
 	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery,
 			long start) {
-		return operations.qnaSearch(role, structuredQuery,
-				start, QueryView.ALL);
+		return operations
+				.qnaSearch(role, structuredQuery, start, QueryView.ALL);
 	}
 
 	@Override
