@@ -69,6 +69,9 @@ public class LoginTestsImpl extends ControllerTests {
 		String userRole = loginNode.get("role").asText();
 		assertEquals("joe's role is CONTRIBUTOR", "SAMPLESTACK_CONTRIBUTOR", userRole);
 
+		String description = loginNode.get("displayName").asText();
+		assertEquals("got joe's profile iformation from database", description, Utils.joeUser.getDisplayName());
+		
 		assertNotNull(session);
 
 		mockMvc.perform(

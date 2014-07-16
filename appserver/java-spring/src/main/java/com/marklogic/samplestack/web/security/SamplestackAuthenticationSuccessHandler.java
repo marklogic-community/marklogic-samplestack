@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -19,8 +18,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.service.ContributorService;
 
 @Component
 // credit to TODO
@@ -30,6 +32,10 @@ public class SamplestackAuthenticationSuccessHandler extends
 
 	@Autowired
 	private ObjectMapper mapper;
+	
+	@Autowired
+	private ContributorService contributorService;
+	
 
 	private RequestCache requestCache = new HttpSessionRequestCache();
 
@@ -50,17 +56,21 @@ public class SamplestackAuthenticationSuccessHandler extends
 		HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(
 				response);
 		Writer writer = responseWrapper.getWriter();
-		ObjectNode userNode = mapper.createObjectNode();
-		userNode.put("userName", ClientRole.securityContextUserName());
-		userNode.put("role", ClientRole.securityContextRole().toString());
-		CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
-
-		String headerName = csrfToken.getHeaderName();
-		String token = csrfToken.getToken();
-
-		userNode.put("csrfHeaderName", headerName);
-		userNode.put("csrfToken", token);
-
+		String userName = ClientRole.securityContextUserName();
+		
+		ObjectNode userNode;
+		
+		Contributor contributor = contributorService.getByUserName(userName);
+		if (contributor != null) {
+			userNode = mapper.convertValue(contributor, ObjectNode.class);
+		} else {
+			userNode = mapper.createObjectNode();
+			userNode.put("userName", userName);
+		}
+		ArrayNode roleNode = mapper.createArrayNode();
+		roleNode.add(ClientRole.securityContextRole().toString());
+		
+		userNode.put("role", roleNode);
 		mapper.writeValue(writer, userNode);
 		writer.close();
 	}

@@ -52,7 +52,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.authenticated().and().authorizeRequests().anyRequest()
 				.denyAll();
 		http.formLogin().failureHandler(failureHandler)
-				.successHandler(successHandler).permitAll().and().logout()
+				.successHandler(successHandler)
+				.permitAll().and().logout()
 				.permitAll();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 				.accessDeniedHandler(samplestackAccessDeniedHandler);

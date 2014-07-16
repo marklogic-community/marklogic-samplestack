@@ -50,6 +50,7 @@ public class Contributor {
 	/** The location of the user, as a String */
 	private String location;
 
+	/** The username.  TODO validate as email address */
 	private String userName;
 
 	private Set<String> votes = new HashSet<String>();
@@ -128,4 +129,5 @@ public class Contributor {
 			return this.votes.contains(postId);
 		}
 	}
+
 }
