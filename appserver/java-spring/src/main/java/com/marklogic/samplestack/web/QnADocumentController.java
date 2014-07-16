@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.domain.SparseQuestion;
+import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
@@ -59,7 +59,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
-	JsonNode ask(@RequestBody SparseQuestion sparseQuestion) {
+	JsonNode ask(@RequestBody InitialQuestion sparseQuestion) {
 		// TODO validate SparseQuestion
 		QnADocument qnaDoc = new QnADocument(mapper, sparseQuestion.getTitle(),
 				sparseQuestion.getText(), sparseQuestion.getTags());
