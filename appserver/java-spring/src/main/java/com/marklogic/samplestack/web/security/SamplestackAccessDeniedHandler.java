@@ -14,11 +14,13 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
+import com.marklogic.samplestack.web.JsonHttpResponse;
+
 @Component
 public class SamplestackAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Autowired
-	private JsonErrors errors;
+	private JsonHttpResponse errors;
 	
 	@Override
 	public void handle(HttpServletRequest request,
@@ -30,7 +32,7 @@ public class SamplestackAccessDeniedHandler implements AccessDeniedHandler {
 		responseWrapper.setStatus(HttpStatus.SC_FORBIDDEN);
 		
 		Writer out = responseWrapper.getWriter();
-		errors.writeError(out, HttpStatus.SC_FORBIDDEN, "Forbidden");
+		errors.writeJsonResponse(out, HttpStatus.SC_FORBIDDEN, "Forbidden");
 		out.close();
 		}
 

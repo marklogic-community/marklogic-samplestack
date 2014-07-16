@@ -1,7 +1,6 @@
 package com.marklogic.samplestack.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,6 +11,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.stereotype.Component;
 
 import com.marklogic.samplestack.web.security.SamplestackSecurityFilters;
@@ -42,6 +42,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.addFilterAfter(new SamplestackSecurityFilters(), CsrfFilter.class);
 		http.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**")
 				.permitAll().and().authorizeRequests()
@@ -55,7 +56,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 				.accessDeniedHandler(samplestackAccessDeniedHandler);
-		http.csrf().disable();
+		//http.csrf().disable();
 	}
 
 	@Override

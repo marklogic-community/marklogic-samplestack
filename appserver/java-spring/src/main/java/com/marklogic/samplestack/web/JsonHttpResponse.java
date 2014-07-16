@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.web.security;
+package com.marklogic.samplestack.web;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -13,7 +13,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Component
-public class JsonErrors {
+/**
+ * Utility class to create simple Http responses in JSON, especially errors.
+ */
+public class JsonHttpResponse {
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -24,15 +27,15 @@ public class JsonErrors {
 	 * @param message
 	 * @return a JSONNode to return as Response Body
 	 */
-	public JsonNode makeError(int status, String message) {
+	public JsonNode makeJsonResponse(int status, String message) {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("status",  status);
 		node.put("message", message);
 		return node;
 	}
 
-	public void writeError(Writer out, int status, String message) throws IOException {
-		JsonNode error = makeError(status, message);
+	public void writeJsonResponse(Writer out, int status, String message) throws IOException {
+		JsonNode error = makeJsonResponse(status, message);
 		mapper.writeValue(out, error);
 	}
 	

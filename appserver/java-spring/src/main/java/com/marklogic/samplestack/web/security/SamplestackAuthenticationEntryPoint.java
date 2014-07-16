@@ -13,12 +13,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import com.marklogic.samplestack.web.JsonHttpResponse;
+
 @Component
 public class SamplestackAuthenticationEntryPoint implements
 		AuthenticationEntryPoint {
 
 	@Autowired
-	private JsonErrors errors;
+	private JsonHttpResponse errors;
 
 	@Override
 	public void commence(HttpServletRequest request,
@@ -29,7 +31,7 @@ public class SamplestackAuthenticationEntryPoint implements
 		responseWrapper.setStatus(HttpStatus.SC_UNAUTHORIZED);
 		
 		Writer out = responseWrapper.getWriter();
-		errors.writeError(out, HttpStatus.SC_UNAUTHORIZED, "Unauthorized");
+		errors.writeJsonResponse(out, HttpStatus.SC_UNAUTHORIZED, "Unauthorized");
 		out.close();
 	}
 }

@@ -13,18 +13,18 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 /**
- * TODO adds csrf token as header and also cors headers.
+ *  Adds csrf token as header and also cors headers.
  */
 public final class SamplestackSecurityFilters extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-//		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-//		response.setHeader("X-CSRF-HEADER", token.getHeaderName());
-//		response.setHeader("X-CSRF-PARAM", token.getParameterName());
-//		response.setHeader("X-CSRF-TOKEN", token.getToken());
 
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+		response.setHeader("X-CSRF-HEADER", token.getHeaderName());
+		response.setHeader("X-CSRF-PARAM", token.getParameterName());
+		response.setHeader(token.getHeaderName(), token.getToken());
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods",
 				"POST, PUT, GET, OPTIONS, DELETE");

@@ -77,7 +77,7 @@ public class ControllerTests {
 
 		MvcResult result = mockMvc
 				.perform(
-						post("/login").with(csrf()).param("username", username)
+						post("/login").with(csrf().asHeader()).param("username", username)
 								.param("password", password))
 				// content(loginBody(username, password)))
 				.andExpect(status().isOk()).andReturn();
