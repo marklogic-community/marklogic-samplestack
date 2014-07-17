@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpSession;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public class LoginTestsImpl extends ControllerTests {
 
@@ -66,7 +65,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		JsonNode loginNode = login("joeUser@marklogic.com", "joesPassword");
 		
-		String userRole = loginNode.get("role").asText();
+		String userRole = loginNode.get("role").get(0).asText();
 		assertEquals("joe's role is CONTRIBUTOR", "SAMPLESTACK_CONTRIBUTOR", userRole);
 
 		String description = loginNode.get("displayName").asText();
