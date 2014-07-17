@@ -22,9 +22,11 @@ public final class SamplestackSecurityFilters extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-		response.setHeader("X-CSRF-HEADER", token.getHeaderName());
-		response.setHeader("X-CSRF-PARAM", token.getParameterName());
-		response.setHeader(token.getHeaderName(), token.getToken());
+		if (token != null) {
+			response.setHeader("X-CSRF-HEADER", token.getHeaderName());
+			response.setHeader("X-CSRF-PARAM", token.getParameterName());
+			response.setHeader(token.getHeaderName(), token.getToken());
+		}
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods",
 				"POST, PUT, GET, OPTIONS, DELETE");
