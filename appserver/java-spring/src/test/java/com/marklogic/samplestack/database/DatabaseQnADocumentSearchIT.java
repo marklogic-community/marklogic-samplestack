@@ -26,7 +26,6 @@ import com.marklogic.client.ForbiddenUserException;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.io.Format;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
