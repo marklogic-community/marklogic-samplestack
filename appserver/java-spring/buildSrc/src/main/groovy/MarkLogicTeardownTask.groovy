@@ -24,7 +24,7 @@ public class MarkLogicTeardownTask extends MarkLogicTask {
     }
 
     void removeUsers() {
-        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/users/rest-admin")
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/users/samplestack-admin")
         def params = [:]
         client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
         client.delete(params)
