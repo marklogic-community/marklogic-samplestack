@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.SamplestackType;
+import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 public abstract class AbstractMarkLogicDataService {
@@ -26,5 +27,5 @@ public abstract class AbstractMarkLogicDataService {
 	protected String generateUri(SamplestackType type) {
 		return type.directoryName() + UUID.randomUUID() + ".json";
 	}
-	
+
 }

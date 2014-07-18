@@ -9,8 +9,8 @@ import com.marklogic.samplestack.domain.Contributor;
 public class Utils {
 	
 	
-	private static String basicUserUUID = "779b383c-dbf3-4008-b9d8-64f0491f1d4a";
-	private static String JoesUUID = "cf99542d-f024-4478-a6dc-7e723a51b040";
+	public static String basicUserUUID = "779b383c-dbf3-4008-b9d8-64f0491f1d4a";
+	public static String JoesUUID = "cf99542d-f024-4478-a6dc-7e723a51b040";
 
 	public static Contributor getBasicUser() {
 		Contributor contributor = new Contributor();
@@ -19,6 +19,8 @@ public class Utils {
 		contributor.setUserName("cgreer@marklogic.com");
 		contributor.setDisplayName("grechaw");
 		contributor.setWebsiteUrl("http://website.com/grechaw");
+		contributor.setLocation("Barrow");
+		contributor.setReputation(0);
 		return contributor;
 	}
 	
