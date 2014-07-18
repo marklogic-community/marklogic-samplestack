@@ -110,6 +110,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		logger.debug(mapper.writeValueAsString(answeredQuestion));
 
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
+		
 		assertEquals("answered question has an answer",
 				Utils.maryUser.getUserName(),
 				answer.get("owner").get("userName").asText());

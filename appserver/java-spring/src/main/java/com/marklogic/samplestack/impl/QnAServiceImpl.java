@@ -1,5 +1,7 @@
 package com.marklogic.samplestack.impl;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SamplestackType;
+import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.ContributorService;
@@ -79,18 +82,34 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
-	// TODO consider working around patch, consider implementing native patch
+	/**
+	 * Uses DocumentPatchBuilder to send a change to the QnADocument JSON.
+	 * @param userName
+	 * 			The owner of the answer.
+	 * @param toAnswerId
+	 * 			The ID of the question that's being answererd.
+	 * @param answer
+	 * 			Markdown of this answer's body.
+	 */
 	public QnADocument answer(String userName, String toAnswerId, String answer) {
 		String documentUri = uriFromId(toAnswerId);
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
+		
+		// create the new JSON text
 		ObjectNode json = mapper.createObjectNode();
 		json.put("text", answer);
-		// ServerTransform answerPatchTransform = new ServerTransform(
-		// "answer-patch");
-		// answerPatchTransform.put("userName", userName);
+		json.put("id", "/answers/" + UUID.randomUUID().toString());
+		json.put("itemTally", 0);
+		json.put("comments", mapper.createArrayNode());
+		
+		// put ths sparse contributor data on this node
+		SparseContributor owner = contributorService.getByUserName(userName).asSparseContributor();
+		JsonNode ownerNode = mapper.convertValue(owner, JsonNode.class);
+		json.put("owner", ownerNode);
+		
 		try {
-			DocumentPatchHandle patch = patchBuilder.insertFragment("$.root.answers",
+			DocumentPatchHandle patch = patchBuilder.insertFragment("/node()/node('answers')",
 					Position.LAST_CHILD, mapper.writeValueAsString(json))
 					.build();
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
