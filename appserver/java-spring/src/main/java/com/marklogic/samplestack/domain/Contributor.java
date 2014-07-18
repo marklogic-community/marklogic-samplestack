@@ -23,7 +23,7 @@ import java.util.Set;
  * </pre>
  * 
  */
-public class Contributor {
+public class Contributor extends SparseContributor {
 
 	/** URL of this contributor's website. */
 	private String websiteUrl;
@@ -34,30 +34,14 @@ public class Contributor {
 	 */
 	private int reputation;
 
-	/** The contributor's display name */
-	private String displayName;
-
 	/** A markdown mini bio of the contributor */
 	private String aboutMe;
 
-	/**
-	 * The String identifier for this user, a primary key. We use UUIDs to
-	 * generate new ids, but support String in order to use legacy data as-is
-	 */
-	// @id
-	private String id;
-
+	
 	/** The location of the user, as a String */
 	private String location;
 
-	/** The username.  TODO validate as email address */
-	private String userName;
-
 	private Set<String> votes = new HashSet<String>();
-
-	public String getUserName() {
-		return userName;
-	}
 
 	public String getWebsiteUrl() {
 		return websiteUrl;
@@ -75,28 +59,12 @@ public class Contributor {
 		this.reputation = reputation;
 	}
 
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
 	public String getAboutMe() {
 		return aboutMe;
 	}
 
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getLocation() {
@@ -107,10 +75,7 @@ public class Contributor {
 		this.location = location;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
+	
 	public Set<String> getVotes() {
 		if (votes == null) {
 			this.votes = new HashSet<String>();
@@ -128,6 +93,19 @@ public class Contributor {
 		} else {
 			return this.votes.contains(postId);
 		}
+	}
+
+	/**
+	 * return a copy of this object as sparse object, to be used
+	 * within QnADocument serializations
+	 * @return a SparseContributor object with values from this one.
+	 */
+	public SparseContributor asSparseContributor() {
+		SparseContributor sparseContributor = new SparseContributor();
+		sparseContributor.setId(this.getId());
+		sparseContributor.setDisplayName(this.getDisplayName());
+		sparseContributor.setUserName(this.getUserName());
+		return sparseContributor;
 	}
 
 }
