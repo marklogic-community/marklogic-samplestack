@@ -15,7 +15,7 @@ var gulp = require('gulp');
 var merge = require('event-stream').merge;
 var readArray = require('event-stream').readArray;
 var globule = require('globule');
-var lazypipe =require('lazypipe');
+var lazypipe = require('lazypipe');
 
 var childProcess = require('child_process');
 var winExt = /^win/.test(process.platform) ? '.cmd' : '';
@@ -416,7 +416,11 @@ tasks.build = {
 
 function startServer (path, port) {
   var connect = require('connect');
+  var url = require('url');
+  var proxy = require('proxy-middleware');
+
   var server = connect()
+    .use('/v1/', proxy(url.parse(buildParams.restUrl + '/v1/')))
     .use(
       require('connect-modrewrite')(
       // if lacking a dot, redirect to index.html

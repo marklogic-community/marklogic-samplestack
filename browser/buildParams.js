@@ -5,7 +5,7 @@ var defaultParams = {
   e2eMock: true,
   noscriptHtml: '<p>You need a script-enabled browser.</p>',
   pkg: require('./package.json'),
-  restUrl: 'http://localhost:8080',
+  restUrl: 'http://localhost:8090',
   ngModuleDepencencies: [
     'ui.router',
     'ui.router.stateHelper',
