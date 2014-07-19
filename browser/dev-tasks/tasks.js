@@ -29,6 +29,7 @@ var buildParams = require('../buildParams');
 // make it easier to get to plugins
 var $ = h.$;
 
+var buildsRoot = path.join(h.rootDir, 'builds');
 var buildDir = path.join(h.rootDir, h.targets.build);
 var unitDir = path.join(h.rootDir, h.targets.unit);
 var distDir = path.join(h.rootDir, h.targets.dist);
@@ -103,17 +104,16 @@ var plumberErrorHandler = function (err) {
 tasks
 ********************/
 
-// rimraf all of the target directories
+// TODO: !**/*.md is not protecting markdown files from being deleted!!!
+// del bug?
 tasks.clean = {
   deps: [],
-  func: function () {
-    return h.fs.src([
-      path.join(buildDir, '**/*'),
-      path.join(unitDir, '**/*'),
+  func: function (cb) {
+    require('del')([
+      path.join(buildsRoot, '**/*'),
       path.join(distDir, '**/*'),
-      '!**/*.md' // leave any markdown docs, they're there for a reason
-    ], {read: false})
-      .pipe($.rimraf());
+      '!**/README.md' // leave any markdown docs, they're there for a reason
+    ], cb);
   }
 };
 
