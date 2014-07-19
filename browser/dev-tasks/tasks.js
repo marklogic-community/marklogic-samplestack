@@ -117,22 +117,25 @@ tasks.clean = {
   }
 };
 
+var bowerFiles = require('main-bower-files');
 var bowerBuildStream = function (read) {
-  return $.bowerFiles({
+  return h.fs.src(bowerFiles({
     includeDev: false,
     // debugging: true,
     dependencies: false,
     read: read
-  });
+  }), { base: path.join(h.rootDir, 'bower_components') });
+
+
 };
 
 var bowerUnitStream = function (read) {
-  return $.bowerFiles({
+  return h.fs.src(bowerFiles({
     includeDev: true,
     // debugging: true,
     dependencies: false,
     read: read
-  });
+  }), { base: path.join(h.rootDir, 'bower_components') });
 };
 
 // copy all of the bower components runtime deps to the build
