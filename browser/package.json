@@ -32,7 +32,7 @@
     "gulp-debug": "~0.3.0",
     "gulp-embedlr": "~0.5.2",
     "gulp-filelog": "~0.2.0",
-    "gulp-filter": "~0.4.1",
+    "gulp-filter": "0.4.1",
     "gulp-if": "~1.2.2",
     "gulp-ignore": "^1.1.0",
     "gulp-inject": "^0.4.1",
@@ -59,8 +59,8 @@
     "protractor": "^1.0.0-rc6",
     "proxy-middleware": "^0.5.0",
     "q": "^1.0.1",
-    "through2": "~0.4.1",
     "selenium-webdriver": "^2.41.1",
+    "through2": "0.4.2",
     "tiny-lr-fork": "0.0.5",
     "vinyl-fs": "~0.3.4"
   },
