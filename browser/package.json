@@ -43,6 +43,7 @@
     "gulp-mocha-phantomjs": "~0.3.0",
     "gulp-plumber": "~0.6.3",
     "gulp-rename": "^1.2.0",
+    "gulp-ruby-sass": "^0.6.0",
     "gulp-sass": "^0.7.2",
     "gulp-template": "~0.1.1",
     "gulp-util": "~3.0.0",
@@ -60,6 +61,7 @@
     "proxy-middleware": "^0.5.0",
     "q": "^1.0.1",
     "selenium-webdriver": "^2.41.1",
+    "shelljs": "^0.3.0",
     "through2": "0.4.2",
     "tiny-lr-fork": "0.0.5",
     "vinyl-fs": "~0.3.4"

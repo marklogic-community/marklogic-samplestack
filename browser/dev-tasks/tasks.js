@@ -105,22 +105,20 @@ function refireWatchFunc () {
   }
 }
 
+var hadErrors = false;
 function trim (str) { return str.replace(/^\s+|\s+$/g, ''); }
 var plumberErrorHandler = function (err) {
+  hadErrors = true;
   $.util.log(
-    $.util.colors.cyan('Plumber') +
-    chalk.red(' found unhandled error:\n\n') +
+    $.util.colors.red('[plumber]: error from plugin:\n\n') +
     trim(err.toString()) + '\n'
   );
-  if (!rebuildOnNext) {
-    rebuildOnNext = true; // rebuild after the next save
+  if (watchTaskCalled && !rebuildOnNext) {
     $.util.log('[' + chalk.cyan('watch') + '] ' +
         chalk.yellow(
-          'some changes not written -- will rebuild on next change'
+          'a full rebuild will be scheduled on next change'
         ));
-    if (amWatching) {
-      refireWatchFunc();
-    }
+    rebuildOnNext = true;
   }
 };
 
@@ -230,24 +228,36 @@ var buildStream = function (stream) {
   var buildStream;
   var unitStream;
 
-  // protection from unhandled errors in plugins (ahem -- SASS!)
-  stream = stream.pipe($.plumber(plumberErrorHandler));
+  hadErrors = false;
 
-  // there are some things we can do before we diverge
   /***************
-  JSHINT -- different rules for different sources
+  JSHINT/JSCS -- different rules for different sources
   Avoid browserify files.
   ****************/
   filt = $.filter(['src/**/*.js', '!**/*.browserify.*']);
   stream = stream.pipe(filt)
     .pipe($.jshint(path.join(srcDir, '.jshintrc')))
-    .pipe($.jshint.reporter('jshint-stylish'));
+    .pipe($.jshint.reporter('jshint-stylish'))
+  /***************
+  JSCS (unit)
+  ****************/
+    .pipe($.plumber(plumberErrorHandler))
+    .pipe($.jscs(path.join(h.rootDir, '.jscsrc')))
+    .pipe($.plumber.stop());
   stream = stream.pipe(filt.restore());
 
   filt = $.filter('unit/**/*.js');
   stream = stream.pipe(filt)
     .pipe($.jshint(path.join(unitSrcDir, '.jshintrc')))
-    .pipe($.jshint.reporter('jshint-stylish'));
+    .pipe($.jshint.reporter('jshint-stylish'))
+  /***************
+  JSCS (unit)
+  ****************/
+    .pipe($.plumber(plumberErrorHandler))
+    .pipe($.jscs(path.join(h.rootDir, '.jscsrc')))
+    .pipe($.plumber.stop());
+
+
   stream = stream.pipe(filt.restore());
 
   // now we need to diverge our handling
@@ -272,22 +282,64 @@ var buildStream = function (stream) {
   SASS
   ****************/
 
-  var sassPipe = lazypipe()
-    .pipe(h.fs.src, path.join(srcDir, '**/*.scss'))
-    .pipe($.sass, {
-      // TODO: temporarily removed source map because bug in node-sass
-      // prevents comipiling
-      // https://github.com/sass/node-sass/issues/337
-      sourceComments: 'map',
-      sourceMap: 'sass',
-      includePaths: [bootstrapDir]
-    });
+  var sassPipe;
+  var sassParams;
+  if (buildParams.sassCompiler === 'ruby-sass') {
+    sassParams = {
+      sourcemap: true,
+      sourcemapPath: '.',
+      loadPath: bootstrapDir
+    };
 
-  buildStream = buildStream.pipe($.if('**/*.scss', sassPipe()));
-  buildStream = buildStream
-    .pipe(
-      $.ignore.exclude(['styles/**/*', '!styles/**/*.css'])
-    );
+    sassPipe = lazypipe()
+      .pipe(
+        h.fs.src, [
+          path.join(srcDir, '**/*.scss'),
+          path.join(bootstrapDir, '**/*.scss')
+        ],
+        { base: h.rootDir }
+      )
+      .pipe($.plumber, plumberErrorHandler)
+      .pipe($.rubySass, sassParams)
+      .pipe($.plumber.stop);
+
+    buildStream = buildStream
+      .pipe(
+        $.if(
+          '**/*.scss',
+          sassPipe()
+            .on('error', function () {})
+        )
+      );
+  }
+  else {
+    sassParams = {
+      onError: plumberErrorHandler,
+      includePaths: [bootstrapDir]
+    };
+
+    if (buildParams.sassCompiler !== 'node-sass-safe') {
+      sassParams.sourceComments = 'map';
+      sassParams.sourceMap = 'sass';
+    }
+
+    sassPipe = lazypipe()
+      .pipe(h.fs.src, path.join(srcDir, '**/*.scss'))
+      .pipe($.sass, sassParams);
+
+    buildStream = buildStream
+      .pipe($.if('**/*.scss', sassPipe()));
+
+  }
+
+  // ?ruby sass apparently can't do inline source maps?
+  //
+  // so we won't remove the scss files even though node-sass puts the sourcemap
+  // info inline... or something like that
+  // buildStream = buildStream
+  //   .pipe(
+  //     $.ignore.exclude(['styles/**/*', '!styles/**/*.css'])
+  //   );
 
   // build stream is the easy part
   buildStream = buildStream.pipe($.rename(
@@ -295,9 +347,10 @@ var buildStream = function (stream) {
       filepath.dirname = filepath.dirname.replace(/^src[\/]?/, '');
     }
   ));
+
   buildStream = buildStream
-    .pipe($.rebase(h.targets.build))
-    .pipe($.plumber(plumberErrorHandler));
+    .pipe($.rebase(h.targets.build));
+    // .pipe($.plumber(plumberErrorHandler));
 
 
   /***********************
@@ -327,23 +380,14 @@ var buildStream = function (stream) {
     unitFiles
   );
   unitStream = unitStream.pipe($.filter(['!index.html', '!run.js']));
-  unitStream = unitStream.pipe($.rebase(h.targets.unit))
-    .pipe($.plumber(plumberErrorHandler));
+  unitStream = unitStream.pipe($.rebase(h.targets.unit));
+    // .pipe($.plumber(plumberErrorHandler));
 
   // buildStream = buildStream.pipe($.filter(['!styles/']));
   unitStream = unitStream
     .pipe(
       $.ignore.exclude(['**/*.scss', '**/*.png'])
     );
-
-  // for later -- a dist-style SASS
-  // filt = $.filter(['**/*.scss', '!**/_*.scss']);
-  // src = src.pipe(filt);
-  // src = src.pipe($.sass({
-  //   sourceComments: 'map',
-  //   includePaths: [bootstrapDir]
-  // })).pipe(filt.restore().pipe($.filter('!**/*.scss')));
-  //
 
   /***************
   BROWSERIFY -- use node modules in the browser.
@@ -390,18 +434,15 @@ var buildStream = function (stream) {
     .pipe($.template(buildParams.unit))
     .pipe(filt.restore());
 
-  /***************
-  JSCS
-  ****************/
-  filt = $.filter(['**/*.js', '!**/*.browserify.*']);
-  buildStream = buildStream.pipe(filt)
-    .pipe($.jscs(path.join(h.rootDir, '.jscsrc')));
-  buildStream = buildStream.pipe(filt.restore());
-  filt = $.filter(['**/*.js', '!**/*.browserify.*']);
-  unitStream = unitStream.pipe(filt)
-    .pipe($.jscs(path.join(h.rootDir, '.jscsrc')));
-  unitStream = unitStream.pipe(filt.restore());
-
+  // /***************
+  // JSCS (build)
+  // ****************/
+  // filt = $.filter(['**/*.js', '!**/*.browserify.*']);
+  // buildStream = buildStream.pipe(filt)
+  //   .pipe($.plumber(plumberErrorHandler))
+  //   .pipe($.jscs(path.join(h.rootDir, '.jscsrc')))
+  //   .pipe($.plumber.stop());
+  // buildStream = buildStream.pipe(filt.restore());
 
   buildStream = indexHtmlStream(buildStream, 'build');
   unitStream = indexHtmlStream(unitStream, 'unit');
@@ -419,17 +460,33 @@ var buildStream = function (stream) {
 
   out = out.pipe(h.fs.dest('builds'));
 
-  // out.on('error', function (err) {
-  //   $.util.log('caught error' + err);
-  // });
-
   return out;
 
 };
 
+function rubySassCheck () {
+  if (buildParams.sassCompiler === 'ruby-sass') {
+    var which = require('shelljs').which;
+
+    if (!which('sass') || !which('ruby')) {
+      $.util.log('[' + chalk.cyan('build') + '] ' +
+        chalk.yellow('ruby-sass') +
+        ' configured but ' + chalk.red('ruby and/or ruby-sass not found'));
+      $.util.log('[' + chalk.cyan('build') + '] ' +
+        chalk.yellow('falling back to ') + chalk.green('node-sass-safe') +
+        ' (which does not require sass)');
+
+      buildParams.sassCompiler = 'node-sass-safe';
+    }
+  }
+}
+
 tasks.build = {
   deps: ['clean', 'bower-files'],
   func: function () {
+
+    rubySassCheck();
+
     var srcs = h.fs.src([
       path.join(h.src, '**/*'),
       path.join(h.unitSrc, '**/*'),
@@ -483,13 +540,16 @@ tasks['unit'] = {
 };
 
 function writeWatchMenu () {
+  $.util.log('\n\n');
   $.util.log('[' + chalk.cyan('watch') + '] ' +
-      'watching for changes to the ' + chalk.magenta(h.src) + ' directory.');
+      'watching for ' + chalk.green('changes') + ' to the ' +
+      chalk.red.italic.dim('src') + ' and ' +
+      chalk.red.italic.dim('test') + ' directories');
   $.util.log('[' + chalk.cyan('watch') + '] ' +
-      '--> ' + chalk.magenta('build server') + ': ' +
+      '--> ' + chalk.magenta('BUILD server') + ' : ' +
       chalk.bold.blue('http://localhost:3000'));
   $.util.log('[' + chalk.cyan('watch') + '] ' +
-      '--> ' + chalk.magenta('unit test runner') + ': ' +
+      '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
       chalk.bold.blue('http://localhost:3001/unit-runner.html'));
 }
 
@@ -509,8 +569,17 @@ tasks['run'] = {
   }
 };
 
+watchTaskCalled = false;
+tasks['watchCalled'] = {
+  deps: [],
+  func: function (cb) {
+    watchTaskCalled = true;
+    cb();
+  }
+};
+
 tasks['watch'] = {
-  deps: ['build', 'unit'],
+  deps: ['watchCalled', 'build', 'unit'],
   func: function (cb) {
     activeServers = [];
     activeServers.push(startServer(h.targets.build, 3000));
