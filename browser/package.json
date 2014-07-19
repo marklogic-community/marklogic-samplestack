@@ -46,7 +46,7 @@
     "gulp-util": "~2.2.14",
     "gulp-watch": "~0.6.2",
     "jshint-stylish": "~0.1.5",
-    "jsonschema": "^0.4.0",
+    "jsonschema": "tdegrunt/jsonschema#d1863614528a740ac1cd0cd649cbb6ba9e648373",
     "lazypipe": "~0.2.1",
     "lodash": "~2.4.1",
     "map-stream": "~0.1.0",
