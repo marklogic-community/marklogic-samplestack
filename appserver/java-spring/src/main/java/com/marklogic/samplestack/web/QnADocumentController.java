@@ -47,6 +47,8 @@ import com.marklogic.samplestack.service.QnAService;
 @RestController
 public class QnADocumentController {
 
+	private static final String QUESTIONS_URL_PART = "/questions/";
+
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(QnADocumentController.class);
@@ -104,7 +106,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode get(@PathVariable(value = "id") String id) {
-		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), "/questions/" + id);
+		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), QUESTIONS_URL_PART + id);
 		return qnaDoc.getJson();
 	}
 
@@ -117,7 +119,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	ResponseEntity<?> delete(@PathVariable(value = "id") String id) {
-		qnaService.delete("/questions/" + id);
+		qnaService.delete(QUESTIONS_URL_PART + id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
@@ -133,7 +135,7 @@ public class QnADocumentController {
 	@ResponseStatus(HttpStatus.CREATED)
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
-		String answerId = "/questions/" + id;
+		String answerId = QUESTIONS_URL_PART + id;
 		Contributor owner = contributorService.getByUserName(
 				ClientRole.securityContextUserName());
 		QnADocument answered = qnaService.answer(owner, answerId, answer.get("text").asText());
@@ -174,8 +176,9 @@ public class QnADocumentController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode comment(@RequestBody JsonNode comment,
 			@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId;
-		QnADocument toCommentOn = qnaService.comment(ClientRole.securityContextUserName(), postId, comment.get("text").asText());
+		String postId = QUESTIONS_URL_PART + questionId;
+		Contributor commenter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toCommentOn = qnaService.comment(commenter, postId, comment.get("text").asText());
 		return toCommentOn.getJson();
 	}
 	
@@ -189,8 +192,9 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode voteUp(@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId;
-		QnADocument toVoteOn = qnaService.voteUp(ClientRole.securityContextUserName(), postId);
+		String postId = QUESTIONS_URL_PART + questionId;
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteUp(voter, postId);
 		return toVoteOn.getJson();
 	}
 	
@@ -204,8 +208,9 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode voteDown(@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId;
-		QnADocument toVoteOn = qnaService.voteDown(ClientRole.securityContextUserName(), postId);
+		String postId = QUESTIONS_URL_PART + questionId;
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteDown(voter, postId);
 		return toVoteOn.getJson();
 	}
 	
@@ -221,7 +226,8 @@ public class QnADocumentController {
 	JsonNode upVoteAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
 		String answerId = "/answers/" + answerIdPart;
-		QnADocument toVoteOn = qnaService.voteUp(ClientRole.securityContextUserName(), answerId);
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteUp(voter, answerId);
 		return toVoteOn.getJson();
 	}
 	
@@ -237,7 +243,8 @@ public class QnADocumentController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode downVoteAnswer(@PathVariable(value = "answerId") String answerIdPart) {
 		String answerId = "/answers/" + answerIdPart;
-		QnADocument toVoteOn = qnaService.voteDown(ClientRole.securityContextUserName(), answerId);
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteDown(voter, answerId);
 		return toVoteOn.getJson();
 	}
 	
@@ -254,7 +261,8 @@ public class QnADocumentController {
 	JsonNode commentAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
 		String answerId = "/answers/" + answerIdPart;
-		QnADocument toCommentOn = qnaService.comment(ClientRole.securityContextUserName(), answerId, comment.get("text").asText());
+		Contributor commenter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toCommentOn = qnaService.comment(commenter, answerId, comment.get("text").asText());
 		return toCommentOn.getJson();
 	}
 	

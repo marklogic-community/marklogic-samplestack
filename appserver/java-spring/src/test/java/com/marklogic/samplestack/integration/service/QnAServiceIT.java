@@ -139,16 +139,15 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		assertEquals("Accepted answer id is correct", firstAnswerId,
 				acceptedQuestion.getJson().get("acceptedAnswerId").asText());
-		assertTrue("The right answer has been accepted", acceptedQuestion
-				.getJson().get("answers").get(0).get("accepted").asBoolean());
+		assertTrue("The question is marked as accepted", acceptedQuestion
+				.getJson().get("accepted").asBoolean());
 
 		// accept another answer
 		acceptedQuestion = service.accept(secondAnswerId);
 		assertEquals("Accepted answer id is correct", secondAnswerId,
 				acceptedQuestion.getJson().get("acceptedAnswerId").asText());
-		assertTrue("The right answer has been accepted", acceptedQuestion
-				.getJson().get("answers").get(1).get("accepted").asBoolean());
-
+		assertTrue("The question is marked as accepted", acceptedQuestion
+				.getJson().get("accepted").asBoolean());
 	}
 
 	@Test
@@ -173,7 +172,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		int marysReputation = Utils.joeUser.getReputation();
 		
 		// joe votes his own question up, reputation +1 for joe.
-		service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
+		service.voteUp(Utils.joeUser, submitted.getId());
 		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				submitted.getId());
 		int newScore = votedOn.getJson().get("docScore").asInt();
@@ -181,20 +180,20 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				docScore + 1, newScore);
 		
 		try {
-			service.voteUp(Utils.joeUser.getUserName(), submitted.getId());
+			service.voteUp(Utils.joeUser, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
 		}
 		try {
-			service.voteDown(Utils.joeUser.getUserName(), submitted.getId());
+			service.voteDown(Utils.joeUser, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
 		}
 
 		// mary votes her own answer down, her rep should be -1
-		service.voteDown(Utils.maryUser.getUserName(), answerId);
+		service.voteDown(Utils.maryUser, answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
 		int newerScore = votedTwiceOn.getJson().get("docScore").asInt();
@@ -233,13 +232,13 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		String c2 = "Here's TWO comment on your question";
 		String c3 = "Here's ONE comment on your answer";
 
-		service.comment(Utils.joeUser.getUserName(),
+		service.comment(Utils.joeUser,
 				submitted.getId(), c1);
-		service.comment(Utils.joeUser.getUserName(),
+		service.comment(Utils.joeUser,
 				submitted.getId(), c2);
 
 		QnADocument finalDocument = service.comment(
-				Utils.joeUser.getUserName(), answerId, c3);
+				Utils.joeUser, answerId, c3);
 
 		assertEquals("Comment 1", c1, finalDocument.getJson().get("comments")
 				.get(0).get("text").asText());

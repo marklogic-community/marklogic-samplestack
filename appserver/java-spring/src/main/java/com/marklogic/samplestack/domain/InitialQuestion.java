@@ -44,8 +44,8 @@ public class InitialQuestion {
 	public String getText() {
 		return text;
 	}
-	public void setText(String body) {
-		this.text = body;
+	public void setText(String text) {
+		this.text = text;
 	}
 	public String[] getTags() {
 		return tags;
@@ -58,5 +58,14 @@ public class InitialQuestion {
 		this.tags = new String[] {};
 	}
 	
+	private SparseContributor owner;
+
+	public void setOwner(SparseContributor owner) {
+		this.owner = owner;
+	}
+	
+	public SparseContributor getOwner() {
+		return this.owner;
+	}
 	
 }

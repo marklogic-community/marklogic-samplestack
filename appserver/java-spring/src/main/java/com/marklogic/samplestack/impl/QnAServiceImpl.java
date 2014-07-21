@@ -15,6 +15,9 @@
  */
 package com.marklogic.samplestack.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -24,18 +27,22 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
+import com.marklogic.client.document.DocumentMetadataPatchBuilder.Call;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
 import com.marklogic.client.document.ServerTransform;
+import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.samplestack.domain.Answer;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SamplestackType;
@@ -58,8 +65,6 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
 
 	private static SamplestackType type = SamplestackType.QUESTIONS;
-
-	private static String DUMMY_URI = "/nodoc.json";
 
 	private static String idFromUri(String uri) {
 		return uri.replace(".json", "");
@@ -99,7 +104,6 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, documentUri));
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	/**
 	 * Uses DocumentPatchBuilder to send a change to the QnADocument JSON.
@@ -110,33 +114,27 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	 * @param answer
 	 * 			Markdown of this answer's body.
 	 */
-	public QnADocument answer(Contributor contributor, String toAnswerId, String answer) {
+	public QnADocument answer(Contributor contributor, String toAnswerId, String answerText) {
 		String documentUri = uriFromId(toAnswerId);
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 		
-		// create the new JSON text
-		ObjectNode json = mapper.createObjectNode();
-		json.put("text", answer);
-		json.put("id", "/answers/" + UUID.randomUUID().toString());
-		json.put("itemTally", 0);
-		json.putArray("comments");
+		Answer answer = new Answer();
+		answer.setText(answerText);
+		answer.setId("/answers/" + UUID.randomUUID().toString());
+		answer.setItemTally(0);
+		answer.setComments(new ArrayList<Comment>());
 		
 		// put ths sparse contributor data on this node
 		SparseContributor owner = contributor.asSparseContributor();
-		JsonNode ownerNode = mapper.convertValue(owner, JsonNode.class);
-		json.put("owner", ownerNode);
-		
+		answer.setOwner(owner);
+
 		try {
-			DocumentPatchHandle patch = patchBuilder.insertFragment("/node()/node('answers')",
-					Position.LAST_CHILD, mapper.writeValueAsString(json))
-					.build();
+			DocumentPatchHandle patch = patchBuilder.insertFragment(
+					"/node()/node('answers')", Position.LAST_CHILD,
+					mapper.writeValueAsString(answer)).build();
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
 					documentUri, patch);
-
-			// JacksonHandle handle = new JacksonHandle(json);
-			// jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-			// documentUri, handle, answerPatchTransform);
 		} catch (MarkLogicIOException e) {
 			throw new SamplestackIOException(e);
 		} catch (JsonProcessingException e) {
@@ -146,17 +144,77 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
+	/**
+	 * Use DocumentPatchBuilder to accept an answer.
+	 * Involves updating /acceptedAnswerId and the accepted flag of given answer.
+	 */
 	public QnADocument accept(String answerId) {
-		ServerTransform acceptPatchTransform = new ServerTransform(
-				"accept-patch");
-		acceptPatchTransform.put("answerId", answerId);
+		// TODO optimize - remove this database call (or use for etag)
+		// perhaps v document uri values call...
+		QnADocument qnaDocument = getByPostId(answerId);
+		
+		String qnaDocumentId = qnaDocument.getId();
+		
+		String documentUri = uriFromId(qnaDocumentId);
+		JsonNode previousAnsweredId = qnaDocument.getJson().path("acceptedAnswerId");
+		
+		logger.debug("Accepting " + answerId + " at documentURI" + documentUri);
+		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
-		// TODO PatchBuilder
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-				DUMMY_URI, new StringHandle(""), acceptPatchTransform);
-		// NOTE document URI is thrown away in this workaround method
+		ObjectNode acceptNode = mapper.createObjectNode();
+		acceptNode.put("acceptedAnswerId", answerId);
+		ObjectNode acceptFlagNode = mapper.createObjectNode();
+		acceptFlagNode.put("accepted", true);
 
-		return getByPostId(answerId);
+		Transaction transaction = operations
+				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+
+		try {
+			patchBuilder
+					.replaceInsertFragment("acceptedAnswerId", "/node()",
+							Position.LAST_CHILD,
+							mapper.writeValueAsString(acceptNode));
+			patchBuilder.replaceInsertFragment("accepted", "/node()", Position.LAST_CHILD, acceptFlagNode);
+			patchBuilder.addPermission("samplestack-guest", Capability.READ);
+			DocumentPatchHandle patch = patchBuilder.build();
+			logger.debug(patch.toString());
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
+					documentUri, patch, transaction);
+		} catch (MarkLogicIOException e) {
+			throw new SamplestackIOException(e);
+		} catch (JsonProcessingException e) {
+			throw new SamplestackIOException(e);
+		}
+		
+
+		// reputation handling
+		ArrayNode answers = (ArrayNode) qnaDocument.getJson().get("answers");
+		Iterator<JsonNode> iterator = answers.iterator();
+		boolean done = false;
+		while (iterator.hasNext() || done) {
+			JsonNode answer = iterator.next();
+			if (! previousAnsweredId.isMissingNode() 
+					&& answer.get("id").asText().equals(previousAnsweredId)) {
+				String toLowerReputationUserName = answer.get("owner").get("userName").asText();
+				Contributor toLowerReputation = contributorService.getByUserName(toLowerReputationUserName);
+				toLowerReputation.setReputation(toLowerReputation.getReputation() - 1);
+				contributorService.store(toLowerReputation, transaction);
+			}
+			if (answer.get("id").asText().equals(answerId)) {
+				String toRaiseReputationUserName = answer.get("owner").get("userName").asText();
+				Contributor toLowerReputation = contributorService.getByUserName(toRaiseReputationUserName);
+				toLowerReputation.setReputation(toLowerReputation.getReputation() + 1);
+				contributorService.store(toLowerReputation, transaction);
+		
+			}
+		}
+		
+
+		transaction.commit();
+		QnADocument acceptedDocument = getByPostId(answerId);
+		
+		return acceptedDocument;
 	}
 
 	@Override
@@ -180,35 +238,46 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
-	public QnADocument voteUp(String userName, String postId) {
-		vote(userName, postId, 1);
+	public QnADocument voteUp(Contributor voter, String postId) {
+		vote(voter, postId, 1);
 		return getByPostId(postId);
 	}
 
-	private void vote(String userName, String postId, int delta) {
-		Contributor contributor = contributorService.getByUserName(userName);
-		if (contributor.hasVotedOn(postId)) {
+	private void vote(Contributor voter, String postId, int delta) {
+		if (voter.hasVotedOn(postId)) {
 			throw new SampleStackDataIntegrityException(
 					"Contributor cannot vote on the same post twice");
 		}
+		QnADocument qnaDocument = getByPostId(postId);
+		String qnaDocumentId = qnaDocument.getId();
+		String documentUri = uriFromId(qnaDocumentId);
+		
 		Transaction transaction = operations
 				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
 		try {
+			logger.debug("Voting on " + postId + " at documentURI" + documentUri);
+			DocumentPatchBuilder patchBuilder = jsonDocumentManager(
+					ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
+			
+			try {
+				Call call = patchBuilder.call().add(delta);
+				patchBuilder.replaceApply("/node()/docScore", call);
+		
+				patchBuilder.replaceApply("//object-node()[id=\""+postId+"\"]/itemTally", call);
+				DocumentPatchHandle patch = patchBuilder.build();
 
-			ServerTransform votePatchTransform = new ServerTransform(
-					"vote-patch");
-			votePatchTransform.put("postId", postId);
-			votePatchTransform.put("delta", Integer.toString(delta));
-			// TODO PatchBuilder
-			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-					DUMMY_URI, new StringHandle(""), votePatchTransform,
-					transaction);
+				logger.debug(patch.toString());
+				jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
+						documentUri, patch, transaction);
+			} catch (MarkLogicIOException e) {
+				throw new SamplestackIOException(e);
+			}
 
 			// update the contributor record with vote
-			contributor.getVotes().add(postId);
-			contributor.setReputation(contributor.getReputation() + delta);
-			contributorService.write(contributor, transaction);
+			voter.getVotes().add(postId);
+			voter.setReputation(voter.getReputation() + delta);
+			contributorService.store(voter, transaction);
 
 			transaction.commit();
 		} catch (SampleStackDataIntegrityException ex) {
@@ -218,8 +287,8 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
-	public QnADocument voteDown(String userName, String postId) {
-		vote(userName, postId, -1);
+	public QnADocument voteDown(Contributor voter, String postId) {
+		vote(voter, postId, -1);
 		return getByPostId(postId);
 	}
 
@@ -230,18 +299,39 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
-	public QnADocument comment(String userName, String postId, String text) {
-		// TODO redo with patch.
-		ServerTransform acceptPatchTransform = new ServerTransform(
-				"comment-patch");
-		acceptPatchTransform.put("postId", postId);
-		acceptPatchTransform.put("text", text);
+	public QnADocument comment(Contributor contributor, String postId, String text) {
+		
+		// TODO speed up with values call
+		QnADocument qnaDocument = getByPostId(postId);
+		String qnaDocumentId = qnaDocument.getId();
+		String documentUri = uriFromId(qnaDocumentId);
 
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-				DUMMY_URI, new StringHandle(""), acceptPatchTransform);
-		// NOTE document URI is thrown away in this workaround method
+		
+		Comment comment = new Comment();
+		comment.setText(text);
+		comment.setCreationDate(new Date());
+		comment.setOwner(contributor.asSparseContributor());
+		
+		logger.debug("Commenting on " + postId + " at documentURI" + documentUri);
+		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
+		try {
+			patchBuilder
+					.insertFragment("//object-node()[id=\""+postId+"\"]/array-node('comments')",
+							Position.LAST_CHILD,
+							mapper.writeValueAsString(comment));
+			DocumentPatchHandle patch = patchBuilder.build();
+			logger.debug(patch.toString());
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
+					documentUri, patch);
+		} catch (MarkLogicIOException e) {
+			throw new SamplestackIOException(e);
+		} catch (JsonProcessingException e) {
+			throw new SamplestackIOException(e);
+		}
 		return getByPostId(postId);
+		
 	}
 
 	@Override

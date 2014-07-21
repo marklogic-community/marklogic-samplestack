@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -141,6 +142,8 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 		contribManager.delete(TEST_URI);
 	}
 
+	// TODO to be removed -- refactored away from this patch.
+	@Ignore
 	@Test
 	public void acceptPatchTransform() {
 		// make sure there's no question
@@ -172,6 +175,8 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 	}
 
+	// TODO to be removed -- refactored away from this patch.
+	@Ignore	
 	@Test
 	public void commentPatchTransform() {
 		// make sure there's no question
@@ -217,6 +222,8 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 	}
 
+	// TODO to be removed -- refactored away from this patch.
+	@Ignore
 	@Test
 	public void votePatchTransform() {
 		operations.delete(ClientRole.SAMPLESTACK_CONTRIBUTOR, TEST_URI);

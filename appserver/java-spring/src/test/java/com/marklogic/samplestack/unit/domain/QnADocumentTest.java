@@ -46,4 +46,6 @@ public class QnADocumentTest {
 		assertEquals("x", doc.getId());
 		assertEquals("charles", doc.getOwnerUserName());
 	}
+	
+	
 }

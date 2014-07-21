@@ -145,6 +145,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		return repository.search(query, start, searchHandle, transaction);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public PojoQueryBuilder getQueryBuilder() {
 		return repository.getQueryBuilder();
 	}
@@ -201,9 +202,9 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		logger.debug("Storing contributor id " + contributor.getId());
 		Contributor cachedContributor = getByUserName(contributor.getUserName());
 		if (cachedContributor != null)
-			logger.debug("cached" + cachedContributor.getId());
+			logger.debug("cached contributor" + cachedContributor.getId());
 		if (contributor != null)
-			logger.debug("cont" + contributor.getId());
+			logger.debug("contributor " + contributor.getId());
 
 		if (cachedContributor != null
 				&& !(cachedContributor.getId().equals(contributor.getId()))) {

@@ -89,12 +89,12 @@ public class MockQnAService implements QnAService {
 	}
 
 	@Override
-	public QnADocument voteUp(String userName, String postId) {
+	public QnADocument voteUp(Contributor voter, String postId) {
 		return answered;
 	}
 
 	@Override
-	public QnADocument voteDown(String userName, String postId) {
+	public QnADocument voteDown(Contributor voter, String postId) {
 		return asked;
 
 	}
@@ -115,7 +115,7 @@ public class MockQnAService implements QnAService {
 	}
 
 	@Override
-	public QnADocument comment(String userName, String postId, String text) {
+	public QnADocument comment(Contributor commenter, String postId, String text) {
 		return asked;
 	}
 

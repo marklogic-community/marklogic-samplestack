@@ -84,24 +84,24 @@ public interface QnAService {
 	/**
 	 * Adds a vote-up score to a particular question or answer.
 	 * 
-	 * @param userName
+	 * @param voter
 	 *            The contributor who is voting on the question or answer.
 	 * @param postId
 	 *            the id of the question or answer to vote on.
 	 * @return the modified QnADocument, with new score
 	 */
-	public QnADocument voteUp(String userName, String postId);
+	public QnADocument voteUp(Contributor voter, String postId);
 
 	/**
 	 * Adds a vote-down score to a particular question or answer.
 	 * 
-	 * @param userName
+	 * @param voter
 	 *            The contributor who is voting on the question or answer.
 	 * @param postId
 	 *            the id of the question or answer to vote on.
 	 * @return the modified QnADocument, with new score
 	 */
-	public QnADocument voteDown(String userName, String postId);
+	public QnADocument voteDown(Contributor voter, String postId);
 
 	/**
 	 * Marks a particular answer as accepted. Note -- requirement that only
@@ -135,15 +135,15 @@ public interface QnAService {
 	/**
 	 * Adds a comment to a given post Id.
 	 * 
-	 * @param userName
-	 *            The owner of the comment
+	 * @param contributor
+	 * 			  The author of the comment.
 	 * @param postId
 	 *            The target post id (question or answer) for the comment.
 	 * @param text
 	 *            the text of the comment
 	 * @return The updated QnADocument
 	 */
-	public QnADocument comment(String userName, String postId, String text);
+	public QnADocument comment(Contributor contributor, String postId, String text);
 
 	/**
 	 * Removes all the QnA documents from the database. Convenient for testing.

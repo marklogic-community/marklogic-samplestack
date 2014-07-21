@@ -155,7 +155,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				"Question from contributor",
 				askedQuestion.getJson().get("title").asText());
 		
-		String getQuestion = this.mockMvc
+		this.mockMvc
 		.perform(
 				get(askedQuestion.getId())
 						.with(csrf())
