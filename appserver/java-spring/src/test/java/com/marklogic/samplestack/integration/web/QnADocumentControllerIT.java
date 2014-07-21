@@ -29,6 +29,14 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
                 super.testAnonymousCanSearch();
 	}
 
+
+	@Override
+    @Test
+	public void testLoggedInCanSearch() throws UnsupportedEncodingException,
+			Exception {
+                super.testLoggedInCanSearch();
+	}
+	
 	@Override
 	@Test
 	public void testAnonymousCannotAsk() throws JsonProcessingException,

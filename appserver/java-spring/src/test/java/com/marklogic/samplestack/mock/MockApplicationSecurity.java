@@ -34,11 +34,16 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**")
-				.permitAll().and().authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/search").permitAll().and()
-				.authorizeRequests().antMatchers("/questions/**", "/contributors/**").authenticated().and()
+		http
+			.authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**").permitAll()
+			.and()
+			.authorizeRequests()
+				.antMatchers(HttpMethod.POST, "/search").permitAll()
+			.and()
+				.authorizeRequests().antMatchers("/questions/**", "/contributors/**")
+				.authenticated()
+			.and()
 				.authorizeRequests().anyRequest().denyAll();
 		http.formLogin()
 		        .failureHandler(failureHandler)
