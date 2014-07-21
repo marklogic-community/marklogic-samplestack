@@ -45,6 +45,19 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		logger.debug(questionResponse);
 		assertTrue("response from mock controller question is search response",
 				questionResponse.contains("\"snippet-format\":\"raw\""));
+		
+		
+		questionResponse = this.mockMvc
+				.perform(post("/search").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn().getResponse()
+				.getContentAsString();
+		logger.debug(questionResponse);
+		assertTrue("response from mock controller question is search response",
+				questionResponse.contains("\"snippet-format\":\"raw\""));
+		
+		
+		
+		
 	}
 
 	/* (non-Javadoc)

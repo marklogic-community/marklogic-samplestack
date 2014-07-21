@@ -96,15 +96,10 @@ public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 		askQuestion();
 
-		// add the answer
-		ObjectNode input = mapper.createObjectNode();
-		input.put("text", "this is the text of my answer");
+		// add the answer -- use a service though as this refactor is done
+		
+		qnaService.answer( Utils.joeUser.getUserName(), TEST_URI.replace(".json", ""), "this is the text of my answer");
 
-		ServerTransform answerTransform = new ServerTransform("answer-patch");
-		answerTransform.add("userName", Utils.joeUser.getUserName());
-
-		contribManager.write(TEST_URI, new JacksonHandle(input),
-				answerTransform);
 
 	}
 
