@@ -22,8 +22,8 @@
     "angular-marked": "~0.0.11",
     "momentjs": "~2.6.0",
     "marked": "~0.3.2",
-    "angular-ui-router": "~0.2.10",
-    "angular-mocks": "~1.2.21"
+    "angular-mocks": "~1.2.21",
+    "angular-ui-router": "stu-salsbury/ui-router#2.0.10-SNAPSHOT"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
@@ -72,6 +72,7 @@
     }
   },
   "resolutions": {
-    "angular": "1.2.21"
+    "angular": "1.2.21",
+    "angular-ui-router": "2.0.10-SNAPSHOT"
   }
 }
