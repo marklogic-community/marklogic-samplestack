@@ -60,8 +60,6 @@ define(['app/module'], function (module) {
         }
     );
 
-    // $state.go('home');
-
   };
 
   module.provider('appRouting', [
@@ -103,10 +101,13 @@ define(['app/module'], function (module) {
           attachEvents($rootScope);
           return {
 
-            // TODO: all of the runtime functionality of the aooRouting service
-
-            go: function (toStateShort) {
-              $state.go('root.layout.' + toStateShort);
+            // easy way to get to navigable states without specifying
+            // root.layout each time.
+            go: function () {
+              // first arg is statename without root.layout, so prepend it
+              var args = Array.prototype.slice.call(arguments, 0);
+              args[0] = 'root.layout.' + args[0];
+              $state.go.apply(null, args);
             }
 
           };
