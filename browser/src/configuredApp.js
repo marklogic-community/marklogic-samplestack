@@ -27,8 +27,6 @@ define([
 
   ]);
 
-  appModule.run(['appRouting', function (appRouting) {}]);
-
   return appModule;
 
 });

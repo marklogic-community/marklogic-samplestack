@@ -8,8 +8,12 @@ define(
       name: 'root',
       abstract: true,
       url: '',
-      controller: 'rootCtlr',
-      templateUrl: '/app/states/_root.html',
+      views: {
+        '': {
+          controller: 'rootCtlr',
+          templateUrl: '/app/states/_root.html'
+        }
+      },
       children: [
         {
           name: 'layout',

@@ -66,17 +66,19 @@ entering running state.
 See app/services/appRouting.js
  */
 
-var appGo;
+var configuredApp;
 /* jshint ignore:start */
 <% if(e2eMock) { %>
-appGo = '/mockedAppGo.js';
+configuredApp = '/mockedApp.js';
 <% } else { %>
-appGo = '/appGo.js';
+configuredApp = '/configuredApp.js';
 <% } %>
 /* jshint ignore:end */
 
-require([appGo], function (appModule) {
+require([configuredApp], function (appModule) {
   var htmlEl = angular.element(window.document.childNodes[1]);
+
+  appModule.run(['appRouting', function (appRouting) {}]);
 
   angular.bootstrap(
     htmlEl,

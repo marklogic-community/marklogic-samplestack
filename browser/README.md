@@ -67,6 +67,16 @@ unit tests within the browser.  Unit tests are run upon build and upon changes
 during watch mode using PhantomJS and results are reported in the console.
 It may also be useful to run the tests from within the browser to debug.
 
+#### alternative `builds` directory docs -- todo: clean up
+
+**`del` package is wiping out the readmen that was supposed to live in the
+builds directory**
+
+> Builds are placed in subdirectories here
+
+* `build`: an unminified build. Eventually, this build will not be configured to hit a REST server, instead to use mocks.  Suitable for debugging the UI and evaluating its appearance.  By design, not to be used for evaluation of end-to-end functionality.  Typically accessible at [http://localhost:3000](http://localhost:3000)
+* `unit-tester`: an uniminified build that is configured to execute unit tests, either through the command line or via the browser (via http://*&lt; domain:port &gt;*/unit-runner.html -- typically [http://localhost:3001/unit-runner.html](http://localhost:3001/unit-runner.html)).
+
 ## License
 
 Copyright © 2014 MarkLogic
@@ -82,4 +92,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
