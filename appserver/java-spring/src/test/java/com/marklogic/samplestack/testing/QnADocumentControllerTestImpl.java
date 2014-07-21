@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
-
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
@@ -48,7 +47,26 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		
 		
 		questionResponse = this.mockMvc
-				.perform(post("/search").accept(MediaType.APPLICATION_JSON))
+				.perform(post("/search").with(csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"search\":{\"qtext\":\"true\"}}")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn().getResponse()
+				.getContentAsString();
+		logger.debug(questionResponse);
+		assertTrue("response from mock controller question is search response",
+				questionResponse.contains("\"snippet-format\":\"raw\""));
+			
+	}
+	
+
+	public void testLoggedInCanSearch() throws UnsupportedEncodingException, Exception {
+		login("joeUser@marklogic.com", "joesPassword");
+
+		String questionResponse = this.mockMvc
+				.perform(get("/questions")
+				.session((MockHttpSession) session)
+				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
@@ -56,9 +74,21 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				questionResponse.contains("\"snippet-format\":\"raw\""));
 		
 		
-		
-		
+		questionResponse = this.mockMvc
+				.perform(post("/search")
+				.with(csrf())
+				.session((MockHttpSession) session)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"search\":{\"qtext\":\"true\"}}")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn().getResponse()
+				.getContentAsString();
+		logger.debug(questionResponse);
+		assertTrue("response from mock controller question is search response",
+				questionResponse.contains("\"snippet-format\":\"raw\""));
+			
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.marklogic.samplestack.unit.web.QnAControllerTests#testAnonymousCannotAsk()
