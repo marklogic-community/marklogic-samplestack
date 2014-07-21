@@ -39,25 +39,27 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AccessDeniedHandler samplestackAccessDeniedHandler;
 	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.addFilterAfter(new SamplestackSecurityFilters(), CsrfFilter.class);
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**")
-				.permitAll().and().authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/search").permitAll().and()
-				.authorizeRequests()
-				.antMatchers("/questions/**", "/contributors/**")
-				.authenticated().and().authorizeRequests().anyRequest()
-				.denyAll();
-		http.formLogin().failureHandler(failureHandler)
+		http
+			.authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**").permitAll()
+			.and()
+			.authorizeRequests()
+				.antMatchers(HttpMethod.POST, "/search").permitAll()
+			.and()
+				.authorizeRequests().antMatchers("/questions/**", "/contributors/**")
+				.authenticated()
+			.and()
+				.authorizeRequests().anyRequest().denyAll();
+		http.formLogin()
+		        .failureHandler(failureHandler)
 				.successHandler(successHandler)
-				.permitAll().and().logout()
-				.permitAll();
+				.permitAll().and().logout().permitAll();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
-				.accessDeniedHandler(samplestackAccessDeniedHandler);
-		//http.csrf().disable();
+		.accessDeniedHandler(samplestackAccessDeniedHandler);
+		
 	}
 
 	@Override
