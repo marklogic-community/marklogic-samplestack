@@ -7,9 +7,10 @@ import org.gradle.api.tasks.*
 
 public class MarkLogicInitTask extends MarkLogicTask {
 
-    def roles = "../../database/security/roles"
-    def users = "../../database/security/users"
-    def privileges = "../../database/security/privileges"
+    def roles = "../../database/security/roles".replaceAll("/", java.io.File.separator)
+    def users = "../../database/security/users".replaceAll("/", java.io.File.separator)
+    def privileges = "../../database/security/privileges".replaceAll("/", java.io.File.separator)
+
 
 
     @TaskAction
@@ -69,7 +70,14 @@ public class MarkLogicInitTask extends MarkLogicTask {
             params.body = jsonObject.text
             client.post(params)
         } catch (ex) {
-            logger.error("Error creating security object.  Payload: "+jsonObject.text+" .  Skipping...")
+          if (ex.response) 
+            { 
+                logger.warn("" + ex.response.data)
+            }
+          else 
+            { 
+                logger.warn("No response")
+            }
         }
     }
 
