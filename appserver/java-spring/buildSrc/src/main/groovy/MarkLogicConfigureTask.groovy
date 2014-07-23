@@ -20,47 +20,60 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     @Input
     def inputProperty
 
+    def sep = java.io.File.separator
     def database = "database"
-    def dbProperties = database + "/database-properties.json"
-    def transforms = database + "/transforms"
-    def restExtensions = database + "/ext"
-    def services = database + "/services"
-    def options = database + "/options"
-    def restProperties = database + "/rest-properties.json"
+    def dbProperties = database + sep + "database-properties.json"
+    def transforms = database + sep + "transforms"
+    def restExtensions = database + sep + "ext"
+    def services = database + sep +"services"
+    def options = database + sep + "options"
+    def restProperties = database + sep + "rest-properties.json"
     def file = null
 
     
     @TaskAction
     void configureREST(IncrementalTaskInputs inputs) {
         logger.info(inputs.incremental ? "CHANGED inputs considered out of date" : "ALL inputs considered out of date")
+        logger.debug("File Separator: " + sep)
         inputs.outOfDate { change -> 
-            logger.warn("out of date: ${change.file.name}")
+            logger.debug("out of date: ${change.file.name}")
             def targetFile = new File(outputDir, change.file.name)
             targetFile.text = "done"
-            logger.warn("Processing file " + change.file.path)
+            logger.debug("Processing file " + change.file.path)
             def changeFile = change.file
             if (changeFile.path =~ /\/\./) {
-                logger.error("Skipping hidden file")
+                logger.info("Skipping hidden file " + change.file.name)
+            }
+            else if (changeFile.path =~ /seed-data/) {
+                logger.info("Skipping seed data") 
             }
             else if (changeFile.path.contains(transforms)) {
+                logger.warn("Putting transform " + change.file.name)
                 putTransform(changeFile)
             }
             else if (changeFile.path.contains(restExtensions)) {
+                logger.warn("Putting library extension " + change.file.name)
                 putExtension(changeFile)
             }
             else if (changeFile.path.contains(services)) {
+                logger.warn("Putting service extension " + change.file.name)
                 putServiceExtension(changeFile)
             }
             else if (changeFile.path.contains(options)) {
+                logger.warn("Putting search options " + change.file.name)
                 putOptions(changeFile)
             }
             else if (changeFile.path.contains(dbProperties)) {
+                logger.warn("Putting database configuration " + change.file.name)
                 putDatabaseConfig(changeFile)
             }
             else if (changeFile.path.contains(restProperties)) {
                 putRESTProperties(changeFile)
+            } 
+            else if (changeFile.path.contains("security")) {
+                logger.info("Skipping security configuration" + change.file.name)
             } else {
-                logger.info("No handler for file " + change.file.path)
+                logger.warn("No handler for file " + change.file.path)
             }
         }
 
