@@ -1,15 +1,16 @@
 import groovy.json.*
 import groovyx.net.http.RESTClient
 import org.gradle.api.DefaultTask
+import org.gradle.api.Project
 import org.gradle.api.tasks.*
 
 
 
 public class MarkLogicInitTask extends MarkLogicTask {
 
-    def roles = "../../database/security/roles".replaceAll("/", java.io.File.separator)
-    def users = "../../database/security/users".replaceAll("/", java.io.File.separator)
-    def privileges = "../../database/security/privileges".replaceAll("/", java.io.File.separator)
+    def roles
+    def users
+    def privileges
 
 
 
@@ -107,12 +108,10 @@ public class MarkLogicInitTask extends MarkLogicTask {
     }
 
     void createUsers() {
-        def rolesDirectory = new File(roles)
-        rolesDirectory.listFiles().each { createRole(it) }
-        def privilegesDirectory = new File(privileges)
-        privilegesDirectory.listFiles().each { assignPrivileges(it) }
-        def usersDirectory = new File(users)
-        usersDirectory.listFiles().each { createUser(it) }
+        logger.warn("Creating users, roles, and privileges if absent...")
+        roles.listFiles().each { createRole(it) }
+        privileges.listFiles().each { assignPrivileges(it) }
+        users.listFiles().each { createUser(it) }
     }
 
     void restBoot() {
