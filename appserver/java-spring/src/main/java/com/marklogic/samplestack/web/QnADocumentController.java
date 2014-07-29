@@ -182,8 +182,14 @@ public class QnADocumentController {
 	
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonNode search(@RequestBody JsonNode structuredQuery,
+	JsonNode search(@RequestBody ObjectNode structuredQuery,
 			@RequestParam(defaultValue = "1", required = false) long start) {
+
+		JsonNode postedStartNode = structuredQuery.get("start");
+		if (postedStartNode != null) {
+			start = postedStartNode.asLong();
+			structuredQuery.remove("start");
+		}
 		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
 	}
 
