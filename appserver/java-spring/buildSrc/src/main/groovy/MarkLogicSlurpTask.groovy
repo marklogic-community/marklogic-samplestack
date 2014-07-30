@@ -43,7 +43,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
 include '**/*.nt'}
         jsonFiles.each { 
             def pattern = Pattern.compile(".*" + "seed-data")
-            def docUri = it.path.replaceAll(pattern, "").replaceAll("\\", "/")
+            def docUri = it.path.replaceAll(pattern, "").replaceAll("\\\\", "/")
             if (it.path.contains("dbpedia")) {
                 logger.info("PUT RDF data to graph " + docUri)
                 putRdf(client, docUri, it.text)
