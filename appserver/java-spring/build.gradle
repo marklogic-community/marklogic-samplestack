@@ -20,6 +20,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+[compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8' 
+
 /* build.gradle for samplestack, java-spring implementation */
 
 

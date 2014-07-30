@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
@@ -32,6 +33,9 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AccessDeniedHandler samplestackAccessDeniedHandler;
 	
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -48,7 +52,10 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 		        .failureHandler(failureHandler)
 				.successHandler(successHandler)
-				.permitAll().and().logout().permitAll();
+				.permitAll().and()
+			.logout()
+				.logoutSuccessHandler(logoutSuccessHandler)
+				.permitAll();
 		http.csrf().disable();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 		.accessDeniedHandler(samplestackAccessDeniedHandler);

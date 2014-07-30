@@ -11,6 +11,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	private AuthenticationFailureHandler failureHandler;
 
 	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
+	
+	@Autowired
 	private AuthenticationEntryPoint entryPoint;
 
 	@Autowired
@@ -56,7 +60,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 		        .failureHandler(failureHandler)
 				.successHandler(successHandler)
-				.permitAll().and().logout().permitAll();
+				.permitAll().and()
+			.logout()
+				.logoutSuccessHandler(logoutSuccessHandler)
+				.permitAll();
 		http.csrf().disable();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 		.accessDeniedHandler(samplestackAccessDeniedHandler);
