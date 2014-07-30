@@ -1,4 +1,4 @@
-# samplestack-java
+# samplestack, Java-Spring Appserver
 
 The implementation of samplestack that runs using 
 
@@ -11,12 +11,16 @@ The implementation of samplestack that runs using
 
 Note that this readme is accurate, but there are pending changes to improve the experience for EA-2.
 
-*To build and run:*
+*To build and run in one step:*
+
+* ./gradlew appserver    Runs assemble, dbLoad, and bootrun
+
+*To build the app*
 
 * `./gradlew assemble`   This command bootstraps the middle tier and builds the Java project
 * `./gradlew dbLoad`     This command loads some sample data
 * `./gradlew bootrun`       This command runs the middle tier and MarkLogic services
-* [ browser instructions ]
+* See the sibling project in /browser for instructions on running the browser application
 
 *To begin developing*
 
@@ -24,19 +28,17 @@ Note that this readme is accurate, but there are pending changes to improve the 
 
 *To use with Eclipse*
 
-See the eclipse-integration-gradle project of STS 
-
-https://github.com/spring-projects/eclipse-integration-gradle/
-
+See project wiki http://github.com/marklogic/samplestack-marklogic/wiki
 
 ### Endpoints
 
+* GET /session
 * POST /login
 * GET /logout
  
 * GET /questions  Get a paginated list of questions (snippet form)
 * GET /questions?q=term&start=20
-* POST /search?start=10
+* POST /search
 
 * POST /questions
 * GET /questions/{id}

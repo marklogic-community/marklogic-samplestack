@@ -13,4 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
+/**
+ * Contains the domain model for the samplestack application.
+ * Primarily this means Contributor and QnADocument.
+ */
 package com.marklogic.samplestack.domain;
