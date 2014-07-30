@@ -12,27 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package com.marklogic.samplestack.exception;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import com.marklogic.samplestack.exception.SamplestackException;
-
-@SuppressWarnings("serial")
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+*/
 /**
- * Error class for wrapping integrity violation exceptions
+ * Top-level package for the Java Samplestack Application.
  */
-public class SampleStackDataIntegrityException extends SamplestackException {
-
-	public SampleStackDataIntegrityException(Exception e) {
-		super(e);
-	}
-
-	public SampleStackDataIntegrityException(String message) {
-		super(message);
-	}
-
-}
+package com.marklogic.samplestack;

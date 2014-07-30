@@ -22,7 +22,14 @@ apply plugin: 'spring-boot'
 
 [compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8' 
 
-/* build.gradle for samplestack, java-spring implementation */
+/*
+ * appserver
+ * assembles the project, loads sample data and starts the appserver on port 8090
+ */
+task appserver <<
+{
+   println "Bootstrapping, seeding and starting Samplestack appserver"
+}
 
 
 /*
@@ -88,6 +95,11 @@ task props(type: Copy) {
     }
     into 'src/main/resources'
 }
+
+/**
+ * appserver dependency
+ */
+appserver.dependsOn(clean, assemble, dbLoad, bootRun)
 
 
 //TODO load a bigger dataset from remote server
