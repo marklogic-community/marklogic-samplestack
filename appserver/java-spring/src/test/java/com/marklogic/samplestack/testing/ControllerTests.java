@@ -90,7 +90,9 @@ public class ControllerTests {
 	}
 
 	protected void logout() throws Exception {
-		this.session = this.mockMvc.perform(get("/logout")).andReturn()
+		this.session = this.mockMvc.perform(get("/logout"))
+				.andExpect(status().isOk())
+				.andReturn()
 				.getRequest().getSession();
 	}
 
