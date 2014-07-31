@@ -17,11 +17,12 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
         params.path = "/v1/documents"
         params.queryString = "uri="+uri
         params.contentType = "application/json"
+        logger.info("POSTING JSON "+new String(jsonObject.getBytes("UTF-8")))
         // check accepted status for questions
         if (jsonObject.contains("acceptedAnswerId")) {
             params.queryString += "&perm:samplestack-guest=read"
         }
-		params.body = jsonObject
+		params.body = new String(jsonObject.getBytes("UTF-8"))
         client.put(params)
     }
 
