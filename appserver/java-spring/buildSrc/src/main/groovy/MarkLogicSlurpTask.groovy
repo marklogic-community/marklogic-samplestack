@@ -33,7 +33,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
         params.path = "/v1/graphs"
         params.queryString = "graph="+uri
         params.contentType = "application/n-triples"
-		params.body = rdftriples
+		params.body = new String(rdftriples.getBytes("UTF-8"))
         client.put(params)
     }
 
