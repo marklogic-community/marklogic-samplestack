@@ -1,0 +1,26 @@
+<span class="ss-account-dropdown dropdown">
+  <a href="" class="dropdown-toggle ss-user-info-display-name"
+  >{{store.session.userInfo.displayName}}</a>
+  <ul class="dropdown-menu ss-account-dropdown">
+    <li>
+      <div class="">
+        <strong>About Me:</strong>
+        <span class="ss-user-info-about-me"
+        >{{store.session.userInfo.aboutMe}}</span>
+      </div>
+      <div>
+        <strong>Website:</strong>
+        <a
+          class="ss-user-info-website-url"
+          href="{{store.session.websiteUrl}}"
+          target="_blank"
+        >{{store.session.userInfo.websiteUrl}}</a>
+      </dii>
+      <div>
+        <button ng-click="logout()">
+          Logout
+        </button>
+      </div>
+    </li>
+  </ul>
+</span>

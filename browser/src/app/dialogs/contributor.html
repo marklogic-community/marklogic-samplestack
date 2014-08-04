@@ -1,0 +1,26 @@
+<section class="ss-dialog ss-dialog-user">
+
+  <header>
+    <button type="button" ng-click="cancel()">&times;</button>
+    <h4>Locally-created account details</h4>
+  </header>
+
+  <div ng-if="contributor">
+    <div>
+      <label>Display Name:&nbsp;</label>
+      <span class="ss-contributor-display-name"
+      >{{contributor.displayName}}</span>
+    </div>
+    <div><label>Account Type:&nbsp;</label>Contributor</div>
+    <div><label>Date Created:&nbsp;</label>(we don't have this data)</div>
+  </div>
+
+  <div ng-if="!contributor">
+    <div class="has-error">Contributor data not found.</div>
+  </div>
+
+  <footer>
+    <button ng-click="cancel()">OK</button>
+  </footer>
+
+</section>
