@@ -2,8 +2,8 @@ module.exports = function () {
   this.World = World;
 
   this.Then(
-    /search criteria is empty/,
-    function(callback) {
+    /text criteria is empty/,
+    function(next) {
       callback.pending();
     }
   );

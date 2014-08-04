@@ -4,6 +4,7 @@
   "globals": {
     "browser": false,
     "By": false,
+    "by": false,
     "element": false,
     "expect": false,
     "World": false,

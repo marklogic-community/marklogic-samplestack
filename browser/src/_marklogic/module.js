@@ -18,8 +18,15 @@ define(
     // build parametwer (see /buildParams.json).
     //
     // TODO: deal with buildParams.json (use such a thing?).
-    //
-    return angular.module('marklogic.sample', deps);
+
+    /**
+     * @ngdoc module
+     * @name _marklogic
+     * @description
+     * The `marklogic` module contains sample code that you might want
+     * to use in your own Marklogic-based application development projects.
+     */
+    return angular.module('_marklogic', deps);
   }
 
 );

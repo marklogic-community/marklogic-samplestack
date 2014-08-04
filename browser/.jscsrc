@@ -44,5 +44,17 @@
     "checkRedundantParams": true,
     "requireParamTypes": true
   },
-  "maximumLineLength": 1000
+  "maximumLineLength": 1000,
+  "additionalRules": [
+      "node_modules/jscs-jsdoc/lib/rules/*.js"
+  ],
+  "jsDoc": {
+    "checkParamNames": true,
+    "checkRedundantParams": true,
+    "requireParamTypes": true,
+    "checkReturnTypes": true,
+    "checkRedundantReturns": true,
+    "requireReturnTypes": true,
+    "checkTypes": true
+  }
 }

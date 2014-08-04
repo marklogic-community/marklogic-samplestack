@@ -23,10 +23,12 @@
     <script>
       mocha.setup('bdd');
       var should = chai.should();
+      var expect = chai.expect;
+      var assert = chai.assert;
     </script>
 
     <script
-      data-main="unit-runner.js"
+      data-main="unit-runner.unit.js"
       src="deps/requirejs/require.js"
     ></script>
 

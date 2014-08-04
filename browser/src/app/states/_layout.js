@@ -14,7 +14,7 @@ define(['app/module'], function (module) {
     '$scope', 'appRouting',
     function ($scope, appRouting) {
       $scope.ask = function () {
-        appRouting.go('ask');
+        appRouting.go('root.layout.ask');
       };
     }
 

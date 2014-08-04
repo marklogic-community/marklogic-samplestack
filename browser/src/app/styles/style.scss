@@ -1,6 +1,8 @@
 // @import "spinner";
-@import "bootstrap-vars";
-@import "bootstrap";
+@import 'bootstrap-vars';
+@import 'bootstrap';
+@import 'dialogs/all';
+@import 'directives/all';
 
 button {
   @extend .btn;
@@ -12,13 +14,22 @@ form textarea {
   @extend .form-control;
 }
 
+.has-error {
+  border: 1px solid #f00;
+}
+
+p.has-error {
+  color: #f00;
+  font-weight: bold;
+}
+
 .ss-main {
   @extend .main;
   @extend .row;
 }
 
 .ss-root {
-  @extend .container-fluid;
+  @extend .container;
 }
 
 /*** GLOBAL HEADER ***/
@@ -202,9 +213,7 @@ form textarea {
   }
 }
 
-
-
-/*** GLOBAL FOOTER ***/
+//** GLOBAL FOOTER **
 .ss-page-footer {
   @extend .row;
   @extend .text-center;

@@ -1,4 +1,3 @@
 define([
-  './appRouting',
-  './stubData'
+  './appRouting'
 ], function () {});

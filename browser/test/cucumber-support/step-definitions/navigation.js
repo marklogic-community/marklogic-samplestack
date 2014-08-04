@@ -11,7 +11,7 @@ module.exports = function () {
   this.When(
     /visit the landing page/,
     function (next) {
-      this.go(this.pages.documents).then(next);
+      this.go(this.pages.explore).then(next);
     }
   );
 
