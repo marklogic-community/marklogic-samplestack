@@ -1,0 +1,4 @@
+define([
+  './contributor',
+  './login'
+], function () {});
