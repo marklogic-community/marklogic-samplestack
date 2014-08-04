@@ -1,0 +1,24 @@
+//*** DIALOGS ***/
+.ss-dialog {
+  header {
+    @extend .modal-header;
+
+    button {
+      @extend .close;
+      margin-top: -10px;
+    }
+  }
+
+  h4 {
+    @extend .modal-title;
+  }
+
+  > div {
+    @extend .modal-body;
+  }
+
+  footer {
+    @extend .modal-footer;
+    clear: both;
+  }
+}

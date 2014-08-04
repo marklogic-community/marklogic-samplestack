@@ -1,6 +1,3 @@
-/*
-app/states/fourOhFour.js
- */
 define(['app/module'], function (module) {
 
   module.controller('fourOhFourCtlr', [

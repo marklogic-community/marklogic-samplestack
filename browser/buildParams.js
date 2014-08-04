@@ -15,7 +15,11 @@ var defaultParams = {
     'ngSanitize',
     'hc.marked'
   ],
-  html5Mode: true,
+  docs: {
+    repoUrl: 'https://github.com/stu-salsbury/marklogic-samplestack.git',
+    branch: 'docs/browser'
+  },
+
   seleniumAddress: 'http://localhost:4445',
   // if true, disable sourcemaps b/c node-sass segfaults on syntax err
   sassCompiler: 'node-sass-safe'
@@ -23,7 +27,7 @@ var defaultParams = {
   // WARNING: 'roby-sass' options is experimental and is not likely to work,
   // yet.
   // ***********************************************************************
-  
+
   // node-sass is *much* faster than ruby-sass. In a watch environment while
   // editing scss file and relying on live-reload to see changes, the difference
   // in speed is palpable.
@@ -67,11 +71,17 @@ defaultParams.appSettings = {
 var targetParams = {
   // build target specifics
   build: {
+    appSettings: {
+      disableCsrf: true
+    }
   },
   // unit target specifics
   unit: {
     unit: true,
-    e2eMock: false,
+    e2eMock: true,
+    appSettings: {
+      disableCsrf: true
+    }
   },
   // e2e target specifics
   e2e: {
@@ -87,14 +97,12 @@ var _ = require('lodash');
 
 // overlay target specific
 var params = {};
-_.merge(params, defaultParams);
-_.forEach(targetParams, function(targetParams, targetName) {
-  params[targetName] = _.merge(
-    _.clone(defaultParams),
-    targetParams
-  );
+var fromDefault;
+_.forEach(targetParams, function (thoseParams, targetName) {
+  fromDefault = {};
+  _.merge(fromDefault, defaultParams, thoseParams);
+  params[targetName] = fromDefault;
 });
-
 
 /**
  * Parameters for builds

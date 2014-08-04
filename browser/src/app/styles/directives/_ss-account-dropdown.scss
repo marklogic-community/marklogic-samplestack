@@ -1,0 +1,16 @@
+// ssAccountDropdown directive
+
+.ss-account-dropdown ul {
+  @extend .pull-right;
+  // width: 400px;
+  // right: 50px;
+  // overflow: none;
+}
+.ss-account-dropdown li {
+  width: 300px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ss-account-dropdown button {
+  @extend .pull-right;
+}

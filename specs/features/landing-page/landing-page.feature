@@ -3,6 +3,7 @@ Feature: Landing Page
   https://github.com/marklogic/samplestack-angular/features/landing-page/landing-page.md
 
   Scenario:
-    When I visit the landing page
-    Then filter criteria are set to their default values
-    And search criteria is empty
+    Given I visit the app at the root url
+    Then I see the explore page
+    And no search criteria are applied
+    And I see search results

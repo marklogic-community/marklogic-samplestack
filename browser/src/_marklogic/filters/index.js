@@ -1,3 +1,3 @@
 define([
-  './moment'
+  './iso8601'
 ], function () {});

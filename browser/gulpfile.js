@@ -57,7 +57,8 @@ console.log = function() {
   {
     return;
   }
+  if (args.length > 1 && (args[1] === 'silent mode: test failed')) {
+    return;
+  }
   return cl.apply(console, args);
 };
-
-

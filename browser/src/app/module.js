@@ -18,7 +18,18 @@ define(
     //
     // TODO: deal with buildParams.json (use such a thing?).
     //
-    return angular.module('<%=appSettings.appName%>', deps);
+
+    /**
+     * @ngdoc module
+     * @name app
+     *
+     * @description
+     * The `app` module is the Samplestack application module. It is an
+     an implementation of a MarkLogic-based
+     * AngularJS application. It depends on and uses the components of the
+     _marklogic module.
+     */
+    return angular.module('app', deps);
   }
 
 );

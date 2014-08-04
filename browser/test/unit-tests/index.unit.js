@@ -1,31 +1,24 @@
 define([
+  '_marklogic/index.unit',
+  'app/index.unit',
+  'testHelper'
 ], function (
+  marklogic,
+  app,
+  helper
 ) {
   describe('unit tests', function () {
-    describe('_marklogic', function () {
-      describe('directives', function () {
+    marklogic();
+    app();
 
-      });
-      describe('filters', function () {
 
-      });
-      describe('services', function () {
-
-      });
-    });
-    describe('app', function () {
-      describe('dialogs', function () {
-
-      });
-      describe('directives', function () {
-
-      });
-      describe('services', function () {
-
-      });
-      describe('states', function () {
-
-      });
+    after(function (done) {
+      if (window.__coverage__) {
+        helper.postCoverage(window.__coverage__, done);
+      }
+      else {
+        done();
+      }
     });
   });
 });

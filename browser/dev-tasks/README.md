@@ -1,35 +1,20 @@
-todo:
+known issues
 
-the entire dist process
-  'cdnjs-cdn-data': '^0.1.0',
-  'gulp-google-cdn': '^0.3.0',
-  'gulp-ngmin': '^0.2.0'
-  whatever else is needed to deal with bower components
-  requirejs optimizer
+the code is messy and under-documented, but gulp is not something we're trying
+to teach, it will be cleaned up for ea3
 
-the entire jsdoc process
+renaming watched directories crashes watch
 
-the entire e2e process
+todo
 
-menu system/watch-time invocations
+menu to
+  manually run unit tests
+  manually run e2e tests (or one e2e test maybe)
+  manually invoke gradlew assemble, clean, dbLoad
+  run or rerun gradlew bootrun
+  rebuild browser
 
-reuasability from other gulpfiles
+  e2e run against instrumented and report
 
-messaging with other processes
-
-watch specific things outside of src dir
-  * buildParams
-  * gulpdir/gulpfile
-
-implement watcher as separate module to clean up tasks module
-
-reconcile helper.js with other modules (tasks, plugins, watcher)
-
-
-gulp-inject
-wiredep
-bowerFiles
-gulp-cdnizer
-gulp-cdn-data (or whatever it's called)
-
-forever -- to reload gulp when gulpfile changes
+  xunit options for unit and e2e
+  

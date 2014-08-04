@@ -2,9 +2,15 @@ define(['app/module'], function (module) {
 
   module.controller('askCtlr', [
 
-    '$scope',
-    function ($scope) {
+    '$scope', 'appRouting',
+    function ($scope, appRouting) {
+
       $scope.setPageTitle('ask');
+
+      $scope.post = function () {
+        appRouting.go('qnaDoc');
+      };
+
     }
 
   ]);

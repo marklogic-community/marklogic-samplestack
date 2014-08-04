@@ -51,7 +51,9 @@
         <ul class="ss-tags">
           <li ng-repeat="tag in result.tags">{{tag}}</li>
         </ul>
-        <div class="ss-author">asked {{dateDisplay(result.creationDate)}} by {{result.owner.displayName}} [{{result.owner.reputation}}]</div>
+        <div class="ss-author">asked {{dateDisplay(result.creationDate)}} by
+        <a href="" ng-click="openUser(userID)">{{result.owner.displayName}}</a>
+        [{{result.owner.reputation}}]</div>
       </div>
     </section>
   </section>

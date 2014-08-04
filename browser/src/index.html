@@ -15,6 +15,10 @@
   <title ng-bind="pageTitle + ' - samplestack'">samplestack</title>
 
   <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
+<!--
+  <link rel="stylesheet" type="text/css" href="/deps/normalize-css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/app/styles/bourbon-style.css">
+-->
 
   <!--
   An honest effort to maintain consistency across less-than modern
@@ -44,7 +48,7 @@
     This is the main ui-view, corresponding to the _root state in the
     ui-router hierarchy.
     -->
-    <ui-view/>
+    <div ui-view></div>
 
   </div>
 
@@ -66,26 +70,26 @@ entering running state.
 See app/services/appRouting.js
  */
 
-var configuredApp;
+var app;
 /* jshint ignore:start */
 <% if(e2eMock) { %>
-configuredApp = '/mockedApp.js';
+app = 'mockedApp.js';
 <% } else { %>
-configuredApp = '/configuredApp.js';
+app = 'application.js';
 <% } %>
 /* jshint ignore:end */
 
-require([configuredApp], function (appModule) {
+require([app], function (app) {
   var htmlEl = angular.element(window.document.childNodes[1]);
 
-  appModule.run(['appRouting', function (appRouting) {}]);
+  app.run(['appRouting', function (appRouting) {}]);
 
   angular.bootstrap(
     htmlEl,
     [
-      '<%=appName%>',
+      'app',
       function() {
-        htmlEl.attr('ng-app', '<%=appName%>');
+        htmlEl.attr('ng-app', 'app');
       }
     ]
   );

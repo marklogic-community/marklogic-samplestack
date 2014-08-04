@@ -6,6 +6,7 @@ global.q = require('q');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
+chai.should();
 // webdriver promises do not derive from Object.prototype, thus `should`
 // cannot influence them
 // chai.should();
