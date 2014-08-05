@@ -232,13 +232,14 @@ var buildStream = function (stream) {
 
   hadErrors = false;
 
+  stream = stream.pipe($.plumber(plumberErrorHandler));
+
   /***************
   JSHINT/JSCS -- different rules for different sources
   Avoid browserify files.
   ****************/
   filt = $.filter(['src/**/*.js', '!**/*.browserify.*']);
   stream = stream.pipe(filt)
-    .pipe($.plumber(plumberErrorHandler))
     .pipe($.jshint(path.join(srcDir, '.jshintrc')))
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.jshint.reporter('fail'))
@@ -254,10 +255,19 @@ var buildStream = function (stream) {
 
   stream = stream.pipe(filt.restore());
 
-  // now we need to diverge our handling
-  //
-  // the src dir is applicable to build and unit, so we need to get it cloned
-  // the first step is to isolate these files
+  /***************
+  BROWSERIFY -- use node modules in the browser.
+  ****************/
+  var browserify = require('browserify');
+  var doBrowserify = function (file) {
+    file.contents = browserify({ entries: [ file.path ] }).bundle();
+  };
+  filt = $.filter('**/*.browserify.*');
+  stream = stream.pipe(filt)
+    .pipe($.tap(function (file) { doBrowserify(file); }))
+    .pipe($.buffer())
+    .pipe(filt.restore());
+
   filt = $.filter('src/**/*');
   var srcFiles = stream.pipe($.filter('src/**/*'));
   // when we restore from filt it will bring back the non-src file.
@@ -382,19 +392,6 @@ var buildStream = function (stream) {
     .pipe(
       $.ignore.exclude(['**/*.scss', '**/*.png'])
     );
-
-  /***************
-  BROWSERIFY -- use node modules in the browser.
-  running this on each branch because it otherwise behaves flakily
-  ****************/
-  filt = $.filter('**/*.browserify.*');
-  buildStream = buildStream.pipe(filt)
-    .pipe($.browserify({}));
-  buildStream = buildStream.pipe(filt.restore());
-  filt = $.filter('**/*.browserify.*');
-  unitStream = unitStream.pipe(filt)
-    .pipe($.browserify({}));
-  unitStream = unitStream.pipe(filt.restore());
 
   /****************
   TEMPLATE
