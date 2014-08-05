@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * A POJO to represent the information provided when a contributor first asks a question
- *
+ * @see com.marklogic.samplestack.domain.QnADocument
  */
 public class InitialQuestion {
 	

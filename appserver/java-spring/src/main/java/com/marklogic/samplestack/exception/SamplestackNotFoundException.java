@@ -21,11 +21,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@SuppressWarnings("serial")
-@ResponseStatus(HttpStatus.NOT_FOUND)
 /**
  * Wraps the an exception when data is not found in the database.
  */
+@SuppressWarnings("serial")
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class SamplestackNotFoundException extends RuntimeException {
 
 	private final Logger logger = LoggerFactory

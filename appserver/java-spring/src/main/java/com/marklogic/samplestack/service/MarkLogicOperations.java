@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012-2014 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.marklogic.samplestack.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,6 +26,9 @@ import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.SamplestackType;
 
+/**
+ * Encapsulates interaction with MarkLogic.
+ */
 public interface MarkLogicOperations {
 
 	/**
@@ -36,20 +54,42 @@ public interface MarkLogicOperations {
 	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
 			String queryString, long start);
 	
+	/**
+	 * Searches MarkLogic based on a QueryDefinition.
+	 * @param role the caller's role.
+	 * @param queryDefinition  A query definition.
+	 * @param start the index of the first result to return.
+	 * @return A DocumentPage of results.
+	 */
 	public DocumentPage search(ClientRole role, QueryDefinition queryDefinition, 
 			long start);
 
+	/**
+	 * Delete an entire directory/class of objects.
+	 * @param role the caller's role
+	 * @param type The type of object to remove (contributors or qnadocs)
+	 */	
 	public void deleteDirectory(ClientRole role, SamplestackType type);
 	
+	/**
+	 * Deletes an document by URI
+	 * @param role the caller's role
+	 * @param documentUri uri of the document to delete.
+	 */
 	public void delete(ClientRole role, String documentUri);
 
+	/**
+	 * Gets a JSONDocumentManager with the caller's role for lower-level document
+	 * access to MarkLogic.
+	 * @param role the caller's role.
+	 */
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role);
 	
 	/**
-	 * Initializes a resource manager, part of setup for application context
-	 * @param role Role to search with
-	 * @param name name or resource extension
-	 * @param testResourceManager
+	 * Hooks into MarkLogic extension facilities to initialize a server-side extension
+	 * @param role the caller's role
+	 * @param name the name of the resource extension
+	 * @param resourceManager implementation of a resource manager.
 	 */
 	public <T extends ResourceManager> void initResource(ClientRole role, String name,
 			T resourceManager);

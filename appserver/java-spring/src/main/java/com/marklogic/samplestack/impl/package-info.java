@@ -12,23 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package com.marklogic.samplestack.exception;
-
-
+*/
 /**
- * Root of SamplestackException runtime exception hierarchy.
+ * Contains implementations/Spring framework components that implement
+ * the interfaces in com.marklogic.samplestack.service
  */
-@SuppressWarnings("serial")
-public class SamplestackException extends RuntimeException {
-
-	
-	public SamplestackException(Exception e) {
-		super(e);
-	}
-
-	public SamplestackException(String message) {
-		super(message);
-	}
-
-}
+package com.marklogic.samplestack.impl;

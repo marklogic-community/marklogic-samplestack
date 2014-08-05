@@ -22,27 +22,30 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.impl", "com.marklogic.samplestack.security"})
-@EnableAutoConfiguration
 /**
  * Top-Level application runner and application context configuration for
  * Samplestack.
- * 
+ * <p>
  * Spring boot uses this class's main method to initialize the application.
  */
+@Configuration
+@ComponentScan(basePackages = { "com.marklogic.samplestack.web",
+		"com.marklogic.samplestack.impl", "com.marklogic.samplestack.security" })
+@EnableAutoConfiguration
 public class Application {
 
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
-	
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(Application.class);
+
 	/**
 	 * Boilerplate main method for Spring Boot's execution hook.
-	 * @param args System arguments for the application.
+	 * 
+	 * @param args
+	 *            System arguments for the application.
 	 */
 	public static void main(String[] args) {
 		logger.info("Starting Spring Boot Samplestack Application");
 		SpringApplication.run(Application.class, args);
 	}
-	
+
 }
