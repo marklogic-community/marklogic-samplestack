@@ -16,11 +16,11 @@
 package com.marklogic.samplestack.exception;
 
 
-@SuppressWarnings("serial")
 /**
  * Encapsulates exceptions caused by IO problems in the samplestack
  * integration points.
  */
+@SuppressWarnings("serial")
 public class SamplestackIOException extends SamplestackException {
 
 	public SamplestackIOException(Exception e) {

@@ -19,5 +19,5 @@ package com.marklogic.samplestack.database;
  * This package contains tests specifically for the server-side
  * artifacts and extensions installed on the server to support samplestack.
  * They can be run by invoking only the category of test 
- * com.marklogic.samplestack.db.DatabaseIntegrationTest
+ * com.marklogic.samplestack.testing.DatabaseExtensionTest
  */

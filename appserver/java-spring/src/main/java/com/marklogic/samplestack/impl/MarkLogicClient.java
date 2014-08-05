@@ -38,6 +38,11 @@ import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
+/**
+ * Encapsulates Samplestack's interactions with the database in a single
+ * class.  See MarkLogicOperations for documentation of overridden methods.
+ * @see com.marklogic.client.DatabaseClient
+ */
 public class MarkLogicClient implements MarkLogicOperations {
 
 	@SuppressWarnings("unused")
@@ -50,20 +55,33 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return clients.get(role);
 	}
 
+	/**
+	 * No-argument constructor.
+	 */
 	public MarkLogicClient() {
 		clients = new HashMap<ClientRole, DatabaseClient>();
 	}
 
 	@Override
-	public JsonNode getJsonDocument(ClientRole role, String uri) {
+	/**
+	 * Gets a JSON document from the database as a Jackson JsonNode, 
+	 * based on the caller's ClientRole and the document URI.
+	 * @param role the caller's role.
+	 * @param documentUri the document URI.
+	 * @return A JsonNode containing the document.
+	 */
+	public JsonNode getJsonDocument(ClientRole role, String documentUri) {
 		JacksonHandle handle = new JacksonHandle();
 		JacksonHandle jacksonHandle = getClient(role).newJSONDocumentManager()
-				.read(uri, handle);
+				.read(documentUri, handle);
 		return jacksonHandle.get();
 	}
 
 	
 	@Override
+	/*
+	 * TODO M3 remove/refactor due to pojo facade/document split.
+	 */
 	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
 			String queryString, long start) {
 		QueryManager queryManager = getClient(role).newQueryManager();
@@ -83,6 +101,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 		queryManager.delete(deleteDef);
 	}
 
+	@Override
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role) {
 		return getClient(role).newJSONDocumentManager();
 	}
@@ -94,6 +113,12 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return newJSONDocumentManager(role).search(queryDefinition, start);
 	}
 
+	/**
+	 * Part of setup of this object, puts a DatabaseClient connection into
+	 * a pool of connections based on client role.
+	 * @param role the caller's role
+	 * @param client A DatabaseClient object for interacting with MarkLogic
+	 */
 	public void putClient(ClientRole role, DatabaseClient client) {
 		clients.put(role, client);
 	}

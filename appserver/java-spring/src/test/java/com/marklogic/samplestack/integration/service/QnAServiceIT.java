@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012-2014 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.marklogic.samplestack.integration.service;
 
 import static org.junit.Assert.assertEquals;
@@ -63,17 +78,11 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		// check for existing answers with a naive question
 		String question = "How do I get to know MarkLogic quickly?";
 
-		// TODO 'question syntax'
-
 		// first step -- send question to the server, get back results
-		QnADocument result = service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
+		// TODO expand this first step.
+		service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
 
-		// logger.debug("Results came back "
-		// + results.getResults().getTotalResults());
-		// assertEquals("Nothing in the database yet to match results", 0,
-		// results
-		// .getResults().getTotalResults());
-
+	
 		newQuestion = new QnADocument(
 				mapper,
 				question,

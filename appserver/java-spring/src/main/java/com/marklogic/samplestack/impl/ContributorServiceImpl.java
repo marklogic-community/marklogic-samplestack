@@ -42,11 +42,12 @@ import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
 import com.marklogic.samplestack.service.ContributorService;
 
-@Component
 /**
  * Service implementation for Contributors.
  * To be replaced by POJO Facade before GA release.
+ * @see com.marklogic.samplestack.service.ContributorService
  */
+@Component
 public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		implements ContributorService {
 

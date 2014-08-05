@@ -32,8 +32,8 @@ public class SparseContributor {
 	public String id;
 
 
-	/** The username.  TODO validate as email address */
-	private String userName;
+	/** The username.  */
+	public String userName;
 
 
 	public String getUserName() {

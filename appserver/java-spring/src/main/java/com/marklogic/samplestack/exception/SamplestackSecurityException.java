@@ -16,11 +16,10 @@
 package com.marklogic.samplestack.exception;
 
 
-@SuppressWarnings("serial")
 /**
  * Wraps security violations for Samplestack.
- *
  */
+@SuppressWarnings("serial")
 public class SamplestackSecurityException extends RuntimeException {
 
 }

@@ -20,8 +20,19 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
+/**
+ * Class that wraps a JSON document and its ID.  
+ * The main payload for operations on questions and answers.
+ *
+ */
 public class QnADocument extends JsonObjectWrapper {
 	
+	/**
+	 * Constructor for QnADocuments that includes just a mapper and Strings for title and text.
+	 * @param mapper An ObjectMapper in charge of serialization/deserialization.
+	 * @param title Title of the question.
+	 * @param text Text (markdown) of the question.
+	 */
 	public QnADocument(ObjectMapper mapper, String title, String text) {
 		super(mapper.createObjectNode());
 		this.json.put("title", title);
@@ -29,24 +40,35 @@ public class QnADocument extends JsonObjectWrapper {
 	}
 	
 	
+	/**
+	 * Constructor to make a QnADocument from an in-hand JSON node.
+	 * @param jsonObject A JSON node that contains a question and answer document.
+	 */
 	public QnADocument(ObjectNode jsonObject) {
 		super(jsonObject);
 	}
 
 
+	/**
+	 * Constructor that includes tags to append to the QnADocument.
+	 * @param mapper An ObjectMapper in charge of serialization/deserialization.
+	 * @param title Title of the question.
+	 * @param text Text (markdown) of the question.
+	 * @param tags 0 or more tags to categorize this question.
+	 */
 	public QnADocument(ObjectMapper mapper, String title, String text,
 			String... tags) {
 		this(mapper, title, text);
-		ArrayNode tagNode = mapper.createArrayNode();
+		ArrayNode tagNode = this.json.putArray("tags");
 		for (String tag : tags) {
 			tagNode.add(tag);
 		}
-		this.json.put("tags", tagNode);
 	}
 
 
 	/**
-	 * Access to the owner username is required for knowing whether to allow a question acceptance.
+	 * Access to the owner username is required for knowing whether to allow 
+	 * a user to accept an answer.
 	 * @return The userName of the QnA document's question.
 	 */
 	public String getOwnerUserName() {
