@@ -6,7 +6,7 @@ A complete application that demonstrates using MarkLogic in a three-tier applica
 
 The application implements a "Question and Answer" Scenario.
 
-This repository contains two implementations of the application, 
+This repository contains two implementations of the application,
 
 * One is for the Java Enterprise Developer, and implemented using Java, Spring, and Gradle.
 * One is for the JavaScript developer, and implemented using JavaScript, node.js and Gulp.
@@ -15,53 +15,24 @@ These two applications share the same view of the three application tiers.
 
 ## Usage
 
-# For either Stack
- 
-* install MarkLogic and start it  http://ea.marklogic.com/download
-* ``git clone https://github.com/marklogic/marklogic-samplestack.git``
+### Prerequisites
 
-# Java/Spring implementation
+* install MarkLogic and start it: http://ea.marklogic.com/download
+* clone this repository:
+```bash
+git clone https://github.com/marklogic/marklogic-samplestack
+```
+
+### Java/Spring implementation
 
 * ```cd appserver/java-spring```
 * gradlew appserver
 
 See README.md in appserver/java-spring for further information on the samplestack-java
 
+### Browser/Web Application
 
-# JavaScript/Node implementation
-
-* **install node/npm**
-* `npm install -g bower`
-* `npm install -g gulp`
-* `cd browser`
-* `npm install`
-* `bower install`
-
-*(in a separate terminal session...)*
-
-* `cd browser`
-* `npm install`
-* `bower install`
-
-# marklogic-samplestack-angular
-
-* npm update
-* bower update
-* gulp <command>
-
-<command> may be `build`, `unit`, `watch`.
-
-In watch mode, you may use these URLs:
-
-[https://localhost:3000](https://localhost:3000) -- view the running app.
-Livereload is enabled by a script embedded in the app so changes should
-be instantly seen in a browser.
-
-[https://localhost:3001/unit-runner.html](https://localhost:3001/unit-runner.html) -- run
-unit tests within the browser.  Unit tests are run upon build and upon changes
-during watch mode using PhantomJS and results are reported in the console.
-It may also be useful to run the tests from within the browser to debug.
-
+*See the [README in the browser directory](browser/README.md)*
 
 ## License
 
