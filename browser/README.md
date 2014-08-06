@@ -15,9 +15,15 @@ Conversely, *to unit test the webapp*, you need not be running the middle tier -
 
 ## Installing
 
-Before you begin, please ensure that [node.js is installed](http://nodejs.org/). It is a good idea to update node.js if you have not installed a recent version, but it is believed that any 0.10 or 0.11 version will work.
+Before you begin, please ensure that [node.js](http://nodejs.org/) and [git](http://git-scm.com/) are installed. It is a good idea to update node.js if you have not installed a recent version, but it is believed that any 0.10 or 0.11 version will work.
 
 *Important: you should run all of the commands discussed in this page __in a different terminal window__ from the Java middle-tier.  This allows you to have the middle-tier running simultaneously with the the browser tier.*
+
+In general, Windows, OSX and Linux should work.  
+
+> ### Critical
+
+> What will **NOT** work is Cygwin. In order to run the development version of the browser app on a Windows machine, you should have installed both node.js *and* git into your **Windows** environment and you should not use the Cygwin command shell to run any of the commands below.   Node, and particularlly npm, do not expect the enviornment that Cygwin presents.  The commands will fail if you run them from Cygwin or if you try to use versions of node, npm or git that were installed into your Cygwin sub-environment.
 
 The following instructions should allow you:
 
@@ -36,11 +42,15 @@ There are two node.js components that you must have installed globally on your m
 Use npm, which should be installed with node.js, to install them:
 
 ```bash
-npm install -g bower
-npm install -g gulp
+from-anywhere> npm install -g bower
+from-anywhere> bower -v
+from-anywhere> npm install -g gulp
+from-anywhere> gulp -v
 ```
 
-**Note**: many installations of node are configured such that installation of global components requires admin privileges.  If you receive permissions based errors running these commands, please either use an elevated command prompt in Windows or prefix the commands with `sudo` on \*nix-based operating systems (including Mac OSX).
+> Many installations of node are configured such that installation of global components requires admin privileges.  If you receive permissions based errors running these commands, please either use an elevated command prompt in Windows or prefix the commands with `sudo` on \*nix-based operating systems (including Mac OSX).
+
+> If errors are reported when you attempt either of the "`-v`" commands above, then your global npm packages directory is probably not on your PATH. MarkLogic is currently investigating which software combinations may expect this issue.
 
 ### Installing the Webapp
 
@@ -48,19 +58,28 @@ The first time you want to run the webapp, please follow these directions.  Also
 
 We are installing various node.js utilities that are used in the build, and we are installing various browser libraries that are used by the webapp itself.  These command *should not* require elevated privileges.
 
+*From the marklogic-samplestack directory:*
+
 ```bash
-npm install
-bower install
+marklogic-samplestack> cd browser
+marklogic-samplestack/browser> npm install
+marklogic-samplestack/browser> bower install
 ```
 
-If you get this far without errors, your Samplestack browser installation is complete.
+> If you get this far without errors, your Samplestack browser installation is complete.
+
+> If npm install gives you errors, you may have a version of npm which was not reliable.  Try updating npm before rerunning the above install commands
+
+> ```
+from-anywhere> npm update -g npm
+```
 
 ## Build, Unit Test, Generate Docs, Run
 
 A single command will build the webapp, execute its tests, generate online documentation and run a few web servers that enable you to run the application itself as well as examine some of the internals.
 
 ```bash
-gulp run
+marklogic-samplestack/browser> gulp run
 ```
 
 From here, you are presented with a menu that points to four web servers, in order they are:
@@ -76,8 +95,10 @@ Once you have the webapp running, please see the instructions in the [main READM
 
 The following command do everything that the `run` command does, but additionally enters "watch mode".  In watch mode, changes you make to the application, its tests, or its documentation are instantly incorporate into the build, unit tests are rerun and documentation regenerated.
 
+*From the marklogic-samplestack/**browser** sub-directory:*
+
 ```bash
-gulp watch
+marklogic-samplestack/browser> gulp watch
 ```
 
 In many cases, watch mode also causes a browser tab/window that is on app, the coverage report or the online documentation to be updated automatically via "Live Reload".  Not all browsers will support this.
