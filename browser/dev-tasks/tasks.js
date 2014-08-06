@@ -442,33 +442,33 @@ function rubySassCheck () {
   }
 }
 
-var docGen = require('../docs');
+// var docGen = require('../docs');
 
-tasks['prepare-docs'] = {
-  deps: [],
-  func: function (cb) {
-    $.util.log(chalk.blue('preparing dgeni'));
-    docGen.prepare(cb);
-  }
-};
-
-tasks['docs'] = {
-  deps: ['unit', 'prepare-docs'],
-  func: function (cb) {
-
-    var postGenerate = function () {
-      console.log(chalk.blue('... complete\n'));
-      cb();
-    };
-    process.stdout.write(chalk.blue('\nGenerating Docs...\n\n'));
-
-    docGen.generate(postGenerate);
-  }
-};
-
-
+// tasks['prepare-docs'] = {
+//   deps: [],
+//   func: function (cb) {
+//     $.util.log(chalk.blue('preparing dgeni'));
+//     docGen.prepare(cb);
+//   }
+// };
+//
+// tasks['docs'] = {
+//   deps: ['unit', 'prepare-docs'],
+//   func: function (cb) {
+//
+//     var postGenerate = function () {
+//       console.log(chalk.blue('... complete\n'));
+//       cb();
+//     };
+//     process.stdout.write(chalk.blue('\nGenerating Docs...\n\n'));
+//
+//     docGen.generate(postGenerate);
+//   }
+// };
+//
+//
 tasks.build = {
-  deps: ['clean', 'bower-files', 'prepare-docs'],
+  deps: ['clean', 'bower-files'],
   func: function (cb) {
 
     rubySassCheck();
@@ -511,42 +511,42 @@ function startServer (path, port) {
   }
 }
 
-function startDocs (path, port) {
-  if (!getActiveServer(port)) {
-    var connect = require('connect');
-    // var url = require('url');
-    // var proxy = require('proxy-middleware');
-    var serveStatic = require('serve-static');
-
-    var server = connect()
-      .use(function (req, res, next) {
-        var REWRITE = /\/(guide|api|cookbook|misc|tutorial|error).*$/;
-        var IGNORED = /(\.(css|js|png|jpg)$|partials\/.*\.html$)/;
-        var match;
-
-        if (!IGNORED.test(req.url) && (match = req.url.match(REWRITE))) {
-          req.url = req.url.replace(match[0], '/index-production.html');
-        }
-        if (req.url === '/index.html' || req.url === '/') {
-          req.url = '/index-production.html';
-        }
-        next();
-      })
-      .use('/', require('connect-livereload')({
-        port: 35732
-      }))
-      .use(serveStatic(path, {redirect: false}))
-      .listen(port, '0.0.0.0');
-
-    server.on('error', function (err) {
-      console.log(err);
-    });
-    setActiveServer(port, server);
-
-    return server;
-  }
-}
-
+// function startDocs (path, port) {
+//   if (!getActiveServer(port)) {
+//     var connect = require('connect');
+//     // var url = require('url');
+//     // var proxy = require('proxy-middleware');
+//     var serveStatic = require('serve-static');
+//
+//     var server = connect()
+//       .use(function (req, res, next) {
+//         var REWRITE = /\/(guide|api|cookbook|misc|tutorial|error).*$/;
+//         var IGNORED = /(\.(css|js|png|jpg)$|partials\/.*\.html$)/;
+//         var match;
+//
+//         if (!IGNORED.test(req.url) && (match = req.url.match(REWRITE))) {
+//           req.url = req.url.replace(match[0], '/index-production.html');
+//         }
+//         if (req.url === '/index.html' || req.url === '/') {
+//           req.url = '/index-production.html';
+//         }
+//         next();
+//       })
+//       .use('/', require('connect-livereload')({
+//         port: 35732
+//       }))
+//       .use(serveStatic(path, {redirect: false}))
+//       .listen(port, '0.0.0.0');
+//
+//     server.on('error', function (err) {
+//       console.log(err);
+//     });
+//     setActiveServer(port, server);
+//
+//     return server;
+//   }
+// }
+//
 function startIstanbulServer (testerPath, port) {
   if (!getActiveServer(port)) {
     var express = require('express');
@@ -652,9 +652,10 @@ function writeRunMenu () {
       '\n' + ten +
       '--> ' + chalk.magenta('COVERAGE') + '   : ' +
       chalk.bold.blue('http://localhost:3004/coverage') +
-      '\n' + ten +
-      '--> ' + chalk.magenta('DOCS') + '   : ' +
-      chalk.bold.blue('http://localhost:3005') + '\n';
+      '\n';
+//       + ten +
+//      '--> ' + chalk.magenta('DOCS') + '   : ' +
+//      chalk.bold.blue('http://localhost:3005') + '\n';
   process.stdout.write(message);
 }
 
@@ -662,45 +663,40 @@ function writeWatchMenu (docsOnly) {
   var ten = '          ';
   var message;
 
-  if (docsOnly) {
-    message = '\n' + ten +
-        '--> ' + chalk.magenta('DOCS') + '         : ' +
-        chalk.bold.blue('http://localhost:3005') +
-        '\n\n' + ten +
-        'watching for ' + chalk.green('changes') + ' to the ' +
-        chalk.red.italic.dim('src') + ' and ' +
-        chalk.red.italic.dim('docs') + ' directories\n';
-  }
-  else {
-    message = '\n' + ten +
-        '--> ' + chalk.magenta('BUILD') + '        : ' +
-        chalk.bold.blue('http://localhost:3000') +
-        '\n' + ten +
-        '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
-        chalk.bold.blue('http://localhost:3001/unit-runner.html') +
-        '\n' + ten +
-        '--> ' + chalk.magenta('COVERAGE') + '     : ' +
-        chalk.bold.blue('http://localhost:3004/coverage') +
-        '\n' + ten +
-        '--> ' + chalk.magenta('DOCS') + '         : ' +
-        chalk.bold.blue('http://localhost:3005') +
-        '\n\n' + ten +
-        'watching for ' + chalk.green('changes') + ' to the ' +
-        chalk.red.italic.dim('src') + ' and ' +
-        chalk.red.italic.dim('test') + ' and ' +
-        chalk.red.italic.dim('docs') + ' directories\n';
-  }
+  // if (docsOnly) {
+  //   message = '\n' + ten +
+  //       '--> ' + chalk.magenta('DOCS') + '         : ' +
+  //       chalk.bold.blue('http://localhost:3005') +
+  //       '\n\n' + ten +
+  //       'watching for ' + chalk.green('changes') + ' to the ' +
+  //       chalk.red.italic.dim('src') + ' and ' +
+  //       chalk.red.italic.dim('docs') + ' directories\n';
+  // }
+  // else {
+  message = '\n' + ten +
+      '--> ' + chalk.magenta('BUILD') + '        : ' +
+      chalk.bold.blue('http://localhost:3000') +
+      '\n' + ten +
+      '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
+      chalk.bold.blue('http://localhost:3001/unit-runner.html') +
+      '\n' + ten +
+      '--> ' + chalk.magenta('COVERAGE') + '     : ' +
+      chalk.bold.blue('http://localhost:3004/coverage') +
+      '\n' + ten +
+      'watching for ' + chalk.green('changes') + ' to the ' +
+      chalk.red.italic.dim('src') + ' and ' +
+      chalk.red.italic.dim('test') + ' directories\n';
 
   process.stdout.write(message);
 }
 
 tasks['run'] = {
-  deps: ['build', 'unit', 'docs'],
+  deps: ['build', 'unit'],
   func: function (cb) {
     startServer(h.targets.build, 3000);
     startServer(h.targets.unit, 3001);
     startIstanbulServer(h.targets.unit, 3004);
-    startDocs('builds/docs', 3005);
+    // startDocs('docs', 3005);
     cb();
     writeRunMenu();
   }
@@ -760,69 +756,69 @@ function lrManualSetup (port, cb) {
   });
 }
 
-var docsReloader;
-
-tasks['docswatch'] = {
-  deps: ['build', 'docs'],
-  func: function (cb) {
-    startDocs('builds/docs', 3005);
-    var docsWatcher = $.watch({
-      glob: [
-        path.join(h.rootDir, 'docs', '**/*.*'),
-        path.join(h.src, '**/*.*')
-      ],
-      name: 'docsWatch',
-      emitOnGlob: false,
-      emit: 'one',
-      silent: true
-    }, function (file, cb) {
-      file.pipe($.util.buffer(function (err, files) {
-        try {
-          var relpath = path.relative(
-            path.join(__dirname, '..'), files[0].path
-          );
-          $.util.log('[' + chalk.cyan('watch') + '] ' +
-              chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
-        }
-        catch (errObj) {
-          console.log('err watching: ' + errObj);
-        }
-        doDocs(function () {
-          docsReloader(['/*']);
-          cb();
-        }, true);
-      }));
-    });
-    setActiveServer('docsWatcher', docsWatcher);
-
-    var doDocs = function (cb, skipMenu) {
-      if (skipMenu) {
-        // clear screen
-        process.stdout.write('\u001b[2J');
-        // set cursor position
-        process.stdout.write('\u001b[1;3H');
-      }
-      process.stdout.write(
-        chalk.blue('\nGenerating Docs...\n\n')
-      );
-      docGen.generate(function () {
-        console.log(chalk.blue('... complete'));
-        cb();
-        writeWatchMenu(true);
-      });
-    };
-    lrManualSetup(
-      35732,
-      function (changer) {
-        docsReloader = changer;
-      }
-    );
-
-  }
-};
+// var docsReloader;
+//
+// tasks['docswatch'] = {
+//   deps: ['build', 'docs'],
+//   func: function (cb) {
+//     startDocs('builds/docs', 3005);
+//     var docsWatcher = $.watch({
+//       glob: [
+//         path.join(h.rootDir, 'docs', '**/*.*'),
+//         path.join(h.src, '**/*.*')
+//       ],
+//       name: 'docsWatch',
+//       emitOnGlob: false,
+//       emit: 'one',
+//       silent: true
+//     }, function (file, cb) {
+//       file.pipe($.util.buffer(function (err, files) {
+//         try {
+//           var relpath = path.relative(
+//             path.join(__dirname, '..'), files[0].path
+//           );
+//           $.util.log('[' + chalk.cyan('watch') + '] ' +
+//               chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
+//         }
+//         catch (errObj) {
+//           console.log('err watching: ' + errObj);
+//         }
+//         doDocs(function () {
+//           docsReloader(['/*']);
+//           cb();
+//         }, true);
+//       }));
+//     });
+//     setActiveServer('docsWatcher', docsWatcher);
+//
+//     var doDocs = function (cb, skipMenu) {
+//       if (skipMenu) {
+//         // clear screen
+//         process.stdout.write('\u001b[2J');
+//         // set cursor position
+//         process.stdout.write('\u001b[1;3H');
+//       }
+//       process.stdout.write(
+//         chalk.blue('\nGenerating Docs...\n\n')
+//       );
+//       docGen.generate(function () {
+//         console.log(chalk.blue('... complete'));
+//         cb();
+//         writeWatchMenu(true);
+//       });
+//     };
+//     lrManualSetup(
+//       35732,
+//       function (changer) {
+//         docsReloader = changer;
+//       }
+//     );
+//
+//   }
+// };
 
 tasks['watch'] = {
-  deps: ['watchCalled', 'build', 'unit', 'docs'],
+  deps: ['watchCalled', 'build', 'unit'],
   func: function (cb) {
     startServer(h.targets.build, 3000);
     startServer(h.targets.unit, 3001);
@@ -872,11 +868,13 @@ tasks['watch'] = {
               if(!rebuildOnNext && !hadErrors) {
                 runTests({ reporter: mochaReporter }, function () {
                   lrChanger(['/coverage', '/coverage/show']);
-                  doDocs(gulpWatchCb);
+                  gulpWatchCb();
+                  writeWatchMenu();
                 });
               }
               else {
-                doDocs(gulpWatchCb);
+                gulpWatchCb();
+                writeWatchMenu();
               }
             })
           );
@@ -884,40 +882,40 @@ tasks['watch'] = {
       }));
     });
 
-    var docsWatcher = $.watch({
-      glob: [path.join(h.rootDir, 'docs', '**/*.*')],
-      name: 'docsWatch',
-      emitOnGlob: false,
-      emit: 'one',
-      silent: true
-    }, function (file, gulpWatchCb) {
-      file.pipe($.util.buffer(function (err, files) {
-        doDocs(gulpWatchCb, true);
-      }));
-    });
-    setActiveServer('docsWatcher', docsWatcher);
+    // var docsWatcher = $.watch({
+    //   glob: [path.join(h.rootDir, 'docs', '**/*.*')],
+    //   name: 'docsWatch',
+    //   emitOnGlob: false,
+    //   emit: 'one',
+    //   silent: true
+    // }, function (file, gulpWatchCb) {
+    //   file.pipe($.util.buffer(function (err, files) {
+    //     doDocs(gulpWatchCb, true);
+    //   }));
+    // });
+    // setActiveServer('docsWatcher', docsWatcher);
+    //
 
-
-    var doDocs = function (cb, skipMenu) {
-      if (skipMenu) {
-        // clear screen
-        process.stdout.write('\u001b[2J');
-        // set cursor position
-        process.stdout.write('\u001b[1;3H');
-      }
-      process.stdout.write(
-        chalk.blue('Generating Docs...\n\n')
-      );
-      docGen.generate(function () {
-        console.log(chalk.blue('... complete'));
-        cb();
-        writeWatchMenu();
-      }, 'warn');
-    };
-
+    // var doDocs = function (cb, skipMenu) {
+    //   if (skipMenu) {
+    //     // clear screen
+    //     process.stdout.write('\u001b[2J');
+    //     // set cursor position
+    //     process.stdout.write('\u001b[1;3H');
+    //   }
+    //   process.stdout.write(
+    //     chalk.blue('Generating Docs...\n\n')
+    //   );
+    //   docGen.generate(function () {
+    //     console.log(chalk.blue('... complete'));
+    //     cb();
+    //     writeWatchMenu();
+    //   }, 'warn');
+    // };
+    //
     setActiveServer('watcher', watcher);
 
-    startDocs('builds/docs', 3005);
+    // startDocs('docs', 3005);
 
     lrSetup(
       35729,
