@@ -7,8 +7,6 @@ names.
 
 require.config({
   paths: {
-    'deps': '/deps',
-
     'lodash': 'deps/lodash/dist/lodash.compat<%=min%>',
     'angular': 'deps/angular/angular<%=min%>',
     'ui-router': 'deps/angular-ui-router/release/angular-ui-router<%=min%>',
