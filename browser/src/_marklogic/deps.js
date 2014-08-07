@@ -13,8 +13,6 @@ referenced where used.
 
 require.config({
   paths: {
-    deps: '/deps',
-
     'angular': 'deps/angular/angular<%=min%>',
     'angular-cookies': 'deps/angular-cookies/angular-cookies<%=min%>',
     'moment': 'deps/momentjs/moment<%=min%>',
