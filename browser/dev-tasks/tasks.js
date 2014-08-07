@@ -666,6 +666,9 @@ function lrSetup (port, glob, name, fileRelativizer, cb) {
       });
       return file;
     });
+    watcher.on('error', function (e) {
+      console.log('caught gaze error: ' + e.toString());
+    });
     setActiveServer(name, watcher);
     setActiveServer(port, lrServer);
     if (cb) {
@@ -750,6 +753,9 @@ tasks['watch'] = {
           );
         }
       }));
+    });
+    watcher.on('error', function (e) {
+      console.log('caught gaze error: ' + e.toString());
     });
 
     setActiveServer('watcher', watcher);
