@@ -127,7 +127,6 @@ define(['_marklogic/module'], function (module) {
           return {
 
             request: function (config) {
-
               // ensure we have $http
               $http = $http || $injector.get('$http');
 
@@ -141,8 +140,23 @@ define(['_marklogic/module'], function (module) {
                 else {
                   return config;
                 }
-
               }
+            },
+
+            responseError: function (rejection) {
+              var timeoutMsg =
+                  '$http response.status === 0. This may indicate a timeout. ' +
+                      'Is the middle tier working?';
+              if (rejection.status === 0) {
+                return $q.reject(timeoutMsg);
+              }
+              if (rejection.data && rejection.data.status === 500 &&
+                  /RESTAPI-NODOCUMENT/.test(rejection.data.message)
+              ) {
+                rejection.status = 401;
+                return $q.reject(rejection);
+              }
+              return $q.reject(rejection);
             }
           };
 

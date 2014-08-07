@@ -17,7 +17,7 @@ define(['app/module'], function (module) {
 
     'mlModelBase', 'mlSchema', 'mlSession', 'ssContributor',
     function (
-      mlModelBase, mlSchema, mlSession, ssContribtor
+      mlModelBase, mlSchema, mlSession, ssContributor
     ) {
 
       var sessionObject = mlSession.object;
@@ -46,7 +46,10 @@ define(['app/module'], function (module) {
           case 'DELETE':
             return 'logout';
           default:
-            throw new Error('unsupported http method: ' + httpMethod);
+            throw new Error({
+              message: 'ssSearch does not implement ' + httpMethod,
+              cause: 'getResourceName'
+            });
         }
       };
 
@@ -68,7 +71,10 @@ define(['app/module'], function (module) {
           case 'DELETE':
             return 'logout';
           default:
-            throw new Error('unsupported http method: ' + httpMethod);
+            throw new Error({
+              message: 'ssSession does not implement ' + httpMethod,
+              cause: 'getResourceId'
+            });
         }
       };
 
@@ -97,15 +103,11 @@ define(['app/module'], function (module) {
         }
       };
 
-      SsSessionObject.prototype.put = function () {
-        throw new Error('PUT is not supported on ssSession');
-      };
-
       SsSessionObject.prototype.onResponsePOST = function (data) {
         delete this.password;
         this.id = data.id;
         this.role = data.role;
-        this.userInfo = data;
+        this.userInfo = ssContributor.create(data);
       };
       SsSessionObject.prototype.onResponseGET =
           SsSessionObject.prototype.onResponsePOST;

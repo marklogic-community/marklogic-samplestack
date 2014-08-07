@@ -1,0 +1,30 @@
+.highcharts {
+  height: 240px;
+  min-width: 275px;
+}
+
+.ss-filters-date {
+
+  header {
+    display: inline-block;
+    width: 100%;
+
+    h3 {
+      float: left;
+      position: relative;
+    }
+
+    .ss-clear-date {
+      cursor: pointer;
+      float: right;
+      margin: 21px 30px 0 0;
+      position: relative;
+    }
+  }
+
+  .form-control {
+    display: inline-block;
+    padding: 6px 3px;
+    width: 33%;
+  }
+}

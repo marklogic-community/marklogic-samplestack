@@ -5,6 +5,7 @@ define(['app/module'], function (module) {
     '$scope',
     '$rootScope',
     '$q',
+    'marked',
     'mlAuth',
     'loginDialog',
     'contributorDialog',
@@ -12,15 +13,28 @@ define(['app/module'], function (module) {
       $scope,
       $rootScope,
       $q,
+      marked,
       mlAuth,
       loginDialog,
       contributorDialog
     ) {
+      $rootScope.marked = marked;
+      $rootScope.globalError = '';
+      $rootScope.setLocalError = function (error) {
+        $rootScope.localError = error;
+      };
+      $rootScope.clearLocalError = function () {
+        $rootScope.localError = null;
+      };
+      $rootScope.$on('$stateChangeSuccess', function () {
+        $rootScope.clearLocalError();
+      });
+
       var initDefer = $q.defer();
       $rootScope.initializing = initDefer.promise;
 
       $q.all([
-        // antyhing that is required for init should happen here
+        // anything that is required for init should happen here
         mlAuth.restoreSession()
       ]).then(
         function () {

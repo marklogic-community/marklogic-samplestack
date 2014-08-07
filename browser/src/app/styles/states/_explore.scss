@@ -1,0 +1,22 @@
+//** EXPLORE VIEW ***
+.ss-explore {
+  display: block;
+  max-width: $view-max-width;
+  min-width: $view-min-width;
+  position: relative;
+}
+
+// Container for fixed+fluid content
+.ss-filters-results {
+  padding-left: 290px;
+  position: relative;
+}
+
+.ss-filters {
+  left: 0;
+  min-width: 275px;
+  padding-left: 15px;
+  padding-right: 0;
+  position: absolute;
+  width: 250px;
+}

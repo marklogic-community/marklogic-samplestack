@@ -1,0 +1,37 @@
+<input
+  type="text"
+  ng-model="selected"
+  typeahead="tag.count as tag.name+' ('+tag.count+')' for tag in toArray(unselTags).concat(toArray(selTags)) | filter:$viewValue | orderBy:sort"
+  class="ss-typeahead-input"
+  typeahead-on-select="selectTag(tag)"
+/>
+
+<ul>
+  <li ng-repeat="tag in toArray(selTags) | orderBy:sort">
+    <input
+      type="checkbox"
+      checked="true"
+      ng-click="unselectTag(tag)"
+    />
+    <span>
+      <!-- {{ tag.name }} ({{ tag.shadow.count }}/{{ totals.shadow }}) -->
+      {{ tag.name }} ({{ (100 * tag.shadow.count / totals.shadow | number : 1) || '~0' }}% of {{ totals.shadow }})
+    </span>
+  </li>
+</ul>
+
+<div class="ss-divider" ng-if="haveSelectedTags()">&nbsp</div>
+
+<ul>
+  <li ng-repeat="tag in toArray(unselTags) | orderBy:sort | limitTo:tagLimit">
+    <input
+      type="checkbox"
+      ng-click="selectTag(tag)"
+      ng-disabled="!tag.count"
+    />
+    <span ng-class="{ disabled: !tag.count }">
+      <!-- {{ tag.name }} ({{ tag.count }}/{{ totals.total }}) -->
+      {{ tag.name }} ({{ tag.count }})
+    </span>
+  </li>
+</ul>

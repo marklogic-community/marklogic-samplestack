@@ -1,21 +1,23 @@
-// @import "spinner";
-@import 'bootstrap-vars';
-@import 'bootstrap';
+@import 'base';
+@import 'states/all';
 @import 'dialogs/all';
 @import 'directives/all';
 
-button {
-  @extend .btn;
-  @extend .btn-default;
+.disabled {
+  color: #bbb;
 }
 
-form input,
-form textarea {
-  @extend .form-control;
+.ss-no-backend {
+  background-color: #f9f9a4;
+}
+
+.ss-ui-todo {
+  background-color: #f9f9a4;
 }
 
 .has-error {
   border: 1px solid #f00;
+  padding: 5px;
 }
 
 p.has-error {
@@ -23,239 +25,25 @@ p.has-error {
   font-weight: bold;
 }
 
-.ss-main {
-  @extend .main;
-  @extend .row;
-}
-
-.ss-root {
-  @extend .container;
-}
-
-/*** GLOBAL HEADER ***/
-.ss-page-header {
-  @extend .page-header;
-  @extend .row;
-  .ss-app-title {
-    @extend .col-lg-7;
-  }
-  .ss-page-header-actions {
-    @extend .col-lg-5;
-    text-align: right;
-    > * {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    > *:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
-/*** SEARCH BAR ***/
-.ss-search-bar {
-  @extend .col-lg-12;
-  form {
-    > * {
-      display: inline-block;
-    }
-    input {
-      width: 500px;
-    }
-    .ss-search-tips {
-      margin-left: 10px;
-      padding: 5px;
-    }
-  }
-}
-
-/*** EXPLORE VIEW ***/
-.ss-explore {
-  @extend .col-lg-12;
-  .ss-filters {
-    @extend .col-lg-2;
-    padding-left: 0;
-    padding-right: 0;
-    .ss-filters-tags {
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      li {
-
-      }
-    }
-  }
-
-  .ss-results {
-    @extend .col-lg-10;
-    padding-left: 0;
-    padding-right: 0;
-    header {
-      width: 100%;
-      display: inline-block;
-      h2 {
-        position: relative;
-        float: left;
-      }
-      ul.ss-sort {
-        position: relative;
-        float: right;
-        margin-top: 20px;
-        li {
-          margin-left: 10px;
-        }
-        li.active {
-          font-weight: bold;
-        }
-      }
-    }
-    .ss-result {
-      padding: 10px;
-      padding-left: 80px;
-      border-bottom: solid 1px black;
-      .ss-votes {
-        position: absolute;
-        left: 0;
-        width: 60px;
-        height: 70px;
-        background-color: #DDDDDD;
-      }
-    }
-    .ss-result-title {
-      @extend .title; // is this a bootstrap class?
-    }
-  }
-}
-
-/*** ASK VIEW ***/
-.ss-ask {
-  @extend .col-lg-12;
-  form {
-    @extend .form-horizontal;
-    @extend .form-inline;
-    > * {
-      display: block;
-      margin-bottom: 10px;
-    }
-    > *:last-child {
-      margin-bottom: 0;
-    }
-    input {
-      width: 500px;
-    }
-    textarea {
-      width: 700px;
-      height: 200px;
-    }
-  }
-}
-
-/*** QNA DOCUMENT VIEW ***/
-.ss-qnadoc {
-  @extend .col-lg-12;
-  .ss-question,
-  .ss-answer {
-    padding: 10px;
-    padding-left: 85px;
-    .ss-vote {
-      position: absolute;
-      left: 15px;
-      width: 60px;
-      height: 70px;
-      background-color: #DDDDDD;
-    }
-    .ss-metadata {
-      min-height: 40px;
-      border-bottom: solid 1px black;
-    }
-    .ss-comment {
-      padding: 10px 0 10px 30px;
-      border-bottom: solid 1px #AAAAAA;
-    }
-  }
-  .ss-answers header {
-    width: 100%;
-    display: inline-block;
-    h3 {
-      position: relative;
-      float: left;
-    }
-    ul.ss-sort {
-      position: relative;
-      float: right;
-      margin-top: 20px;
-      li {
-        margin-left: 10px;
-      }
-      li.ss-sort-active {
-        font-weight: bold;
-      }
-    }
-  }
-
-  .ss-answer-form {
-    form > * {
-      display: block;
-      margin-bottom: 10px;
-    }
-    > *:last-child {
-      margin-bottom: 0;
-    }
-    input {
-      width: 500px;
-    }
-    textarea {
-      width: 700px;
-      height: 200px;
-    }
-  }
-}
-
-//** GLOBAL FOOTER **
-.ss-page-footer {
-  @extend .row;
-  @extend .text-center;
-  margin-top: 10px;
-  padding: 10px;
-}
-
-/*** SORT/TAG LISTS ***/
-ul.ss-sort, ul.ss-tags {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  li {
-    position: relative;
-    float: left;
-  }
-}
-
-ul.ss-tags {
-  li {
-    margin-right: 10px;
-    padding: 3px 5px;
-    background-color: #DDD;
-  }
-}
-
-/*** MISC GLOBAL ***/
-.ss-metadata {
-  > * {
-    display: inline-block;
-  }
-}
-
-.ss-author {
-  position: relative;
-  float: right;
-  padding: 5px;
-}
-
 .ml-edit-tools {
   width: 400px;
   padding: 5px;
   margin-top: 10px;
   background-color: #DDD;
+}
+
+.ss-divider {
+  width: 205px;
+  height: 1px;
+  margin: 5px 0;
+  background-color: black;
+}
+
+.ss-typeahead-item {
+  cursor: pointer;
+}
+
+.ss-column {
+  position: relative;
+  float: left;
 }

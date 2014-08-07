@@ -562,6 +562,26 @@ define(['testHelper'], function (helper) {
         });
         inst.errors('myProp4').length.should.equal(2);
       });
+
+      it(
+        'should throw on functions that have no default implementation',
+        function () {
+          var inst = impl1.create();
+          try {
+            inst.getStateParams();
+            assert(false, 'expected to throw');
+          }
+          catch (e) {}
+          try {
+            inst.assignStateParams({});
+            assert(false, 'expected to throw');
+          }
+          catch (e) {}
+
+          assert(true);
+        }
+      );
+
     });
   };
 

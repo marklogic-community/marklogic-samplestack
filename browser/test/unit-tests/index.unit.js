@@ -8,6 +8,7 @@ define([
   helper
 ) {
   describe('unit tests', function () {
+
     marklogic();
     app();
 

@@ -1,0 +1,52 @@
+<header>
+  <h2 ng-if="search.results.total > 0">
+    Browsing {{search.results.total | number:0}} Questions
+  </h2>
+  <h2 ng-if="search.results.total == 0">
+    No Results
+  </h2>
+  <div ng-if="search.results.total > 0" class="ss-paging">
+    <button
+      type="button"
+      ng-disabled="!search.hasPrevPage()"
+      ng-click="search.incrementPage(-1)"
+    >&lt;</button>
+    <span>
+      {{search.getCurrentPage() }} /
+      {{search.getPageCount() }}
+    </span>
+    <button
+      type="button"
+      ng-disabled="!search.hasNextPage()"
+      ng-click="search.incrementPage(1)"
+    >&gt;</button>
+  </div>
+  <ul class="ss-sort">
+    <li
+      ng-repeat="sort in sorts"
+      ng-click="setSort()"
+      ng-class="selectedSort == sort ? 'ss-sort-active': ''"
+    >{{sort.label}}</li>
+  </ul>
+</header>
+<section class="ss-result" ng-repeat="item in search.results.items">
+  <ss-search-result></ss-search-result>
+</section>
+<div class="ss-search-results-footer">
+  <div ng-if="search.results.total > 0" class="ss-paging">
+    <button
+      type="button"
+      ng-disabled="!search.hasPrevPage()"
+      ng-click="search.incrementPage(-1)"
+    >&lt;</button>
+    <span>
+      {{search.getCurrentPage() }} /
+      {{search.getPageCount() }}
+    </span>
+    <button
+      type="button"
+      ng-disabled="!search.hasNextPage()"
+      ng-click="search.incrementPage(1)"
+    >&gt;</button>
+  </div>
+</div>

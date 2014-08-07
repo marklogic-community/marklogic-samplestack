@@ -1,0 +1,41 @@
+.ss-search-bar {
+  max-width: $view-max-width;
+  min-width: $view-min-width;
+  padding-top: 20px;
+
+  form {
+    border-collapse: collapse;
+    display: table;
+    height: 64px;
+    margin-left: 20px;
+    width: 100%;
+
+    > * {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    input {
+      display: block;
+      height: 45px;
+    }
+  }
+}
+
+.ss-search-bar-tools {
+  height: 45px;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+
+  button {
+    height: 45px;
+    margin-left: 30px;
+    width: 90px;
+  }
+
+  .ss-search-tips {
+    display: inline-block;
+    padding: 5px;
+  }
+}

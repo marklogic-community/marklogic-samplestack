@@ -1,0 +1,19 @@
+<div class="ss-votes">
+  <div class="ss-score">
+    <label>score</label>
+    <span>{{item.content.docScore >= 0 ? item.content.docScore : 'SEED'}}</span>
+  </div>
+  <div class="ss-divider">&nbsp;</div>
+  <div class="ss-answers">
+    <label>answers</label>
+    <span>{{item.content.answers.length}}</span>
+    <div class="ss-checked" ng-if="item.content.acceptedAnswerId">&nbsp;</div>
+  </div>
+</div>
+<div class="ss-result-title">
+  <a ui-sref="root.layout.qnaDoc({ id: item.content.id, q: search.criteria.q })">
+    Q: {{item.content.title}}
+  </a>
+</div>
+<p>{{ item.content.body }}</p>
+<ss-qna-doc-metadata doc="item.content" doc-type="question"></ss-qna-doc-metadata>

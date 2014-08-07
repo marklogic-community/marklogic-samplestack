@@ -1,0 +1,48 @@
+.ss-dialog-all-tags {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .ss-sort {
+      float: right;
+      position: relative;
+
+    .ss-sort li {
+        cursor: pointer;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .ss-column {
+    width: 190px;
+  }
+
+  .ss-paging {
+    clear: both;
+  }
+
+  .ss-all-tags-actions {
+    display: inline-block;
+    padding-right: 20px;
+    width: 100%;
+  }
+
+  ul .ss-sort-active {
+    font-weight: bold;
+  }
+
+  input.ss-typeahead-input {
+    font-size: 14px;
+    margin-bottom: 5px;
+    width: 202px;
+  }
+
+  .ss-divider {
+    background-color: #000;
+    height: 1px;
+    margin: 5px 0;
+    width: 205px;
+  }
+}

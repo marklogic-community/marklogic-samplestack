@@ -1,11 +1,15 @@
 define([
   './_layout.unit',
   './_root.unit',
-  './fourOhFour.unit'
+  './explore.unit',
+  './fourOhFour.unit',
+  './qnaDoc.unit'
 ], function (
   _layout,
   _root,
-  fourOhFour
+  explore,
+  fourOhFour,
+  qnaDoc
 ) {
 
   return function () {
@@ -13,7 +17,9 @@ define([
     describe('states', function () {
       _layout();
       _root();
+      explore();
       fourOhFour();
+      qnaDoc();
     });
 
   };
