@@ -20,7 +20,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
-[compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8' 
+[compileGroovy, compileTestGroovy]*.options*.encoding = 'UTF-8'
 
 /*
  * appserver
@@ -64,7 +64,7 @@ task dbConfigureClean << {
 dbConfigure.inputDir = file('../../database')
 dbConfigure.outputDir = file("$buildDir/database")
 dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
-dbConfigure.shouldRunAfter dbInit 
+dbConfigure.shouldRunAfter dbInit
 dbConfigure.shouldRunAfter dbConfigureClean
 dbInit.dependsOn(dbConfigureClean)
 
@@ -130,7 +130,7 @@ dependencies {
     compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
-    compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
+    compile('com.marklogic:client-api-java:3.0.0-EA2-RC1') {
         exclude(group: 'org.slf4j')
         exclude(group: 'ch.qos.logback')
     }
@@ -146,7 +146,7 @@ task unitTest(type: Test) {
     }
 }
 
-test.dependsOn(props, dbConfigure) 
+test.dependsOn(props, dbConfigure)
 
 task dbTest(type: Test) {
     useJUnit {
