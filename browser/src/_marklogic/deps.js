@@ -31,13 +31,16 @@ require.config({
 
 define(
   [
+    'moment',
     'angular',
     'angular-cookies'
   ],
-  function (angular) {
+  function (moment, angular) {
 
     // angular is made global as a convenience.
     window.angular = angular;
+
+    window.moment = moment;
 
     // we won't introduce any angular dependencies -- otherwisethis would be
     // an array

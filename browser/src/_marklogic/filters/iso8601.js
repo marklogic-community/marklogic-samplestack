@@ -1,4 +1,4 @@
-define(['_marklogic/module', 'moment'], function (module, moment) {
+define(['_marklogic/module'], function (module) {
 
   /**
    * @ngdoc filter
@@ -12,7 +12,7 @@ define(['_marklogic/module', 'moment'], function (module, moment) {
         return undefined;
       }
       else {
-        return moment(date).toISOString();
+        return window.moment(date).toISOString();
       }
     };
   });
@@ -29,7 +29,7 @@ define(['_marklogic/module', 'moment'], function (module, moment) {
         return undefined;
       }
       else {
-        return moment(str).toDate();
+        return window.moment(str).toDate();
       }
     };
   });
