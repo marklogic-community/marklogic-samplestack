@@ -25,9 +25,6 @@ require.config({
     },
     'angular-cookies': {
       deps: ['angular']
-    },
-    'restangular': {
-      deps: ['angular', 'lodash']
     }
   }
 });
