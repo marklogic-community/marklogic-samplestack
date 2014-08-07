@@ -289,7 +289,7 @@ var buildStream = function (stream) {
     'bower_components/bourbon/dist',
     'bower_components/bitters/app/assets/stylesheets',
     'bower_components/neat/app/assets/stylesheets'
-  ]
+  ];
 
   var sassPipe;
   var sassParams;
@@ -327,7 +327,9 @@ var buildStream = function (stream) {
       includePaths: [bootstrapDir] //otherDirs // .concat(bootstrapDir)
     };
 
-    if (buildParams.sassCompiler !== 'node-sass-safe') {
+    if (buildParams.sassCompiler !== 'node-sass-safe' &&
+        process.platform !== 'win32'
+    ) {
       sassParams.sourceComments = 'map';
       sassParams.sourceMap = 'sass';
     }
