@@ -9,6 +9,7 @@
     "define": false,
     "require": false,
     "after": false,
+    "afterEach": false,
     "describe": false,
     "it": false,
     "expect": false,

@@ -27,7 +27,7 @@ define([
         'votes':[],
         'role':[
           'SAMPLESTACK_CONTRIBUTOR'
-        ]
+        ],
       };
 
       //
@@ -66,10 +66,10 @@ define([
       });
 
       it(
-        'should be display expected info',
+        'should display expected info',
         function () {
           var session = ssSession.create({
-            username: 'joeUser'
+            username: 'joeUser',
           });
           session.onResponsePOST(validUser);
           scope.store = {
@@ -81,7 +81,7 @@ define([
           ).text().should.equal(validUser.aboutMe);
           angular.element(
             el[0].querySelector('.ss-user-info-display-name')
-          ).text().should.equal(validUser.displayName);
+          ).text().should.contain(validUser.displayName);
           angular.element(
             el[0].querySelector('.ss-user-info-website-url')
           ).text().should.equal(validUser.websiteUrl);

@@ -84,8 +84,13 @@ define(['app/module'], function (module) {
        */
 
       this.$get = [
-        '$rootScope', '$state', '$stateParams', '$location',
-        function ($rootScope, $state, $stateParams, $location) {
+        '$rootScope', '$state', '$stateParams', '$location', '$window',
+        function ($rootScope, $state, $stateParams, $location, $window) {
+
+          $rootScope.$on('$locationChangeSuccess',function () {
+            $window.scrollTo(0, 0);
+          });
+
           return {
             params: $stateParams,
 

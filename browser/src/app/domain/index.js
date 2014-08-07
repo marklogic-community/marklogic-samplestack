@@ -1,4 +1,7 @@
 define([
   './ssContributor',
-  './ssSession'
+  './ssQnaDoc',
+  './ssSearch',
+  './ssSession',
+  './ssVote'
 ], function () {});

@@ -10,16 +10,38 @@ define(['app/module', 'app/components'], function (module) {
   var appSettings = angular.fromJson('<%= JSON.stringify(appSettings) %>');
 
   module.config([
+    '$provide',
     'mlAuthProvider',
     'mlHttpInterceptorProvider',
     'appRoutingProvider',
     'statesHierarchy',
     function (
+      $provide,
       mlAuthProvider,
       mlHttpInterceptorProvider,
       appRoutingProvider,
       statesHierarchy
     ) {
+
+      $provide.decorator('$exceptionHandler', function (
+        $delegate, $injector
+      ) {
+        return function (exception, cause) {
+          var $rootScope = $injector.get('$rootScope');
+          var alert = 'Exception:\n\n* ' + exception.message;
+          if (cause) {
+            alert += '\n\nCause: ' + cause;
+          }
+
+          $rootScope.globalError = alert;
+
+          $rootScope.$on('$stateChangeSuccess', function () {
+            $rootScope.globalError = '';
+          });
+
+          $delegate(exception, cause);
+        };
+      });
 
       mlAuthProvider.sessionModel = 'ssSession';
       mlHttpInterceptorProvider.disableCsrf = appSettings.disableCsrf;

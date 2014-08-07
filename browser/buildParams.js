@@ -13,7 +13,8 @@ var defaultParams = {
     'angularSpinner',
     'dialogs.main',
     'ngSanitize',
-    'hc.marked'
+    'hc.marked',
+    'wiz.markdown'
   ],
   docs: {
     repoUrl: 'https://github.com/stu-salsbury/marklogic-samplestack.git',

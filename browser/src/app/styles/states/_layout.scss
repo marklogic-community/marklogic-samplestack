@@ -1,0 +1,87 @@
+.ss-main {
+  max-width: $view-max-width;
+  min-width: $view-min-width;
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+
+.ss-page-header {
+  border-bottom: 1px solid #ccc;
+  height: 60px;
+  margin-bottom: 10px;
+  max-width: $view-max-width;
+  min-width: $view-min-width;
+  padding-left: 20px;
+
+  .ss-app-title {
+    float: left;
+    position: relative;
+
+    h1 {
+      display: inline-block;
+    }
+  }
+
+  .ss-page-header-actions {
+    height: 55px;
+    max-width: $view-max-width;
+    min-width: $view-min-width;
+    right: 0;
+    text-align: right;
+
+    .ss-login {
+      height: 55px;
+      line-height: 55px;
+      vertical-align: middle;
+    }
+
+    a {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    > * {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    > *:last-child {
+      margin-right: 20px;
+    }
+
+  }
+}
+
+.ss-page-footer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+  min-width: $view-min-width;
+  max-width: $view-max-width;
+}
+
+ul.ss-sort,
+ul.ss-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    cursor: pointer;
+    float: left;
+    position: relative;
+
+    .ss-sort-active {
+      font-weight: bold;
+    }
+  }
+}
+
+ul.ss-tags li {
+  background-color: #eee;
+  margin-right: 10px;
+  padding: 3px 5px;
+}

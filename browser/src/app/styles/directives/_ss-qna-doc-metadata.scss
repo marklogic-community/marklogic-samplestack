@@ -1,0 +1,13 @@
+.ss-metadata {
+  min-height: 40px;
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.ss-author {
+  float: right;
+  padding: 5px;
+  position: relative;
+}

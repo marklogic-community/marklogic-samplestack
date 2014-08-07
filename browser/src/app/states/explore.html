@@ -1,61 +1,63 @@
 <section class="ss-search-bar">
-  <form>
-    <input type="text" />
-    <button>Search</button>
-    <div class="ss-search-tips">Search Tips</label>
-  </form>
+  <ss-search-bar></ss-search-bar>
 </section>
 
 <section class="ss-explore">
 
-  <section class="ss-filters">
-    <header>
-      <h2>Filter Results</h2>
-    </header>
-    <div class="ss-filters-entries"><input type="checkbox" /> Show my entries only</div>
-    <div class="ss-filters-resolved"><input type="checkbox" /> Show resolved only</div>
-    <div class="ss-filters-date">
-      <h3>Date</h3>
-      <div class="date-placeholder">&nbsp;</div>
-    </div>
-    <div class="ss-filters-tags">
-      <h3>Tags</h3>
-      <ul ng-repeat="facet in searchResults.facets">
-        <div ng-switch="facet.name">
-          <div ng-switch-when="tags">
-            <div ng-repeat="item in facet.items">
-              <li><input type="checkbox" /> {{item.name}} ({{item.count}})</li>
-            </div>
-          </div>
-        </div>
-      </ul>
-    </div>
-  </section>
+  <div class="ss-filters-results">
 
-  <section class="ss-results">
-    <header>
-      <h2>Browsing Questions</h2>
-      <ul class="ss-sort">
-        <li class="ss-sort-active">relevance</li>
-        <li>newest</li>
-        <li>votes</li>
-      </ul>
-    </header>
-    <section class="ss-result" ng-repeat="result in searchResults.results">
-      <div class="ss-votes">votes</div>
-      <div class="ss-result-title">
-        <a ui-sref="root.layout.qnaDoc">Q: {{result.title}}</a>
-      </div>
-      <p>This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet. This is a result snippet.</p>
-      <div class="ss-metadata">
-        <ul class="ss-tags">
-          <li ng-repeat="tag in result.tags">{{tag}}</li>
-        </ul>
-        <div class="ss-author">asked {{dateDisplay(result.creationDate)}} by
-        <a href="" ng-click="openUser(userID)">{{result.owner.displayName}}</a>
-        [{{result.owner.reputation}}]</div>
-      </div>
+    <section class="ss-filters" ng-hide="!search.results">
+      <header>
+        <h2>Filter Results</h2>
+      </header>
+
+    <div
+      class="ss-filters-my-entries"
+      ng-class="{ disabled: !store.session }"
+    >
+      <input
+        type="checkbox"
+        ng-model="showMineOnly"
+        ng-change="setUserName()"
+        ng-disabled="!store.session"
+      />
+      Show my entries only
+    </div>
+    <div
+      class="ss-filters-resolved disabled ss-no-backend"
+    >
+      <input
+        ng-bind="search.criteria.constraints.resolvedOnly.value"
+        type="checkbox"
+        disabled
+      />
+      Show resolved only
+    </div>
+    <section class="ss-filters-date">
+      <header>
+        <h3>Date</h3>
+        <a href="" class="ss-clear-date" ng-click="dateScope.clearSelection()">Clear</a>
+      </header>
+      <div ss-facet-date-range
+        search="search"
+      ></div>
+    </section>
+    <section class="ss-filters-tags">
+      <header>
+        <h3>Tags</h3>
+        <a href="" class="ss-clear-tags" ng-click="clearTagsConstraint()">Clear</a>
+      </header>
+      <ss-facet-tags
+        criteria="search.criteria.constraints.tags"
+        results="search.results.facets.tags"
+        totals="{ total: search.results.total, shadow: search.results.shadowTotals.tags }"
+        num-tags="8"
+      ></ss-facet-tags>
+      <div class="ss-open-all-tags" ng-click="openAllTags()">more...</div>
     </section>
   </section>
 
+  <section class="ss-results">
+    <ss-search-results search="search"></ss-search-results>
+  </section>
 </section>

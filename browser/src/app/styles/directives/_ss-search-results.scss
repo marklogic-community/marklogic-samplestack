@@ -1,0 +1,120 @@
+.ss-results {
+  margin-left: 20px;
+  max-width: 1100;
+  padding-left: 0;
+  position: relative;
+
+  header {
+    display: inline-block;
+    height: 62px;
+    width: 100%;
+  }
+
+  h2 {
+    float: left;
+    margin: 0;
+    padding-top: 13px;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  ul.ss-sort {
+    float: right;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  li {
+    cursor: pointer;
+    margin-left: 10px;
+
+    .ss-sort-active {
+      font-weight: bold;
+    }
+  }
+
+  .ss-paging {
+    margin-right: 20px;
+    overflow: hidden;
+    padding-top: 13px;
+    position: absolute;
+    right: 0;
+    vertical-align: middle;
+
+    button {
+      width: 35px;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+  }
+}
+
+.ss-search-results-footer {
+  height: 62px;
+  position: relative;
+}
+
+.ss-result {
+  padding: 10px;
+  padding-left: 80px;
+  border-bottom: solid 1px black;
+  .ss-votes {
+    position: absolute;
+    left: 0;
+    width: 70px;
+    height: 84px;
+    background-color: #EEE;
+    border: solid 1px #CCC;
+    .ss-score, .ss-answers {
+      padding: 0;
+      label, span, .ss-divider {
+        display: block;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+        z-index: 20;
+      }
+    }
+    .ss-score label {
+      top: -2px;
+    }
+    .ss-score span {
+      top: 14px;
+      font-size: 18px;
+    }
+    .ss-answers label {
+      top: 62px;
+    }
+    .ss-answers span {
+      top: 43px;
+      font-size: 18px;
+    }
+    .ss-divider {
+      position: absolute;
+      top: 40px;
+      width: 60px;
+      height: 1px;
+      margin: 0 4px;
+      background-color: black;
+    }
+    .ss-checked {
+      position: absolute;
+      top: 41px;
+      left: 12px;
+      width: 50px;
+      height: 40px;
+      z-index: 10;
+      background-image:url('/app/images/checkmark.png');
+    }
+  }
+}
+
+.ss-result-title {
+  font-size: larger;
+}
+
+.ss-search-result .ss-metadata {
+  border-bottom: 0 solid #000;
+}

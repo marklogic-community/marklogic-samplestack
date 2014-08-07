@@ -1,0 +1,34 @@
+<div ng-if="docType != 'comment'" class="ss-metadata">
+  <ul class="ss-tags">
+    <li ng-repeat="tag in doc.tags">{{tag}}</li>
+  </ul>
+  <div class="ss-author"
+  >
+    <span ng-if="docType == 'question'">asked</span>
+    <span ng-if="docType == 'answer'">answered</span>
+    {{ formatDate(doc.creationDate) }} by
+    <a ng-if="isLocalOwner()"
+      href=""
+      ng-click="showContributor()"
+    >{{doc.owner.displayName}}</a>
+    <a ng-if="soOwnerId()"
+      href="{{soUserLink()}}"
+      target="_blank"
+    >{{soUserName()}}</a>
+    <span ng-if="noValidUser()">SEED</span>
+    [{{doc.owner.reputation || 'SEED' }}]
+  </div>
+</div>
+<span ng-if="docType == 'comment'">
+  &mdash;
+  <a ng-if="isLocalOwner()"
+      href=""
+      ng-click="showContributor()"
+    >{{doc.owner.displayName}}</a>
+    <a ng-if="soOwnerId()"
+      href="{{soUserLink()}}"
+      target="_blank"
+    >{{soUserName()}}</a>
+  [{{doc.owner.reputation || 'SEED' }}]
+  {{formatDate(doc.creationDate)}}
+</span>

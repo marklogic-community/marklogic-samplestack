@@ -1,54 +1,97 @@
 <section class="ss-search-bar">
-  <form>
-    <input type="text" />
-    <button>Search</button>
-    <div class="ss-search-tips">Search Tips</label>
-  </form>
+  <ss-search-bar></ss-search-bar>
 </section>
 
 <section class="ss-qnadoc">
 
   <header>
-    <h3>Q: Why do birds suddenly appear every time you are near? I'm running MarkLogic 7.0 with geospatial and semantics enabled on Fedora 99 under an IKEA Borgsjo office desk.</h3>
+    <h3>Q: {{ doc.title }}</h3>
   </header>
 
   <section class="ss-question">
-    <div class="ss-vote">vote</div>
-    <p>Tonx pour-over, readymade Pitchfork slow-carb Portland brunch Schlitz gastropub artisan. Trust fund Echo Park wayfarers Godard ethnic leggings kale chips Shoreditch Bushwick, post-ironic forage blog beard meh. Fap narwhal farm-to-table, wolf XOXO seitan four loko. Dreamcatcher banh mi try-hard Tumblr literally. Swag literally Kickstarter selfies. </p>
-    <div class="ss-metadata">
-      <ul class="ss-tags">
-        <li>birds</li>
-        <li>robins</li>
-        <li>vultures</li>
-      </ul>
-      <div class="ss-author">asked May 27 2014 at 3:25 by <a href="" ng-click="openUser(userID)">Snippet</a> [999]</div>
+    <div class="ss-vote">
+      <div
+        ng-if="canVoteQuestion()"
+        class="ss-up ss-up-enabled"
+        ng-click="vote(1)"
+      ></div>
+      <div
+        ng-if="!canVoteQuestion()"
+        class="ss-up ss-up-disabled"
+      ></div>
+      <span class="ss-vote-count">{{doc.itemTally}}</span>
+      <div
+        ng-if="canVoteQuestion()"
+        class="ss-down ss-down-enabled"
+        ng-click="vote(1)"
+      ></div>
+      <div
+        ng-if="!canVoteQuestion()"
+        class="ss-down ss-down-disabled"
+      ></div>
     </div>
-    <div class="ss-add-comment">add comment</div>
+    <div class="ss-qnadoc-content">
+      <div ss-markdown="doc.body"></div>
+      <ss-qna-doc-metadata doc="doc" doc-type="question"></ss-qna-doc-metadata>
+      <div class="ss-comments">
+        <div ng-repeat="comment in doc.comments">
+          <div class="ss-comment">
+            {{comment.text}}
+            <ss-qna-doc-metadata doc="comment" doc-type="comment"></ss-qna-doc-metadata>
+          </div>
+        </div>
+        <span class="ss-add-comment ss-ui-todo">add comment</div>
+      </div>
+    </div>
   </section>
 
   <section class="ss-answers">
 
-    <header>
-      <h3>1 Answer</h3>
-      <ul class="ss-sort">
-        <li class="ss-sort-active">newest</li>
-        <li>votes</li>
-      </ul>
+    <header class="ss-answers-header">
+      <h3>{{answersCountLabel()}}</h3>
     </header>
 
-    <section class="ss-answer-section">
-      <div class="ss-vote">vote</div>
-      <div class="ss-answer">
-        <p>Tonx pour-over, readymade Pitchfork slow-carb Portland brunch Schlitz gastropub artisan. Trust fund Echo Park wayfarers Godard ethnic leggings kale chips Shoreditch Bushwick, post-ironic forage blog beard meh. Fap narwhal farm-to-table, wolf XOXO seitan four loko. Dreamcatcher banh mi try-hard Tumblr literally. Swag literally Kickstarter selfies. </p>
-        <div class="ss-metadata">
-          <div class="ss-author">answered June 11 2014 at 11:17 by <a href="" ng-click="openUser(userID)">Bob</a> [876]</div>
+    <div ng-repeat="answer in doc.answers">
+      <section class="ss-answer-section">
+        <div class="ss-vote">
+          <div
+            ng-if="canVoteAnswer(answer)"
+            class="ss-up ss-up-enabled"
+            ng-click="vote(1)"
+          ></div>
+          <div
+            ng-if="!canVoteAnswer(answer)"
+            class="ss-up ss-up-disabled"
+          ></div>
+          <span class="ss-vote-count">{{ answer.itemTally }}</span>
+          <div
+            ng-if="canVoteAnswer(answer)"
+            class="ss-down ss-down-enabled"
+            ng-click="vote(1)"
+          ></div>
+          <div
+            ng-if="!canVoteAnswer(answer)"
+            class="ss-down ss-down-disabled"
+          ></div>
+          <div class="ss-checked" ng-if="answer.id == doc.acceptedAnswerId">&nbsp;</div>
         </div>
-        <div class="ss-comment">
-          Trust fund Echo Park wayfarers Godard ethnic leggings kale chips Shoreditch Bushwick, post-ironic forage blog beard meh. Fap narwhal farm-to-table, wolf XOXO seitan four loko. Swag literally Kickstarter selfies.<span>&mdash; <a href="" ng-click="openUser(userID)">Beyonce</a> June 11 2014 at 23:59</span>
+        <div class="ss-answer ss-qnadoc-content">
+          <div ss-markdown="answer.body"></div>
+          <ss-qna-doc-metadata doc="answer" doc-type="answer"></ss-qna-doc-metadata>
+          <div class="ss-comments">
+            <div ng-repeat="comment in answer.comments">
+              <div class="ss-comment">
+                {{comment.text}}
+                <ss-qna-doc-metadata doc="comment" doc-type="comment"></ss-qna-doc-metadata>
+              </div>
+            </div>
+            <span class="ss-add-comment ss-ui-todo">add comment</div>
+          </div>
         </div>
-        <div class="ss-add-comment">add comment</div>
-      </div>
-    </section>
+        <br/>
+        <br/>
+      </section>
+    </div>
 
     <section class="ss-answer-form">
       <header>

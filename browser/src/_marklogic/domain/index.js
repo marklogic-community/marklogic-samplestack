@@ -1,3 +1,4 @@
 define([
+  './mlSearch',
   './mlSession'
 ], function () {});

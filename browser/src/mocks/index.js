@@ -1,13 +1,21 @@
 define([
-  'json!./searchResult1.json',
-  'json!./contributor.json'
+  'json!./searchResult.json',
+  'json!./searchResponse.json',
+  'json!./contributor.json',
+  'json!./searchObj.json',
+  'json!./question.json'
 ], function (
   searchResult,
-  contributor
+  searchResponse,
+  contributor,
+  searchObj,
+  question
 ) {
   return {
     searchResult: searchResult,
-    contributor: contributor
-
+    searchResponse: searchResponse,
+    contributor: contributor,
+    searchObj: searchObj,
+    question: question
   };
 });

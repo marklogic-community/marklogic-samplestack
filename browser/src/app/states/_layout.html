@@ -1,34 +1,39 @@
-<header class="ss-page-header">
-  <!-- @todo move form classes (.form-control, .btn, etc.) into sass without losing styling -->
-  <div class="ss-app-title">
-    <h1>
-      <a ui-sref="root.layout.explore">samplestack</a>
-    </h1>
-  </div>
-  <div class="ss-page-header-actions">
+<div>
+  <div ng-if="globalError.length" marked="globalError" class="has-error"></div>
 
-    <div class="ss-login">
-      <span ng-if="store.session" ss-account-dropdown></span>
-
-      <a ng-if="!store.session" href="" ng-click="openLogin()">
-        Login
-      </a>
+  <header class="ss-page-header">
+    <!-- @todo move form classes (.form-control, .btn, etc.) into sass without losing styling -->
+    <div class="ss-app-title">
+      <h1>
+        <a ui-sref="root.layout.explore">samplestack</a>
+      </h1>
     </div>
+    <div class="ss-page-header-actions">
 
-    <button
-      class="ss-ask-button"
-      ng-disabled="!store.session"
-      ng-click="ask()"
-    >
-      Ask a Question
-    </button>
-  </div>
-</header>
+      <div class="ss-login">
+        <span ng-if="store.session" ss-account-dropdown></span>
 
-<section class="ss-main">
-  <div ui-view></div>
-</section>
+        <a ng-if="!store.session" href="" ng-click="openLogin()">
+          Login
+        </a>
+      </div>
 
-<footer class="ss-page-footer">
-  Copyright MarkLogic Corporation 2014
-</footer>
+      <button
+        class="ss-ask-button"
+        ng-disabled="!store.session"
+        ng-click="ask()"
+      >
+        Ask a Question
+      </button>
+    </div>
+  </header>
+
+  <div ng-if="localError" class="has-error">{{localError}}</div>
+  <section class="ss-main">
+    <div ui-view></div>
+  </section>
+
+  <footer class="ss-page-footer">
+    Copyright MarkLogic Corporation 2014
+  </footer>
+</div>

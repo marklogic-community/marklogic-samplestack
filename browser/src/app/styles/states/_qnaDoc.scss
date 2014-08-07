@@ -1,0 +1,151 @@
+// .ss-question,
+// .ss-answer {
+// }
+
+.ss-qnadoc {
+  margin-left: 20px;
+  max-width: $view-max-width;
+  min-width: $view-min-width;
+
+  .ss-checked {
+    background-image: url('/app/images/checkmark.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50px;
+    margin-top: 5px;
+    position: relative;
+    width: 58px;
+  }
+
+  .ss-metadata {
+    border-bottom: 1px solid #000;
+  }
+}
+
+.ss-qnadoc
+.ss-vote {
+  background-color: #eee;
+  border: solid 1px #ccc;
+  float: left;
+  height: 76px;
+  position: relative;
+  text-align: center;
+  width: 60px;
+}
+
+.ss-vote-components {
+  position: absolute;
+}
+
+.ss-vote-count {
+  display: block;
+  font-size: 20px;
+  width: 100%;
+}
+
+.ss-up,
+.ss-down {
+  background-position: center;
+  height: 18px;
+  width: 58px;
+}
+
+.ss-up {
+  margin-top: 4px;
+}
+
+.ss-down {
+  margin-bottom: 4px;
+}
+
+.ss-up-enabled {
+  background-image: url('/app/images/up-blue.png');
+  cursor: pointer;
+}
+
+.ss-up-disabled {
+  background-image: url('/app/images/up-gray.png');
+}
+
+.ss-down-enabled {
+  background-image: url('/app/images/down-blue.png');
+  cursor: pointer;
+}
+
+.ss-down-disabled {
+  background-image: url('/app/images/down-gray.png');
+}
+
+.ss-qnadoc-content {
+  overflow: hidden;
+  padding-left: 20px;
+  position: relative;
+}
+
+.ss-comment {
+  border-bottom: solid 1px #aaa;
+  font-size: smaller;
+  padding: 10px 0 10px 0px;
+}
+
+.ss-add-comment {
+  display: inline-block;
+  margin-left: 2px;
+  margin-top: 8px;
+}
+
+.ss-answer-section {
+  border-top: 1px solid;
+  margin-bottom: 25px;
+  padding-top: 15px;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.ss-answer-form {
+  form > * {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  input {
+    width: 500px;
+  }
+
+  textarea {
+    height: 200px;
+    width: 700px;
+  }
+}
+
+.ss-answers-header {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  h3 {
+    float: left;
+    position: relative;
+  }
+
+  ul.ss-sort {
+    float: right;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  li {
+    margin-left: 10px;
+
+    .ss-sort-active {
+      font-weight: bold;
+    }
+  }
+
+}
