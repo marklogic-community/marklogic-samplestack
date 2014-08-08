@@ -2,16 +2,11 @@
 
 README for Version 1.0.0-ea2
 
-A complete application that demonstrates using MarkLogic in a three-tier application architecture.
+A demonstration of using MarkLogic in a three-tier application architecture.
 
 The application implements a "Question and Answer" Scenario.
 
-This repository contains two implementations of the application,
-
-* One is for the Java Enterprise Developer, and implemented using Java, Spring, and Gradle.
-* One is for the JavaScript developer, and implemented using JavaScript, node.js and Gulp.
-
-These two applications share the same view of the three application tiers.
+This release features a middle tier for the Java Enterprise Developer, implemented using Java, Spring, and Gradle.
 
 ## Usage
 
