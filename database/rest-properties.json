@@ -1,1 +1,3 @@
-{"error-format":"json"}
+{"error-format":"json",
+ "validate-queries":true
+}
