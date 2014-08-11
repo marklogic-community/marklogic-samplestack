@@ -103,7 +103,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode get(@PathVariable(value = "id") String id) {
-		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), id);
+		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), "/questions/" + id);
 		return qnaDoc.getJson();
 	}
 
