@@ -414,7 +414,7 @@ define(['_marklogic/module'], function (module) {
 
       MlSearchObject.prototype.incrementPage = function (increment) {
         var newPage = this.getCurrentPage() + increment;
-        if (newPage > 0 && newPage < this.getPageCount()) {
+        if (newPage > 0 && newPage <= this.getPageCount()) {
           return this.setCurrentPage(newPage);
         }
       };
