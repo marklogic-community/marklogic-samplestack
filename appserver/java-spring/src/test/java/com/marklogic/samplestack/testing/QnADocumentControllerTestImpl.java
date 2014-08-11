@@ -154,6 +154,15 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		assertEquals("question returned contains original question",
 				"Question from contributor",
 				askedQuestion.getJson().get("title").asText());
+		
+		String getQuestion = this.mockMvc
+		.perform(
+				get(askedQuestion.getId())
+						.with(csrf())
+						.session((MockHttpSession) session))
+						.andExpect(status().isOk()).andReturn().getResponse()
+						.getContentAsString();	
+		
 	}
 
 	/* (non-Javadoc)
