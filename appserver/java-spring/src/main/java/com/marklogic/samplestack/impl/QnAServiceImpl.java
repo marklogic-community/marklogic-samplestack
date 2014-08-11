@@ -44,11 +44,11 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	private static String DUMMY_URI = "/nodoc.json";
 
 	private static String idFromUri(String uri) {
-		return uri.replace(".json", "");
+		return uri.replace(".json", "").replace("/questions/", "");
 	}
 
 	private static String uriFromId(String id) {
-		return id + ".json";
+		return "/questions/" + id + ".json";
 	}
 
 	@Override
