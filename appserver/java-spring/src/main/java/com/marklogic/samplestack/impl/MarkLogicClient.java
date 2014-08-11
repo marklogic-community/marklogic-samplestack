@@ -141,6 +141,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 		String qnaDirName =  SamplestackType.QUESTIONS.directoryName();
 		String optionsName = SamplestackType.QUESTIONS.optionsName();
 		QueryManager queryManager = getClient(role).newQueryManager();
+		
 		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(new JacksonHandle(structuredQuery), optionsName);
 		qdef.setDirectory(qnaDirName);
 		queryManager.setView(view);

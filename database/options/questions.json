@@ -2,6 +2,7 @@
   "options":{
     "debug":true,
     "return-qtext":true,
+    "return-query":true,
     "return-facets":true,
     "term":{
       "empty":{
@@ -21,6 +22,20 @@
           "type":"xs:string",
           "facet":"false",
           "json-property":"id"
+        }
+      },
+      {
+        "name":"resolved",
+        "value":{
+          "json-property":"accepted"
+        }
+      },
+      {
+        "name":"lastActivity",
+        "range":{
+          "type":"xs:dateTime",
+          "facet":"false",
+          "json-property":"lastActivityDate"
         }
       },
       {
