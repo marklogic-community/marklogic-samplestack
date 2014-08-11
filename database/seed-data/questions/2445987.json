@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2445987",
+  "creationDate": "2014-03-17T17:10:26.383",
+  "body": "\n\nWith **JQuery UI**, there is an ****. I wonder how they have created it.\n\nI mean i am looking for implementation of that, how to create that effect without resorting to **JQuery UI** and use JQuery alone for that effect.\n\nAny ideas?\n\nThanks",
+  "lastActivityDate": "2014-10-17T23:19:57.330",
+  "title": "JQuery Explode Effect",
+  "tags": [
+    "javascript",
+    "jquery",
+    "jquery-effects"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

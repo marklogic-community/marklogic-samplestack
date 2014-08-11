@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839304",
+  "creationDate": "2014-05-17T15:35:28.030",
+  "body": "\n\nI'm merging legacy Systems and some components use Markdown and others use Textile formatting. This is extremely confusing to my users. Therefore I want to standardize on Markdown.\n\nIs there a way to convert at least the Bulk of Textile formatting to markdown automatically?",
+  "lastActivityDate": "2014-01-30T18:01:37.243",
+  "title": "Convert Textile Markup to Markdown?",
+  "tags": [
+    "markdown",
+    "markup",
+    "textile"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

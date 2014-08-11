@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2267333",
+  "creationDate": "2014-02-18T08:29:20.920",
+  "body": "\n\nIm trying to create a Sqarql query using Jena to query dbpedia. \n\nThe query is working when I use it with standalone tools (Twinkle) but when I plug it in this java code it returns an empty set.\n\n\t    String sparqlQueryString1= \"PREFIX dbont: <http://dbpedia.org/ontology/> \"+\n\t    \"PREFIX dbp: <http://dbpedia.org/property/>\"+\n\t        \"PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\"+\n\t    \"   SELECT ?musician  ?place\"+\n\t    \"   FROM<http://dbpedia.org/resource/Daphne_Oram>\"+\n\t    \"   WHERE {  \"+\n\t    \"       ?musician dbont:birthPlace ?place .\"+\n\t    \"        }\";\n\t\n\t\n\t      Query query = QueryFactory.create(sparqlQueryString1);\n\t      QueryExecution qexec = QueryExecutionFactory.sparqlService(\"http://dbpedia.org/sparql\", query);\n\t\n\t      ResultSet results = qexec.execSelect();\n\t      ResultSetFormatter.out(System.out, results, query);       \n\t\n\t     qexec.close() ;\n\t\n\nAny ideas what im doing wrong? ",
+  "lastActivityDate": "2014-12-15T07:09:24.697",
+  "title": "Using Jena to create a sparql query on dbpedia",
+  "tags": [
+    "java",
+    "semantic-web",
+    "sparql",
+    "jena"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

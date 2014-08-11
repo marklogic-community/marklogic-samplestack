@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2645775",
+  "creationDate": "2014-04-17T21:43:52.343",
+  "body": "\n\nI would like to create extend a Java Swing application to have a look somewhat similar to an IDE such as Eclipse or Visual Studio.  That’s, there would be a panel at the left that displays a tree, and a tab panel on the right that allows several elements of the tree to be opened and edited on right.  For this I could easily use a BorderLayout and just use the center and left areas.\n\nHowever, I would also like to have the ability for the user to drag the border between these two panels, just like Eclipse and Visual Studio allow.  I can think of several ways to do this, but was curious if anyone had found a particularly good way to do this, or knew of an example.  I’ve googled for it, but have not found anything.  ",
+  "lastActivityDate": "2014-03-04T06:23:57.337",
+  "title": "Create a Visual Studio type look using Java Swing",
+  "tags": [
+    "java",
+    "swing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

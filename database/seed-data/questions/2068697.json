@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2068697",
+  "creationDate": "2014-01-17T16:49:12.763",
+  "body": "\n\nWhen opening a file directly its fast, but when I open a recent file which is activated adding the following lines in my `.emacs.`:\n\n\t(require 'recentf)\n\t(recentf-mode 1)\n\t(setq recentf-max-menu-items 25)\n\t(global-set-key \"\\C-x\\ \\C-r\" 'recentf-open-files)\n\t\n\n**it takes around 2 seconds to open.**\n\nIs this a normal behavior can I do something about it?\n\nThe command I use to open recent files:\n\nMy whole .emacs:\n\n\t(custom-set-variables\n\t  ;; custom-set-variables was added by Custom.\n\t  ;; If you edit it by hand, you could mess it up, so be careful.\n\t  ;; Your init file should contain only one such instance.\n\t  ;; If there is more than one, they won't work right.\n\t '(tool-bar-mode nil))\n\t(custom-set-faces\n\t  ;; custom-set-faces was added by Custom.\n\t  ;; If you edit it by hand, you could mess it up, so be careful.\n\t  ;; Your init file should contain only one such instance.\n\t  ;; If there is more than one, they won't work right.\n\t '(default ((t (:inherit nil :stipple nil :background \"Grey15\" :foreground \"Grey\" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :foundry \"outline\" :family \"Monaco\")))))\n\t\n\t  ;;colot theme plugin\n\t(add-to-list 'load-path \"~/.emacs.d/\")\n\t(require 'color-theme)\n\t(eval-after-load \"color-theme\"\n\t  '(progn\n\t     (color-theme-initialize)\n\t     (color-theme-charcoal-black)))\n\t\n\t  ;;YASnippets\n\t(add-to-list 'load-path \"~/.emacs.d/plugins/yasnippet-0.6.1c\")\n\t    (require 'yasnippet) ;; not yasnippet-bundle\n\t    (yas/initialize)\n\t    (yas/load-directory \"~/.emacs.d/plugins/yasnippet-0.6.1c/snippets\")\n\t\n\t;; disable splash screen and startup message\n\t(setq inhibit-startup-message t)\n\t\n\t;; set yasnippet no indent\n\t(setq yas/indent-line 'none)\n\t\n\t;; set the tab width\n\t(setq default-tab-width 4)\n\t(setq tab-width 4)\n\t(setq c-basic-indent 4)\n\t\n\t;; set open recent files\n\t\n\t(require 'recentf)\n\t(recentf-mode 1)\n\t(setq recentf-max-menu-items 25)\n\t(global-set-key \"\\C-x\\ \\C-r\" 'recentf-open-files)\n\t\n\t;; set line number\n\t(global-linum-mode 1)\n\t\n\t;; prevent emacs from making backup files\n\t(setq make-backup-files nil) \n\t\n\t;; same syntax hightlight for all languages\n\t(global-font-lock-mode 1)\n\t\n\t;; remove bold and underline\n\t (mapc\n\t  (lambda (face)\n\t    (set-face-attribute face nil :weight 'normal :underline nil))\n\t  (face-list))\n\t",
+  "lastActivityDate": "2014-01-17T20:00:11.547",
+  "title": "Emacs is slow opening recent files!",
+  "tags": [
+    "emacs",
+    "file",
+    "performance"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

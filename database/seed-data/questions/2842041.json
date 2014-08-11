@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2842041",
+  "creationDate": "2014-05-18T07:02:43.687",
+  "body": "\n\nI currently have a site that is a sidescroller (http://www.studioimbrue.com) and I'm trying to bind a mousewheel to scroll sideways. Currently I'm using the one found at thehorizontalway.com (called thw.js) but it doesn't seem to work in all browsers (Chrome).\n\nI'm trying to get this one to work: [http://brandonaaron.net/code/mousewheel/docs](http://brandonaaron.net/code/mousewheel/docs) , to simply scroll the whole window, nothing else. There is very limited documentation so I can't figure it out. Any help is appreciated.",
+  "lastActivityDate": "2014-12-05T23:34:21.137",
+  "title": "jquery horizontal scroll with mousewheel",
+  "tags": [
+    "jquery",
+    "scroll",
+    "mousewheel"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

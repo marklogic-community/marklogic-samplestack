@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2838696",
+  "creationDate": "2014-05-17T10:39:06.800",
+  "body": "\n\nI have the toggle in my menu Working successfully for the two links that I have within it. Because the top link once toggled covers the other link, there is no problem. But since the link beneath it leaves the top link exposed, a user could click that and now have two toggled items open and pretty much stacked on top of each other. Is there a way for me to check if the other toggled item is open and if so, close it? Thanks!\n\n\t<div class=\"parents-toggle\">\n\t <a href=\"#\" id=\"customize-toggle\">Customize</a><br/>\n\t <div class=\"menu-toggle hidden\" id=\"customize-menu\">\n\t <div class=\"menu-toggle-one\">\n\t <h3>Background</h3>\n\t  <ul>\n\t   <li><a href=\"#\">Dark Wood</a></li>\n\t   <li><a href=\"#\">Wallpaper</a></li>\n\t   <li><a href=\"#\">Bricks</a></li>\n\t   <li><a href=\"#\">Planks</a></li>\n\t   <li><a href=\"#\">Default</a></li>\n\t </ul>\n\t</div>     \n\t<div class=\"menu-toggle-two\">\n\t <h3>Layout</h3>\n\t <ul>\n\t  <li><a href=\"#\">Grid</a></li>\n\t  <li><a href=\"#\">List</a></li>\n\t  <li><a href=\"#\">Full</a></li>\n\t </ul>\n\t</div>\n\t</div>\n\t</div>\n\t<a href=\"/submit/\">Submit video</a><br/>\n\t<div class=\"parents-toggle\">\n\t <a href=\"#\" id=\"channels-toggle\">Channels</a>\n\t <div class=\"menu-toggle hidden\" id=\"channels-menu\">\n\t  <div class=\"menu-toggle-one\">\n\t  <ul>\n\t   <li><a href=\"#\">Automotive</a></li>\n\t   <li><a href=\"#\">Comedy</a></li>\n\t   <li><a href=\"#\">Movies</a></li>\n\t   <li><a href=\"#\">Weather</a></li>\n\t  </ul>\n\t </div>\n\t <div class=\"menu-toggle-two\">\n\t  <ul>\n\t   <li><a href=\"#\">Business</a></li>\n\t   <li><a href=\"#\">Commercials</a></li>\n\t   <li><a href=\"#\">Music</a></li>\n\t   <li><a href=\"#\">Technology</a></li>\n\t  </ul>\n\t </div>\n\t</div>\n\t</div>\n\t</div>\n\t\n\t<script>\n\t $(\"#customize-toggle\").click(function () {\n\t $(\"#customize-menu\").toggle();\n\t });\n\t $(\"#channels-toggle\").click(function () {\n\t $(\"#channels-menu\").toggle();\n\t });\n\t</script>\n\t",
+  "lastActivityDate": "2014-05-17T14:46:18.580",
+  "title": "Jquery Close/Open Multiple Toggles",
+  "tags": [
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

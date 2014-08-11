@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645567",
+  "creationDate": "2014-04-17T21:18:44.390",
+  "body": "\n\nWe're using the Telerik Rad Controls for ASP.Net Ajax on an ASP.Net MVC project. The RadChart generates the following HTML:\n\n\t<img onerror=\"if(confirm('Error loading RadChart image.\\nYou may also wish to check the ASP.NET Trace for further details.\\nDisplay stack trace?'))window.location.href=this.src;\" src=\"ChartImage.axd?UseSession=true&amp;ChartID=e25ad666-e05b-4a92-ac0c-4f2c729b9382_chart_ctl00$MainContent$AverageCTMChart&amp;imageFormat=Png&amp;random=0.501658702968461\" usemap=\"#imctl00_MainContent_AverageCTMChart\" style=\"border-width: 0px;\" alt=\"\">\n\t\n\nI'd like to remove the `onerror` attribute; I don't really want the customers being offered the option to see a stack trace if something goes wrong. I can't see any way to control the markup that this control generates. Google searches provide no help. Has anyone dealt with this before?\n\nHow do I remove the `onerror` attribute?",
+  "lastActivityDate": "2014-12-29T07:47:33.437",
+  "title": "How can I prevent Telerik RadChart from generating an onerror attribute?",
+  "tags": [
+    "c#",
+    "asp.net-mvc",
+    "telerik"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

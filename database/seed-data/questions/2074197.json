@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074197",
+  "creationDate": "2014-01-18T11:27:10.960",
+  "body": "\n\nI have the start date and the end date. I need to iterate through every day between these 2 dates.\n\nWhat's the best way to do this?\n\nI can suggest only something like:\n\n\tDate currentDate = new Date (startDate.getTime ());\n\twhile (true) {\n\t   if (currentDate.getTime () >= endDate.getTime ())\n\t      break;\n\t   doSmth ();\n\t   currentDate = new Date (currentDate.getTime () + MILLIS_PER_DAY);\n\t}\n\t",
+  "lastActivityDate": "2014-01-18T13:18:24.827",
+  "title": "I need a cycle which iterates through dates interval",
+  "tags": [
+    "java",
+    "algorithm",
+    "date"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

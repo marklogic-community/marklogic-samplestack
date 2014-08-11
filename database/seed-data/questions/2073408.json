@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2073408",
+  "creationDate": "2014-01-18T09:08:54.903",
+  "body": "\n\nI send a valid JSON string to my PHP page from jQueryscript:\n\n\tvar data = '{\n\t \"data\":[\n\t  {\n\t   \"id\":\"12\",\n\t   \"checked\":\"true\"\n\t  },{\n\t   \"id\":\"4\",\n\t   \"checked\":\"false\"\n\t  },{\n\t   \"id\":\"33\",\n\t   \"checked\":\"false\"\n\t  }\n\t ]\n\t}';\n\t\n\t\n\t$.post (\"page.php\", { data_input:data }, function (data) {\n\t // code\n\t});\n\t\n\nOnce I get the data in my PHP page, I parse it with the `json_decode` method, and then try to use it in a `foreach` statement created for a `PDO` query:\n\n\t<?php\n\t\n\t$data_input = json_decode ($_REQUEST['data_input'], true);\n\t\n\t$sql = \"UPDATE my_table SET user_enabled = :checked WHERE node_prop_id = :id\";\n\t$stmt = $dns->prepare ($sql);\n\t\n\tforeach ($data_input as $data) {\n\t $ok = $stmt->execute ($data);\n\t $num = $stmt->rowCount ();\n\t} \n\tif ($ok) return 1;\n\telse return 0;\n\t\n\t?>\n\t\n\nThis returns me the error:\n\n> PHP Warning:  Invalid argument supplied for foreach() in /home/.../page.php on line XX\n\nCan I find a way to use my JSON data in the `foreach` statement?",
+  "lastActivityDate": "2014-01-18T14:25:22.693",
+  "title": "JSON to PHP, then foreach?",
+  "tags": [
+    "php",
+    "jquery",
+    "mysql",
+    "json",
+    "pdo"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

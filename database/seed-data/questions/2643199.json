@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2643199",
+  "creationDate": "2014-04-17T14:36:40.583",
+  "body": "\n\ni need to retrieve all the city names from a specific country using openstreet map or google maps. is there any API available?\n\nor is there any other way of getting this world geographic data?",
+  "lastActivityDate": "2014-02-20T16:27:58.513",
+  "title": "How to extract Geographic data from open street map or Google maps",
+  "tags": [
+    "language-agnostic",
+    "google-maps",
+    "geography",
+    "openstreetmap"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

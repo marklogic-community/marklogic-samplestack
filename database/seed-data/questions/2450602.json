@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2450602",
+  "creationDate": "2014-03-18T05:24:14.437",
+  "body": "\n\nHow do I receive an array from flash vars?\n\nSo I have HTML page. with a flash app on it. I want to send an array to flash.\n\nHow do I do such thing using flashVars (I have something like uid=12&sid=12&sid=32&sid=12&sid=32) so I need to get dynamic\\random\\beeg\\unknown number of Sid's while not losind UID.  How to do such thing? \n\nbtw I want to pass in an array of values and have it recognized by Flash as an Array object;\n\nFor example, with POST and GET requests an array is formed as \"field[]=value&field[]=value\" etc.",
+  "lastActivityDate": "2014-05-28T04:19:16.403",
+  "title": "How to receive an array from flash vars? ",
+  "tags": [
+    "html",
+    "flex",
+    "flash",
+    "actionscript",
+    "flashvars"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

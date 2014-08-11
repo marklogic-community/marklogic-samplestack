@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448108",
+  "creationDate": "2014-03-17T23:08:25.997",
+  "body": "\n\nI'm trying to enter values into a database table using a form and a PHP function. The PHP seems to be fine as the SQL statement it creates looks okay, but the database always throws up an error. This is the SQL statement that my code has generated (with arbitrary values):\n\n\tINSERT INTO Iteminfo ('itemName', 'itemSeller', 'itemCategory', 'itemDescription', 'itemPrice', 'itemPostage', 'itemBegin', 'itemEnd', 'buynow', 'itemPicture')\n\tvalues ('gorillaz album', 'ben', 'music', 'new one ', '5.00', '1.00', '2010-03-15 14:59:51', '2010-03-16 14:59:51', '0', 'http://www.thefader.com/wp-content/uploads/2010/01/gorillaz-plastic-beach.jpg')\n\t\n\nThis throws up an error both when I use the PHP function to evaluate the query and also when I use phpMyAdmin to enter the query manually. However, I can't see anything wrong with it. Can anyone shed some light on this? All of the fields are VARCHAR values, except for itemPrice and itemPostage (which are stored as DECIMAL(4,2)) and the itemBegin and itemEnd, which are stored as DATETIMEs.",
+  "lastActivityDate": "2014-03-18T03:15:23.990",
+  "title": "Problem with a SQL statement",
+  "tags": [
+    "php",
+    "sql",
+    "syntax"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

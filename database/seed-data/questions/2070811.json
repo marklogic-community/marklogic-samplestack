@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2070811",
+  "creationDate": "2014-01-18T02:26:44.790",
+  "body": "\n\nOften times, when I try to add my own custom PHP source codes to the template files (sidebar.php, index.php, header.php, etc...), it generates errors. However, it works properly on it's own outside of Wordpress. Is there a way for me to use my custom PHP stuff in Wordpress' template files?",
+  "lastActivityDate": "2014-01-20T15:58:53.047",
+  "title": "Wordpress and my own custom PHP stuff",
+  "tags": [
+    "php",
+    "wordpress"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

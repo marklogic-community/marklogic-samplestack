@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267405",
+  "creationDate": "2014-02-18T08:39:09.940",
+  "body": "\n\nI have googled for the last hour or so with no luck (I'd like to think I'm a great googler too!), so here I am.\n\nI have an XML file that I'm using for my programs settings, it looks like so:\n\n\t<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\t<config>\n\t    <store>\n\t        <number>0323</number>\n\t        <address>address</address>\n\t        <phone>phone</phone>\n\t    </store>\n\t\n\t    <emailsettings>\n\t        <emailfrom>emailfrom</emailfrom>\n\t        <emailpass>pass</emailpass>\n\t        <emailsubject>received</emailsubject>\n\t        <smtpserver>smtp.gmail.com</smtpserver>\n\t        <smtpport>587</smtpport>\n\t        <enablessl>true</enablessl>\n\t        <emailbody>package received</emailbody>\n\t    </emailsettings>\n\t    <dbconfig>\n\t        <dbpath>path</dbpath>\n\t    </dbconfig>\n\t</store>\n\t\n\nHow can I use vb.net to get each element and return a specific value that I want? Per se, I'd like to return `<number>` (under `<store>`) in textbox1, and `<emailbody>` (under `<emailsettings>`) in textbox2.\n\nHelp pleaseeeeee! Thanks :)",
+  "lastActivityDate": "2014-11-03T09:00:12.440",
+  "title": "Read XML in VB.net",
+  "tags": [
+    "xml",
+    "vb.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

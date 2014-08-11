@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644633",
+  "creationDate": "2014-04-17T18:59:43.950",
+  "body": "\n\nI have a WPF aplication that is doing some serious work (doing some calcualtions) when a button is hit. I wanted to add a 'busy animation'. However, the aplication is so busy doing its work that the animation is stopped until the calcuations are finished. Any ideas??",
+  "lastActivityDate": "2014-04-17T19:29:55.457",
+  "title": "How to prevent animation from being stoped by background worker in WPF",
+  "tags": [
+    "wpf",
+    "animation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

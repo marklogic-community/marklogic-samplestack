@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2071949",
+  "creationDate": "2014-01-18T05:55:06.420",
+  "body": "\n\nIs it possible, that the FontSize getting smaller if I shrink the window and getting bigger if I enlarge the window?",
+  "lastActivityDate": "2014-09-19T00:37:54.497",
+  "title": "Changing FontSize relationally to the windowsize with WPF?",
+  "tags": [
+    "wpf",
+    "window",
+    "font-size"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

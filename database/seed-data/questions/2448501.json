@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448501",
+  "creationDate": "2014-03-17T23:57:10.317",
+  "body": "\n\nLets say I have a function where the parameter is passed by value instead of const-reference. Further, lets assume that only the value is used inside the function i.e. the function doesn't try to modify it. In that case will the compiler will be able to figure out that it can pass the value by const-reference (for performance reasons) and generate the code accordingly? Is there any compiler which does that?",
+  "lastActivityDate": "2014-03-18T00:09:48.923",
+  "title": "Does the compiler optimize the function parameters passed by value?",
+  "tags": [
+    "c++",
+    "optimization",
+    "compiler"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

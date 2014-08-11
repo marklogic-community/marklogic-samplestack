@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840364",
+  "creationDate": "2014-05-17T21:57:55.930",
+  "body": "\n\nIt seems that there are two different ways of declaring **sorted associations** in Grails :\n\n**Method 1** (see [here](http://grails.org/doc/latest/guide/5.%20Object%20Relational%20Mapping%20%28GORM%29.html#5.5.3%20Default%20Sort%20Order)) using default sort order\n\n\tclass Book {\n\t  String title \n\t}\n\tclass Author {\n\t  static hasMany = [books : Book]\n\t  static mapping = { books sort: \"title\"}\n\t}\n\t\n\n**Method 2** (see [here](http://grails.org/doc/latest/guide/5.%20Object%20Relational%20Mapping%20%28GORM%29.html#5.2.4%20Sets,%20Lists%20and%20Maps)) using SortedSet\n\n\tclass Book implements Comparable {\n\t  String title\n\t  int compareTo(obj) {\n\t    title <=> obj.title\n\t  }\n\t}\n\tclass Author {\n\t  SortedSet books\n\t  static hasMany = [books : Book]\n\t}\n\t\n\nI am not sure which one to use and what is the difference (if any), pros and cons between using one against the other. \n\nI would appreciate any clarification. \n\nThank you ",
+  "lastActivityDate": "2014-05-18T02:13:19.040",
+  "title": "What is the best way to declare sorted association in grails domain classes?",
+  "tags": [
+    "grails",
+    "gorm",
+    "grails-domain-class"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

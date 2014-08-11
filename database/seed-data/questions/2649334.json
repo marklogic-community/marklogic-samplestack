@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2649334",
+  "creationDate": "2014-04-18T06:08:01.347",
+  "body": "\n\nWhat is the difference between static and shared libraries?\n\nI use Eclipse and there are several project types including Static Libraries and Shared Libraries? Does one have an advantage over the other?",
+  "lastActivityDate": "2014-04-21T17:36:27.277",
+  "title": "Difference between static and shared libraries?",
+  "tags": [
+    "c++",
+    "c",
+    "shared-libraries",
+    "static-libraries"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

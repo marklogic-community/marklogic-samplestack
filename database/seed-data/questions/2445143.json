@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445143",
+  "creationDate": "2014-03-17T12:50:29.900",
+  "body": "\n\nQTableWidget::setItemPrototype says following.\n\n\"The table widget will use the item prototype clone function when it needs to create a new table item. For example when the user is editing in an empty cell. This is useful when you have a QTableWidgetItem subclass and want to make sure that QTableWidget creates instances of your subclass.\"\n\nHow does this actually work as you can pass any of the QTableWidgetItem subclass pointer to  setItemPrototype and at run time there is no way you can get the size of an object having just pointer to it?",
+  "lastActivityDate": "2014-03-17T18:34:47.430",
+  "title": "How does void QTableWidget::setItemPrototype ( const QTableWidgetItem * item ) clones objects?",
+  "tags": [
+    "c++",
+    "qt4"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

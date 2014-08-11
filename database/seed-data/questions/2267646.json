@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2267646",
+  "creationDate": "2014-02-18T09:15:05.727",
+  "body": "\n\nI suddenly have a big problem I didn't have before. \n\nIn my current project, I want to add a reference to \"Microsoft.Office.Interop.OneNote\". When I open the .NET tab of the \"Add Reference\" dialog, the \"Microsoft.Office\" assemblies aren't available like they used to be; on my machine, the next assembly after \"Microsoft.JScript\" is called \"Microsoft.SqlServer.ConnectionInfo\"; no trace of any of the \"Microsoft.Office\" assemblies. I used to be able to do this under Windows XP, but made the switch to Windows 7 a couple of weeks ago. I don't know whether that has anything to do with it.\n\nI already checked whether the assemblies are installed on my machine, but I found all of the office assemblies safe and sound in \"windows\\assembly\". Oddly enough, the reference to  \"Microsoft.Office.Interop.OneNote\" in a previous project continues to work; I just can't add any new references with the \"add references\" dialog, as they aren't shown in the list of .NET references anymore. \n\nAny help will be appreciated.\n\nKind regards,\n\nRainer",
+  "lastActivityDate": "2014-02-19T05:53:09.540",
+  "title": "Problem with \"add reference\" under Visual C# 2008 Express Edition after switching from XP to Windows 7",
+  "tags": [
+    "c#",
+    "visual-studio-2008",
+    "interop",
+    "reference"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2073822",
+  "creationDate": "2014-01-18T10:25:19.570",
+  "body": "\n\nControllers can become large and unwieldy when they contain large numbers of actions. Is this a significant problem in real-world use, and if so what are the strategies to mitigate it (or is is good enough to simply keep the action-count down per controller)?\n\nOff the top of my head I can envisage the controller offloading the logic to action implementations in other types, grouped according to some meaningful heuristic.",
+  "lastActivityDate": "2014-01-18T11:41:44.357",
+  "title": "Avoiding large controllers in MVC",
+  "tags": [
+    "mvc",
+    "controllers",
+    "action"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

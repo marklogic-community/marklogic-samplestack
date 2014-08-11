@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074518",
+  "creationDate": "2014-01-18T12:21:37.607",
+  "body": "\n\nthese are my classes.when i run my MainClient class,one frame will be shown that get text from client and then send it to the server.at the first time when i click on the Send button,it will work correctly and send data to the server but suddenly the frame will confused and I can not do any thing like writing or clicking on the button!!please help me. \n\nMainClient class:\n\n\t//these are in the main(String[] args)\n\t\n\tMainFrame farme = new MainFrame();\n\tfarme.setVisible(true);\n\tc = new Socket(\"localhost\", 5050);\n\t\n\tos = new PrintWriter(c.getOutputStream(), true);\n\tis = new BufferedReader(new InputStreamReader(c.getInputStream()));\n\t\n\t//this method is not in the main(String[] args)\n\tpublic static void active() {\n\t\n\t    String teXt = MainClient.getText();\n\t    System.out.println(teXt);\n\t    os.println(teXt);\n\t    String line = is.readLine();\n\t    System.out.println(\"Text received: \" + line);\n\t}\n\t\n\nmy gui class which get text from client and by clicking on the send button will send that text to the server:(Send button action performed)\n\n\t public ChatFrame(InformationClass client) {\n\t    initComponents();\n\t\n\t\n\t    jButton1.setEnabled(false);\n\t    this.client = client;\n\t    jTextArea2.setText(\"\");\n\t\n\t}\n\t\n\tprivate void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {\n\t    submit();\n\t    clear();\n\t}\n\tprivate void submit() {\n\t    String text = jTextArea1.getText();\n\t\n\t    jTextArea2.append(client.getCurrentName() + \" : \" + text + \"\\n\");\n\t    MainClient.setText(client.getCurrentName() + \" : \" + text + \"\\n\");\n\t    MainClient.active();\n\t}\n\t\n\tprivate void clear() {\n\t    jTextArea1.setText(\"\");\n\t}\n\t",
+  "lastActivityDate": "2014-01-18T13:32:02.550",
+  "title": "why the frame will confused!![:-)]",
+  "tags": [
+    "java",
+    "swing",
+    "networking"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

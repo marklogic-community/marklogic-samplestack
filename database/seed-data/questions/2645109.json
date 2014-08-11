@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645109",
+  "creationDate": "2014-04-17T20:23:14.743",
+  "body": "\n\ni am having a url like\n[http://localhost/joomla/Joomla_1.5.7/index.php?option=com_content&view=section&layout=blog&id=3&Itemid=55](http://localhost/joomla/Joomla_1.5.7/index.php?option=com_content&view=section&layout=blog&id=3&Itemid=55)\n\nand i want to redirect this to \n[http://localhost/joomla/Joomla1.5/index.php?option=com_content&view=section&layout=blog&id=3&Itemid=55](http://localhost/joomla/Joomla1.5/index.php?option=com_content&view=section&layout=blog&id=3&Itemid=55)\n\nNot only this redirection but whenever i have anything next to Joomla_1.5.7/ i am trying to attach that to Joomla1.5 ..\nHow to do this in PHP ....\nHow to identify that the url contains something after Joomla_1.5.7 to get it??\n\nEDIT:\n      ##  Can be commented out if causes errors, see notes above.\n       Options +FollowSymLinks\n\n\t#\n\t  #  mod_rewrite in use\n\t\n\t  RewriteEngine On\n\t\n\t########## Begin - Rewrite rules to block out some common exploits\n\t   ## If you experience problems on your site block out the operations listed below\n\t   ## This attempts to block the most common type of exploit `attempts` to Joomla!\n\t   #\n\t   # Block out any script trying to set a mosConfig value through the URL\n\t   RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\\%3D) [OR]\n\t    # Block out any script trying to base64_encode crap to send via URL\n\t  RewriteCond %{QUERY_STRING} base64_encode.*\\(.*\\) [OR]\n\t  # Block out any script that includes a <script> tag in URL\n\t RewriteCond %{QUERY_STRING} (\\<|%3C).*script.*(\\>|%3E) [NC,OR]\n\t # Block out any script trying to set a PHP GLOBALS variable via URL\n\t RewriteCond %{QUERY_STRING} GLOBALS(=|\\[|\\%[0-9A-Z]{0,2}) [OR]\n\t# Block out any script trying to modify a _REQUEST variable via URL\n\tRewriteCond %{QUERY_STRING} _REQUEST(=|\\[|\\%[0-9A-Z]{0,2})\n\t\n\n# Send all blocked request to homepage with 403 Forbidden error!\n   RewriteRule ^(.*)$ index.php [F,L]\n   #\n    ########## End - Rewrite rules to block out some common exploits\n\n\t#  Uncomment following line if your webserver's URL\n\t#  is not directly related to physical file paths.\n\t#  Update Your Joomla! Directory (just / for root)\n\t\n\t# RewriteBase /\n\t\n\t\n\t  ########## Begin - Joomla! core SEF Section\n\t\n\n#\n    RewriteCond %{REQUEST_FILENAME} !-f\n     RewriteCond %{REQUEST_FILENAME} !-d\n     RewriteCond %{REQUEST_URI} !^/index.php\n      RewriteCond %{REQUEST_URI} (/|.php|.html|.htm|.feed|.pdf|.raw|/[^.]*)$  [NC]\n      RewriteRule (.*) index.php\n     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]\n    #\n      ########## End - Joomla! core SEF Section\n\n\t RewriteEngine on\n\t RewriteCond %{REQUEST_URI} ^/joomla/Joomla_1\\.5\\.7/.*\n\t RewriteRule ^(.*)$ http://%{HTTP_HOST}/joomla/Joomla1.5/$1 [R=301,L]\n\t\n\nis the content in my htaccess file but still it showed any changes in my site.",
+  "lastActivityDate": "2014-12-27T16:54:59.637",
+  "title": "Url redirection in PHP",
+  "tags": [
+    "php",
+    "redirect",
+    "joomla1.5"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

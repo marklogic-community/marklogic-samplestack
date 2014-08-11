@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2265972",
+  "creationDate": "2014-02-18T04:47:03.000",
+  "body": "\n\nAt work, we use/develop a LOT of MS Access apps. \n\nWhenever the business has a significantly different problem to be solved, a new MS Access project is started.\n\nAs such, although these projects are solving fairly different problems, they may actually use very similar code in parts of each project. There are only so many ways you can extract customers from the same database, right? Or perhaps, many different projects need to work on a list of customers who we have had returned mail from. So, each time we start a new project, we have written the code to do pretty much the same thing that has been done previously.\n\nObviously, some way of \"centralising\" this functionality would be very useful. Say the database schema is changed slightly, we don't want to have to go and update every single MS Access app. What would be a good way to do this? Perhaps many people will say \"First of all, do away with all the MS Access apps!\" Of course, it wouldn't be that easy to replace all our existing MS Access apps, so it would be nice it the centralised functionality could be somehow consumed by MS Access as well. If not, I would still appreciate answers which would not work with MS Access as well.\n\nAlso, the solution would have to be in .NET as we are a .NET shop.\n\n**EDIT**\n\nWe are using .NET 3.5.\n\nReferences to .NET 4.0 would not be useful at this stage.",
+  "lastActivityDate": "2014-02-19T13:38:08.943",
+  "title": "How to centralise functionality across an enterprise?",
+  "tags": [
+    ".net",
+    "ms-access"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

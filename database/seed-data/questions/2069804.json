@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2069804",
+  "creationDate": "2014-01-17T22:13:27.117",
+  "body": "\n\nSo I am trying to get the page where a visitor came from. I inserted this code into a php file and I am trying to see the page's URL but it is not working, any suggestions?\n\n\t<?php \n\t\n\t  $ref = getenv(\"HTTP_REFERER\"); \n\t  echo $ref; \n\t\n\t?>\n\t\n\n(added this after some answers)\nI have also tried\n\n\tprint $_SERVER[\"HTTP_REFERER\"];\n\t\n\nand that doesn't work either\n\nit worked after i updated the website many times, not sure why was there a problem in the first place, thanks anyway :) ",
+  "lastActivityDate": "2014-07-06T18:05:55.233",
+  "title": "Referral URL in php",
+  "tags": [
+    "php"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

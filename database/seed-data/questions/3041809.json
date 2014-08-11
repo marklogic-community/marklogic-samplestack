@@ -1,0 +1,18 @@
+{
+  "id": "/questions/3041809",
+  "creationDate": "2014-06-17T08:18:20.193",
+  "body": "\n\nI'm kind of new to LaTeX and I am having a bit of a problem..\n\nI am using a `twocolumn` layout for my `article`. There are four authors involved with different affiliations, and I am trying to list all of them under the title so they span the entire width of the page (all on the same level). It should be similar to this:\n\n\t                  Article Title\n\t\n\tauth1FN auth1LN     2  ... 3    auth4FN auth4LN\n\t department            ...        department\n\t   school              ...          school\n\t  email@edu            ...         email@edu\n\t\n\t\n\t     Abstract                .....................\n\t....................         .....................\n\t....................         .....................\n\t....................         .....................\n\t\n\nCurrently I have something along the lines:\n\n\t\\documentclass[10pt,twocolumn]{article}\n\t\\usepackage{multicol}\n\t\n\t\\begin{document}\n\t\n\t\\begin{multicols}{2}\n\t\\title{Article Title}\n\t\\author{\n\t    First Last\\\\\n\t    Department\\\\\n\t    school\\\\\n\t    email@edu\n\t  \\and\n\t    First Last\\\\\n\t    ...\n\t}\n\t\\date{}\n\t\\maketitle\n\t\\end{multicols}\n\t\n\t\\begin{abstract}\n\t...\n\t\\end{abstract}\n\t\n\t\\section{Introduction}\n\t...\n\t\n\t\\end{document}\n\t\n\nThe problem is that the authors are not displayed all on the same level, instead I get the first three next to each other, followed by the last one underneath.\n\nIs there way to achieve what I want? Also if possible, how can I customize the font of the affiliations (to be smaller and in italic)?",
+  "lastActivityDate": "2014-02-21T22:17:38.370",
+  "title": "LaTeX: Multiple authors in a two-column article",
+  "tags": [
+    "layout",
+    "latex",
+    "tex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

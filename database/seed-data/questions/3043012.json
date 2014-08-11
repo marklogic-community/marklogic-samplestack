@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3043012",
+  "creationDate": "2014-06-17T14:37:16.247",
+  "body": "\n\nThis was a homework assignment for my students (I am a teaching assistant) in c and I am trying to learn Ruby, so I thought I would code it up.  The goal is to read integers from a redirected file and print some simple information.  The first line in the file is the number of elements, and then each integer resides on its own line.\n\nThis code works (although perhaps inefficiently), but how can I make the code more Ruby-like?\n\n\t#!/usr/bin/ruby -w\n\t\n\t# first line is number of inputs (Don't need it)\n\tnum_inputs = STDIN.gets.to_i\n\t\n\t# read inputs as ints\n\th = Hash.new\n\tSTDIN.each do |n|\n\t  n = n.to_i\n\t  h[n] = 1 unless h[n] and h[n] += 1      \n\tend\n\t\n\t# find smallest mode\n\th.sort.each do |k,v|\n\t  break puts \"Mode is: #{k}\", \"\\n\" if v == h.values.max\n\tend\n\t\n\t# mode unique?\n\tv = h.values.sort\n\tprint \"Mode is unique: \"\n\tputs v.pop == v.pop, \"\\n\"\n\t\n\t# print number of singleton odds, \n\t#       odd elems repeated odd number times in desc order\n\t#       even singletons in desc order\n\todd_once = 0\n\todd = Array.new\n\teven = Array.new\n\th.each_pair do |k, v|\n\t  odd_once += 1 if v == 1 and k.odd?\n\t  odd << k if v.odd?\n\t  even << k if v == 1 and k.even?\n\tend\n\tputs \"Number of elements with an odd value that appear only once: #{odd_once}\", \"\\n\"\n\tputs \"Elements repeated an odd number of times:\"\n\tputs odd.sort.reverse, \"\\n\"\n\tputs \"Elements with an even value that appear exactly once:\"\n\tputs even.sort.reverse, \"\\n\"\n\t\n\t# print fib numbers in the hash\n\tclass Fixnum\n\t  def is_fib?\n\t    l, h = 0, 1\n\t    while h <= self\n\t      return true if h == self\n\t      l, h = h, l+h\n\t    end\n\t  end\n\tend\n\tputs \"Fibonacci numbers:\"\n\th.keys.sort.each do |n|\n\t  puts n if n.is_fib?\n\tend\n\t",
+  "lastActivityDate": "2014-06-18T08:12:41.167",
+  "title": "What is a more \"ruby way\" to write this code?",
+  "tags": [
+    "ruby",
+    "coding-style"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

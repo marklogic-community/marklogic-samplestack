@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074554",
+  "creationDate": "2014-01-18T12:28:10.030",
+  "body": "\n\nBasically the default behavior of the horizontal axis of the line chart is to graph each plot \"as is\" for example if you had this data:\n\n\t<data value=\"5\">\n\t<data value=\"6\">\n\t<data value=\"7\">\n\t\n\nwould graph, `5|6|7`\n\nI would like to make it graph so that it is adding to a value as it goes horizontally so it would graph the numbers like this: `5|11|18` as each step it is adding the value. so first you have 5, then you have 5+6 = 11, then you have 11+7 = 18. So the graph is always going up (unless there is a negative value) as to show the growth over time. \n\nBut I would like this to be something that can be changed at runtime via a property like showGrowthOverTime = true.\n\nI am not even sure what I would need to extend LineChart? LinearAxis?\n\nThanks!!!",
+  "lastActivityDate": "2014-01-18T12:59:14.053",
+  "title": "Flex: Set LineChart to append dataProvider values horizontally to show growth over time frame",
+  "tags": [
+    "flex",
+    "actionscript-3",
+    "charts"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

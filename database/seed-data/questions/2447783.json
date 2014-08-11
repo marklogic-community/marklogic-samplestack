@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2447783",
+  "creationDate": "2014-03-17T22:23:01.637",
+  "body": "\n\nSo I installed a trial of SQL Server 2008 enterprise edition while waiting for MSDN licenses to come through - I now want to uninstall the trial and replace it with a developer edition installation.\n\nHowever, I'd like to first know how long I have left on the trial.  Is there a way to do this programmatically with SQL?  I looked at create_date in sys.databases, but these give dates that are in 2003 (which is, I guess, when master and model were originally created).",
+  "lastActivityDate": "2014-03-17T22:35:24.340",
+  "title": "How do I find out the expiry date of a SQL Server 2008 trial-install instance?",
+  "tags": [
+    "sql-server",
+    "sql-server-2008",
+    "installation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

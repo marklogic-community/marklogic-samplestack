@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449229",
+  "creationDate": "2014-03-18T01:46:54.160",
+  "body": "\n\nSomeone *tried* to recreate smarty in js:\n\n\t// actually from a template file, not hardcoded in the javascript\n\thtml = '<span class=\"{test}\">yay</span>'; \n\t\n\t\n\thtml = change(html, 'test', 'foo bar');\n\tfunction change(html, key, value){\n\t    html = html.replace('{'+key+'}',value);\n\t    html = html.replace('%7B'+key+'%7D',value);\n\t    return html;\n\t}\n\t\n\telement.innerHTML = html;\n\t\n\nIn FF this works fine (as expected):\n\n\t<span class=\"foo bar\">yay</span>\n\t\n\nIn IE 7/8 and probably 6... it gives me this:\n\n\t<span class=\"foo\" bar=\"\">yay</span>\n\t\n\nWhy does it create the extra attribute instead of doing what I expected it to do?",
+  "lastActivityDate": "2014-04-26T02:30:10.680",
+  "title": "Html string replace a span's class doesn't work in IE?",
+  "tags": [
+    "javascript",
+    "internet-explorer",
+    "replace"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3042419",
+  "creationDate": "2014-06-17T11:53:29.237",
+  "body": "\n\nI'm trying to get a tab bar effect not unlike [Russell Quinn's Creative Review app](http://www.russellquinn.com/blog/2010/04/22/creative-review-annual-2010-iphone-app/). The tab bar swipes across, which I have figured out, but the tab bar style itself is unlike anything I've seen on the iPhone (though it looks so simple!).\n\nIt has square buttons with a space between, and each button has a select/active/inactive state. I'm having a hard time seeing how this can be a tab bar, but i don't know any other way. Can someone explain this?\n\n**EDIT:**\n\nthanks to yukla for the guidance, I got it working using `uibutton`. It was pretty basic and fairly embarrassing that I couldn't think this up... in my `rootviewcontroller.m`, I tossed this in after i synthesized `homeBtn`.\n\n\t- (UIButton *) homeBtn {\n\t    homeBtn = [[UIButton buttonWithType:UIButtonTypeCustom] retain];\n\t    homeBtn.frame = CGRectMake(0, 0, 100, 45);\n\t    [homeBtn setTitle:@\"Home\" forState:UIControlStateNormal];\n\t    [homeBtn setTitle:@\"Home\" forState:UIControlStateSelected];\n\t    [homeBtn setBackgroundImage:[UIImage imageNamed:@\"normal.png\"] forState:UIControlStateNormal];\n\t    [homeBtn setBackgroundImage:[UIImage imageNamed:@\"disabled.png\"] forState:UIControlStateDisabled];\n\t    [homeBtn setBackgroundImage:[UIImage imageNamed:@\"selected.png\"] forState:UIControlStateSelected];\n\t    [homeBtn setBackgroundImage:[UIImage imageNamed:@\"highlighted.png\"] forState:UIControlStateHighlighted];\n\t    [homeBtn setBackgroundImage:[UIImage imageNamed:@\"highlighted+selected.png\"] forState:(UIControlStateHighlighted | UIControlStateSelected)];\n\t    [homeBtn addTarget:self action:@selector(switchPages:) forControlEvents:UIControlEventTouchUpInside];\n\t\n\t    return homeBtn;\n\t}\n\t\n\nJust subclass it from UISwipeView and you're all set.",
+  "lastActivityDate": "2014-08-12T01:55:52.673",
+  "title": "iPhone tab bar with custom buttons and scrollview",
+  "tags": [
+    "iphone",
+    "uitabbarcontroller",
+    "uibutton",
+    "tabbar"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

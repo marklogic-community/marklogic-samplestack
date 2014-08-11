@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446003",
+  "creationDate": "2014-03-17T17:13:41.790",
+  "body": "\n\nI have group of stored procedures with names like 'somename_%'. Are there any way to delete that SP with one query, forexample \n\n> DROP PROCEDURE where name like\n  'somename_%'\n\n.",
+  "lastActivityDate": "2014-03-17T20:47:44.760",
+  "title": "Drop group of stored procedures by name",
+  "tags": [
+    "sql",
+    "stored-procedures"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2648930",
+  "creationDate": "2014-04-18T04:58:01.117",
+  "body": "\n\nI'm currently working on my first WPF application, and I'm curious as to whether I'll hit a snag down the line with performance by doing something like this:\n\n\tDim binding As New Binding(\"PropertyOnObject.Property1.Property2.Value\")\n\tbinding.Source = Object\n\t\n\nvs doing\n\n\tDim binding As New Binding(\"Value\")\n\tbinding.Source = Object.PropertyOnObject.Property1.Property2\n\t\n\nMy objects are fairly dynamic, in that PropertyOnObject can change(and thus changing Property1 and Property2), so it makes sense to do it the first way. Is there a performance penalty for that, though?",
+  "lastActivityDate": "2014-04-18T05:46:14.453",
+  "title": "Is there a performance hit to binding a relative source vs a direct object?",
+  "tags": [
+    ".net",
+    "wpf",
+    "data-binding",
+    "binding"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

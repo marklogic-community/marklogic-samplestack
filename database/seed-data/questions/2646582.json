@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646582",
+  "creationDate": "2014-04-17T23:18:09.923",
+  "body": "\n\n\tFoo *oFoo = [[[Foo alloc] init] autorelease];\n\t\n\nThis is how I was taught to program in Objective C, yet the CLang error checker complains that the initial value was never read. But oFoo is an object with properties. oFoo itself has no single value. The property values are what matter.\n\n\toFoo.PropertyA = 1;\n\toFoo.PropertyB = @\"Hello, World.\"\n\t\n\nShould I just ignore this? Is this worth fixing? What is the fix, seeing that \"initial value\" is meaningless in my context?",
+  "lastActivityDate": "2014-04-18T11:15:15.250",
+  "title": "CLang error (objective C): value stored during initialization is never read",
+  "tags": [
+    "objective-c",
+    "clang-static-analyzer"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

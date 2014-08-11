@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2444575",
+  "creationDate": "2014-03-17T09:25:17.583",
+  "body": "\n\nI would like to plot a vertical line (I'd prefer any orientation, but I'd be happy with just vertical right now) with two-color dashes, say red-blue-red-blue-...\n\nI know I could do it like this:\n\n\tplot([1,1],[0,1],'r'),\n\thold on,\n\tplot([1,1],[0,1],'--b')\n\t\n\nHowever, since I need to be able to move the line, among others, it should only have a single handle. How could I do this?\n\n**EDIT**\nThank you for your answers. I guess I should indeed give some more information.\n\nI have some data that is classified into different parts. I want to be able to manually adjust the boundaries between classes. For this, I'm drawing vertical lines at the classification boundaries and use [draggable](http://www.mathworks.com/matlabcentral/fileexchange/4179-draggable) to allow moving the lines. \n\nFor the boundary between the red and the blue class, I'd like to have a red/blue line. \n\n\tplot(ones(10,1),linspace(0,1,10),'-bs','MarkerFaceColor','r','MarkerEdgeColor','none','linewidth',6)\n\t\n\nis what I'm actually using at the moment. However, it's not so pretty (if I want equal spacing, it becomes a real pain, and I want to give both colors the same weight), and I would like to have the possibility to use three colors (and not with marker edge and face being different, because it makes my eyes bleed).\n\nUnfortunately, draggable does not allow me to use multiple handles, and grouping the lines with hggroup does not seem to create a draggable object.\n\n[cline](http://www.mathworks.com/matlabcentral/fileexchange/14677-cline) looks like a promising approach, but rainbow colors won't work for my application. ",
+  "lastActivityDate": "2014-03-19T01:12:08.430",
+  "title": "Plotting multi-colored line in Matlab",
+  "tags": [
+    "matlab",
+    "plot"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

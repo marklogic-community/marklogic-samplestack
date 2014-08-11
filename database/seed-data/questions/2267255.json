@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267255",
+  "creationDate": "2014-02-18T08:19:23.553",
+  "body": "\n\nAs part of a general move to Windows 7  - where all applications should have an \"installer experience\", I need to create installers for all of our application suite. I have looked at [InstallShield](http://en.wikipedia.org/wiki/InstallShield), but this seems extremely expensive for what it does. What install products could I look at?\n\nThe installers will need to be built unattended on our build machines, so there is a level of complexity above just being an installer builder.\n\n**Update:**\n\nI have looked at all of the suggestions and they look good. My plans involve pushing stuff up by [SCCM](http://en.wikipedia.org/wiki/System_Center_Configuration_Manager) (or something similar) to the end users. Would I need to have MSI support for that?",
+  "lastActivityDate": "2014-04-12T23:08:18.130",
+  "title": "Delphi, installers and Windows 7",
+  "tags": [
+    "delphi",
+    "windows-7",
+    "windows-installer"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

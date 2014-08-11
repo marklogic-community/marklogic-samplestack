@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268032",
+  "creationDate": "2014-02-18T10:21:59.833",
+  "body": "\n\nI'm struggling to find a way to hide a java applet () using jquery.\n\nI have a link that opens up a simple ajax fancybox (http://fancybox.net) problem is that it always appears 'behind' the actual java applet.\n\nIs there a way to 'hide' the applet or even unload it ? I can reload it after closing the fancybox (basically asking for user confirmation).\n\nThanks",
+  "lastActivityDate": "2014-04-28T08:12:51.590",
+  "title": "Hidding a java applet with jquery ? Possible?",
+  "tags": [
+    "jquery",
+    "applet"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

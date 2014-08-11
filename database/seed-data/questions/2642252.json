@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2642252",
+  "creationDate": "2014-04-17T09:50:34.377",
+  "body": "\n\nAnyone know how I can use httponly cookies for sessions and cookies on the app engine?\n\nIn the javadoc for the Cookie class, [http://java.sun.com/javaee/6/docs/api/javax/servlet/http/Cookie.html#setHttpOnly(boolean](http://java.sun.com/javaee/6/docs/api/javax/servlet/http/Cookie.html#setHttpOnly(boolean)) ,\nthere is a setHttpOnly method.\n\nI get a compiler error when trying to use it when developing for app engine though.  \n\nThe method was introduced in the Servlet 3.0 spec, so its pretty new.",
+  "lastActivityDate": "2014-04-17T09:55:01.167",
+  "title": "HttpOnly cookies on google app engine java",
+  "tags": [
+    "java",
+    "google-app-engine",
+    "cookies",
+    "httponly"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

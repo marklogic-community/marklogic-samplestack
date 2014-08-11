@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069047",
+  "creationDate": "2014-01-17T18:27:12.053",
+  "body": "\n\n\t  <bean id=\"sessionFactory\" class=\"org.springframework.orm.hibernate3.LocalSessionFactoryBean\">\n\t<property name=\"dataSource\" ref=\"dataSource\"/>\n\t<property name=\"mappingResources\">\n\t  <list>\n\t    <value>product.hbm.xml</value>\n\t  </list>\n\t</property>\n\t<property name=\"hibernateProperties\">\n\t  <value>\n\t    hibernate.dialect=org.hibernate.dialect.HSQLDialect\n\t  </value>\n\t</property>\n\t\n\n\n\nI have this configuration in my applicationContext.xml file\n\nHowever I get this error when I try to run my application:\n\n> Caused by: org.springframework.beans.factory.BeanCreationException:\n  Error creating bean with name 'sessionFactory' defined in\n  ServletContext resource [/WEB-INF/applicationContext.xml]\n  Instantiation of bean failed; nested exception is\n  org.springframework.beans.BeanInstantiationException: Could not\n  instantiate bean class\n  [org.springframework.orm.hibernate3.LocalSessionFactoryBean]:\n  Constructor threw exception; nested exception is\n  java.lang.NoClassDefFoundError: org/dom4j/DocumentException\n\nSo it seems like it's not recognizing the class `LocalSessionFactoryBean`. However I when type, `import org.springframework.orm.hibernate3.LocalSessionFactoryBean;`, eclipse doesn't complain. \n\nDoes anybody have an idea why this is happening?",
+  "lastActivityDate": "2014-12-15T13:46:57.713",
+  "title": "Spring + Hibernate bean declaration error",
+  "tags": [
+    "hibernate",
+    "spring"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

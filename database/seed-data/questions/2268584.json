@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2268584",
+  "creationDate": "2014-02-18T12:05:33.233",
+  "body": "\n\nI'm trying to implement undo functionality with C# delegates. Basically, I've got an UndoStack that maintains a list of delegates implementing each undo operation. When the user chooses Edit:Undo, this stack pops off the first delegate and runs it. Each operation is responsible for pushing an appropriate undo delegate unto the stack. So suppose I have a method called \"SetCashOnHand.\" It looks like this:\n\n\tpublic void SetCashOnHand(int x) {\n\t    int coh = this.cashOnHand;\n\t    undo u = () => this.setCashOnHand(coh);\n\t    this.cashOnHand = x;\n\t    undoStack.Push(u);\n\t}\n\t\n\nSo this method constructs an undo delegate, does the operation, and (assuming it succeeds) pushes the undo delegate onto the UndoStack. (UndoStack is smart enough that if undoStack.Push is called in the context of an undo, the delegate goes on the redo stack instead.)\n\nMy trouble is that it's a little annoying to \"cache\" this.cashOnHand into the coh variable. I wish I could just write this:\n\n\tundo u = () => this.setCashOnHand(this.cashOnHand);\n\t\n\nBut of course that won't get the *present* value of cashOnHand; it defers looking up the value until the delegate is called, so the code winds up doing nothing. Is there any way I can \"dereference\" cashOnHand when constructing the delegate, other than stuffing the value into a local variable like coh?\n\nI'm not really interested in hearing about better ways to do Undo. Please think of this as a generic question about delegates, with Undo just the example to make the question more clear.",
+  "lastActivityDate": "2014-02-18T12:50:20.043",
+  "title": "C# Lambdas: How *Not* to Defer \"Dereference\"?",
+  "tags": [
+    "c#",
+    "delegates",
+    "lambda"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2264277",
+  "creationDate": "2014-02-17T22:06:02.033",
+  "body": "\n\nI have been through a fair bit of the code in modules/database/classes/ but still have not found how to return the last insert Id.\n\nHow do I get this?",
+  "lastActivityDate": "2014-02-17T22:15:33.683",
+  "title": "With Kohana 3, how can I get the last insert ID from the Database class?",
+  "tags": [
+    "php",
+    "mysql",
+    "kohana",
+    "kohana-3",
+    "lastinsertid"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

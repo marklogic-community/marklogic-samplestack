@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2265525",
+  "creationDate": "2014-02-18T03:24:15.177",
+  "body": "\n\nI have doubt using jpa. I defined the datanucleus connection for MYSQL as follows.\n\n\tdatanucleus.ConnectionDriverName=com.mysql.jdbc.Driver\n\tdatanucleus.ConnectionURL=jdbc:mysql://localhost/myDB\n\tdatanucleus.ConnectionUserName=...\n\tdatanucleus.ConnectionPassword=..\n\t\n\nMy constraint is if I want to connect to google app engine datastore(ie Big table) via jpa\nhow to give the above connection for bigtable.",
+  "lastActivityDate": "2014-07-24T05:04:49.633",
+  "title": "google app engine Bigtable",
+  "tags": [
+    "java",
+    "google-app-engine",
+    "jpa",
+    "gae-datastore"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2641892",
+  "creationDate": "2014-04-17T08:10:47.067",
+  "body": "\n\nI have a linked server on SQL Server that talks to Oracle. Executing the following sql statement using Openquery\n\n\t SELECT * FROM OPENQUERY(finance, 'select * from KFRI.VW_XREF_PROJECTS')\n\t\n\nwill get error as the following:\n\n\tOLE DB provider \"OraOLEDB.Oracle\" for linked server \"finance\" returned message \"ORA-12640: Authentication adapter initialization failed\".\n\tMsg 7303, Level 16, State 1, Line 1\n\tCannot initialize the data source object of OLE DB provider \"OraOLEDB.Oracle\" for linked server \"finance\".\n\t\n\nI tried to set :\n\n\tSQLNET.AUTHENTICATION_SERVICES= (NONE)\n\t\n\nin {$ORACLE_HOME}\\NETWORK\\ADMIN\\sqlnet.ora. It did not help. \n\nWhat's interesting is my coworker is able to execute the exactly same query successfully on his machine without a hitch. \n\n**Any tips on how to fix this is greatly appreciated!!**",
+  "lastActivityDate": "2014-05-01T00:26:23.643",
+  "title": "Oracle Linked Server error: ORA-12640: Authentication adapter initialization failed",
+  "tags": [
+    "oracle"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

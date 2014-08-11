@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2451096",
+  "creationDate": "2014-03-18T07:08:55.813",
+  "body": "\n\nBasically I did the Cavendish experiment, and I have a damped sinusoidal wave plotted on Excel. With Position (mm) against Time (s).\n\nMy problem is that I have added a tread line through the wave function, and wish to calculate the points of which the wave function intersects the tread line. From this I will then be able to calculate the time period.\n\nAt the moment I'm just having difficulty getting the intersects..\n\nThanks",
+  "lastActivityDate": "2014-03-20T14:45:59.677",
+  "title": "How to get points that intersect the trendline?",
+  "tags": [
+    "excel",
+    "math",
+    "graph",
+    "physics"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

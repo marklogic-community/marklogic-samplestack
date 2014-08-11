@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644851",
+  "creationDate": "2014-04-17T19:38:22.057",
+  "body": "\n\nI have the problem, that MSSQL Server 2000 should select some distinct values from a table (the specific column is of the nvarchar type).\nThere are the sometimes the same values, but with different cases, for example (pseudocode):\n\n\tSELECT DISTINCT * FROM (\"A\", \"a\", \"b\", \"B\")\n\t\n\nwould return\n\n\tA,b\n\t\n\nBut I do want (and do expect)\n\n\tA,a,b,B\n\t\n\nbecause they actually are different values.\n\nAny idea how to solve this problem?\n\nThanks a lot in advance!",
+  "lastActivityDate": "2014-04-17T19:45:44.073",
+  "title": "\"SELECT DISTINCT\" ignores different cases",
+  "tags": [
+    "sql",
+    "sql-server"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

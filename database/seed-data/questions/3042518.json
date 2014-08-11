@@ -1,0 +1,20 @@
+{
+  "id": "/questions/3042518",
+  "creationDate": "2014-06-17T12:34:24.207",
+  "body": "\n\nI'm trying to create a very simple webapp with maven and eclipse, but I'm having no joy at all, in fact the reverse of joy.\n\nI go to File -> New Project, select Maven Project, and select the maven-archetype-webapp. When I finish the wizard, a webapp structure gets generated but with no 'java' directory under main, just resources and webapp. \n\nSo I right click on main and select new Class. The class gets created under resources (?!), and furthermore, there seems to be no compilation of it by java. I can make stupid errors and no syntax highlighting comes up. It's like java isn't recognizing it.\n\nAlternatively I have tried creating a new 'java' directory under main where it should be, but still with the same non-existent java symptoms.\n\nWhat gives? This is driving me insane..\n\nThanks all!",
+  "lastActivityDate": "2014-09-22T16:46:31.427",
+  "title": "maven-archetype-webapp eclipse problem",
+  "tags": [
+    "java",
+    "eclipse",
+    "maven-2",
+    "m2eclipse",
+    "maven-archetype"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

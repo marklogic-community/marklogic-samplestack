@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267074",
+  "creationDate": "2014-02-18T07:51:43.243",
+  "body": "\n\nI have two strings:\n\n\t$a = '/srv/http/projects/name';\n\t$b = '/projects/name/some/dir';\n\t\n\nAnd I would like to get a merged string with not repeated common part:\n\n\t$c = '/srv/http/projects/name/some/dir';\n\t\n\nIs there any effective way to get it ?",
+  "lastActivityDate": "2014-02-18T08:47:59.617",
+  "title": "Merge string with common middle part",
+  "tags": [
+    "php",
+    "string"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

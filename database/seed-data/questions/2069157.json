@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2069157",
+  "creationDate": "2014-01-17T18:54:35.727",
+  "body": "\n\nI am writing a C# application that, among other things, automatically closes the advertisement a certain game displays after the user exits the game. My program accomplishes this by killing the game process when it detects that the user has exited the game. My program is similar to an Autohotkey script written by someone else that does similar things but it adds some features and a GUI.\n\nNaturally, I used the Process.Kill method. However, that would fail with an \"Access is denied\" exception. I noticed that the Autohotkey script uses an unusual method of killing the process. I asked the author about it, and he said that he too had trouble killing the process with normal methods.\n\nWe suspect the reason normal process termination methods do not work is the [HackShield](http://hackshields.com/) software the game uses to attempt to combat cheating.\n\nHere is the Autohotkey code the other guy's script uses for killing a process:\n\n\t; kills all process instances of a given executable name\n\t; COM AutoHotkey library code omitted\n\tKillProcessInstances(exe)\n\t{\n\t  psvc := COM_GetObject(\"winmgmts:{impersonationLevel=impersonate}!\\\\.\\root\\cimv2\")\n\t  pset := COM_Invoke(psvc, \"ExecQuery\", \"Select * from Win32_Process Where Name = '\" exe \"'\")\n\t  penm := COM_Invoke(pset, \"_NewEnum\")\n\t  Loop, % COM_Invoke(pset, \"Count\")\n\t    If COM_Enumerate(penm, pobj)=0\n\t    {\n\t      COM_Invoke(pobj, \"Terminate\")\n\t      COM_Release(pobj)\n\t    }\n\t  COM_Release(penm)\n\t  COM_Release(pset)\n\t  COM_Release(psvc)\n\t}\n\t\n\nI replaced the Process.KIll with the WMI calls in my program using the System.Management namespace and my program is now able to kill the process.\n\nWhat I don't understand is what makes the WMI any different from Process.Kill. I would expect both to work or both to fail. In addition, Task Manager is able to kill the process just fine, but I would think it just uses a TerminateProcess win32 call just as Process.Kill surely does. Can anyone shed some light on the cause of the different behavior? If it matters, I'm running Windows XP.\n\nEdit: wj32 explained why the WMI works, but can anyone explain why I can kill the process with Task Manager but not with my own program?",
+  "lastActivityDate": "2014-07-21T11:03:53.107",
+  "title": "What is the difference between these two methods of killing a process?",
+  "tags": [
+    "windows",
+    "wmi",
+    "processes"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

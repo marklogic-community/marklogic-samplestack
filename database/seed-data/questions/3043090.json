@@ -1,0 +1,16 @@
+{
+  "id": "/questions/3043090",
+  "creationDate": "2014-06-17T14:54:47.087",
+  "body": "\n\ni have question about char array\nhow   declare in java   array of char from a to z\n?\n  i mean  `char  characters []=new char[]{a....z]?`\nthank",
+  "lastActivityDate": "2014-06-17T14:57:50.853",
+  "title": "question about char array",
+  "tags": [
+    "algorithm"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

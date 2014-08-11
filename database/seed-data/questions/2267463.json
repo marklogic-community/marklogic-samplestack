@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2267463",
+  "creationDate": "2014-02-18T08:46:07.030",
+  "body": "\n\nI'm responsible for designing a homework assignment to teach a class of ~100 students about AJAX. They have a solid knowledge of CSS/xHTML, but most are new to Javascript. I don't want the assignment to require use of JQuery or any other framework.\n\nI want them to build something with AJAX. The server side will be handled either by the course staff, or by using some external service. (Like Twitter, Google, or Facebook... what else?)\n\nOne idea I had was to ask students for an app with the following functionality:\n* list tweets by username, including date and \"in reply to\" info\n* find profile image by user\n* ability to click on \"in reply to\" info to see info by that user\n* list followers and friends by username\n\nThe point of this assignment isn't necessarily to build something new or useful, but to equip students with a solid understanding of AJAX so they can build their own apps in the future.",
+  "lastActivityDate": "2014-08-18T00:32:10.483",
+  "title": "Designing a homework assignment for AJAX",
+  "tags": [
+    "ajax"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

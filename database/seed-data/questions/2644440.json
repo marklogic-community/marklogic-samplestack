@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644440",
+  "creationDate": "2014-04-17T18:26:33.750",
+  "body": "\n\nDoes someone know a plugin for Eclipse that replaces fully qualified Java class names with the simple one and the corresponding import where possible? It would be even better if it could be performed as a Save Action.",
+  "lastActivityDate": "2014-12-14T15:34:06.350",
+  "title": "Simplifying fully qualified names in Eclipse",
+  "tags": [
+    "java",
+    "eclipse",
+    "jdt"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

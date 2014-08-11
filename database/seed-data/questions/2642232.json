@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642232",
+  "creationDate": "2014-04-17T09:44:48.520",
+  "body": "\n\nWhen opening a client against a db40 server it seems to expect a user name and password\n\n\tDb4oFactory.OpenClient(string hostName, int port, string user, string password);\n\t\n\nIs there any way of using windows integrated instead?",
+  "lastActivityDate": "2014-12-22T02:53:13.583",
+  "title": "Using Windows Integrated Authentication when connecting to db4o in .net?",
+  "tags": [
+    ".net",
+    "db4o",
+    "windows-integrated-auth"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

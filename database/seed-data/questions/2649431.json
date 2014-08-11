@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649431",
+  "creationDate": "2014-04-18T06:30:32.887",
+  "body": "\n\nI have a lot of classes and want to create some kind of 'directory'.\n\nSo that I can create menus automatically.\n\nClicking a menu-item would then create an instance of the class and shows the window.\n\nWhat I want for this is an array of System.Type where I can stuff in all the classes without instantiating them.\n\nThough from my test and (unsuccessful) googling, this doesn't seem possible.\n\nAny ideas?",
+  "lastActivityDate": "2014-04-19T02:09:02.253",
+  "title": "Array/List/Directory of System.Type",
+  "tags": [
+    "c#",
+    ".net",
+    "mono"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2648288",
+  "creationDate": "2014-04-18T03:18:38.357",
+  "body": "\n\nI am out of ideas here, so I'm hoping someone can help.  Here is what I've got:\n* A WCF service that only has a basicHttpBinding endpoint.\n* There is only a service interface, all other [DataMember], [FaultContract] are concrete types.\n* When I run it straight from Visual Studio (using WCF Test Client or my custom app) everything works (I send a request and get a response).  This usually takes a second or two.\n* I published it to an IIS 6 server.\n* I can successfully open [http://server/WebService/WebService.svc?WSDL](http://server/WebService/WebService.svc?WSDL)\n* I can successfully open [http://server/WebService/WebService.svc/mex](http://server/WebService/WebService.svc/mex) (same output as above)\n* The WCF Test Client and my custom app can successfully add the service reference\n* Whenever I try to call a service method it waits for about 15 seconds and I get the dreaded \"no meaningful reply\" error.\n* I ran Fiddler and I got a 202 result, which would seem like a success.\n* It's not returning more than 65536 bytes\n* It's returning an array, but it is small\n* I tried remote debugging, but can't get that to work, probably due to a firewall (but port 80 is open, I can get the WSDL)\n* I enabled system.diagnostics, nothing.\n* I have an IErrorHandler which normally logs things, nothing.\n\nHere's the endpoint config:\n\n\t<endpoint address=\"\" binding=\"basicHttpBinding\" contract=\"Enterprise.IMyService\" bindingNamespace=\"http://ourdomain.com/MyService/\">\n\t  <identity>\n\t    <dns value=\"localhost\" />\n\t  </identity>\n\t</endpoint>\n\t\n\nAnything else I can try? It's probably a simple setting somewhere, but I can't figure it out.\n\n**Edit:**\n\nThe raw fiddler response:\n\n\tHTTP/1.1 202 Accepted\n\tDate: Thu, 15 Apr 2010 19:02:45 GMT\n\tServer: Microsoft-IIS/6.0\n\tX-Powered-By: ASP.NET\n\tX-AspNet-Version: 2.0.50727\n\tCache-Control: private\n\tContent-Length: 0\n\t",
+  "lastActivityDate": "2014-12-20T08:16:39.720",
+  "title": "WCF \"The server did not provide a meaningful reply\"",
+  "tags": [
+    "wcf",
+    "iis-6",
+    "endpoint",
+    "basichttpbinding"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2263690",
+  "creationDate": "2014-02-17T18:07:46.713",
+  "body": "\n\nI'm working on an application that does a lot of floating-point calculations.  We use VC++ on Intel x86 with double precision floating-point values.  We make claims that our calculations are accurate to *n* decimal digits (right now 7, but trying to claim 15).\n\nWe go to a lot of effort of validating our results against other sources when our results change slightly (due to code refactoring, cleanup, etc.).  I know that many many factors play in to the overall precision, such as the FPU control state, the compiler/optimizer, floating-point model, and the overall order of operations themselves (i.e., the algorithm itself), but given the inherent uncertainty in FP calculations (e.g., 0.1 cannot be represented), it seems invalid to claim any specific degree of precision for all calulations.\n\nMy question is this:  is it valid to make any claims about the accuracy of FP calculations in general without doing any sort of analysis (such as interval analysis)?  If so, what claims can be made and why?\n\n**EDIT:**\n\nSo given that the input data is accurate to, say, *n* decimal places, can any guarantee be made about the result of any arbitrary calculations, given that double precision is being used?  E.g., if the input data has 8 significant decimal digits, the output will have at least 5 significant decimal digits... ?\n\nWe are using math libraries and are unaware of any guarantees they may or may not make.  The algorithms we use are not necessarily analyzed for precision in any way.  But even given a specific algorithm, the implementation will affect the results (just changing the order of two addition operations, for example).  Is there any inherent guarantee whatsoever when using, say, double precision?\n\n**ANOTHER EDIT:**\n\nWe do empirically validate our results against other sources.  So are we just getting lucky when we achieve, say, 10-digit accuracy?",
+  "lastActivityDate": "2014-02-17T21:41:26.503",
+  "title": "What claims, if any, can be made about the accuracy/precision of floating-point calculations?",
+  "tags": [
+    "c++",
+    "floating-point",
+    "ieee-754"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

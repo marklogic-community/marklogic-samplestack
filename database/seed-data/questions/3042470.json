@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3042470",
+  "creationDate": "2014-06-17T12:16:01.323",
+  "body": "\n\nI have a list of items that the user can select. I want it to be more user friendly than standard checkboxes so I have seperate div's each with a unique id.\n\nWhen user clicks an item, I use javascript to display a tick on top of that item and change the style to show that it is highlighted.\n\nIm trying to work out how I can pass the list of id's when the form is submitted. Remember, if the user unticks an item, it should be removed from the list, I was thinking of using comma seperated values in a hidden text field but couldnt work out how to remove items from the start of the list if they were deselected",
+  "lastActivityDate": "2014-10-27T18:49:38.347",
+  "title": "PHP/Codeigniter processing a list with javascript",
+  "tags": [
+    "php",
+    "list",
+    "codeigniter",
+    "checkbox"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

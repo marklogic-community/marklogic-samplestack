@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648936",
+  "creationDate": "2014-04-18T04:58:54.290",
+  "body": "\n\nI am trying to integrate FB connect into our user profile screen.  Although, I'm having an issue with FB.ApiClient.revokeAuthorization.\n\n[http://pastie.org/921942](http://pastie.org/921942)\n\nThe basic problem is that I revoke the auth at line 44 after the user clicks the disconnect button.\n\nAfter that, all subsequent API calls don't have a valid session to even check user status.  I've tried wrapping blocks in a FB.Connect.forceSessionRefresh block, but then the code will never be called at all.\n\nI'm not sure what the proper workflow should be for this purpose.  Right now it's basically...\n1. User arrives at profile NOT\nconnected to the application.\n2. User clicks on the connect button.\n3. Once connected, DOM manipulation\noccurs to hide the connect button\nand add in a disconnect button.\n4. User clicks on the disconnect\nbutton.\n5. User's authorization to the\napplication is revoked and (it\nseems) the API session to the FB\nserver is invalidated.\n6. DOM manipulation occurs to hide the\ndisconnect button and readd the\nconnect button.\n7. User clicks on the connect button.\n8. Once connected, the\nFB.Connect.get_loggedInUser() doesn't\nreturn the actual user.",
+  "lastActivityDate": "2014-10-02T05:27:04.817",
+  "title": "Issue with Facebook JS API, revokeAuthorization",
+  "tags": [
+    "javascript",
+    "jquery",
+    "facebook"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

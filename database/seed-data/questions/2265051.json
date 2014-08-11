@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2265051",
+  "creationDate": "2014-02-18T01:51:22.560",
+  "body": "\n\nI have a function within a custom CRM web application (old VB.Net circa 2003) that takes a set of fields from a database and merges them with palceholders in a set of RTF based template documents. These generate merged letters and documentation. The code essentially loops through each line of the RTF template file and replaces any instances of the placeholder values with text from a database record. The issue I'm having is that users have pasted a certain type of apostrophe into the web app (and therefore into the database) that is not rendering correctly in the resulting RTF file. It is rendering like this - â€™.\n\nI need a way to spot this invalid apostrophe in the code and replace it with a valid one. Unfortunately when I paste the invalid apostrophe into the Visual Studio editor it gets converted into the correct one. So I need another way to express this invalid apostrophe's value. Unfortunately I do not know a great deal about unicode and other encodings so I'm calling out for help with this.\n\nAny ideas?",
+  "lastActivityDate": "2014-02-19T04:56:48.187",
+  "title": "Apostrophe issue in RTF",
+  "tags": [
+    "unicode",
+    "encoding",
+    "rtf"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

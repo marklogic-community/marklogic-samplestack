@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2444478",
+  "creationDate": "2014-03-17T08:43:22.857",
+  "body": "\n\nI wonder, how to create this binding, since Line.X2 IS NOT dependency property! :(\n\n\t<Line Y1=\"0\" X1=\"0\" Y2=\"0\" Stroke=\"Blue\" StrokeThickness=\"3\" Margin=\"0 -2 0 -2\" X2=\"{Binding Path=RenderSize.Width, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}}\"/>\n\t",
+  "lastActivityDate": "2014-03-17T08:57:55.420",
+  "title": "WPF C# how to create THIS binding in code?",
+  "tags": [
+    "wpf",
+    "binding",
+    "properties",
+    "dependencies"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

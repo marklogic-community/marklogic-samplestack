@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2071887",
+  "creationDate": "2014-01-18T05:43:03.200",
+  "body": "\n\nIn theory, it should be possible to at least brute force a verification of a lock-free algorithm (there are only so many combinations of function calls intersecting). Are there any tools or formal reasoning processes available to actually prove that a lock-free algorithm is correct (ideally it should also be able to check for race conditions and the ABA problem as well)?\n\nNote: If you know a way to just prove one point (e.g. only prove that it is safe from the ABA problem) or a problem I haven't mentioned then post the solution anyway. In the worst case scenario, each method can be done in turn to fully verify it.",
+  "lastActivityDate": "2014-11-08T01:42:40.673",
+  "title": "How can I verify lock-free algorithms?",
+  "tags": [
+    "algorithm",
+    "verification",
+    "lock-free"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

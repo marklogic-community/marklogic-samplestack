@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2073325",
+  "creationDate": "2014-01-18T08:57:34.570",
+  "body": "\n\nI'm building a plugin, and adding an entry to the context menu (right-click on a folder in the  project tree).\n\nSo far it works, following this tutorial:\n[http://www.eclipse.org/articles/article.php?file=Article-JFaceWizards/index.html](http://www.eclipse.org/articles/article.php?file=Article-JFaceWizards/index.html)\n\nThe problem is that it's adding my entry in the root of the context menu. Since my entry refers to a \"New XXX\" wizard, I want it to go to the \"New\" submenu.\n\nIt seems like I would have to set the correct locationURI or menuPath in my plugin.xml. However I can't find the locationURI or menuPath corresponding to that submenu. How can I find that?",
+  "lastActivityDate": "2014-11-13T01:14:17.603",
+  "title": "Adding an entry in a submenu of a popup",
+  "tags": [
+    "eclipse-plugin"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

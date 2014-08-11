@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448013",
+  "creationDate": "2014-03-17T22:56:28.120",
+  "body": "\n\nI gave to Google Guice the responsability of wiring my objects. But, How can I test if the bindings are working well.\n\nFor example, suppose we have a class A which has a dependence B. How can I test than B is injected correctly.\n\n<pre>\n  class A {\n    private B b;\n\n    public A() {}\n\n    @Inject\n    public void setB(B b) {\n      this.b = b\n    }\n  }\n</pre>\n\nNotice A hasn't got a getB() method and I want to assert that A.b isn't null.",
+  "lastActivityDate": "2014-11-05T02:08:54.810",
+  "title": "How test guice injections?",
+  "tags": [
+    "testing",
+    "dependency-injection",
+    "guice"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

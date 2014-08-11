@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2447588",
+  "creationDate": "2014-03-17T21:51:23.757",
+  "body": "\n\nThis is a very weird problem. My app that runs just fine but somehow if I leave my phone for an hour or two while my app is running, I get the following error when I come back to it later:\n\n\tjava.lang.NoClassDefFoundError: yoga.database.Manager\n\tat\n\tyoga.YogaActivity.openDatabase(YogaActivity.java:294)\n\tat\n\tyoga.YogaActivity.initData(YogaActivity.java:275)\n\tat\n\tyoga.YogaActivity.onCreate(YogaActivity.java:102)\n\tat\n\tandroid.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1123)\n\tat\n\tandroid.app.ActivityThread.performLaunchActivity(ActivityThread.java:2364)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2417)\n\tat android.app.ActivityThread.access$2100(ActivityThread.java:116)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1794)\n\tat android.os.Handler.dispatchMessage(Handler.java:99)\n\tat android.os.Looper.loop(Looper.java:123)\n\tat android.app.ActivityThread.main(ActivityThread.java:4203)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:521)\n\tat\n\tcom.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:791)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:549)\n\tat dalvik.system.NativeStart.main(Native Method)\n\t\n\nI know for a fact that my yoga.database.Manager class was loaded at the time when the app was launched, but somehow the class must have been unloaded by the system as I left the phone. \n\nDoes Android unload classes automatically after certain periods? What can I do when my class gets unloaded? \n\nThe above error causes my app to crash, but I can easily re-launch it and it runs just fine. \n\nThe problem occurs mostly on my HTC Magic phone running Android 1.6. \n\nAny insight is highly appreciated. \n\nThank you,",
+  "lastActivityDate": "2014-03-22T04:03:42.157",
+  "title": "Android: When do classes get unloaded by the system?",
+  "tags": [
+    "java",
+    "android",
+    "class",
+    "noclassdeffounderror",
+    "unload"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

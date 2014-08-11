@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2446871",
+  "creationDate": "2014-03-17T20:01:36.340",
+  "body": "\n\nI'm trying to return my links so they display as /Area_1419.aspx/2/1.\n\nI've managed to get that result in example 2 but I don't understand why it works, as I would exspect example 1 below to work.\n\nI don't see how Example 2 knows to go to the **Area_1419 controller**?\n\n**Route**\n\n\troutes.MapRoute(\n\t    \"Area_1419 Section\",\n\t    \"Area_1419.aspx/{section_ID}/{course_ID}\",\n\t    new { controller = \"Home\", action = \"Index\" }\n\t);\n\t\n\n**Links Example 1**\n\n\t<a href='<%=Url.Action(\"Area_1419\", \n\t   new { section_ID=\"2\", course_ID=\"1\" })%>'><img .../></a>\n\t\n\n**Returns: /Home.aspx/Area_1419?section_ID=2&course_ID=1**\n\n**Links Example 2**\n\n\t<a href='<%=Url.Action(\"index\", \n\t   new { section_ID=\"2\", course_ID=\"1\" })%>'><img .../></a>\n\t\n\n**Returns: /Area_1419.aspx/2/1**",
+  "lastActivityDate": "2014-03-17T20:47:59.157",
+  "title": "Route Links - Url.Action",
+  "tags": [
+    "asp.net-mvc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

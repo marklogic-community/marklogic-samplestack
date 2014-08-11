@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646277",
+  "creationDate": "2014-04-17T22:42:36.243",
+  "body": "\n\nAccess 2007 is telling me that my new expression is to complex. It used to work when we had 10 service levels, but now we have 19! Great! I've asked this question in [SuperUser](http://superuser.com/questions/131226/access-2007-how-can-i-make-this-expression-less-complex) and someone suggested I try it over here. Suggestions are I turn it in to a function - but I'm not sure where to begin and what the function would look like.\n\nMy expression is checking the COST of our services in the [PriceCharged] field and then assigning the appropriate HOURS [Servicelevel] when I perform a calculation to work out how much REVENUE each colleague has made when working for a client. The [EstimatedTime] field stores the actual hours each colleague has worked.\n\n\t[EstimatedTime]/[ServiceLevel]*[PriceCharged]\n\t\n\nBelow is the breakdown of my COST to HOURS expression. I've put them on different lines to make it easier to read - please do not be put off by the length of this post, it's all the same info in the end.\n\nMany thanks,Mike\n\n\tServiceLevel: IIf([pricecharged]=100(COST),6(HOURS),\n\tIIf([pricecharged]=200 Or [pricecharged]=210,12.5,\n\tIIf([pricecharged]=300,19,\n\tIIf([pricecharged]=400 Or [pricecharged]=410,25,    \n\tIIf([pricecharged]=500,31,\n\tIIf([pricecharged]=600,37.5,\n\tIIf([pricecharged]=700,43,\n\tIIf([pricecharged]=800 Or [pricecharged]=810,50,\n\tIIf([pricecharged]=900,56,\n\tIIf([pricecharged]=1000,62.5,\n\tIIf([pricecharged]=1100,69,\n\tIIf([pricecharged]=1200 Or [pricecharged]=1210,75,\n\tIIf([pricecharged]=1300 Or [pricecharged]=1310,100,\n\tIIf([pricecharged]=1400,125,\n\tIIf([pricecharged]=1500,150,\n\tIIf([pricecharged]=1600,175,\n\tIIf([pricecharged]=1700,200,\n\tIIf([pricecharged]=1800,225,\n\tIIf([pricecharged]=1900,250,0)))))))))))))))))))\n\t\n\n> UPDATE (16/04/10 14:46 GMT)\n\n> I've built a new table as recommended below. Now it's matter of removing my expression and making my original SELECT query use the new table. However, I'm not at all clear on how this is done.\n\n> Using the DLookUP example I imagine I keep the original query where I have my PRICECHARGED field, include a new DLookUp field that uses the example below to refer to the PRICECHARGED and populate the rows with the appropriate SERVICELEVEL (hours). \n\n> I become confused at this point because in my original SELECT query all the calculation happened in that query (expressions, after expression), which meant that the final result of my query was a list of colleagues with HOURS, and REVENUE (Cost) against their name. I have a feeling that I'm in need of another query in the middle to manage the DlookUp process.\n\n`Any directions or road map very much appreciated.  \n\n> Final update. Added another table as mentioned above, created the appropriate links from the new table to the field in the 'fixed'table. Voila. It worked a charm, and without me doing anything that caused it to crash or give me an error warning. It was easier than I thought. I don't understand why I didn't manage it this way before.\n\nThanks again, Mike ",
+  "lastActivityDate": "2014-07-22T00:31:11.797",
+  "title": "Access Expression problem: it's too complex, so how do I turn it in to a function?",
+  "tags": [
+    "ms-access",
+    "function",
+    "formatting",
+    "expression"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

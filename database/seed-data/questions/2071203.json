@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2071203",
+  "creationDate": "2014-01-18T03:50:16.843",
+  "body": "\n\nI've been fussing with this for the better part of the night, so maybe one of you can give me a hand.\n\nI have found GDI+ `DrawImage` in C# to be far too slow for what I'm trying to render, and from the looks of forums, it's the same for other people as well.\n\nI decided I would try using `AlphaBlend` or `BitBlt` from the Win32 API to get better performance. Anyway, I've gotten my images to display just fine except for one small detail—no matter what image format I use, I can't get the white background to disappear from my (transparent) graphics.\n\nI've tried BMP and PNG formats so far, and verified that they get loaded as 32bppargb images in C#.\n\nHere's the call I'm making:\n\n\t// Draw the tile to the screen.\n\tWin32GraphicsInterop.AlphaBlend(graphicsCanvas, destination.X, destination.Y, this.TileSize, this.TileSize,\n\t                                this.imageGraphicsPointer, tile.UpperLeftCorner.X, tile.UpperLeftCorner.Y,\n\t                                this.TileSize, this.TileSize,\n\t                                new Win32GraphicsInterop.BLENDFUNCTION(Win32GraphicsInterop.AC_SRC_OVER, 0,\n\t                                                                                   Convert.ToByte(opacity * 255),\n\t                                                                                   Win32GraphicsInterop.AC_SRC_ALPHA));\n\t\n\nFor the record, `AC_SRC_OVER` is `0x00` and `AC_SRC_ALPHA` is `0x01` which is consistent with what MSDN says they ought to be.\n\nDo any of you guys have a good solution to this problem or know a better (but still fast) way I can do this?",
+  "lastActivityDate": "2014-01-18T04:22:14.603",
+  "title": "How can you draw 32bppargb images with the Win32 AlphaBlend function?",
+  "tags": [
+    "c#",
+    "graphics",
+    "winapi",
+    "gdi+",
+    "gdi"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

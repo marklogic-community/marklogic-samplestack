@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2075522",
+  "creationDate": "2014-01-18T15:55:59.853",
+  "body": "\n\nI have a set of databases that are built using scripts that are run using Ant.\nI have the scripts for each database in a separate directory.\n\n\troot (build.xml)\n\t - db1 (build.xml, *.sql)\n\t - db2 (build.xml, *.sql)\n\t...\n\t\n\nThe root build.xml has a target\n\n\t<target name=\"all\">\n\t <ant dir=\"db1\"/>\n\t <ant dir=\"db2\"/>\n\t ...\n\t</target>\n\t\n\nThe build.xml in each of the subfolders is essentially the same but for the database name.\n\nIs there a way to refactor this to one single build file that runs the sql scripts in each of the folders against the corresponding databases?",
+  "lastActivityDate": "2014-01-26T16:02:50.213",
+  "title": "Refactor Ant scripts - multiple directories",
+  "tags": [
+    "ant",
+    "refactoring",
+    "build"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

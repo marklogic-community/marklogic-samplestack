@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266291",
+  "creationDate": "2014-02-18T05:45:31.823",
+  "body": "\n\nI have a problem in a WPF application. I wrote this code:  \n\n\n\tpublic partial class App : Application\n\t{\n\t    public App()\n\t    {\n\t        AppDomain.CurrentDomain.UnhandledException += new \n\t            UnhandledExceptionEventHandler(MyHandler);\n\t    }\n\t\n\t    void MyHandler(object sender, UnhandledExceptionEventArgs e)\n\t    {\n\t        Exception exception = e.ExceptionObject as Exception;\n\t        MessageBox.Show(exception.Message, \"ERROR\",\n\t                        MessageBoxButton.OK, MessageBoxImage.Error);\n\t    }\n\t\n\t    ...\n\t}\n\t\n\nbut when a unhandled exception happens, a lot of MessageBox appear to the screen (the exception happens in a timed routine) and after closing one of them, Windows signals that there is an unhandled exception.  \n  \n\nHow can I avoid multiple MessageBoxes?  \n\nHow can I avoid the message of an unhandled exception?  \n\nHow can I terminate the application after the exception?  \n\nAs you can easily suppose, I would like to show a message (but only one) with my MessageBox and then terminate the application without any other message.  \n  \n\nIn a [previous question](http://stackoverflow.com/questions/2251868/unhandled-exception) related to this argument, [Kyle Rozendo](http://stackoverflow.com/users/103385/kyle-rozendo) told me to use DispatcherUnhandledException. Is it necessary or the code I written is sufficient?  \n  \n\nThank you.",
+  "lastActivityDate": "2014-04-11T21:10:45.877",
+  "title": "Terminate application after unhandled exception",
+  "tags": [
+    "c#",
+    "wpf",
+    "exception-handling"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

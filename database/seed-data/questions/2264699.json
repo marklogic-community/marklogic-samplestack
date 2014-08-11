@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2264699",
+  "creationDate": "2014-02-18T00:24:03.833",
+  "body": "\n\nI need to call (get) non-exported functions of a `DLL`. Unlike PE export table, non-exports do not have any table having entries for these. More over, all disassembler like IDAPro and other debuggers only show exported function names with decorated names (After Shift+F3 in case of IDA) and show all other functions like sub_000FF sorts of. \n\nAny idea how to get and call non-exported functions of `DLL` programmatically? (`GetProcAddress` after `LoadLibrary` only calls decorated exported functions not designed for non exports.)",
+  "lastActivityDate": "2014-06-16T18:54:33.030",
+  "title": "How to call non-exported functions of a DLL?",
+  "tags": [
+    "dll",
+    "reverse-engineering"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2451311",
+  "creationDate": "2014-03-18T07:59:57.400",
+  "body": "\n\nConsider the following code:\n\n\tusing System;\n\t\n\tnamespace ConsoleApplication2\n\t{\n\t    class Program\n\t    {\n\t        static void Main(string[] args)\n\t        {\n\t            var square = new Square(4);\n\t            Console.WriteLine(square.Calculate());\n\t        }\n\t    }\n\t\n\t    class MathOp\n\t    {        \n\t        protected MathOp(Func<int> calc) { _calc = calc; }\n\t        public int Calculate() { return _calc(); }\n\t        private Func<int> _calc;\n\t    }\n\t\n\t    class Square : MathOp\n\t    {\n\t        public Square(int operand)\n\t            : base(() => _operand * _operand)  // runtime exception\n\t        {\n\t            _operand = operand;\n\t        }\n\t\n\t        private int _operand;\n\t    }\n\t}\n\t\n\n(ignore the class design; I'm not actually writing a calculator!  this code merely represents a minimal repro for a much bigger problem that took awhile to narrow down)\n\nI would expect it to either:\n* print \"16\", OR\n* throw a compile time error if closing over a member field is not allowed in this scenario\n\nInstead I get a nonsensical exception thrown at the indicated line.  On the 3.0 CLR it's a *NullReferenceException*; on the Silverlight CLR it's the infamous *Operation could destabilize the runtime.*",
+  "lastActivityDate": "2014-03-18T13:50:12.577",
+  "title": "C# - closures over class fields inside an initializer?",
+  "tags": [
+    "c#",
+    "constructor",
+    "lambda",
+    "initialization",
+    "closures"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

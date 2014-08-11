@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2838871",
+  "creationDate": "2014-05-17T11:59:20.723",
+  "body": "\n\nHas anybody tried using Paypal's IPN on a port other than 80? \n\nI'm trying to specify a URL like [http://domain.com:8080/url/to/ipn.php](http://domain.com:8080/url/to/ipn.php) but the IPN request isn't getting through.\n\nIf I hit the URL directly from my browser it works fine.",
+  "lastActivityDate": "2014-01-27T11:48:13.143",
+  "title": "PayPal IPN on port other than 80",
+  "tags": [
+    "php",
+    "paypal",
+    "paypal-ipn"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

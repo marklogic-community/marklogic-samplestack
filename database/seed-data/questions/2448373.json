@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448373",
+  "creationDate": "2014-03-17T23:40:16.797",
+  "body": "\n\nI've been building out some annotated domain classes in Scala 2.8.0 using Hibernate Annotations 3.4.0. It's been working fine, except that there are certain annotations which take an array as a parameter. For example, here's a Java annotation that I want to express in Scala:\n\n\t@OneToMany(mappedBy=\"passport_id\", cascade=CascadeType.PERSIST)\n\t\n\nHowever, the annotation requires an array/set as input:\n\n\t[ERROR] .../Passport.scala:50: error: type mismatch; \n\t[INFO]  found   : javax.persistence.CascadeType(value PERSIST)\n\t[INFO]  required: Array[javax.persistence.CascadeType]\n\t[INFO]     @OneToMany(mappedBy=\"passport_id\", cascade=CascadeType.PERSIST)\n\t\n\nI've tried various parentheses, square/angle/curly brackets, and so on:\n\n\t@OneToMany(mappedBy=\"passport_id\", cascade=(CascadeType.PERSIST))\n\t@OneToMany(mappedBy=\"passport_id\", cascade=[CascadeType.PERSIST])\n\t@OneToMany(mappedBy=\"passport_id\", cascade=<CascadeType.PERSIST>)\n\t@OneToMany(mappedBy=\"passport_id\", cascade={CascadeType.PERSIST})\n\t\n\n... but unfortunately I've reached the end of my understanding of Scala/Java annotations. Help is appreciated.",
+  "lastActivityDate": "2014-03-18T01:19:42.370",
+  "title": "How do I specify a static array in a Scala 2.8 annotation?",
+  "tags": [
+    "java",
+    "scala",
+    "annotations",
+    "scala-2.8"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

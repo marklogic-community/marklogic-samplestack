@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2073929",
+  "creationDate": "2014-01-18T10:45:29.297",
+  "body": "\n\nIs it possible to display an HTML page in an Office 2003 and/or 2007 task pane via VBA?\n\nBackground: We have a complicated configuration file that our users maintain in Word (using a real editor is not an option for our audience).\n\nWe would like to create several toolbar buttons that display a basic HTML page in a task pane as a form of online help for our users.\n\nThe reason we want to use a task pane to display help (vs. an external browser or traditional help engine) is so that the help content is \"embedded\" in Word vs. displayed via a seperate application. The problem with using a regular browser or help engine to display help is that users have to manually size and position both applications so that they can see them simultaneously and its very easy to \"lose\" one application when togging between many applications.\n\nWe don't want to go down the route of writing a VisualStudio based task pane component - we want to keep things simple (KISS) and encapsulate everything in an easy to distribute Word template file (.dot or dotx.).\n\nSuggestions?",
+  "lastActivityDate": "2014-03-31T06:47:44.717",
+  "title": "Display HTML page in Office 2003 or 2007 task pane via VBA",
+  "tags": [
+    "vba",
+    "ms-word",
+    "ms-office",
+    "word-vba",
+    "customtaskpane"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

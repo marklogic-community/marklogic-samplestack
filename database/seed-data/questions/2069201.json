@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2069201",
+  "creationDate": "2014-01-17T19:06:19.400",
+  "body": "\n\nHow do I load a dll and its dependencies?  I don't want to place each of the dependent dlls in an Assembly.Load.  I'd rather just load the one dll and then the dependencies are loaded.\n\nThe above dlls aren't loaded when my application launches.  They are only loaded when a user does a specific action, which then freezes the gui.\n\nA workaround is to create an instance in my window's constructor and then set that instance to null.  That definitely doesn't feel like the most elegant solution.  Or is it?  Thanks.",
+  "lastActivityDate": "2014-01-17T20:15:22.657",
+  "title": "Load a DLL and Its Dependencies",
+  "tags": [
+    "c#",
+    ".net",
+    "dll"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

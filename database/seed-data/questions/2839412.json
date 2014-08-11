@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839412",
+  "creationDate": "2014-05-17T16:17:20.020",
+  "body": "\n\n(How) can I tweak [jeditable](http://www.appelsiini.net/projects/jeditable) to save the text when focus is lost from the text area? If you don't supply submit/cancel buttons, then when pressing 'Enter' the content is saved ... but I haven't found how to save the content on focus lost.",
+  "lastActivityDate": "2014-05-17T16:48:34.293",
+  "title": "Having jeditable save when focus is lost?",
+  "tags": [
+    "javascript",
+    "jquery",
+    "jeditable"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

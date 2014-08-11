@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2267818",
+  "creationDate": "2014-02-18T09:45:28.993",
+  "body": "\n\n**THE CODE:**\n\n\tSession[\"foo\"] = \"bar\";  \n\tResponse.Redirect(\"foo.aspx\");\n\t\n\n**THE PROBLEM:**\n\nWhen foo.aspx reads \"foo\" from the session, it's not there.  The *session* is there, but there's no value for \"foo\".\n\nI've observed this intermittently in our production environment.  But I don't mean here to ask [a question about Response.Redirect()](http://stackoverflow.com/questions/2203586/redirect-to-webapp-default-document-when-another-page-is-specified).\n\n**THE EXPLANATION:**\n\n[Bertrand Le Roy](http://weblogs.asp.net/bleroy/archive/2004/08/03/Don_2700_t-redirect-after-setting-a-Session-variable-_2800_or-do-it-right_2900_.aspx) explains (the bolding is mine):\n\n> Now, what Redirect does is to send a\n  special header to the client so that\n  it asks the server for a different\n  page than the one it was waiting for.\n  Server-side, after sending this\n  header, Redirect ends the response.\n  **This is a very violent thing to do.**\n  Response.End  actually stops the\n  execution of the page wherever it is\n  using a ThreadAbortException. What\n  happens really here is that the\n  **session token gets lost** in the battle.\n\nMy takeaway there is that Response.Redirect() can be heavy-handed with ending threads.  And that can threaten my session writes if they occur too near that heavy-handedness.\n\n**THE QUESTION:**\n\nWhat about ASP.NET session management makes it so vulnerable to this?  The Response.Redirect() line of code doesn't begin its execution until the session write line is \"finished\" -- how can it be such a threat to my session write?\n\nWhat about the session write doesn't \"finish\" before the next line of code executes?  Are there other scenarios in which session writes are similarly (as though they never occurred) lost?",
+  "lastActivityDate": "2014-11-25T08:05:48.250",
+  "title": "Why/when are session writes vulnerable to thread termination?",
+  "tags": [
+    "asp.net",
+    "session",
+    "volatile",
+    "response.redirect",
+    "risk-analysis"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

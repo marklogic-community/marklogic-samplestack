@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069287",
+  "creationDate": "2014-01-17T19:27:22.657",
+  "body": "\n\nIF i want to load any image quickly should i use as a css background not in ? I think difference only will show in low speed internet connection.\n\nI saw many articles related to css only preloading they all are using images in css background.\n\n[http://perishablepress.com/press/2008/04/15/pure-css-better-image-preloading-without-javascript/](http://perishablepress.com/press/2008/04/15/pure-css-better-image-preloading-without-javascript/)\n\n[http://perishablepress.com/press/2007/07/22/css-throwdown-preload-images-without-javascript/](http://perishablepress.com/press/2007/07/22/css-throwdown-preload-images-without-javascript/)\n\n[http://divitodesign.com/css/create-an-image-pre-loader-with-css-only/](http://divitodesign.com/css/create-an-image-pre-loader-with-css-only/)",
+  "lastActivityDate": "2014-01-18T04:18:00.967",
+  "title": "Is it true images in css background loads before all images in HTML <img>?",
+  "tags": [
+    "css",
+    "xhtml"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

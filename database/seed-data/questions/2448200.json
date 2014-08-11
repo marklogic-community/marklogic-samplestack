@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448200",
+  "creationDate": "2014-03-17T23:20:30.940",
+  "body": "\n\nI noticed when I have `Serializable` instead of `Serializable()`, the code still compiles.\n\nIs there a rule for this that you can omit the parenthesis? Is it a good practice? It seems more readable to me unless I am missing something.",
+  "lastActivityDate": "2014-03-17T23:26:46.630",
+  "title": "Can you omit the parenthesis from attributes with no params?",
+  "tags": [
+    "c#",
+    ".net",
+    "attributes"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

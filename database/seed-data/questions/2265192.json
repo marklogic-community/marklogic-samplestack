@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2265192",
+  "creationDate": "2014-02-18T02:15:25.557",
+  "body": "\n\nI would like to capture some sound from the microphone in cpp, in order to use it in a Qt application.\n\nSo I'm looking for a multi platform library easily integrable in a Qt4 project.",
+  "lastActivityDate": "2014-02-19T08:07:15.333",
+  "title": "Sound capture in CPP and Qt",
+  "tags": [
+    "c++",
+    "qt",
+    "audio",
+    "capture"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

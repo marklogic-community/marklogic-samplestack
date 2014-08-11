@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2263925",
+  "creationDate": "2014-02-17T19:27:06.597",
+  "body": "\n\nHow can I replace a particular term in multiple files in Linux?\n\nFor instance, I have a number of files in my directory:\n\nfile1.txt\nfile2.txt\nfile3.txt\n\nAnd I need to find a word \"searchword\" and replace it with \"replaceword\".",
+  "lastActivityDate": "2014-02-17T20:03:43.923",
+  "title": "Find and replace a particular term in multiple files",
+  "tags": [
+    "linux",
+    "search",
+    "ubuntu",
+    "replace"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

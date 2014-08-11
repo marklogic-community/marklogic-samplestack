@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2448738",
+  "creationDate": "2014-03-18T00:31:01.960",
+  "body": "\n\nI want my window to always maintain a certain ratio of let's say 1.33333333. So, if the window is `width = 800, height = 600` and the user changes the width to 600, I want to change the height to 450 automatically.\n\nI'm already intercepting `WM_SIZE` but I don't know if it's enough; also I don't know how to change the width or height to maintain my ratio.",
+  "lastActivityDate": "2014-03-18T01:01:11.107",
+  "title": "How to force a window to maintain a certain width/height ratio when resized",
+  "tags": [
+    "c++",
+    "winapi"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

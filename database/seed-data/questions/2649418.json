@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649418",
+  "creationDate": "2014-04-18T06:26:48.713",
+  "body": "\n\nI'm going to be making a user control for person information, I will then populate a panel of some sort with the ammount of people found (one user control for each person). \n\nCan WPF handle this?",
+  "lastActivityDate": "2014-04-19T04:14:23.857",
+  "title": "Is it possible in WPF to have a Panel and be able to add UserControls to it (Similar to Windows Forms)?",
+  "tags": [
+    "wpf",
+    "user-controls"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

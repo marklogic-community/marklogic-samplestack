@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2450693",
+  "creationDate": "2014-03-18T05:39:59.263",
+  "body": "\n\nIs there any essential difference between this code:\n\n\tThreadStart starter = new ThreadStart(SomeMethod);\n\tstarter.Invoke();\n\t\n\nand this?\n\n\tThreadStart starter = new ThreadStart(SomeMethod);\n\tThread th = new Thread(starter);\n\tth.Start();\n\t\n\nOr does the first invoke the method on the current thread while the second invokes it on a new thread?",
+  "lastActivityDate": "2014-06-15T16:39:27.953",
+  "title": ".NET threading question",
+  "tags": [
+    "c#",
+    ".net",
+    "multithreading"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

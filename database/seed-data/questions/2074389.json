@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074389",
+  "creationDate": "2014-01-18T11:57:39.640",
+  "body": "\n\nMy boss asked me to convert one of our projects to use Maven to build.  So I created a pom.xml file and now Maven builds the project fine and runs all the tests and everything.  \"Fine\", my boss said, \"We don't need these any more\" and he deleted the /libs directory from the project, and he deleted the JRE from the classpath.  That's fine, it still builds in Maven, but Eclipse shows everything that was in the jre or in /libs as unresolved in the editor.  Because of all the error indications, I'm seriously considering going back to vi.  How can I get it so Eclipse can do its thing?",
+  "lastActivityDate": "2014-01-18T12:06:10.637",
+  "title": "Changing Eclipse project to use Maven?",
+  "tags": [
+    "eclipse",
+    "maven-2",
+    "m2eclipse"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

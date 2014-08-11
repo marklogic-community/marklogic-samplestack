@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2647786",
+  "creationDate": "2014-04-18T01:59:54.643",
+  "body": "\n\nI want to create an application that doesn't use Portrait mode.\n\nI am not sure if I need to edit the plist or have code in addition to the plist",
+  "lastActivityDate": "2014-08-15T20:48:09.480",
+  "title": "Landscape Mode ONLY for iPhone or iPad",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "cocoa-touch",
+    "uikit",
+    "ipad"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

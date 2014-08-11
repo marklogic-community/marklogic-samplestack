@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2264571",
+  "creationDate": "2014-02-17T23:53:32.647",
+  "body": "\n\nI have one table with USERS and another table with RSS FEED URLS. Both are InnoDB type.\n\nEach user may be subscribed to any number of the feeds.\n\nI'm trying to figure out the best way to keep record of which feeds users are subscribed to.\n\nOne way is to have a feed_ids varchar column in users table and separate each. Is there a better way or is this ok?\n\n\tUSERS TABLE\n\t+---+----------+\n\t|id | feed_ids |\n\t+---+----------+\n\t|1  | 1,2,3    |\n\t+---+----------+\n\t|2  | 2,3      |\n\t+---+----------+\n\t|3  | 1,2      |\n\t+---+----------+\n\t",
+  "lastActivityDate": "2014-02-17T23:59:30.373",
+  "title": "Mysql Cross Table Referencing - Is this the right way?",
+  "tags": [
+    "mysql",
+    "database"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

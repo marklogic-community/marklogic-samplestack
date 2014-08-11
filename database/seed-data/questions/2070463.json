@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2070463",
+  "creationDate": "2014-01-18T01:10:44.807",
+  "body": "\n\nim developing a forum and users will be able to upload pictures.\n\ni wonder how i should organize the folders for this?\n\nshould they be sorted by threads or users? but how will they then be organized within these folders?\n\nand how could i couple some post's pictures to the database entry? eg, if the post got 5 images uploaded, should i have a one-to-many (one thread - many pictures) relationship where the pic entries contain the name of the pictures?\n\ni've never done this before. \n\nwould be great if someone could give me some piece of advice.",
+  "lastActivityDate": "2014-01-18T01:33:14.640",
+  "title": "how to organize images in threads?",
+  "tags": [
+    "php",
+    "mysql",
+    "database",
+    "web-services",
+    "image"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

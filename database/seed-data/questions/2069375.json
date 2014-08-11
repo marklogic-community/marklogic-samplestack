@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2069375",
+  "creationDate": "2014-01-17T19:48:26.350",
+  "body": "\n\nThe NetBeans API provides the org.openide.awt.NotificationDisplayer class to create and show clickable notifications in the main status line. For example,\n\n\tNotificationDisplayer.notify(title, icon, detailsText, detailsAction);\n\t\n\nThe user can dismiss a notification by clicking on the X; however, I would like to programatically clear the notifications. How can I accomplish this?",
+  "lastActivityDate": "2014-01-23T12:09:24.560",
+  "title": "NetBeans - Programatically Remove NotificationDisplayer Notifications",
+  "tags": [
+    "netbeans"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

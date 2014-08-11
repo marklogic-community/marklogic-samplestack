@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2444768",
+  "creationDate": "2014-03-17T10:34:29.120",
+  "body": "\n\ni have multiple strings containing a link like:\n\n\t <A HREF=\"http://www.testings2\">testings2</A>\n\t <A HREF=\"http://www.blabla\">blabla</A>\n\t <A HREF=\"http://www.gowick\">gowick</A>\n\t\n\ni want to use a regex pattern that gets the uri within the href.\n\ni could do like:\n\n\t /\".*?\"/\n\t\n\nbut then the \"\" will come along. is there a way to just get the uri within the HREF=\"\" without using preg_replace function?\n\nthanks!",
+  "lastActivityDate": "2014-03-17T16:34:52.877",
+  "title": "help with regex pattern",
+  "tags": [
+    "php",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

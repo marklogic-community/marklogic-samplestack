@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2643425",
+  "creationDate": "2014-04-17T15:34:09.467",
+  "body": "\n\nOk, i got a viewmodel as follows:\n\n\tpublic class PageViewModel\n\t{\n\t    public Item Item { get; set; }\n\t...\n\t\n\t    public PageViewModel\n\t    { }\n\t\n\t    public PageViewModel(Item itemWebPage)\n\t    {\n\t    ...\n\t    }\n\t}\n\t\n\nI use a form to edit this Item using a route like:\n/Controller/Edit/43\n\nThe controller uses this code:\n\n\t    [AcceptVerbs(\"GET\")]\n\t    public new ActionResult Edit(int id)\n\t    {\n\t    ...\n\t        PageViewModel pageViewModel = new PageViewModel(...);\n\t\n\t        return PartialView(pageViewModel);\n\t    }\n\t\n\t    [AcceptVerbs(HttpVerbs.Post)]\n\t    public ActionResult Edit(int id, PageViewModel item)\n\t    {\n\t        if (ModelState.IsValid)\n\t        {\n\t    ...\n\t    // Here, the item.Item.ID is null, I want it to map to the id of the route.\n\t        }\n\t\n\t        return PartialView(\"Edit\", item);\n\t    }\n\t\n\nWhat I want to achieve is the ID of the property: item.Item.ID to be bound to the ID from the (route)URL. However I can't get it to work. I tried using [Bind()] attribute.\n\nI fixed it now using a hidden field in the form like so:  \n\n\t<%= Html.HiddenFor(model => model.Item.ID)%>\n\t\n\nHowever this feels a bit icky. I'd like to know if there is a better cleaner way of doing this?",
+  "lastActivityDate": "2014-04-18T02:12:35.400",
+  "title": "Binding View Model from a form post with inner complex types",
+  "tags": [
+    "asp.net",
+    "binding",
+    "asp.net-mvc-2",
+    "viewmodel"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

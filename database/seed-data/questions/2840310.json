@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840310",
+  "creationDate": "2014-05-17T21:39:40.163",
+  "body": "\n\nI do have a user data base with rank.what I am looking is how do I select top rank person based on today's search?? and I need to do this in daily basis.",
+  "lastActivityDate": "2014-05-17T21:58:46.317",
+  "title": "How do I select top ranker by date in MySQL",
+  "tags": [
+    "php",
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

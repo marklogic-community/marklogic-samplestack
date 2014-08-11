@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2444813",
+  "creationDate": "2014-03-17T10:49:55.477",
+  "body": "\n\nQ1 - When doing a compile/debug is VS suppose to delete existing files in the bin\\debug area?  (for VS2008)\n\nif no then can I ask please:\n\nQ2 - My winforms checks for existance of a sqlite.db3 file and creates it if it needs to (programmatically).  If the behavior I wanted was that each Compile/Debug I do is for the target Debug area to be clear, so that the program would exercise the code that builds the database file, how would I organise this?\n\nthanks",
+  "lastActivityDate": "2014-03-17T11:37:55.640",
+  "title": "Visual Studio Question: When doing a compile/debug is VS suppose to delete existing files in the bin\\debug area?",
+  "tags": [
+    "visual-studio",
+    "visual-studio-2008",
+    "debugging"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

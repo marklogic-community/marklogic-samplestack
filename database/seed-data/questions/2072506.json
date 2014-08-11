@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072506",
+  "creationDate": "2014-01-18T07:07:28.100",
+  "body": "\n\nRelevant code from DetailsBERS.ascx file:\n\n\t<%@ Register Src=\"BERS.ascx\" TagName=\"BERS\" TagPrefix=\"ucBERS\" %>\n\t\n\t\n\t<asp:Repeater ID=\"repeatBERS\" runat=\"server\"><ItemTemplate>\n\t <tr>\n\t <td id=\"Td1\" runat=\"server\">\n\t  <asp:TextBox runat=\"server\" ID=\"txtTest\" Text='<%#DataBinder.Eval(Container, \"DataItem.id_bers\")%>' MaxLength='<%#DataBinder.Eval(Container, \"DataItem.id_bers\")%>' />\n\t  <ucBERS:BERS ID=\"ucBERS\" runat=\"server\" IdBers='<%#DataBinder.Eval(Container, \"DataItem.id_bers\")%>' />\n\t </td>\n\t </tr>\n\t</ItemTemplate></asp:Repeater>\n\t\n\nRelevant code from DetailsBERS.ascx.cs file:\n\n\t protected void ddlPartie_SelectedIndexChanged(object sender, EventArgs e)\n\t {\n\t  IdPartieStage = Convert.ToInt32(ddlPartie.SelectedValue);\n\t  DisplayBers();\n\t  upDetailsBERS.Update();\n\t }\n\t\n\t private void DisplayBers()\n\t {\n\t  using (SqlCommand cmd = new SqlCommand(Resources.Select.GetBersList,\n\t   new SqlConnection(ConfigurationManager.ConnectionStrings[\"MyConnectionString\"].ConnectionString)))\n\t  {\n\t   try\n\t   {\n\t    cmd.CommandType = CommandType.StoredProcedure;\n\t    cmd.Parameters.AddWithValue(\"@idPartieStage\", IdPartieStage);\n\t    cmd.Connection.Open();\n\t    SqlDataReader read = cmd.ExecuteReader();\n\t\n\t    repeatBERS.DataSource = read;\n\t    repeatBERS.DataBind();\n\t   }\n\t   catch (Exception ex)\n\t   {\n\t    throw new Exception(\"Could not DisplayBers().\", ex);\n\t   }\n\t   finally\n\t   {\n\t    if (cmd != null)\n\t     cmd.Connection.Close();\n\t   }\n\t  }\n\t }\n\t\n\nRelevant code from BERS.ascx.cs file:\n\n\tprotected override void OnPreRender(EventArgs e)\n\t {\n\t  base.OnPreRender(e);\n\t\n\t  PopulateControls();\n\t  PopulateBasicBersInfo();\n\t }\n\t\n\t private int _idBers;\n\t public int IdBers\n\t {\n\t  //set { _idBers = value; }\n\t  set { txtTest.Text = value.ToString(); }\n\t  //get { return _idBers; }\n\t  get { return Convert.ToInt32(txtTest.Text); }\n\t }\n\t\n\nOK, now my question/problem stems with my weak grasp of ASP.net and how to work with its creative way of initializing and creating controls.\n\nIf I use the above it works, in the beginning, until I do a postback (from button click) and try to get at IdBers again - txtTest.Text == \"\" and I get an exception. (Same result if I use the private int _idBers as the basis for IdBers.)\n\nI believe the problem lies with the fact that my IdBers gets assigned late in the game and so isn't saved in the viewstate...\n\nHow am I supposed to create/initialize my BERS control if not by assigning to its IdBers property in the DetailsBERS.ascx file (IdBers='<%#DataBinder.Eval(Container, \"DataItem.id_bers\")%>')? (I have since implemented Viewstate as suggested by jdt199, so this part is resolved - thanks jdt199.)\n\nMore importantly, I need this value within my OnInit stage so I can present the correct data within the control - is this possible? (Question suggested in my title but which I forgot to include into the post's main text.)",
+  "lastActivityDate": "2014-04-10T19:56:26.600",
+  "title": "ASP.NET - Proper way to initialize a user control created in a repeater?",
+  "tags": [
+    "c#",
+    "asp.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2071235",
+  "creationDate": "2014-01-18T03:57:31.367",
+  "body": "\n\nI have a controller decorated with an AuthorizeAttribute. The controller contains several actions that all require authentication apart from one action that requires some custom authentication provided by CustomAuthorizeAttribute.\n\nMy question is once I've added [Authorize] at the controller level can I override it (or remove it) with [CustomAuthorize] on just one action?  Or do I have to remove [Authorize] from the controller level and add it individually to every other action?\n\nI'm asking purely for convenience because I'm lazy and don't want to decorate every action with the AuthorizeAttribute.\n\n\t[Authorize]\n\tpublic class MyController : Controller {\n\t\n\t  //requires authentication\n\t  public ViewResult Admin() {\n\t    return View();\n\t  }\n\t\n\t  //... a lot more actions requiring authentication\n\t\n\t  //requires custom authentication\n\t  [CustomAuthorize]  //never invoked as already failed at controller level\n\t  public ViewResult Home() {\n\t    return View();\n\t  }\n\t\n\t}\n\t",
+  "lastActivityDate": "2014-03-07T15:15:33.770",
+  "title": "Overriding controller AuthorizeAttribute for just one action",
+  "tags": [
+    "asp.net-mvc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

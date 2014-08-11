@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2068513",
+  "creationDate": "2014-01-17T16:12:37.687",
+  "body": "\n\nIn the iPhone Simulator the CLLocationManager's UpdateHeading gives a value of 103.27 for TrueHeading.\n\nI understand that these values are hard coded to Apple's world HQ in California. \n\nBut shouldn't TrueNorth from CA be under 45 degrees?",
+  "lastActivityDate": "2014-01-21T05:12:11.983",
+  "title": "iPhone CLLocationManager TrueHeading iPhoneSimulator",
+  "tags": [
+    "iphone",
+    "cllocationmanager"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

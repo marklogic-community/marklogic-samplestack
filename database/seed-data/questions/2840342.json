@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2840342",
+  "creationDate": "2014-05-17T21:49:57.570",
+  "body": "\n\nI'm writing a highly parallel application that's multithreaded. I've already got an SSE accelerated thread class written. If I were to write an MMX accelerated thread class, then run both at the same time (one SSE thread and one MMX thread per core) would the performance improve noticeably? \n\nI would think that this setup would help hide memory latency, but I'd like to be sure before I start pouring time into it.",
+  "lastActivityDate": "2014-05-17T22:07:44.620",
+  "title": "Benefit of using multiple SIMD instruction sets simultaneously",
+  "tags": [
+    "c++",
+    "c",
+    "sse",
+    "simd",
+    "mmx"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

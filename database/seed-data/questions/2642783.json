@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2642783",
+  "creationDate": "2014-04-17T12:43:10.477",
+  "body": "\n\nI have a data frame in R that looks like this:\n\n\t> TimeOffset, Source, Length \n\t> 0         1           1500\n\t> 0.1       1           1000    \n\t> 0.2       1           50\n\t> 0.4       2           25\n\t> 0.6       2           3\n\t> 1.1       1           1500\n\t> 1.4       1           18\n\t> 1.6       2           2500\n\t> 1.9       2           18\n\t> 2.1       1           37\n\t> ...\n\t\n\nand I want to convert it to\n\n\t> TimeOffset, Source, Length\n\t> 0.2         1       2550\n\t> 0.6         2       28\n\t> 1.4         1       1518\n\t> 1.9         2       2518\n\t> ...\n\t\n\nTrying to put this into English, I want to group consecutive records with the same 'Source' together, then printing out a single record per group showing the highest time offset in that group, the source, and the sum of the lengths in that group.\n\nThe TimeOffset values will always increase.\n\nI suspect this is possible in R, but I really don't know where to start.  In a pinch I could export the data frame out and do it in e.g. Python, but I'd prefer to stay within R if possible.\n\nThanks in advance for any assistance you can provide",
+  "lastActivityDate": "2014-04-17T15:58:41.183",
+  "title": "Summarising grouped records in a dataframe in R",
+  "tags": [
+    "select",
+    "r",
+    "statistics",
+    "data.frame"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

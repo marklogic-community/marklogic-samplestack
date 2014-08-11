@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071240",
+  "creationDate": "2014-01-18T03:59:33.223",
+  "body": "\n\nHow can I convert this piece of VB6 code into C#? \n\n[http://pastebin.com/f16e19351](http://pastebin.com/f16e19351)\n\nI've tried on my own and got so far to: \n\n[http://pastebin.com/f7ca199f0](http://pastebin.com/f7ca199f0)\n\nEDIT: Code I'm trying to translate exists here:\n[http://www.codeproject.com/KB/vb-interop/MouseHunter.aspx](http://www.codeproject.com/KB/vb-interop/MouseHunter.aspx)",
+  "lastActivityDate": "2014-01-18T07:58:22.050",
+  "title": "C# & VB6: How to convert 'with' statement to C#?",
+  "tags": [
+    "c#",
+    "vb6"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2068796",
+  "creationDate": "2014-01-17T17:12:32.453",
+  "body": "\n\nCletus helped my with this really sweet code yesterday:\n[http://stackoverflow.com/questions/2063122/what-javascript-object-am-i-looking-for-click-a-button-it-stays-bold-till-the-n](http://stackoverflow.com/questions/2063122/what-javascript-object-am-i-looking-for-click-a-button-it-stays-bold-till-the-n)\n\nThis takes the class of my li and changes the class. It works great!  I'm wanting to extend this so it will also change the class within the a in the li.  How do I do that?\n\nExample:\n\n\t<ul>\n\t <li class=\"old_class\"><a class=\"old_class\" ...>\n\t <li class=\"old_class\"><a class=\"old_class\" ...>\n\t <li class=\"old_class\"><a class=\"old_class\" ...>\n\t</ul>\n\t\n\tSo when I click the first link it would become:\n\t\n\t<ul>\n\t <li class=\"new_class\"><a class=\"new_class\" ...>\n\t <li class=\"old_class\"><a class=\"old_class\" ...>\n\t <li class=\"old_class\"><a class=\"old_class\" ...>\n\t</ul>\n\t\n\nAs the code is now, the li class changes, but not the a. \n\nThe code I'm using:\n\n\t$(\".old_class\").click(function() {\n\t  $(\".new_class\").removeClass(\"new_class\");\n\t  $(this).addClass(\"new\");\n\t});\n\t\n\nThank you!  I'm using Jquery...",
+  "lastActivityDate": "2014-01-17T17:55:29.247",
+  "title": "How do I extend this javascript to change the class of two elements in one onclick?",
+  "tags": [
+    "javascript",
+    "jquery",
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2645469",
+  "creationDate": "2014-04-17T21:07:23.223",
+  "body": "\n\nI am getting the value of a **fckeditor** with javascript to show in a dialog as preview. Now I want it to show the html tags like I input them but instead it shows me this\n\n\t<p>&lt;div&gt;test&lt;/div&gt;</p>\n\t\n\nthat is `<div>test</div>`\n\nI use this following code\n\n\tfunction test() {\n\t        var oEditor = FCKeditorAPI.GetInstance('FCKeditor1');\n\t        var pageValue = oEditor.GetHTML(true);\n\t\n\t        alert(pageValue);            \n\t    }\n\t\n\nI have tried to change settings like\n\n\tFCKConfig.HtmlEncodeOutput = false;\n\tFCKConfig.ProcessHTMLEntities = true;\n\tFCKConfig.FormatSource = false;\n\t\n\nNo luck with that. I am getting a little frustrated with this problem now.\nAnybody got a idea why?",
+  "lastActivityDate": "2014-04-17T22:02:17.340",
+  "title": "How to get the html so its not encoded?",
+  "tags": [
+    "javascript",
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

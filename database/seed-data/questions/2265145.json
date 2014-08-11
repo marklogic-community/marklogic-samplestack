@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2265145",
+  "creationDate": "2014-02-18T02:07:35.533",
+  "body": "\n\nI'm using rails 2.3.5 and ruby 1.8.7. I'm building a  simple TODO manager. Where I have tasks that belong to a user and a user has many tasks.\n\nI'm using `acts_as_taggable_on_steroids` plugin for tagging tasks and `restful_authentication plugin` for registration and user management.\n\nI'm getting a weird error that reads \"Can't dup NilClass\" on the view of index action. This is what the controller code is -\n\n\t@tasks = current_user.tasks\n\t\n\nThe error occurs when I'm iterating over `@tasks` on the view. That is when I do `@tasks.each do |task|`\n\nNow when I replace the controller code with this\n\n\t@tasks = Task.find(:all, :conditions => {:user_id => current_user.id})\n\t\n\nWhich is actually fetching the same records. This happen only in development mode. I am guessing this has something to do with caching or loading. \n\nWhat could be wrong? I'm facing this issue for the first time.\n\n**EDIT**\n\nOkay, this is definitely a caching issue. If I make\n`config.cache_classes = true` in production.rb, the same error occurs in production mode as well. But how do I fix that now? Because I don't want to be reloading the server for every change I make in models/controllers.\n\n**EDIT**\n\nHere is how my User model looks like\n\n\tclass User < ActiveRecord::Base\n\t  has_many :tasks\n\t  has_many :projects\n\t\n\t  # There are some validations and standard methods that resful authentication \n\t  # provides that I am not showing here\n\t\n\tend\n\t\n\nAnd this is how the Task model looks like.\n\n\tclass Task < ActiveRecord::Base\n\t  belongs_to :bin\n\t  belongs_to :project\n\t  belongs_to :user\n\t\n\t  acts_as_taggable\n\t\n\t  def tag_list\n\t    super.join(', ')\n\t  end\n\t\n\tend\n\t\n\nTask controller's index method looks like this\n\n\tdef index\n\t  @tasks = current_user.tasks\n\t\n\t  respond_to do |format|\n\t    format.html # index.html.erb\n\t    format.xml  { render :xml => @tasks }\n\t  end\n\tend\n\t\n\nHope this helps.",
+  "lastActivityDate": "2014-02-18T03:20:36.370",
+  "title": "Can't dup NilClass on association methods",
+  "tags": [
+    "ruby-on-rails",
+    "ruby"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

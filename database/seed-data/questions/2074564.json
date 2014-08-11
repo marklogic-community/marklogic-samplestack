@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2074564",
+  "creationDate": "2014-01-18T12:30:24.653",
+  "body": "\n\nWhenever i build a URL i.e.\n\n\tcart.php?action=add&p[]=29&qty[]=3&p[]=5&qty[]=13\n\t\n\nand try to grab the p variable and the qty variable, the = 'Array'\n\nvar_dump = \n\n\tarray(3) { [\"action\"]=>  string(3) \"add\" [\"p\"]=>  string(5) \"Array\" [\"qty\"]=>  string(5) \"Array\" } \n\t\n\nI create half the URL with PHP, and the other half is concatenated with Javascript.",
+  "lastActivityDate": "2014-03-08T13:53:30.517",
+  "title": "trying to send array through GET variable, when printed, var equals string of 'Array'",
+  "tags": [
+    "php",
+    "arrays",
+    "url",
+    "get"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

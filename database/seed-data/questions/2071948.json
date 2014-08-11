@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2071948",
+  "creationDate": "2014-01-18T05:54:58.880",
+  "body": "\n\nDoes having (approx 100) HTML validation errors affect my page loading speeds? Currently the errors on my pages don't break the page in ANY browser, but I'd spend time and clear those anyhow if it would improve my page loading speed?\n\nIf not on desktops, how about mobile devices like iPhone or Android? (For example, N1 and Droid load pages *much* slower than iPhone although they both use Webkit engine.)\n\n**Edit**: My focus here is *speed* optimization not cross-browser compatibility (which is already achieved). Google and other biggies seem to use invalid HTML for speed or compatibility of both?\n\n**Edit #2**: I'm not in quirks mode, i.e. I use XHTML Strict Doctype and my source looks great and its mostly valid, but 100% valid HTML usually requires design (or some other kind of) sacrifice.\n\nThanks",
+  "lastActivityDate": "2014-01-18T06:12:16.213",
+  "title": "HTML validation and loading times",
+  "tags": [
+    "javascript",
+    "html",
+    "css",
+    "optimization",
+    "browser"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

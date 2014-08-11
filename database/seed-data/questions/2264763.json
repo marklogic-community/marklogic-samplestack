@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2264763",
+  "creationDate": "2014-02-18T00:43:29.850",
+  "body": "\n\nI have a model that looks something like this:\n\n\tpublic class SampleModel\n\t{\n\t    public static SampleModel Create()\n\t    {\n\t        return new SampleModel\n\t        {\n\t            Boolean = true,\n\t            // set several more properties...\n\t            Colors = new SelectList(new[] { \"Red\", \"Green\", \"Blue\" }, \"Green\")\n\t        };\n\t    }\n\t\n\t    public bool Boolean { get; set; }\n\t    // define several more properties...\n\t    public SelectList Colors { get; set; }\n\t}\n\t\n\nI'm letting ASP.NET MVC automatically scaffold the properties using `Html.DisplayForModel()` for my Details view and `Html.EditorForModel()` for my Edit view.\n\n**Results:**\n\n* The Edit view works great. `Colors` shows up as a menu with three items (Red, Green, and Blue), and Green is selected by default.\n\n* For the Details view, however, I get \"False True False\", which is apparently a list of the `IsSelected` value for each item of the menu. That is definitely not want I want. I would like it to just display \"Green\".\n\n* A further problem is that, if I try to do `UpdateModel(sampleModel)` in my controller, I get the error, \"No parameterless constructor defined for this object.\"  This is presumably because `Colors` is a `SelectList`, and there is no parameterless constructor for `SelectList`, so it can't complete the binding.\n\nSo, I think I understand what the problems are, but I could really use a good solution for this scenario, which seems to come up a lot when you have models objects with foreign keys.\n\n**Some questions:**\n1. How do I get `Colors` to show up as a menu for the Edit view but as just a simple string value (e.g., \"Green\") in the Details view?\n2. How can I prevent a \"no parameterless constructor\" error when updating a model that contains a `SelectList`?\n3. If my Model/ViewModel actually contained a foreign key, `ColorId`, instead of `Colors`, what would be the best practice for getting the Details view to show the name of the current color and the Edit view to show a menu containing all the color names listed in the `Color` table of my database. If it helps, I'm using LinqToSql (SqlMetal) to generate my model classes.",
+  "lastActivityDate": "2014-02-18T12:55:45.980",
+  "title": "Struggling with SelectList in ASP.NET MVC 2",
+  "tags": [
+    "c#",
+    "asp.net-mvc",
+    "asp.net-mvc-2",
+    "viewmodel",
+    "scaffolding"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

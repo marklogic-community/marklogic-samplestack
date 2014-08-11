@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2645375",
+  "creationDate": "2014-04-17T20:56:16.443",
+  "body": "\n\nI am debugging some code, and would like to throw an error without actually having the code in place for exception.throw. \n\nWhile I am debugging and the line of code is highlighted in yellow inside a function, is there anyway to dynamically throw a general exception?\n\nThis would save me heaps of time during debugging sessions. \n\nThanks",
+  "lastActivityDate": "2014-04-18T00:52:59.037",
+  "title": "Visual Studio 2008, anyway to dynamically throw an error while debugging?",
+  "tags": [
+    "visual-studio-2008"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

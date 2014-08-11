@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445638",
+  "creationDate": "2014-03-17T15:32:42.270",
+  "body": "\n\nWhat tool for managing Oracle DB do you suggest? I need to execute scripts and manage data in tables and develop some scripts and packages. I'v tried SQL developer and actually don't like it. Want some more features for developing (debug, code assist, integrated help and so on.)",
+  "lastActivityDate": "2014-01-11T18:49:20.940",
+  "title": "What tool for managing Oracle DB do you suggest?",
+  "tags": [
+    "sql",
+    "database"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

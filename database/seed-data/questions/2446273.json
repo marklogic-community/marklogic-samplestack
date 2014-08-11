@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2446273",
+  "creationDate": "2014-03-17T18:07:33.477",
+  "body": "\n\nI am trying to subclass the currently focused window on a Windows system using a global CBT hook. This is related to what happens in [this question](http://stackoverflow.com/questions/1346582/why-does-this-window-subclassing-code-crash), but the bug is different.\n\nWhat happens when this subclassing is in effect, is that Opera's (version 10.50) main window is prevented from displaying. Opera has a \"splash screen\" where you are required to click \"Start\" for the main window to show that appears after Opera has not shut down properly. Whenever this window pops up, Opera's main window won't show. If Opera was shut down properly, and this splash screen does not show, the main window displays as it should.\n\n\tHHOOK hHook;\n\tHWND hWndSubclass = 0;\n\t\n\tvoid SubclassWindow(HWND hWnd)\n\t{\n\t    Unsubclass();\n\t    FARPROC lpfnOldWndProc = (FARPROC)SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LPARAM)SubClassFunc);\n\t    SetProp(hWnd, L\"PROP_OLDWNDPROC\", lpfnOldWndProc);\n\t    hWndSubclass = hWnd;\n\t}\n\t\n\tvoid Unsubclass()\n\t{\n\t    if (hWndSubclass != 0 && IsWindow(hWndSubclass))\n\t    {\n\t        FARPROC lpfnOldWndProc = (FARPROC)GetProp(hWndSubclass, L\"PROP_OLDWNDPROC\");\n\t        RemoveProp(hWndSubclass, L\"PROP_OLDWNDPROC\");\n\t        SetWindowLongPtr(hWndSubclass, GWLP_WNDPROC, (LPARAM)lpfnOldWndProc);\n\t        hWndSubclass = 0;\n\t    }\n\t}\n\t\n\tstatic LRESULT CALLBACK SubClassFunc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)\n\t{\n\t    if (message == WM_MOVING)\n\t    {\n\t        // do something irrelevant\n\t    }\n\t    else if (message == WM_DESTROY)\n\t    {\n\t        Unsubclass();\n\t    }\n\t    FARPROC lpfnOldWndProc = (FARPROC)GetProp(hWndSubclass, L\"PROP_OLDWNDPROC\");\n\t    return CallWindowProc((WNDPROC)lpfnOldWndProc, hWndSubclass, message, wParam, lParam);\n\t}\n\t\n\tstatic LRESULT CALLBACK CBTProc(int nCode, WPARAM wParam, LPARAM lParam)\n\t{\n\t    if (nCode == HCBT_SETFOCUS && hWndServer != NULL)\n\t    {\n\t        SubclassWindow((HWND)wParam);\n\t    }\n\t    if (nCode < 0)\n\t    {\n\t        return CallNextHookEx(hHook, nCode, wParam, lParam);\n\t    }\n\t    return 0;\n\t}\n\t\n\tBOOL APIENTRY DllMain( HINSTANCE hInstance, \n\t                   DWORD  Reason, \n\t                   LPVOID Reserved\n\t                 )\n\t{\n\t    switch(Reason)\n\t    { \n\t        case DLL_PROCESS_ATTACH:\n\t            hInst = hInstance;\n\t            return TRUE;\n\t        case DLL_PROCESS_DETACH:\n\t            Unsubclass();\n\t            return TRUE;\n\t    }\n\t    return TRUE;\n\t}\n\t\n\nMy suspicion is that Opera's main window is somehow already subclassed. I imagine the following is happening:\n1. The window is created with it's own basic WndProc, and is given focus\n2. My application subclasses the window, storing the original WndProc\n3. Opera subclasses its own window\n4. When the window loses focus, I restore the original WndProc, thus ignoring the second WndProc\n\nCan this really be the case? Are there any other explanations?",
+  "lastActivityDate": "2014-03-17T18:10:00.503",
+  "title": "Safely remove window subclassing?",
+  "tags": [
+    "c++",
+    "winapi",
+    "subclassing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

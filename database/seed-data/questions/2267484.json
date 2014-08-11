@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267484",
+  "creationDate": "2014-02-18T08:49:07.510",
+  "body": "\n\nI am getting completely different reults from string.scan and several regex testers...\n\nI am just trying to grab the domain from the string, it is the last word.\n\nThe regex in question:\n\n\t/([a-zA-Z0-9\\-]*\\.)*\\w{1,4}$/\n\t\n\nThe string (1 single line, verified in Ruby's runtime btw)\n\n\tstr = 'Show more results from software.informer.com'\n\t\n\nWork fine, but in ruby....\n\n\tirb(main):050:0> str.scan /([a-zA-Z0-9\\-]*\\.)*\\w{1,4}$/\n\t=> [[\"informer.\"]]\n\t\n\nI would think that I would get a match on software.informer.com  ,which is my goal.",
+  "lastActivityDate": "2014-02-18T09:37:29.413",
+  "title": "Very odd issue with Ruby and regex",
+  "tags": [
+    "ruby",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

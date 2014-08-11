@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071105",
+  "creationDate": "2014-01-18T03:33:50.013",
+  "body": "\n\nI am trying to use rowspan in a table with thead and tbody ex.\n\n\t<table>\n\t<thead>\n\t    <tr>\n\t       <td rowspan=\"2\">test</td>\n\t       <td>Initials</td>\n\t    </tr>\n\t</thead>\n\t    <tbody>\n\t    <tr>\n\t       <td>&#160;</td>\n\t    </tr>\n\t    </tbody>\n\t\n\n\n\nBut it does not allow me to do it.\n\nIs there a way arround? Or do I have to remove the thead and tbody to be able to use rowspan?\n\nThanks in advance.",
+  "lastActivityDate": "2014-01-18T03:39:08.830",
+  "title": "rowspan do not work with thead and tbody",
+  "tags": [
+    "html",
+    "coding-style"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

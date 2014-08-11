@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839107",
+  "creationDate": "2014-05-17T14:08:40.437",
+  "body": "\n\nWe are running several the same ASP.NET applications (one per customer) based on our custom framework (libraries). Each application use its own database (Initial Catalog in the term of connection string). Now we would like to add workflow capability (of course 4.0 ;) to the applications. So the particular workflows will be the same for all the applications only some initial settings of each workflow can vary, e.g. in one application the e-mail will be send to the user X, but in other application to the user Y.\n\nI have several general questions how to design architecture:\n\n(1) Can be the workflow database shared for all the applications?\n\n(2) Where to host workflow engine - inside our custom windows NT service or inside IIS? What are the criteria to choose the right host?\n\n(3) How the workflow engine should communicate with applications? Should application call some WCF endpoint API configured in workflow host or vice verse - should each application provide WCF endpoint API and workflow engine will call it? How then the workflow engine will identify applications? Both cases requires probably some application identifier as a parameter in API calls?\n\n(4) We would like to also store some information to the application databases based on the workflow states. Is it possible?\n\nThanks for suggestions!",
+  "lastActivityDate": "2014-06-03T15:47:48.927",
+  "title": "Windows Workflow Foundation: Recommendations how to design architecture",
+  "tags": [
+    "asp.net",
+    "architecture",
+    "workflow-foundation-4"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

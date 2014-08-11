@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268417",
+  "creationDate": "2014-02-18T11:33:39.640",
+  "body": "\n\nSo, the @cache_page decorator is awesome. But for my blog I would like to keep a page in cache until someone comments on a post. This sounds like a great idea as people rarely comment so keeping the pages in memcached while nobody comments would be great. I'm thinking that someone must have had this problem before? And this is different than caching per url.\n\nSo a solution I'm thinking of is:\n\n\t@cache_page( 60 * 15, \"blog\" );\n\tdef blog( request ) ...\n\t\n\nAnd then I'd keep a list of all cache keys used for the blog view and then have way of expire the \"blog\" cache space. But I'm not super experienced with Django so I'm wondering if someone knows a better way of doing this? Thanks.",
+  "lastActivityDate": "2014-06-02T02:18:02.580",
+  "title": "Expire a view-cache in Django?",
+  "tags": [
+    "django",
+    "caching"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

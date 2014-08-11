@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2643850",
+  "creationDate": "2014-04-17T16:47:58.353",
+  "body": "\n\nI want to count how many members of an iterable meet a given condition. I'd like to do it in a way that is clear and simple and preferably reasonably optimal.\n\nMy current best ideas are:\n\n\tsum(meets_condition(x) for x in my_list)\n\t\n\nand\n\n\tlen([x for x in my_list if meets_condition(x)])\n\t\n\nThe first one being iterator based is presumably faster for big lists. And it's the same form as you'd use for testing any and all. However it depends on the fact that int(True) == 1, which is somewhat ugly.\n\nThe second one seems easier to read to me, but it is different from the any and all forms.\n\nDoes anyone have any better suggestions? is there a library function somewhere that I am missing?",
+  "lastActivityDate": "2014-04-17T17:23:44.273",
+  "title": "what is a good way to do countif in python",
+  "tags": [
+    "python"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

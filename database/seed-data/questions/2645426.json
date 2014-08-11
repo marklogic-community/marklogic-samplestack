@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645426",
+  "creationDate": "2014-04-17T21:02:47.960",
+  "body": "\n\nhi\ni'm really not used to the split string method in c# and i was wondering how come there's no split by more than one char function?\n\nand my attempt to try to split this string below using regex has just ended up in frustration.\nanybody can help me?\n\nbasically i want to split the string below down to\n\n\taa**aa**bb**dd^__^a2a**a2a**b2b**dd^__^\n\t\n\ninto\n\n\taa**aa**bb**dd\n\ta2a**a2a**b2b**dd\n\t\n\nand then later into\n\n\taa\n\taa\n\tbb\n\tdd\n\t\n\ta2a\n\ta2a\n\tb2b\n\tdd\n\t\n\nthanks!",
+  "lastActivityDate": "2014-04-17T21:24:21.700",
+  "title": "How to split this string in c#?",
+  "tags": [
+    "c#",
+    "regex",
+    "split"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2646983",
+  "creationDate": "2014-04-18T00:07:22.733",
+  "body": "\n\nI am little stumped: I have a simple messenger client program (pure python, sockets), and I wanted to add proxy support (http/s, socks), however I am a little confused on how to go about it. I am assuming that the connection on the socket level will be done to the proxy server, at which point the headers should contain a CONNECT + destination IP (of the chat server) and authentication, (if proxy requires so), however the rest is a little beyond me. How is the subsequent connection handled, specifically the reading/writing, etc...\n\nAre there any guides on proxy support implementation for socket based (tcp) programming in Python?\n\nThank you",
+  "lastActivityDate": "2014-04-28T23:16:40.697",
+  "title": "Python, implementing proxy support for a socket based application (not urllib2)",
+  "tags": [
+    "python",
+    "proxy",
+    "tcp",
+    "sockets",
+    "socks"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

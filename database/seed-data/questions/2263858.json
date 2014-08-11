@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2263858",
+  "creationDate": "2014-02-17T19:00:15.003",
+  "body": "\n\nI'm reading CLRS 2nd and is studying B-Tree now.\n\nCLRS claims that B-Tree naming is not clear yet: [Bayer, McCreight, 1972] doesn't offer the reason that B-Tree is named to \"B-Tree\".\n\nI haven't investigated this issue any further... but does anyone know the reason? :) ",
+  "lastActivityDate": "2014-02-17T19:30:44.663",
+  "title": "Does anybody know how B-Tree got its name?",
+  "tags": [
+    "algorithm",
+    "b-tree"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

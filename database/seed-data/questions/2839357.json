@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2839357",
+  "creationDate": "2014-05-17T15:56:42.417",
+  "body": "\n\nI have an entity A which HasMany entities B and entities C. All entities A, B and C have some references x,y and z which should be loaded eagerly.\n\nI want to read from the database all entities A, and load the collections of B and C eagerly using criteria API. \nSo far, I am able to fetch the references in 'A' eagerly. But when the collections are loaded, the references within them are lazily loaded.\n\nHere is how I do it\n\n\t            AllEntities_A =\n\t            _session.CreateCriteria(typeof(A))\n\t            .SetFetchMode(\"x\", FetchMode.Eager)\n\t            .SetFetchMode(\"y\", FetchMode.Eager)\n\t            .List<A>().AsQueryable();\n\t\n\nThe mapping of entity A using Fluent is as shown below. _B and _C are private ILists for B & C respectively in A.\n\n\t        Id(c => c.SystemId);\n\t        Version(c => c.Version);\n\t        References(c => c.x).Cascade.All();\n\t        References(c => c.y).Cascade.All();\n\t\n\t        HasMany<B>(Reveal.Property<A>(\"_B\"))\n\t            .AsBag()                \n\t            .Cascade.AllDeleteOrphan()\n\t            .Not.LazyLoad()\n\t            .Inverse()\n\t            .Cache.ReadWrite().IncludeAll();\n\t        HasMany<C>(Reveal.Property<A>(\"_C\"))\n\t            .AsBag()\n\t            .Cascade.AllDeleteOrphan()\n\t            .LazyLoad()\n\t            .Inverse()\n\t            .Cache.ReadWrite().IncludeAll();\n\t\n\nI don't want to make changes to the mapping file, and would like to load the entire entity A eagerly. i.e. I should get a List of A's where there will be List of B's and C's whose reference properties will also be loaded eagerly",
+  "lastActivityDate": "2014-10-27T01:03:53.010",
+  "title": "Load collections eagerly in NHibernate using Criteria API",
+  "tags": [
+    "nhibernate",
+    "nhibernate-mapping",
+    "criteria-api",
+    "detachedcriteria",
+    "createcriteria"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

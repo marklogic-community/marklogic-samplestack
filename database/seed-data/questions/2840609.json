@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840609",
+  "creationDate": "2014-05-17T23:17:45.430",
+  "body": "\n\nI wrote the following code under the assumption that Excel will die with Monkey:\n\n\tclass ExcelMonkey\n\t{\n\t    private static Excel.Application xl = new Excel.Application();\n\t\n\t    public static bool parse(string filename)\n\t    {\n\t\n\t        if (filename.Contains(\"foo\"))\n\t        { \n\t            var workbook = xl.Workbooks.Open(filename);\n\t            var sheet = workbook.Worksheets.get_Item(1);\n\t\n\t            // do stuff\n\t\n\t            return true;\n\t\n\t        }\n\t\n\t        return false;\n\t    }\n\t}\n\t\n\nHow do I make sure it does? Do I need to release `workbook` and `sheet` separately?\n\nI want to have Excel around for the lifetime of the program, it's a huge performance improvement.",
+  "lastActivityDate": "2014-06-03T13:55:46.313",
+  "title": "Guaranteed COM object release?",
+  "tags": [
+    "com",
+    "c#-4.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

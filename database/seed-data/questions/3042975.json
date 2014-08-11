@@ -1,0 +1,18 @@
+{
+  "id": "/questions/3042975",
+  "creationDate": "2014-06-17T14:28:13.083",
+  "body": "\n\nI need to design a report, that displays the data from a collection(Say List). This list contains multiple POJOs.\n\nThe POJOs are populated by the data access layer of the application. How do I design a report template for this requirement in iReports?",
+  "lastActivityDate": "2014-05-14T13:51:30.847",
+  "title": "Passing a Collection of Java Beans as DataSource to Jasper, How to design this in ireports",
+  "tags": [
+    "java",
+    "jasper-reports",
+    "ireport"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

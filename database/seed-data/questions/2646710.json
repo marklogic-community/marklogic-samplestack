@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646710",
+  "creationDate": "2014-04-17T23:35:05.727",
+  "body": "\n\nI've another question I wish to sort a list of IP address.\n\nAre there any functions in Postgresql to use with the order by like INET_ATON in MySql ?\n\nMy current IP is on string format.\n\nThx.\n\nNarglix",
+  "lastActivityDate": "2014-03-17T06:49:30.810",
+  "title": "Order by in Postgresql to sort IP address?",
+  "tags": [
+    "sql",
+    "postgresql",
+    "ip-address",
+    "sql-order-by"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

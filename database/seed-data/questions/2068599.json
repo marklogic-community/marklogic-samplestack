@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2068599",
+  "creationDate": "2014-01-17T16:28:03.823",
+  "body": "\n\nHow can I put multiple functions in one file and later get access to all of them in the octave interpreter ? I don't want to have a thousand files and want to group functions together. I'd like something like 'import' in python.",
+  "lastActivityDate": "2014-05-13T23:04:39.990",
+  "title": "octave: load many functions from single file",
+  "tags": [
+    "octave",
+    "read-eval-print-loop"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

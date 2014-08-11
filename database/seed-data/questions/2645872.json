@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2645872",
+  "creationDate": "2014-04-17T21:53:45.397",
+  "body": "\n\nDoes anyone know of any component or library (preferably open source) that would allow me to convert Word 2007 documents to Word 2003 with ASP.NET?",
+  "lastActivityDate": "2014-08-03T01:50:07.360",
+  "title": "Convert Word 2007 Document to Word 2003 Programmatically in ASP.NET",
+  "tags": [
+    "asp.net",
+    "ms-word"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

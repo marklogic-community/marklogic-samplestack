@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266266",
+  "creationDate": "2014-02-18T05:41:12.453",
+  "body": "\n\nI'm using the JMF Framework to capture audio data from the microphone. \n\nI try to find the audio device for the mic through this code:\n\n\t    AudioFormat audioFormat = new AudioFormat(\"linear\", 44100, 16, 2);\n\t    Vector<CaptureDeviceInfo> deviceList = CaptureDeviceManager.getDeviceList(audioFormat);\n\t\n\nThe problem is that I don't really know if that is the right audio format. How can i figure out which audio format should be specified to find the audio device? ",
+  "lastActivityDate": "2014-02-18T11:52:36.000",
+  "title": "How to specify the right AudioFormat for capturing audio from the microphone?",
+  "tags": [
+    "java",
+    "audio",
+    "capture",
+    "audioformat"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

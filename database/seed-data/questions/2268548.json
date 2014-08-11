@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2268548",
+  "creationDate": "2014-02-18T11:58:42.273",
+  "body": "\n\nFor some reason, the Clang Static Analyzer in my Xcode doesn't complain about anything. I made big memory management mistakes to try it (alloc and no release), but it never finds them and doesn't complain about them. Even after clean all targets and again Build and Analyze.\n\nI was building for Simulator 3.1\n\nMust I set that up specifically? A special compiler setting or so? How?",
+  "lastActivityDate": "2014-02-18T15:27:50.310",
+  "title": "Why's the Build and Analyze command not finding obvious memory management errors?",
+  "tags": [
+    "iphone",
+    "xcode",
+    "clang",
+    "clang-static-analyzer"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

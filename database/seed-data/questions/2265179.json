@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2265179",
+  "creationDate": "2014-02-18T02:13:30.567",
+  "body": "\n\nI would like to check if a string contains:\n* at least 1 number\n* at least 2 characters (uppercase or lowercase)\n\nThis is the regex I though I might use:\n\n\t(?=(?:.*?\\d))(?=(?:.*?[A-Za-z]){2})\n\t\n\nWith aa1 the test gives a false statement, while with a1a or 1aa it gives a true result.\n\nThe strange thing is that if I change the order of the controls in the regexp:\n\n\t(?=(?:.*?[A-Za-z]){2})(?=(?:.*?\\d))\n\t\n\nall 3 of the test string I used wives a true value.\n\nHow is it possible?\n\nThanks",
+  "lastActivityDate": "2014-02-18T02:54:44.250",
+  "title": "Regex: change the order of the controls",
+  "tags": [
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

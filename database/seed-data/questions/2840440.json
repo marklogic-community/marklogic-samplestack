@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2840440",
+  "creationDate": "2014-05-17T22:22:43.310",
+  "body": "\n\nHow can i implement message security in WCF with custom attributes,\n\nOne way of doing this by UserNamePasswordValidator which accepts user name and password \nbut in my case I have to pass 2 more attribute that is company and region to authenticate the user.\n\nPlease suggest the solution for achieving this.",
+  "lastActivityDate": "2014-02-10T03:32:48.153",
+  "title": "WCF Message Security implementation with custom attributes",
+  "tags": [
+    ".net",
+    "wcf",
+    "security",
+    "message"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

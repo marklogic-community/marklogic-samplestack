@@ -1,1 +1,23 @@
-{"id":"/questions/20887681.json", "creationDate":"2014-01-02T16:54:41.083", "body":"\n\nI have a JSON stream that sends collections looking like this:\n\n\t[{\"channel\":\"24e67e0d-1cad-4cc09e7af8523ef460fe\",     \n\t  \"op\":\"private\", \n\t  \"origin\":\"broadcast\", \n\t  \"stamp\":1388680103991749},\n\t\"13886801043507640\",\n\t\"24e67e0d-1cad-4cc0-9e7a-f8523ef460fe\"]\n\t\n\nThe first object is no problem, but the last two ones (`\"13886801043507640\"` and `\"24e67e0d-1cad-4cc0-9e7a-f8523ef460fe\"`) make `Json.Net` throw exceptions they don't even follow the format `{field:name,field:name}`.\n\nHow can I handle these objects properly (or at least discard them) using `Json.Net`?\n\nCheers, any input is appreciated.", "lastActivityDate":"2014-01-02T18:57:29.443", "title":"Discard items when deserializing Json collection with Json.net", "tags":["c#", ".net", "json", "json.net", "deserialization"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"muichkine", "id":"1563325"}}
+{
+  "id": "/questions/20887681",
+  "creationDate": "2014-01-05T08:54:41.083",
+  "body": "\n\nI have a JSON stream that sends collections looking like this:\n\n\t[{\"channel\":\"24e67e0d-1cad-4cc09e7af8523ef460fe\",     \n\t  \"op\":\"private\", \n\t  \"origin\":\"broadcast\", \n\t  \"stamp\":1388680103991749},\n\t\"13886801043507640\",\n\t\"24e67e0d-1cad-4cc0-9e7a-f8523ef460fe\"]\n\t\n\nThe first object is no problem, but the last two ones (`\"13886801043507640\"` and `\"24e67e0d-1cad-4cc0-9e7a-f8523ef460fe\"`) make `Json.Net` throw exceptions they don't even follow the format `{field:name,field:name}`.\n\nHow can I handle these objects properly (or at least discard them) using `Json.Net`?\n\nCheers, any input is appreciated.",
+  "lastActivityDate": "2014-08-11T05:42:56.227",
+  "title": "Discard items when deserializing Json collection with Json.net",
+  "tags": [
+    "c#",
+    ".net",
+    "json",
+    "json.net",
+    "deserialization"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "muichkine",
+    "id": "1563325"
+  }
+}

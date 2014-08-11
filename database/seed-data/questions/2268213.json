@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2268213",
+  "creationDate": "2014-02-18T10:51:47.090",
+  "body": "\n\nIs there a detailed explanation for results obtained on evaluating the following on REPL.\n\n\t(.PI Math)\n\t\n\ngives\n\n\tIllegalArgument Exception\n\t\n\nwhile \n\n\t(. Math PI)\n\t\n\nevaluates to\n\n\t3.141592653589793\n\t",
+  "lastActivityDate": "2014-02-18T11:27:31.077",
+  "title": "Java in Clojure, Evaluation question",
+  "tags": [
+    "clojure"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

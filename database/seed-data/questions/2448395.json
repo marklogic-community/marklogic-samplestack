@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2448395",
+  "creationDate": "2014-03-17T23:44:18.223",
+  "body": "\n\nI'm using an SSL certificate from geotrust. I just ordered and installed it this weekend.\nHowever when I try to access my website using https, firefox (and the other browsers as well) the browser warns that the certificate expired a few days ago.\n\nI guess there could be two reasons:\n1. I made a mistake during the installation of the certificate\n2. Geotrust did not sign the certificate properly.\n\nFirst I want to rule out the second reason considering my browser tells me the certificate expired a few days ago. This does not make sense at all.\n\nIs there a way to extract the expiration date from the certificate?\n\nThanks!",
+  "lastActivityDate": "2014-03-17T23:54:16.820",
+  "title": "SSL Certificated Validity",
+  "tags": [
+    "apache",
+    "ssl"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

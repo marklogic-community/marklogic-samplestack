@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2648375",
+  "creationDate": "2014-04-18T03:30:33.033",
+  "body": "\n\nIs it possible to merge changes from a central repo to a local branch without having to commit/stash the edits on the local branch and checkout master?\n\nIf I am working on local branch \"work\" and there are some uncommited changes, I use the following steps to get updates from the central repo into my working branch.\n\n\tgit stash\n\tgit checkout master\n\tgit pull \n\tgit checkout work\n\tgit rebase master\n\tgit stash pop\n\t\n\nUsually there are no uncommitted changes in \"work\" and then I omit the stash steps.\n\nWhat I would really like is something like the following:\n\n\tgit pull master  (updates master while work branch is checked out and has changes)\n\tgit rebase master (rebases the updates into work branch uncommited changes are still safe)\n\t\n\nIs there something easier than what I currently do?",
+  "lastActivityDate": "2014-04-18T11:58:28.490",
+  "title": "git merging changes to local branch",
+  "tags": [
+    "git"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

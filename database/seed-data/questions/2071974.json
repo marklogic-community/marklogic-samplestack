@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2071974",
+  "creationDate": "2014-01-18T05:59:15.723",
+  "body": "\n\nI have a double[] array holding many numbers.\n\nI have an algorithm that selects sections from within this array that fall under certain conditions (value greater than x, at least y values, etc.)\n\nNow I want to calculate the average value of all these values in my section.\n\nSo, say my section is from index 20 to 40. Now I have 20 values. Is there an easy way to do this in C# or do I have to loop over my array and calculate the average by hand?",
+  "lastActivityDate": "2014-01-18T06:35:17.710",
+  "title": "Get average value from double[] between two indices",
+  "tags": [
+    "c#",
+    ".net",
+    "arrays",
+    "average"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

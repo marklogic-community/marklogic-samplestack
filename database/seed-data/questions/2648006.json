@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2648006",
+  "creationDate": "2014-04-18T02:33:14.647",
+  "body": "\n\nHow can I clear all textboxes / uncheck checkboxes in my asp.net page without doing a form submit (don't want to trigger validation controls)?",
+  "lastActivityDate": "2014-04-29T02:40:12.750",
+  "title": "Clear all controls / checkboxes without submit",
+  "tags": [
+    "c#",
+    "asp.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

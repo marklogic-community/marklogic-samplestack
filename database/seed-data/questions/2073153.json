@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2073153",
+  "creationDate": "2014-01-18T08:34:50.797",
+  "body": "\n\nI'm trying to figure this out on and off for some time now. I have a bash script in Linux environment that, for safety reasons, I want to prevent from being executed say between 9am and 5pm unless a flag is given. So if I do ./script.sh between 9am and 5pm it would say \"NO GO\", but if I do ./script.sh -force it would bypass the check. Basically making sure the person doesn't do something by accident. I've tried some date commands, but can't wrap that thing around my mind. Could anyone help out?",
+  "lastActivityDate": "2014-01-18T09:22:55.287",
+  "title": "bash script execution date/time",
+  "tags": [
+    "linux",
+    "bash",
+    "date"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

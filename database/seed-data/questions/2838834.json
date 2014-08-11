@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2838834",
+  "creationDate": "2014-05-17T11:43:46.887",
+  "body": "\n\nI've got a C# winforms application that runs in the background, listening for hotkeys to be pressed.  When a hotkey is pressed, my form makes a brief appearance.  The form is always running, but set to hidden until I receive a hotkey event, at which time I set the visible property to true.  The code looks like this:\n\n\tvoid hook_volumeDown(object sender, KeyPressedEventArgs e)\n\t{\n\t    this.Visible = true;\n\t}\n\t\n\nIt should be noted that the topmost property of this form is set to true.  \n\nThe really odd part is, after my C# app has stolen focus from another application, it will never do it again.  For example: I launch my app, then launch some fullscreep app like Team Fortress 2.  Then I press my hotkey.  Team Fortress 2 minimizes, and I see my form.  Then, however, I can restore TF2, and press my hotkey again all I want (with the desired effect), and TF2 will remain focused.  \n\nAt any rate, I'm looking for a way to fix this.  I've found a lot of questions here covering similar problems, but all of them are related to creating/launching a new form, not making an existing one visible (unless I missed something).  I could rework the application to create a new form every time I need one, but that would entail creating yet another form to be invisible all the time just to wait for hotkey events, so I'd rather leave it as it is.\n\nAny ideas?",
+  "lastActivityDate": "2014-06-27T07:09:23.273",
+  "title": "How to prevent my C# winforms application from stealing focus when I set the visible properly to true?",
+  "tags": [
+    "c#",
+    "winforms",
+    "focus",
+    "visible"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

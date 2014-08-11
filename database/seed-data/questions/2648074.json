@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2648074",
+  "creationDate": "2014-04-18T02:44:17.873",
+  "body": "\n\nI have a method which is connecting to a database via Odbc. The stored procedure which I'm \ncalling has a return value which from the database side is a 'Char'. Right now I'm grabbing\nthat return value as a string and using it in a simple if statement. I really don't like the idea\nof comparing a string like this when only two values can come back from the database, 0 and 1.\n\n\tOdbcCommand fetchCommand = new OdbcCommand(storedProc, conn);\n\tfetchCommand.CommandType = CommandType.StoredProcedure;\n\tfetchCommand.Parameters.AddWithValue(\"@column \", myCustomParameter);\n\tfetchCommand.Parameters.Add(\"@myReturnValue\", OdbcType.Char, 1).\n\t   Direction = ParameterDirection.Output;\n\tfetchCommand.ExecuteNonQuery();\n\tstring returnValue = fetchCommand.Parameters[\"@myReturnValue\"].Value.ToString();\n\tif (returnValue == \"1\")\n\t{\n\t     return true;\n\t} \n\t\n\nWhat would be the proper way to handle this situation. I've tried 'Convert.ToBoolean()' which seemed\nlike the obvious answer but I ran into the 'String was not recognized as a valid Boolean. ' exception being thrown. Am I missing something\nhere, or is there another way to make '1' and '0' act like true and false?\n\nThanks!",
+  "lastActivityDate": "2014-10-04T13:14:54.997",
+  "title": "How to convert \"0\" and \"1\" to false and true",
+  "tags": [
+    "c#",
+    ".net",
+    "asp.net",
+    "odbc",
+    "boolean-logic"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

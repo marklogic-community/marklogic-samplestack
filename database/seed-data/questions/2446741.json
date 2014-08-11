@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2446741",
+  "creationDate": "2014-03-17T19:36:49.863",
+  "body": "\n\nI'm using the HiLo generator in my S#rpArchitecture/NHibernate project and I'm performing a large import batch.\n\nI've read somewhere about the possibility to predict the Low values of any new records because they are generated on the client. I figure this means I can control the Low values myself or at least fetch the next Low value from somewhere.\n\nThe reason I want to use this is that I want to set relations to other entities I'm about to insert. They do not exist yet but will be inserted before the batch transaction completes.\n\nHowever, I cannot find information about how to set the Low values or how to get what Low value is up next.\n\nAny ideas?",
+  "lastActivityDate": "2014-04-09T16:09:41.527",
+  "title": "HiLo: how to control Low values",
+  "tags": [
+    "nhibernate",
+    "s#arp-architecture",
+    "hilo"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

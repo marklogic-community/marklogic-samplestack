@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2072225",
+  "creationDate": "2014-01-18T06:30:29.610",
+  "body": "\n\nI would like to setup an Amazon's VPC gateway to my server. I do not have a Cisco or Juniper router, but found the [OpenSolaris VPC Gateway](http://kenai.com/projects/osolvpc), supposedly addressing this use case (see their [wiki](http://kenai.com/projects/osolvpc/pages/Home) for details).\n\nAnyone tried to build this on Linux?",
+  "lastActivityDate": "2014-06-28T17:43:30.827",
+  "title": "How to setup an Amazon VPC gateway without a Cisco/Juniper router?",
+  "tags": [
+    "amazon-ec2",
+    "amazon-web-services",
+    "vpc",
+    "amazon-vpc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

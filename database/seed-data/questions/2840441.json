@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840441",
+  "creationDate": "2014-05-17T22:23:22.320",
+  "body": "\n\nI am implementing Magento Community edition and want to disable the \"**add to cart**\" functionality temporarily until i am prepared to proceed with online orders.\n\nI wanted to use Magento without checkout and add to cart functionality.\n\nPlease advice.\nSIA",
+  "lastActivityDate": "2014-10-03T21:31:10.880",
+  "title": "How to disable magento online sales functionality?",
+  "tags": [
+    "php",
+    "mysql",
+    "magento"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

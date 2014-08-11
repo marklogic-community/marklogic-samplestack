@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2268636",
+  "creationDate": "2014-02-18T12:13:33.680",
+  "body": "\n\nWe have a large collection of MOSS 2007 sites that need a chunk of javascript added to them. I edited, checked in, published, and approved this change to default.master and the change is reflected on the root site, but none of the subsites.\n\nI'm a little nervous to use the \"Reset all subsites to inherit this Site Master Page setting\" in site settings since there are so many subsites, but I'm not sure if I have any other option? All of the subsites only show default.master in their master page gallery, but it's not the version I just modified.\n\nThanks! ",
+  "lastActivityDate": "2014-02-19T07:24:41.157",
+  "title": "Sharepoint default.master propagation?",
+  "tags": [
+    "sharepoint",
+    "master-pages",
+    "sharepoint-2007"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449622",
+  "creationDate": "2014-03-18T02:49:39.787",
+  "body": "\n\nI have the following xml\n\n\t<AAA>\n\t  <BBB>Total</BBB>\n\t</AAA>\n\t\n\nTransforming it with the following xslt using the xsl:copy-of tag, because I want to use the xml to create a xml doc in js.\n\n\t<xsl:template match=\"/\">\n\t  <![CDATA[\n\t    function myFunc() {\n\t      xmlStr = ']]><xsl:copy-of select=\"/\"/><![CDATA[';\n\t    }\n\t  ]]>\n\t</xsl:template>\n\t\n\nThe output looks like this\n\n\t    function myFunc() {\n\t      xmlStr = '<AAA>\n\t  <BBB>Total</BBB>\n\t</AAA>';\n\t    }\n\t\n\nJS doesn't like this because of the missing semicolons ending the lines.\nHow can I fix my xsl to get the below result:\n\n\tfunction myFunc() {\n\t  xmlStr = '<AAA><BBB>Total</BBB></AAA>';\n\t}\n\t\n\nI've tried normalize-space() and translate() but they strip the tags from the xml.\n\nThanks!",
+  "lastActivityDate": "2014-03-18T03:24:14.943",
+  "title": "XSLT pass node into CDATA JS",
+  "tags": [
+    "javascript",
+    "xml",
+    "xslt"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

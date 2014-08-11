@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069300",
+  "creationDate": "2014-01-17T19:29:02.297",
+  "body": "\n\nIf i create a heap array inside a loop, do i have to delete it at the end of each loop before i reinitialize it at the beginning of the loop again or will reinitializing the exact same thing again simply overwrite the old array and i can just skip the delete command?",
+  "lastActivityDate": "2014-01-17T19:50:23.733",
+  "title": "Memory management with HEAP arrays",
+  "tags": [
+    "arrays",
+    "visual-c++"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

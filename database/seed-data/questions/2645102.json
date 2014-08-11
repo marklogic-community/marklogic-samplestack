@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2645102",
+  "creationDate": "2014-04-17T20:21:57.363",
+  "body": "\n\nI need to open a second browser window or tab, but it must have a different `session ID`. \n\nOpening the new browser window from an ASP.NET page is easy, but then it shares the same cookie and thus `session ID` with the original. \n\nHow can I do this? ",
+  "lastActivityDate": "2014-04-17T20:58:58.800",
+  "title": "Opening a new browser window with a new session ID in ASP.NET",
+  "tags": [
+    ".net",
+    "asp.net",
+    "session",
+    "cookies"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2645700",
+  "creationDate": "2014-04-17T21:36:43.563",
+  "body": "\n\nI want to create object on the client side of aspx page. And i want to add functions to these javascript classes to make easier the life. \n\nActually i can get and use the objects (derived from the server side classes) which returns from the services. When i wanted to send objects from the client by jquery ajax methods, i couldn't do it :)\n\nThis is my javascript classes:\n\n\tfunction ClassAndMark(_mark, _lesson){\n\t\n\t    this.Lesson = _lesson;\n\t    this.Mark = _mark;\n\t}\n\t\n\t\n\tfunction Student(_name, _surname, _classAndMark){\n\t\n\t    this.Name = _name;\n\t    this.SurName = _surname;\n\t    this.ClassAndMark = _classAndMark;\n\t}\n\t\n\nAnd this is a method for Student class to call Web Service:\n\n\tJSClass.prototype.fSaveToDB(){\n\t    $.ajax({\n\t        type: \"POST\",\n\t        contentType: \"application/json; charset=utf-8\",\n\t        url: \"/WS/SaveObject.asmx/fSaveToDB\"),\n\t\n\t        data: ????????????,\n\t // This might be: JSON.stringify(this) ?\n\t // Web service method has a parameter, name is _obj \n\t // if i don't send data with parameter, i'm getting this error:\n\t // Invalid web service call, missing value for parameter: '_obj'\n\t //\n\t // Should i send it like that:\n\t // data: \"{_obj:\" + JSON.stringify(this) + \"}\"\n\t // \n\t // I tried to wrap this with parameter like that: \n\t // data: JSON.stringify(\"{_obj:\" + this + \"}\") \n\t // \n\t // But i got this error:\n\t // Cannot convert object of type 'System.String' to type 'System.Collections.Generic.IDictionary`2[System.String,System.Object]'\n\t\n\t        dataType: \"json\"\n\t    });\n\t}\n\t\n\nTo create javascript object and call its method to send it toward web service:\n\nActually i don't know what should be definition of classes and methods on the Server side but i think:\n\n\tclass ClassAndMark{\n\t\n\t    public string Lesson ;\n\t    public string Mark ;\n\t}\n\t\n\t\n\tclass Student{\n\t\n\t    public string Name ;\n\t    public string SurName ;\n\t    public ClassAndMark classAndMark ;\n\t}\n\t\n\nWeb service is below but again i couldn't get what should be instead of the ???? :\n\n\t[WebMethod()]\n\tpublic Student fSaveToDB(???? _obj)\n\t{\n\t    // How can i convert input parameter/parameters \n\t    // of method in the server side object?   \n\t\n\t    // SQL operations  \n\t    // srting QInsert = \"INSERT INTO tableName (......) VALUES (.....)\";\n\t    // ...\n\t    // ..\n\t    // .\n\t\n\t    return new Student{\n\t                     Name = ???, // deserialize _obj and pass its Name value\n\t                     SurName = ???, // deserialize _obj and pass its SurName value\n\t                     classAndMark = ???, // deserialize _obj and pass its classAndMark value\n\t                  };\n\t}\n\t",
+  "lastActivityDate": "2014-02-15T23:45:05.780",
+  "title": "Sending a JSON object to an ASP.NET web service using JQUERY ajax function",
+  "tags": [
+    "c#",
+    "jquery",
+    "json",
+    "web-services"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

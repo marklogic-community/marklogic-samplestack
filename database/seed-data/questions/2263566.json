@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2263566",
+  "creationDate": "2014-02-17T17:20:24.443",
+  "body": "\n\nHow do I programmatically set the data source for the ASP.NET ReportViewer control?\n\nI have a VS 2008 ReportViewer control and want to switch between a couple of different reports.\n\nI can switch reports by setting the report source and refreshing the control, but I can't see where to set the data source.\n\nEach report has its own data source, and if I configure them initially when the control is built it is fine, but I need to switch between them.",
+  "lastActivityDate": "2014-10-12T23:31:14.517",
+  "title": "How do I programmatically set data source for ASP.NET ReportViewer control?",
+  "tags": [
+    "asp.net",
+    "visual-studio-2008",
+    "reportviewer"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

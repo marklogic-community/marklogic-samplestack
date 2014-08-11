@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2070569",
+  "creationDate": "2014-01-18T01:35:11.840",
+  "body": "\n\nI have a custom MSBuild task, which processes a set of files and returns a modified subset of this. Basically, I just create a new ITaskItem array out of the input, skipping some items.\n\nHowever, the RecursiveDir metadata disappears when this result set is returned to MSBuild! It is still with the correct values at the end of my custom task's Execute() method but when I then try to use RecursiveDir in MSBuild, I find that it is empty! This is, of course, quite a problem!\n\nWhat should I do? Is this normal? The other metadata such as Filename and Extension is still there. Identity also points to the correct file. I don't modify the metadata in any way in my custom task.\n\nI have seen other MSBuild task libraries also return ITaskItem arrays without any special processing. Yet nobody has run into this issue? Bizarre!\n\nI am using MSBuild 3.5.",
+  "lastActivityDate": "2014-02-12T08:08:33.197",
+  "title": "MSBuild ITaskItem RecursiveDir metadata disappears",
+  "tags": [
+    "msbuild",
+    "metadata",
+    "msbuild-task",
+    "filepath",
+    "itaskitem"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

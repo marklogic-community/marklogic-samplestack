@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2074488",
+  "creationDate": "2014-01-18T12:17:06.180",
+  "body": "\n\nI don't know exactly why the xpath expression:\n\n\t//h3[text()='Foo &rsaquo; Bar']\n\t\n\ndoesn't match:\n\n\t<h3>Foo &rsaquo; Bar</h3>\n\t\n\nDoes that seem right? How do I query for that markup?",
+  "lastActivityDate": "2014-01-18T13:26:32.303",
+  "title": "html 4.0 entities in XPATH queries",
+  "tags": [
+    "xpath"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

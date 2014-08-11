@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2448199",
+  "creationDate": "2014-03-17T23:20:22.243",
+  "body": "\n\nTo keep things simplified lets say I have an interface `RandomProvider` interface\n\n\tpublic interface RandomProvider\n\t{\n\t    double nextRandom();\n\t}\n\t\n\nAnd say I have 3 different implementations of this interface, ARandom, BRandom, CRandom. I want to collect some statistics about the implementations: \n* how many times `nextRandom()` is called\n* sum of the generated random numbers (it may sound silly but this is just an example).\n\nIn the end these statistics will be recorded to DB. These are heavily used classes from multiple threads so it is not feasible to write the values every time a request comes.\n\nThe first idea that comes to my mind is, I make a singleton that holds these data, implementations call the singleton and increase necessary statistics. Another class reads from the singleton and writes the results to DB and decrements the statistics. But I have read so many articles about how evil globally mutable data and singletons are so I am afraid to go this way. \n\nAny other ideas?",
+  "lastActivityDate": "2014-03-17T23:25:18.250",
+  "title": "What is the appropriate way/pattern to collect information from classes?",
+  "tags": [
+    "java",
+    "singleton",
+    "immutability",
+    "mutable",
+    "data-collection"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

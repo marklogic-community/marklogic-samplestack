@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2269120",
+  "creationDate": "2014-02-18T13:40:02.223",
+  "body": "\n\nI have the following two table (which are tied in with Spring security - but the issue I believe is with Hibernate):\n\n\tTable user\n\tTable authority\n\t\n\nThe `user` table is tied (through Hibernate) to a domain object in my application: `class User`, which has the following attributes (and corresponding getters and setters), which correspond to columns in the `user` table (except for the Collection which is explained later):\n\n\tlong uId\n\tString username\n\tString password\n\t...\n\tCollection<GrantedAuthority> authorities\n\t\n\nThe `authority` table has 2 columns: `UserId` (foreign key into `user` table), and `Authority` (e.g. \"ROLE_USER\").  This table is NOT represented as a domain object, but is simply a collection in the `User` class.\n\nTo create the mapping, in my `.hbm` file I use the following:\n\n\t<class name=\"com.business.project.domain.User\" table=\"user\">\n\t    <id name=\"uId\" column=\"UserId\"></id>\n\t    <property name=\"username\" column=\"Name\" type=\"java.lang.String\" />\n\t    <property name=\"password\" column=\"Password\" type=\"java.lang.String\" />\n\t    ...\n\t    <set name=\"authorities\" table=\"authority\">\n\t        <key column=\"UserId\" />\n\t        <element column=\"Authority\" type=\"java.lang.String\" />\n\t    </set>\n\t</class>\n\t\n\nIn my hibernate DAO implementation, I create a query object, execute the query, and cast the result to a `User` object:\n\n\t...\n\tQuery query = session.createQuery(\"from User where name = :username\");\n\t...\n\tUser user = (User) query.uniqueResult();\n\t\n\nAt this point, I would expect this object to be populated with the data that it pulled from the DB (I made sure that the tables are populated properly with test data and the mapping names are correct in the mapping file).\n\nHowever, calling the getter methods for various attributes on the `user` object all return `NULL` for some reason.  Can somebody see something immediately wrong with my setup?  Perhaps I mapped the collection (to foreign key relationship) wrong?  THANKS!\n\n**Update**: here is the sql query that hibernate generated (taken from its DEBUG output):\n\n\tHibernate: select user0_.UserId as UserId1_, user0_.Name as Name1_, \n\t  user0_.Password as Password1_ from user user0_ where user0_.Name=?\n\t\n\nFor some reason, it doesn't show anything related to the `authority` table...does this mean that my mapping is incorrect?\n\n**Edit**:  Per bozho's suggestion, I took a look at the messages on the consol on startup (tomcat), but didn't see anything out of the ordinary:\n\n\tFeb 16, 2010 10:35:12 AM org.hibernate.cfg.HbmBinder bindRootPersistentClassCommonValues\n\tINFO: Mapping class: com.me.project.domain.User -> user\n\tFeb 16, 2010 10:35:12 AM org.hibernate.cfg.HbmBinder bindCollection\n\tINFO: Mapping collection: com.me.project.domain.User.authorities -> authority\n\t",
+  "lastActivityDate": "2014-11-21T15:51:42.170",
+  "title": "Help with foreign key mapping in Hibernate (Spring)?",
+  "tags": [
+    "java",
+    "mysql",
+    "hibernate",
+    "orm"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

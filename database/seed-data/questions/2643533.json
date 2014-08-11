@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2643533",
+  "creationDate": "2014-04-17T15:51:11.527",
+  "body": "\n\nI am creating an XML document on the fly. and I need to know the XPath of the Node I've just created.\nI don't see any such function like `DOMNode::calculateXPath(void):string`\nand I am not willing to write one by my own. is there any known `lite` 3rd party Solution ??",
+  "lastActivityDate": "2014-06-06T11:57:51.980",
+  "title": "PHP Getting XPath of a DOMNode",
+  "tags": [
+    "php",
+    "xml",
+    "dom",
+    "xpath"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

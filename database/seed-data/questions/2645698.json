@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2645698",
+  "creationDate": "2014-04-17T21:36:20.730",
+  "body": "\n\nI have a string value from a user input box. I have to figure out if last char is a enter key (line feed).\n\nThats the code. Here I am checking if last char has a whitespace. Now I also have to check if last char is enter key (carriage return or line feed). How can i do this?\n\n\tvar txt = $get(\"<%= txtUserText.ClientID %>\");\n\tif (txt.value.substring(txt.value.length -1) !== ' ' || <checkifLastCharIsEnterKey>) \n\t  //my code to take action\n\t\n\n****I don't think i need a keypress or keyup event because this above piece of code is not invoked at the time of user input.**",
+  "lastActivityDate": "2014-04-17T22:00:51.990",
+  "title": "How to compare if string has a enter key in the end using jquery/javascript?",
+  "tags": [
+    "c#",
+    "asp.net",
+    "javascript",
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2447860",
+  "creationDate": "2014-03-17T22:36:11.030",
+  "body": "\n\nI'm brand new to PHP & MySQL, and one function I'm creating needs to access a large table or database. I've created the database and it's currently in a MySQL table, which I'm accessing with no problem. The table is 11,000 rows in length, with 8 columns (all text less than 8 characters long) - it's static, and will never change. Without getting too particular, my users will hit a button which will trigger scripts to access the data, say 500 times or more. So in general would it be better practice to include all of this data in a big 'switch' or 'if... then' conditional right in my scripts, rather than opening and accessing the database connection hundreds, or maybe even thousands of times? It just seems like that might be a bottleneck waiting to happen. Thanks!",
+  "lastActivityDate": "2014-03-17T22:50:02.760",
+  "title": "Beginners PHP / mySQL question",
+  "tags": [
+    "php",
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

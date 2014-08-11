@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2268420",
+  "creationDate": "2014-02-18T11:34:18.027",
+  "body": "\n\n\t        string jSFile = ResolveUrl(\"~/MyProject/JavaScripts/dir/test.js\");\n\t        if (!System.IO.File.Exists(jSFile))\n\t        {\n\t           ...\n\t        }\n\t\n\nThis code **doesn't work** and I guess it's the jSFile that doesn't work well with the IO.File.Exists but I know the jSFile has a valid path because when I use few line later \n\n\tPage.ClientScript.RegisterClientScriptInclude(\"myfile\",jSFile); \n\t\n\nit does attach the JavaScript file to the ASPX and all work fine.\n\nAny idea of how to check if the file exist?",
+  "lastActivityDate": "2014-02-18T11:38:49.757",
+  "title": "Check if a file exist in the Server in ASP.NET",
+  "tags": [
+    "asp.net",
+    "javascript",
+    "file",
+    "c#-2.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

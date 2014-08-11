@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841849",
+  "creationDate": "2014-05-18T05:34:29.080",
+  "body": "\n\nUsing the following pseudo-code:\n\n\t#define BUILD_PATH \"C:/MyBuild/\"\n\t#define BUILD_NAME \"mydll.dll\"\n\t// Set build path here\n\t\n\nrepresenting how I would like to build the current project (a dll) into C:/MyBuild/mydll.dll, how would I accomplish this by only using preprocessor directives?\n\nThanks a bunch!",
+  "lastActivityDate": "2014-06-14T03:38:44.793",
+  "title": "Using preprocessor directives to define the output path",
+  "tags": [
+    "c++",
+    "visual-c++",
+    "preprocessor"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

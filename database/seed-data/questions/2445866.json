@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2445866",
+  "creationDate": "2014-03-17T16:40:29.293",
+  "body": "\n\nI need to customize the listview,I am placing an icon and a text at the center of the listview.\n\nIf the text length is bigger then the list rectangle length.. the text is coming over the icon first letter of the string is not visible..\n\nHow to avoid this situation? Is it possible to give marique effect for the string?\n\nThanks in advance.",
+  "lastActivityDate": "2014-03-19T13:45:28.673",
+  "title": "text is exceeding the listview bounds in Qt",
+  "tags": [
+    "qt",
+    "listview",
+    "qt4",
+    "symbian",
+    "nokia"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

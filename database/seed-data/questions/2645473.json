@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2645473",
+  "creationDate": "2014-04-17T21:07:42.457",
+  "body": "\n\nIs there a piece of code I could write to be notified when a download finishes in android, and  be able to execute some custom actions on this event ?",
+  "lastActivityDate": "2014-04-17T21:22:07.600",
+  "title": "onDownload complete notification",
+  "tags": [
+    "android"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

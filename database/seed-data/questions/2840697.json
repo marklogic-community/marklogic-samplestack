@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840697",
+  "creationDate": "2014-05-17T23:46:30.780",
+  "body": "\n\nI'm a newbie in RegEx\n\nI have thousands html tags, have wrote like this:   \n`<input type=\"text\" name=\"CustomerName\" />`  \n`<input type=\"text\" name=\"SalesOrder\"/>`\n\nI need to match every `name` attribute values and convert them all to be like this:  \n`CustomerName -> cust[customer_name]`  \n`SalesOrder -> cust[sales_order]`\n\nSo the results will be :  \n`<input type=\"text\" name=\"cust[customer_name]\" />`  \n`<input type=\"text\" name=\"cust[sales_order]\" />`\n\nMy best try have stuck in this pattern:\n`name=\\\"[a-zA-Z0-9]*\\\"`  \n -> just found `name=\"CustomerName\"`\n\nThanks in advance.",
+  "lastActivityDate": "2014-07-19T10:58:11.633",
+  "title": "Regular Expression: Changes HTML Attributes Value to some pattern",
+  "tags": [
+    "html",
+    "regex",
+    "netbeans"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

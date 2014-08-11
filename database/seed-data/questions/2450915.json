@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2450915",
+  "creationDate": "2014-03-18T06:29:39.940",
+  "body": "\n\nI get the following error in the UDK Frontend when I try to make my project:\n\n> C:\\UDK\\UDK-2010-03\\Development\\Src\\FixIt\\Classes\\ZInteraction.uc(58) : Error, Accessing a member of GameUISceneClient's within class through a context expression requires explicit 'Outer'\n\nThe class `ZInteraction` extends `Interaction`.\n\nLine 58 is: `GetSceneClient().ConsoleCommand(\"KEYNAME\"@Key);`\n\nWhat is the problem here? I am still investigating and I will update as I find out more.\n\nedit: Tried fixing the line up as `class'UIRoot'.static.GetSceneClient().ConsoleCommand(\"KEYNAME\"@Key);` - no change.",
+  "lastActivityDate": "2014-03-18T07:33:37.697",
+  "title": "UDK \"Error, Accessing a member of _'s within class through a context expression requires explicit 'Outer'\"",
+  "tags": [
+    "unreal-development-kit",
+    "unrealscript"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

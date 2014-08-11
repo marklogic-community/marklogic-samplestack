@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2073891",
+  "creationDate": "2014-01-18T10:36:32.530",
+  "body": "\n\nHas anyone seen this problem?\n\nIs there a method I can call from my page to force the popup to initialize and load all inner controls?\n\nThanks!",
+  "lastActivityDate": "2014-02-15T06:30:25.793",
+  "title": "Silverlight: OnLoad not being called for Controls inside Popups",
+  "tags": [
+    "c#",
+    ".net",
+    "silverlight",
+    "user-interface",
+    "popup"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

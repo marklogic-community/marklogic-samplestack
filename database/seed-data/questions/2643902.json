@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2643902",
+  "creationDate": "2014-04-17T16:54:34.923",
+  "body": "\n\nOn a couple of windows XP systems I've looked at, the \"System Idle Process\" always has PID 0, and the \"System\" process always has PID 4.  In a Windows program which enumerates processes, is it safe to recognise these processes by these PIDs, or can they be different in some circumstances?",
+  "lastActivityDate": "2014-08-11T07:02:07.787",
+  "title": "Are the \"System\" and \"System Idle Process\" PIDs constant on Windows?",
+  "tags": [
+    "windows",
+    "processes"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

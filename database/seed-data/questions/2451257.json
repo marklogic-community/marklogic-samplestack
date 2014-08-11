@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2451257",
+  "creationDate": "2014-03-18T07:44:36.220",
+  "body": "\n\nI am triig to fill options list. I have 2 tables USERS and STREAMS I vant to get all streams and get names of users assigned to that streams.\n\nUsers consists of username and id\n\nStreams consists of id, userID, streamID\n\nI try such code:\n\n\t<?php           \n\t        global $connection;\n\t        $query = \"SELECT * \n\t        FROM streams \";\n\t        $streams_set = mysql_query($query, $connection);\n\t        confirm_query($streams_set);    \n\t    $streams_count = mysql_num_rows($streams_set);\n\t    while ($row = mysql_fetch_array($streams_set)){\n\t            $userid = $row['userID'];\n\t                global $connection;\n\t        $query2 = \"SELECT email, username \";\n\t        $query2 .= \"FROM users \";\n\t        $query2 .= \"WHERE id = '{$userid}' \";\n\t\n\t        $qs = mysql_query($query2, $connection);\n\t        confirm_query($qs); \n\t        $found_user = mysql_fetch_array($qs);\n\t\n\t\n\t echo ' <option value=\"'.$row['streamID'].'\">'.$row['userID'].$found_user.'</option> ';\n\t}\n\t    ?>\n\t\n\nBut it does not return USER names from DB=( So what shall I do to this code to see usernames as \"options\" text?",
+  "lastActivityDate": "2014-03-18T07:57:02.060",
+  "title": "How to first get different related values from diferent SQL tables (PHP)",
+  "tags": [
+    "php",
+    "mysql",
+    "html",
+    "forms",
+    "request"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}
