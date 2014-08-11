@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2647729",
+  "creationDate": "2014-04-18T01:49:15.263",
+  "body": "\n\nI'm trying to add the facebook connect feature to my site, I decided to use [django socialregistration](http://github.com/flashingpumpkin/django-socialregistration).All are setup including [pyfacebook](http://github.com/sciyoshi/pyfacebook), here is my source code.  \n\n**settings.py**\n\n\tMIDDLEWARE_CLASSES = (\n\t    'django.middleware.common.CommonMiddleware',\n\t    'django.contrib.sessions.middleware.SessionMiddleware',\n\t    'django.contrib.auth.middleware.AuthenticationMiddleware',\n\t    'facebook.djangofb.FacebookMiddleware',\n\t    'socialregistration.middleware.FacebookMiddleware',\n\t)\n\t\n\n**urls.py**\n\n\t(r'^callback/$', 'fbproject.fbapp.views.callback'),\n\t\n\n**views.py**\n\n\tdef callback(request):\n\t    return render_to_response('canvas.fbml')\n\t\n\n**Template**\n\n\t<html>\n\t\n\t<body>\n\t{% load facebook_tags %}\n\t{% facebook_button %}\n\t{% facebook_js %}\n\t</body>\n\t\n\t</html>\n\t\n\nbut when I point to the URL, I'm getting this error\n\n\tTraceback (most recent call last):\n\t\n\t  File \"C:\\Python26\\lib\\site-packages\\django\\core\\servers\\basehttp.py\", line 279, in run\n\t    self.result = application(self.environ, self.start_response)\n\t\n\t  File \"C:\\Python26\\lib\\site-packages\\django\\core\\servers\\basehttp.py\", line 651, in __call__\n\t    return self.application(environ, start_response)\n\t\n\t  File \"C:\\Python26\\lib\\site-packages\\django\\core\\handlers\\wsgi.py\", line 241, in __call__\n\t    response = self.get_response(request)\n\t\n\t  File \"C:\\Python26\\lib\\site-packages\\django\\core\\handlers\\base.py\", line 73, in get_response\n\t    response = middleware_method(request)\n\t\n\t  File \"build\\bdist.win32\\egg\\socialregistration\\middleware.py\", line 13, in process_request\n\t    request.facebook.check_session(request)\n\t\n\t  File \"C:\\Python26\\lib\\site-packages\\facebook\\__init__.py\", line 1293, in check_session\n\t    self.session_key_expires = int(params['expires'])\n\t\n\tValueError: invalid literal for int() with base 10: 'None'\n\t\n\n**Django 1.1.1**\n**Python 2.6.2**",
+  "lastActivityDate": "2014-06-05T19:52:34.630",
+  "title": "Django | django-socialregistration error",
+  "tags": [
+    "django",
+    "facebook"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

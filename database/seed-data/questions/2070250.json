@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2070250",
+  "creationDate": "2014-01-18T00:19:51.213",
+  "body": "\n\nI need to duplicate a record, with the same attributes of the original except ID of cource. I do:  \n\nIn the View:\n\n\t<%= link_to \"Duplicate\", :action => \"clone\", :id => Some_Existing_ID %>\n\t\n\nAnd in the Controller:\n\n\tdef clone\n\t  @item = Item.find(params[:id]).clone\n\t\n\t  if @item.save\n\t    flash[:notice] = 'Item was successfully cloned.'\n\t  else\n\t    flash[:notice] = 'ERROR: Item can\\'t be cloned.'\n\t  end\n\t\n\t  redirect_to(items_path)\n\tend      \n\t\n\nBut nothing happens! In Console I figured out that clone generates the copy without ID.\n\nAny ideas ?\n\n***> **",
+  "lastActivityDate": "2014-01-18T01:21:42.463",
+  "title": "Clone (a.k.a. duplicate) a Record",
+  "tags": [
+    "ruby-on-rails"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

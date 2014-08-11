@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646831",
+  "creationDate": "2014-04-17T23:46:51.357",
+  "body": "\n\n[Update] Solved the Problem by generating a new web.config. Possible error was the second endpoint (\"mex\"). [Update/]\n\nI have a webservice in IIS.\n\nI'm trying to call a function but i get an errormessage like:\n\nThere was no channel that could accept the message with action 'http://Datenlotsen.Cyquest/ICyquestService/ValidateSelfAssessment'\n\nI'm hosting it in an IIS in the standard website. There I created a virtual directory named \"CyQuestwebservice\". For the client side config i'm using Soap UI. That Tool generates the client config from the wsdl. \n\nmy webconfig looks like this, can you help me?:\n\n\t<system.serviceModel>\n\t    <extensions>\n\t      <behaviorExtensions>\n\t        <add name=\"wsdlExtensions\" type=\"WCFExtras.Wsdl.WsdlExtensionsConfig, WCFExtras, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\" />\n\t      </behaviorExtensions>\n\t    </extensions>\n\t    <services>\n\t      <service behaviorConfiguration=\"CyquestWebService.Service1Behavior\"\n\t        name=\"CyquestWebService.CyquestService\">\n\t        <endpoint address=\"\" behaviorConfiguration=\"EndPointBehavior\"\n\t          binding=\"wsHttpBinding\" bindingNamespace=\"http://Datenlotsen.Cyquest\"\n\t          contract=\"CyquestWebService.ICyquestService\">\n\t          <identity>\n\t            <dns value=\"localhost\" />\n\t          </identity>\n\t        </endpoint>\n\t        <endpoint address=\"mex\" binding=\"mexHttpBinding\" bindingNamespace=\"http://Datenlotsen.Cyquest\"\n\t          contract=\"IMetadataExchange\" />\n\t      </service>\n\t    </services>\n\t    <behaviors>\n\t      <endpointBehaviors>\n\t        <behavior name=\"EndPointBehavior\" >\n\t          <wsdlExtensions location=\"http://wssdev04.datenlotsen.intern/Cyquestwebservice/CyquestService.svc\" singleFile=\"True\"/>\n\t        </behavior>\n\t      </endpointBehaviors>  \n\t      <serviceBehaviors>\n\t        <behavior name=\"CyquestWebService.Service1Behavior\">\n\t          <serviceMetadata httpGetEnabled=\"true\" />\n\t          <serviceDebug includeExceptionDetailInFaults=\"true\" />\n\t        </behavior>\n\t      </serviceBehaviors>\n\t    </behaviors>\n\t  </system.serviceModel>\n\t    <system.diagnostics>\n\t      <sources>\n\t        <source name=\"System.ServiceModel\"\n\t                switchValue=\"Information, ActivityTracing\"\n\t                propagateActivity=\"true\">\n\t          <listeners>\n\t            <add name=\"traceListener\"\n\t                type=\"System.Diagnostics.XmlWriterTraceListener\"\n\t                initializeData= \"c:\\log\\Traces.svclog\" />\n\t          </listeners>\n\t        </source>\n\t      </sources>\n\t    </system.diagnostics>\n\t</configuration>\n\t",
+  "lastActivityDate": "2014-04-22T18:15:42.170",
+  "title": "WCF wsHttpBinding \"There was no channel that could accept the message with action\"",
+  "tags": [
+    "wcf",
+    "iis",
+    "channel",
+    "wshttpbinding"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

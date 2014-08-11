@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2643383",
+  "creationDate": "2014-04-17T15:26:58.927",
+  "body": "\n\nI want to write a LINQ to Entity query which does order by ascending or descending based on input parameter, Is there any way for that.\nFollowing is the my code. Please suggest.\n\n\t    public List<Hosters_HostingProviderDetail> GetPendingApproval(SortOrder sortOrder)\n\t    {\n\t        List<Hosters_HostingProviderDetail> returnList = new List<Hosters_HostingProviderDetail>();\n\t        int pendingStateId = Convert.ToInt32(State.Pending);\n\t        //If the sort order is ascending\n\t        if (sortOrder == SortOrder.ASC)\n\t        {\n\t            var hosters = from e in context.Hosters_HostingProviderDetail\n\t                          where e.ActiveStatusID == pendingStateId\n\t                          orderby e.HostingProviderName ascending\n\t                          select e;\n\t            returnList = hosters.ToList<Hosters_HostingProviderDetail>();\n\t            return returnList;\n\t        }\n\t        else\n\t        {\n\t            var hosters = from e in context.Hosters_HostingProviderDetail\n\t                          where e.StateID == pendingStateId\n\t                          orderby e.HostingProviderName descending\n\t                          select e;\n\t            returnList = hosters.ToList<Hosters_HostingProviderDetail>();\n\t            return returnList;\n\t        }\n\t    }\n\t",
+  "lastActivityDate": "2014-04-17T15:33:12.900",
+  "title": "Order by descending based on condition",
+  "tags": [
+    "c#",
+    "asp.net",
+    "linq",
+    "linq-to-sql",
+    "linq-to-entities"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

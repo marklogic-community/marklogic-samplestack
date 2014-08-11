@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644814",
+  "creationDate": "2014-04-17T19:30:52.693",
+  "body": "\n\nI have the field `receiptno`, which is a varchar holding a numeric value, and want to sort this. Sorting as a string gives me the wrong ordering.  I'd like to try sorting it as an integer.  Is there anyway to converting to integer in the order by clause so I can sort by integer in the query itself. ",
+  "lastActivityDate": "2014-04-17T19:50:09.463",
+  "title": "How do I sort a varchar column using numeric ordering",
+  "tags": [
+    "mysql",
+    "order"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

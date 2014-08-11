@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446264",
+  "creationDate": "2014-03-17T18:05:25.180",
+  "body": "\n\nI'm reading a excel cell value to a VARIANT data type from VBA code.\nWhen I enter a integer value to the cell, the VARIANT always takes the argument as type double. Please help me to rectify this problem.\n\nThank you",
+  "lastActivityDate": "2014-03-17T18:48:55.233",
+  "title": "Problem with reading excel cell value to a VARIANT",
+  "tags": [
+    "excel",
+    "vba"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

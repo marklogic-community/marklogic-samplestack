@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2075044",
+  "creationDate": "2014-01-18T13:56:53.050",
+  "body": "\n\nI'm trying to find out what the issues are on each side of either composing a DTO that has the model+drop down lists,etc... vs passing those extra objects/lists in the ViewData. I haven't come up with an argument against using ViewData besides the strongly typed purist in me. \n\nI thought I would ask what else I might need to consider?",
+  "lastActivityDate": "2014-01-18T15:45:01.753",
+  "title": "Asp.net MVC Pros and cons of composition DTOs vs strongly typed model+weakly typed ViewData passing?",
+  "tags": [
+    "asp.net-mvc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

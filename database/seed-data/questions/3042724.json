@@ -1,0 +1,18 @@
+{
+  "id": "/questions/3042724",
+  "creationDate": "2014-06-17T13:28:33.427",
+  "body": "\n\nIn a form I have multiple group of controls which are grouped using validation group property. I want to assign validation group to asp.Button dynamically on client side using javascript on the base of item selected in drop down list.\n\nHere is JavaScript which I am using, but it is not working. It shows validation group undefined but actually a default group is defined.\n\nPlease advice me. thanks\n\n\t<script type=\"text/JavaScript\">\n\t\n\tfunction NextClicked() {  \n\t\n\t  var _ddlStatus = document.getElementById(\"<%=ddl.ClientID%>\");\n\t\n\t  var _selectedIndex = _ddlStatus.selectedIndex;\n\t\n\t  var _btn = document.getElementById(\"<%=btnNext.ClientID%>\");\n\t\n\t\n\t  alert(_btn.ValidationGroup); // here in messge it shows undefiend, yet I have defiend a group in button as default.  \n\t\n\t\n\t  if (_selectedIndex == 1) {\n\t\n\t    _btn.ValidationGroup = \"G1\";\n\t\n\t  }\n\t\n\t  else\n\t\n\t    if (_selectedIndex == 2) {\n\t      _btn.ValidationGroup = \"G2\";       \n\t  }\n\t}\n\t\n\n",
+  "lastActivityDate": "2014-08-19T00:12:49.277",
+  "title": "changing validation group of button with javascript on client side",
+  "tags": [
+    "asp.net",
+    "javascript",
+    "validation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

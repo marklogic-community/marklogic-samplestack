@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2072148",
+  "creationDate": "2014-01-18T06:20:36.287",
+  "body": "\n\nI was reading the the Android Publishing docs and they said to remove all Log calls from my code.  I have some calls to e.printStackTrace() in my code that can be printed as part of the normal running of my program (ie. if a file does not exist yet).\n\nShould I also remove these calls?",
+  "lastActivityDate": "2014-07-18T17:54:18.880",
+  "title": "Should I remove e.printStackTrace() from my code before publishing",
+  "tags": [
+    "android"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

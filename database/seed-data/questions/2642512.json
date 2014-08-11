@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642512",
+  "creationDate": "2014-04-17T11:17:11.487",
+  "body": "\n\nI am working on an example from a php book and am getting an error on line 8 with this code\n\n\t<?php\n\t\n\t$agent = getenv(\"HTTP_USER_AGENT\");\n\tif (preg_match(\"/MSIE/i\", \"$agent\"));\n\t{\n\t    $result = \"You are using Microsoft Internet Explorer\";\n\t}\n\telse if (preg_match(\"/Mozilla/i\", \"$agent\")); \n\t{\n\t    $result = \"You are using Mozilla firefox\";\n\t}\n\telse {$result = \"you are using $agent\"; }\n\t\n\techo $result;\n\t\n\t\n\t?>\n\t",
+  "lastActivityDate": "2014-12-27T15:47:18.927",
+  "title": "Unexpected T_ELSE error in PHP",
+  "tags": [
+    "php",
+    "if-statement",
+    "syntax-error"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

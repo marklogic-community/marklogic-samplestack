@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2445274",
+  "creationDate": "2014-03-17T13:27:18.080",
+  "body": "\n\nI'm using the `winmm.dll` API method `waveOutGetPosition` to get the current position of the playback of a WAV file.  Sometimes this works as expected for me, but eventually one of the calls never returns and my application locks up.  \n\nI found this thread with a few users who have experienced the same problem:\n\n[http://social.msdn.microsoft.com/Forums/en-US/windowsgeneraldevelopmentissues/thread/c6a1e80e-4a18-47e7-af11-56a89f638ad7](http://social.msdn.microsoft.com/Forums/en-US/windowsgeneraldevelopmentissues/thread/c6a1e80e-4a18-47e7-af11-56a89f638ad7)\n\nbut no solution.  Has anyone run into this problem before?\n\n**Update**: I was able to create a sample app that reproduces the problem reliably:\n\n[http://stackoverflow.com/questions/2452345/problem-with-waveoutwrite-and-waveoutgetposition-deadlock](http://stackoverflow.com/questions/2452345/problem-with-waveoutwrite-and-waveoutgetposition-deadlock)\n\nStill haven't fixed it, though.",
+  "lastActivityDate": "2014-05-02T04:11:55.817",
+  "title": "Why do calls to waveOutGetPosition hang?",
+  "tags": [
+    "c#",
+    "audio",
+    "windows-vista"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

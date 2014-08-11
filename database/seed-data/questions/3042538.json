@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3042538",
+  "creationDate": "2014-06-17T12:40:47.550",
+  "body": "\n\nI've been reading through some of guides on database optimization and best practices and a lot of them suggest not using boolean flags at all in the DB schema (ex [http://forge.mysql.com/wiki/Top10SQLPerformanceTips](http://forge.mysql.com/wiki/Top10SQLPerformanceTips)). However, they never provide any reason as to why this is bad. Is it a peformance issue? is it hard to index or query properly?\n\nFurthermore, if boolean flags are bad, what should you use to store boolean values in a database? Is it better to store boolean flags as an integer and use a bitmask? This seems like it would be less readable.",
+  "lastActivityDate": "2014-09-03T00:42:09.147",
+  "title": "Why is it bad to use boolean flags in databases? And what should be used instead?",
+  "tags": [
+    "mysql",
+    "database",
+    "database-design",
+    "relational-database"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

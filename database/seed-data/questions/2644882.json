@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644882",
+  "creationDate": "2014-04-17T19:45:02.497",
+  "body": "\n\nI'm attempting to override and implement my own TabExpansion. In the function I want to parse the contents of $psise.CurrentFile.Editor.Text when a certain $lastword criteria is matched. The issue I have is that the variable $psise.CurrentFile.Editor.Text is resolved to the contents of my TabExpansion function rather than whatever text is in a PowerShell ISE tab. \n\nHere's simple test function. Open an ISE tab and paste the following tabexpansion function definition:\n\n\tfunction tabexpansion\n\t{ $psise.CurrentFile.Editor.Text }\n\t\n\nRun the script in ISE. Next open another tab in ISE type some text and press the tab key\nThe output will be \n\n\tfunction tabexpansion\n\t{ $psise.CurrentFile.Editor.Text }\n\t\n\nRather than whatever text was in the second tab. Is there any way to get $psise.CurrentFile.Editor.Text to resolve at runtime when used within a tabexpansion function?",
+  "lastActivityDate": "2014-04-21T08:45:50.630",
+  "title": "Tabexpansion function Does Not Resolve Variable",
+  "tags": [
+    "powershell",
+    "powershell-ise"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

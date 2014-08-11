@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448960",
+  "creationDate": "2014-03-18T01:04:22.407",
+  "body": "\n\nI can't see to find a quick explanation of the differences so I can figure out which to use. \n\nOne is for a server one is for a Database?  Im not sure what that means..\n\nBasically we are doing a new web app and I want to see what these project types can offer me in terms of tracking the DB code/schema etc.. ",
+  "lastActivityDate": "2014-04-10T01:18:26.667",
+  "title": "Visual Studio 'SQL Server 2008 Server Project' vs. 'Sql Server 2008 Database project'?",
+  "tags": [
+    "sql",
+    "sql-server-2008",
+    "database"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

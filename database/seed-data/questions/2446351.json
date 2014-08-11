@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446351",
+  "creationDate": "2014-03-17T18:25:03.670",
+  "body": "\n\nMay be it sound dumb but if I want some computed value from other thread and other value from one more thread and this two value in my main thread how can I,if In case second thread completed before first one.it will create problem..so I just want is there any way that I can get the thread status means its still running or stop.\n\nThanks",
+  "lastActivityDate": "2014-03-17T18:32:29.977",
+  "title": "How to get thread status..in Multi threading",
+  "tags": [
+    "c#",
+    "multithreading"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

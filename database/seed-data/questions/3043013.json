@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3043013",
+  "creationDate": "2014-06-17T14:37:45.507",
+  "body": "\n\n**Should journal entries be recorded in a database design?**\n\nIn the real world it makes sense to keep a daily entry book, then later transfer the daily entry book into double entry accounts. but in the computerized version, doing this produces duplicate records and that doesn't quite make sense?\n\n\tReal life:\n\tUser ---> journal day book (single entry) ---> ledgers account (double entry)\n\t",
+  "lastActivityDate": "2014-10-24T15:18:44.330",
+  "title": "Database Design for a double entry accounting system",
+  "tags": [
+    "database",
+    "database-design",
+    "schema",
+    "accounting"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268172",
+  "creationDate": "2014-02-18T10:44:40.130",
+  "body": "\n\nI'm having a bit of a problem. We have our own CMS which is using git for collaboration and versioning and stuff. Now i have two git repositories A and B, A which is a project and B which is the CMS itself. Now i want to get B into A, but when i do this i get alot of merge-conflicts and the solution for the conflicts is always to use the stuff from B. Now what i think i need is git merge  -s recursive theirs  because i want to merge and when their is a merge conflict it should be forced to use the solution from B. But i can't get it to work. it always keeps telling me \"fatal: 'theirs' does not point to a commit\"\n\ndoes anyone know what i do wrong? the recursive theirs i found [here](http://www.kernel.org/pub/software/scm/git/docs/git-merge.html)\n\ngreets,\nDaan",
+  "lastActivityDate": "2014-02-18T17:47:21.793",
+  "title": "git merge recursive theirs, how does it work?",
+  "tags": [
+    "git",
+    "merge"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

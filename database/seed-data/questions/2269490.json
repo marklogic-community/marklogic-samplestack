@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2269490",
+  "creationDate": "2014-02-18T14:47:50.937",
+  "body": "\n\nWorking in WordPress here.  As you may know, all of the typical solutions for displaying upcoming events in WordPress are awful, so I'm accomplishing it with simple custom fields.  Each event the user will enter they will enter a Numeric date \"YYYYMMDD\".  \n\nWhat I need to find out is how to code in PHP for the script to first get php:the_date <'YYYYMMDD'> and then have WordPress filter events dynamically, only displaying posts that have a value greater than or equal to the numeric value printed (which would be the YYYYMMDD format of \"today\" which is pulled in via PHP:the_date.\n\nHere is the wp_query I'm using: \n\n\t    <?php\n\t        $recentPosts = new WP_Query();\n\t        $recentPosts->query('showposts=5&meta_key=event_date&orderby=meta_value&category_name=events&order=ASC');       \n\t    if ($recentPosts->have_posts()) : while ($recentPosts->have_posts()) : $recentPosts->the_post(); ?>\n\t",
+  "lastActivityDate": "2014-02-19T12:48:52.803",
+  "title": "WordPress: Create a Dynamic Filter Showing Posts of Numeric Value",
+  "tags": [
+    "php",
+    "wordpress",
+    "date",
+    "dynamic",
+    "events"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

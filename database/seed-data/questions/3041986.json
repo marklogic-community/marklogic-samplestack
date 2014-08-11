@@ -1,0 +1,16 @@
+{
+  "id": "/questions/3041986",
+  "creationDate": "2014-06-17T09:13:54.140",
+  "body": "\n\nIs there any short way to achieve what APT does in Python ?\n\nI mean, when the package manager prompts a yes/no question followed by \"[Yes/no]\".\n\nThe scripts accepts YES/Y/yes/y or \"enter\" (defaults to Yes as hinted by the capital)\n\nThe only thing I find in the official doc is input/raw_input..\n\nI know it's not that hard to emulate, but it's annoying to rewrite :|",
+  "lastActivityDate": "2014-11-06T13:57:36.537",
+  "title": "python command line yes/no input",
+  "tags": [
+    "python"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

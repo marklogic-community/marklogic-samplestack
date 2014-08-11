@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2073324",
+  "creationDate": "2014-01-18T08:57:32.697",
+  "body": "\n\nI'm attempting to use Telerik Spell Checking for the first time for a textbox, but I keep getting the \"Spell Check handler Server Error:500\" \"No dictionary loaded. Set the Dictionary Path property from the spell checker settings or copy the dictionaries to.....\"\n\nHow do i accomplish this??\n\n\t <td align=\"left\">                            \n\t     <telerik:RadTextBox\n\t                            ID=\"RadTextBoxDescInj\" runat=\"server\" Width=\"200\" Height=\"100\" TextMode=\"MultiLine\" >\n\t     </telerik:RadTextBox>\n\t </td>\n\t <td>\n\t    <telerik:RadSpell ID=\"RadSpell1\" runat=\"server\" ButtonType=\"LinkButton\" ControlToCheck=\"RadTextBoxDescInj\" DictionaryLanguage=\"English\" SpellCheckProvider=\"PhoneticProvider\" />\n\t </td>\n\t",
+  "lastActivityDate": "2014-12-06T08:09:59.910",
+  "title": "Telerik Spell Check",
+  "tags": [
+    "c#",
+    "asp.net",
+    "visual-studio",
+    "telerik",
+    "spell-checking"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

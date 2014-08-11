@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2445446",
+  "creationDate": "2014-03-17T14:26:14.677",
+  "body": "\n\nCan i join two tables using  LINQ for NHibernate like I can do in LINQ To SQL? ",
+  "lastActivityDate": "2014-03-24T17:22:39.957",
+  "title": "How to perform join using LINQ for NHibernate",
+  "tags": [
+    "linq-to-nhibernate"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

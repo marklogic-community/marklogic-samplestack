@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2839253",
+  "creationDate": "2014-05-17T15:10:52.577",
+  "body": "\n\nI had somewhere in my Git repository a line containing word \"Foo\" a couple hundreds commits before.\n\nIf there is any way to find its revision number where it was the last time without buying FishEye?",
+  "lastActivityDate": "2014-05-17T15:38:36.900",
+  "title": "Git history - find lost line by keyword",
+  "tags": [
+    "git",
+    "version-control"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

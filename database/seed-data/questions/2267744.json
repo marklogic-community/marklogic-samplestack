@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267744",
+  "creationDate": "2014-02-18T09:31:56.787",
+  "body": "\n\nI am building a website where i need a page where user can upload large video files, i have created WCF service with streaming but i am calling that WCF service from Button_Click event of web page.\n\nI have used below mentioned article for WCF service creation\n\n[WCF Streaming](http://kjellsj.blogspot.com/2007/02/wcf-streaming-upload-files-over-http.html)\n\nI have used streaming as it should be efficient and should not be buffered in memory of server.\n\nNow questions\n\n1) I am having doubts that the entire file is uploaded to the web server and then it is transferred to WCF Service server...if this is true then i am not getting advantage of streaming as well as iis and web server will be down very soon if user uploads large file or multiple user are uploading files con currently\n\n2) Is there any other efficient way to do same operation with some other technique\n\nPlease help me ...\n\nEDIT :\n\nIf I am not calling WCF Service method from ASP .Net code in that case also it is transferring bytes to the web server which i have checked with HTTPFox\n\nI have checked above thing with upload control and putting one button on UI whose click event is bound to one method in code behind.\n\nSo, still i am having that confusion that how data is transferred\n1. Client Machine - Web Server (ASP .Net Application) - Service Server (WCF Service)\n2. Client Machine - Service Server (WCF Service)\n\nNOTE : If i am putting a debug point on button_click and uploading 10 kb file it hits that in less then 1 sec. but if i am uploading 50 mb file then it is taking time.\n\nI placed code of calling WCF service inside that button_click event ",
+  "lastActivityDate": "2014-02-19T04:26:36.487",
+  "title": "Upload Large Files from ASP .Net Application",
+  "tags": [
+    "asp.net",
+    "wcf",
+    "file-upload"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

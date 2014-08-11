@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069956",
+  "creationDate": "2014-01-17T22:53:51.633",
+  "body": "\n\nI'm currently subclassing TDataset for my job. However the lack of documentation on the process is making this more difficult than it should be.\n\nI'm currently wondering what InternalInsert and InternalAddRecord should do?\n\nAlso if anyone can point me to a good guide that isn't [Custom Dataset](http://www.gexperts.com/articles/customds.asp) or the [Keeping Hold of Your Things series](http://www.carterconsulting.org.uk/) or [Datasets without databases](http://edn.embarcadero.com/article/20587). That would be much appreciated",
+  "lastActivityDate": "2014-01-17T23:44:10.647",
+  "title": "What must certain internal methods of TDataset do?",
+  "tags": [
+    "database",
+    "delphi"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

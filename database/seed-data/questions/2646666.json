@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646666",
+  "creationDate": "2014-04-17T23:28:48.060",
+  "body": "\n\nI think I've been too much time looking at this function and just got stuck trying to figure out the nice clean way to do it.\n\nIt's a jQuery function that adds a click event to any `div` that has a `click` CSS class. When that `div.click` is clicked it redirects the user to the first link found in it.\n\n\tfunction clickabledivs() {\n\t    $('.click').each(\n\t        function (intIndex) {\n\t            $(this).bind(\"click\", function(){\n\t                window.location = $( \"#\"+$(this).attr('id')+\" a:first-child\" ).attr('href');\n\t            });\n\t        }\n\t    );\n\t}\n\t\n\nThe code simply works although I'm pretty sure there is a fairly better way to accomplish it, specially the selector I am using: `$( \"#\"+$(this).attr('id')+\" a:first-child\" )`. Everything looks long and slow. Any ideas? \n\nPlease let me know if you need more details. \nThanks!\n\nPS: I've found some really nice jQuery benchmarking reference from Project2k.de here: \n[http://blog.projekt2k.de/2010/01/benchmarking-jquery-1-4/](http://blog.projekt2k.de/2010/01/benchmarking-jquery-1-4/)",
+  "lastActivityDate": "2014-07-14T17:43:25.940",
+  "title": "jQuery - Add click event to Div and go to first link found",
+  "tags": [
+    "javascript",
+    "jquery",
+    "javascript-events",
+    "jquery-selectors"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

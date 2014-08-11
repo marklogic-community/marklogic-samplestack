@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2075510",
+  "creationDate": "2014-01-18T15:52:31.647",
+  "body": "\n\nThere is an iframe on the page.\n\nCan the parent document (iframe parent) be accessed from this iframe?\n\n*What I want to do:*  when the user presses a button inside iframe something happens on the main page\n\nThanks!",
+  "lastActivityDate": "2014-01-18T16:20:02.407",
+  "title": "How can I launch a javascript from an <iframe>?",
+  "tags": [
+    "javascript",
+    "html",
+    "dom",
+    "iframe"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

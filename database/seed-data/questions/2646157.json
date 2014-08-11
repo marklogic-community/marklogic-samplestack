@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646157",
+  "creationDate": "2014-04-17T22:29:29.157",
+  "body": "\n\nI'm optimizing some code whose main bottleneck is running through and accessing a very large list of struct-like objects.  Currently I'm using namedtuples, for readability.  But some quick benchmarking using 'timeit' shows that this is really the wrong way to go where performance is a factor:\n\nNamed tuple with a, b, c:\n\n\t>>> timeit(\"z = a.c\", \"from __main__ import a\")\n\t0.38655471766332994\n\t\n\nClass using `__slots__`, with a, b, c:\n\n\t>>> timeit(\"z = b.c\", \"from __main__ import b\")\n\t0.14527461047146062\n\t\n\nDictionary with keys a, b, c:\n\n\t>>> timeit(\"z = c['c']\", \"from __main__ import c\")\n\t0.11588272541098377\n\t\n\nTuple with three values, using a constant key:\n\n\t>>> timeit(\"z = d[2]\", \"from __main__ import d\")\n\t0.11106188992948773\n\t\n\nList with three values, using a constant key:\n\n\t>>> timeit(\"z = e[2]\", \"from __main__ import e\")\n\t0.086038238242508669\n\t\n\nTuple with three values, using a local key:\n\n\t>>> timeit(\"z = d[key]\", \"from __main__ import d, key\")\n\t0.11187358437882722\n\t\n\nList with three values, using a local key:\n\n\t>>> timeit(\"z = e[key]\", \"from __main__ import e, key\")\n\t0.088604143037173344\n\t\n\nFirst of all, is there anything about these little `timeit` tests that would render them invalid?  I ran each several times, to make sure no random system event had thrown them off, and the results were almost identical.\n\nIt would appear that dictionaries offer the best balance between performance and readability, with classes coming in second.  This is unfortunate, since, for my purposes, I also need the object to be sequence-like; hence my choice of namedtuple.\n\nLists are substantially faster, but constant keys are unmaintainable; I'd have to create a bunch of index-constants, i.e. KEY_1 = 1, KEY_2 = 2, etc. which is also not ideal.\n\nAm I stuck with these choices, or is there an alternative that I've missed?",
+  "lastActivityDate": "2014-10-05T15:48:19.953",
+  "title": "What is the fastest (to access) struct-like object in Python?",
+  "tags": [
+    "python",
+    "performance",
+    "data-structures"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

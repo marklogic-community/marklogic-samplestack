@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3043065",
+  "creationDate": "2014-06-17T14:48:44.310",
+  "body": "\n\nI'm using Telerik grid to present memos received by user below is the code\n\n\t<%Html.Telerik().Grid<UserManagement.Models.SentMemos>() \n\t    .Name(\"ReceivedMemos\") \n\t    .Sortable(sorting => sorting \n\t        .OrderBy(sortOrder => sortOrder.Add(o => o.MemoDate).Descending()))         \n\t    .DataBinding(dataBinding => dataBinding \n\t        //Ajax binding \n\t    .Ajax() \n\t    //The action method which will return JSON \n\t    .Select(\"_AjaxBindingReceivedMemos\", \"OA\" ) \n\t\n\t        ). \n\t        Columns(colums => \n\t        { \n\t            colums.Bound(o => o.MemoID).ClientTemplate(Html.ActionLink(\"Reply\", \"ReplyMemo\", \"OA\", new { MemoID = \"<#=MemoID#>\"}, null).ToString()).Title(\"Reply\").Filterable(false).Sortable(false); \n\t            colums.Bound(o => o.MemoID).ClientTemplate(Html.ActionLink(\"Acknowledge\", \"PreviewMemo\", \"OA\", new { id = \"<#=MemoID#>\"}, null).ToString()).Title(\"Acknowledge\").Filterable(false).Sortable(false); \n\t            colums.Bound(o => o.Subject).ClientTemplate(Html.ActionLink(\"<%#=Subject#>\", \"PreviewMemo\", \"OA\", new { id = \"<#=MemoID#>\" }, null).ToString()).Title(\"Subject\"); \n\t            //colums.Bound(o => Html.ActionLink(o.Subject,\"PreviewMemo\",\"OA\",new{id=o.MemoID},null).ToString()).Title(\"Subject\"); \n\t            colums.Bound(o => o.FromEmployeeName); \n\t            colums.Bound(o => o.MemoDate); \n\t            }) \n\t    .Sortable() \n\t    .Filterable() \n\t     .RowAction((row) => \n\t     {              \n\t             row.HtmlAttributes.Add(\"style\", \"background:#321211;\"); \n\t     }) \n\t    .Pageable(pager=>pager.PageSize(6)) \n\t    .PrefixUrlParameters(false)   \n\t\n\t       //.ClientEvents(events => events.OnRowDataBound(\"onRowDataBound\")) \n\t        .Render();          \n\t  %> \n\t\n\nwhere I am binding third column (Subject) my intention is to make an ActionLink where subject is the display text and i want a dynamic ID coming from `<#=MemoID#>`. memo id is working fine and gives me a link with dynamic Memo IDs. the problem is with the subject i.e (`\"<#=Subject#>\"`) is rendered as it is on the screen without mapping to the actual subject of the memo. I have also tried (`\"<%#=Subject%>\"`) but to no gain. any help is highly appreciated\n\nRegards",
+  "lastActivityDate": "2014-10-23T16:17:51.643",
+  "title": "ActionLink Problem with Client Template Telerik MVC grid",
+  "tags": [
+    "asp.net-mvc",
+    "telerik-grid"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

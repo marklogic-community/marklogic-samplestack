@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841211",
+  "creationDate": "2014-05-18T02:13:39.057",
+  "body": "\n\nI have some problems getting the data that i read from XML split into seperate columns. Any help this new C# coder would get would be appreciated.\n\n\tXDocument xmlDoc = XDocument.Load(\"emails.xml\");            \n\t\n\t        var t = from c in xmlDoc.Descendants(\"dt\")\n\t                select (string)c.Element(\"name\") + (string)c.Element(\"email\");\n\t        foreach (string item in t)\n\t        {                   \n\t               listView.Items.Add(item);\n\t        } \n\t",
+  "lastActivityDate": "2014-05-18T02:35:38.060",
+  "title": "Read from XML > Add to Listview",
+  "tags": [
+    "c#",
+    "linq",
+    "listview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

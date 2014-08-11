@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266830",
+  "creationDate": "2014-02-18T07:13:09.247",
+  "body": "\n\nI am saving a raw email in a TEXT column in MySQL with Ruby on Rails. It keeps getting truncated to 65535 characters, does anyone know what causes this?\n\nMySQL is running with `max_allowed_packet=64M`\n\nUsing InnoDB for the storage engine.",
+  "lastActivityDate": "2014-12-06T05:16:14.247",
+  "title": "Why is rails trucating TEXT column to 65535 chars?",
+  "tags": [
+    "mysql",
+    "ruby-on-rails",
+    "ruby"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

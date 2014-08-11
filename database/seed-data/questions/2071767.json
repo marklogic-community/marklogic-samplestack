@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2071767",
+  "creationDate": "2014-01-18T05:25:00.630",
+  "body": "\n\nI'm working with the Beta 2 version of Visual Studio 2010 to get some advanced learning using WF4.  I've been working with the SqlTracking Sample in the WF_WCF_Samples SDK, and have gotten a pretty good understanding of how to emit and store tracking data in a SQL Database, but haven't seen anything on how to query the data when needed.  Does anyone know if there are any .Net classes that are to be used for querying the tracking data, and if so are there any known samples, tutorials, or articles that describe how to query the tracking data?",
+  "lastActivityDate": "2014-09-06T20:16:58.147",
+  "title": "Windows Workflow Foundation 4.0 and Tracking",
+  "tags": [
+    "windows",
+    "workflow-foundation",
+    "tracking"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

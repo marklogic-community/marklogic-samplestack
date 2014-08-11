@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2838350",
+  "creationDate": "2014-05-17T08:02:03.453",
+  "body": "\n\nI recently started a small personal project (RGB value to BGR value conversion program) in C, and I realised that a function that converts from RGB to BGR can not only perform the conversion but also the inversion.  Obviously that means I don't really need two functions `rgb2bgr` and `bgr2rgb`.  However, does it matter whether I use a function pointer instead of a macro?  For example:\n\n\tint rgb2bgr (const int rgb);\n\t\n\t/*\n\t * Should I do this because it allows the compiler to issue\n\t * appropriate error messages using the proper function name,\n\t * not to mention possible debugging benefits?\n\t */\n\tint (*bgr2rgb) (const int bgr) = rgb2bgr;\n\t\n\t/*\n\t * Or should I do this since it is merely a convenience\n\t * and they're really the same function anyway?\n\t */\n\t#define bgr2rgb(bgr) (rgb2bgr (bgr))\n\t\n\nI'm not necessarily looking for a change in execution efficiency as it's more of a subjective question out of curiosity.  I am well aware of the fact that type safety is neither lost nor gained using either method.  Would the function pointer merely be a convenience or are there more practical benefits to be gained of which I am unaware?",
+  "lastActivityDate": "2014-05-17T08:43:39.197",
+  "title": "Preprocessor \"macro function\" vs. function pointer - best practice?",
+  "tags": [
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

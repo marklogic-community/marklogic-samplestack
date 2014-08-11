@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2841852",
+  "creationDate": "2014-05-18T05:35:51.883",
+  "body": "\n\nAfter running syncdb and creating a su, where does that get recorded?  Settings.py doesn't seem to change.",
+  "lastActivityDate": "2014-05-18T05:40:06.227",
+  "title": "Where does Django store auth's superuser / pw / e-mail data?",
+  "tags": [
+    "django",
+    "django-authentication"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

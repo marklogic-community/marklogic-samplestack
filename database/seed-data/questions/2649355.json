@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649355",
+  "creationDate": "2014-04-18T06:12:29.380",
+  "body": "\n\nI'm trying to create a composite component for use in my Seam application, and I'm running into problems with the simplest \"hello, world\" component.\n\nI have placed a file named hello.xhtml in {jboss deploy}/application.ear/application.war/resources/greet :\n\n\t<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n\t\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\t<html xmlns=\"http://www.w3.org/1999/xhtml\"\n\t  xmlns:h=\"http://java.sun.com/jsf/html\"\n\t  xmlns:composite=\"http://java.sun.com/jsf/composite\">\n\t<head>\n\t<title>My First Composite Component</title>\n\t</head>\n\t<body>\n\t\n\t<composite:interface>\n\t    <composite:attribute name=\"who\"/>\n\t</composite:interface>\n\t\n\t<composite:implementation>\n\t    <h:outputText value=\"Hello, #{cc.attrs.who}!\"/>\n\t</composite:implementation>\n\t\n\t</body>\n\t</html>\n\t\n\nNow in home.xhtml, located at the root of my webapp ({jboss deploy}/application.ear/application.war/home.xhtml): \n\n\t<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n\t    \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\t<ui:composition xmlns=\"http://www.w3.org/1999/xhtml\"\n\t            xmlns:ui=\"http://java.sun.com/jsf/facelets\"\n\t            xmlns:h=\"http://java.sun.com/jsf/html\"\n\t            xmlns:f=\"http://java.sun.com/jsf/core\"\n\t            xmlns:g=\"http://java.sun.com/jsf/composite/greet\"\n\t            xmlns:s=\"http://jboss.com/products/seam/taglib\"\n\t            template=\"layout/template.xhtml\">\n\t    <ui:define name=\"content\">\n\t    <div id=\"content\">\n\t        <g:hello who=\"World\"/>\n\t        <br/>\n\t    </div>\n\t    </ui:define>\n\t</ui:composition>\n\t\n\nBut my \"hello, world\" is not displayed, and I dont get any error messages, even when I turn on debug level logging for com.sun and javax.faces categories.\n\nI've verified that the resources directory is in the proper place, since adding the directory resources/images/test.jpg, then adding this to home.xhtml:\n\n\th:graphicImage value=\"#{resource['images:test.jpg']}\"/>\n\t\n\nResults in the image being displayed. I just don't know why JSF isn't picking up my xhtml file from the greet directory.\n\nAny ideas?",
+  "lastActivityDate": "2014-09-16T21:45:11.580",
+  "title": "JSF Composite Component",
+  "tags": [
+    "jsf",
+    "composite-component"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

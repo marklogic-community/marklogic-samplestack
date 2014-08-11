@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649561",
+  "creationDate": "2014-04-18T06:59:23.707",
+  "body": "\n\nHi im loading a child swf into my parent swf and I want to pass some parameters to the child swf. Any idea on how to do this.\n\nHere is my code:\n\n\tvar req:URLRequest = new URLRequest( \"test.swf\" );\n\t\n\tvar loader:Loader = new Loader();\n\tloader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadComplete );\n\tloader.load(req); \n\t\n\t    function loadComplete(e:Event){\n\t  var childSwf:DisplayObject = e.target.content as DisplayObject;\n\t\n\t      //Im guessing here I need to set the parameter \n\t  VideoContainer.addChild(childSwf);\n\t    }\n\t",
+  "lastActivityDate": "2014-04-18T15:51:48.460",
+  "title": "Parameter to swf loaded with loader class",
+  "tags": [
+    "flash",
+    "actionscript-3"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

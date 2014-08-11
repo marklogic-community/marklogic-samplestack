@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2447617",
+  "creationDate": "2014-03-17T21:55:35.730",
+  "body": "\n\nI have a function that adds eventhandlers to control events.  Right now I have several overloads that add events to different types of controls:\n\n\tPublic Sub AddEventHandler(Button, ButtonEvent) 'adds event handling for Button.Click\n\tpublic Sub AddEventHandler(LinkButton, ButtonEvent)'adds event handling for LinkButton.Click\n\t\n\nThe problem is I want to write a function that is more robust like:\n\n\tPublic sub AddEventHandler(Control, EventToHandle, ControlEvent)\n\t\n\nwhere\n\nEventToHandle is the parameter representing Button.Click or whatever event that Button has associated with it.\n\nAny suggestions guys?  Thanks!",
+  "lastActivityDate": "2014-03-17T22:08:32.583",
+  "title": "How to pass Button.Click into a function?",
+  "tags": [
+    ".net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071549",
+  "creationDate": "2014-01-18T04:55:44.963",
+  "body": "\n\nFor some reason when I changed my php code from mysql to mysqli everything got messed up.\n\nFor example, when a user enters a rating my mysql table updates twice by entering one new row and updating the correct row. I was wondering how do I correct this problem so it only updates the new row and checks to see if there is no row it enters one?\n\nPHP code\n\n\t// function to insert rating\n\tfunction rate(){\n\t    $dbc = mysqli_connect (\"localhost\", \"root\", \"\", \"sitename\");\n\t    $text = strip_tags($_GET['rating']);\n\t    $update = \"update vote set counter = counter + 1, value = value + \".$_GET['rating'].\"\";\n\t\n\t    $result = mysqli_query($dbc,$update); \n\t    if(mysqli_affected_rows() == 0){\n\t        $insert = \"insert into vote (counter,value) values ('1','\".$_GET['rating'].\"')\";\n\t        $result = mysqli_query($dbc,$insert); \n\t    }\n\t}\n\t\n\nold php code\n\n\t// function to insert rating\n\tfunction rate(){\n\t    $text = strip_tags($_GET['rating']);\n\t    $update = \"update vote set counter = counter + 1, value = value + \".$_GET['rating'].\"\";\n\t\n\t    $result = mysql_query($update); \n\t    if(mysql_affected_rows() == 0){\n\t        $insert = \"insert into vote (counter,value) values ('1','\".$_GET['rating'].\"')\";\n\t        $result = mysql_query($insert); \n\t    }\n\t}\n\t",
+  "lastActivityDate": "2014-01-18T05:30:37.453",
+  "title": "PHP & Mysql database updating problem",
+  "tags": [
+    "php",
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

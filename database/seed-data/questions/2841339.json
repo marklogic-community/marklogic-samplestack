@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2841339",
+  "creationDate": "2014-05-18T02:52:17.063",
+  "body": "\n\nI am in the process of designing an application that will allow you to find pictures (screen shots) made from certain programs. I will provide the locations of a few of the program in the application itself to get the user started.\n\nI was wondering how I should go about adding new locations as the time goes on, my first thought was simply hard coding it into the application but this will mean the user has to reinstall it to make the changes take affect.\n\nMy second idea was to use an XML file to contain all the locations as well as other data, such as the name of the application. This also means the user can add their own locations if they wish as well as sharing them over the internet.\n\nThe second option seemed the best approach but then I had to think how would it be managed on the users computer. Ideally I'd like just a single .exe without the reliance on any external files such as the XML but this would bring me back to point one.\n\nWould it be best to simply use the ClickOnce deployment to create an entry in the start menu and create a folder containing the .exe and the file names?\n\nThanks for the feedback, I don't want to start implementing the application until the design is nailed.",
+  "lastActivityDate": "2014-05-20T11:43:44.970",
+  "title": "Design question for windows application, best approach?",
+  "tags": [
+    "xml",
+    "winforms",
+    "design",
+    "architecture"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

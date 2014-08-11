@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071120",
+  "creationDate": "2014-01-18T03:36:51.170",
+  "body": "\n\nI am working with a JTreeTable as described in an old article at: [Sun Developer Network](http://java.sun.com/products/jfc/tsc/articles/treetable1/)\n\nHere are the same files but slightly adjusted for java 6:\n[http://edtaylor80.angelfire.com](http://edtaylor80.angelfire.com)\n\nIf you run this little example program you will find that selection works as expected to start with, entire rows are selected when you click a random cell. This behaviour is desired. However, as soon as a node is expanded the behaviour changes, now it is only possible to select a row by clicking at the actucal node (name). I still want to be able to select an entire row by clicking a random cell. How can I modify the source code to accomplish this?",
+  "lastActivityDate": "2014-01-18T06:53:07.067",
+  "title": "How to get correct selection in a JTreeTable?",
+  "tags": [
+    "java",
+    "swing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

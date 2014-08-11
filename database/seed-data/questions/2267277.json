@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267277",
+  "creationDate": "2014-02-18T08:22:18.810",
+  "body": "\n\nWith `Type.GetProperties()` you can retrieve all properties of your current class and the `public` properties of the base-class. Is it somehow possible to get the `private` properties of the base-class too?\n\nThanks\n\n\tclass Base\n\t{\n\t    private string Foo { get; set; }\n\t}\n\t\n\tclass Sub : Base\n\t{\n\t    private string Bar { get; set; }\n\t}\n\t\n\t\n\t        Sub s = new Sub();\n\t        PropertyInfo[] pinfos = s.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);\n\t        foreach (PropertyInfo p in pinfos)\n\t        {\n\t            Console.WriteLine(p.Name);\n\t        }\n\t        Console.ReadKey();\n\t\n\nThis will only print \"Bar\" because \"Foo\" is in the base-class and private.",
+  "lastActivityDate": "2014-10-08T20:41:29.927",
+  "title": "Get private Properties/Method of base-class with reflection",
+  "tags": [
+    "c#",
+    ".net",
+    "reflection"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

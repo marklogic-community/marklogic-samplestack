@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643181",
+  "creationDate": "2014-04-17T14:32:35.257",
+  "body": "\n\ni've read a lot about ORM but wondering if there are side by side comparison examples between an ORM like doctrine and SQL so that you could see what is more easier to maintain?\n\ncouldn't find such comparisons in google.",
+  "lastActivityDate": "2014-04-17T15:08:28.807",
+  "title": "code comparison between ORM (doctrine) and SQL?",
+  "tags": [
+    "php",
+    "sql",
+    "orm"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

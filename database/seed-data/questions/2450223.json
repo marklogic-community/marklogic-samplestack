@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2450223",
+  "creationDate": "2014-03-18T04:24:07.887",
+  "body": "\n\nI have a question about the JFileChooser in Swing. I'm trying to get multiple file extensions in the drop-down box, but have no idea how to do it.\n\nThere is the method\n\n\textFilter = FileNameExtensionFilter(description, extensions);\n\t\n\nthat I can then use by writing\n\n\tfileChooser.setFileFilter(extFilter);\n\t\n\nhowever, as you can see, this only supports one option in the drop-down list. How do I add more?",
+  "lastActivityDate": "2014-11-18T13:53:01.357",
+  "title": "JFileChooser - multiple file filters?",
+  "tags": [
+    "java",
+    "file",
+    "save",
+    "jfilechooser"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

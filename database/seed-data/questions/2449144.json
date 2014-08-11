@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449144",
+  "creationDate": "2014-03-18T01:32:02.580",
+  "body": "\n\nI have gone through several plugins and I can't find a plugin that simply resizes and crops images to a specific size when they get uploaded. This is different from simply resizing one side of the image, I need it to resize the smallest side and then crop the largest side so that the image fits in a specific space. WP already does this by default with thumbnails but I need to do this with full-sized images as well. I was going to use: [http://wordpress.org/extend/plugins/scissors/](http://wordpress.org/extend/plugins/scissors/) but it doesn't work with my installation. \n\nCan anyone think of another plugin that does this? Is there a simple way to enable this behavior for full size images by modifying wordpress? ",
+  "lastActivityDate": "2014-03-18T12:56:35.670",
+  "title": "Crop & Resize Images in Wordpress",
+  "tags": [
+    "php",
+    "wordpress",
+    "image"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

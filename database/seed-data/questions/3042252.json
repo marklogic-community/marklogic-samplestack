@@ -1,0 +1,16 @@
+{
+  "id": "/questions/3042252",
+  "creationDate": "2014-06-17T10:55:47.067",
+  "body": "\n\nIf you pop open [this page](http://dev.betterhumanrace.com/) with your javascript console, you'll notice a bunch of JS errors. I don't get these errors in my local environment and it seems like it is happening because $ is not defined.  I have tried to mimic my local environment exactly on staging by using the same environment.rb file and removing all JS caching but it is making no difference.  Can anyone tell why jQuery is crapping out?  It might be something really stupid, but I need a second pair of eyes.",
+  "lastActivityDate": "2014-06-17T11:34:21.437",
+  "title": "jQuery is not defined on my staging server but works fine on my local",
+  "tags": [
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

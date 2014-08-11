@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2839227",
+  "creationDate": "2014-05-17T14:59:48.227",
+  "body": "\n\nI have a check out form where number of products can be \"n\". So how i can know how many input fields are in the form and take input from it?\n\nThanks",
+  "lastActivityDate": "2014-11-21T21:15:26.920",
+  "title": "Variable Number of Input Fields in Classic-ASP form",
+  "tags": [
+    "asp-classic"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

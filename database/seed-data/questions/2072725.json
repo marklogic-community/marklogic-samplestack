@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072725",
+  "creationDate": "2014-01-18T07:35:18.547",
+  "body": "\n\nDuring a server start-up procedure, I access a remote host for some initialisation data. Unfortunately, the remote host in question is notorious for being randomly unresponsive to connections (lets say 3% of the time this happens). The result is that the connection hangs indefinitely (possibly forever), and my server doesn't start up in a reasonable amount of time, if at all. It's hung for an hour before.\n\nA connection timeout:\n\n\tHttpURLConnection conn = (HttpURLConnection) url.openConnection();\n\tconn.setConnectTimeout(connectionTimeout);\n\t\n\tfor (int i = 0; i <= connectionRetries; i++) {\n\t  try {\n\t    log.info(\"Establishing connection to ClassNotes service.\");\n\t    conn.connect();\n\t    break;\n\t  } catch (SocketTimeoutException e) {\n\t    log.warn(\"Timed out connecting to ClassNotes service.\");\n\t  }\n\t}\n\t\n\ndoes not work, since the connection is already established with the server when it hangs. The problem seems to be when it tries to get an InputStream from the server.\n\nFor any one who has had to work with disobediant services, should I thread the process of getting the InputStream with a finite number of retries, and just deal with one or two potential threads hanging in the JVM's memory indefinitely? Or, is there a more common way to handle this in Java?\n\nIt could also be useful to know that a server starting up *without* the information from the remote host is not as devastating as the server not starting up at all.\n\nThanks in advance.",
+  "lastActivityDate": "2014-01-18T07:41:21.810",
+  "title": "Handling DoS due to unresponsive remote hosts",
+  "tags": [
+    "java",
+    "io"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

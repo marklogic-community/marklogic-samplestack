@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2068967",
+  "creationDate": "2014-01-17T17:58:52.523",
+  "body": "\n\nWhat's the best way to extract HTML out of $var?\n\nexample of $var\n\n\t$var = \"<a href=\"http://stackoverflow.com/\">Stack Overflow</a>\"\n\t\n\nI want \n\n\t$var2 = \"http://stackoverflow.com/\"\n\t\n\nexample: preg_match();\n\nwhat else?",
+  "lastActivityDate": "2014-01-17T18:53:13.780",
+  "title": "Extract link attributes from string of HTML",
+  "tags": [
+    "php"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647484",
+  "creationDate": "2014-04-18T01:16:04.803",
+  "body": "\n\nAt work, development doesn't have revision control.  By this I mean that we are only allowed to check into the P4 depot when the change set is ready for regression testing.  We can't check in intercolary changes! There are a host of problems with having no revision control during development that I don't need to go into here.  Instead, I brought the problem to prodsys and they said, \"no, but what you do in your home directory is your business\".  Basically, I can install it myself if I want it.\n\nUnfortunately, I can't install it myself, because I'm on CentOS 5 at work and I don't have root.  Yum won't give you the time of day if you don't have root.  So what can I do to get git?  I'm fine with statically linked binary if that makes it easy, but I can't find such a thing anywhere.  I'm also looking for git-p4.  \n\nEdit:  I've downloaded the tarball but I think I'm missing deps.  I've read through the INSTALL doc and opted out of every optional dependency:\n\n\tmake prefix=$HOME/git NO_TCLTK=YesPlease NO_OPENSSL=YesPlease  NO_CURL=YesPlease  NO_EXPAT=YesPlease\n\t\n\nBut I still can't build.  \n\nI get this error:\n\n\t: command not foundline 2:\n\t: command not foundline 5:\n\t: command not foundline 8:\n\t./GIT-VERSION-GEN: line 14: syntax error near unexpected token `elif'\n\t'/GIT-VERSION-GEN: line 14: `elif test -d .git -o -f .git &&\n\t\n\nand it builds a lot of .o's until I get to:\n\n\t...\n\tLINK git-daemon\n\tmake: *** No rule to make target `GIT-VERSION-FILE', needed by `git-am'.  Stop.`\n\t\n\nAnd I'm stuck again.",
+  "lastActivityDate": "2014-04-22T23:56:40.547",
+  "title": "Installing Git in Home Directory - CentOS 5 - NO ROOT",
+  "tags": [
+    "git",
+    "centos",
+    "yum"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

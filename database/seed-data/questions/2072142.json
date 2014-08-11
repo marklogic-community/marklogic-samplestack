@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072142",
+  "creationDate": "2014-01-18T06:20:02.013",
+  "body": "\n\nI have a WCF service that has a method to return the Windows Username of a Silverlight client that is consuming the service . The WCF service is using basicHttpBinding with the TransportCredentialOnly mode set and the TransportClientCredentialType set to Windows. In IIS Windows authentication is enabled and anon authentication disabled.\n\nDespite (apparently) configuring the service correctly when I call the service and ask it to return the username it errors. Closer examination shows that HttpContext.Current.User is always null (so a nullreferenceexception is thrown).\n\nDoes anyone have any other ideas why this is not working?",
+  "lastActivityDate": "2014-01-18T06:24:31.663",
+  "title": "HttpContext.Current.User is always null",
+  "tags": [
+    "wcf",
+    "authentication"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

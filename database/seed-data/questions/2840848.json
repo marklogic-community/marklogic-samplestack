@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2840848",
+  "creationDate": "2014-05-18T00:26:07.960",
+  "body": "\n\nAre tr1 headers available for g++ v3.4.6?  If so, how can I locate them at compile time.\n\nThe following is failing to compile:\n\n\t#include <tr1/memory>\n\t\n\nWith the following error:\n\n\tmyModule.h:20:24: tr1/memory: No such file or directory\n\t\n\nDo I need to move to a later compiler or do I have the headers somewhere?",
+  "lastActivityDate": "2014-05-18T00:28:36.130",
+  "title": "Are tr1 headers available for gcc v3.4.6?",
+  "tags": [
+    "c++",
+    "g++",
+    "header",
+    "tr1"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

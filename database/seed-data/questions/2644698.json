@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644698",
+  "creationDate": "2014-04-17T19:10:08.247",
+  "body": "\n\nFor eclipse 3.5 / 3.6 and JQuery 1.4.2, what are the best practices for a development IDE?\n(jquerywtp seems unmaintained, and aptana seems an overkill)\n\nIs eclipse not the right tool for JQuery dev?",
+  "lastActivityDate": "2014-10-01T03:49:08.407",
+  "title": "Any good way to have jQuery code assist in eclipse without Aptana / jquerywtp?",
+  "tags": [
+    "jquery",
+    "eclipse-plugin"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

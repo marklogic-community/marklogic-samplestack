@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2841820",
+  "creationDate": "2014-05-18T05:25:36.540",
+  "body": "\n\nI have a rewriterule in my htaccess file that looks like this:\n\n\tRewriteRule ^Signup$ /dst2/signup.php\n\t\n\nI would like to use POST instead of GET for the data that gets passed by this form.\n\nThe rule above, however, sends the data as a GET.\n\nIs there a way to use a POST with a rewriterule?",
+  "lastActivityDate": "2014-12-16T10:10:28.687",
+  "title": "How do I use POST with htaccess rewriterule?",
+  "tags": [
+    "mod-rewrite"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

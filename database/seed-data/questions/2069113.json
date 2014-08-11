@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2069113",
+  "creationDate": "2014-01-17T18:43:07.260",
+  "body": "\n\n\tpublic void EncryptFile()\n\t    {            \n\t        OpenFileDialog dialog = new OpenFileDialog();\n\t        dialog.Filter = \"JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|All files (*.*)|*.*\";\n\t        dialog.InitialDirectory = @\"C:\\\";\n\t        dialog.Title = \"Please select an image file to encrypt.\";\n\t        if (dialog.ShowDialog() == DialogResult.OK)\n\t        {\n\t            byte[] ImageBytes = File.ReadAllBytes(dialog.FileName);\n\t\n\t            foreach (byte X in ImageBytes)\n\t            {\n\t                //How can I take byte \"X\" and add a numerical value to it?\n\t            }\n\t        }             \n\t    }\n\t\n\nSo, I'm trying to encrypt an image file by just converting it to byte[] array and then adding a numerical value to each byte.\n\nHow can I add a numerical value to a byte?",
+  "lastActivityDate": "2014-01-17T19:04:17.383",
+  "title": "Adding a numerical value to a byte?",
+  "tags": [
+    "c#",
+    "encryption",
+    "arrays",
+    "byte"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

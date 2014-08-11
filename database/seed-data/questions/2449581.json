@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449581",
+  "creationDate": "2014-03-18T02:42:09.850",
+  "body": "\n\nI wonder if there is a plugin that is able to save the current state of my opened windows?\n\nIn my case I work at a large system, and attend several bugs in different locations, i submit a bug to test, but lots of times some adjusts must be made.. the point is I don't remember the files i changed after a few days, so It is desirable that i can save the current state of my windows.\n\nThat feature would do pretty much the same as the auto-save state as when Aptana is closed.\n\n[http://imm.io/aMD](http://imm.io/aMD)",
+  "lastActivityDate": "2014-03-20T20:06:14.157",
+  "title": "Plugin for aptana/eclipse that saves my opened files?",
+  "tags": [
+    "eclipse",
+    "eclipse-plugin",
+    "aptana"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

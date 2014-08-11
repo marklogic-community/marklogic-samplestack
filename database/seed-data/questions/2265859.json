@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2265859",
+  "creationDate": "2014-02-18T04:27:40.030",
+  "body": "\n\nThis is related to recent \"Google Buzz Count\" feature on famous blog Mashable - [http://mashable.com/2010/02/12/google-buzz-buttons-count/](http://mashable.com/2010/02/12/google-buzz-buttons-count/)\n\nWhile trying to dig into logic they are using for \"Google Buzz Count\", I somehow reached to the conclusion that, essentially, they are counting how many times an item has been shared in Google Reader?\n\nI googled rest of the web but everywhere they are saying that there is no way to count how many times an item has been shared in Google Reader?\n\nOne more thing I noticed on Mashable is that they r using PHP (server side scripting) for \"buzz counting\", as opposed to javascript based twitter-(meme)-count and/or facebook-share-count. Reason for using PHP could be protecting their code from being reversed engineered or simply fooling around people (in some test just clicking on link increased count - may be unique click counting is fetched by using bit.ly API in this case)\n\nJust curious! ",
+  "lastActivityDate": "2014-10-23T23:28:48.963",
+  "title": "Can we count how many times an item has been shared in Google Reader?",
+  "tags": [
+    "php",
+    "javascript",
+    "api",
+    "bit.ly",
+    "google-reader"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2264338",
+  "creationDate": "2014-02-17T22:29:21.297",
+  "body": "\n\nIs it possible to get .NET 4.0 on the server without having to install it?  Well! It may sound crazy by just reading the title without actually going into it.\n\nMy senior developers(who used to do VB6/ASP programming back then) doesnt want .NET 4.0 on the server for two reasons. 1) They fear that all their existing applications will break. 2) They will be forced to learn new technologies which they dont want.\n\nBut unfortunately they are the senior programmers(by age) and are the decision makers.So here is my crazy thought. Is it possible to get .NET framework running on the server without having  to install it. What I mean by that is, If I deploy all the .NET 4.0 dlls in the GAC of the server and to add some values into registry. Will I be able to run .NET 4.0 apps on it?\n\nor can we have only certain applications use .NET 4.0 run time and the old applications use .NET 2.0/or 1.1 run time?\n\nThe current .NET version on the server is .NET 3.5 SP1. Any suggestions & ideas are welcomed?\n\nPlease dont consider it as a duplicate question because I am not asking for .NET 2.0 framework as did by earlier posts. I am asking specifically for .NET 4.0 which has not been posted yet.",
+  "lastActivityDate": "2014-02-18T05:34:19.787",
+  "title": "Is it possible to get .NET 4.0 on the server without having to install it?",
+  "tags": [
+    ".net",
+    "asp.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

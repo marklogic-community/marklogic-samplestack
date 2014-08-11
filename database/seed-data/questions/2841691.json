@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2841691",
+  "creationDate": "2014-05-18T04:48:01.260",
+  "body": "\n\nHey guys I have recently decided to switch all my current plain mysql queries performed with php mysql_query to PDO style queries to improve performance, portability and security. I just have some quick questions for any experts in this database interaction tool\n\n1. Will it prevent injection if all statements are prepared? (I noticed on php.net it wrote '*however, if other portions of the query are being built up with unescaped input, SQL injection is still possible*' I was not exactly sure what this meant). Does this just mean that if all variables are run through a prepare function it is safe, and if some are directly inserted then it is not?\n\n2. Currently I have a connection at the top of my page and queries performed during the rest of the page. I took a look at PDO in more detail and noticed that there is a try and catch procedure for every query involving a connection and the closing of that connection. Is there a straightforward way to connecting and then reusing that connection without having to put everything in a try or constantly repeat the procedure by connecting, querying and closing?\n\n3. Can anyone briefly explain in layman's terms what purpose a set_exception_handler serves?\n\nI appreciate any advice from any more experienced individuals.",
+  "lastActivityDate": "2014-05-18T06:24:50.297",
+  "title": "Questions about shifting from mysql to PDO",
+  "tags": [
+    "php",
+    "pdo"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

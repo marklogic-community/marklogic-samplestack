@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2074939",
+  "creationDate": "2014-01-18T13:35:53.593",
+  "body": "\n\nI have a working mapview application in which I can hit a service and show GPoints on the map as overlay.\n\nWhat I want to do next is show an encoded Gpolyline as an overlay on my mapView.\nWhen I try to instantiate a GPolyline poline object in my main activity, eclipse doesnt recognize the class. Is there a library import I am missing?\n\nA quick example of adding a GPolyline to the mapView in an android application will be a great help.\n\nThanks,\nPrachi Gupta",
+  "lastActivityDate": "2014-01-22T09:34:12.340",
+  "title": "GPolyline overlay in android MapView",
+  "tags": [
+    "android",
+    "android-mapview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

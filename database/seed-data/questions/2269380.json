@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2269380",
+  "creationDate": "2014-02-18T14:28:01.430",
+  "body": "\n\nI am attempting to make use of the [Twisted.Web](http://twistedmatrix.com/trac/wiki/TwistedWeb) framework.\n\nNotice the three line comments (#line1, #line2, #line3). I want to create a proxy (gateway?) that will forward a request to one of two servers depending on the url. If I uncomment either comment 1 or 2 (and comment the rest), the request is proxied to the correct server. However, of course, it does not pick the server based on the URL.\n\n\tfrom twisted.internet import reactor\n\tfrom twisted.web import proxy, server\n\tfrom twisted.web.resource import Resource\n\t\n\tclass Simple(Resource):\n\t    isLeaf = True\n\t    allowedMethods = (\"GET\",\"POST\")\n\t\n\t    def getChild(self, name, request):\n\t        if name == \"/\" or name == \"\":\n\t            return proxy.ReverseProxyResource('localhost', 8086, '')\n\t        else:\n\t            return proxy.ReverseProxyResource('localhost', 8085, '')\n\t\n\tsimple = Simple()\n\t# site = server.Site(proxy.ReverseProxyResource('localhost', 8085, '')) #line1   \n\t# site = server.Site(proxy.ReverseProxyResource('localhost', 8085, '')) #line2   \n\tsite = server.Site(simple)                                              #line3   \n\treactor.listenTCP(8080, site)\n\treactor.run()\n\t\n\nAs the code above currently stands, when I run this script and navigate to server \"localhost:8080/ANYTHING_AT_ALL\" I get the following response.\n\n> Method Not Allowed\n\n> Your browser approached me (at /ANYTHING_AT_ALL) with the method \"GET\". I\n  only allow the methods GET, POST here.\n\nI don't know what I am doing wrong? Any help would be appreciated.",
+  "lastActivityDate": "2014-02-19T12:53:24.043",
+  "title": "How do I get my simple twisted proxy to work?",
+  "tags": [
+    "python",
+    "proxy",
+    "twisted"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

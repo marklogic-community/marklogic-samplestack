@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2073695",
+  "creationDate": "2014-01-18T09:55:59.490",
+  "body": "\n\nDatabase structure:\n\n\tid  galleryId                 type     file_name       description\n\t1   `artists_2010-01-15_7c1ec`  `image`  `band602.jpg`   `Red Umbrella Promo`\n\t2   `artists_2010-01-15_7c1ec`  `image`  `nov7.jpg`      `CD Release Party`\n\t3   `artists_2010-01-15_7c1ec`  `video`  `band.flv`      `Presskit`\n\t\n\nI'm going to pull images out for one section of an application, videos on another, etc. Is it better to make multiple mysql queries for each section like so:\n\n\t$query = mysql_query(\"SELECT * FROM galleries WHERE galleryId='$galleryId' && type='image');\n\t\n\n...Or should I be building an associative array and just looping through the array over and over whenever I need to use the result set?\n\nThanks for the thoughts.",
+  "lastActivityDate": "2014-01-18T11:17:50.193",
+  "title": "Multiple MYSQL queries vs. Multiple php foreach loops",
+  "tags": [
+    "php",
+    "mysql",
+    "foreach",
+    "associative-array"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

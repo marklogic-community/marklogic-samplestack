@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2073942",
+  "creationDate": "2014-01-18T10:49:23.647",
+  "body": "\n\nI am writing a GUI program using PyQt4. \nThere is a button in my main window\nand by clicking this button.\nI hope to launch a background process \nwhich is an instance of a class derived \nfrom processing.Process.\n\n\tclass BackgroundTask(processing.Process):\n\t    def __init__(self, input):\n\t        processing.Process.__init__(self)\n\t        ...\n\t\n\t    def run(self):\n\t        ...\n\t\n\n(Note that I am using the Python2.5 port\nof the python-multiprocessing obtained\nfrom \n[http://code.google.com/p/python-multiprocessing/](http://code.google.com/p/python-multiprocessing/)\nthat is why it is processing.Process\ninstead of multiprocessing.Process.\nI guess this should not make a difference.\nAm I right?)\n\nThe code connected to the button click signal \nis something simply like\n\n\t processing.freezeSupport()\n\t task = BackgroundTask(input)\n\t task.start()\n\t\n\nThe program works as expected under the python intepreter, i.e.\nif it is started from the command line \"python myapp.py\".\n\nHowever, after I package the program using py2exe, \neverytime when I click that button, instead\nof starting the background task, a copy\nof the main window pops up. I am not sure \nwhat is the reason of this behavior. I guess\nit is related to the following note addressed\nat \n[http://docs.python.org/library/multiprocessing.html#multiprocessing-programming](http://docs.python.org/library/multiprocessing.html#multiprocessing-programming)\n\n\"Functionality within this package requires that the **main** method be importable by the children. This is covered in Programming guidelines however it is worth pointing out here. This means that some examples, such as the multiprocessing.Pool examples will not work in the interactive interpreter\n\"\n\nThe only place I have if **name** == \"**main**\" is in the main module \nas in a typical pyqt program\n\n\tif __name__ == \"__main__\":\n\t    a = QApplication(sys.argv)\n\t    QObject.connect(a,SIGNAL(\"lastWindowClosed()\"),a,SLOT(\"quit()\"))\n\t    w = MainWindow()\n\t    w.show()\n\t    a.exec_()\n\t\n\nAny solutions on how to fix this problem? Thanks!",
+  "lastActivityDate": "2014-02-06T16:52:34.107",
+  "title": "multiprocessing problem [pyqt, py2exe]",
+  "tags": [
+    "python",
+    "pyqt",
+    "multiprocessing",
+    "py2exe"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

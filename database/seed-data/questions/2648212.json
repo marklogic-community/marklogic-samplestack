@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648212",
+  "creationDate": "2014-04-18T03:07:56.353",
+  "body": "\n\nI wrote an XML RPC server in python and a simple Test Client for it in python. The Server runs on a linux box. I tested it by running the python client on the same linux machine and it works.\n\nI then tried to run the python client on a Mac and i get the following error\n\n\tsocket.error: (61, 'Connection Refused')\n\t\n\nI can ping and ssh into the linux machine from the Mac. So i dont think its a configuration or  firewall error.\n\nDoes anyone have any idea what could be going wrong?\n\nThe code for the client is as below:\n\n\timport xmlrpclib\n\t\n\ts = xmlrpclib.ServerProxy('http://143.252.249.141:8000')\n\t\n\tprint s.GetUsers()\n\t\n\tprint s.system.listMethods()\n\t",
+  "lastActivityDate": "2014-04-18T03:13:59.633",
+  "title": "Connecting to Python XML RPC from the Mac",
+  "tags": [
+    "python",
+    "osx",
+    "xml-rpc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

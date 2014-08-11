@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2266059",
+  "creationDate": "2014-02-18T05:03:40.063",
+  "body": "\n\nHi\nI have  an application running on VxWorks 5.5.1\nIt basically allocates a STL map data structure but in some cases my\nmain task crashes.\nWhen I monitor via debugger, the allocated size for an STL  map type\nvariable has the value of another task's ID instead of 8.\n\nSo it seems like a task ID and a variable is mixing.\n\nThe problem occurs in consecutive start and stop of  main task.\nCould it possible, TCB block of a task overwrites an area in memory\nRegards ",
+  "lastActivityDate": "2014-02-18T06:42:54.760",
+  "title": "VxWorks : Task Id overwrites to another memory location",
+  "tags": [
+    "vxworks"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

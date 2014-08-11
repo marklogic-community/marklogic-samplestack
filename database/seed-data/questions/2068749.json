@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2068749",
+  "creationDate": "2014-01-17T17:00:52.827",
+  "body": "\n\nThe infinity (`∞`) symbol gets converted to `âˆž` when it is inserted into my MySQL table by a PHP script, but if I insert it directly from phpMyAdmin, it inserts correctly.  The symbol is passed to the PHP script by a GET call with the JavaScript function `encodeURIComponent()` around the contents.  The field in the MySQL database is `utf8_swedish_cl`.  How do I get `∞` to insert as `∞` into the database?",
+  "lastActivityDate": "2014-01-19T20:43:46.543",
+  "title": "∞ gets converted to âˆž when inserted into MySQL table",
+  "tags": [
+    "php",
+    "javascript",
+    "mysql",
+    "utf-8",
+    "encodeuricomponent"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2838467",
+  "creationDate": "2014-05-17T08:55:02.380",
+  "body": "\n\nHopefully that title makes sense...\n\nLet's say I have an employee table:\n\n\tID | Name | Title   | Salary\n\t----------------------------\n\t1  | Bob  | Manager | 15285\n\t2  | Joe  | Worker  | 10250\n\t3  | Al   | Worker  | 11050\n\t4  | Paul | Manager | 16025\n\t5  | John | Worker  | 10450\n\t\n\nWhat I'd like to do is write a query that will give me the above table, along with an averaged salary column, based on the employee title:\n\n\tID | Name | Title   | Salary | Pos Avg\n\t--------------------------------------\n\t1  | Bob  | Manager | 15285  | 15655\n\t2  | Joe  | Worker  | 10250  | 10583\n\t3  | Al   | Worker  | 11050  | 10583\n\t4  | Paul | Manager | 16025  | 15655\n\t5  | John | Worker  | 10450  | 10583\n\t\n\nI've tried doing this with a sub-query along the lines of:\n\n\tSelect *, (select Avg(e2.salary) from employee e2 where e2.title = e.title) from employee e\n\t\n\nBut I've come to realize that the sub-query is executed first, and has no knowledge of the table alias'd e\n\nI'm sure I'm missing something REALLY obvious here, can anyone point me in the right diretion?",
+  "lastActivityDate": "2014-05-17T08:59:01.893",
+  "title": "Aggregate Functions on subsets of data based on current row values with SQL",
+  "tags": [
+    "mysql",
+    "subquery",
+    "aggregate"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

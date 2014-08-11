@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642060",
+  "creationDate": "2014-04-17T09:01:32.833",
+  "body": "\n\nAfter installing VS2010 yesterday - (both VS2005 and VS2010 installed), I can't find the \"**FixedSys**\" style font from the Fonts and Colors -> Font (pull down list).\n\nI can still use the font in VS2005. \n\n[update]\nI just searched \"C:\\WINDOWS\\Fonts\", there is no Fixedsys style in the folder.\n\nAny suggestions on how to make FixedSys available as a choice in Visual Studio 2010?",
+  "lastActivityDate": "2014-04-18T03:36:25.207",
+  "title": "Font Setting in VS2010 - missing FixedSys",
+  "tags": [
+    "visual-studio-2010",
+    "fonts"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2451301",
+  "creationDate": "2014-03-18T07:57:41.710",
+  "body": "\n\nWe are designing a WCF layer which can be invoked either by a Asp.Net or a WinForm application. Our Application contains too many Entities. We have basically two choices.\n\n1. If we design WCF Contract around these entities then we get too many Contracts e.g IPartyService, IUserService, IPaymentService etc. So, I may end up with 30-40 Contracts? \n\n2. One huge contracts with around 100 operations? \n\nWhat are the pros and cons of each approach or is there a better way?",
+  "lastActivityDate": "2014-03-18T11:06:23.770",
+  "title": "How to design WCF Contracts?",
+  "tags": [
+    ".net",
+    "wcf",
+    "web-services",
+    "design-patterns",
+    "soa"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645059",
+  "creationDate": "2014-04-17T20:14:08.830",
+  "body": "\n\nI have two links with classes (login-form and register-form) relevant to their target forms ID, they want to toggle. I have also a predefined 'slideToggle' function to toggle better.\n\nThis is what I have tried so far:\n\n\t$('#userbar a').click(function() {\n\t      var c = $(this).attr('class');\n\t      $('#userbar a').removeClass('active');\n\t      $(this).toggleClass('active');\n\t      $('#register-form,#login-form').hide(); //bad, causing flashy\n\t      $('#' + c).slideToggle('slow');\n\t\n\t        return false;\n\t    });\n\t\n\nWith this I have trouble with the flashy window, and to correctly toggle the active classes when another link is clicked, the other link should not have active class anymore. Additional problem is the link is dead on serial clicks.\n\nI have another try, longer one:\n\n\t$('#userbar a').click(function() {\n\t      var c = $(this).attr('class');\n\t        switch (c) {\n\t        case 'login-form':\n\t            $('#' + c).slideToggle('slow');\n\t            $(this).toggleClass('active');\n\t            $('#register-form').hide();\n\t            break;\n\t        case 'register-form':\n\t            $('#' + c).slideToggle('slow');\n\t            $(this).toggleClass('active');\n\t            $('#login-form').hide();\n\t            break;\n\t        }\n\t        return false;\n\t    });\n\t\n\nThis one is worse than the first :( \n\nAny suggestion to correct the behavior? \n\nWhat I want is when a link with class login-form is click, so toggle the form with ID login-form, and hide the register-form if open.\n\nAny help would be very much appreciated. Thanks.",
+  "lastActivityDate": "2014-04-17T20:30:25.107",
+  "title": "Toggle two divs and classes",
+  "tags": [
+    "jquery",
+    "toggle",
+    "visibility"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

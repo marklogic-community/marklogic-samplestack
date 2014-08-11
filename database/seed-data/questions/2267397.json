@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267397",
+  "creationDate": "2014-02-18T08:37:53.967",
+  "body": "\n\nI would like to get at \n\n\t- (void)applicationWillTerminate:(UIApplication *)application\n\t\n\na variable from a view controller class.\nI have build an tabbar application and only added the tabbar controller to the appdelegate.\n\n\t[window addSubview:tabBarController.view];\n\t\n\nHow can i get an variable from the TestViewController:\n\n\t#import <UIKit/UIKit.h>\n\t#import <AVFoundation/AVFoundation.h>\n\t\n\t@interface TestViewController : UIViewController {\n\t    IBOutlet UILabel *testLabel;\n\t    NSString *currentString; //Value that i want to save at applicationWillTerminate\n\t}\n\t\n\t@property (nonatomic, retain) UILabel* testLabel;\n\t@property (nonatomic, retain) NSString* currentString;\n\t\n\t@end\n\t",
+  "lastActivityDate": "2014-02-18T13:17:41.163",
+  "title": "AppDelegate: Get value from ViewController?",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "uiviewcontroller"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

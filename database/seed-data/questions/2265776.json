@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2265776",
+  "creationDate": "2014-02-18T04:08:44.967",
+  "body": "\n\nI have a component that is in conflict with another component that handles some internal translations.\n\nWhat happens is that business logic components gets executed, then the translation system executes, which picks up texts now present in the form, and attempts to translate them.\n\nThe problem is that the text now contains things like numbers, dates, database-related text, etc. but before the business logic was executed, those controls was either blank or contained dummy-text prepared for translation.\n\nI'm wondering how I can have a component that I drop on a form execute its code at a specific time in the lifetime of the form.\n\nFor instance, if I remove the offending code from the business logic component, so that it doesn't do anything upon construction, then translation work, and if I then call the method I moved that code to from Form_Load, that too works nicely.\n\nSo I'm wondering, is there a way for me, from a component (ie. descended from [Component](http://msdn.microsoft.com/en-us/library/system.componentmodel.component.aspx), not a visual control), to execute code just before or after Form_Load, or at least after all other components and controls have been set up?\n\nIt doesn't appear to be any link from within the component back to the form, so for me to hook into the Load event doesn't seem possible either.\n\nOr am I barking up the wrong tree?",
+  "lastActivityDate": "2014-09-09T04:58:29.660",
+  "title": "Execute component code just before or after Form_Load event in .NET WinForms?",
+  "tags": [
+    "winforms",
+    "components",
+    "form-load"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

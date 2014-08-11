@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649048",
+  "creationDate": "2014-04-18T05:18:19.600",
+  "body": "\n\nhi \ni want to write a mapviewer, i must to work small tile of big map image file and there is need to tiling the big image, the problem now is to tiling big image to small tiles (250 * 250 pixel or like this size)\nso on, i used ImageMagic program to do it but there was problem\nnow is any other programing method or application that do tiling?\ncan i do it with JAI in java? how?",
+  "lastActivityDate": "2014-01-21T03:09:34.093",
+  "title": "slicing up a very big jpg map image , 49000* 34300 pixel",
+  "tags": [
+    "java",
+    "jai",
+    "tiling"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

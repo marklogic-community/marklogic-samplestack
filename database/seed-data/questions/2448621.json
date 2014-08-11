@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2448621",
+  "creationDate": "2014-03-18T00:12:33.300",
+  "body": "\n\nIn Visual basic 6, i declare a sub like this:\n\n\tPrivate Sub test1(ByRef XmlFooOutput As String)\n\t  ...\n\tEnd Sub\n\t\n\nAafter that, I declare another sub like the following one:\n\n\tPrivate Sub test2(ByRef xmlFooOutput As String)\n\t  ...\n\tEnd Sub\n\t\n\nAutomagically, the first method is transformed in:\n\n\tPrivate Sub test1(ByVal xmlFooOutput As String)\n\t   ...\n\tEnd Sub\n\t\n\nSo the XmlFooOutput parameter is transformed in xmlFooOutput.\n\nThis is a pretty dangerous feature because methods like those could be mapped to different XSL presentation files that read XML values through Xpath.\nSo when test1 parameter is renamed, XSL bound to test1 method goes broken because Xpath points to XmlFooOuput but the correct value is now in xmlFooOutput.\n\nIs it possible to remove this weird feature?\nI'm using Microsoft Visual Basic 6.0 (SP6).\n\nThis question has some duplicates:\n* [http://stackoverflow.com/questions/1064858/stop-visual-basic-6-from-changing-my-casing](http://stackoverflow.com/questions/1064858/stop-visual-basic-6-from-changing-my-casing)\n* [http://stackoverflow.com/questions/248760/vb6-editor-changing-case-of-variable-names](http://stackoverflow.com/questions/248760/vb6-editor-changing-case-of-variable-names)\n\nFrom what I see, there's no practical solution to disable this Intellisense evil feature.",
+  "lastActivityDate": "2014-08-11T00:51:45.497",
+  "title": "How to avoid automatic renaming of sub signature parameters in visual basic 6",
+  "tags": [
+    "ide",
+    "vb6"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

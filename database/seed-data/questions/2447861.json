@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2447861",
+  "creationDate": "2014-03-17T22:36:14.407",
+  "body": "\n\nI want to generate some test data so for each row in a table I want to insert 10 random rows in another, see below:\n\n\tINSERT INTO CarFeatures \n\t  (carID, featureID)\n\tSELECT C.ID, F.ID\n\t  FROM dbo.Cars AS C\n\tOUTER APPLY (\n\t     SELECT TOP 10 ID\n\t       FROM dbo.Features\n\t   ORDER BY NEWID()\n\t) AS F\n\t\n\nOnly trouble is this returns the same values for each row. How do I order them randomly?",
+  "lastActivityDate": "2014-03-26T03:20:27.643",
+  "title": "SQL OUTER JOIN with NEWID to generate random data for each row",
+  "tags": [
+    "sql",
+    "sql-server",
+    "random"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

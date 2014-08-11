@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2264859",
+  "creationDate": "2014-02-18T01:08:41.243",
+  "body": "\n\nI have problems getting data from grails using extjs.\nMy Grails controller code is:\n\n\t   def getElements = { \n\t        def json =   [\n\t         \"firstName\": \"John\",\n\t         \"lastName\": \"Smith\",\n\t         \"age\": 25,\n\t         \"address\": [\n\t             \"streetAddress\": \"21 2nd Street\",\n\t             \"city\": \"New York\",\n\t             \"state\": \"NY\",\n\t             \"postalCode\": \"10021\"\n\t         ],\n\t         \"phoneNumbers\": [\n\t             [ \"type\": \"home\", \"number\": \"212 555-1234\" ],\n\t             [ \"type\": \"fax\", \"number\": \"646 555-4567\" ]\n\t         ],\n\t         \"newSubscription\": false,\n\t         \"companyName\": null\n\t        ] as JSON\n\t\n\t        response.setHeader('Content-disposition', 'filename=\"json\"')\n\t        response.contentType = \"text/json\";\n\t        render (json) as JSON\n\t        }\n\t\n\nWhen I browse to .../controller/getElements I do get an JSON Element as download.\n\nActually, I want to use this json in ExtJS. My ExtJS code:\n\n\t...\n\tvar jsonstore = new Ext.data.JsonStore({\n\t   url: \"datenabruf/getElements\",\n\t   fields: [ 'firstName','lastName'],\n\t   paramNames: { start : \"offset\", limit :\"max\", sort : \"sort\", dir : \"order\" }\n\t});\n\talert(jsonstore.getTotalCount());\n\t\n\nThe problem is, that I get 0 elements.\nAm I missing some parameters?",
+  "lastActivityDate": "2014-02-18T01:55:56.120",
+  "title": "ExtJS JSON and Grails",
+  "tags": [
+    "json",
+    "grails",
+    "extjs"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

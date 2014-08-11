@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069450",
+  "creationDate": "2014-01-17T20:06:25.363",
+  "body": "\n\nI am trying very hard to get a bus error.\n\nOne way is misaligned access and I have tried the examples given [](http://en.wikipedia.org/wiki/Bus_error) and [](http://bytes.com/topic/c/answers/547755-misaligned-access-clarification), but no error for me -  the programs execute just fine.\n\nIs there some situation which is sure to produce a bus error?",
+  "lastActivityDate": "2014-03-24T22:39:51.377",
+  "title": "How to get a \"bus error\"?",
+  "tags": [
+    "c++",
+    "bus-error"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

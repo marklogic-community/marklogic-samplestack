@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2071204",
+  "creationDate": "2014-01-18T03:51:09.430",
+  "body": "\n\nOk,\n\nI'm trying to save some time creating some generic classes to draw objects in the 3D space.\n\nI created a Object3D class with the properties x, y, and z.\n\nThe thumbnail3D is a \"son\" of Object3D using inheritance. Vertex3D is a struct with a GLfloat for every coord.\n\nThe problem is when I try to compile the method initWithPosition:( Vertex3D *)vertex, and the error is:\n\n**Request for member 'x' in something not structure or union.\nRequest for member 'y' in something not structure or union.\nRequest for member 'z' in something not structure or union.**\n\nBut, the structure is on the import...\n\n\t#import <UIKit/UIKit.h>\n\t#import <OpenGLES/ES2/gl.h>\n\t\n\t@interface Object3D : NSObject \n\t{\n\t    GLfloat x;\n\t    GLfloat y;\n\t    GLfloat z;\n\t}\n\t\n\t@property  GLfloat x;\n\t@property  GLfloat y;\n\t@property  GLfloat z;\n\t\n\t-(void) render;\n\t\n\t@end\n\t\n\nThe render is still hardcoded\n\n\t#import \"Thumbnail3D.h\"\n\t#import \"ConstantsAndMacros.h\"\n\t#import \"OpenGLCommon.h\"\n\t\n\t@implementation Thumbnail3D\n\t\n\t@synthesize width;\n\t@synthesize height;\n\t\n\t-(void)render\n\t{\n\t    Triangle3D  triangle[2];\n\t    triangle[0].v1 = Vertex3DMake(0.0, 1.0, -3.0);\n\t    triangle[0].v2 = Vertex3DMake(1.0, 0.0, -3.0);\n\t    triangle[0].v3 = Vertex3DMake(-1.0, 0.0, -3.0);\n\t    triangle[1].v1 = Vertex3DMake(-1.0, 0.0, -3.0);\n\t    triangle[1].v2 = Vertex3DMake(1.0, 0.0, -3.0);\n\t    triangle[1].v3 = Vertex3DMake(0.0, -1.0, -3.0);\n\t\n\t    glLoadIdentity();\n\t    glClearColor(0.7, 0.7, 0.7, 1.0);\n\t    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);\n\t    glEnableClientState(GL_VERTEX_ARRAY);\n\t    glColor4f(1.0, 0.0, 0.0, 1.0);\n\t    glVertexPointer(3, GL_FLOAT, 0, &triangle);\n\t    glDrawArrays(GL_TRIANGLES, 0, 18);\n\t    glDisableClientState(GL_VERTEX_ARRAY);\n\t}\n\t\n\t-(void)initWithPosition:(Vertex3D *)vertex\n\t{\n\t    x = vertex.x;\n\t    y = vertex.y;\n\t    z = vertex.z;\n\t}\n\t\n\t@end\n\t",
+  "lastActivityDate": "2014-01-18T16:45:39.780",
+  "title": "Trying a tiny winy 3D classes for iPhone",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "3d"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

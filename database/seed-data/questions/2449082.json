@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2449082",
+  "creationDate": "2014-03-18T01:22:32.357",
+  "body": "\n\ni have this line below that shows a link to go the next page of a list.\n\n\t<a href=\"#\" onclick=\"new Ajax.Updater('lista_miembros',\n\t'/frontend_dev.php/miembros/filtrar?page=2')\">Next page</a>\n\t\n\nThe problem: as expected, it only works in the development enviroment of\nthe frontend (frontend_dev.php).\n\nMy question: what should i to get it work on both enviroments\n(production and development)? Using if's and getting the environment\nbeing used is the only way, or is there any cooler way?\n\nJavi ",
+  "lastActivityDate": "2014-03-18T01:26:12.087",
+  "title": "Question about an AJAX link and the dev and prod enviroments",
+  "tags": [
+    "ajax",
+    "symfony1"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

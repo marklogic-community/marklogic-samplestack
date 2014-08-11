@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2642188",
+  "creationDate": "2014-04-17T09:33:33.147",
+  "body": "\n\nIn my database schema each forum has a category and categories can have many forums. I'm trying to list categories and their respective forums with the following code: \n\n\t<%@ Page Title=\"\" Language=\"C#\" MasterPageFile=\"~/Views/Shared/Site.Master\" Inherits=\"System.Web.Mvc.ViewPage<dynamic>\" %>\n\t\n\t<asp:Content ID=\"Content1\" ContentPlaceHolderID=\"TitleContent\" runat=\"server\">\n\t    Index\n\t</asp:Content>\n\t\n\t<asp:Content ID=\"Content2\" ContentPlaceHolderID=\"MainContent\" runat=\"server\">\n\t\n\t    <h2>Index</h2>\n\t    <% foreach (GameSite.Models.Category category in (IEnumerable)ViewData[\"Categories\"])\n\t       { %>\n\t       <%= category.Name %>\n\t       <% foreach (GameSite.Models.Forum forum in (IEnumerable)category.Forums)\n\t          { %>\n\t          <%= forum.Name %>\n\t       <% } %>\n\t    <% } %>\n\t</asp:Content>\n\t\n\nWhen this is run I get the following error:\n\n\tCompilation Error\n\tDescription: An error occurred during the compilation of a resource required to service this request. Please review the following specific error details and modify your source code appropriately. \n\t\n\tCompiler Error Message: CS0012: The type 'System.Data.Linq.EntitySet`1<T0>' is defined in an assembly that is not referenced. You must add a reference to assembly 'System.Data.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.\n\t\n\tSource Error:    \n\tLine 11:        { %>\n\tLine 12:        <%= category.Name %>\n\tLine 13:        <% foreach (GameSite.Models.Forum forum in (IEnumerable)category.Forums)\n\tLine 14:           { %>\n\tLine 15:           <%= forum.Name %>\n\t\n\nI can confirm that `System.Data.Linq` is being referenced in my project.\n\nAny ideas?",
+  "lastActivityDate": "2014-02-21T05:08:36.003",
+  "title": "ASP.NET MVC 2 + LINQ to SQL - CS0012 Compilation Error",
+  "tags": [
+    "linq-to-sql",
+    "asp.net-mvc-2",
+    "c#-4.0",
+    "asp.net-4.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

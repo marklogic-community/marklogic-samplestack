@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071247",
+  "creationDate": "2014-01-18T04:00:48.290",
+  "body": "\n\nI'm using Delphi 5, and we have a method to dynamically create certain controls based on the contents of a database table (we create TButtons mostly) and take action when those are clicked. This allows us to add simple controls to a form without having to recompile the application.\n\nI was wondering if it was possible to set a component's property based on a property name contained in a string so we could set further options.\n\nPseudo-code:\n\n\tComp := TButton.Create(Self);\n\t\n\t// Something like this:\n\tComp.GetProperty('Left').AsInteger := 100;\n\t// Or this:\n\tComp.SetProperty('Left', 100);\n\t\n\nIs this possible at all? ",
+  "lastActivityDate": "2014-01-18T04:29:38.077",
+  "title": "Dynamically access a property in a Delphi component",
+  "tags": [
+    "delphi",
+    "dynamic"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

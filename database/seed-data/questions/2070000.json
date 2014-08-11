@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2070000",
+  "creationDate": "2014-01-17T23:07:06.770",
+  "body": "\n\nI have two tables: Coupons and Responses.\n\nThe Coupons table includes fields such as:\n* VendorID [key]\n* CouponID [key]\n* CouponDescription\n\nThe Responses table includes fields such as:\n* RespondentID [key]\n* CouponID [key]\n* (VendorID not repeated in this table.)\n* Accepted [true/false]\n* Rejected [true/false]\n* Rating [1 to 5]\n\nWhen someone accepts a coupon, they eventually rate it in the Responses table. Likewise, when someone rejects a coupon, the rejection appears in the Responses table.\n\nWhen fetching a list of available coupons from the Coupons table, I'd like to exclude vendors who previously received two or more rejections from a respondent. For instance if RespondentID 3 previously rejected two or more coupons from Vendor 47, all coupons from Vendor 47 would no longer be shown to RespondentID 3.\n\nTwo things make it difficult for a SQL novice like myself. \n\n1. The first is how to write the subquery that counts rejections *from* a particular vendor and *by* a particular respondent. \n\n2. The second is how to join-back (so to speak) the Responses table to the Coupons table so that the sub-query of the Responses table bases its result on the RespondentID (which is in the Responses table) and the VendorID (which is *not* in the Responses table and must be determined based on the CouponID (which is in both tables).\n\nThanks for your assistance. It's always appreciated.",
+  "lastActivityDate": "2014-01-18T11:59:21.803",
+  "title": "Exclude records from one table based on count in joined table",
+  "tags": [
+    "mysql",
+    "count",
+    "inner-join"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

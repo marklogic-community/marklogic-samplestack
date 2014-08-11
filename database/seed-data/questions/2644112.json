@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644112",
+  "creationDate": "2014-04-17T17:30:50.380",
+  "body": "\n\nI have an Java applications which I would like to run with different values of input parameters (specified in the command line). In \"Run -> Run Configurations\" I have created different configurations corresponding to different values of the input arguments.\n\nI can run these configurations in the same way (throw \"Run -> Run Configurations\"). But in these case I have to perform to many actions (clicks) to run a particular configuration. Is there a easier (faster) way to do that? For example I expect that I can do it throw \"Run -> Run as\" but in the drop-dawn menu of the \"Run as\" I see \"(Not Applicable)\".",
+  "lastActivityDate": "2014-04-17T18:59:05.440",
+  "title": "How can I easily run different configurations in Eclipse?",
+  "tags": [
+    "java",
+    "eclipse",
+    "configuration"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

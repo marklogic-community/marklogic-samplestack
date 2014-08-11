@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446868",
+  "creationDate": "2014-03-17T20:00:43.893",
+  "body": "\n\nI'm trying to create a layout with display: table and alike, but it seems that display: table-row and others do not respect width property. Is there a way to over come with this?",
+  "lastActivityDate": "2014-03-17T20:10:13.993",
+  "title": "Setting width for display: table",
+  "tags": [
+    "html",
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

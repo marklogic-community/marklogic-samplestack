@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644437",
+  "creationDate": "2014-04-17T18:25:39.273",
+  "body": "\n\nI must be missing something obvious here... I can't get [.change()](http://api.jquery.com/change/) to fire on radio buttons? I have the code below live [here](http://bjmarine.net/test.html)!\n\n\t<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\t<html xmlns=\"http://www.w3.org/1999/xhtml\">\n\t<head>\n\t    <title>Radio Button jQuery Change</title>\n\t    <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js\" type=\"text/javascript\"></script>\n\t    <script type=\"text/javascript\">\n\t        console.log(\"parsed\");\n\t        $(\"input[name='rdio']\").change(function() {\n\t            console.log(\"changed\");\n\t            if ($(\"input[name='rdio']:checked\").val() == 'a')\n\t                $(\"output\").text(\"a changed\");\n\t            else if ($(\"input[name='rdio']:checked\").val() == 'b')\n\t                $(\"output\").text(\"b changed\");\n\t            else\n\t                $(\"output\").text(\"c changed\");\n\t        });\n\t    </script>\n\t</head>\n\t<body>\n\t    <div>\n\t        <input type=\"radio\" name=\"rdio\" value=\"a\" checked=\"checked\" /> a <br/>\n\t        <input type=\"radio\" name=\"rdio\" value=\"b\" /> b <br/>\n\t        <input type=\"radio\" name=\"rdio\" value=\"c\" /> c\n\t    </div>\n\t    <h3>Output:</h3>\n\t    <div id=\"output\"></div>\n\t</body>\n\t</html>\n\t\n\nCan anyone see what I've missed?\n\nThanks,\nDenis",
+  "lastActivityDate": "2014-10-22T20:06:30.650",
+  "title": "jQuery .change() on Radio Button",
+  "tags": [
+    "javascript",
+    "jquery",
+    "input"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

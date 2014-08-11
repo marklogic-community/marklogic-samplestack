@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646721",
+  "creationDate": "2014-04-17T23:36:42.380",
+  "body": "\n\nI am trying to return a simple array, but I am not getting the correct result. \nI am getting the following \n\n\tarr1[0] = 1 \n\tarr1[1] = 32767\n\t\n\nresult while the result should have been\n\n\t  arr1[0] = 1 \n\t  arr1[1] = 15\n\t\n\nPlease suggest.\n\n\tint *sum(int a, int b){\n\t  int arr[2];\n\t  int *a1;\n\t  int result = a+b;\n\t  arr[0]= 1;\n\t  arr[1]= result;\n\t  a1 = arr;\n\t  return a1;\n\t}\n\tint main(){  \n\t\n\t  int *arr1 =  sum(5,10);\n\t  cout<<\"arr1[0] = \"<<arr1[0]<<endl;\n\t  cout<<\"arr1[1] = \"<<arr1[1]<<endl;\n\t\n\t  return 0;\n\t\n\t}\n\t",
+  "lastActivityDate": "2014-04-18T00:12:10.517",
+  "title": "Array not returned correctly",
+  "tags": [
+    "c++",
+    "arrays"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

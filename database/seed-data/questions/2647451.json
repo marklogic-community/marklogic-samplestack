@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2647451",
+  "creationDate": "2014-04-18T01:13:19.750",
+  "body": "\n\nI have a performance problem on a query. \n\nFirst table is a Customer table which has millions records in it. Customer table has a column of email address and some other information about customer.\n\nSecond table is a CommunicationInfo table which contains just Email addresses. \n\nAnd What I want in here is; how many times the email address in CommunicationInfo table repeats in Customers table. What could be the the most performer query.\n\nThe basic query that I can explain this situation is;\n\n\tSelect ci.Email, count(*) from Customer c left join \n\tCommunicationInfo ci on c.Email1 = ci.Email or c.Email2 = ci.Email \n\tGroup by ci.Email\n\t\n\nBut sure, it takes about 5, 6 minutes in execution.\n\nThanks in Advance.",
+  "lastActivityDate": "2014-04-18T01:37:27.863",
+  "title": "Performance problem on a query",
+  "tags": [
+    "sql-server",
+    "tsql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

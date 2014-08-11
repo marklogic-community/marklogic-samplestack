@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2641861",
+  "creationDate": "2014-04-17T08:02:05.050",
+  "body": "\n\nSay i have those 3 arrays :\n\n\tProduct(milk,candy,chocolate)\n\tColors(white,red,black)\n\tRating(8,7,9)\n\t\n\nHow to create a loop to bind those arrays so i get 3 variables in each loop : `$product``$color``$rating`\n\nSo by example i will output like this:\n\n**Milk** is **white** and has a rating of **8**/10\n\n**Candy** is **red** and has a rating of **7**/10\n\n**Chocolate** is **black** and has a rating of **9**/10\n\nThanks",
+  "lastActivityDate": "2014-04-17T08:17:09.153",
+  "title": "How to bind arrays?",
+  "tags": [
+    "php",
+    "arrays"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

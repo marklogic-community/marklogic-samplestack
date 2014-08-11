@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2268075",
+  "creationDate": "2014-02-18T10:28:00.447",
+  "body": "\n\nWhat's the best pattern for making datasets threadsafe on write? \n\nThe best I can find by googling is *'implement a wrapper layer with locks'* but at first blush this seems rather messy.\n\nCan someone recommend / point me in the direction of a good solution to this? It seems likely to be a problem that has already been solved somewhere.\n\nedit: I also need to bind the dataset to a ui grid, which complicates matters somewhat.",
+  "lastActivityDate": "2014-02-18T10:36:41.643",
+  "title": "Making datasets thread safe in C#",
+  "tags": [
+    "c#",
+    "multithreading",
+    "dataset"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

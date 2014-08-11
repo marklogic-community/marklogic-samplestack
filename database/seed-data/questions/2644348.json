@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644348",
+  "creationDate": "2014-04-17T18:10:36.367",
+  "body": "\n\n\tvar Dog = function(name) {\n\t  this.name = name;\n\t  this.sayName();\n\t}\n\t\n\tDog.prototype.sayName = function() {\n\t  alert(this.name);\n\t}\n\t\n\nI'm creating new instance of Dog object `Dog('Bowwow')`, but method sayName() is undefined. Why?\n\nOr maybe I should do something like (but I can't see difference)...\n\n\tvar Dog = function(name) {\n\t\n\t  this.name = name;\n\t\n\t  this.sayName();\n\t\n\t  this.prototype.sayName = function() {\n\t    alert(this.name);\n\t  }\n\t}\n\t\n\nThank you.",
+  "lastActivityDate": "2014-04-17T18:21:08.890",
+  "title": "How to call object's method from constructor?",
+  "tags": [
+    "javascript",
+    "oop"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

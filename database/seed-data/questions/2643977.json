@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2643977",
+  "creationDate": "2014-04-17T17:07:46.627",
+  "body": "\n\nhow to store a value returned from a sql query in a variable in batch programming ?\n\ni can invoke sqlserver queries from my cmd prompt using sqlcmd server name then the qwery \n\nthis is query statement i m going to use \n\nSELECT\n        CASE \n           WHEN DATEDIFF(minute, record_timestamp, GETDATE()) < 10 THEN 1 \n           ELSE 0 \n    END\n\nhow to store the value returned \n\ni tried using set variablename but it save the statement rather than the return value ..\n\nand if i save this in a variable what type of variable it will can i compare it with numeric values in if condition ",
+  "lastActivityDate": "2014-04-17T21:44:01.733",
+  "title": "how to store a value returned from a sql query in a variable in batch programming?",
+  "tags": [
+    "windows",
+    "sql-server-2005",
+    "scripting",
+    "command-prompt"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

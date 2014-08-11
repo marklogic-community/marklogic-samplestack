@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839187",
+  "creationDate": "2014-05-17T14:42:11.087",
+  "body": "\n\nI know this same question was asked for Entity Framework 1, but now that Entity Framework 4 has come out, and Microsoft claims that it provides all of the features of Linq to Sql + more, does Entity Framework now support lazy loading expensive properties?  In Linq to Sql, this is extremely easy.  There's a Delay Loaded option on any property (accessible through the Designer) that can simply be toggled on or off.  Is there something similar in Entity Framework?\n\nThanks",
+  "lastActivityDate": "2014-12-04T01:18:26.333",
+  "title": "Entity Framework 4 - Delay Loading Expensive Fields",
+  "tags": [
+    ".net",
+    "entity-framework",
+    "orm"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

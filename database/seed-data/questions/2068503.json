@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2068503",
+  "creationDate": "2014-01-17T16:10:04.770",
+  "body": "\n\nHey everyone, I am trying to hide/show different html elements (div, etc...) based on whether a checkbox is checked or if a specific value is chosen from a dropdown box. I was wondering if someone can help me out. The html element is defined along the lines of this (below), and i'm not sure how to reference it by name with brackets in it. The page i'm using has jquery enabled, and i'd like to use it if possible. Thanks!\n\n\t<input type=\"checkbox\" name=\"addons[2]\" />\n\t\n\nAlso - I cannot modify the checkbox's code.",
+  "lastActivityDate": "2014-11-28T00:55:08.240",
+  "title": "Reference HTML Elements by name (with square brackets in them) via javascript",
+  "tags": [
+    "javascript",
+    "jquery",
+    "html",
+    "forms"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

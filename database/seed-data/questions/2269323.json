@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2269323",
+  "creationDate": "2014-02-18T14:18:32.657",
+  "body": "\n\nI am learning Servlets and JSP. I am wondering about the \"doGet\" and other methods that may be overidden. The \"doGet\" takes 2 params - HTTPServletRequest request, and HTTPServletResponse response. This is my question: The request and response objects are used within the method body but I do not see any object creation e.g. request = new HTTPServletRequest. Are these objects created elsewhere e.g. in the superclass? This is just a Java question really as I often wonder about this with Applets also, i.e. the Graphics g object is passed to the \"paint\" method but I don't see it's creation anywhere?\n\nGF",
+  "lastActivityDate": "2014-02-18T14:57:58.687",
+  "title": "Is Passing a Parameter to a method the same as creating an object?",
+  "tags": [
+    "java"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

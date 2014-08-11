@@ -1,1 +1,21 @@
-{"id":"/questions/20864452.json", "creationDate":"2014-01-01T00:10:40.443", "body":"\n\nIs there a way to use textpath using SnapSVG? I tried using textPath as an attribute but it does not seem to add a textpath element in the text node.\n\n\tvar txtpth = s.path(\"M70 70 Q 80 90 200 150 L 200 400\").attr({\n\t    fill: \"none\",\n\t    stroke: \"black\"\n\t });\n\tvar crooked = s.text(0,0,\"lorempsum ipsum lorempsum ipsum lorempsum ipsum lorempsum   ipsum\").attr({\n\t     textPath: txtpth,\n\t     stroke:\"black\"\n\t });\n\t\n\nI do not see a direct API to manipulate text paths in SVG using snap.svg.", "lastActivityDate":"2014-01-07T10:19:35.113", "title":"How to use textPath for text in snap.svg?", "tags":["javascript", "svg", "snap.svg"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"Tech Pro", "id":"2452938"}}
+{
+  "id": "/questions/20864452",
+  "creationDate": "2014-01-03T16:10:40.443",
+  "body": "\n\nIs there a way to use textpath using SnapSVG? I tried using textPath as an attribute but it does not seem to add a textpath element in the text node.\n\n\tvar txtpth = s.path(\"M70 70 Q 80 90 200 150 L 200 400\").attr({\n\t    fill: \"none\",\n\t    stroke: \"black\"\n\t });\n\tvar crooked = s.text(0,0,\"lorempsum ipsum lorempsum ipsum lorempsum ipsum lorempsum   ipsum\").attr({\n\t     textPath: txtpth,\n\t     stroke:\"black\"\n\t });\n\t\n\nI do not see a direct API to manipulate text paths in SVG using snap.svg.",
+  "lastActivityDate": "2014-08-11T05:42:56.204",
+  "title": "How to use textPath for text in snap.svg?",
+  "tags": [
+    "javascript",
+    "svg",
+    "snap.svg"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "Tech Pro",
+    "id": "2452938"
+  }
+}

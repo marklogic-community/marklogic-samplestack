@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2840593",
+  "creationDate": "2014-05-17T23:11:40.127",
+  "body": "\n\nIt takes about minute to achieve 3000 in my comp but I need to know the millionth number in the series. The definition is recursive so I cannot see any shortcuts except to calculate everything before the millionth number. How can you fast calculate millionth number in the series? \n\n**Series Def**\n\n`n_{i+1} = \\floor{ 3/2 * n_{i} }` and `n_{0}=2`.\n\nInterestingly, only one site list the series according to Google: [this one](http://www.research.att.com/~njas/sequences/b061418.txt). \n\n**Too slow Bash code**\n\n\t#!/bin/bash\n\t\n\tfunction series \n\t{\n\t        n=$( echo \"3/2*$n\" | bc -l | tr '\\n' ' ' | sed -e 's@\\\\@@g' -e 's@ @@g' );\n\t                                        # bc gives \\ at very large numbers, sed-tr for it\n\t        n=$( echo $n/1 | bc )           #DUMMY FLOOR func\n\t}\n\t\n\tn=2\n\tnth=1\n\t\n\twhile [ true ]; #$nth -lt 500 ];\n\tdo\n\t        series $n                        # n gets new value in the function through global value\n\t        echo $nth $n\n\t        nth=$( echo $nth + 1 | bc )     #n++\n\tdone\n\t",
+  "lastActivityDate": "2014-05-06T05:50:28.650",
+  "title": "How do I find the millionth number in the series: 2 3 4 6 9 13 19 28 42 63 ...?",
+  "tags": [
+    "bash",
+    "math",
+    "recursion",
+    "series"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840374",
+  "creationDate": "2014-05-17T22:00:00.670",
+  "body": "\n\nI have this encryption/decryption implemented and executes with no error, but i am unable to decrypt the data and im not sure whether the data is encrypted, kindly help.\n\n\t- (NSData *)AES256EncryptWithKey:(NSString *)key {\n\t\n\tchar keyPtr[kCCKeySizeAES256+1]; \n\tbzero(keyPtr, sizeof(keyPtr));\n\t\n\t\n\t[key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];\n\t\n\t\n\tNSUInteger dataLength = [strData length];\n\tdata = [[NSData alloc] init];\n\tdata = [strData dataUsingEncoding:NSUTF8StringEncoding];\n\t\n\t\n\tsize_t bufferSize = dataLength + kCCBlockSizeAES128;\n\tvoid *pribuffer = malloc(bufferSize);\n\t\n\tsize_t numBytesEncrypted = 0;\n\tCCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding,\n\t                                      keyPtr, kCCKeySizeAES256,\n\t                                      NULL /* initialization vector (optional) */,\n\t                                      [data bytes], dataLength, /* input */\n\t                                      [data bytes], bufferSize, /* output */\n\t                                      &numBytesEncrypted);\n\tif (cryptStatus == kCCSuccess) {\n\t    return [NSData dataWithBytesNoCopy:data length:numBytesEncrypted];\n\t}}\n\t\n\nThe decryption is :\n\n\t-(NSData *)AES256DecryptWithKey:(NSString *)key andForData:(NSData *)objDataObject {\n\tchar keyPtr[kCCKeySizeAES256+1];\n\tbzero(keyPtr, sizeof(keyPtr)); \n\t[key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];\n\t\n\tNSUInteger dataLength = [objDataObject length];\n\tsize_t bufferSize = dataLength + kCCBlockSizeAES128;\n\tvoid *buffer = malloc(bufferSize);\n\t\n\tsize_t numBytesDecrypted = 0;\n\tCCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding,\n\t                                      keyPtr, kCCKeySizeAES256,\n\t                                      NULL,\n\t                                      [objDataObject bytes], dataLength,\n\t                                      [objDataObject bytes], bufferSize,\n\t                                      &numBytesDecrypted);\n\t\n\tif (cryptStatus == kCCSuccess) {\n\t    return [NSData dataWithBytesNoCopy:objDataObject length:numBytesDecrypted];\n\t}\n\t\n\n}\n\ni call the above methods like this:\n\n\tCryptoClass *obj = [CryptoClass new];\n\tNSData *objData = [obj AES256EncryptWithKey:@\"hell\"];\n\t\n\tNSData *val = [obj AES256DecryptWithKey:@\"hell\" andForData:objData ];\n\t\n\tNSLog(@\"decrypted string is : %@ AND LENGTH IS %d\",[val description],[val length]);\n\t\n\nDecryption doesnt seem to happen at all and the encryption - i am not sure about it, kindly help me here.",
+  "lastActivityDate": "2014-05-21T05:06:40.047",
+  "title": "iphone encryption not working",
+  "tags": [
+    "iphone",
+    "encryption"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

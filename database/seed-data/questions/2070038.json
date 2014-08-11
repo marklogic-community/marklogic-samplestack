@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2070038",
+  "creationDate": "2014-01-17T23:20:11.427",
+  "body": "\n\nI have a \n\n\tchar* aString\n\t\n\nand I want to write the portion of `aString` between `from` and `to`, what is the most efficient way?\n\nI think of a way which writes 1 characters at a time.\n\n\tchar* p = aString + from;\n\tfor (int i =0; i < (to-from); i++) {\n\t    fprintf(aFile, \"%c\", p++);\n\t}\n\t\n\nI wonder if there is a faster way?",
+  "lastActivityDate": "2014-01-17T23:41:02.590",
+  "title": "An efficient way to print a string to a file",
+  "tags": [
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

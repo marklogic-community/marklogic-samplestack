@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266151",
+  "creationDate": "2014-02-18T05:19:22.863",
+  "body": "\n\nI have:\n\n\tProtected Sub SepInsert(ByVal mriId As VariantType, \n\t                        ByVal aeId As VariantType, \n\t                        ByVal absId As VariantType)\n\t...\n\tEnd Sub\n\t\n\nand want to call it with a DropDownList selection like this:\n\n\tProtected Sub cmdNewPrelinkedMri_Click(ByVal sender As Object, \n\t                                       ByVal e As System.EventArgs\n\t                                      ) Handles cmdNewPrelinkedMri.Click\n\t    SepInsert(ddlMriUnassigned.SelectedValue, -1, -1)\n\tEnd Sub\n\t\n\nwhere the ddl selected value is, of course, a string (e.g., \"0412B0\").\n\nI am getting an InvalidCastException saying: Conversion from string \"0412B0\" to type 'Integer' is not valid. Why does it want to convert to 'Integer' when the parameter is declared as VariantType?\n\nWhat am I misunderstanding or doing wrong? Thanks,\n\nChris",
+  "lastActivityDate": "2014-02-18T05:21:52.470",
+  "title": "Why am I getting InvalidCastException passing a string to a VariantType parameter?",
+  "tags": [
+    "asp.net",
+    "drop-down-menu",
+    "invalidcastexception"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

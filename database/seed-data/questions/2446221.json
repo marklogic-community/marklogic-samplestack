@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446221",
+  "creationDate": "2014-03-17T17:55:20.480",
+  "body": "\n\nIs there any CMD command line that shows all partition letters. For example: C, D, E...\n\nCan that command also show all the partition's information? Free space, used space, total space?",
+  "lastActivityDate": "2014-09-05T23:28:39.230",
+  "title": "Partition information from CMD",
+  "tags": [
+    "command-line",
+    "disk-partitioning"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2648364",
+  "creationDate": "2014-04-18T03:29:08.883",
+  "body": "\n\nI've got a simple class Currency with overloaded operator<<. I don't know how can i separate the number with spaces every 3 digits, so it looks like: \"1 234 567 ISK\".\n\n\t#include <cstdlib>\n\t#include <iostream>\n\t\n\tusing namespace std;\n\t\n\tclass Currency\n\t{\n\t    int val;\n\t    char curr[4];\n\t\n\t    public:\n\t    Currency(int _val, const char * _curr)\n\t    {\n\t        val = _val;\n\t        strcpy(curr, _curr);\n\t    }\n\t\n\t    friend ostream & operator<< (ostream & out, const Currency & c);\n\t};\n\t\n\tostream & operator<< (ostream & out, const Currency & c)\n\t{\n\t    out << c.val<< \" \" << c.curr;\n\t    return out;\n\t}\n\t\n\tint main(int argc, char *argv[])\n\t{\n\t    Currency c(2354123, \"ISK\");\n\t    cout << c;\n\t}\n\t\n\nWhat interests me, is somehow the easiest solution for this particular situation.",
+  "lastActivityDate": "2014-10-31T06:04:02.997",
+  "title": "How to print a number with a space as thousand separator?",
+  "tags": [
+    "c++"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

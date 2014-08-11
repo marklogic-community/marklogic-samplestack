@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2444522",
+  "creationDate": "2014-03-17T09:02:33.433",
+  "body": "\n\nI have the following class:\n\n\tpublic class Account\n\t{\n\t    public int AccountID { get; set; }\n\t    public Enterprise Enterprise { get; set; }\n\t    public List<User> UserList { get; set; }\n\t}\n\t\n\nAnd I have the following method fragment:\n\n\tEntities.Account accountDto = new Entities.Account();\n\tDAL.Entities.Account account;\n\t\n\tMapper.CreateMap<DAL.Entities.Account, Entities.Account>();\n\tMapper.CreateMap<DAL.Entities.User, Entities.User>();\n\t\n\taccount = DAL.Account.GetByPrimaryKey(this.Database, primaryKey, withChildren);\n\t\n\tMapper.Map(account,accountDto);\n\treturn accountDto;\n\t\n\nWhen the method is called, the Account class gets mapped correctly but the list of users in the Account class does not (it is NULL). There are four User entities in the List that should get mapped. Could someone tell me what might be wrong?",
+  "lastActivityDate": "2014-04-26T12:19:33.593",
+  "title": "AutoMapper Problem - List won't Map",
+  "tags": [
+    "automapper"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

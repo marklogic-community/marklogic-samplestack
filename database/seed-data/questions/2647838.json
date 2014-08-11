@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2647838",
+  "creationDate": "2014-04-18T02:07:56.720",
+  "body": "\n\nA few questions have come up recently involving the `Application.Evaluate` method callable from Excel VBA. The old XLM macro language also exposes an `EVALUATE()` function. Both can be quite useful. Does anyone know why the evaluator that is exposed can handle general expressions, though?\n\nMy own hunch is that Excel needed to give people a way to get ranges from string addresses, and to get the value of named formulas, and just opening a portal to the expression evaluator was the easiest way. (The help for the VBA version does say its purpose it to \"convert a Microsoft Excel name to an object or a value\".) But of course you don't need the ability to evaluate arbitrary expressions just to do that. (That is, Excel could provide a `Name.Evaluate` method or something instead.)\n\n`Application.Evaluate` seems kind of...unfinished. It's full behavior isn't very well documented, and there are quite a few quirks and limitations (as described by Charles Williams here: [http://www.decisionmodels.com/calcsecretsh.htm](http://www.decisionmodels.com/calcsecretsh.htm)) with what is exposed.\n\nI suppose the answer could be simply \"why not expose it?\", but I'd be interested to know what design decisions led to this feature taking the form that it does. Failing that, I'd be interested to hear other hunches.",
+  "lastActivityDate": "2014-04-18T03:49:16.403",
+  "title": "Why is Excel's 'Evaluate' method a general expression evaluator?",
+  "tags": [
+    "excel",
+    "design",
+    "vba",
+    "eval"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

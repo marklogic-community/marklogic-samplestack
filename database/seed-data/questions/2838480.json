@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2838480",
+  "creationDate": "2014-05-17T09:02:49.977",
+  "body": "\n\nHope my subject line was descriptive enough.\n\nBasically, I have a table called Students, and one called Absences. The Students table contains student information (Name, DOB, StudentID etc.), the Absences table contains any absences (Date, Reason, related by StudentID). I want to get a full list of the students, plus a count of their absences.\n\nSample results would be:\n\n<pre>\nStudentName    Absences\n-------------  -----------\nJohnny         3\nMark           2\nJames          1\nAnthony        0\nSharon         0\n</pre>\n\nCan someone suggest a way I should tackle this problem?\n\nI would prefer to have a single SQL statement, possibly incorporating some views etc.\n\nThanks, \n\nJacob.",
+  "lastActivityDate": "2014-05-19T11:09:47.683",
+  "title": "How to get a list of names + a count of occurrences relating to the name from another table",
+  "tags": [
+    "sql",
+    "tsql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

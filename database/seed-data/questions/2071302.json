@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071302",
+  "creationDate": "2014-01-18T04:10:18.893",
+  "body": "\n\nI have an Edit button in my navigation bar, and I have an table view.\n\nMy edit button calls an -editAction method.\n\nAnd then, I have this piece of code to delete a cell, but I don't know how I can make the edit button to call this code...or how the edit button can let the table view display those red delete circles for every cell, which then trigger this:\n\n\t// Override to support editing the table view.\n\t- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {\n\t    if (editingStyle == UITableViewCellEditingStyleDelete) {\n\t        // Delete the managed object at the given index path\n\t        NSManagedObject *eventToDelete = [eventsArray objectAtIndex:indexPath.row];\n\t        [managedObjectContext deleteObject:eventToDelete];\n\t\n\t        // Update Event objects array and table view\n\t        [eventsArray removeObjectAtIndex:indexPath.row];\n\t        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];\n\t\n\t        // Commit the change\n\t        NSError *error;\n\t        if (![managedObjectContext save:&error]) {\n\t            // Handle the error\n\t        }\n\t    } \n\t}\n\t",
+  "lastActivityDate": "2014-01-18T04:26:20.483",
+  "title": "How to delete cells from a table view?",
+  "tags": [
+    "iphone",
+    "uitableview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

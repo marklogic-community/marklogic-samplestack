@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643025",
+  "creationDate": "2014-04-17T13:50:37.587",
+  "body": "\n\nI'm looking to enable/configure the Hudson plugins logging to show when/what the plugin actions are executed. I'm currently interested in [FTP Uploader Plugin](http://wiki.hudson-ci.org/display/HUDSON/FTP-Publisher+Plugin) but a general config will be more than useful:",
+  "lastActivityDate": "2014-04-18T06:12:01.440",
+  "title": "How to enable/configure the Hudson plugins loging for debugging purpose",
+  "tags": [
+    "logging",
+    "hudson",
+    "hudson-plugins"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

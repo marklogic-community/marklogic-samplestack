@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643264",
+  "creationDate": "2014-04-17T14:54:12.233",
+  "body": "\n\nCan somebody explain me how the  following code works?\n\n\t# if   defined(__ELF__)\n\t#  define __SECTION_FLAGS   \", \\\"aw\\\" , @progbits\"\n\t    /* writable flag needed for ld \".[cd]tors\" sections bug workaround) */\n\t# elif defined(__COFF__)\n\t#  define __SECTION_FLAGS   \", \\\"dr\\\"\"\n\t    /* untested, may be writable flag needed */\n\t# endif\n\t\n\tasm\n\t(\n\t    \".section .ctors\" __SECTION_FLAGS \"\\n\"\n\t    \".globl __ctors_begin__\\n\"\n\t    \"__ctors_begin__:\\n\"\n\t    \".previous\\n\"\n\t);\n\tasm /* ld \".[cd]tors\" sections bug workaround */\n\t(\n\t    \".section .ctors0\" __SECTION_FLAGS \"\\n\"\n\t    \".globl __ctors0_begin__\\n\"\n\t    \"__ctors0_begin__:\\n\"\n\t    \".previous\\n\"\n\t);\n\t\n\nSimilarly we are getting `__ctors_end__` , `__ctors0_end__`  and destructors location is also obtained this way. After some ld bug workarounds all functions pointed by pointers from   `__ctors_begin__` to `__ctors_end__` are executed. I don't know assembler and this code is impossible for me to interpret.\n\nBTW: I know that invoking C++ contructors/destructors from C is not a task to be considered safe or easy.",
+  "lastActivityDate": "2014-01-14T19:30:40.593",
+  "title": "Getting memory section information",
+  "tags": [
+    "c++",
+    "c",
+    "assembly"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

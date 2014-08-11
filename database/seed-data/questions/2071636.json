@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2071636",
+  "creationDate": "2014-01-18T05:09:15.577",
+  "body": "\n\nI am creating a windows form in C#,\n\nI have phone and email fields that I want to validate when the user leaves the fields,\nwhen I double click the textbox in visual studio, it writes a textchanged event, \nI don't want to call the validate method until the user is done entering the full entry.\n\nIs there a way to do this similar to OnBlur in Javascript?\n\nSo Ihave tried MouseLeave,Off Focus, and they all act like TextChanged,\n\nI dont want to raise my validation event until the user is done typing, not after every keystroke.\n\nDoes anybody know how to do this,\n\nThis is for a desktop app, not an asp.net project.",
+  "lastActivityDate": "2014-01-18T06:59:59.563",
+  "title": "Is there a C# method similar to Javascripts OnBlur?",
+  "tags": [
+    "c#",
+    "winforms",
+    "textbox",
+    "methods"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

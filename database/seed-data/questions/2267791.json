@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267791",
+  "creationDate": "2014-02-18T09:41:32.380",
+  "body": "\n\nThis might be a bit like asking how long a length of string is, but the stats are:\n* Intel dual core 4GB RAM\n* Table with 8million rows, ~ 20 columns, mostly varchars with an auto_increment primary id\n* Query is: ALTER TABLE my_table ADD INDEX `my_index` (my_column);\n* my_column is varchar(200)\n* Storage is MyISAM\n\nOrder of magnitude, should it be 1 minute, 10 minutes, 100 minutes?\n\nThanks\n\n<b>Edit:</b> OK it took 2 hours 37 minutes, compared to 0 hours 33 mins on a lesser spec machine, with essentially identical set ups. I've no idea why it took so much longer. The only possibility is that the prod machine HD is 85% full, with 100GB free. Should be enough, but i guess it depends on how that free space is distributed.",
+  "lastActivityDate": "2014-02-18T11:52:09.837",
+  "title": "How long should it take to build an index using ALTER TABLE in MySQL?",
+  "tags": [
+    "mysql",
+    "index"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

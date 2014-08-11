@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2267224",
+  "creationDate": "2014-02-18T08:14:38.613",
+  "body": "\n\nI have read so much on licensing, but still don't understand what I can use for my situation. \n\nI want to develop a program (with a sql db) and after working out some the bugs (with the help of testers), maybe sell some copies.  (Please don't advise me on whether this is a good idea, my question is about licensing.)\n\nI want to use free tools to create it with, but be able to legally sell it later.  SaaS isn't an option.  Can someone point me to a plain-English primer on licensing for my situation, or tell me what my options are?  As I said, I need a sql db (haven't decided between serverless or server ability) and the rest.\n\n(I have some beginner's programming experience, but I will have to learn by doing in whatever language I choose, so I'm pretty open.)\n\nThanks.",
+  "lastActivityDate": "2014-02-20T06:01:58.580",
+  "title": "Licensing 101 for using free tools to develop a program to sell",
+  "tags": [
+    "licensing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

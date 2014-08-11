@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649547",
+  "creationDate": "2014-04-18T06:54:17.690",
+  "body": "\n\nSo I have a silly problem, I have not used much SQL Server before, or any SQL for that matter. I basically have a minor mathematical problem that I need solved, and I thought modulo would be good.\n\nI have a number of dates in the database, but I need them be rounded off to the closest [dynamic integer] (could be anything from 0 to 5000000) which will be input as a parameter each time this query is called.\n\nSo I thought I'd use modulo to find the remainder, then subtract that remainder from the date.\nIf there is a better way, or an integrated function, please let me know!\n\nWhat would be the syntax for that? I've tried a lot of things, but I keep getting error messages like integers/floats/decimals can't be used with the modulo operators. I tried casting to all kinds of numeric datatypes.\n\nAny help would be appreciated.",
+  "lastActivityDate": "2014-04-18T13:59:10.333",
+  "title": "Microsoft SQL Server 2005 - using the modulo operator",
+  "tags": [
+    "sql",
+    "sql-server"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

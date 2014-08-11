@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2648171",
+  "creationDate": "2014-04-18T03:01:56.413",
+  "body": "\n\nAs EF 4.0 released, more support to SQL server Stored procedure. \nComplex Type can be generated automatically for result dataset of SP. \nBut complex type not support by Ria Service. \n\nWhen I try to use ria service combined with EF 4.0, I want to get dataset by SP. This result is not mapped to any entity/table. \n\nSome sulutions suggested by community are:\n1. Create view to map sp result. (but for EF, if there is no ID or primary, can't be map to any entity)\n2. Create Entity to map sp result.(for this, you even need to map SP for CRUD even though I don't need CUD on this sp result)\n\nAlso above solution can't be automated. As Database objects maybe changed with the time, auto update edm will lost above solution. \n\nSo what's the solution? I want to put data operation back to DB as possible, so that many changes can be done in DB and no need to rebuild .net assemblies(this cause redeploy). ",
+  "lastActivityDate": "2014-04-18T04:20:29.160",
+  "title": "solution on SP and EF & Ria Service",
+  "tags": [
+    "silverlight",
+    "entity-framework",
+    "service",
+    "ria"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

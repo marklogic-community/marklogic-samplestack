@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2450972",
+  "creationDate": "2014-03-18T06:40:13.923",
+  "body": "\n\nGiven the following simple program:\n\n\timport wx\n\t\n\tclass TestDraw(wx.Panel):\n\t    def __init__(self,parent=None,id=-1):\n\t        wx.Panel.__init__(self,parent,id,style=wx.TAB_TRAVERSAL)\n\t        self.SetBackgroundColour(\"#FFFFFF\")\n\t        self.Bind(wx.EVT_PAINT,self.onPaint)\n\t        self.SetDoubleBuffered(True)\n\t        self.circleX=320\n\t        self.circleY=240\n\t\n\t    def onPaint(self, event):\n\t        event.Skip()\n\t        dc=wx.PaintDC(self)\n\t        dc.BeginDrawing()\n\t        dc.DrawCircle(self.circleX,self.circleY,100)\n\t        dc.EndDrawing()\n\t\n\tclass TestFrame(wx.Frame):\n\t    def __init__(self, parent, title):\n\t        wx.Frame.__init__(self, parent, title=title, size=(640,480))\n\t        self.mainPanel=TestDraw(self,-1)\n\t\n\t        self.Show(True)\n\t\n\t\n\tapp = wx.App(False)\n\tframe = TestFrame(None,\"Test App\")\n\tapp.MainLoop()\n\t\n\nHow can I change it so that I can execute logic and repaint the panel at a constant rate? I'd like the circle to bounce around the screen, but I just can't figure out the place I would change its x and y variables.",
+  "lastActivityDate": "2014-03-18T06:59:40.157",
+  "title": "How can I make a wxPython app constantly update and execute code?",
+  "tags": [
+    "python",
+    "gui",
+    "wxpython"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

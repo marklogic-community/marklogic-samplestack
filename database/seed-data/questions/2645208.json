@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2645208",
+  "creationDate": "2014-04-17T20:35:33.887",
+  "body": "\n\nAs part of my Installer, I am adding files to an existing COM+ package.  I have defined a ComPlusApplication underneath my Product element, which has the name set to a property - I then have a custom action which looks up that property - all good so far.\n\nWhen the installer adds the files, within the same component I have added a ComPlusAssembly which adds the assembly to the ComPlusApplication I defined above - this is also working correctly.\n\nWhen uninstalled however, I am receiving an error related to being unable to find the COM+ application, this is because I am not running my custom action to look up the name of the COM+ package.  Basically I do not want to remove my files or unregister the component package as part of the uninstallation process - How do I achieve this?\n\nI am using WiX 3.0 with VS2008.\n\nThanks",
+  "lastActivityDate": "2014-05-04T06:53:20.387",
+  "title": "WiX - How do I prevent ComPlusAssembly being unregistered during uninstall?",
+  "tags": [
+    "installer",
+    "wix",
+    "wix3",
+    "uninstall"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

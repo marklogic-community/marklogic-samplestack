@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2264609",
+  "creationDate": "2014-02-18T00:01:12.490",
+  "body": "\n\nI'm looking for a way to calculate multivariate version of Spearman rank correlation $\\rho$. Are there any ready to use Python implementation I can use?",
+  "lastActivityDate": "2014-02-19T00:45:01.923",
+  "title": "Ready implementation of multivariate Spearman rank correlation",
+  "tags": [
+    "python",
+    "statistics",
+    "correlation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

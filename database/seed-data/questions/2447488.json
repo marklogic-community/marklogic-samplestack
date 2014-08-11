@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2447488",
+  "creationDate": "2014-03-17T21:40:24.610",
+  "body": "\n\nWe want to implement a \"News feed\" where a user can see messages\nbroadcasted by her friends, sorted with newest message first. But **the\nfeed should reflect changes in her friends list**. (If she adds new\nfriends, messages from those should be included in the feed, and if\nshe removes friends their messages should not be included.) If we use\nthe [pubsub-test](http://pubsub-test.appspot.com/) example and attach a recipient list to each message\nthis means a lot of manipulation of the message recipients lists when users\nconnect and disconnect friends.\n\nWe first modeled publish-subscribe \"fan out\" using conventional RDBMS\nthinking. It seemed to work at first, but then, since the IN operator\nworks the way it does, we quickly realized we couldn't continue on\nthat path. We found [Brett Slatkin's presentation from last years\nGoogle I/O](http://www.youtube.com/watch?v=AgaL6NGpkB8) and we have now watched it a few times but it isn't clear to\nus how to  do it with \"dynamic\" recipient lists.\n\nWhat we need are some hints on how to \"think\" when modeling this.",
+  "lastActivityDate": "2014-07-24T05:07:45.990",
+  "title": "How to model a social news feed on Google App Engine",
+  "tags": [
+    "python",
+    "google-app-engine",
+    "social-networking",
+    "gae-datastore"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

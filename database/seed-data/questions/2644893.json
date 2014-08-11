@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644893",
+  "creationDate": "2014-04-17T19:46:36.940",
+  "body": "\n\nI am using thick box 3.1 to load a pop up. It working well by using in the following way:\n\n\t<a href=\"filename.php\" class=\"thickbox\"> TEST </a>\n\t\n\nIf we click on the TEST now then the popup is working well and good.\n\nNow my prob is: I need to call this popup in form load using JavaScript.\n\nI do something like below:\n\n\t<script type=\"text/javascript\">\n\t\n\twindow.location.href = \"filename.php\"    \n\t\n\t</script>\n\t\n\nit's just redirecting to that particular file. But not showing in the pop up.\n\nWhat is the possible way?\n\nthanks in advance",
+  "lastActivityDate": "2014-04-17T20:01:54.357",
+  "title": "Call an anchor tag via javascript",
+  "tags": [
+    "javascript",
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642923",
+  "creationDate": "2014-04-17T13:24:52.710",
+  "body": "\n\nI am at the planning stage of a web application that will be hosted in Azure with ASP.NET for the web site and Silverlight within the site for a rich user experience. Should I use Azure Tables or SQL Azure for storing my application data?",
+  "lastActivityDate": "2014-11-19T07:08:27.613",
+  "title": "Azure Tables or SQL Azure?",
+  "tags": [
+    "azure",
+    "sql-azure",
+    "azure-storage-tables"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

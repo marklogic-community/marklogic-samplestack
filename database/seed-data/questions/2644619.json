@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644619",
+  "creationDate": "2014-04-17T18:57:44.407",
+  "body": "\n\nI'm trying to send form fields and file to a web service using php curl. The form has already been passed from a browser to a proxy php client web app and I'm trying to forward it to the web service.\n\nWhen I pass an array to curl_setopt like this:\n\n`curl_setopt($this->ch, CURLOPT_POSTFIELDS, $this->fields);`\n\nI get a Array to String notice although it is meant to take an array. Here's my array that is passed to $this->fields in the constructor.\n\n\t$fields = array('title'=>$title,\n\t'content'=>$content,\n\t'category'=>$category,\n\t'attachment'=>$_FILES['attachment']);\n\t\n\nIf I pass a string using `http_build_query` my web serivce complains about not having  multipart/form data. \n\nIf I then force the multipart/form enctype using `curl_setopt` I get an error saying there's no boundary:\n\n`org.apache.commons.fileupload.FileUploadException: the request was rejected because no multipart boundary was found`\n\nAny ideas?",
+  "lastActivityDate": "2014-01-20T05:04:05.277",
+  "title": "How to send form fields and a file using PHP Curl?",
+  "tags": [
+    "php",
+    "curl"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2070708",
+  "creationDate": "2014-01-18T02:08:10.543",
+  "body": "\n\nFor example, if i use this in view:\n\n\t${Html.TextBoxFor(u=>u.UserName)}\n\t\n\nHow can i \n\n\tvar name = [xxx].NameFor<User>(u=>u.UserName);\n\t\n\nfrom elsewhere? Is that possible?",
+  "lastActivityDate": "2014-01-18T02:21:19.153",
+  "title": "What asp.net-mvc strongly typed helpers uses underneath?",
+  "tags": [
+    "asp.net-mvc",
+    "strong-typing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

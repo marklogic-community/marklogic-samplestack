@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2446088",
+  "creationDate": "2014-03-17T17:31:14.250",
+  "body": "\n\nIs it possible to use MySQL local? I mean NOT at a server. I read a lot about MySQL on a webserver with PHP, Joomla etc.\n\nI want to program a piece of software and use a database local to store results. Can I use MySQL for that?\n\nIf so, is ther anyware on the net a good tutorial how to do that?",
+  "lastActivityDate": "2014-03-17T17:55:38.903",
+  "title": "Local use of MySQL database",
+  "tags": [
+    "mysql",
+    "windows",
+    "database",
+    "local"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

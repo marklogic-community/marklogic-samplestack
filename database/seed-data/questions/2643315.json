@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643315",
+  "creationDate": "2014-04-17T15:05:54.847",
+  "body": "\n\nI have a third-party (Win32) DLL, written in C, that exposes the following interface:\n\n\tDLL_EXPORT typedef enum\n\t{\n\t  DEVICE_PCI = 1,\n\t  DEVICE_USB = 2\n\t} DeviceType;\n\t\n\tDLL_EXPORT int DeviceStatus(DeviceType kind);\n\t\n\nI wish to call it from Delphi.\n\nHow do I get access to the DeviceType constants in my Delphi code? Or, if I should just use the values 1 and 2 directly, what Delphi type should I use for the \"DeviceType kind\" parameters? Integer? Word?",
+  "lastActivityDate": "2014-04-17T18:05:52.400",
+  "title": "Calling a C function in a DLL with enum parameters from Delphi",
+  "tags": [
+    "delphi",
+    "dll",
+    "enums"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

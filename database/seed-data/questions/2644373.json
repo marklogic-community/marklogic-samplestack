@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644373",
+  "creationDate": "2014-04-17T18:14:03.493",
+  "body": "\n\nI want to check whether a date is between start date and end date.\n\ni have added a where clause\n\n\twhere datepaid between '2010-04-01' AND '2010-04-15'\n\t\n\nbut the problem is that it excludes '2010-04-15'.\n\nIt should include end date also how can i do this?\n\nPlease help me on this\n\nRegards,\n\npankaj",
+  "lastActivityDate": "2014-04-17T21:37:56.097",
+  "title": "Finding date between start date and end date",
+  "tags": [
+    "sql",
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

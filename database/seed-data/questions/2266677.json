@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266677",
+  "creationDate": "2014-02-18T06:52:07.147",
+  "body": "\n\nI would like to write a linux block device driver. The driver would not need to access the hardware so it can be in userspace.\n\nTo start, I have tried to build [an example block device driver](http://lwn.net/Articles/58720/) with this Makefile:\n\n\tobj-m = sbd.o\n\tKVERSION = $(shell pwd)\n\tPWD = $(shell pwd)\n\t\n\tall:\n\t    make -C /lib/modules/$(KVERSION)/build M=$(PWD) modules\n\t\n\nI however get these errors which I do not know how to fix. Here is the stdout and stderr:\n\n\tmake -C /lib/modules/2.6.31-19-generic/build M=/home/andreas/sp/nivoa/src/driver/sbd modules\n\tmake[1]: Entering directory `/usr/src/linux-headers-2.6.31-19-generic'\n\t  CC [M]  /home/andreas/sp/nivoa/src/driver/sbd/sbd.o\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c:72: error: expected ‘)’ before ‘*’ token\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c:128: warning: initialization from incompatible pointer type\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c: In function ‘sbd_init’:\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c:143: error: ‘sbd_request’ undeclared (first use in this function)\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c:143: error: (Each undeclared identifier is reported only once\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c:143: error: for each function it appears in.)\n\t/home/andreas/sp/nivoa/src/driver/sbd/sbd.c:146: error: implicit declaration of function ‘blk_queue_hardsect_size’\n\tmake[2]: *** [/home/andreas/sp/nivoa/src/driver/sbd/sbd.o] Error 1\n\tmake[1]: *** [_module_/home/andreas/sp/nivoa/src/driver/sbd] Error 2\n\tmake[1]: Leaving directory `/usr/src/linux-headers-2.6.31-19-generic'\n\tmake: *** [all] Error 2\n\t\n\nAny help on this would be greatly appreciated.\n\nThanks,\nAndreas",
+  "lastActivityDate": "2014-11-19T17:53:01.107",
+  "title": "How to write a userspace linux block device driver?",
+  "tags": [
+    "c",
+    "linux",
+    "compiler-errors",
+    "linux-device-driver"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

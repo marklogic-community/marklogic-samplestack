@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840698",
+  "creationDate": "2014-05-17T23:46:32.717",
+  "body": "\n\nI've come across a strange thing in Firefox, which has become a problem to me. It seems that Firefox renders borders thinner than other browsers. \n\nFor example I have just a simple empty div element, and nothing else on the webpage, with a border set to width:3px. In all other browsers, such as IE, Opera, Chrome and Safari, the width looks the same and is in fact 3px wide. But in Firefox I noticed that the border width seemed thinner. So I checked the border width with Firebug, under the Computed tab -> Box model. And yes as I suspected, the rendered border in Firefox is thinner. The border width that Firefox rendered is actually 2.2px and not the expected 3px.\n\nThis small difference with Firefox completely messes up my design.\n\nHas anyone else noticed this? Does anyone have a solution for this?",
+  "lastActivityDate": "2014-11-17T19:55:15.857",
+  "title": "Mozilla Firefox border rendering",
+  "tags": [
+    "css",
+    "firefox",
+    "border"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

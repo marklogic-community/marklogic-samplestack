@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074531",
+  "creationDate": "2014-01-18T12:24:08.230",
+  "body": "\n\nI'm writing a text entry app that sits in the System Tray and assists in text entry via keyboard hooks. The current character the user types is determined by previous letters.\n\nSo if you have \"I want to ben|\" where \"|\" represents the caret, when the user hits the keyboard the next letter is determined by doing calculation on the previous letters of the word, \"ben\". It could either turn out to be 'd' > \"bend\" or 't' > \"bent\", etc.\n\nThis works fine if I'm starting each word from scratch, I can just keep track of the word in a String in my program.\n\nThe problem arises when I set the caret down in the middle of a word. I need to detect what characters come before the caret position. The situation also occurs if I press the arrow keys, etc. \n\nIn a past AutoHotkey app I did this by sending a \"Shift + Ctrl + Left Arrow\" command to highlight the characters, a \"Ctrl + C\" command to copy it, and then saved the clipboard into my String. I'm hoping that in a more robust language like C# I can avoid the ugly highlighting artifacts of this technique. Is there a way to get the characters programatically?\n\nNote that this must occur in any text field across apps, so I can't get the characters from the text field itself (unless there's a way to access the currently in-focus text field).\n\nWhat do you think?",
+  "lastActivityDate": "2014-01-18T13:09:20.467",
+  "title": "Best way to get the 'word before the cursor' in any open app's text field",
+  "tags": [
+    "c#",
+    "text",
+    "textbox"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

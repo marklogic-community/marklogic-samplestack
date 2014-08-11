@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2447145",
+  "creationDate": "2014-03-17T20:49:01.823",
+  "body": "\n\nI have an admin site set up as a virtual applcation inside of another website.\n\nI would like visitors to the sub directory (the virtual application) to be promtped for credentials using the same Forms authentication set up on the main parent site\n\nHave tried all sorts of things but can't get it to work, including\n\nRemoving all `<authentication mode=\"Forms\">`, `<authorization>`, `<membership>` and `<roles>` sections from the virtual-app web.config\n\nCopying the same `<authentication mode=\"Forms\">`, `<authorization>`, `<membership>` and `<roles>` sections from the parent to the virtual-app web.config\n\nUsing a virtual directory instead of virtual application\n\nBut I never get promted for credentials\n\nAnyone know how to get this setup?\n\nthanks\n\nUPDATE:\n\nHave now got it to inherit permissions from the parent, by deleting the application name in IIS (to make it a virtual directory rather than a virtual application)\n\nHowever, this screws all the paths in the admin site\n\ne.g. I get the following error\n\nThe file '/Site.master' does not exist.\n\nSo should I be using a virtual directory (which seems to inherit authentication from the parent)?\n\nOr a virtual application (which currently doesn't inherit auth from the parent but has the correct relative paths)?\n\nHere's the parent config\n\n\t<membership defaultProvider=\"SqlServerMembershipProvider\">\n\t            <providers>\n\t                <add connectionStringName=\"xxxxxxxx\" requiresQuestionAndAnswer=\"false\" applicationName=\"/\" requiresUniqueEmail=\"true\" passwordFormat=\"Hashed\" maxInvalidPasswordAttempts=\"5\" minRequiredPasswordLength=\"7\" minRequiredNonalphanumericCharacters=\"0\" passwordAttemptWindow=\"10\" passwordStrengthRegularExpression=\"\" name=\"SqlServerMembershipProvider\" type=\"System.Web.Security.SqlMembershipProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"/>\n\t            </providers>\n\t        </membership>\n\t        <roleManager enabled=\"true\" defaultProvider=\"SqlServerRoleProvider\">\n\t            <providers>\n\t                <add connectionStringName=\"xxxxxxx\" applicationName=\"/\" name=\"SqlServerRoleProvider\" type=\"System.Web.Security.SqlRoleProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"/>\n\t            </providers>\n\t        </roleManager>\n\t\n\t        <authentication mode=\"Forms\">\n\t            <forms name=\".EPiServerLogin\" loginUrl=\"login.aspx\" timeout=\"120\"/>\n\t        </authentication>\n\t        <authorization>\n\t            <deny users=\"?\"/>\n\t        </authorization>\n\t",
+  "lastActivityDate": "2014-03-19T01:44:49.860",
+  "title": "Forms authentication ignored in virtual application",
+  "tags": [
+    "asp.net",
+    "iis",
+    "forms-authentication",
+    "virtual-directory"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642606",
+  "creationDate": "2014-04-17T11:49:33.013",
+  "body": "\n\nWhen calling `loadClass()` on a [](http://docs.oracle.com/javase/6/docs/api/java/lang/ClassLoader.html), does the `ClassLoader` first check if the class has been loaded, or does it immediately delegate this check to its parent `ClassLoader`?\n\nJava API says:\n\n> When requested to find a class or resource, a ClassLoader instance will delegate the search for the class or resource to its parent class loader before attempting to find the class or resource itself.\n\nBut there's a specific chapter about class loader in the book *Java Reflection in Action* that says:\n\n> Class loader calls findLoadedClass to check if the class has been loaded already.If a class loader does not find a loaded class, calls loadClass on the parent class loader.\n\nWhich is correct?",
+  "lastActivityDate": "2014-12-01T15:05:32.330",
+  "title": "Java ClassLoader delegation model?",
+  "tags": [
+    "java",
+    "classloader"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

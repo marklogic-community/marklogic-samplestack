@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642919",
+  "creationDate": "2014-04-17T13:23:55.147",
+  "body": "\n\nI've got a very simple question (I hope!) - I just want to find out if a blob (with a name I've defined) exists in a particular container. I'll be downloading it if it does exist, and if it doesn't then I'll do something else.\n\nI've done some searching on the intertubes and apparently there used to be a function called DoesExist or something similar... but as with so many of the Azure APIs, this no longer seems to be there (or if it is, has a very cleverly disguised name).",
+  "lastActivityDate": "2014-08-08T06:16:16.620",
+  "title": "Checking if a blob exists in Azure Storage",
+  "tags": [
+    "blob",
+    "azure",
+    "windows-azure-storage"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

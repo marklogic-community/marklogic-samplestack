@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074757",
+  "creationDate": "2014-01-18T13:00:35.213",
+  "body": "\n\nI have multiple activities and one service. In `MainActivity` I successfully connect to service (using a class that implements `ServiceConnection` + `bindService()` + `startService()`) but when I try to apply same method in other activity I see in LogCat a error:  \n\n\t01-15 22:29:37.438: ERROR/ActivityThread(12206): android.app.ServiceConnectionLeaked:  \n\t    Activity com.app.liviu.simpleMusicPlayer.PlaylistActivity has leaked ServiceConnection  \n\t    com.app.liviu.simpleMusicPlayer.PlaylistActivity$CounterServiceConnection@43713c90  \n\t    that was originally bound here.\n\t\n\nIs it possible to connect to a service in an other way: something like to make static my `CounterServiceConnection` object in `MainActivity` and use it in the second one?",
+  "lastActivityDate": "2014-10-14T01:08:16.763",
+  "title": "How to stay connected to an Android service between multiple activities?",
+  "tags": [
+    "android",
+    "activity",
+    "android-service"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

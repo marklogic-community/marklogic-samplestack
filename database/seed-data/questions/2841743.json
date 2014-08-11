@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2841743",
+  "creationDate": "2014-05-18T05:03:00.953",
+  "body": "\n\nThe question environment relates to JavaEE, Spring\n\nI am developing a system which can start and stop arbitrary TCP (or other) listeners for incoming messages. There could be a need to authenticate these messages. These messages need to be parsed and stored in some other entities. These entities model which fields they store. \n\nSo for example if I have property1 that can have two text fields FillLevel1 and FillLevel2, I could receive messages on TCP which have both fill levels specified in text as F1=100;F2=90\n\nLater I could add another filed say FillLevel3 when I start receiving messages F1=xx;F2=xx;F3=xx. But this is a conscious decision on the part of system modeler.\n\nMy question is what do you think is better to use for parsing and storing the message. ETL (using Pantaho, which is used in other system) where you store the raw message and use task executor to consume them one by one and store the transformed messages as per your rules.\n\nOne could use Espr or Drools to do the same thing , storing rules and executing them with timer, but I am not sure how dynamic you could get with making rules (they have to be made by end user in a running system and preferably in most user friendly way, ie no scripts or code, only GUI)\n\nThe end user should be capable of changing the parse rules. It is also possible that end user might want to change the archived data as well (for example in the above example if a new value of FillLevel is added, one would like to put a FillLevel=-99 in the previous values to make the data consistent). \n\nPlease ask for explanations, I have the feeling that I need to revise this question a bit.\n\nThanks",
+  "lastActivityDate": "2014-05-05T14:13:08.103",
+  "title": "ETL , Esper or Drools?",
+  "tags": [
+    "spring",
+    "etl",
+    "rules",
+    "drools",
+    "esper"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

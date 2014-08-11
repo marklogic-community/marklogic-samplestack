@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445360",
+  "creationDate": "2014-03-17T13:57:46.710",
+  "body": "\n\nThere is a out of box resources in Zend Framework, \nwhen configures in the ini file  \n\n\tresource.db.user =\"xxxx\"...\n\t\n\nthe bootstrap sets up db adapter, just curious does bootstrap sets db adapter into registry too, or not? ",
+  "lastActivityDate": "2014-03-17T19:25:13.060",
+  "title": "IsZend Db Adapter registered in Registry when using a default recource?",
+  "tags": [
+    "php",
+    "zend-framework"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646041",
+  "creationDate": "2014-04-17T22:13:45.620",
+  "body": "\n\nAfter reading the documentation for MySQL Workbench I got the impression that it's possible to alter a database in the server (e.g. add a new column) and later incorporate the DDL changes into your EER diagram. At least, it has a *Synchronize Model* option in the *Database* menu. I found it a nice feature because I could use a graphic modelling tool without becoming its prisoner.\n\nIn practice, when I run such tool I'm offered these options:\n\n\tModel             Update  Source\n\t================  ======  ======\n\tmy_database_name  -->     ! N/A\n\t   my_table_name  -->     ! N/A\n\tN/A               -->     ! my_database_name\n\t   N/A            -->     ! my_table_name\n\t\n\nI can't really understand it, but leaving it as is I basically get:\n\n\tDROP SCHEMA my_database_name\n\tCREATE SCHEMA my_database_name\n\tCREATE TABLE my_table_name\n\t\n\nThis is a dump of the model that overwrites all remote changes in my_table_name. \n\nAm I misunderstanding the feature?",
+  "lastActivityDate": "2014-05-24T21:39:41.930",
+  "title": "Synchronize model in MySQL Workbench",
+  "tags": [
+    "mysql",
+    "synchronization",
+    "data-modeling",
+    "mysql-workbench"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/3041939",
+  "creationDate": "2014-06-17T08:56:35.773",
+  "body": "\n\nI need a modal dialog to open ontop of an tinyMCE editor and other jQuerified items. I followed the jquery site but its not modal, I can still change and access the rest of the page.\n\n\t$('#sureDelete').dialog({\n\t                    modal: true,\n\t                    buttons: {\n\t                        \"Yes\": function(){\n\t                            $('li#'+$id).remove();\n\t                        },\n\t                        \"No\":function(){\n\t                        }\n\t                    },\n\t                    draggable: false\n\t        });\n\t<div id=\"dialogs\">\n\t\n\n`<div id=\"sureDelete\">Are you sure you want to delete this page?</div>``</div>`\nAlso I don't have any styling added to the dialog. Can that be an issue?",
+  "lastActivityDate": "2014-06-17T09:45:59.210",
+  "title": "jQueryUI dialog won't go modal",
+  "tags": [
+    "jquery",
+    "jquery-ui",
+    "modal-dialog"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

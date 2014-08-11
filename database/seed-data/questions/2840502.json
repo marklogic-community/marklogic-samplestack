@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840502",
+  "creationDate": "2014-05-17T22:46:12.470",
+  "body": "\n\nMy question is about removing duplicates from a linked list. But i want to do it before adding to linked list.\n\n\tstruct myStr{int number; mystr *next;}\n\tvoid append(mystr **q,int item)\n\t{\n\tmyStr *temp;\n\ttemp = *q;\n\tmyStr *newone;\n\tif(*q==NULL)// There should be control of previous elements. Call of keysearch function.\n\t     {   temp = (myStr *)malloc(sizeof(myStr));\n\t\n\t          temp->number =size;\n\t          temp->next=NULL;\n\t          *q=temp;\n\t     }\n\t     else //And also here\n\t     {  temp = *q;\n\t         while(temp->next !=NULL)\n\t         {  temp=temp->next;\n\t         }\n\t         newone = (myStr *)malloc(sizeof(myStr));\n\t         newone->count = size;\n\t         newone->next=NULL;\n\t         temp->next=newone;\n\t\n\t     }\n\t}\n\tint keysearch (myStr *p)\n\t{\n\tstruct myStr *temp = p;\n\tint found = 0;\n\tint key= p->number;\n\twhile (temp->next != NULL) \n\t {\n\t if(temp->number == key)\n\t    {\n\t   return 1;\n\t//break;\n\t        }\n\t     temp = temp->next;   \n\t     }\n\t    return 0;\n\t    }\n\t\n\nMy problem is in keySearch. I don't know what is wrong? Or is there another way for doing this.",
+  "lastActivityDate": "2014-05-17T23:30:02.527",
+  "title": "Remove duplicates in a linked list before adding - C",
+  "tags": [
+    "c",
+    "search"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

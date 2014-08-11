@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2071411",
+  "creationDate": "2014-01-18T04:32:48.147",
+  "body": "\n\nI'm about to refactor some duplicated code. Two functions both search in a multimap using\nequal_range(). In a for loop after the call to equal_range() there is a for loop that sets\nan iterator to equalRange.first with the condition it != equalRange.second. \n\nIf the correct value is found, the two functions differ. What I would like to do is\nto have the search function as an own help function used by the previously\nmentioned two. \n\nMaking that work is not the problem. What is the problem is that I cannot figure out a way\nto make it \"easy\" and future proof in a way that makes sense to other people using this code. \nObviously, I would like something returned from the search function. \n\nIf I were to return a boolean to indicate if the value was found in the multimap, I would\nhave to pass an iterator to the multimap which points out the element. I find that quite \nugly. \n\nIf an iterator was returned instead, we of course have to check that against the \nboundaries back in the two functions that use the search function. We can't check it\nagainst multimap.end() since we use equal_range so equalRange.second doesnt have to \nequal multimap.end(). \n\nUsing boundary checking returnIter == checkBound(x) where checkBound(x) returns \nmultimap::upperbound(x) makes the checkBound(x) aware of the equal_range implementation\nof the search function. Hence, if someone else were to change the search function,\nthe checkBound(x) might not work as expected.\n\nMy standing point here is that the users of the search function should not be concerned with how it is implemented, i.e., should not know that it uses equal_range.\n\nWhat are your inputs and suggestions to this? Am I over-detailed here? How would you have implemented the search function? \n\nThanks",
+  "lastActivityDate": "2014-01-18T04:37:44.750",
+  "title": "Returning from a multimap search with equal_range without being error-prone",
+  "tags": [
+    "c++",
+    "design",
+    "iterator",
+    "return-type",
+    "multimap"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

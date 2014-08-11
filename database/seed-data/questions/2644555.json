@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644555",
+  "creationDate": "2014-04-17T18:48:34.950",
+  "body": "\n\nI am writing an application that needs to be distributed across different nodes. What frameworks would be appropriate/recommended for this task?",
+  "lastActivityDate": "2014-06-02T11:42:19.087",
+  "title": "what is the recommended python frameworks for distributed computing?",
+  "tags": [
+    "python",
+    "distributed-computing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

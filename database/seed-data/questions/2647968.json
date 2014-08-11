@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647968",
+  "creationDate": "2014-04-18T02:25:50.977",
+  "body": "\n\nSo I have a Listbox, which is using an ItemTemplate to display an image.  I want to be able to change the size of the displayed image in the ItemTemplate.  Through databinding I can change the Width, but the only way I can see how to do this is to add a Property (Say, ImageSize) to the class I am binding to and then change every item in the colleciton to have a new ImageSize.  Is there no way to access the property of an item in that Datatemplate?\n\nE.g.\n\n\t<navigation:Page.Resources>\n\t    <DataTemplate x:Key=\"ListBoxItemTemplate\">            \n\t        <Viewbox Height=\"100\" Width=\"100\">\n\t             <Image Source=\"{Binding Image}\"/>\n\t        </Viewbox>            \n\t    </DataTemplate>        \n\t</navigation:Page.Resources>\n\t<Grid>\n\t    <ListBox ItemTemplate=\"{StaticResource ListBoxItemTemplate}\" ItemSource=\"{Binding Collection}\"/>\n\t</Grid>\n\t\n\nIs there anyway to set the Width and Height of the viewbox without binding a property to every element in the collection?",
+  "lastActivityDate": "2014-04-23T16:41:16.370",
+  "title": "Is there any way to programitically change a Data/ItemTemplate in Silverlight?",
+  "tags": [
+    "silverlight",
+    "xaml",
+    "silverlight-4.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

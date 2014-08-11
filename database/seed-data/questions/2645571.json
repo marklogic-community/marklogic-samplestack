@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645571",
+  "creationDate": "2014-04-17T21:19:15.277",
+  "body": "\n\nI want to rotate a given 2D (!) Vector, is there a WPF built-in function for this?\nCurrently I'm doing it manually:\n\n\t        Vector v = new Vector();\n\t        v.X = 10; v.Y = 10;\n\t\n\t        Vector v2 = new Vector();\n\t\n\t        v2.X = v.X * Math.Cos(-90 * 180 / Math.PI) - v.Y * Math.Sin(-90 * 180 / Math.PI);\n\t        v2.Y = v.Y * Math.Cos(-90 * 180 / Math.PI) + v.X * Math.Sin(-90 * 180 / Math.PI);\n\t\n\nI think this should be also possible by multiplying the given vector with a rotation matrix? Anyways, I don't get it, can someone please give me an example? Thanks!",
+  "lastActivityDate": "2014-09-01T14:32:48.077",
+  "title": "WPF: Rotate a 2D vector",
+  "tags": [
+    "wpf",
+    "vector",
+    "rotation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

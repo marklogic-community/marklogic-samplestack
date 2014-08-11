@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2643089",
+  "creationDate": "2014-04-17T14:05:56.037",
+  "body": "\n\nI'm currently writing a Rails app, and hit a somewhat strange quirk. I have a controller `PermissionsController`, which is mainly for display purposes at the moment. So my routing is locked down:\n\n\tmap.resources :permissions, :only => [:index, :show]\n\t\n\nUnfortunately, when writing the tests, one of the routing tests fails:\n\n\tit \"does not recognize #new\" do\n\t  { :get => \"/permissions/new\" }.should_not be_routable\n\tend\n\t\n\nwith the error:\n\n\tExpected 'GET /permissions/new' to fail, but it routed to\n\t{\"action\"=>\"show\", \"id\"=>\"new\", \"controller\"=>\"permissions\"} instead\n\t\n\nObviously, the #show action's route is matching with `/permissions/:id`, which also gives the expected error `Couldn't find Permission with ID=new` if you actually browse to that URL. \n\nThis is not a serious error, as it is correctly raising an exception with the bad :id parameter, but it's kind of ugly. Is there any way to actually make Rails reject that route? Some trick in the routing options that I'm missing?\n\nI suppose I should just leave that test out and ignore it, or maybe remove the whole RESTful idea altogether and go back to a simpler `map.connect 'permissions/:id'` style. I strongly suspect I'll be expanding this in the future, though, and kind of wanted to keep my controllers consistent with each other. Just having to add occasional :only or :except rules made routes.rb nice and clean...",
+  "lastActivityDate": "2014-04-18T11:58:27.540",
+  "title": "Rails RESTful routs without #new, rspec trouble",
+  "tags": [
+    "ruby-on-rails",
+    "routing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

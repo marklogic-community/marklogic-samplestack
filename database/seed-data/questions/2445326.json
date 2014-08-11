@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2445326",
+  "creationDate": "2014-03-17T13:42:39.190",
+  "body": "\n\nHow to store the file which is uploaded by the user to the database ? I want to store the file in the database how can we do that ? In the back-end I am using sql with c#.net application.",
+  "lastActivityDate": "2014-03-17T16:27:50.463",
+  "title": "How to store the file in the database?",
+  "tags": [
+    "c#",
+    ".net",
+    "winforms",
+    "sql-server-2005"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

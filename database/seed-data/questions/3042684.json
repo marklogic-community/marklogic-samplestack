@@ -1,0 +1,20 @@
+{
+  "id": "/questions/3042684",
+  "creationDate": "2014-06-17T13:17:16.260",
+  "body": "\n\nFor example,\nI have a collection of integers 1 - 10.\nI want to dynamically display 4 (can be 5, 6, 7) columns in the datagrid in silverlight.\nHow can I bind the collection to the datagrid to achieve the following?\n\n\t        C1    C2    C3    C4\n\tR1       1     2     3     4 \n\t\n\tR2       5     6     7     8\n\t\n\tR3       9     10\n\t\n\nCheers",
+  "lastActivityDate": "2014-06-17T14:49:47.163",
+  "title": "Binding a collection in silverlight",
+  "tags": [
+    "c#",
+    ".net",
+    "silverlight",
+    "data-binding",
+    "datagrid"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

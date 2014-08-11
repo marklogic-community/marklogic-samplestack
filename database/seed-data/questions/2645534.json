@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2645534",
+  "creationDate": "2014-04-17T21:14:49.930",
+  "body": "\n\nI have made an addin for Microsoft Word 2010 Beta using Visual Studio 2010 RTM.  When I look at \"View and manage Microsoft Office Add-ins\" the publisher shows up as None.\n\nWould code signing with a Software Publisher Certificate fill in the Publisher field?\n\nThe ClickOnce manifest is signed with a Code Signing certificate.\n\nWould signing the assembly with a strong name key file fill in the Publisher field?\n\nIs there a method using codesign.exe that would fill in the Publisher field?\n\nNote: Using signtool.exe to sign the addin dll with the certificate results in the publisher showing as None in Word.",
+  "lastActivityDate": "2014-05-20T21:13:50.187",
+  "title": "Set Publisher in Word Options Add-Ins Dialog",
+  "tags": [
+    ".net",
+    "visual-studio-2010",
+    "ms-office",
+    "vsto",
+    "office-2010"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

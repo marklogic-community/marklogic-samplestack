@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2264229",
+  "creationDate": "2014-02-17T21:47:50.520",
+  "body": "\n\nI'm looking for a way of integrating a WYSIWYG editor into my rails app so it will use Paperclip for Image / File uploads.\n\n**What I want is this:** User can use a WYSIWYG field to create some rich text. They can upload an image into this text but the image will be stored nicely in a DB (hopefully using something like Paperclip) instead of just being dumped in a folder on the server.\n\nCan this be done? I've spent a fair while trawling the net for solutions to this problem. The closest I've come is a very handy looking plugin: [http://github.com/galetahub/rails-ckeditor](http://github.com/galetahub/rails-ckeditor)\n\nHowever, the instructions are a bit vague and I got bogged down partway through the implementation.\n\nI don't care what WYSIWYG editor I use, my requirements are very simple. I'm also not totally set on Paperclip so if there's another way (using attachment_fu) I'm happy to consider that too.\n\nEdit:\nI'm also happy if I can integrate a WYSIWYG editor with Paperclip and just store the images in the file system. It doesn't have to be uploaded to the DB. Any takers now?",
+  "lastActivityDate": "2014-02-26T23:56:03.740",
+  "title": "WYSIWYG editor for Rails with Paperclip Integration",
+  "tags": [
+    "ruby-on-rails",
+    "file-upload",
+    "wysiwyg",
+    "paperclip",
+    "attachment-fu"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

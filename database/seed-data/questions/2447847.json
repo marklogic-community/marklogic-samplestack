@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2447847",
+  "creationDate": "2014-03-17T22:34:27.297",
+  "body": "\n\nI am writing an if/else alternative using a table driven method.\n\nI have the following code:\n\n\tvar map = new[] \n\t{\n\t    new \n\t    {\n\t        Predicate = new Func<Type, bool>(type => type.IsInterface),\n\t        Selector = new Func<Type, Delegate>(str, sww.Invoke())\n\t    }\n\t};\n\t\n\nIn the selector, I want to return a delagate which I can invoke (points to another method), or specify in line (eg (`delegate() { // Do something here. }`).\n\nI am using (and modifying) the code from here: [http://stackoverflow.com/questions/1508718/table-driven-method-issue](http://stackoverflow.com/questions/1508718/table-driven-method-issue)\n\nHow can I do this?",
+  "lastActivityDate": "2014-03-17T22:49:08.163",
+  "title": "Question on dictionary of delegates",
+  "tags": [
+    "c#"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

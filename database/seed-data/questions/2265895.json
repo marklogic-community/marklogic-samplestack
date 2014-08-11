@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2265895",
+  "creationDate": "2014-02-18T04:34:55.390",
+  "body": "\n\nI have a task and no idea how to tackle it!\n\nBasically, I want to disable the CD drive on a PC so our users can't use them.\n\nThat's how I want to start anyway - ultimately I'd like an icon in the system tray that allows the CD drive(s) to be locked and unlocked providing you know a password.\n\nI need somewhere to start though - does anyone know how to disable the use of a CD drive in VB.net?\n\nAny help would be appreciated.\n\nAndrew",
+  "lastActivityDate": "2014-05-04T12:08:23.820",
+  "title": "Disable the use of CD drive (VB.NET)",
+  "tags": [
+    "vb.net",
+    "cd"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642034",
+  "creationDate": "2014-04-17T08:55:02.020",
+  "body": "\n\nI have a small webpage with a form, iframe-d in. When I put invalid input inside the form, the iframe covers up the navigation bar and I can't get the navigation bar back without closing and opening the page again. \n\nHere is where I am (temporarily) hosting the webpage: dl.dropbox.com/u/1144456/rlp/v2/demo.html\n\nthe css stylesheet: dl.dropbox.com/u/1144456/rlp/v2/contact-us.htm\n\nTo recreate this problem, click the last tab and just click submit.",
+  "lastActivityDate": "2014-01-30T08:59:39.787",
+  "title": "Iframe covers navigation bar, needs close, open to fix?",
+  "tags": [
+    "html",
+    "css",
+    "iframe"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

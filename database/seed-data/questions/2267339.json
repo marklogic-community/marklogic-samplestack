@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2267339",
+  "creationDate": "2014-02-18T08:30:09.047",
+  "body": "\n\nHow do you manage erlang applications that are not part of the Erlang/OTP release ? Where do you usually install them ? If you install them aside of Erlang/OTP release, how do you tell erlang VM where to look them up (Yes, I know about -pz flag but it seems to be a little awkward for me to use that flag when there are more than one third-party apps)",
+  "lastActivityDate": "2014-02-18T09:16:32.870",
+  "title": "How to manage third-party erlang applications?",
+  "tags": [
+    "erlang"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2269574",
+  "creationDate": "2014-02-18T15:05:44.677",
+  "body": "\n\nI'm following [this article](http://richardarthur.sys-con.com/node/105651/mobile) to registering SENS events via COM, but I think I'm missing something. I'm calling the SubscribeToEvents method the article says to write, like this:\n\n\tEventSystemRegistrar.SubscribeToEvents(\"ManagedSENS EventSubscriber\", \"ManagedSENS.SensLogonInterop\", subscriptionViewerID, this, typeof(SensLogon));\n\t\n\nwhich leads to this method getting called:\n\n\tprivate static String GetInterfaceGuid(Type type)\n\t{\n\t    Object[] attributes = type.GetCustomAttributes(typeof(GuidAttribute), true);\n\t\n\t    return String.Format(\"{{{0}}}\", ((GuidAttribute)attributes[0]).Value);\n\t}\n\t\n\nThe problem is, the type there is the SensLogon class they advise writing, but it has no attributes on it, so that method throws an exception. The only attributes, which are, in fact, GuidAttributes, they say to write are on these classes, that have nothing to do with the SensLogon class (at least as far as I can tell):\n\n\t[ComImport, Guid(\"4E14FBA2-2E22-11D1-9964-00C04FBBB345\")]\n\tclass EventSystem { }\n\t[ComImport, Guid(\"7542E960-79C7-11D1-88F9-0080C7D771BF\")]\n\tclass EventSubcription { }\n\t[ComImport, Guid(\"AB944620-79C6-11d1-88F9-0080C7D771BF\")]\n\tclass EventPublisher { }\n\t[ComImport, Guid(\"cdbec9c0-7a68-11d1-88f9-0080c7d771bf\")]\n\tclass EventClass { }\n\t\n\nPerhaps I'm missing something here? Was I to derive from these classes or something? The SensLogon class is shown, but it doesn't have any of these attributes.\n\nHas anyone done something similar to register with COM events, or can, perhaps, see where I've followed the article improperly?",
+  "lastActivityDate": "2014-02-22T13:19:38.707",
+  "title": "Catching SENS Events in .NET, no Guid Attributes",
+  "tags": [
+    "c#",
+    ".net",
+    "events",
+    "com",
+    "sens"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

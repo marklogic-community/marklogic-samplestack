@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648442",
+  "creationDate": "2014-04-18T03:40:50.327",
+  "body": "\n\nI am using the ObservableSortedDictionary from Dr. WPF.\n\nThe constructor looks like this:\n\n\tpublic ObservableSortedDictionary(IComparer<DictionaryEntry> comparer)\n\t\n\nI am really struggling to create an implementation that satisfies the constructor and works.\n\nMy current code (that won't compile) is:\n\n\tpublic class TimeCreatedComparer<T> : IComparer<T> \n\t{\n\t    public int Compare(T x, T y)\n\t    {\n\t        var myclass1 = (IMyClass)((DictionaryEntry)x).Value;\n\t        var myclass2 = (IMyClass)((DictionaryEntry)y).Value;\n\t        return myclass1.TimeCreated.CompareTo(myclass2.TimeCreated);\n\t    }\n\t}\n\t\n\nIt says I can't cast from T to DictionaryEntry.\n\nIf I cast directly to IMyClass, it compiles, but I get a runtime error saying I can't cast from DictionaryEntry to IMyClass. At runtime, x and y are instances of DictionaryEntry, which each have the correct IMyClass as their Value.",
+  "lastActivityDate": "2014-04-18T03:45:17.153",
+  "title": "Implementing IComparer<T> For IComparer<DictionaryEntry>",
+  "tags": [
+    "c#",
+    "wpf",
+    "generics"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

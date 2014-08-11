@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2649319",
+  "creationDate": "2014-04-18T06:05:38.510",
+  "body": "\n\nI have a very simple web form which consists of labels and input fields, however I can not seem to find a way of aligning the form in the center of the page and for the labels to have an equal width so that they appear neatly next to each other, one under the other. The structure of my page is basically:\n\n\t<body>\n\t<div class=\"form\">\n\t<form method=\"post\">\n\t<fieldset>\n\t<label>Mobile:</label><input type=\"text\" name=\"msisdn\"><br/>\n\t<label>Code:</label><input type=\"text\" name=\"code\"><br/>\n\t<br/>\n\t<input type=\"image\" src=\"submit-button.gif\" alt=\"Submit\">\n\t<br/>\n\t<input type=\"checkbox\" name=\"ts_and_cs\"><label> Accept Terms and Conditions</label>\n\t<br/><br/>\n\t</fieldset>\n\t</form>\n\t</div>\n\t</body>\n\t\n\nUsually I would fix this by doing `float:left` on the label fields and setting a width on the labels, however for this I need the labels and input fields to be centered on the page. Also I am not able to set the width of the page (or any containing divs) as the page will be displayed on mobile devices with different screen sizes.\n\nAny suggestions as to how best style the form? Thanks",
+  "lastActivityDate": "2014-04-18T07:11:30.150",
+  "title": "Center aligned form with equal width labels",
+  "tags": [
+    "html",
+    "css",
+    "forms",
+    "xhtml",
+    "mobile-website"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

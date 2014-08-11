@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2068759",
+  "creationDate": "2014-01-17T17:02:51.550",
+  "body": "\n\nI have a client who I'm trying to convince to implement Subversion (I know, I know).  My pitch goes something like this: His test domain is visible to Google and other webcrawlers, despite his best efforts (robot.txt not withstanding).  By putting the repository on an svn:// URL, we could avoid having the code crawled until the deployment to the live domain.\n\nMy question is: is there a way to deploy to a test domain, then bring it back down after work has been done.  I guess what I'm asking after is some means of switching the test domain on and off easily, and through Subversion or some tool in conjunction with Subversion.\n\nThis is more of a client-management issue, but y'all have never let me down.",
+  "lastActivityDate": "2014-01-19T13:42:02.800",
+  "title": "Subversion and test deployment",
+  "tags": [
+    "svn",
+    "version-control",
+    "deployment",
+    "project-management"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

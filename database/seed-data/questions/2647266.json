@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2647266",
+  "creationDate": "2014-04-18T00:45:07.397",
+  "body": "\n\nI'm struggling to get this to work.  Plenty of examples on the web, but they all do something just slightly different to what I'm aiming to do, and every time I think I can solve it, I get hit by an error that means nothing to me.\n\nAfter giving up on the JSLint.VS plugin, I'm attempting to create a batch file that I can call from a Visual Studio build event, or perhaps from cruise control, which will generate JSLint warnings for a project.  The final goal is to get a combined js file that I can pass to jslint, using:\n\n\tcscript jslint.js < tmp.js\n\t\n\nwhich would validate that my scripts are ready to be combined into one file for use in a js minifier, or output a bunch of errors using standard output.\n\nbut the js files that would make up tmp.js are likely to be in multiple subfolders in the project, e.g:\n\n\tD:\\_projects\\trunk\\web\\projectname\\js\\somefile.debug.js\n\tD:\\_projects\\trunk\\web\\projectname\\js\\jquery\\plugins\\jquery.plugin.js\n\t\n\nThe ideal solution would be to be able to call a batch file along the lines of:\n\n\tjslint.bat %ProjectPath%\n\t\n\nand this would then combine all the js files within the project into one temp js file.  This way I would have flexibility in which project was being passed to the batch file.\n\nI've been trying to make this work with copy, xcopy, type, and echo, and using a for do loop, with dir /s etc, to make it do what I want, but whatever I try I get an error.",
+  "lastActivityDate": "2014-04-24T17:31:41.273",
+  "title": "batch file to merge .js files from subfolders into one combined file",
+  "tags": [
+    "windows",
+    "file",
+    "batch-file",
+    "merge",
+    "subfolder"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

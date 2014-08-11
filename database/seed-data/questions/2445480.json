@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2445480",
+  "creationDate": "2014-03-17T14:38:12.590",
+  "body": "\n\nI know that I can take my asp.net application and get it reversed to a UML document, but that doesn't tell the whole story of things like who can use what, what it calls in the way of stored procedures, what pages call what pages etc. etc.\n\nDoes anyone know of an article where someone has a comprehensive way to document a web application/site? Or shall I just make up my own way? ",
+  "lastActivityDate": "2014-03-17T14:43:14.823",
+  "title": "Tips for documenting a web application?",
+  "tags": [
+    "documentation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

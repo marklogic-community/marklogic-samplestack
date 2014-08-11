@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2645509",
+  "creationDate": "2014-04-17T21:12:08.970",
+  "body": "\n\nwhy should i use a component instead of an action that renders a partial?\n\nIf actions can render partials, when is better using components?\n\nGive me light about it..\n\nJavi",
+  "lastActivityDate": "2014-04-17T21:55:31.863",
+  "title": "Symfony: difference between Action+partial and a Component",
+  "tags": [
+    "symfony1"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2644156",
+  "creationDate": "2014-04-17T17:39:03.633",
+  "body": "\n\nI'm still learning the WPF ropes, so if the following question is trivial or my approach wrong-headed, please do speak up...  I'm trying to reduce boilerplate and it sounds like styles are a common way to do so.  In particular:\n\nI've got a bunch of fairly mundane data-entry fields.  The controls for these fields have various properties I'd like to set based on the target of the binding - pretty normal stuff.  However, I'd *also* like to set properties of the binding itself in the style to avoid repetitiveness.\n\nFor example:\n\n\t<TextBox Style=\"{StaticResource myStyle}\">\n\t    <TextBox.Text>\n\t        <Binding Path=\"...\" Source=\"...\"\n\t                 ValidatesOnDataErrors=\"True\"\n\t                 ValidatesOnExceptions=\"True\"\n\t                 UpdateSourceTrigger=\"PropertyChanged\">\n\t        </Binding>\n\t    </TextBox.Text>\n\t</TextBox>\n\t\n\nNow, is there any way to use styling - or some other technique to write the previous example somewhat like this:\n\n\t<TextBox Style=\"{StaticResource myStyle}\" Text=\"{Binding Source=... Path=...}/>\n\t\n\nThat is, is there any way to set all bindings that match a particular selection (here, on controls with the `myStyle` style) to validate data and to use a particular update trigger?  Is it possible to template or style bindings themselves?\n\nAlternatively, is it possible to add the binding in the style itself?\n\nClearly, the second syntax is much, much shorter and more readable, and I'd love to be able to get rid of other similar boilerplate to keep my UI code comprehensible to myself :-).",
+  "lastActivityDate": "2014-06-23T22:06:37.750",
+  "title": "WPF: Is it possible to add or modify bindings via styles or something similar?",
+  "tags": [
+    "wpf",
+    "xaml",
+    "binding",
+    "styles"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

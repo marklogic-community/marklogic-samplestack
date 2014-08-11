@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2071021",
+  "creationDate": "2014-01-18T03:17:06.063",
+  "body": "\n\ngcc 4.4.1\n\nI am just wondering which standard is better and more portable?\n\nI was doing some research on this. And found that c89 is still widely used more than c99. Not many C developers are switching to the newer c99 standard. \n\nAnd also, is c89 more portable than c99?\n\nAs c99 has been around for me than 10 years. I would have thought it would be used more than the c89 standard and be just as portable?\n\nMany thanks for any suggestions,",
+  "lastActivityDate": "2014-01-18T05:18:20.097",
+  "title": "Which is better c89 or c99",
+  "tags": [
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

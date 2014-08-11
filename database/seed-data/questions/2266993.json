@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2266993",
+  "creationDate": "2014-02-18T07:37:41.303",
+  "body": "\n\nI am trying to follow Eclipse instructions to create a Hello World SWT application. I have the following instruction:\n\n> Import the SWT project from the main\n  menu via File > Import..., and select\n  Existing Projects into Workspace.\n  Specify the archive file you\n  downloaded and click Finish. This will\n  create the org.eclipse.swt project\n  which we will need to compile and run\n  the application.\n\nI have troubles with that. In the \"File\" menu I see \"Import...\". When I click the \"Import...\",  I do not see \"Existing Project into Workspace\". Instead of that I see \"Select an import source:\" after which I see a text field. After that I see a field with the following folders: General, CVS, Run/Debug, Tasks, Team, XML.\n\nCan anybody help me with that, pleas?",
+  "lastActivityDate": "2014-02-18T07:44:03.703",
+  "title": "How to import existing project into Workplace in Eclipse?",
+  "tags": [
+    "java",
+    "eclipse",
+    "import",
+    "project",
+    "workspace"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

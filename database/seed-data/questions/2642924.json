@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642924",
+  "creationDate": "2014-04-17T13:24:56.737",
+  "body": "\n\nI saw `ExpandEnvironmentStrings` is used [here](http://src.chromium.org/svn/trunk/src/base/registry.cc) for Desktop. How do I do it in Windows Mobile? The data type looks [valid in Windows Mobile](http://msdn.microsoft.com/en-us/library/aa912205.aspx)",
+  "lastActivityDate": "2014-04-17T15:07:37.487",
+  "title": "How to expand REG_EXPAND_SZ in Windows Mobile?",
+  "tags": [
+    "windows-mobile",
+    "registry"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

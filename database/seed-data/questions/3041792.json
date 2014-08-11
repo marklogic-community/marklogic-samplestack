@@ -1,0 +1,16 @@
+{
+  "id": "/questions/3041792",
+  "creationDate": "2014-06-17T08:13:11.687",
+  "body": "\n\nIs it possible to mimic ISQL Perform screen functionality (i.e. QBF, master/detail, etc.) with a 4GL program?",
+  "lastActivityDate": "2014-06-17T11:21:48.770",
+  "title": "Mimic ISQL Perform screen with I4GL",
+  "tags": [
+    "informix"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

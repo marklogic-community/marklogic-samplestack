@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2266994",
+  "creationDate": "2014-02-18T07:37:42.413",
+  "body": "\n\nI am working to speed up a large number of integration tests in our environment.\n\nThe problem I am facing right now is that during teardown between tests one WCF service using msmq binding takes about 1 minute to close down.\n\nI the teardown process we loop over our servicehosts calling the Close() method with a very short timeout, overriding the closeTimeout value in the WCF configuration. This works well for net.tcp bindings but the one service that uses msmq still takes 1 minute to close down. The closeTimeout doesn't seem to have any effect.\n\nThe config look like this for the test service:\n\n\t<netMsmqBinding>\n\t    <binding name=\"NoMSMQSecurity\" closeTimeout=\"00:00:01\" timeToLive=\"00:00:05\" \n\t             receiveErrorHandling=\"Drop\" maxRetryCycles=\"2\" retryCycleDelay=\"00:00:01\" receiveRetryCount=\"2\">\n\t      <security mode=\"None\" />\n\t    </binding>\n\t  </netMsmqBinding>\n\t\n\nAnd the closing call I use is straight forward like this:\n\n\tservice.Close(new TimeSpan(0, 0, 0, 0, 10));\n\t\n\nIs there another approach I can take to close down the servicehost faster? \n\nAs this is an automated test that at this point has succeded or failed I don't want to wait for any other unprocessed messages or similar.\n\nBest regards,\n\nPer Salmi",
+  "lastActivityDate": "2014-02-20T04:45:36.467",
+  "title": "WCF service with msmq binding and closeTimeout?",
+  "tags": [
+    "wcf",
+    "msmq"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2263837",
+  "creationDate": "2014-02-17T18:53:49.417",
+  "body": "\n\nI've got a managed C++ method that takes as a parameter a list of String^\n\nthe method needs to populate an unmanaged structure with pointers to the memory in the String^\n\nextracting the WCHAR* is simple enough with PtrToStringChars\n\nhowever I dont know the number of pin_ptr's to allocate at design time\n\nI'd like to add the pinned ptr to a list, with something similar to the below\nList< pin_ptr< const wchar_t>> \n\ndoing this yields\nerror C3225: generic type argument for 'T' cannot be 'cli::pin_ptr', it must be a value type or a handle to a reference \n\nis there a way to do this?  in managed C++",
+  "lastActivityDate": "2014-02-17T19:17:49.377",
+  "title": "how to put a pin_ptr into a generic list?",
+  "tags": [
+    "list",
+    "managed-c++",
+    "pin-ptr"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

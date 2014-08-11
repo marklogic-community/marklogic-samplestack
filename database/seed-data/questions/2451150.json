@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2451150",
+  "creationDate": "2014-03-18T07:19:07.547",
+  "body": "\n\nI'm using dataannotations in an MVC2 app and am a little discouraged when trying to use RESX file resources for error messages.\n\nI've tried the following but keep getting the exception \"An attribute argument must be a constant expression, typeof expression or array creation expression of an attribute parameter type\" \n\n\t[Required(ErrorMessage = Resources.ErrorMessages.Required)]\n\t[Required(ErrorMessageResourceName = Resources.ErrorMessages.Required,\n\t          ErrorMessageResourceType = typeof(Resources.ErrorMessages)]\n\t\n\nI keep getting that error message unless I replace `ErrorMessageResourceName` with \"Required\" instead of `Resources.ErrorMessages.Required`.\n\nCan anyone tell me if I'm doing this right?",
+  "lastActivityDate": "2014-08-24T05:29:43.260",
+  "title": "DataAnnotations and Resources don't play nicely",
+  "tags": [
+    "asp.net-mvc",
+    "dataannotations",
+    "globalization",
+    "resx"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

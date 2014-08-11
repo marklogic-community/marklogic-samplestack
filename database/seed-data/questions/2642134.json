@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642134",
+  "creationDate": "2014-04-17T09:18:39.780",
+  "body": "\n\nGiven a [mysql] database with a given schema, is it possible to generate an ORM interface for it? doesn't matter if its php, python or perl.\n\nin other words, I have a database and I have to ask it a few questions. while I could just craft a bunch of SQL queries (okay, several dozen), this is way more interesting to think about.\n\nis this a valid question, even? I have no design background with ORMs, but I've used a few (django's, symfony's, etc).",
+  "lastActivityDate": "2014-04-17T09:33:22.483",
+  "title": "Reverse engineer an ORM",
+  "tags": [
+    "database",
+    "orm",
+    "database-schema"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

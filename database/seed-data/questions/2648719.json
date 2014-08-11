@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2648719",
+  "creationDate": "2014-04-18T04:23:27.277",
+  "body": "\n\nI'm creating a UIDatePicker programmatically, and setting its locale with the following code:\n\n\tdatePicker.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@\"es_ES\"] autorelease];\n\t\n\nThe datepicker still appears in English (or whatever language I've set the phone to).  Anyone have any idea why this does nothing, or how to fix it?",
+  "lastActivityDate": "2014-07-17T21:25:04.703",
+  "title": "UIDatePicker locale does nothing?",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "cocoa-touch",
+    "uikit",
+    "locale"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644363",
+  "creationDate": "2014-04-17T18:13:23.583",
+  "body": "\n\nI was wondering if there is a similar .finalize() method for Ruby objects, that marks them ready for garbage collection. If I would create 20,000 objects and each instance has a counter, I would like the object to be marked for garbage collection when reaches zero. I know this is pretty much a Java approach, but I have not sufficient experience with Ruby under-the-hood to understand how this could be done better. \n\nThank you for your answers, comments and feedback!",
+  "lastActivityDate": "2014-04-17T22:07:35.143",
+  "title": "Ruby: Mark an object for garbage collection",
+  "tags": [
+    "ruby",
+    "oop",
+    "garbage-collection"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

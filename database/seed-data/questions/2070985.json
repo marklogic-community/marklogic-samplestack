@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2070985",
+  "creationDate": "2014-01-18T03:06:45.447",
+  "body": "\n\nI'm using an OleDbConnection to connect to a spreadsheet from a C# program.  One of the parameters in the connection string is the Excel version.\n\n*\"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\\Book1.xls;Extended Properties=\";HDR=YES\"*\n\nGiven the path of an Excel file how can I find out which Excel format version it uses?\n\nThanks in advance,\n\nT.",
+  "lastActivityDate": "2014-01-18T06:26:06.963",
+  "title": "Programmatically finding an Excel file's Excel version",
+  "tags": [
+    "c#",
+    "excel",
+    "oledb"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2263494",
+  "creationDate": "2014-02-17T16:41:21.263",
+  "body": "\n\nI am implementing jQuery Autocomplete and wish to display results with an associated image.  Each image has the same name as the predicted result of the autocomplete field. i.e. If someone types \"braz\" then \"brazil\" appears with brazil.jpg inline beside it.  I'm having trouble implementing this.\n\nIf anyone can point me in the right direction I'd appreciate it.  By the way, I'm using [Jorn's version](http://bassistance.de/jquery-plugins/jquery-plugin-autocomplete/).  \n\nAm also interested in using smaller versions of autocomplete, but have only found Drew Wilson's and couldn't manage to work it at all.",
+  "lastActivityDate": "2014-02-18T14:24:34.180",
+  "title": "How might I cause jQuery Autocomplete to display results with images, and no PHP?",
+  "tags": [
+    "jquery",
+    "image",
+    "autocomplete",
+    "input",
+    "jquery-autocomplete"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

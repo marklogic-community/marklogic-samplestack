@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2449945",
+  "creationDate": "2014-03-18T03:40:12.107",
+  "body": "\n\nI'm adding an image subview to an UITableViewController with a grouped table. Once I add the image subview I can see the table headers on top of the image, but the cells are being drawn behind the image. \n\nIs there something else I need to do to ensure that the table cells appear on top of the background image? Here is the code I'm using in the UITableViewControlle's viewDidLoad:\n\n\tCGRect myImageRect = CGRectMake(0.0f, 0.0f, 320.0f, 959.0f); \n\tUIImageView *backImageView = [[UIImageView alloc] initWithFrame:myImageRect]; \n\t[backImageView setImage:[UIImage imageNamed:@\"somebackground.png\"]]; \n\t[self.view addSubview:backImageView];\n\t[self.view sendSubviewToBack:backImageView];\n\t[backImageView release];\n\t\n\nI realize that as an alternative I could simply create a composite view and drop the tableview on top of it rather than what I am trying to do here. If there isn't any other solution I will do so, but would prefer to use the approach I'm trying if at all possible.",
+  "lastActivityDate": "2014-07-15T04:26:22.747",
+  "title": "iphone SDK: How to add image subview to UITableViewController and still see cells?",
+  "tags": [
+    "iphone",
+    "uitableviewcontroller",
+    "subview",
+    "addsubview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

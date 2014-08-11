@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2266551",
+  "creationDate": "2014-02-18T06:31:07.233",
+  "body": "\n\nI'm working on a VB.NET program that will automatically backup my work to my FTP server. So far I am able to upload a single file, by specifying a file name using this:\n\n\t     'relevant part - above is where FTP object is instantiated\n\t       Dim _FileStream As System.IO.FileStream = _FileInfo.OpenRead()\n\t\n\t            Try\n\t                'Stream to which the file to be upload is written\n\t                Dim _Stream As System.IO.Stream = _FtpWebRequest.GetRequestStream()\n\t\n\t                'Read from the file stream 2kb at a time\n\t                Dim contentLen As Integer = _FileStream.Read(buff, 0, buffLength)\n\t\n\t                'Till Stream content ends\n\t                Do While contentLen <> 0\n\t                    ' Write Content from the file stream to the FTP Upload Stream\n\t                    _Stream.Write(buff, 0, contentLen)\n\t                    contentLen = _FileStream.Read(buff, 0, buffLength)\n\t                Loop\n\t                _Stream.Close()\n\t                _Stream.Dispose()\n\t                _FileStream.Close()\n\t                _FileStream.Dispose()\n\t\n\t                ' Close the file stream and the Request Stream\n\t\n\t\n\t            Catch ex As Exception\n\t                MessageBox.Show(ex.Message, \"Upload Error\", MessageBoxButtons.OK, MessageBoxIcon.Error)\n\t            End Try\n\t\n\nNow I want to be able to iterate through a directory (Which contains subdirectories) and recursively call the function above. I'm having a problem getting a hold of the files in the directory.\n\n**My Question is, How can I loop through and send each file to the upload function above? Can I just send the filename to an array, or is there some sort of system object to handle this (e.g. System.IO.Directory)**\n\nPseudocode for what I'm trying to do \n\n\t                For Each Sub_directory In Source_directory\n\t\n\t                     For Each File in Directory\n\t                       'call the above code to transfer the file\n\t                     Next\n\t\n\t                'start next subdirectory\n\t                Next\n\t\n\nI'm trying to replicate the entire directory structure with sub directories intact. My first attempt dumped ALL files into one directory.",
+  "lastActivityDate": "2014-12-21T16:17:14.770",
+  "title": "VB.NET iterating through files and directories",
+  "tags": [
+    "vb.net",
+    "filesystems"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

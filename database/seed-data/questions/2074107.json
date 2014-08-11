@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074107",
+  "creationDate": "2014-01-18T11:14:33.233",
+  "body": "\n\nI am creating an Excel spreadsheet in C#. I like to have the header (first) row pinned in place when the user scrolls the rows. How can I do this in C# (or VB.NET)?",
+  "lastActivityDate": "2014-01-18T11:25:53.493",
+  "title": "How to pin the header row in Excel in .NET?",
+  "tags": [
+    "c#",
+    ".net",
+    "excel"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

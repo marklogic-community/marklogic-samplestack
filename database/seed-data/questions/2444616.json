@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2444616",
+  "creationDate": "2014-03-17T09:48:31.483",
+  "body": "\n\nCode first:\n\n\t'''this is main structure of my program'''\n\t\n\tfrom twisted.web import http\n\tfrom twisted.protocols import basic\n\timport threading\n\t\n\tthreadstop = False    #thread trigger,to be done\n\tclass MyThread(threading.Thread):\n\t    def __init__(self):\n\t        threading.Thread.__init__(self)\n\t        self.start()\n\t\n\t    def run(self):\n\t        while True:\n\t            if threadstop:\n\t                return\n\t            dosomething()\n\t\n\t\n\t'''def some function'''\n\t\n\tif __name__ == '__main__':\n\t    from twisted.internet import reactor\n\t    t = MyThread()\n\t    reactor.listenTCP(serverport,myHttpFactory())\n\t    reactor.run()\n\t\n\nAs my first multithread program,I feel happy that it works as expected.But now I find I cannot control it.If I run it on front,Control+C can only stop the main process,and I can still find it in processlist;if I run it in background,I have to use `kill -9 pid` to stop  it.And I wonder if there's a way to control the subthread  process by a trigger variale,or a better way to stop the whole process other than `kill -9`.Thanks.",
+  "lastActivityDate": "2014-03-17T16:03:22.447",
+  "title": "How to control a subthread process in python?",
+  "tags": [
+    "python",
+    "multithreading",
+    "twisted"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

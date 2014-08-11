@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3041906",
+  "creationDate": "2014-06-17T08:45:28.283",
+  "body": "\n\nThis might be a silly question but it struck me, and here i ask.\n\n\t<?php\n\t  $x=\"Hi\";\n\t  $y=\" There\";\n\t  $z = $x.$y;\n\t  $a = \"$x$y\";\n\t  echo \"$z\".\"<br />\".\"$a\";\n\t?>\n\t\n\n`$z` uses the traditional concatenation operator provided by php and concatenates, conversely $a doesn't, \n\nMy questions:\n\n1. by not using the concatenation operator, does it effect the performance? \n\n2. If it doesn't why at all have the concatenation operator. \n\n3. Why have 2 modes of implementation when one does the work?",
+  "lastActivityDate": "2014-06-17T12:10:27.107",
+  "title": "Concatenation Operator",
+  "tags": [
+    "php",
+    "concatenation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

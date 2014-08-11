@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2645838",
+  "creationDate": "2014-04-17T21:49:46.820",
+  "body": "\n\nI have an ID in a package variable that I need to add as a column (with each row having that package variablevalue) in a Dataflow.  \n\nIs there a way to do this with only the `Derived Column`?  \n\nI know I can using the `Derived Column` to make a new column and then set the value using a `Script Component`, but that seems inefficient.",
+  "lastActivityDate": "2014-04-17T23:07:39.643",
+  "title": "SSIS - Setting a Dataflow Derived Column value from a variable",
+  "tags": [
+    "ssis"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

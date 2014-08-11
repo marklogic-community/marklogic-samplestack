@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2070428",
+  "creationDate": "2014-01-18T01:05:17.320",
+  "body": "\n\nI was building a java desktop application from few days and all was going well.\n\nBut today, when I opened the Netbeans and compiled a file, the following compilation error occrured:\n\n\tCompiling 9 source files to C:\\Documents and Settings\\Administrator\\Desktop\\EMS\\build\\classes\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSAboutBox.java:7:             package org.jdesktop.application does not exist\n\timport org.jdesktop.application.Action;\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSApp.java:7: package org.jdesktop.application does not exist\n\timport org.jdesktop.application.Application;\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSApp.java:8: package org.jdesktop.application does not exist\n\timport org.jdesktop.application.SingleFrameApplication;\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSApp.java:13: cannotfind symbol\n\tsymbol: class SingleFrameApplication\n\tpublic class EMSApp extends SingleFrameApplication {\n\t\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSView.java:7: package org.jdesktop.application does not exist\n\timport org.jdesktop.application.Action;\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSView.java:8: package org.jdesktop.application does not exist\n\timport org.jdesktop.application.ResourceMap;\n\tC:\\Documents and Settings\\Administrator\\Desktop\\EMS\\src\\ems\\EMSView.java:9: package org.jdesktop.application does not exist\n\t\n\nI was using the same code before but no error occured like this. When I checked the libraries, then the org.jdesktop.application package is there and when we import that package, the netbeans show the \"application\" package in suggestion.\n\nThen why the error is there when the package is already there. If the package was not in the library, then Netbeans would have shown a red line under the import statement, but it is not showing that red line too.\n\nWhere is the problem?",
+  "lastActivityDate": "2014-01-18T19:18:50.107",
+  "title": "org.jdesktop.application package doesn't exist",
+  "tags": [
+    "java",
+    "netbeans"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

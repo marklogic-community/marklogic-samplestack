@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839210",
+  "creationDate": "2014-05-17T14:49:56.243",
+  "body": "\n\n\t CREATE TABLE `ost_staff` (\n\t  `staff_id` int(11) unsigned NOT NULL auto_increment,\n\t  `group_id` int(10) unsigned NOT NULL default '0',\n\t  `dept_id` int(10) unsigned NOT NULL default '0',\n\t  `username` varchar(32) collate latin1_german2_ci NOT NULL default '',\n\t  `firstname` varchar(32) collate latin1_german2_ci default NULL,\n\t  `lastname` varchar(32) collate latin1_german2_ci default NULL,\n\t  `passwd` varchar(128) collate latin1_german2_ci default NULL,\n\t  `email` varchar(128) collate latin1_german2_ci default NULL,\n\t  `phone` varchar(24) collate latin1_german2_ci NOT NULL default '',\n\t  `phone_ext` varchar(6) collate latin1_german2_ci default NULL,\n\t  `mobile` varchar(24) collate latin1_german2_ci NOT NULL default '',\n\t  `signature` varchar(255) collate latin1_german2_ci NOT NULL default '',\n\t  `isactive` tinyint(1) NOT NULL default '1',\n\t  `isadmin` tinyint(1) NOT NULL default '0',\n\t  `isvisible` tinyint(1) unsigned NOT NULL default '1',\n\t  `onvacation` tinyint(1) unsigned NOT NULL default '0',\n\t  `daylight_saving` tinyint(1) unsigned NOT NULL default '0',\n\t  `append_signature` tinyint(1) unsigned NOT NULL default '0',\n\t  `change_passwd` tinyint(1) unsigned NOT NULL default '0',\n\t  `timezone_offset` float(3,1) NOT NULL default '0.0',\n\t  `max_page_size` int(11) NOT NULL default '0',\n\t  `created` datetime NOT NULL default '0000-00-00 00:00:00',\n\t  `lastlogin` datetime default NULL,\n\t  `updated` datetime NOT NULL default '0000-00-00 00:00:00',\n\t  PRIMARY KEY  (`staff_id`),\n\t  UNIQUE KEY `username` (`username`),\n\t  KEY `dept_id` (`dept_id`),\n\t  KEY `issuperuser` (`isadmin`),\n\t  KEY `group_id` (`group_id`,`staff_id`)\n\t) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci;\n\t\n\nHi the above query is the osticket open source one, \ni know primary key , foreign key , unique  but AM NOT SURE WHAT IS THIS \n\n`KEY  (,)`\n\nPlease tell me, this constraints name....",
+  "lastActivityDate": "2014-02-15T05:41:23.160",
+  "title": "what is called KEY",
+  "tags": [
+    "sql",
+    "mysql",
+    "key"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

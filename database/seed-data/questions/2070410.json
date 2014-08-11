@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2070410",
+  "creationDate": "2014-01-18T01:00:25.547",
+  "body": "\n\nFull source here: [http://www.vim.org/scripts/download_script.php?src_id=10391](http://www.vim.org/scripts/download_script.php?src_id=10391)\n\nThe line is:\n\n\t    silent %s/[^λ←→≲≳≡≠⇒»∙∀\\\\\\-!#$%&*+/<=>?@\\^|~.]\\@<=\\\\\\([^λ←→≲≳≡≠⇒»∙∀\\\\\\-!#$%&*+/<=>\\?@\\^|~.]\\)/λ\\1/eg\n\t\n\nSomeone please decipher this for me. The larger script is intended to unicode-ify some operators in Haskell into more familiar mathematical equivalents.",
+  "lastActivityDate": "2014-01-19T12:55:14.413",
+  "title": "What in the world does this vimscript do?",
+  "tags": [
+    "vim",
+    "haskell"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

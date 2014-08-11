@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2069200",
+  "creationDate": "2014-01-17T19:06:10.907",
+  "body": "\n\nI'm planning to write a C library which will act as an umbrella \"wrapper\" around several other libs.  Some of the libraries will be GPL and some will be proprietary.  Moreover, some of the libraries may not be available at compile time, so I plan to have autotools detect them during configure.  I'm also wondering if I should build in support for these weak dependencies and then also detect them at run-time -- particularly for the proprietary libs.  Here's why:\n\nWithout going into specifics, the library is intended to provide an API for talking to various devices, some of which don't have open source drivers.  Currently it's difficult to program for these devices because there is no standard, easily available API to use.  Each vendor provides its own.  There are a few other APIs available that attempt to wrap them, but they are by and large\n* C++-only.\n* Designed for a Windows environment, with *nix as an afterthought.\n* Fail to build unless you have dependencies in the right places, i.e., complete lack of a proper configure/build system.\n* Most importantly, designed in such a way that they often link directly to proprietary libs, making me almost 100% sure it would be impossible to get these APIs into Debian.\n\nTherefore my end-goal is to build a very simple  and straight-forward C API that has a chance in hell of making it into distros so that people can actually write programs for these devices with a simple `apt-get`.\n\nMy question is, how should I best design the library to be GPL-compatible and Debian-friendly, but still be able to call out to proprietary libs when necessary?\n\nIdeally I'd like the user to be able to apt-get a program using this library, and then as long as the vendor's user-level driver is installed to the expected place, everything should work out of the box.\n\nMy concern is two-fold:\n* having dependencies on optional, proprietary libs means the binary distro of the library can't be compiled to dynamically link to these libs, since they may or may not be available.\n* the user should not have to install dependencies for devices he does not have, open or proprietary.\n\nHow do other packages handle this problem of linking to proprietary libs and having run-time weak dependencies?  Is `dlopen` the right way to go for everything?  Should I `dlopen` only the proprietary stuff?  What are reasons why or cases when Debian might reject such a package?\n\nLastly, I realize this probably isn't the right forum for this question about Debian policy, so can anyone point to me a better place to ask this question?\n\nThanks.",
+  "lastActivityDate": "2014-01-17T19:52:33.700",
+  "title": "Designing a GPL library with weak dependencies on proprietary libs, best approaches?",
+  "tags": [
+    "api",
+    "dependencies",
+    "debian"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

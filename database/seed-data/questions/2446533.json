@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2446533",
+  "creationDate": "2014-03-17T18:55:45.930",
+  "body": "\n\nI currently use Subversion for my one-person software company. Is it worthwhile moving to Hg (Mercurial)? Or are the benefits only realisable with a multiperson team?",
+  "lastActivityDate": "2014-02-03T14:16:51.137",
+  "title": "Is using distributed source control like Mercurial worthwhile for a team of one?",
+  "tags": [
+    "svn",
+    "version-control",
+    "mercurial",
+    "dvcs"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

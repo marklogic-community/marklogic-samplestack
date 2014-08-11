@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2643642",
+  "creationDate": "2014-04-17T16:10:06.233",
+  "body": "\n\nI have successfully followed the examples to gain an AuthSub token to authorize my GAE application to have access to the user's Google Calendar.\n\nI have added the domain parameter to the method gdata.auth.generate_auth_sub_url so that the application is authenticated against a Google Apps Domain user.  The app is then installed in one of our test domains.\n\nThis is working fine, however, each user in the domain has to go through the process of authorizing the app to use the calendar.  In other Marketplace Apps that I have tried, this authorization is done once for the whole domain when the app is installed.\n\nHow is this achieved?",
+  "lastActivityDate": "2014-04-17T20:52:24.583",
+  "title": "Google App Engine authorization with Google Apps Domain",
+  "tags": [
+    "google-app-engine",
+    "google-apps"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2075231",
+  "creationDate": "2014-01-18T14:35:59.950",
+  "body": "\n\nI'm trying to create a trainer for Icy Tower 1.4 for educational purposes.\n\nI wrote a function that shorten the WriteProcessMemory function like that:\n\n\tvoid WPM(HWND hWnd,int address,byte data[])\n\t{\n\t    DWORD proc_id;\n\t    GetWindowThreadProcessId(hWnd, &proc_id);\n\t    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, proc_id);\n\t\n\t    if(!hProcess)\n\t        return;\n\t\n\t    DWORD dataSize = sizeof(data);\n\t    WriteProcessMemory(hProcess,(LPVOID)address,&data,dataSize,NULL);\n\t    CloseHandle(hProcess);\n\t}\n\t\n\nand that's the function that should stop the Icy Tower Clock:\n\n\tvoid ClockHack(int status)\n\t{\n\t    if(status==1)//enable\n\t    {\n\t        //crashes the game\n\t        byte data[]={0xc7,0x05,0x04,0x11,0x45,0x00,0x00,0x00,0x00,0x00};\n\t        WPM(FindIcyTower(),0x00415E19,data);\n\t    }\n\t    else if(status==0)//disable\n\t    {\n\t            byte data[]={0xA3,0x04,0x11,0x45,0x00};\n\t    }\n\t}\n\t\n\nin the else statement there's the orginal AOB of the Opcode.\nWhen I call the ClockHack function with the status parameter set to 1, the game crashes.\n\nIn Cheat Engine I wrote for this a script, that dosen't exactly write to the same address because I did Code Cave and it works great. \n\nSomeone knows why? Thank you.\n\nBy the way: it is for **educational purposes only**.",
+  "lastActivityDate": "2014-01-18T15:05:37.933",
+  "title": "Problem with a trainer I'm trying to create (for educational purposes)",
+  "tags": [
+    "c++",
+    "codecave"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

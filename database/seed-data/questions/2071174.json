@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2071174",
+  "creationDate": "2014-01-18T03:44:43.733",
+  "body": "\n\nI'm trying to make some flash buttons with a mouse_over animation that plays in reverse on mouse_out. Now I have it working for one of my three movie clip instances.\n\nI am using e.currentTarget.play() instead of having a function for each movie clip, but how do I do the same for my playReverse function? I tried putting e.currentTarget.prevFrame() instead of mc1.prevFrame() but it did not work. My code is as follows:\n\n\tmc1.addEventListener(MouseEvent.MOUSE_OVER,mover);\n\tmc2.addEventListener(MouseEvent.MOUSE_OVER,mover);\n\tmc3.addEventListener(MouseEvent.MOUSE_OVER,mover);\n\tmc1.addEventListener(MouseEvent.MOUSE_OUT,mout);\n\tmc2.addEventListener(MouseEvent.MOUSE_OUT,mout);\n\tmc3.addEventListener(MouseEvent.MOUSE_OUT,mout);\n\t\n\tfunction mover(e:MouseEvent):void {\n\t    stopPlayReverse();\n\t    e.currentTarget.play();\n\t}\n\t\n\tfunction mout(e:MouseEvent):void {\n\t    this.addEventListener(Event.ENTER_FRAME, playReverse, false, 0, true);\n\t}\n\t\n\tfunction playReverse(e:Event):void {\n\t    if (mc1.currentFrame == 1) {\n\t        stopPlayReverse();\n\t    } else {\n\t        mc1.prevFrame();\n\t    }\n\t}\n\t\n\tfunction stopPlayReverse():void {\n\t    if (this.hasEventListener(Event.ENTER_FRAME)) {\n\t        this.removeEventListener(Event.ENTER_FRAME, playReverse);\n\t    }\n\t}\n\t\n\nAny idea how I can fix this?",
+  "lastActivityDate": "2014-01-19T02:04:30.817",
+  "title": "Actionscript 3 mouse_over play movie, mouse_out reverse movie",
+  "tags": [
+    "actionscript-3",
+    "mouse",
+    "mouseevent"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

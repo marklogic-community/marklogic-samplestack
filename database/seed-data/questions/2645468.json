@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645468",
+  "creationDate": "2014-04-17T21:07:10.523",
+  "body": "\n\nI'm tired of including\n\n\tEnableViewStateMac=\"false\"\n\t\n\nin every page. How to do that globally?",
+  "lastActivityDate": "2014-06-10T18:30:20.717",
+  "title": "How to disable View State MAC globally?",
+  "tags": [
+    ".net",
+    "asp.net",
+    "viewstate"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

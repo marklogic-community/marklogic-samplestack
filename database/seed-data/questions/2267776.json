@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2267776",
+  "creationDate": "2014-02-18T09:38:32.797",
+  "body": "\n\nIs out there any Pure C# Silverlight video encoding lib?\n\nBy video I mean not only pictures compressor but also audio compressor...\n\nSo to say I'm looking for some kind of lib not only for compressing but also for sinchronisation etc... so to say I give it a web cam it gives me a  conteiner!)",
+  "lastActivityDate": "2014-11-25T09:24:46.687",
+  "title": "Pure C# Silverlight video encoding lib?",
+  "tags": [
+    "c#",
+    "silverlight",
+    "video",
+    "encoding"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

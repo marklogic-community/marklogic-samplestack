@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267386",
+  "creationDate": "2014-02-18T08:35:25.810",
+  "body": "\n\nI have the following statements in Oracle 11g:\n\n\tCREATE TYPE person AS OBJECT (\n\t    name VARCHAR2(10),\n\t    age NUMBER\n\t);\n\t\n\tCREATE TYPE person_varray AS VARRAY(5) OF person;\n\t\n\tCREATE TABLE people (\n\t    somePeople person_varray\n\t)\n\t\n\nHow can i select the name value for a person i.e.   \n\n\tSELECT somePeople(person(name)) FROM people\n\t\n\nThanks ",
+  "lastActivityDate": "2014-02-18T09:44:33.963",
+  "title": "Oracle 11g VARRAY of OBJECTS",
+  "tags": [
+    "plsql",
+    "oracle11g"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

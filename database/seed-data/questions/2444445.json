@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2444445",
+  "creationDate": "2014-03-17T08:31:50.220",
+  "body": "\n\nSay I have this class:\n\n\tpublic class Account\n\t{\n\t    public int AccountID { get; set; }\n\t    public Enterprise Enterprise { get; set; }\n\t    public List<User> UserList { get; set; }\n\t}\n\t\n\nWhen I use AutoMapper to map the Account class, I would also like it to map the Enterprise class, and the list of users (UserList) in the returned object. How can I get AutoMapper to do this?\n\nThanks!",
+  "lastActivityDate": "2014-03-17T08:38:16.760",
+  "title": "How do I get AutoMapper to map this?",
+  "tags": [
+    "automapper"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

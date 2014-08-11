@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267439",
+  "creationDate": "2014-02-18T08:43:25.377",
+  "body": "\n\nI'm writing an application for a device running Windows XP. There are 2 versions of the device and each version has its own API to communicate with the device's software. The application I'm writing needs to pull the same data from the API. My question is how to write a application that will detect at runtime which version of the device it is on and use the appropriate API. I've figured out how to read the registry to determine the device.  \n\nI've created an interface containing all of the common methods and also classes for each device that implement the interface. Now I need to know how to activate the correct one at runtime.\n\n\t Public Interface IAPI\n\t\n\t    Sub InitializeMachine()\n\t\n\t    Function GetActiveProgram() As String\n\t\n\t    Function GetActiveGCodes() As String\n\t\n\t    Function GetCurrentBlockNumber() As Integer\n\t\n\t    ''#etc...\n\t\n\tEnd Interface\n\t\n\t''#Mill API\n\tPublic Class CMAPI : Implements IAPI\n\t\n\t    Private ObjMachine As Okuma.CMDATAPI.DataAPI.CMachine\n\t    Private ObjPgm As Okuma.CMDATAPI.DataAPI.CProgram\n\t\n\t    Public Sub New()\n\t\n\t    End Sub\n\t\n\t    Public Function GetActiveGCodes() As String Implements IAPI.GetActiveGCodes\n\t        Try\n\t            Return ObjPgm.GetGCodes\n\t        Catch ex As Exception\n\t            Throw ex\n\t        End Try\n\t    End Function\n\t\n\t    Public Function GetActiveProgram() As String Implements IAPI.GetActiveProgram\n\t        Try\n\t\n\t            Return ObjPgm.GetActiveProgramName\n\t\n\t        Catch ex As Exception\n\t            Throw ex\n\t        End Try\n\t    End Function\n\t\n\t    Public Function GetCurrentBlockNumber() As Integer Implements IAPI.GetCurrentBlockNumber\n\t        Try\n\t\n\t            Return ObjPgm.GetCurrentBlockNumber\n\t\n\t        Catch ex As Exception\n\t            Throw ex\n\t        End Try\n\t    End Function\n\t\n\t    ''#....\n\tEnd Class\n\t\n\t''#Lathe API\n\tPublic Class CLAPI : Implements IAPI\n\t    Private ObjMachine As Okuma.CLDATAPI.DataAPI.CMachine\n\t    Private ObjPgm As Okuma.CLDATAPI.DataAPI.CProgram\n\t\n\t    Public Sub New()\n\t\n\t    End Sub\n\t\n\t    Public Function GetActiveGCodes() As String Implements IAPI.GetActiveGCodes\n\t        Try\n\t            Return ObjPgm.GetGCodes\n\t        Catch ex As Exception\n\t            Throw ex\n\t        End Try\n\t    End Function\n\t\n\t    Public Function GetActiveProgram() As String Implements IAPI.GetActiveProgram\n\t        Try\n\t\n\t            Return ObjPgm.GetActiveProgramName\n\t\n\t        Catch ex As Exception\n\t            Throw ex\n\t        End Try\n\t    End Function\n\t\n\t''#...\n\tEnd Class\n\t",
+  "lastActivityDate": "2014-09-14T02:31:15.267",
+  "title": "Change API Reference at runtime VB.NET 3.5",
+  "tags": [
+    "vb.net",
+    ".net-3.5",
+    "okuma"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

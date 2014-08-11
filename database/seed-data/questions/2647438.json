@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647438",
+  "creationDate": "2014-04-18T01:11:48.353",
+  "body": "\n\nWhen building XML in PHP, is it quicker to build a string, then echo out the string or to use the XML functions that php gives you? Currently I'm doing the following:\n\nUPDATED to better code snippet: \n\n\t$searchParam = mysql_real_escape_string($_POST['s']);\n\t$search = new Search($searchParam);\n\t\n\tif($search->retResult()>0){\n\t    $xmlRes = $search->buildXML();\n\t}\n\telse {\n\t    $xmlRes = '<status>no results</status>';\n\t}\n\t\n\t$xml = \"<?xml version=\\\"1.0\\\"?>\";\n\t$xml.=\"<results>\";\n\t$xml.=$xmlRes;\n\t$xml.=\"</results>\"\n\t\n\theader (\"content-type: text/xml\");\n\theader (\"content-length: \".strlen($xml));\n\techo($xml);\n\t\n\t\n\tclass Search {\n\tprivate $num;\n\tprivate $q;\n\t\n\tfunction __construct($s){\n\t    $this->q = mysql_query('select * from foo_table where name = \"'.$s.'\"');\n\t    $this->num = mysql_num_rows($this->q);\n\t}\n\t\n\tfunction retResult(){\n\t    return $this->num;\n\t}\n\t\n\tfunction buildXML(){\n\t    $xml ='<status>success</status>';\n\t    $xml.='<items>';\n\t    while($row = mysql_fetch_object($this->q)){\n\t        $xml.='<item>';\n\t        $desTag = '<info><![CDATA[';\n\t        foreach ($row as $key => $current){\n\t            if($key=='fob'){\n\t                //do something with current\n\t                $b = mysql_query('select blah from dddd where id ='.$current);\n\t                $a = mysql_fetch_array($b);\n\t                $xml.='<'.$key.'>'.$a['blah'].'</'.$key.'>';\n\t            }\n\t            else if($key =='this' || $key=='that'){\n\t                $desTag = ' '.$current;\n\t            }\n\t            else {\n\t                $xml.='<'.$key.'>'.$current.'</'.$key.'>';\n\t            }   \n\t        }\n\t        $desTag.= ']]></info>';\n\t        $xml.=$desTag;\n\t        $xml.='</item>';\n\t    }\n\t    $xml.='</items>';\n\t    return $xml;\n\t}\n\t\n\t}\n\t\n\nIs there a faster way of building the xml? I get to about 2000 items and it starts to slow down..\n\nThanks in advance!",
+  "lastActivityDate": "2014-04-18T10:42:38.223",
+  "title": "Building XML with PHP - Performance in mind",
+  "tags": [
+    "php",
+    "xml",
+    "performance"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2071800",
+  "creationDate": "2014-01-18T05:29:14.787",
+  "body": "\n\nI'm trying to get a specific folder in outlook with c#.  Someone else had the same issue here [http://stackoverflow.com/questions/76964/using-outlook-api-to-get-to-a-specific-folder](http://stackoverflow.com/questions/76964/using-outlook-api-to-get-to-a-specific-folder) but when using the Folders collection I'm not sure how to get through the folders collection.  I mean, I've looked at the type of object that the Folders collection returns and it looks like it's a Folders object.  But when I try to use that in a loop it gives me an invalid cast exception.  I also hoped I could use the GetFolderFromID method to give it the string name of the folder but that doesn't want to work either... but I also can't find an example of how to use it so I'm not sure I'm coding it correctly.  Here's an example of what I tried.  Anyone know how to get the Processed folder which is on the same level as the Inbox folder?  Thanks.\n\n\t        MAPIFolder oProcessed = null;\n\t        foreach (var folder in oNS.Folders)\n\t            if (folder.ToString() == \"Processed\")\n\t            {\n\t                oProcessed = (MAPIFolder)folder;\n\t            }\n\t\n\t        if (oProcessed == null)\n\t            throw new Exception(\"Missing processed folder.\");\n\t",
+  "lastActivityDate": "2014-05-07T20:21:22.243",
+  "title": "Get Folder from Outlook using C# & GetFolderFromID EntryIdStore",
+  "tags": [
+    "outlook"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

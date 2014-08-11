@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2838641",
+  "creationDate": "2014-05-17T10:12:59.027",
+  "body": "\n\nHow can I check if the user has input a null or empty string in classic-asp? Right now I am have this code.\n\n\tIf Request.Form(\"productId\") == \"\" Then\n\t'my code here\n\tEnd If\n\t\n\nBut its not working.",
+  "lastActivityDate": "2014-10-05T03:50:33.233",
+  "title": "Detecting null/empty input from user",
+  "tags": [
+    "asp-classic"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

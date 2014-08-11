@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644426",
+  "creationDate": "2014-04-17T18:24:37.280",
+  "body": "\n\nHello (Sorry for my bad English)\n\nIs it bad practice to assign object to view and call its methods in there?\nI use smarty as my template engine.\n\nIn my controller I could do like this\n\n1#\n\n\t$this->view->assign(\"name\", $this->model->getName);\n\t\n\nand in my view\n\n\t<p>{$name}</p>\n\t\n\nOR\n\n2#\n\n\t$this->view->assign(\"Object\", $this->model);\n\t\n\nand in my view\n\n\t<p>{$Report->getName()}</p>\n\t\n\nWell my biggest problem is that I have to handle a big amount of data coming out from the MySQL and I thought that if I would made a method that would print out the data while looping mysql_fetch_row. Well at least I know that using html-tags in the model is a bad thing to do.\n\nSo I would assign the object to the view to get the result to the right position on the page..\n\nReading a mysql-result to an array first may cause memory problems am I right? So what is the solution doing things MVC style..\n\nAnd yes Im using a framework of my own.",
+  "lastActivityDate": "2014-09-26T20:53:10.487",
+  "title": "Assigning Object to View, big MySQL resultset",
+  "tags": [
+    "php",
+    "mysql",
+    "smarty"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

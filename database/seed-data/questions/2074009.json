@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2074009",
+  "creationDate": "2014-01-18T10:59:06.647",
+  "body": "\n\nComing from a Java background I'm learning C, but I find those vague compiler error messages increasingly frustrating. Here's my code:\n\n\t/*\n\t * PURPOSE\n\t *      Do case-insensetive string comparison.\n\t */\n\t#include <stdio.h>\n\t#include <string.h>\n\t#include <ctype.h>\n\t\n\tint compareString(char cString1[], char cString2[]);\n\tchar strToLower(char cString[]);\n\t\n\tint main() {\n\t    // Declarations\n\t    char cString1[50], cString2[50];\n\t    int isEqual;\n\t\n\t    // Input\n\t    puts(\"Enter string 1: \");\n\t    gets(cString1);\n\t    puts(\"Enter string 2: \");\n\t    gets(cString2);\n\t\n\t    // Call\n\t    isEqual = compareString(cString1, cString2);\n\t    if (isEqual == 0)\n\t        printf(\"Equal!\\n\");\n\t    else\n\t        printf(\"Not equal!\\n\");\n\t\n\t    return 0;\n\t}\n\t\n\t// WATCH OUT\n\t//      This method *will* modify its input arrays.\n\tint compareString(char cString1[], char cString2[]) {\n\t    // To lowercase\n\t    cString1 = strToLower(cString1);\n\t    cString2 = strToLower(cString2);\n\t\n\t    // Do regular strcmp\n\t    return strcmp(cString1, cString2);\n\t}\n\t\n\t// WATCH OUT\n\t//      This method *will* modify its input arrays.\n\tchar strToLower(char cString[]) {\n\t    // Declarations\n\t    int iTeller;\n\t\n\t    for (iTeller = 0; cString[iTeller] != '\\0'; iTeller++)\n\t        cString[iTeller] = (char)tolower(cString[iTeller]);\n\t\n\t    return cString;\n\t}\n\t\n\nThis generates two warnings.\n* assignment makes pointer from integer without a cast\n\n* cString1 = strToLower(cString1);\n* cString2 = strToLower(cString2);\n* return makes integer from pointer without a cast\n\n* return cString;\n\nCan someone explain these warnings?",
+  "lastActivityDate": "2014-01-18T11:46:14.623",
+  "title": "C: assignment makes pointer from integer without a cast",
+  "tags": [
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2448741",
+  "creationDate": "2014-03-18T00:31:39.807",
+  "body": "\n\nI'm thinking of building a Click-Once application, and am trying to wrap my head around how to handle the whole connection string issue. The problem is the following:\n\nI want to use EF to get data directly from each client, thus requiring each client to have a connection string configured (this is not the issue). How do I deal with clients that are not on the same domain as the SQL Server being queried? In other words, if I tried to run my app from home as opposed to from work, what should my connection string look like? Would I need to configure my SQL Server differently to allow this scenario?\n\nThanks in advance!",
+  "lastActivityDate": "2014-03-18T00:38:49.523",
+  "title": "How do I deal with connection strings in a Click-Once application?",
+  "tags": [
+    ".net",
+    "sql-server",
+    "entity-framework",
+    "clickonce",
+    "connection-string"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

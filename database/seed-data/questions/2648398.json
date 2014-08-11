@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648398",
+  "creationDate": "2014-04-18T03:33:36.037",
+  "body": "\n\n\tpublic class MaxHeap<T extends Comparable<T>> implements Heap<T>{\n\tprivate T[] heap;\n\tprivate int lastIndex;\n\t\n\tpublic void main(String[] args){\n\t    int i;\n\t    T[] arr = {1,3,4,5,2}; //ERROR HERE *******\n\t    foo\n\t}\n\t\n\tpublic T[] Heapsort(T[]anArray, int n){\n\t    // build initial heap\n\t    T[]sortedArray = anArray;\n\t    for (int i = n-1; i< 0; i--){\n\t        //assert: the tree rooted at index is a semiheap\n\t        heapRebuild(anArray, i, n);\n\t        //assert: the tree rooted at index is a heap\n\t    }\n\t    //sort the heap array\n\t    int last = n-1;\n\t    //invariant: Array[0..last] is a heap,\n\t    //Array[last+1..n-1] is sorted\n\t    for (int j=1; j<n-1;j++) {\n\t        sortedArray[0]=sortedArray[last];\n\t        last--;\n\t        heapRebuild(anArray, 0, last);\n\t    }\n\t    return sortedArray;\n\t}\n\t\n\tprotected void heapRebuild(T[ ] items, int root, int size){\n\tfoo\n\t}\n\t\n\t}\n\t\n\nThe error is on the line with \"`T[arr]  = {1,3,4,5,2}`\"\n\nEclipse complains that there is a:\n\n> \"Type mismatch: cannot convert from\n  int to T\"\n\nI've tried to casting nearly everywhere but to no avail.A simple way out would be to not use generics but instead just ints but that's sadly not an option. I've got to find a way to resolve the array of ints `{1,3,4,5,2}` into an array of T so that the rest of my code will work smoothly.",
+  "lastActivityDate": "2014-04-18T04:31:50.537",
+  "title": "Java Generic Casting Type Mismatch",
+  "tags": [
+    "java",
+    "generics",
+    "casting"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

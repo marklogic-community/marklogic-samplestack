@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2642108",
+  "creationDate": "2014-04-17T09:13:11.860",
+  "body": "\n\nI'm troubleshooting a query performance problem.  Here's an expected query plan from explain:\n\n\tmysql> explain select * from table1 where tdcol between '2010-04-13 00:00' and '2010-04-14 03:16';\n\t+----+-------------+--------------------+-------+---------------+--------------+---------+------+---------+-------------+\n\t| id | select_type | table              | type  | possible_keys | key          | key_len | ref  | rows    | Extra       |\n\t+----+-------------+--------------------+-------+---------------+--------------+---------+------+---------+-------------+\n\t|  1 | SIMPLE      | table1             | range | tdcol         | tdcol        | 8       | NULL | 5437848 | Using where | \n\t+----+-------------+--------------------+-------+---------------+--------------+---------+------+---------+-------------+\n\t1 row in set (0.00 sec)\n\t\n\nThat makes sense, since the index named tdcol (`KEY tdcol (tdcol)`) is used, and about 5M rows should be selected from this query.\n\nHowever, if I query for just one more minute of data, we get this query plan:\n\n\tmysql> explain select * from table1 where tdcol between '2010-04-13 00:00' and '2010-04-14 03:17';\n\t+----+-------------+--------------------+------+---------------+------+---------+------+-----------+-------------+\n\t| id | select_type | table              | type | possible_keys | key  | key_len | ref  | rows      | Extra       |\n\t+----+-------------+--------------------+------+---------------+------+---------+------+-----------+-------------+\n\t|  1 | SIMPLE      | table1             | ALL  | tdcol         | NULL | NULL    | NULL | 381601300 | Using where | \n\t+----+-------------+--------------------+------+---------------+------+---------+------+-----------+-------------+\n\t1 row in set (0.00 sec)\n\t\n\nThe optimizer believes that the scan will be better, but it's over 70x more rows to examine, so I have a hard time believing that the table scan is better.\n\nAlso, the 'USE KEY tdcol' syntax does not change the query plan.\n\nThanks in advance for any help, and I'm more than happy to provide more info/answer questions.",
+  "lastActivityDate": "2014-04-18T04:51:35.957",
+  "title": "Why is MySQL with InnoDB doing a table scan when key exists and choosing to examine 70 times more rows?",
+  "tags": [
+    "mysql",
+    "database",
+    "performance",
+    "optimization",
+    "innodb"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

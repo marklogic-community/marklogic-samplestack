@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648744",
+  "creationDate": "2014-04-18T04:27:18.697",
+  "body": "\n\nWhat is the best way to generate soap xml in c#?  I prefer to use xml-serialization if possible.  Also, I need to add some custom attributes to the soap header, so not sure if this complicates things.\n\nOne more note:  I'm connecting to a soap server on a linux server over TCP - the soap server was built in C++. \n\nAlso, the soap server does not respond to wsdl requests - it's fully locked down.  Security is extremely tight where I work... :)",
+  "lastActivityDate": "2014-04-19T18:30:22.967",
+  "title": "Best way to generate a soap xml message?",
+  "tags": [
+    "c#",
+    "soap",
+    "xml-serialization"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

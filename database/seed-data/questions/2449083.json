@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2449083",
+  "creationDate": "2014-03-18T01:22:34.667",
+  "body": "\n\nI'm looking for a faster way to calculate GC content for DNA strings read in from a FASTA file. This boils down to taking a string and counting the number of times that the letter 'G' or 'C' appears. I also want to specify the range of characters to consider.  \n\nI have a working function that is fairly slow, and it's causing a bottleneck in my code. It looks like this:\n\n\t##\n\t## count the number of GCs in the characters between start and stop\n\t##\n\tgcCount <-  function(line, st, sp){\n\t  chars = strsplit(as.character(line),\"\")[[1]]\n\t  numGC = 0\n\t  for(j in st:sp){\n\t    ##nested ifs faster than an OR (|) construction\n\t    if(chars[[j]] == \"g\"){\n\t      numGC <- numGC + 1\n\t    }else if(chars[[j]] == \"G\"){\n\t      numGC <- numGC + 1\n\t    }else if(chars[[j]] == \"c\"){\n\t      numGC <- numGC + 1\n\t    }else if(chars[[j]] == \"C\"){\n\t      numGC <- numGC + 1\n\t    }\n\t  }\n\t  return(numGC)\n\t}\n\t\n\nRunning Rprof gives me the following output:\n\n\t> a = \"GCCCAAAATTTTCCGGatttaagcagacataaattcgagg\"\n\t> Rprof(filename=\"Rprof.out\")\n\t> for(i in 1:500000){gcCount(a,1,40)};\n\t> Rprof(NULL)\n\t> summaryRprof(filename=\"Rprof.out\")\n\t\n\t                   self.time self.pct total.time total.pct\n\t\"gcCount\"          77.36     76.8     100.74     100.0\n\t\"==\"               18.30     18.2      18.30      18.2\n\t\"strsplit\"          3.58      3.6       3.64       3.6\n\t\"+\"                 1.14      1.1       1.14       1.1\n\t\":\"                 0.30      0.3       0.30       0.3\n\t\"as.logical\"        0.04      0.0       0.04       0.0\n\t\"as.character\"      0.02      0.0       0.02       0.0\n\t\n\t$by.total\n\t               total.time total.pct self.time self.pct\n\t\"gcCount\"          100.74     100.0     77.36     76.8\n\t\"==\"                18.30      18.2     18.30     18.2\n\t\"strsplit\"           3.64       3.6      3.58      3.6\n\t\"+\"                  1.14       1.1      1.14      1.1\n\t\":\"                  0.30       0.3      0.30      0.3\n\t\"as.logical\"         0.04       0.0      0.04      0.0\n\t\"as.character\"       0.02       0.0      0.02      0.0\n\t\n\t$sampling.time\n\t[1] 100.74\n\t\n\nAny advice for making this code faster?",
+  "lastActivityDate": "2014-09-14T20:58:16.090",
+  "title": "Faster way to split a string and count characters using R?",
+  "tags": [
+    "optimization",
+    "string",
+    "r",
+    "bioinformatics"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

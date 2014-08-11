@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074455",
+  "creationDate": "2014-01-18T12:09:55.890",
+  "body": "\n\n\t<form method=\"post\" action=\"/Order/CheckOut/\" onSubmit=\"return Validate()\">\n\t\n\nand then...\n\n\tfunction Validate() {\n\t    alert($(\"#email\").val());\n\t    return false;\n\t}\n\t\n\nThe messed up part is when I take out the alert it works fine, the submit fails, but when I put the alert in, it allows the submit to go through... what the heck?\n\nI also tried this:\n\n\tfunction Validate() {\n\t    if(document.getElementByID(\"email\").value == \"test\"){\n\t        alert(\"It says test.\");\n\t    }\n\t    return false;\n\t}\n\t\n\nand got the same behavior, it would never make it to the return statement...\n\nIf I step through the JS with firebug and break at the alert or the if (depending on the version above) it stops there, and I click 'step into' and it just submits the form, why isn't it making it to the return false line?",
+  "lastActivityDate": "2014-01-18T14:12:21.510",
+  "title": "Why is my onsubmit function quitting early and not returning false?",
+  "tags": [
+    "javascript",
+    "jquery",
+    "onsubmit"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

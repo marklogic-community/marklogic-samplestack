@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645680",
+  "creationDate": "2014-04-17T21:33:46.367",
+  "body": "\n\nI want to show some progress information of a server side procedure (which in fact is an ffmpeg re-encoding).\nThe best way I though of was to use two different $.ajax() calls on myscript like this:\n\n1) when the form is submitted (which would trigger the re-encoding) one $.ajax() would start the re-encoding like this:\n\n\t   $.ajax({  \n\t    type: \"GET\",  \n\t    url: \"runffmpeg.php\",  \n\t    data: dataString,  \n\t    success: function(data, textStatus, XMLHttpRequest) {  \n\t            //clearInterval(repeat);\n\t            location.reload(); \n\t        }});\n\t\n\n2) Then, a second $.ajax() call would start watching the resulted file's size in order to inform the visitor of the progress, like this:\n\n\t    $.ajax({  \n\t        type: \"GET\",  \n\t        url: \"checkprogress.php\",  \n\t        data: dataString,  \n\t        success: function(data, textStatus, XMLHttpRequest) {                   \n\t                $('#submitted').html(data);\n\t            }\n\t    });\n\t\n\nActually this call I should be made within an setInterval of an 1 second period in order to show the progression.\n\nOf course this doesn't work (or else why I should  I posted it) and I can't find any reference of having 2 ajax calls on the same time.",
+  "lastActivityDate": "2014-08-18T18:54:19.973",
+  "title": "Having two $.ajax() calls in one script",
+  "tags": [
+    "jquery",
+    "jquery-ajax",
+    "method-chaining"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

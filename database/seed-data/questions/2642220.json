@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2642220",
+  "creationDate": "2014-04-17T09:41:07.810",
+  "body": "\n\nI created a WPF application in Visual Studio 2010 Express (C#) and added the text below to the Application.Resources in App.xaml. I see the style applied to the window in the designer, but when I run the application, the window background is white. \n\nRunning in Windows XP on BootCamp on a MacBook Pro if that is a factor.\n\nThanks in advance, \n\nChristian\n\n\t    <Style TargetType=\"{x:Type Window}\">\n\t        <Setter Property=\"Background\">\n\t            <Setter.Value>\n\t                <LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\">\n\t                    <GradientStop Offset=\"0\" Color=\"WhiteSmoke\" />\n\t                    <GradientStop Offset=\"1\" Color=\"Silver\" />\n\t                </LinearGradientBrush>\n\t            </Setter.Value>\n\t        </Setter>\n\t\n\t        <Setter Property=\"Padding\" Value=\"20\" />\n\t    </Style>\n\t",
+  "lastActivityDate": "2014-08-19T00:16:08.057",
+  "title": "WPF Window Style not working at runtime",
+  "tags": [
+    "wpf",
+    "visual-studio-2010",
+    "styles"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

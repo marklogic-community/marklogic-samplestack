@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2265320",
+  "creationDate": "2014-02-18T02:42:53.230",
+  "body": "\n\nI want to attempt an MVC design for my little app.\n\nI have a normal Csharp class ViewBase which extends UserControl. It's a single .cs file.\n\nI have multiple classes that I want to extend ViewBase. These are actual UserControls so they have a code behind .cs file and a .xaml file.\n\nHowever, CSharp tells me that for these classes, their base class \"differs from declared in other parts\".\n\nIs what I want to do possible at all? What am I doing wrong?\n\nNote that I did not modify my XAML files, so they still use  tags.\n\nHere is the relevant code:\n\n\t// This gives the error in question and ViewBase is underlined\n\t// \"Base class of LoginView differs from declared in other parts\"\n\tpublic partial class LoginView : ViewBase {\n\t    public LoginView(Shell shell, ControllerBase controller) : base(shell, controller) {\n\t        InitializeComponent();\n\t    }\n\t}\n\t\n\t// This one is a single .cs file\n\tpublic abstract class ViewBase : UserControl {\n\t    public Shell Shell { get; set; }\n\t    public ControllerBase Controller { get; set; }\n\t\n\t    protected ViewBase(Shell shell, ControllerBase controller)\n\t    {\n\t        Shell = shell;\n\t        Controller = controller;\n\t    }\n\t}\n\t",
+  "lastActivityDate": "2014-09-30T00:49:57.293",
+  "title": "How can I make a user control extend a class that extends UserControl?",
+  "tags": [
+    "c#",
+    "wpf",
+    "inheritance"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

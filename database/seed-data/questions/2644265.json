@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644265",
+  "creationDate": "2014-04-17T17:54:45.913",
+  "body": "\n\nI hope to list all files in document directory using codes below\n\n\tfor(NSString *path in [manager contentsOfDirectoryAtPath:[self appDelegate].gCurrentPath_AppDelegate\n\t                                                       error:nil])\n\t{\n\t\n\t    NSDictionary *modData=[manager attributesOfItemAtPath:\n\t                           [appDelegate.gCurrentPath_AppDelegate\n\t                            stringByAppendingPathComponent:path ] \n\t                                                    error:nil ];\n\t    NSDate * dateModified=(NSDate *) [modData objectForKey:NSFileModificationDate];\n\t\n\t    NSNumber *fileSize=[modData objectForKey:NSFileSize] ;\n\t\n\t\n\t    FileObj *newobj=[[FileObj alloc] init ];\n\t\n\t    NSString *ss=[[NSString alloc] initWithFormat:@\"%@\",path]  ;\n\t    [newobj setfileName:ss];\n\t    [ss release];\n\t\n\t    [ fileArray addObject:newobj];//fileArray: the data source of UITableView\n\t    [newobj release];\n\t}\n\t\n\nI found that there is a file with name \".DS_Store' in the list.\nI browsed the simulator directory and can not found where is this file.",
+  "lastActivityDate": "2014-08-05T15:59:46.427",
+  "title": "What is .DS_Store",
+  "tags": [
+    "iphone",
+    "osx"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

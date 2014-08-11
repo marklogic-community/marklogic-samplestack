@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2269345",
+  "creationDate": "2014-02-18T14:21:54.360",
+  "body": "\n\nI'm using RichFaces' a4j:support to toggle the visibility of some controls on the page. However, when the h:selectOneRadio button rdoRequestType is changed, it clears the values of the txtLibraryServerNumber and other controls in the a4j:outputPanel with ID \"media\". Why would one AJAX call on a page interfere with a different AJAX panel? \n\nI've tried using the \"process\" attribute on the a4j:support tag on the selectOneRadio so it writes the values of the text boxes in the other panel to the Seam bean, but that has no effect. What the heck am I doing wrong? Help! I'm losing my mind!!\n\n\t<h:selectOneRadio value=\"#{webencode.requestType}\"\n\t  id=\"rdoRequestType\" styleClass=\"radio\" style=\"width:295px\" layout=\"pageDirection\" >\n\t  <f:selectItem itemValue=\"program\" itemLabel=\"Series or Individual Program\"/>\n\t  <f:selectItem itemValue=\"promo\" itemLabel=\"Promo\" />\n\t  <f:selectItem itemValue=\"specific\" itemLabel=\"Specific Format Encoding Request\"/>\n\t  <a4j:support ajaxSingle=\"true\" event=\"onclick\" reRender=\"program\" process=\"txtLibraryServerNumber,txtDigitalMediaFileName\"/>\n\t</h:selectOneRadio>\n\t\n\t<a4j:outputPanel id=\"program\" ajaxRendered=\"true\">\n\t  <s:span rendered=\"#{('program' == webencode.requestType || 'promo' == webencode.requestType) ? true : false}\">\n\t    <h:selectOneMenu value=\"#{webencode.seriesId}\" id=\"lstSeriesName\">\n\t      <f:selectItems value=\"#{webencode.programItems}\"/>\n\t    </h:selectOneMenu>\n\t  </s:span>\n\t  <s:span rendered=\"#{'specific' == webencode.requestType ? true : false}\">\n\t    <h:selectOneMenu value=\"#{webencode.arrVideoEncodings.get(0).videoEncoding}\"\n\t      id=\"lstSpecificVideoEncoding1\" style=\"width:295px;\">\n\t      <f:selectItems value=\"#{webencode.videoEncodingItems}\"/>\n\t    </h:selectOneMenu>\n\t  </s:span>\n\t</a4j:outputPanel>             \n\t\n\t<h:selectOneMenu value=\"#{webencode.inputMediaType}\"\n\t  id=\"lstInputMediaType\">\n\t  <f:selectItems value=\"#{webencode.inputMediaTypeItems}\"/>\n\t  <a4j:support ajaxSingle=\"true\" event=\"onchange\" reRender=\"media\" process=\"lstSeriesName,lstSpecificVideoEncoding1\"/>\n\t</h:selectOneMenu>\n\t\n\t<a4j:outputPanel id=\"media\" ajaxRendered=\"true\">\n\t  <s:span rendered=\"#{'Tape Library # or Server ID #' == webencode.inputMediaType ? true : false}\">\n\t    <h:inputText id=\"txtLibraryServerNumber\"\n\t      value=\"#{webencode.libraryServerNumber}\" maxlength=\"50\" />\n\t  </s:span>  \n\t  <s:span rendered=\"#{'Digital Media File Name' == webencode.inputMediaType ? true : false}\">\n\t    <h:inputText id=\"txtDigitalMediaFileName\"\n\t      value=\"#{webencode.digitalMediaFileName}\" maxlength=\"195\" /><br />\n\t  </s:span>  \n\t</a4j:outputPanel>\n\t",
+  "lastActivityDate": "2014-02-25T14:39:09.367",
+  "title": "AJAX call clears values in unrelated controls",
+  "tags": [
+    "ajax",
+    "jsf",
+    "seam",
+    "richfaces",
+    "ajax4jsf"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2447211",
+  "creationDate": "2014-03-17T20:58:05.597",
+  "body": "\n\nI'm trying to use the header() function to create a redirect.  I would like to display an error message.  Currently I'm sending the message as a parameter through the URL, however this makes it look quite ugly.\n\nIs there a way to pass this value as a post variable instead?\n\nAny advice appreciated.\n\nThanks.",
+  "lastActivityDate": "2014-12-06T08:23:19.117",
+  "title": "PHP - Pass POST variables with header()?",
+  "tags": [
+    "php",
+    "post",
+    "redirect",
+    "header"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

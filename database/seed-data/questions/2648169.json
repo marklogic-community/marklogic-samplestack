@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648169",
+  "creationDate": "2014-04-18T03:00:27.117",
+  "body": "\n\nI'm very new to Selenium RC.  I'm using .NET (though I don't think it is relevant), I have opened a page, but I want to confirm that the page was actually opened.  I have a few ideas like using .Select() or using one of the .get*() methods, but I want to do what is considered the best practice by others in the Selenium community.",
+  "lastActivityDate": "2014-04-30T22:04:31.527",
+  "title": "How do I confirm a given page was displayed after calling ISelenium.open()?",
+  "tags": [
+    "c#",
+    ".net",
+    "selenium-rc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

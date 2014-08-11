@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2073132",
+  "creationDate": "2014-01-18T08:31:54.547",
+  "body": "\n\nI need some help with DLL architecture / design patterns / OO. \n\nI have been learning about class factory design patterns as a\nsolution to my current challenge and could use some feedback \nat this point. \n\nI have three classes that are custom wrappers for ASP.NET 2.0's\nProfileProvider, MembershipProvider, and RoleProvider. \n\nI'd like to implement a way of calling each that is reasonably\nsimple and intuitive for developers. Something to the effect of:\n\n\tObject obj = new Users().Permissions.CreateRole();\n\tObject obj = = new Users().Membership.CreateUser();\n\tObject obj = = new Users().Profile.GetUserProfile();\n\t\n\nThe examples I have read on how to do this using an abstract class\nfactory (if, indeed, this is the way to go) are somewhat confusing\n(I have been working my way round [this link](http://www.codeproject.com/KB/architecture/CSharpClassFactory.aspx) ). \n\nAny suggestions on best practices as to how to get started? \nOr, even better, code illustrations? :)\n\nThanks in advance... ",
+  "lastActivityDate": "2014-01-18T11:18:47.673",
+  "title": "Need Help With Provider Design Patterns",
+  "tags": [
+    "c#",
+    "asp.net",
+    "factory-pattern",
+    "providers"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}
