@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072996",
+  "creationDate": "2014-01-18T08:12:01.883",
+  "body": "\n\nIs there a convenient method to access .NET class documentation (i.e. the MSDN documentation) from within PowerShel similar to \"man 3\" in UNIX shells?",
+  "lastActivityDate": "2014-01-18T09:07:25.113",
+  "title": ".NET class documentation from within PowerShell?",
+  "tags": [
+    ".net",
+    "powershell"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

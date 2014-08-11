@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448879",
+  "creationDate": "2014-03-18T00:50:19.350",
+  "body": "\n\nThe standard DLL entry point is called DllMain. The second param is DWORD `ul_reason_for_call`.\n\nI have looked up on the MSDN to find all the values this can have, the following are obvious:\n\n\tDLL_PROCESS_ATTACH:\n\tDLL_THREAD_ATTACH:\n\tDLL_THREAD_DETACH:\n\tDLL_PROCESS_DETACH:\n\t\n\nBut what about :\n\n\tDLL_PROCESS_VERIFIER\n\t\n\nWhen will the entry point be called with this flag and should I worry about it during 'normal' operation of the DLL?\n\nUPDATE: I only see `DLL_PROCESS_VERIFIER` in headers files from Visual Studio 2005, not 2008.",
+  "lastActivityDate": "2014-03-18T19:11:13.497",
+  "title": "DLL entry point",
+  "tags": [
+    "c++",
+    "dll",
+    "points",
+    "entry"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

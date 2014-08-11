@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449362",
+  "creationDate": "2014-03-18T02:06:16.270",
+  "body": "\n\nI have a YML file containing fixtures for a Rails model (Comment) which looks like this (pardon the formatting):\n\n> comment_a:\n   id: 1\n   text: 'foo'\n   visible: false\n\n> comment_b:\n   id: 2\n   text: 'bar'\n   visible: true\n\n> comment_c:\n   id: 3\n   text: 'baz'\n   visible: true\n\nI know that I can select an individual Comment fixture like so:\n\n> comments(:comment_a)\n\nIn one of my acceptance tests, I want to find all the Comments which have visible = true. How do I select a set of Comments that meet certain criteria so I can iterate over them afterwards?",
+  "lastActivityDate": "2014-03-18T02:13:37.720",
+  "title": "Retrieving specific fixtures in Rails",
+  "tags": [
+    "ruby-on-rails",
+    "testing",
+    "fixtures"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

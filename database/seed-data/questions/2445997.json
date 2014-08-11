@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2445997",
+  "creationDate": "2014-03-17T17:12:52.643",
+  "body": "\n\nThis has been bugging me for more than two days now, so i thought i should ask. I am using Qt 4.5.3 (compiled with VC2008) on Win7.\n\nI have MyGraphicsView (inherits QGraphicsView) and MyFilter (inherits QObject) classes.\n\nWhen i install the MyFilter object as an event filter to MyGraphicsView, Mouse events are delivered to MyFilter *after* they are delivered to MyGraphicsView whereas Key events are delivered to MyFilter *before* they are delivered to MyGraphicsView.\n\nIn the second case, i install the MyFilter object as an event filter to MyGraphicsView->viewport() (which is a standart QGLWidget), Mouse events are delivered to MyFilter *before* they are delivered to MyGraphicsView, whereas Key events are delivered to *only* MyGraphicsView.\n\nThe events are supposed to be delivered to event filters before they are delivered to the actual object, so why is this happening? What should i do to ensure this order?\n\nThanks in advance.\nBest Regards. ",
+  "lastActivityDate": "2014-03-27T00:20:04.053",
+  "title": "QGraphicsView and eventFilter",
+  "tags": [
+    "qt",
+    "events",
+    "qt4",
+    "qgraphicsview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

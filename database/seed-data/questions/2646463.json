@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646463",
+  "creationDate": "2014-04-17T23:03:28.387",
+  "body": "\n\nI have a XMLDocument like:\n\n\t<Folder name=\"test\">\n\t         <Folder name=\"test2\">\n\t              <File>TestFile</File>\n\t         </Folder>\n\t </Folder>\n\t\n\nI want only the folder´s, not the files. So, how to delete / manipulate the XML Document in c# to delete / remove ALL  elements in the document?\n\nThanks!",
+  "lastActivityDate": "2014-08-31T21:20:53.560",
+  "title": "remove xml nodes from xml document",
+  "tags": [
+    "c#",
+    "xml",
+    "dom"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

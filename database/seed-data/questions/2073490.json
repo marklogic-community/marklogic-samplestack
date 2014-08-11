@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2073490",
+  "creationDate": "2014-01-18T09:21:29.887",
+  "body": "\n\nI have an application that will support multiple sites. The site will be determined based on the url. \n\nFor example \n[http://myapp/site/abc123/](http://myapp/site/abc123/)...\nand\n[http://myapp/site/xyz123/](http://myapp/site/xyz123/)...\n\nThe site code will drive a lot of the functionality for example themes, available modules, etc...\n\nQuestions:\n\n1-)I need to validate the site code is valid and if it isn't, it should direct the user to an info page. I was looking at using [IRouteConstraint](http://msdn.microsoft.com/en-us/library/system.web.routing.irouteconstraint.aspx), is this appropriate? Are there other/better options? \n\n2-)Any gotchas with this approach (using url to identify site)? Is there are better approach?\n\n**Solution**\n\nI ended up creating a Custom ActionFilter and check the sitecode in the OnActionExecuting event. That seems to work well and fit better than the IRouteConstraint.",
+  "lastActivityDate": "2014-08-13T04:14:11.793",
+  "title": "Asp.Net MVC Identify Site via Url",
+  "tags": [
+    "asp.net-mvc",
+    "asp.net-mvc-routing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

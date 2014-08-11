@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268049",
+  "creationDate": "2014-02-18T10:24:02.410",
+  "body": "\n\nWhen working with UI items in Interface Builder is there any way to lock an item's position once you are happy with its placement? I only ask as I keep slightly dragging items when selecting them for edits resulting in having to go back and tweak positions.",
+  "lastActivityDate": "2014-03-20T03:17:44.080",
+  "title": "Interface Builder Lock Item Positions?",
+  "tags": [
+    "iphone",
+    "interface-builder"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

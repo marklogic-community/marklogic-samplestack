@@ -1,0 +1,18 @@
+{
+  "id": "/questions/3042237",
+  "creationDate": "2014-06-17T10:51:45.107",
+  "body": "\n\nIn short, I have a very large photo gallery and I'm trying to cache as many of the thumbnail images as I can when the first page loads.  There could be 1000+ thumbnails.\n\nFirst question -- is it stupid to try to preload/cache that many?\n\nSecond question -- when the `preload()` function fires, the entire browser stops responding for a minute to two.  At which time the callback fires, so the preload is complete.  Is there a way to accomplish \"smart preloading\" that doesn't impede on the user experience/speed when attempting to load this many objects?\n\nThe `$.preLoadImages` function is take from here: [http://binarykitten.me.uk/dev/jq-plugins/107-jquery-image-preloader-plus-callbacks.html](http://binarykitten.me.uk/dev/jq-plugins/107-jquery-image-preloader-plus-callbacks.html)\n\nHere's how I'm implementing it:\n\n\t$(document).ready(function() {\n\t    setTimeout(\"preload()\", 5000);\n\t});\n\tfunction preload() {\n\t    var images = ['image1.jpg', ... 'image1000.jpg'];\n\t    $.preLoadImages(images, function() { alert('done'); });\n\t}\n\t\n\n1000 images is a lot.  Am I asking too much?",
+  "lastActivityDate": "2014-06-19T13:45:33.240",
+  "title": "jQuery image preload/cache halting browser",
+  "tags": [
+    "jquery",
+    "image",
+    "image-preloader"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

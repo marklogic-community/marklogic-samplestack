@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2267613",
+  "creationDate": "2014-02-18T09:10:29.113",
+  "body": "\n\nI have a HttpModule that redirects certain URL:s in an ASP.NET WebForms application. It works on my machine with the ASP.NET Development Server. But when I upload it to our Win2k8 server with IIS7, it doesn't seem to react at all. I've put the `<add name=\"Test.Web\" type=\"Test.Web.Core.HttpModules.RedirectOldUrls, Test.Web\" />` in the system.webServer/modules section, and in inetmgr I can see the module amongst the other ones. The website seems to behave the same way before and after I upload the code, which it shouldn't.\n\nAn edited code example:\n\n\tpublic void Init(HttpApplication context)\n\t    {\n\t        context.Error += PageNotFoundHandler;\n\t    }\n\t\n\t    public static void PageNotFoundHandler(object sender, EventArgs evt)\n\t    {\n\t        Exception lastErrorFromServer = HttpContext.Current.Server.GetLastError();\n\t\n\t        if (lastErrorFromServer != null)\n\t        {\n\t            RedirectToNewUrlIfApplicable();\n\t        }\n\t    }\n\t\n\t    private static void RedirectToNewUrlIfApplicable()\n\t    {\n\t        string redirectUrl = GetRedirectUrl();\n\t\n\t        if (!string.IsNullOrEmpty(redirectUrl))\n\t        {\n\t            HttpContext.Current.Response.Status = \"301 Moved Permanently\";\n\t            HttpContext.Current.Response.AddHeader(\"Location\", redirectUrl);\n\t        }\n\t    }\n\t\n\t    private static string GetRedirectUrl()\n\t    {\n\t        return RedirectableUrls.GetUrl();\n\t    }\n\t",
+  "lastActivityDate": "2014-02-19T01:31:05.950",
+  "title": "A HttpModule that doesn't work in IIS7",
+  "tags": [
+    "c#",
+    ".net",
+    "asp.net",
+    "iis-7",
+    "httpmodule"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

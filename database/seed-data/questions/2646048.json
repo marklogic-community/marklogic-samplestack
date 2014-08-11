@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646048",
+  "creationDate": "2014-04-17T22:15:10.177",
+  "body": "\n\nI have a struct which works much like the System.Nullable type:\n\n\tpublic struct SpecialProperty<T>\n\t{\n\t    public static implicit operator T(SpecialProperty<T> value)\n\t    {\n\t        return value.Value;\n\t    }\n\t    public static implicit operator SpecialProperty<T>(T value)\n\t    {\n\t        return new SpecialProperty<T> { Value = value };\n\t    }\n\t\n\t    T internalValue;\n\t    public T Value { get { return internalValue; } set { internalValue = value; } }\n\t\n\t    public override bool Equals(object other)\n\t    {\n\t        return Value.Equals(other);\n\t    }\n\t    public override int GetHashCode()\n\t    {\n\t        return Value.GetHashCode();\n\t    }\n\t    public override string ToString()\n\t    {\n\t        return Value.ToString();\n\t    }\n\t\n\t}\n\t\n\nI'm trying to use it with ASP.NET MVC binding. Using the default customer model binder the property will always yield null. I can fix this by adding \".Value\" to the end of every form input name, but I just want it to bind to the new type directly using some sort of custom model binder, but all the solutions I've tried seemed needlessly complex. I feel like I should be able to extend the default binder and with a few lines of code redirect the property binding to the entire model using implicit conversion. I don't quite get the binding paradigm of the default binder, but it seems really stuck on this distinction between the model and model properties. What is the simplest method to do this?\nThanks!",
+  "lastActivityDate": "2014-10-04T21:39:17.677",
+  "title": "Model Binding Custom Type",
+  "tags": [
+    "c#",
+    "asp.net-mvc",
+    "defaultmodelbinder",
+    "custom-model-binder"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

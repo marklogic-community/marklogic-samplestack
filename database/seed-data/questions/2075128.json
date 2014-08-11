@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2075128",
+  "creationDate": "2014-01-18T14:15:31.483",
+  "body": "\n\nI need to output 4 different floats to two decimal places.\n\nThis is what I have:\n\n\tprint '%.2f' % var1,'kg =','%.2f' % var2,'lb =','%.2f' % var3,'gal =','%.2f' % var4,'l'\n\t\n\nWhich is very unclean, and looks bad. Is there a way to make any float in that out put '%.2f'? \n\nNote: Using Python 2.6.",
+  "lastActivityDate": "2014-10-02T22:24:00.567",
+  "title": "Python, print all floats to 2 decimal places in output",
+  "tags": [
+    "python",
+    "floating-point",
+    "string-formatting"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

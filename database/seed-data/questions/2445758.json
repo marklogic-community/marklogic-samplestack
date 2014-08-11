@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445758",
+  "creationDate": "2014-03-17T16:05:42.377",
+  "body": "\n\nhere is my UI design\n\n\t<div>\n\t    <ul>\n\t         <li>\n\t             <a></a>\n\t         </li>\n\t    </ul>\n\t</div>\n\t\n\ntext for anchor will be set on run time..can be of any length and I dnt want text to be get wrap..any idea how can I solve this..actaully I am creating a menu...",
+  "lastActivityDate": "2014-03-17T16:14:15.533",
+  "title": "Applying Wrapper class to <div>",
+  "tags": [
+    "css",
+    "div"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

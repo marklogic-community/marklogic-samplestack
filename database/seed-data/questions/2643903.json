@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643903",
+  "creationDate": "2014-04-17T16:54:39.573",
+  "body": "\n\nI have a CSR file and CA keys\n\nThanks",
+  "lastActivityDate": "2014-08-06T09:36:15.470",
+  "title": "How to generate CA signed x509 certificate by M2Crypto",
+  "tags": [
+    "m2crypto",
+    "csr",
+    "x509"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

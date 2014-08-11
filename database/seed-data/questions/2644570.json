@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2644570",
+  "creationDate": "2014-04-17T18:50:14.330",
+  "body": "\n\nI have the Button defined as follows:\n\n\t<Button\n\t android:drawableTop=\"@drawable/ico\"\n\t android:gravity=\"center\"\n\t android:id=\"@+id/StartButton2x2\"\n\t android:text=\"@string/Widget2x2StartBtnLabel\"\n\t android:layout_width=\"0dip\" \n\t android:layout_height=\"fill_parent\"\n\t android:layout_weight=\"1\" \n\t android:background=\"@drawable/widgetbtn_bg\"\n\t/>\n\t\n\nThe problem is that 'drawableTop' image is aligned to the top border of the Button view. I would like to center it (together with text label) vertically on the button. \n\n'android:gravity' seems to work only on text label. It does not affect 'drawableTop' positioning.\n\nI was able to center it vertically using 'android:paddingTop' - but that does not seem to be a good idea. I guess it would not work properly on different screen resolution/size.",
+  "lastActivityDate": "2014-10-13T09:25:55.633",
+  "title": "How to center drawableTop and text vertically on the Button in Android?",
+  "tags": [
+    "xml",
+    "android",
+    "layout",
+    "button"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

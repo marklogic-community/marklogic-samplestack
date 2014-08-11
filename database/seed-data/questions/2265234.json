@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2265234",
+  "creationDate": "2014-02-18T02:24:04.523",
+  "body": "\n\nI am developing a web API with 10 tables or so in the backend, with several one-to-many and many-to-many associations. The API essentially is a database wrapper that performs validated updates and conditional queries. It's written in Python, and I use SQLAlchemy for ORM and CherryPy for HTTP handling.\n\nSo far I have separated the 30-some queries the API performs into functions of their own, which look like this:\n\n\t# in module \"services.inventory\"\n\tdef find_inventories(session, user_id, *inventory_ids, **kwargs):\n\t    query = session.query(Inventory, Product)\n\t    query = query.filter_by(user_id=user_id, deleted=False)\n\t    ...\n\t    return query.all()\n\t\n\tdef find_inventories_by(session, app_id, user_id, by_app_id, by_type, limit, page):\n\t    ....\n\t\n\t# in another service module\n\tdef remove_old_goodie(session, app_id, user_id):\n\t    try:\n\t        old = _current_goodie(session, app_id, user_id)\n\t        services.inventory._remove(session, app_id, user_id, [old.id])\n\t    except ServiceException, e:\n\t        # log it and do stuff\n\t....\n\t\n\nThe CherryPy request handler calls the query methods, which are scattered across several service modules, as needed. The rationale behind this solution is, since they need to access multiple model classes, they don't belong to individual models, and also these database queries should be separated out from direct handling of API accesses.\n\nI realize that the above code might be called [Foreign Methods](http://www.refactoring.com/catalog/introduceForeignMethod.html) in the realm of refactoring. I could well live with this way of organizing for a while, but as things are starting to look a little messy, I'm looking for a way to refactor this code.\n* Since the queries are tied directly to the API and its business logic, they are hard to generalize like getters and setters.\n* It smells to repeat the `session` argument like that, but as the current implementation of the API creates a new CherryPy handler instance for each API call and therefore the `session` object, there is no global way of getting at the current `session`.\n\nIs there a well-established pattern to organize such queries? Should I stick with the Foreign Methods and just try to unify the function signature (argument ordering, naming conventions etc.)? What would you suggest?",
+  "lastActivityDate": "2014-02-20T06:55:34.357",
+  "title": "Design pattern to organize non-trivial ORM queries?",
+  "tags": [
+    "python",
+    "design-patterns",
+    "orm",
+    "refactoring",
+    "sqlalchemy"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

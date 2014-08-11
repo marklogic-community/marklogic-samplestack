@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2265592",
+  "creationDate": "2014-02-18T03:36:27.873",
+  "body": "\n\nI'm using the .net TimeZoneInfo FindSystemTimeZoneById method which I understand queries the registry. Are the values for Time Zone ID strings stored in the registry  at \"HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Time Zone\" dependent on the language of the Windows installation of the machine? \n\nThe registry key contains a value called \"Display Name\" so it would make sense for this to be the language specific one, but I can't find out if this is the case (short of installing a different language version of Windows). Can anybody let me know?",
+  "lastActivityDate": "2014-11-19T07:21:36.423",
+  "title": ".Net TimeZoneInfo ID - Is it Windows Language Specific?",
+  "tags": [
+    "c#",
+    ".net",
+    "windows",
+    "registry",
+    "timezone"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

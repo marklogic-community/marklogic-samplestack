@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266718",
+  "creationDate": "2014-02-18T06:57:49.667",
+  "body": "\n\nI need some help solving a problem with mySQL, is it possible to pass an array to a function and then run a match agains the array values?\n\nI have this query\n\n\tfunction getMenu($cookieId) {\n\t    $this->db->select('*');\n\t    $this->db->from('categoryTable');\n\t    $this->db->join('userMenuTable', 'categoryTable.categoryId = userMenuTable.categoryId', 'left');\n\t    $this->db->where('userMenuTable.cookieId', $cookieId);\n\t\n\t    $query = $this->db->get();\n\t    return $query->result_array();\n\t\n\t}\n\t\n\nUsing the `$query` array that is returned is possible to query the database and get all the values from a table that do not match the array values?",
+  "lastActivityDate": "2014-02-18T07:33:32.573",
+  "title": "Help with MySQL query clause in CodeIgniter",
+  "tags": [
+    "php",
+    "mysql",
+    "codeigniter"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

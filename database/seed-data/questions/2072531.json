@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2072531",
+  "creationDate": "2014-01-18T07:09:20.777",
+  "body": "\n\nI'm trying to serialize a data structure and pass it to another report via parameter, and this line of code:  \n\n\tDim s As New System.Xml.Serialization.XmlSerializer(GetType(System.Collections.HashTable))\n\t\n\nProduces this error:  \n\n\tAn error occurred during local report processing.\n\tThe definition of the report '/myReport' is invalid.\n\tThere is an error on line 22 of custom code: [BC30002] Type 'System.Xml.Serialization.XmlSerializer' is not defined.\n\t\n\nHow can I get around this?  I have been able to use fully defined .NET classes in other lines of code, including the following:\n\n\tDim outStream As New System.IO.StringWriter()\n\t\n\nand  \n\n\tPrivate colorMapping As New System.Collections.Hashtable()\n\t\n\nAny ideas why this would fail?  This is SQL Server Reporting Services 2005.",
+  "lastActivityDate": "2014-01-21T12:40:22.773",
+  "title": "Why would System.Xml.Serialization.XmlSerializer be undefined in a SSRS 2005 report?",
+  "tags": [
+    ".net",
+    "vb.net",
+    "reporting-services",
+    "reportingservices-2005"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

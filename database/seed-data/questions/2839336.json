@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2839336",
+  "creationDate": "2014-05-17T15:45:31.177",
+  "body": "\n\nHow would you do this:\n[http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page](http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page)\n\nExcept with a fluid center (vertically stretched, height 100%)?",
+  "lastActivityDate": "2014-08-30T08:53:37.960",
+  "title": "CSS: Fluid layout - footer always at the bottom, and a fluid center",
+  "tags": [
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

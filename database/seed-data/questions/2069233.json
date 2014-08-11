@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2069233",
+  "creationDate": "2014-01-17T19:13:27.273",
+  "body": "\n\nI think this is a really, really simple question but I can't seem to find the answer. \n\nI'm trying to set default values for properties in a PHP class and one of them is a date so I'm trying to use the date() function to set it:\n\n\t<?php \n\tclass Person\n\t{\n\t    public $fname = \"\";\n\t    public $lname = \"\";\n\t    public $bdate = date(\"c\");\n\t    public $experience = 0;\n\t}\n\t?>\n\t\n\nI'm getting an error in Zend Studio that on the public $bdate line that says \n\n\tPHP Parse error:  syntax error, unexpected '(', expecting ',' or ';'\n\t\n\nI've looked through a bunch of documentation on the various date classes in PHP and the Class/Properties documentation but I can't find any examples of setting a date value to a property. I've tried mktime() and some of the other date classes but I always get the same error.\n\nHow do you set a date value to a property in PHP?",
+  "lastActivityDate": "2014-01-17T19:15:39.313",
+  "title": "Setting date to a variable in a PHP class",
+  "tags": [
+    "php",
+    "datetime",
+    "date"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

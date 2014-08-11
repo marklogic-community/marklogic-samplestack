@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2074606",
+  "creationDate": "2014-01-18T12:36:04.823",
+  "body": "\n\nI like the plyr syntax. Any time I have to use one of the *apply() commands I end up kicking the dog and going on a 3 day bender. So for the sake of my dog and my liver, what's concise syntax for doing a ddply operation on every row of a data frame?\n\nHere's an example that works well for a simple case:\n\n\tx <- rnorm(10)\n\ty <- rnorm(10)\n\tdf <- data.frame(x,y)\n\tddply(df,names(df) ,function(df) max(df$x,df$y))\n\t\n\nthat works fine and gives me what I want. But if things get more complex this causes plyr to get funky (and not like Bootsy Collins) because plyr is chewing on making \"levels\" out of all those floating point values\n\n\tx <- rnorm(1000)\n\ty <- rnorm(1000)\n\tz <- rnorm(1000)\n\tmyLetters <- sample(letters, 1000, replace=T)\n\tdf <- data.frame(x,y, z, myLetters)\n\tddply(df,names(df) ,function(df) max(df$x,df$y))\n\t\n\non my box this chews for a few minutes and then returns:\n\n\tError: memory exhausted (limit reached?)\n\tIn addition: Warning messages:\n\t1: In paste(rep(l, each = ll), rep(lvs, length(l)), sep = sep) :\n\t  Reached total allocation of 1535Mb: see help(memory.size)\n\t2: In paste(rep(l, each = ll), rep(lvs, length(l)), sep = sep) :\n\t  Reached total allocation of 1535Mb: see help(memory.size)\n\t\n\nI think I am totally abusing plyr and I am not saying this is a bug in plyr, but rather abusive behavior by me (liver and dog notwithstanding).\n\nSo in short, is there syntax shortcut for using ddply to operate on every row as a substitute for `apply(X, 1, ...)`?\n\nThe workaround I've been using is to create a \"key\" that gives a unique value for every row and then I can join back to it. \n\n\t x <- rnorm(1000)\n\t y <- rnorm(1000)\n\t z <- rnorm(1000)\n\t myLetters <- sample(letters, 1000, replace=T)\n\t df <- data.frame(x,y, z, myLetters)\n\t  #make the key\n\t df$myKey <- 1:nrow(df)\n\t myOut <- merge(df, ddply(df,\"myKey\" ,function(df) max(df$x,df$y)))\n\t  #knock out the key\n\t myOut$myKey <- NULL\n\t\n\nBut I keep thinking that \"There Has to Be a Better Way\"\n\nThanks! ",
+  "lastActivityDate": "2014-01-18T13:17:56.883",
+  "title": "doing a plyr operation on every row of a data frame in R",
+  "tags": [
+    "r",
+    "plyr"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

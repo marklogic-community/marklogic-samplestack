@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2447217",
+  "creationDate": "2014-03-17T20:58:46.420",
+  "body": "\n\nI'm making a simple search form in rails. In my search view I have two select boxes with fixed values like:\n\n\tSELECT BOX 1          SELECT BOX 2\n\tALL,                  ALL,\n\tFR,                   FR,\n\tUS,                   US,\n\tDE                    DE\n\t\n\nAnd I have 2 fields in my DB with `country_from` and `country_to`.\n\nSo for making a simple search like from `FR` to `US` I use:\n\n\t@search_result = Load.find(:all, :conditions => \"country_from='#{params[:country_from]}' AND country_to='#{params[:country_to]}'\" )\n\t\n\nthat is fine, but I need to implement the `ALL` option as well, so when I make a search like from `DE` to `ALL` I get a list with all countries in `country_to`\n\nI image I can do it with ifs...but what would be the most efficient way to do it?",
+  "lastActivityDate": "2014-03-18T00:05:59.377",
+  "title": "simple search in rails",
+  "tags": [
+    "ruby-on-rails"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

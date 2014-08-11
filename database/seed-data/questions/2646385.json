@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2646385",
+  "creationDate": "2014-04-17T22:54:51.523",
+  "body": "\n\nI have a function that sums a column of data in an html table. It does so admirably only I would like to have it put the commas in there that are needed to separate the thousands. Initially, you'll note, there are commas in the numbers being added. So that the function will add them, they are removed. How do I add the commas back in there?\n\n\t<script type=\"text/javascript\">\n\t    function sumOfColumns(tableID, columnIndex, hasHeader) {\n\t        var tot = 0;\n\t        $(\"#\" + tableID + \" tr\" + (hasHeader ? \":gt(0)\" : \"\"))\n\t          .children(\"td:nth-child(\" + columnIndex + \")\")\n\t          .each(function() {\n\t              tot += parseInt($(this).html().replace(',', ''));\n\t          });\n\t        return \"Total Pounds Entered : \" + tot;\n\t    }\n\t</script>\n\t",
+  "lastActivityDate": "2014-06-08T00:31:19.210",
+  "title": "Add a thousands separator to a total with Javascript or jQuery?",
+  "tags": [
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2075142",
+  "creationDate": "2014-01-18T14:18:34.923",
+  "body": "\n\nFirst, let me say this: I suck at regex and htaccess. I'm trying to make a rule that will properly parse url segments into variables. So far I have this:\n\n\tRewriteRule ^([^/]+)/?$ index.php?query[]=$1 [QSA,L]\n\tRewriteRule ^([^/]+)/([^/]+)/?$ index.php?query[]=$1&query[]=$2 [QSA,L]\n\tRewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ index.php?query[]=$1&query[]=$2&query[]=$3 [QSA,L]\n\tRewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ index.php?query[]=$1&query[]=$2&query[]=$3&query[]=$4 [QSA,L]\n\t\n\nIt works, sort of, but I feel it's longer than it needs to be; and what if I want 5 or 6 or 7 variables? Is there a more condensed way to write this out?\n\nAlso, when I spit out the query array, the first element is always index.php. What's up with that?",
+  "lastActivityDate": "2014-01-19T20:19:06.820",
+  "title": "Combining multiple htaccess rewrite rules into one",
+  "tags": [
+    "php",
+    "regex",
+    ".htaccess"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

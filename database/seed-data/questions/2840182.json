@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840182",
+  "creationDate": "2014-05-17T21:01:44.800",
+  "body": "\n\nI am new to SVN. I want to check out a very large project over a slow connection which takes ages to download. I have zipped versions of project on both remote server and my local which are identical. Is there an easy and quick way to sync my local project with remote server without a full checkout?\n\nThanks",
+  "lastActivityDate": "2014-05-17T21:14:55.270",
+  "title": "SVN: Checking out a large project over slow connection",
+  "tags": [
+    "svn",
+    "version-control"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

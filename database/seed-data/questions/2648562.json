@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648562",
+  "creationDate": "2014-04-18T03:58:46.110",
+  "body": "\n\nThe problem is that I want to output Mathematica compatible floating point numbers. The only difference with the standard IOStream or printf output format is that the exponential `e` is replaced by `*^`:\n\n\tStandard C/C++ output format: 1.23e-4\n\tMathematica format: 1.23*^-4\n\t\n\nIs there a way to manipulate streams to achieve this effect? My original idea was just to use istringstream and dump it to a string and then replace all the `e`'s. I would also be okay if someone posted code to parse through the bits of the floating point number and output it directly (i.e. a `printf(\"%e\")` replacement).",
+  "lastActivityDate": "2014-05-01T05:27:38.437",
+  "title": "How to output floating point numbers with a custom output format in C++?",
+  "tags": [
+    "c++",
+    "floating-point",
+    "iostream"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

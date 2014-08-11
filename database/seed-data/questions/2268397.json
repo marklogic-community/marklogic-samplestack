@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268397",
+  "creationDate": "2014-02-18T11:29:59.290",
+  "body": "\n\nI know that Concrete Types can be configured with Structure Map the following way:\n\n\tForRequestedType<Rule>().TheDefault.Is.Object(new ColorRule(\"Green\"));\n\t\n\nThis works if you know the type ahead of time.  I want to do it at run time, and there does not seem to be a way.  Can some one enlighten me?  What I want to do is something like the following:  (This appears to be not supported by structure map)\n\n\tForRequestedType(typeof(Rule)).TheDefault.Is.Object(new ColorRule(\"Green\"));\n\t\n\nThe reason for this is because I'm working on a wrapper for structure-map's configuration.  And I will not know the type ahead of time.  For the .Object(new ColorRule(\"Green\")) I am going to be passing in a delegate instead, which would actually construct the object on request.",
+  "lastActivityDate": "2014-04-01T00:33:54.910",
+  "title": "StructureMap: Configure concrete classes at run time?",
+  "tags": [
+    "structuremap",
+    "ioc-container"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

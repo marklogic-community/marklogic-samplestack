@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2644956",
+  "creationDate": "2014-04-17T19:57:24.367",
+  "body": "\n\nI have a problem downloading particular file types by WebClient. So there are no problems with usual types - mp3, doc and others, but when I rename file extension to config it returns me:\nInnerException = {System.Net.WebException: The remote server returned an error: NotFound. ---> System.Net.WebException: The remote server returned an error: NotFound.\n   at System.Net.Browser.BrowserHttpWebRequest.InternalEndGetResponse(IAsyncResult asyncResult)\n\nwhen I'm trying to access this file in browser (http://localhost:3182/Silverlight.config) - it's a usual xml file within - server returns me following error page:\n\n##Server Error in '/' Application.\n\nThis type of page is not served. \nDescription: The type of page you have requested is not served because it has been explicitly forbidden.  The extension '.config' may be incorrect.   Please review the URL below and make sure that it is spelled correctly. \n\nRequested URL: /Silverlight.config\n\nSo I suppose this hapens because of some server configuration, which blocks files of unknown type. \n\ndownloading code is simple:\n\n\tWebClient webClient = new WebClient();\n\twebClient.OpenReadCompleted += new OpenReadCompletedEventHandler(webClient_OpenReadCompleted);                \n\twebClient.OpenReadAsync(new Uri(\"../Silverlight.config\", UriKind.RelativeOrAbsolute));\n\t\n\ncompletted eventhandler omitted for simplicity.",
+  "lastActivityDate": "2014-04-17T20:31:49.003",
+  "title": "Downloading file by WebClient Exception",
+  "tags": [
+    "webclient"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

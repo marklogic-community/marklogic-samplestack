@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069265",
+  "creationDate": "2014-01-17T19:22:35.793",
+  "body": "\n\nCould someone please help me figure out what is wrong with my program, AND HOW O FIX IT!?\n\n`Warning: The Copy Bundle Resources build phase contains this target's Info.plist file 'SECRET-Info.plist'.`\n\nPlease help!",
+  "lastActivityDate": "2014-01-17T19:24:01.330",
+  "title": "Something is wrong with my plist file? But what is it?",
+  "tags": [
+    "iphone",
+    "plist"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

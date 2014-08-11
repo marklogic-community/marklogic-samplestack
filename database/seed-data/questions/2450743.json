@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2450743",
+  "creationDate": "2014-03-18T05:50:38.797",
+  "body": "\n\nI have two destinations now and the first calls a SOAP webservice.\nI want to take the response of that destination by:\n\n\tmsg = new XML(responseMap.get('Destination1').getMessage());\n\t\n\nand convert it to a mutable XML object.\nDoing:\n\nlogger.error(msg);\n\n\t<S:Body><PRPA_IN201306UV02> ... </PRPA_IN201306UV02></S:Body>\n\t\n\nShows the valid msg as I want it, but when I do:\n\n`msg['S:Body']` it returns nothing.\n\nAny suggestions would help.",
+  "lastActivityDate": "2014-03-22T23:27:14.913",
+  "title": "Overwrite msg in mirth",
+  "tags": [
+    "e4x",
+    "hl7",
+    "mirth"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

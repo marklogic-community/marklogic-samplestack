@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072694",
+  "creationDate": "2014-01-18T07:31:45.507",
+  "body": "\n\nI am working on an asp.net page and I want to load the contents of another web page and place it in a panel.  This is the kind of thing that you can do with curl, but I need a native c# solution.",
+  "lastActivityDate": "2014-01-18T09:20:49.477",
+  "title": "combining pages at runtime",
+  "tags": [
+    "c#",
+    "asp.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

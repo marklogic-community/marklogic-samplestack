@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2838401",
+  "creationDate": "2014-05-17T08:21:44.363",
+  "body": "\n\nI have a Product record that has multiple \"zoned\" prices, one for each store that sells the product.\n\n\tProductID int\n\tName      string\n\tPriceA    money\n\tPriceB    money\n\tPriceC    money\n\t\n\nIn SQL Server Integration Services, I need to split this in to multiple records:\n\n\tProductID int\n\tVersion   string  // A, B, or C\n\tPrice     money   // PriceA if A, PriceB if B, etc.\n\t\n\nThis would be within a Data Flow, I presume as a Transformation between Excel source and OLE DB destination.  (Assuming OLE DB is a good destination for MS SQL server).",
+  "lastActivityDate": "2014-05-19T12:20:27.020",
+  "title": "SSIS how to split a single record in to two different records?",
+  "tags": [
+    "ssis",
+    "ssis-data-transformations"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

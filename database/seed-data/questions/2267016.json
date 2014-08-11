@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2267016",
+  "creationDate": "2014-02-18T07:43:11.057",
+  "body": "\n\nThis afternoon I spent several hours trying to find a bug in my custom extension to `urllib2.Request`. The problem was, as I found out, the usage of `super(ExtendedRequest, self)`, since `urllib2.Request` is (I'm on Python 2.5) still an old style class, where the use of `super()` is not possible.\n\nThe most obvious way to create a new class with both features,\n\n\tclass ExtendedRequest(object, urllib2.Request):\n\t    def __init__():\n\t        super(ExtendedRequest, self).__init__(...)\n\t\n\ndoesn't work. Calling it, I'm left with `AttributeError: type` raised by `urllib2.Request.__getattr__()`. Now, before I start and copy'n paste the whole `urllib2.Request` class from /usr/lib/python just to rewrite it as\n\n\tclass Request(object):\n\t\n\nhas anyone an idea, how I could achieve this in a more elegant way? (With *this* being to have a *new-style* class based on `urllib2.Request` with working support for `super()`.)\n\n**Edit:** By the way: the AttributeError mentioned:\n\n\t>>> class ExtendedRequest(object, urllib2.Request):\n\t...   def __init__(self):\n\t...     super(ExtendedRequest, self).__init__('http://stackoverflow.com')\n\t...\n\t>>> ABC = ExtendedRequest ()\n\t>>> d = urllib2.urlopen(ABC)\n\tTraceback (most recent call last):\n\t  File \"<stdin>\", line 1, in <module>\n\t  File \"/usr/lib/python2.5/urllib2.py\", line 124, in urlopen\n\t    return _opener.open(url, data)\n\t  File \"/usr/lib/python2.5/urllib2.py\", line 373, in open\n\t    protocol = req.get_type()\n\t  File \"/usr/lib/python2.5/urllib2.py\", line 241, in get_type\n\t    if self.type is None:\n\t  File \"/usr/lib/python2.5/urllib2.py\", line 218, in __getattr__\n\t    raise AttributeError, attr\n\tAttributeError: type\n\t",
+  "lastActivityDate": "2014-02-19T05:05:53.643",
+  "title": "Making super() work in Python's urllib2.Request",
+  "tags": [
+    "python",
+    "request",
+    "urllib2",
+    "super",
+    "new-style-class"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

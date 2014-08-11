@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2839009",
+  "creationDate": "2014-05-17T13:18:33.330",
+  "body": "\n\nThere are three column in the datatable `A,B and C`. Now each column is type of `decimal`. Now I am doing like `dt.Columns[\"A\"].Expression=\"B+C\";` to make addition of Column B's record and column C's record. Now if there is any value of `B or C` is `null` then addition of B and C will be null like B's value is 3 and C's value is `null` for first row then `B+C(3+null)` will be `null` which is not appropriate, the result of addition should be `3`.If I replace `0` instead of `null` then it will be ok.But whereever there is null value in the records it should be remain it is and it should not be replaced by `0`.That is null value **should not** be replaced by `0` and when addition of null value is done with any decimal value `null` value should be considered as `0`. \n\nIs it possible,how can we do this ?\n\n**EDIT**\nSee the following answer \nwhere\n`dt.Rows[0][\"B\"] = DBNull.Value;`\nbut I have problem like according to my code I can not assign `DBNull.Value` directly `dt.Rows[0][\"B\"] = DBNull.Value;` I have to store it in one variable of type `object` like \n`Object obj;``obj=DBNull.Value` \nand then that value goes to the table.Then it gives error like `null value can not be stored to the column B.`",
+  "lastActivityDate": "2014-05-17T21:30:46.863",
+  "title": "A null value should be considered as 0 when addition of it is done with decimal value",
+  "tags": [
+    "c#",
+    "winforms",
+    "null",
+    "datacolumn"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

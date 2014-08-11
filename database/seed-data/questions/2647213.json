@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2647213",
+  "creationDate": "2014-04-18T00:38:36.160",
+  "body": "\n\nSo, I am doing this search in vim:\n\n\t/\\(\\(unum\\)\\|\\(player\\)=\\)\\@<!\\\"1\\\"\n\t\n\nand as expected it does not match lines that have:\n\n\tplayer=\"1\" \n\t\n\nbut matches lines that have:\n\n\tunum=\"1\" \n\t\n\nwhat am i doing wrong? isn't the atom to be negated all of this: `\\(\\(unum\\)\\|\\(player\\)=\\)`\n\nnaturally just doing: `/\\(\\(unum\\)\\|\\(player\\)=\\)` matches `unum=` or `player=`.",
+  "lastActivityDate": "2014-04-18T00:54:49.097",
+  "title": "strange behavior in vim with negative look-behind",
+  "tags": [
+    "regex",
+    "vim",
+    "find",
+    "negative-lookbehind"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

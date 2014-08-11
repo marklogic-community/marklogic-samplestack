@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841290",
+  "creationDate": "2014-05-18T02:36:18.093",
+  "body": "\n\nI have a textarea that when a users pressed enter/return on their keyboard, I want to submit the field to a JavaScript function, just like it works on Twitter.\n\nIdeas?\n\nThanks",
+  "lastActivityDate": "2014-05-18T03:22:55.573",
+  "title": "for a TEXTAREA, how to call a JavaScript Function on Return/Enter",
+  "tags": [
+    "jquery",
+    "textarea",
+    "submit"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

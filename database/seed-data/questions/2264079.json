@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2264079",
+  "creationDate": "2014-02-17T20:51:57.410",
+  "body": "\n\nHow do I fill an inputbox with mysql data. So that I can update the database?\nI have this code that will show the table corresponding to the users request. But I don't know the syntax on how I can fill an inputbox with mysql data.\n\n\t   $result = mysql_query(\"SELECT * FROM t2 WHERE STAT='{$_POST[\"stat1\"]}'\");\n\t\n\t\n\t    echo \"<table border='1'>\n\t    <tr>\n\t <th>HospNum</th>\n\t     <th>RoomNum</th>\n\t <th>LastName</th>\n\t   <th>FirstName</th>\n\t   <th>MidName</th>\n\t    <th>Address</th>\n\t   <th>TelNum</th>\n\t   <th>Status</th>\n\t   <th>Nurse</th>\n\t   </tr>\";\n\t\n\t   while($row = mysql_fetch_array($result))\n\t  {\n\t   echo \"<tr>\";\n\t  echo \"<td>\" . $row['HOSPNUM'] . \"</td>\";\n\t   echo \"<td>\" . $row['ROOMNUM'] . \"</td>\";\n\t     echo \"<td>\" . $row['LASTNAME'] . \"</td>\";\n\t   echo \"<td>\" . $row['FIRSTNAME'] . \"</td>\";\n\t    echo \"<td>\" . $row['MIDNAME'] . \"</td>\";\n\t      echo \"<td>\" . $row['ADDRESS'] . \"</td>\";\n\t       echo \"<td>\" . $row['TELNUM'] . \"</td>\";\n\t        echo \"<td>\" . $row['STAT'] . \"</td>\";\n\t        echo \"<td>\" . $row['NURSE'] . \"</td>\";\n\t\n\necho \"\";\n  }\n       echo \"\";\n\nAnd I want to display the corresponding records with this html form, by inputting a primary key. And clicking the search button, the record will appear on each box. Just like when you update mysql database through phpmyadmin. But this time using a custom html form.\n\n\t<td width=\"168\"><input name=\"hnum\" type=\"text\" id=\"hospnum\"></td>\n\t<td width=\"41\"><font size=\"3\">Room #</td>\n\t<td width=\"3\">:</td>\n\t <td width=\"168\"><input name=\"rnum\" type=\"text\" id=\"rnum\"></td>\n\t\n\nhow can I do that?",
+  "lastActivityDate": "2014-02-17T20:59:58.127",
+  "title": "fill textbox with mysql data",
+  "tags": [
+    "mysql",
+    "phpmyadmin",
+    "wampserver"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

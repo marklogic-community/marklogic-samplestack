@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2839533",
+  "creationDate": "2014-05-17T16:56:13.317",
+  "body": "\n\nI'm trying to generate some points at random distances away from a fixed point using GPS.\n\nHow can I add distance in meters to a GPS coordinate?\nI've looked at UTM to GPS conversion but is there a simpler method to achieve this?\n\nI'm working on Android platform just in case.\n\nCheers, \nfgs",
+  "lastActivityDate": "2014-10-25T19:14:29.317",
+  "title": "Adding distance to a GPS coordinate",
+  "tags": [
+    "android",
+    "gps"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

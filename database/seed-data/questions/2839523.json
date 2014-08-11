@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839523",
+  "creationDate": "2014-05-17T16:52:37.547",
+  "body": "\n\nI am building a WPF 4.0 Application using MVVM. The Model is generated using Entity Framework 4.0.\nI am using Data binding on the WPF to bind the user input to model properties.\n\nWhat is the easiest way to validate user input ?\nI prefer an approach where I can set the validation rules on the Model rather than on the WPF itself. How can this be done? Any samples are appreciated.",
+  "lastActivityDate": "2014-04-13T23:18:31.090",
+  "title": "Validation of WPF User Input using MVVM and Entity Framework 4.0",
+  "tags": [
+    "wpf",
+    "entity-framework",
+    ".net-4.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

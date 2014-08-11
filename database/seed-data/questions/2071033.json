@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071033",
+  "creationDate": "2014-01-18T03:19:27.840",
+  "body": "\n\nI have a couple of files in mnesia directory, like \n\n\tfs_my@node_14585_1263_545605_962084.273\n\tfs_my@node_14702_1263_545842_879762.273 \n\tfs_my@node_14585_1263_545605_962084.290 \n\t... \n\t\n\nCan I remove them (because it is big files) without risk to lose data? \n\nWhy does these files apear? \nWhat are these files for? \nIs it safe to remove them?",
+  "lastActivityDate": "2014-01-20T00:58:21.163",
+  "title": "Erlang : Mnesia : Is it safe to remove files with prefix _fs?",
+  "tags": [
+    "erlang",
+    "mnesia"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

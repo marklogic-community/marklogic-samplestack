@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2445034",
+  "creationDate": "2014-03-17T12:08:09.220",
+  "body": "\n\nI have a table called `Employee` with the following fields:\n* EmpID\n* Salary\n* Name\n\nI want to get top two employees with maximum salary.  How do I write this query ?",
+  "lastActivityDate": "2014-03-17T12:33:45.463",
+  "title": "Query for retrieving top two rows from a table in SQL Server",
+  "tags": [
+    "sql",
+    "sql-server",
+    "tsql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

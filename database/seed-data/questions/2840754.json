@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840754",
+  "creationDate": "2014-05-18T00:01:13.420",
+  "body": "\n\nI have tableview which holds a list of data, when users press \"Edit\"\n\ni add an extra row at the bottom saying \"add new\"\n\n\t- (void)setEditing:(BOOL)editing animated:(BOOL)animated\n\t{\n\t    [super setEditing:editing animated:animated];\n\t\n\t    NSArray *paths = [NSArray arrayWithObject:\n\t                        [NSIndexPath indexPathForRow:1 inSection:0]];\n\t    if (editing)\n\t    {\n\t        [[self tableView] insertRowsAtIndexPaths:paths \n\t                                withRowAnimation:UITableViewRowAnimationTop];\n\t    }\n\t    else {\n\t        [[self tableView] deleteRowsAtIndexPaths:paths \n\t                                withRowAnimation:UITableViewRowAnimationTop];\n\t    }\n\t}\n\t\n\nand of course the UITableView transform with animation, \nbut weird thing is the row before the row that i just added, has different animation than all others.\n\nall rows perform \"slides in\" animation, but that 2nd last one did a \"fade in\" animation.\n\nand i didnt set any animation on the 2nd last row (or any other row), and if i didnt add the new row in, the animation slides in as normal when i switch to editing mode.\n\nsomehow i cant find an answer, i check with contact app on my phone, it didnt have that weird animation as i have, when they adding a new row on editing mode.\n\nAny help would be appreciated.\nThanks",
+  "lastActivityDate": "2014-06-25T18:42:32.473",
+  "title": "Weird Animation when inserting a row in UITableView",
+  "tags": [
+    "uitableview",
+    "editing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

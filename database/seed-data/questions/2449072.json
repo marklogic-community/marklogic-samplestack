@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2449072",
+  "creationDate": "2014-03-18T01:21:10.363",
+  "body": "\n\nI just got my ssl certificate to work for the first time.\nFor some reason when I connect to my website using https my browser tries to download the php file.\n\nI have the following line in my httpd.conf. Isn't this the line which makes sure php files are run using php?\n\n\tAddType application/x-httpd-php .php\n\t\n\nWhat else do I need to change so that I can get the php files to work over the https connection.\n\nThanks!\n\nUPDATE:\n\nhttpd.conf:\n\n`Removed...`",
+  "lastActivityDate": "2014-03-18T20:59:41.997",
+  "title": "PHP does not work over ssl connections",
+  "tags": [
+    "php",
+    "apache",
+    "ssl",
+    "mod-ssl"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

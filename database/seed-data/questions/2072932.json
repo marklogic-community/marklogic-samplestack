@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2072932",
+  "creationDate": "2014-01-18T08:04:25.973",
+  "body": "\n\nI'd like to implement an extension method *IsJsonRequest() : bool* on the HttpRequestBase type. In broad terms what should this method look like and are there any reference implementations?\n\nThis is a private API.\n\nEdit: \n\nSuggestion; check if the x-requested-with header is \"xmlhttprequest\"?",
+  "lastActivityDate": "2014-05-16T04:30:01.630",
+  "title": "ASP.NET, determine if a request content type is for JSON",
+  "tags": [
+    "asp.net",
+    "json",
+    "content-type"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

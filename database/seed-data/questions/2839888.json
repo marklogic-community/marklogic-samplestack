@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839888",
+  "creationDate": "2014-05-17T19:19:46.797",
+  "body": "\n\nI have just jumped into the Blackberry development arena...\n\nI am trying one example for storing a persistence data into Blackberry file system.\n\nIn that I am using following classes :\n\n\timport net.rim.device.api.system.PersistentObject;\n\timport net.rim.device.api.system.PersistentStore\n\t\n\nFrom using them I am able to persist the data easily...\n\nBut now I need to remove it from the file system to experiment with something...\n\nSo, to remove them I am trying following option from Eclipse plugin :\n\n\tProject -> Blackberry -> clean simulator\n\t\n\nBut once I open this option, it's showing me as disable and giving me some alert like \"Please select clean option\".\n\nThanks in advance....",
+  "lastActivityDate": "2014-05-19T14:31:55.980",
+  "title": "How to Remove Files from the Filesystem in blackberry using Eclipse Plugin",
+  "tags": [
+    "blackberry",
+    "blackberry-simulator",
+    "blackberry-eclipse-plugin"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2070890",
+  "creationDate": "2014-01-18T02:45:40.903",
+  "body": "\n\nIs there an easy way to get the MvcRouteHandler to convert all hyphens in the action and controller sections of an incoming URL to underscores as hyphens are not supported in method or class names.\n\nThis would be so that I could support such structures as sample.com/test-page/edit-details mapping to Action edit_details and Controller test_pagecontroller while continuing to use MapRoute method.\n\nI understand I can specify an action name attribute and support hyphens in controller names which out manually adding routes to achieve this however I am looking for an automated way so save errors when adding new controllers and actions.",
+  "lastActivityDate": "2014-08-05T19:50:06.113",
+  "title": "ASP.net MVC support for URL's with hyphens",
+  "tags": [
+    "asp.net-mvc",
+    "url",
+    "url-routing",
+    "seo"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

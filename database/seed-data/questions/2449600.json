@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2449600",
+  "creationDate": "2014-03-18T02:45:19.220",
+  "body": "\n\nI have the following javascript:\n\n\t$.post(\"/Authenticated/DeletePage/\" + PageId);\n\tshowStatus(\"Page deleted...\", 10000);\n\t\n\nI would like to instead pass showStatus() text that is returned by the $.post() call, rather than hardcoded text.  How do I do this?",
+  "lastActivityDate": "2014-03-18T02:48:09.610",
+  "title": "Display text returned from json post call",
+  "tags": [
+    "asp.net",
+    "javascript",
+    "jquery",
+    "json"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

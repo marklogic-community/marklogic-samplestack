@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646461",
+  "creationDate": "2014-04-17T23:02:52.677",
+  "body": "\n\nI had been following this guide to get areas with multiple projects setup:\n[http://msdn.microsoft.com/en-us/library/ee307987(VS.100).aspx](http://msdn.microsoft.com/en-us/library/ee307987(VS.100).aspx)\n\nI was stumbling on the step where you modify the .csproj files to enable the AfterBuild configuration.  My googling led me to this post from Steve Mosely:\n[http://avingtonsolutions.com/blog/post/2010/04/03/JQuery-AspNet-MVC-2-Multi-Project-Areas-and-Other-News-Minutia.aspx](http://avingtonsolutions.com/blog/post/2010/04/03/JQuery-AspNet-MVC-2-Multi-Project-Areas-and-Other-News-Minutia.aspx)\n\n> So far the only hang up I had was that\n  I had set up my solution to\n  incorporate multi project areas which\n  was supported in the MVC 2 preview\n  releases of Areas. However, when the\n  RTM came out it was no longer\n  supported. I searched and searched for\n  solutions to my dilemma, but the only\n  thing I could find was post by\n  Jonathon who basically had the same\n  experience I had, and a reference to\n  an obscure message on a message board\n  saying (by what appeared to be some\n  one from the ASP Team) that it was not\n  supported. To date, I haven't found\n  any more formal post or article saying\n  that was not the case.\n\nIs this true?  Did this feature get removed from 2010 MVC2?  I haven't been able to find a definite answer.",
+  "lastActivityDate": "2014-08-15T00:19:34.660",
+  "title": "Are MVC2 areas with multiple projects supported in the final release?",
+  "tags": [
+    "visual-studio-2010",
+    "asp.net-mvc-2",
+    "asp.net-mvc-areas"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

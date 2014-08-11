@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839878",
+  "creationDate": "2014-05-17T19:17:57.533",
+  "body": "\n\nI have a file that contains java serialized objects like \"Vector\". I have stored this file over Hadoop Distributed File System(HDFS). Now I intend to read this file (using method readObject) in one of the map task. I suppose \n\n\tFileInputStream in = new FileInputStream(\"hdfs/path/to/file\");\n\t\n\nwont' work as the file is stored over HDFS. So I thought of using org.apache.hadoop.fs.FileSystem class. But Unfortunately it does not have any method that returns FileInputStream. All it has is a method that returns FSDataInputStream but I want a inputstream that can read serialized java objects like vector from a file rather than just primitive data types that FSDataInputStream would do.\n\nPlease help!  ",
+  "lastActivityDate": "2014-05-17T21:06:00.860",
+  "title": "FileInputStream for a generic file System",
+  "tags": [
+    "java",
+    "filesystems",
+    "hdfs"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

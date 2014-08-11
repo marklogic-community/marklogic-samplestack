@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069469",
+  "creationDate": "2014-01-17T20:12:31.177",
+  "body": "\n\nI'd like to be a really annoying co-worker and write a little program that randomly changes keys on the keyboard, so maybe once an hour the vowels rearrange themselves for a minute or two. I would run the program as a service I suppose..\n\nI know I can do this permanantly via the registry what about during windows running. \n\nIs it possible in XP? Vista? Windows 7?\n\nI'll post the code if we get it worked out. :)",
+  "lastActivityDate": "2014-01-17T20:54:08.337",
+  "title": "Programatically change keyboard-layout",
+  "tags": [
+    "windows",
+    "keyboard-layout"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

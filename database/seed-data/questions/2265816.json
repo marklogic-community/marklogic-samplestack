@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2265816",
+  "creationDate": "2014-02-18T04:21:11.030",
+  "body": "\n\nI have over 200 SQL files which contain misc data that need to be executed into my Mysql Database, I'm wondering if anyone knows a good way to accomplish this task other than executing each file one by one manually?",
+  "lastActivityDate": "2014-02-18T04:36:08.543",
+  "title": "Executing multiple .SQL Files",
+  "tags": [
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

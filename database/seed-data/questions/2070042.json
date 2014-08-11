@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2070042",
+  "creationDate": "2014-01-17T23:21:07.663",
+  "body": "\n\nI get a page response from a web and it is having strings like `\"Lluís Quílez\"`. But i get it as `\"Llu&#xED;s Qu&#xED;lez\"`. So how do i change it back to `\"Lluís Quílez\"` in C#?\n\nThank you.",
+  "lastActivityDate": "2014-01-17T23:26:05.330",
+  "title": "Encoding string C#",
+  "tags": [
+    "c#"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

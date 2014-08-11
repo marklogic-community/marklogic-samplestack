@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446532",
+  "creationDate": "2014-03-17T18:55:36.013",
+  "body": "\n\nI've build the following case. An interface for all JAXBLists:\n\n\tpublic interface JaxbList<T> {\n\tpublic abstract List<T> getList();\n\t}\n\t\n\nAnd an base implementation:\n\n\t@XmlRootElement(name=\"list\")\n\tpublic class JaxbBaseList<T> implements JaxbList<T>{\n\t    protected List<T> list;\n\t\n\t    public JaxbBaseList(){}\n\t\n\t    public JaxbBaseList(List<T> list){\n\t        this.list=list;\n\t    }\n\t\n\t    @XmlElement(name=\"item\" )\n\t    public List<T> getList(){\n\t        return list;\n\t    }\n\t}\n\t\n\nAs well as an implementation for a list of URIs:\n\n\t@XmlRootElement(name=\"uris\")\n\tpublic class JaxbUriList2 extends JaxbBaseList<String> {\n\t\n\t    public JaxbUriList2() { super();    }\n\t    public JaxbUriList2(List<String> list){\n\t        super(list);\n\t    }\n\t\n\t\n\t    @Override\n\t    @XmlElement(name=\"uri\")\n\t    public List<String> getList() {\n\t        return list;\n\t    }\n\t}\n\t\n\nAnd I'm using the List in the following way:\n\n\tpublic JaxbList<String> init(@QueryParam(\"amount\") int amount){\n\t\n\t        List<String> entityList = new Vector<String>();\n\t        ...\n\t        enityList.add(\"http://uri\");\n\t    ...\n\t        return new JaxbUriList2(entityList);\n\t    }\n\t\n\nI thought the output should be:\n\n\t<uris>\n\t<uri>\n\thttp://uri\n\t</uri>\n\t...\n\t</uris>\n\t\n\nBut it is something like this:\n\n\t<uris>\n\t<item xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">\n\thttp://uri\n\t</item>\n\t...\n\t<uri>\n\thttp://uri\n\t</uri>\n\t...\n\t</uris>\n\t\n\nI think it has something to do with the inheritance, but I don't get it...\n\nWhat's the problem? - How can I fix it?\n\nThanks in advance!",
+  "lastActivityDate": "2014-03-17T22:29:21.533",
+  "title": "Using JAXB to unmarshal/marshal a List<String> - Inheritance",
+  "tags": [
+    "java",
+    "jaxb"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

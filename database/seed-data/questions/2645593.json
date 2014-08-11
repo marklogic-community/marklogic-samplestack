@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2645593",
+  "creationDate": "2014-04-17T21:22:49.423",
+  "body": "\n\nI have an Email column with invalid  addresses in them e.g. “xxx@hotmail.co.uk,xxx@hotmail.co.uk”. (It includes the quotes)\n\nMy select statement cleans these up:\n\n\tSELECT SUBSTRING([Email], 2, PATINDEX(‘%,%’, [Email] – 2))\n\tFROM table\n\tWHERE [Email] LIKE ‘”%”’\n\t\n\nThis works and displays: xxx@hotmail.co.uk\n\nProblem I have is, I have a multitude of records with the incorrect format and I need to update them with the result from the SELECT query above.  Any ideas?",
+  "lastActivityDate": "2014-04-17T21:45:00.220",
+  "title": "Update query? Or other solution?",
+  "tags": [
+    "sql-server-2008"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2075013",
+  "creationDate": "2014-01-18T13:46:58.677",
+  "body": "\n\nI've three sets of data such as:\n\n\tx   y\n\t4   0\n\t6   60\n\t8   0\n\t\n\nDoes anyone know any (efficient) Java codes that can give me back the values of a, b, and c (the coefficients)?",
+  "lastActivityDate": "2014-01-18T16:09:35.027",
+  "title": "Best way to find Quadratic Regression Curve in Java",
+  "tags": [
+    "java",
+    "math"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

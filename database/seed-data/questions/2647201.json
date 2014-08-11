@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2647201",
+  "creationDate": "2014-04-18T00:37:33.167",
+  "body": "\n\nI identified a bug in my code which I hope to solve with minimal refactoring effort. This bug occurs in Chrome and Opera browsers.\nProblem:\n\n\tvar obj = {23:\"AA\",12:\"BB\"};\n\t//iterating through obj's properties\n\tfor(i in obj)\n\t  document.write(\"Key: \"+i +\" \"+\"Value: \"+obj[i]);\n\t\n\nOutput in FF,IE\nKey: 23 Value: AA\nKey: 12 Value: BB\n\nOutput in Opera and Chrome **(Wrong)**  \n\nKey: 12 Value BB  \n\nKey: 23 Value AA  \n\n\nI attempted to make an inverse ordered object like this\n\n\tvar obj1={\"AA\":23,\"BB\":12};\n\tfor(i in obj1)\n\t  document.write(\"Key: \"+obj[i] +\" \"+\"Value: \"+i);\n\t\n\nHowever the output is the same. Is there a way to get for all browser the same behaviour with small changes?",
+  "lastActivityDate": "2014-07-04T20:50:48.047",
+  "title": "How to iterate javascript object properties in the order they were written",
+  "tags": [
+    "javascript"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2448471",
+  "creationDate": "2014-03-17T23:52:24.717",
+  "body": "\n\nIm doing this project where i need to download files through a webservice (images, videos). The download MUST go through an existing webservice. The existing webservice was made when there were no need to upload and download files but the project has changed and now we need to do It through a webservice.\n\nRight now I have implemented the download as a method that returns a byte[], I open a streamreader and resds the entire file into a byte[] and returns it to my method. This is working file on small files <~1Mb, above it takes too long time. I want to show some progress (e.g.  when the user downlaods a 20Mb video) which i cannot do right now. And i want to make it download much faster (is a strategy to use multithreading and several threads that downloads a part of the file?). It is within a WPF application i need to do this.\n\nAny ideas on how to approach this?",
+  "lastActivityDate": "2014-03-17T23:58:00.877",
+  "title": "ASP.NET - fast Segmented downoad of file through webservice",
+  "tags": [
+    "asp.net",
+    "web-services"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

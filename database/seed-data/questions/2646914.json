@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2646914",
+  "creationDate": "2014-04-17T23:57:52.130",
+  "body": "\n\nI have an article in which I use PHP code inside the text editor in Joomla, in the backend. I can see jQuery already called when the page loads, here is my code inside the Article edit textbox:\n\n\t<?php\n\t$username=\"XXX\";\n\t$password=\"XXX\";\n\t$database=\"XXX\";\n\t\n\tmysql_connect('localhost',$username,$password) or die(mysql_error());\n\tmysql_select_db($database) or die(\"Unable to select database\");\n\t$result=mysql_query(\"SELECT * FROM birthdays ORDER BY name\")\n\tor die(mysql_error());\n\t\n\techo \"<table width='100%' cellspacing='10' cellpadding='0' border='0'>\";\n\techo \"<tr valign='top'><th align='left'></th><th align='left'>Name</th><th align='left'>Email</th><th align='left'>Day</th><th align='left'>Month</th></tr><tr><td>&nbsp;</td></tr>\";\n\t\n\twhile ($row = mysql_fetch_array($result)) {\n\t    echo \"<tr>\";\n\t    echo '<td valign=\"top\"><a href=\"#\" id=\"'.$row['id'].'\" class=\"delete_birthday\"><img src=\"administrator/components/com_media/images/remove.png\" alt=\"Delete user\" /></a><input type=\"hidden\" name=\"id[]\" value=\"'.$row['id'].'\" /></td>';\n\t    echo \"<td valign='top' style='border-bottom:1px dotted #333333; padding:2px;'>\";\n\t    echo $row['name'];\n\t    echo \"</td>\";\n\t    echo \"<td valign='top' style='border-bottom:1px dotted #333333; padding:2px;'>\";\n\t    echo $row['email'];\n\t    echo \"</td>\";\n\t    echo \"<td align='center' valign='top' style='border-bottom:1px dotted #333333; padding:2px;'>\";\n\t    echo $row['birthday'];\n\t    echo \"</td>\";\n\t    echo \"<td align='center' valign='top' style='border-bottom:1px dotted #333333; padding:2px;'>\";\n\t    echo $row['birthmonth'];\n\t    echo \"</td>\";\n\t    echo \"</tr>\";\n\t}\n\techo \"</table>\";\n\t?>\n\t\n\t<script type=\"text/javascript\">\n\t$(document).ready(function() {\n\t    alert(\"hello\");\n\t});\n\t</script>\n\t\n\nAt the moment, nothing alerts (just alerting for testing if jQuery gets recognised, I am obviously going to put in `click` handlers), so I assume the `$(document).ready()` never gets triggered. I can see the code in the source, but it just never gets called.\n\nAnybody have any advice? BTW. the SC jQuery plugin is installed already to prevent library conflicts.",
+  "lastActivityDate": "2014-04-18T15:59:51.593",
+  "title": "Insert random <script> for using $(document).ready(function()}); in Joomla",
+  "tags": [
+    "javascript",
+    "jquery",
+    "html",
+    "joomla1.5",
+    "javascript-library"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2266387",
+  "creationDate": "2014-02-18T06:01:20.123",
+  "body": "\n\ni have list like that:\n\n\t<ul>\n\t <li><a...>...</a></li>\n\t <li>...</li>\n\t</ul>\n\t\n\nwhere both type of listelements are there multiple times in arbitrary order.\nIs there a way to format those li's differently? (different list-style-image) The only difference is that the one kind contains a link and the other one doesnt.",
+  "lastActivityDate": "2014-02-18T08:48:17.947",
+  "title": "Format li which contain links different from li which contains no links",
+  "tags": [
+    "css",
+    "hyperlink"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

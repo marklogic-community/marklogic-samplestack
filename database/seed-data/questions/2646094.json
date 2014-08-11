@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646094",
+  "creationDate": "2014-04-17T22:22:00.077",
+  "body": "\n\nIs there a way to serialize enums automatically as int? Every time I define a new enum and write \n\n\tstd::stringstream stream;\n\tstream << myenum1;\n\tstream >> myenum2;\n\t\n\nthe compiler complains that the operators << and >> are not defined. Do you know a way to tell the compiler to treat enums as plain int's?\n\nWhat makes the problem harder is that, actually, the serialization is inside a template. Something like this:\n\n\ttemplate <typename T>\n\tvoid serialize(const T& value)\n\t{\n\t    std::stringstream stream;\n\t    stream << value;\n\t}\n\t\n\nSo I cannot add any casts :(\nMaybe I can specialize it somehow?\n\nThank you.",
+  "lastActivityDate": "2014-04-18T02:23:05.467",
+  "title": "Is there a way to serialize automatically enums as int?",
+  "tags": [
+    "c++",
+    "serialization",
+    "enums"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

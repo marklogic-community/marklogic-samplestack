@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2838812",
+  "creationDate": "2014-05-17T11:26:53.150",
+  "body": "\n\nI know it might sound weird, but I wrote a web server without knowing how to deploy it and run it, so how do I do it in eclipse? (and please specify the eclipse version)\nthanks",
+  "lastActivityDate": "2014-05-17T12:51:05.263",
+  "title": "Running a web server in eclipse",
+  "tags": [
+    "java",
+    "eclipse",
+    "webserver"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

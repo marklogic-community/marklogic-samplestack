@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2838553",
+  "creationDate": "2014-05-17T09:33:48.870",
+  "body": "\n\nIs there a Javascript script to change the time and date of blogs automaticly like facebook ???\n\nfor example \"10 minutes ago\" instead of \"May 15 2010 12:30\".\n\n-Thank You",
+  "lastActivityDate": "2014-05-17T09:37:34.757",
+  "title": "How do I replace absolute times (\"1:30 PM\") with relative times (\"15 minutes ago\") and have them automatically update?",
+  "tags": [
+    "javascript",
+    "facebook",
+    "date",
+    "time",
+    "calendar"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

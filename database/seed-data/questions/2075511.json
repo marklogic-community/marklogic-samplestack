@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2075511",
+  "creationDate": "2014-01-18T15:52:36.597",
+  "body": "\n\nSimple question:\n\nI have a large string that I want to write to a file in the docs folder for an app.  How do I do a simple file creation/write?  ",
+  "lastActivityDate": "2014-01-18T15:56:55.723",
+  "title": "How do I write a simple string to a file on the iphone?",
+  "tags": [
+    "iphone"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

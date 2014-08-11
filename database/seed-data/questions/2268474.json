@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2268474",
+  "creationDate": "2014-02-18T11:43:41.743",
+  "body": "\n\nI am writing a web application in GWT,\nI am trying to interact with a SOAP web service.\nI know how to do it in regular java environment using the JAX-WS library, but GAE (Google App Engine) does not support it.\n\nsee [http://groups.google.com/group/google-appengine-java/web/will-it-play-in-app-engine](http://groups.google.com/group/google-appengine-java/web/will-it-play-in-app-engine)\n\nis there a way of consuming a wsdl based web service (ebay web service for example) using GWT+GAE?\n\nThanks!",
+  "lastActivityDate": "2014-02-20T14:14:16.703",
+  "title": "consuming SOAP web serives in google app engine and GWT",
+  "tags": [
+    "java",
+    "google-app-engine",
+    "gwt"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

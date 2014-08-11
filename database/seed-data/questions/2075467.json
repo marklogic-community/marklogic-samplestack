@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2075467",
+  "creationDate": "2014-01-18T15:37:48.530",
+  "body": "\n\nI'm using Mozilla Rhino to write a JavaScript server application. I would like to include the HttpClient classes in my project to easily access the web, but I can't figure out how to configure my Eclipse project to get Rhino to load the HttpClient JAR file.\n\nI have added `js.jar` (from Rhino) and `httpclient-4.0.1.jar` to my project's build path in Eclipse, and in my run configuration I have specified the Main class from Rhino's js.jar (which it finds), and in my JavaScript file I basically do this:\n\n\timportPackage(org.apache.http.client.methods);\n\tvar get = new HttpGet(\"<some url returning json data>\");\n\tget.execute();\n\tprint(get.getResponseBodyAsString());\n\t\n\nIt fails saying this:\n\n\tException in thread \"Thread-0\" org.mozilla.javascript.EcmaError: ReferenceError: \"HttpGet\" is not defined.\n\t\n\nHow can this be so hard? I must be doing something fundamentally wrong.",
+  "lastActivityDate": "2014-01-19T04:08:29.747",
+  "title": "How to access external JAR files from JavaScript using Rhino and Eclipse?",
+  "tags": [
+    "java",
+    "javascript",
+    "eclipse",
+    "classpath",
+    "rhino"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

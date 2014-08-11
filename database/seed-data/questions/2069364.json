@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2069364",
+  "creationDate": "2014-01-17T19:45:39.550",
+  "body": "\n\nI am attempting to get a list of dependable(consistent across requests) list of \"hidden\" constants in PHP(as in, the client-side won't know about it in most cases without hacking). \n\nSome of the things I am interested in is the following:\n1. `./configure` options.\n2. I would also like the very first `System` value in phpinfo.  \n3. The loaded PHP modules(as shown in the Apache section)\n4. The build date of PHP.\n5. Registered PHP streams\n6. Registered stream socket transports\n7. Registered stream filters\n\nHow can I get either just a portion of the phpinfo or get these values as a regular string? Note that it doesn't matter if there if markup included, but I don't want to parse the phpinfo as that just seems really slow and surely there is a better way.. ",
+  "lastActivityDate": "2014-01-17T20:35:37.560",
+  "title": "How to get phpinfo() variables from php programatically?",
+  "tags": [
+    "php",
+    "configuration",
+    "phpinfo"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

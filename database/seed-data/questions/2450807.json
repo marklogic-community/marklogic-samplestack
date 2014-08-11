@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2450807",
+  "creationDate": "2014-03-18T06:04:47.787",
+  "body": "\n\nI'm having some difficulties with the following problem:\n\nI'm making a little game where you're at a specific spot and each spot has each some possible directions.\n\nThe available directions are N(ord),E(ast),S,W . I use the function `getPosDirections` to get the possible directions of that spot. The function returns the directions into an `ArrayList<String>` e.g. for spot `J3: [E,W]`\n\nNow the game goes like this: 2 dice will be rolled so you get a number between 2 and 12, this number represents the number of steps you can make.\n\nWhat I want is an `ArrayList` of all the possible routes\n\nclarification of all the possible routes: \nWhen I'm at the current position I check what the possibilities are from there. Let's say that's go East and go West. So we get 2 new positions and from there on we need to check for the next possibilities again for both positions (until we took x directions) \n\n(x equals the number thrown by the dice).\n\ne.g.: I throw 3 and I'm currently at spot J3: \n\n<pre>[[E,N,E],[E,N,S],[E,S,E],[E,S,S],[W,N,E],[W,N,S],[W,S,E],[W,S,S]]</pre>\n\nHow would obtain the last mentioned Array(list)?",
+  "lastActivityDate": "2014-03-18T07:37:10.280",
+  "title": "different for loops java",
+  "tags": [
+    "java"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

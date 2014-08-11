@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448763",
+  "creationDate": "2014-03-18T00:34:38.253",
+  "body": "\n\nWhat are the methods to destroy Excel COM Interop objects in C#, besides these:\n\n\tobject_instance = null;\n\tSystem.GC.collect();\n\t&\n\tSystem.Runtime.InteropServices.Marshal.ReleaseComObject(object);\n\t\n\nPlease suggest only inbuilt techniques, not other tools like bigcannon, etc.",
+  "lastActivityDate": "2014-03-25T03:39:57.217",
+  "title": "How can I destroy COM objects in C#?",
+  "tags": [
+    "c#",
+    "com",
+    "vsto"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

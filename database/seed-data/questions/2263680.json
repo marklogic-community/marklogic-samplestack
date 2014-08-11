@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2263680",
+  "creationDate": "2014-02-17T18:05:41.753",
+  "body": "\n\nThis might be simple but I'm starting out with rails. \n\nI have the following statement:\n\n\t@subjects = Cartitem.find_by_cid(session[:customerid])\n\t\n\nIn my View I have some code like this:\n\n\t<% @subjects.each do |d| %>\n\t <tbody>\n\t  <tr>\n\t\n\nAll works when when the above query returns multiple rows. However, when above query returns only one row then I get an error in my View saying method `each` is not defined. \n\nWhat is the way to avoid this? Do I need to have some `if/else` in my view?",
+  "lastActivityDate": "2014-02-17T18:28:17.917",
+  "title": "ActiveRecord not returning an iteration when there is only one record found",
+  "tags": [
+    "ruby-on-rails"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

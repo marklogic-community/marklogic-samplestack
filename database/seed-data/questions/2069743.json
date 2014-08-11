@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2069743",
+  "creationDate": "2014-01-17T21:47:48.600",
+  "body": "\n\nI came across [this](http://blogs.msdn.com/devdev/archive/2006/01/23/516431.aspx) blog post yesterday, and it once again made me want to give [literate programming](http://en.wikipedia.org/wiki/Literate_programming) a try.\n\nHas anyone else tried doing literate programming for C#? I'm wondering about trying [Lyx](http://www.lyx.org/) + [noweb](http://www.cs.tufts.edu/~nr/noweb/), but wondered if you might have other experience or suggestions.",
+  "lastActivityDate": "2014-01-22T21:35:18.377",
+  "title": "Has anyone tried literate programming for C#, with Lyx and noweb",
+  "tags": [
+    "c#",
+    "literate-programming",
+    "lyx",
+    "noweb"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2266224",
+  "creationDate": "2014-02-18T05:32:21.160",
+  "body": "\n\nI'm trying to delete all \"Usergroup\"s that belongs to one \"User\" and then add new \"Usergroup\"s.\n\n\t    public void SaveUserUsergroups(int userID, int[] UsergroupID)\n\t    {\n\t\n\t        User uo = _entities.Users.Where(x => x.UserID == userID).First();\n\t\n\t        uo.Usergroups.Load();\n\t\n\t\n\t        foreach(Usergroup ug in uo.Usergroups)\n\t        {\n\t\n\t            uo.Usergroups.Remove(ug);\n\t        }\n\t\n\t\n\t        int _currentUsergroupID;\n\t\n\t        for (int i = 0; i < UsergroupID.Count(); i++)\n\t        {\n\t            _currentUsergroupID = UsergroupID[i];\n\t\n\t            uo.Usergroups.Add(_entities.Usergroups.Where(ug => ug.UsergroupID == _currentUsergroupID).First());\n\t        }\n\t\n\t        _entities.SaveChanges();\n\t\n\t    }\n\t\n\nIt throws an exception if there are more than 1 usergroup here:\n\n\t        foreach(Usergroup ug in uo.Usergroups)\n\t        {\n\t\n\t            uo.Usergroups.Remove(ug);\n\t        }\n\t\n\nHow should I fix that?\n\n/M",
+  "lastActivityDate": "2014-02-18T05:48:08.727",
+  "title": "InvalidOperationException with delete related objects",
+  "tags": [
+    "entity-framework"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

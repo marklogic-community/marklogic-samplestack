@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448676",
+  "creationDate": "2014-03-18T00:22:30.390",
+  "body": "\n\nI have a .Net application that dynamically creates a small HTML page and pops it up in a new window using the javascript document.open method.  Everything with that functionality is working fine.  \n\nNow I want to add a button to the HTML page that prints the page.  I have tried using the following code to no avail:\n\n\t<a href='print.html' onClick='window.print();return false;'>\n\t<img src='images/printer.png' height='32px' width='32px'></a>\n\t\n\nWhen the button is clicked in the popup window, nothing happens.  But when the source code of of this page is saved and loaded in a browser as a separate page, the print button works perfectly.  <strike>So it would appear that the problem is caused by the fact that the code is in a popup window.</strike> [The problem now appears to be that the code in written to the popup window after it is opened.]  Does anyone know a way to fix this problem or any alternatives?\n\nEDIT:\n\nOther method that I have tried with the same results:\n\n\t<input type='button' onclick='window.print()' value='Print' />\n\t\n\nand\n\n\t<a href='javascript:window.print()'>\n\t<img src='images/printer.png' height='32px' width='32px'></a>\n\t\n\nEDIT AGAIN:\n\nThe above code works in Firefox, but not in IE7.  Any ideas on a work around for IE?\n\nEDIT YET AGAIN:\n\nHere is a test case using the code that [npup](http://stackoverflow.com/users/294150/npup)[posted](http://stackoverflow.com/questions/2448676/how-do-you-print-from-a-popup-window-in-javascript/2460794#2460794) below.  Instead of the code for the popup window living in a separate html file, I am opening a blank url and then writing the code to it.  This step appears to be what is causing the problem.\n\n\t<html>\n\t<head>\n\t    <title>main</title>\n\t</head>\n\t<body>\n\t    <h1>\n\t        Pop & print</h1>\n\t    <button onclick=\"pop();\">\n\t        Pop</button>\n\t\n\t    <script type=\"text/javascript\">\n\t      var POP;\n\t      function pop() {\n\t          var newWin = window.open('', 'thePopup', 'width=350,height=350');\n\t        newWin.document.write(\"<html><head><title>popup</title></head><body><h1>Pop</h1>\" +\n\t            \"<p>Print me</p><a href='print.html' onclick='window.print();return false;'>\" +\n\t            \"<img src='images/printer.png' height='32px' width='32px'></a></body></html>\");\n\t      }\n\t    </script>\n\t\n\t</body>\n\t</html>\n\t",
+  "lastActivityDate": "2014-04-21T23:38:55.200",
+  "title": "How do you print from a popup window in javascript?",
+  "tags": [
+    ".net",
+    "javascript",
+    "printing",
+    "popup"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

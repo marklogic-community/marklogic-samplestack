@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2267583",
+  "creationDate": "2014-02-18T09:07:03.307",
+  "body": "\n\nI am a relatively new iPhone app developer so my knowledge is a little sketchy, so please forgive me if this is a bit of a trivial question.\n\nI have a navigation app which drills between table views by calling pushViewController on the navigationController object\n\nI have one particular section which pushes new view controllers sequentially as the user goes through the interface. The view controllers are all subclassed from UIViewController.\n\nIt all works fine until it gets to the end, where the idea is the user presses a \"Finish\" button and is returned to the root view controller (main menu).\n\nSo on the button press I call:\n\n\t[[self navigationController] popToRootViewControllerAnimated:YES];\n\t\n\nAnd it crashes. \n\nI am a bit worried this could be a big problem as this definitly worked *at some point* but it is now always failing. \n\nCan anyone give any ideas/advice?",
+  "lastActivityDate": "2014-02-01T12:45:44.850",
+  "title": "popToRootViewController crashing",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "memory-management",
+    "uiviewcontroller",
+    "uinavigationcontroller"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

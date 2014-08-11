@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2838628",
+  "creationDate": "2014-05-17T10:06:04.233",
+  "body": "\n\nThis new language called Vala, which is said to be C#-like and supposedly easier than C++ or C, compiles down into C on Linux with the GCC compiler.\n\nSounds great. Now I want to use it to make a PHP extension module so that slow PHP code can be made in Vala and imported into PHP as a function.\n\nHow do I accomplish this in Vala? Is it even possible?",
+  "lastActivityDate": "2014-01-19T11:09:12.920",
+  "title": "How Do I Make a PHP Module with the Vala Programming Language?",
+  "tags": [
+    "php",
+    "gcc",
+    "php-extension",
+    "vala"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

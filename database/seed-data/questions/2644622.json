@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2644622",
+  "creationDate": "2014-04-17T18:58:07.307",
+  "body": "\n\nI've created a JAX-RS service (MyService) that has a number of sub resources, each of which is a subclass of MySubResource. The sub resource class being chosen is picked based on the parameters given in the MyService path, for example:\n\n\t@Path(\"/\") @Provides({\"text/html\", \"text/xml\"}) \n\tpublic class MyResource {\n\t  @Path(\"people/{id}\") public MySubResource getPeople(@PathParam(\"id\") String id) {\n\t    return new MyPeopleSubResource(id);\n\t  }\n\t  @Path(\"places/{id}\") public MySubResource getPlaces(@PathParam(\"id\") String id) {\n\t    return new MyPlacesSubResource(id);\n\t  }\n\t}\n\t\n\nwhere MyPlacesSubResource and MyPeopleSubResource are both sub-classes of MySubResource.\n\nMySubResource is defined as:\n\n\tpublic abstract class MySubResource {\n\t  protected abstract Results getResults();\n\t\n\t  @GET public Results get() { return getResults(); }\n\t\n\t  @GET @Path(\"xml\") \n\t  public Response getXml() {\n\t    return Response.ok(getResults(), MediaType.TEXT_XML_TYPE).build();  \n\t  }\n\t\n\t  @GET @Path(\"html\") \n\t  public Response getHtml() {\n\t    return Response.ok(getResults(), MediaType.TEXT_HTML_TYPE).build();  \n\t  }\n\t}\n\t\n\nResults is processed by corresponding MessageBodyWriters depending on the mimetype of the response.\n\nWhile this works it results in paths like /people/Bob/html or /people/Bob/xml where what I really want is /people/Bob.html or /people/Bob.xml\n\nDoes anybody know how to accomplish what I want to do?",
+  "lastActivityDate": "2014-10-02T19:54:57.983",
+  "title": "How to create a JAX-RS service where the sub-resource @Path doesn't have a leading slash",
+  "tags": [
+    "java",
+    "path",
+    "jax-rs",
+    "mime-types"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

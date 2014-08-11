@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2840025",
+  "creationDate": "2014-05-17T20:02:39.230",
+  "body": "\n\nSo, in our website we are using `SiteMap`. For each request we render some menu and to do that we do `SiteMap.RootNode` in the helper function. \n\nNow, when I have done the profiling of my website using **dotTrace**, I saw the `get_RootNode()` is taking lot's of time(around 70-75 millisecond). But we know that the `SiteMap` is static. So, I am thinking in somehow I will get the `SiteMap.RootNode` only once in `Application_Start` and will access that through out each request.\n\nSo, my questions are,\n\nIs my approach correct? \nHow should I do that?\nOr is there any efficient way that I can use `SiteMap.RootNode`\n\nThanks.",
+  "lastActivityDate": "2014-05-19T23:23:22.577",
+  "title": "How can I use SiteMap more efficiently?",
+  "tags": [
+    "c#",
+    "asp.net",
+    "sitemap",
+    "mvcsitemap"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

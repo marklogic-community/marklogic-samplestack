@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267962",
+  "creationDate": "2014-02-18T10:10:45.597",
+  "body": "\n\nIn the program I'm writing I need to be able to access the node that is sending an event in javascript. \n\nI have been unsuccessful in using `this`, as it is referring to the object in my code. So the following doesn't work.\n\n\tvar node = new node();\n\t\n\t// Node Object\n\tfunction node() {\n\t\n\t// Create Sibling Node\n\tthis.createSibling = function() {\n\t var node = createNode();\n\t this.parentNode.appendChild(node); } }\n\t\n\nWhen I call the function `createNode()` it assembles a link that has an event `onclcick` attached to it called `node.createSibling()` and `node.createChild()` on a different link.\n\nI'm currently using `var NODETREE` as the parent because I'm don't know how to get the node that is begin clicked. This is keeping me from being able to create node with their own children and siblings; only the main node can get them.\n\n\t    var node = new node();\n\t\n\t   // Node Object\n\t   function node() {\n\t\n\t   // Instance Veriables    \n\t   var NODETREE = document.getElementById('node-tree');\n\t\n\t   // Create Sibling Node\n\t   this.createSibling = function() {\n\t   var node = createNode();\n\t   NODETREE.appendChild(node); } }\n\t\n\nHow do I access the node that has the `onclcick` event attached that is being clicked, without having to create a load of code, so I can create children and siblings for the nodes that I have created and not just the trunk?\n\n**NOTE**:\n\nI need to do this **without** jQuery or another framework. ",
+  "lastActivityDate": "2014-02-18T11:22:48.680",
+  "title": "locating node with eventListener in javascript object method",
+  "tags": [
+    "javascript",
+    "html"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

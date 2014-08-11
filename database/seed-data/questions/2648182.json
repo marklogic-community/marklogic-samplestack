@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2648182",
+  "creationDate": "2014-04-18T03:03:42.360",
+  "body": "\n\nMy PHP experience is rather limited.  I've just inherited some stuff that looks odd to me, and I'd like to know if this is a standard way to do things.  The page which shows up in the browser location (e.g. www.example.com/example_page) has something like:\n\n\t<?\n\t$title = \"Page Title\";\n\t$meta = \"Some metadata\";\n\trequire(\"pageheader.inc\");\n\t?>\n\t<!-- Content -->\n\t\n\nThen pageheader.inc has stuff like:\n\n\t<?\n\t@$title = ($title) ? $title : \"\";\n\t@$meta = ($meta) ? $meta : \"\";\n\t?>\n\t<html>\n\t<head>\n\t<title><?=$title?></title\n\t</head>\n\t<!-- and so forth -->\n\t\n\nMaybe others find this style useful, but it confuses me.  I suppose this could be a step toward a rudimentary content management system, but the way it works here I'd think it adds to the processing the server has to do without reducing the load on the web developer enough to make it worth the effort.  \n\nSo, is this a normal way to create pages with PHP?  Or should I pull all this in favor of a better approach?\n\nAlso, I know that \"`<?`\" (vs. \"`<?php`\" ) is undesirable; I'm just reproducing what is in the code.",
+  "lastActivityDate": "2014-04-22T03:47:29.333",
+  "title": "Idiomatic PHP web page creation",
+  "tags": [
+    "php",
+    "idioms"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

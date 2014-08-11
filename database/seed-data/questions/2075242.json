@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2075242",
+  "creationDate": "2014-01-18T14:38:07.113",
+  "body": "\n\nI use the Lucene java `QueryParser` with `KeywordAnalyzer`. A query like `topic:(hello world)` is broken up in to multiple parts by the `KeywordTokenizer` so the resulting Query object looks like this `topic:(hello) topic:(world)` i.e. Instead of one, I now have two key-value pairs. I would like the `QueryParser` to interpret `hello world` as one value, without using double quotes. What is the best way to do so?\n\nParsing `topic:(\"hello world\")` results in a single key value combination but, using double quotes is not an option.\n\nI am not using the Lucene search engine. I am using Lucene's QueryParser just for parsing the query, not for searching. The text `Hello World` is entered at runtime, by the user so that can change. I would like `KeywordTokenizer` to treat `Hello World` as one Token instead of parsing splitting it in to two Tokens.",
+  "lastActivityDate": "2014-07-19T13:23:35.223",
+  "title": "Prevent KeywordTokenizer from creating multiple key-value pairs",
+  "tags": [
+    "lucene"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

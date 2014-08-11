@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2070256",
+  "creationDate": "2014-01-18T00:22:02.800",
+  "body": "\n\nI have a simple Excel speadsheet where in one column i write string values.\nWhat I need is to define some predefined values and instead of typing string select\nit from dropdown list. For instance for a column Store Name I want to select \"Reebok\", \"Adidas\" and so on.\n\nI understand that there can be several ways how to implement it,even VBA. I use Office 2007. \n\nPlease advice.",
+  "lastActivityDate": "2014-01-18T00:43:51.147",
+  "title": "Drop-down list in Excel cell",
+  "tags": [
+    "excel",
+    "excel-vba",
+    "ms-office"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

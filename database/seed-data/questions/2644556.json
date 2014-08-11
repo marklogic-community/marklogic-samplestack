@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644556",
+  "creationDate": "2014-04-17T18:48:38.107",
+  "body": "\n\nI don't want to open another \"**Yet Another Js VS Js**\" thread.\n\nI guess, in the end Prototype and jQuery are both JS and have almost the same methods and functions and need almost the same lines of code for identical tasks.\n\nFor a real *Rich Internet Application*, what are the **real strengths** and what the **weaknesses** in Prototype vs. jQuery?",
+  "lastActivityDate": "2014-08-12T05:42:08.013",
+  "title": "Prototype VS jQuery - Strengths and Weaknesses?",
+  "tags": [
+    "jquery",
+    "prototypejs",
+    "ria"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2451086",
+  "creationDate": "2014-03-18T07:06:35.057",
+  "body": "\n\nI have an entry.rb model and I'm trying to make a semi-complicated validation. I want it to require one or more of the following fields: phone, phone2, mobile, fax, email or website. How would you write the intended code? Would something like this work?\n\n\tvalidates_presence_of :phone and or :phone2 and or :mobile and or :fax and or :email and or :website\n\t",
+  "lastActivityDate": "2014-03-18T07:22:37.057",
+  "title": "and or operator in validates_presence_of of a Ruby on Rails model",
+  "tags": [
+    "ruby-on-rails",
+    "ruby",
+    "validation",
+    "model"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

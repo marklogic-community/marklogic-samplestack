@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2269540",
+  "creationDate": "2014-02-18T14:58:43.117",
+  "body": "\n\nI am trying to create a HTML page where the \"body\" color changes depending on some data being gathered from the RAM.  If the RAM fills up beyond a certain threshold then I want the color to change.\n\n\t    <body style=\"background-color:<%=\n\t    if(MemoryPercentage < 33)\n\t    {\n\t        //set to green.\n\t    }\n\t    else if(MemoryPercentage < 66)\n\t    {\n\t        //set to yellow.\n\t    }\n\t    else\n\t    {\n\t            //set to red.\n\t    }%>\">\n\t\n\nThank you for your help,\n\nAaron",
+  "lastActivityDate": "2014-02-18T15:22:54.347",
+  "title": "Dynamically Changing HTML",
+  "tags": [
+    "c#",
+    "html"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

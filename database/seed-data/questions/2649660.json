@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649660",
+  "creationDate": "2014-04-18T07:26:04.460",
+  "body": "\n\nI'm trying to make an MFC window (a `CDialog`) go fullscreen whenever the user attempts to maximize it. The window is being used as an OpenGL context. I'm attempting to do everything inside of the `CDialog::OnSize` callback. Here's the code that I'm using:\n\n\tvoid MyCDialogSubclass::OnSize(UINT action, int width, int height) {\n\t    CDialog::OnSize(action, width, height);\n\t\n\t    switch (action) {\n\t        case SIZE_MAXIMIZED:\n\t            if (GetStyle() & WS_OVERLAPPEDWINDOW) {\n\t                MONITORINFO screen;\n\t                screen.cbSize = sizeof(screen);\n\t                if (GetMonitorInfo(MonitorFromWindow(GetSafeHwnd(), MONITOR_DEFAULTTOPRIMARY), &screen)) {\n\t                    ModifyStyle(WS_OVERLAPPEDWINDOW, 0, 0);\n\t                    width = screen.rcMonitor.right - screen.rcMonitor.left;\n\t                    height = screen.rcMonitor.bottom - screen.rcMonitor.top;\n\t                    SetWindowPos(&wndTop, screen.rcMonitor.left, screen.rcMonitor.top, width, height, SWP_NOOWNERZORDER | SWP_FRAMECHANGED);\n\t                }\n\t            }\n\t            break;\n\t        case SIZE_MINIMIZED:\n\t        case SIZE_RESTORED:\n\t            if (!(GetStyle() & WS_OVERLAPPEDWINDOW)) {\n\t                ModifyStyle(0, WS_OVERLAPPEDWINDOW, 0);\n\t                SetWindowPos(NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_FRAMECHANGED);\n\t            }\n\t            break;\n\t    }\n\t\n\t    if (wglMakeCurrent(my_hdc, my_hglrc))\n\t        my_opengl_reshape_call(width, height);\n\t    wglMakeCurrent(NULL, NULL);\n\t}\n\t\n\nIf I comment out the `ModifyStyle()` calls, everything works fine, with the obvious proviso that the window style stays normal, so there's a standard window title bar across the top of the screen that I want to get rid of. If I keep the `ModifyStyle()` calls and comment out the `SetWindowPos()` calls, the title bar and everything else disappears, but the window has a black region along the top of the screen that is the exact height of the title bar—as though it is being reserved. If I don't comment out either of the pairs of calls, as shown in the code above, the screen flickers violently. I believe it's flickering back and forth between the black region being present and not being present, but it's difficult to tell. This flickering also appears to corrupt video memory, as I get persistent artifacts in window title bars (in different applications, no less) and, once, the login picture in the Start menu was replaced with one of my OpenGL textures.\n\nThe code that I'm using is adapted from the code that Stefan linked in an answer below, from [The Old New Thing](http://blogs.msdn.com/oldnewthing/archive/2010/04/12/9994016.aspx), which is working better than my original code. I'm assuming this problem isn't arising from my decision not to insert code to save the window placement (per The Old New Thing), because this happens before I ever try to restore the window.",
+  "lastActivityDate": "2014-04-19T06:03:17.200",
+  "title": "Flicker/dead region issues maximizing an MFC window",
+  "tags": [
+    "windows",
+    "opengl",
+    "mfc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

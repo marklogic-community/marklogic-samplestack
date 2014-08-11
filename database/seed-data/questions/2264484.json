@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2264484",
+  "creationDate": "2014-02-17T23:27:25.960",
+  "body": "\n\nI have an xml file \n\n\t<Abc> \n\t  <image filename=\"1.jpg\" heading=\"1.jpg\" />\n\t  <image filename=\"10.jpg\" heading=\"10.jpg\" />\n\t  <image filename=\"11.jpg\" heading=\"11.jpg\" />\n\t  <image filename=\"2.jpg\" heading=\"2.jpg\" />\n\t  <image filename=\"3.jpg\" heading=\"3.jpg\" />\n\t</Abc>\n\t\n\nI want to delete all elements except root element. How to accomplish this.Please help me.",
+  "lastActivityDate": "2014-02-18T02:16:13.683",
+  "title": "removing all elements from xml file except root element c#",
+  "tags": [
+    "c#",
+    "asp.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649474",
+  "creationDate": "2014-04-18T06:40:27.583",
+  "body": "\n\nConsider the following FSTs :\n\n\tT1 \n\t\n\t0 1 a : b\n\t0 2 b : b\n\t2 3 b : b\n\t0 0 a : a\n\t1 3 b : a\n\t\n\tT2\n\t\n\t0 1 b : a\n\t1 2 b : a\n\t1 1 a : d\n\t1 2 a : c\n\t\n\nHow do I perform the composition operation on these two FSTs (i.e. T1 o T2)\nI saw some algorithms but couldn't understand much. If anyone could explain it in a easy way it would be a major help.\n\nPlease note that this is NOT a homework. The example is taken from the lecture slides where the solution is given but I couldn't figure out how to get to it.",
+  "lastActivityDate": "2014-09-24T01:23:53.967",
+  "title": "How to perform FST (Finite State Transducer) composition",
+  "tags": [
+    "nlp",
+    "finite-automata",
+    "finite-state-machine"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

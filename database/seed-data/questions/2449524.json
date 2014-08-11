@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449524",
+  "creationDate": "2014-03-18T02:33:16.327",
+  "body": "\n\nI'm making a Tetris Clone in C# with XNA, and I'm unsure of how to actually implement the blocks.\n\nI don't think that making the shapes as images will work (because parts are removed when lines are formed), so I Have blocks to make up the pieces like [This](http://img638.imageshack.us/img638/4719/jsquarebig.png).\n\nUnfortunately, I don't know how to actually define the blocks to make the pieces, nor do I know how to manipulate them to make them rotate, etc.\n\nEdit: I would also need assistance in learning how to make the Tetris Grid too.",
+  "lastActivityDate": "2014-03-18T18:20:13.187",
+  "title": "How do I create Tetris Blocks in XNA with C#?",
+  "tags": [
+    "c#",
+    "xna",
+    "tetris"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

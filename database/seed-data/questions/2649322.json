@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2649322",
+  "creationDate": "2014-04-18T06:05:53.007",
+  "body": "\n\nAll,\n\nI am trying to ensure that a file I have open with  BufferedReader is closed when I catch an IOException, but it appears as if my BufferedReader object is out of scope in the catch block.\n\n\tpublic static ArrayList readFiletoArrayList(String fileName, ArrayList fileArrayList)\n\t{\n\t    fileArrayList.removeAll(fileArrayList);\n\t\n\t    try {\n\t        //open the file for reading\n\t        BufferedReader fileIn = new BufferedReader(new FileReader(fileName));\n\t\n\t        // add line by line to array list, until end of file is reached\n\t        // when buffered reader returns null (todo). \n\t        while(true){\n\t                fileArrayList.add(fileIn.readLine());\n\t            }\n\t    }catch(IOException e){\n\t        fileArrayList.removeAll(fileArrayList);\n\t        fileIn.close(); \n\t        return fileArrayList; //returned empty. Dealt with in calling code. \n\t    }\n\t}\n\t\n\nNetbeans complains that it \"cannot find symbol fileIn\" in the catch block, but I want to ensure that in the case of an IOException that the Reader gets closed. How can I do that without the ugliness of a second try/catch construct around the first?\n\nAny tips or pointers as to best practise in this situation is appreciated, ",
+  "lastActivityDate": "2014-07-29T23:45:42.290",
+  "title": "How do I close a file after catching an IOException in java?",
+  "tags": [
+    "java",
+    "exception-handling",
+    "try-catch",
+    "ioexception",
+    "bufferedreader"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

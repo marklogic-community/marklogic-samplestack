@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448058",
+  "creationDate": "2014-03-17T23:02:07.157",
+  "body": "\n\nassume that we have a `data1` and `data2`. How can I intersect them with `std::set_intersect()`?\n\n\tstruct pID\n\t{\n\t    int           ID;\n\t    unsigned int  IDf;// postition in the file \n\t    pID(int id,const unsigned int idf):ID(id),IDf(idf){}\n\t    bool operator<(const pID& p)const { return ID<p.ID;}\n\t};\n\t\n\tstruct ID{};\n\tstruct IDf{};\n\t\n\ttypedef multi_index_container<\n\t    pID,\n\t    indexed_by<\n\t    ordered_unique<\n\t    tag<IDf>,  BOOST_MULTI_INDEX_MEMBER(pID,unsigned int,IDf)>,\n\t    ordered_non_unique<\n\t    tag<ID>,BOOST_MULTI_INDEX_MEMBER(pID,int,ID)> >\n\t    > pID_set;\n\t\n\tID_set data1, data2; \n\tLoad(data1); Load(data2);\n\t\n\tpID_set::index<ID>::type& L1_ID_index=L1.data.get<ID>();\n\tpID_set::index<ID>::type& L2_ID_index=L2.data.get<ID>();\n\t    // How do I use set_intersect?\n\t\n\nKind regards,\nArman.",
+  "lastActivityDate": "2014-03-18T15:22:22.100",
+  "title": "Boost.MultiIndex: How to make an effective set intersection?",
+  "tags": [
+    "c++",
+    "boost",
+    "multi-index",
+    "set-intersection"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

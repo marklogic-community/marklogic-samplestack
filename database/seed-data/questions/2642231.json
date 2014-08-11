@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642231",
+  "creationDate": "2014-04-17T09:44:22.657",
+  "body": "\n\nIs there a way or command to be use to find files using a list of files to be find in a directory?\ne.g.\n\nfind the following files: \n  \ntext1.sql\n  \ntext2.sql\n  \ntext3.sql\n  \ntext4.sql\n  \ntext5.sql\n  \ntext6.sql\n\nSearch in: c:\\archive...",
+  "lastActivityDate": "2014-08-23T01:52:44.467",
+  "title": "Perforce P4v: How to find file with a list of file to be find?",
+  "tags": [
+    "perforce",
+    "p4v"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

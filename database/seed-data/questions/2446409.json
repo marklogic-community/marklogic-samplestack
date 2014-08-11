@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446409",
+  "creationDate": "2014-03-17T18:35:02.213",
+  "body": "\n\nSome of our FogBugz users experience that the Screenshot tool does not start-up automatically at boot. The quickest work-around is to re-install it. Any ideas on what causes this to happen? And how to prevent it from happening?",
+  "lastActivityDate": "2014-07-12T16:36:47.233",
+  "title": "FogBugz Screenshot does not start up at boot",
+  "tags": [
+    "screenshot",
+    "fogbugz"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

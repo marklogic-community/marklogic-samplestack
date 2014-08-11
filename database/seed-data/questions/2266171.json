@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266171",
+  "creationDate": "2014-02-18T05:22:47.023",
+  "body": "\n\nI am doing tests on an ejb3-project using ejb3unit [http://ejb3unit.sourceforge.net/Session-Bean.html](http://ejb3unit.sourceforge.net/Session-Bean.html) for testing. All my Services long for @PersistenceContext (UnitName=bla). I set up the ejb3unit.properties like this:\n\n\tejb3unit_jndi.1.isSessionBean=true\n\tejb3unit_jndi.1.jndiName=ejb/MyServiceBean\n\tejb3unit_jndi.1.className=com.company.project.MyServiceBean\n\t\n\neverything works with the in-memory-database.\n\nSo now i want additionally test another servicebean with @PersistenceContext (UnitName=*noTxDatasource*) that goes for a ** defined in my datasources.xml:\n\n\t<datasources>\n\t   <local-tx-datasource>\n\t    ...\n\t   </local-tx-datasource>\n\t   <no-tx-datasource>\n\t     <jndi-name>noTxDatasource</jndi-name>\n\t     <connection-url>...</connection-url>\n\t     <driver-class>oracle.jdbc.OracleDriver</driver-class>\n\t     <user-name>bla</user-name>\n\t     <password>bla</password>\n\t   </no-tx-datasource>\n\t </datasources>\n\t\n\nHow do I tell ejb3unit to make this work:\n\n\tObject object = InitialContext.doLookup(\"java:/noTxDatasource\");\n\tif (object instanceof DataSource) {\n\t  return ((DataSource) object).getConnection();\n\t} else { \n\t  return null;\n\t}\n\t\n\nCurrently it fails saying: javax.NamingException: Cannot find the name (noTxDataSource) in the JNDI tree Current bindings: (ejb/MyServiceBean=com.company.project.MyServiceBean)\n\nHow can I add this no-tx-datasource to the jndi bindings?",
+  "lastActivityDate": "2014-03-31T00:13:53.423",
+  "title": "EJB3Unit testing no-tx-datasource",
+  "tags": [
+    "database",
+    "unit-testing",
+    "ejb-3.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

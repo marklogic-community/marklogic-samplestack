@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646136",
+  "creationDate": "2014-04-17T22:27:09.357",
+  "body": "\n\nI'm currently in the beginning of learning WCF, as some of the concepts and the functionality they provide look interesting and also useful in a project I'm undertaking.\n\nSo far I've been following some pretty simple guides to get the hang of it but after creating my first host service I've come a bit unstuck, after trying to retrieve some data from a SQL Database and recieving the following error while using LINQ to SQL:\n\n\tRequest for the permission of type 'System.Data.SqlClient.SqlClientPermission, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089' failed.\n\t\n\nI've had a look around and seen some suggestions as how to fix this, but non have seemed to be applicable as I'm creating a simple WCF service library purely for testing.\n\nThe code trips up on the following line:\n\n\tme = aDb.Messages.ToList();\n\t\n\nThe project itself is held on a remote drive, but when I run to debug is run locally, however the database is a test server located again remotely. All the SQL credentials are correct as the connection tests succesfully and I've checked the connection string. Finally the service is running as a basicHttp Below you can see all my code so if you have any ideas as to how I can stop the error it would be appreciated.\n\n\tnamespace AnnouncementServiceLibrary\n\t{\n\t    [ServiceContract]\n\t    public interface IConnect\n\t    {\n\t        [OperationContract]\n\t        List<Mess> ConnectUser(string userId);\n\t    }\n\t}\n\t\n\tnamespace AnnouncementServiceLibrary\n\t{\n\t    public class AnnounceService : IAnnounceService\n\t    {\n\t#region IConnect Members\n\t\n\t        public List<Mess> ConnectUser(string userId)\n\t        {\n\t                List<Mess> mess = new List<Mess>();\n\t                List<Message> me;\n\t                List<MessageLink> messLink;\n\t\n\t                AnnouncementDBDataContext aDb = new AnnouncementDBDataContext();\n\t\n\t                me = aDb.Messages.ToList();\n\t                messLink = aDb.MessageLinks.ToList();\n\t\n\t                var result = (from a in messLink\n\t                              join b in me\n\t                                  on a.UniqueID equals b.UniqueID\n\t                              where a.UserID == userId\n\t                              select new { b.UniqueID, b.Author, b.Title, b.Body, b.Priority, a.Read, b.TimeRecieved }).\n\t                    DefaultIfEmpty();\n\t\n\t                foreach (var a in result)\n\t                {\n\t                    mess.Add(new Mess(a.UniqueID, a.Author, a.Title, a.Body, a.Priority, (bool)a.Read, a.TimeRecieved));\n\t                }\n\t                return mess;\n\t        }\n\t        #endregion\n\t    }\n\t}\n\t",
+  "lastActivityDate": "2014-04-17T22:36:10.187",
+  "title": "WCF Service Security Exception caused when trying to access data via LINQ to SQL",
+  "tags": [
+    "c#",
+    "wcf",
+    "security",
+    "service"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

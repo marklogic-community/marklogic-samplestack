@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2450800",
+  "creationDate": "2014-03-18T06:03:21.393",
+  "body": "\n\nhow can I by using Ado.net rename existing column in a table and changing a column's data type?",
+  "lastActivityDate": "2014-03-18T06:20:06.523",
+  "title": "rename columnName and change column's data type in a table by using ADO.NET",
+  "tags": [
+    "c#",
+    "sql-server-2005",
+    "ado.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267839",
+  "creationDate": "2014-02-18T09:48:45.137",
+  "body": "\n\nLets pretend we have a /Cart/Checkout view that lists every Product in the Cart, plus a TextBox with the Quantity (in my real world application I have more than Quantity). How would you update the Quantity? I have used the following code, but I'am looking for a \"cleaner\" way of doing it.\n\nView\n\n\t<% int i = 0; foreach(var product in Model.Products) { %>\n\t<p>\n\t    <%= Html.Encode(product.Name) %>\n\t    <%= Html.TextBox(\"Quantity[\" + i + \"]\", product.Quantity) %>\n\t</p>\n\t<% i++; } >\n\t\n\nController\n\n\t[AcceptVerbs(HttpVerbs.Post)]\n\t// This would be a better way, but it does not work, any ideas?\n\t//public ActionResult Checkout([Bind(Include = \"ProductID, Quantity\")] Product[] products)\n\tpublic ActionResult Checkout(int[] productID, int[] Quantity)\n\t{\n\t    // Get the Product from cartRepository, update Quantity and SaveChanges().\n\t}\n\t\n\nHow would you solve it?",
+  "lastActivityDate": "2014-02-19T05:52:50.243",
+  "title": "Cleanest way of updating many entities (of the same type) on one page with Entity Framework and ASP.NET MVC?",
+  "tags": [
+    "asp.net-mvc",
+    "entity-framework"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649193",
+  "creationDate": "2014-04-18T05:45:04.617",
+  "body": "\n\nI have this configuration in `ibatis-config.xml`\n\n\t<configuration>\n\t    <properties resource=\"collector.properties\"/>\n\t    <environments default=\"development\">\n\t        <environment id=\"development\">\n\t            <transactionManager type=\"JDBC\" />\n\t            <dataSource type=\"POOLED\">\n\t                <property name=\"driver\" value=\"${dev.jdbc.driver}\" />\n\t                <property name=\"url\" value=\"${dev.jdbc.url}\" />\n\t            </dataSource>\n\t        </environment>\n\t        <environment id=\"test\">\n\t            <transactionManager type=\"JDBC\" />\n\t            <dataSource type=\"POOLED\">\n\t                <property name=\"driver\" value=\"${test.jdbc.driver}\" />\n\t                <property name=\"url\" value=\"${test.jdbc.url}\" />\n\t            </dataSource>\n\t        </environment>\n\t    </environments>\n\t    <mappers>\n\t    </mappers>\n\t</configuration>\n\t\n\nAs shown it will load datasource from `<environment id=\"development\">`\n\n<b>QUESTION</b>: Is it possible at run time switch to use `<environment id=\"test\">` without modifying XML? For example - I have a test file where I'm using `SqlSessionFactory` and want to set it programmatically to use test environment?",
+  "lastActivityDate": "2014-03-11T05:51:42.540",
+  "title": "iBatis - select environment using XML",
+  "tags": [
+    "environment",
+    "ibatis",
+    "xml-configuration"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

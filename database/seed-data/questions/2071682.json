@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071682",
+  "creationDate": "2014-01-18T05:14:03.483",
+  "body": "\n\nI want to execute an SQL script file in Java without reading all file content into a big query and executing it. Is there any standard way?",
+  "lastActivityDate": "2014-08-15T16:14:09.937",
+  "title": "How to execute sql-script file in java?",
+  "tags": [
+    "java",
+    "sql-scripts"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

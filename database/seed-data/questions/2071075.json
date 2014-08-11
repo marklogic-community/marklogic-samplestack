@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2071075",
+  "creationDate": "2014-01-18T03:28:16.073",
+  "body": "\n\nI am creating a project with struts and I have a problem using Jasper IReports. I want to export some info into a pdf file and I keep getting the java.lang.IllegalStateException: getOutputStream() has already been call... Exception due to openning a ServletOutputStream in my code when the page already opens a PrintWriter.\n\nThe code is in the model (so it is not in the jsp, it's in a java file), as it follows:\n\n\t    public void handle(HttpServletResponse res, Connection connection, String path)throws Exception{\n\t    ServletOutputStream out = null;\n\t    try {\n\t\n\t        JasperDesign jasperDesign = JRXmlLoader.load(path);\n\t        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);\n\t        byte[] bytes = JasperRunManager.runReportToPdf(jasperReport, null, connection);\n\t        res.setContentType(\"application/pdf\");\n\t        res.setContentLength(bytes.length);\n\t        out = res.getOutputStream();\n\t        out.write(bytes, 0, bytes.length);\n\t    } catch (Exception e) {\n\t        e.printStackTrace();\n\t    } finally {\n\t        out.flush();\n\t        out.close();\n\t    }\n\t\n\nI have checked the connection, the path and the HttpServletResponse and are all working fine.\n\nI'm very newbie with Jasper Reports as well as with coding stuff into PDF so you can -correctly- suposse that I have a minimal idea of what I am doing here and that, obviously my code is copy/pasted from somewhere through the net.\n\nI have tried to use PrintWriter instead of OutputStream, transforming bytes into a String and using the PrintWriter.append(String) method (allthought is not String is CharSequence), but it doesn't extract the data into the PDF.\n\nI have also tried to get the PrintWriter, close it to open the OutputStream (didn't work) or flush it (neither).\n\nAny help with a solution to use any out that could show the data in a pdf would be great.\nThanks a lot!",
+  "lastActivityDate": "2014-11-27T16:24:49.037",
+  "title": "Using PrintWriter and OutputStream",
+  "tags": [
+    "java",
+    "servlets",
+    "outputstream",
+    "printwriter"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

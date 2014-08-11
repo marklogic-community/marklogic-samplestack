@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2450300",
+  "creationDate": "2014-03-18T04:37:10.693",
+  "body": "\n\nI want to host a WCF service with TCP Protocol.\n\nI can host the service using IIS or Windows Service. \n\nI need to know what port I need to open for this service for it to be accessible by client?",
+  "lastActivityDate": "2014-03-18T04:41:46.203",
+  "title": "WCF TCP Protocol",
+  "tags": [
+    "asp.net",
+    "wcf",
+    "tcp"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

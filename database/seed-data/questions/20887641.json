@@ -1,1 +1,21 @@
-{"id":"/questions/20887641.json", "creationDate":"2014-01-02T16:51:19.357", "body":"\n\nI would like manage a set of application requirements. Each requirement have a state (Accepted, Rejected, InProgress), and a message state. Some toolbuttons have to be enabled just if all the requirements are accepted.\n\nAll the requirements are viewed in a tableview (two colums : name and state message), with an icon state for each line.\n\nA requirement is checked by a separated worker. I do this with QtConcurrent/QThreadPool. But I have to know when the pool have finished all the checks.\n\nThere's no signal finished in QThreadPool...\n\nMaybe I do it wrong. Any idea, link or example are welcom !", "lastActivityDate":"2014-01-03T10:45:15.177", "title":"Model/View of threads results", "tags":["multithreading", "qt", "qt4"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"saad", "id":"914760"}}
+{
+  "id": "/questions/20887641",
+  "creationDate": "2014-01-05T08:51:19.357",
+  "body": "\n\nI would like manage a set of application requirements. Each requirement have a state (Accepted, Rejected, InProgress), and a message state. Some toolbuttons have to be enabled just if all the requirements are accepted.\n\nAll the requirements are viewed in a tableview (two colums : name and state message), with an icon state for each line.\n\nA requirement is checked by a separated worker. I do this with QtConcurrent/QThreadPool. But I have to know when the pool have finished all the checks.\n\nThere's no signal finished in QThreadPool...\n\nMaybe I do it wrong. Any idea, link or example are welcom !",
+  "lastActivityDate": "2014-08-11T05:42:56.219",
+  "title": "Model/View of threads results",
+  "tags": [
+    "multithreading",
+    "qt",
+    "qt4"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "saad",
+    "id": "914760"
+  }
+}

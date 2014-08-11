@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448060",
+  "creationDate": "2014-03-17T23:02:22.327",
+  "body": "\n\nI have a gridview that is bound to a datasource (Windows Forms, VB.NET). One of columns is a property of type boolean, and I want to show \"yes/no\" in the column instead of 0/1 or \"true/false\". Is this possible? Can you edit displays of columns that are bound?",
+  "lastActivityDate": "2014-07-09T03:04:00.067",
+  "title": "Show yes/no in bool column of gridview bound to datasource in Winforms?",
+  "tags": [
+    "vb.net",
+    "winforms",
+    "gridview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

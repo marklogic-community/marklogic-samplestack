@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2445659",
+  "creationDate": "2014-03-17T15:38:27.427",
+  "body": "\n\nFor writable buffers, is there a way to tell vim to autoindent a file on entering & exiting the buffer?\n\nWhat I want is the equiv of:\n\n\t1G=G\n\t\n\tto go first line\n\tindent ..\n\tuntil last line\n\t\n\nThanks!",
+  "lastActivityDate": "2014-03-17T16:04:24.940",
+  "title": "vim autoindent buffer on enter & exit",
+  "tags": [
+    "vim"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

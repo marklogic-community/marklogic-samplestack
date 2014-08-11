@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2263852",
+  "creationDate": "2014-02-17T18:58:51.433",
+  "body": "\n\nIs there a way to access a XmlReader asynchronously? The xml is coming in off the network from many different clients like in XMPP; it is a constant stream of `<action>...</action`> tags.\n\nWhat i'm after is to be able to use a BeginRead/EndRead-like interface. The best solution I've managed to come up with is to do an asynchronous read for 0 bytes on the underlying network stream, then when some data arrives, call Read on the XmlReader- this will however block until all of the data from the node becomes available. That solution looks roughly like this\n\n\tprivate Stream syncstream;\n\tprivate NetworkStream ns;\n\tprivate XmlReader reader;\n\t\n\t//this code runs first\n\tpublic void Init()\n\t{\n\t    syncstream = Stream.Synchronized(ns);\n\t    reader = XmlReader.Create(syncstream);\n\t    byte[] x = new byte[1];\n\t    syncstream.BeginRead(x, 0, 0, new AsynchronousCallback(ReadCallback), null);\n\t}\n\t\n\tprivate void ReadCallback(IAsyncResult ar)\n\t{\n\t    syncstream.EndRead(ar);\n\t    reader.Read(); //this will block for a while, until the entire node is available\n\t    //do soemthing to the xml node\n\t    byte[] x = new byte[1];\n\t    syncstream.BeginRead(x, 0, 0, new AsynchronousCallback(ReadCallback), null);\n\t}\n\t\n\nEDIT: This is a possible algorithm for working out if a string contains a complete xml node?\n\n\tFunc<string, bool> nodeChecker = currentBuffer =>\n\t                {\n\t                    //if there is nothing, definetly no tag\n\t                    if (currentBuffer == \"\") return false;\n\t                    //if we have <![CDATA[ and not ]]>, hold on, else pass it on\n\t                    if (currentBuffer.Contains(\"<![CDATA[\") && !currentBuffer.Contains(\"]]>\")) return false;\n\t                    if (currentBuffer.Contains(\"<![CDATA[\") && currentBuffer.Contains(\"]]>\")) return true;\n\t                    //these tag-related things will also catch <? ?> processing instructions\n\t                    //if there is a < but no >, we still have an open tag\n\t                    if (currentBuffer.Contains(\"<\") && !currentBuffer.Contains(\">\")) return false;\n\t                //if there is a <...>, we have a complete element.\n\t                //>...< will never happen because we will pass it on to the parser when we get to >\n\t                if (currentBuffer.Contains(\"<\") && currentBuffer.Contains(\">\")) return true;\n\t                //if there is no < >, we have a complete text node\n\t                if (!currentBuffer.Contains(\"<\") && !currentBuffer.Contains(\">\")) return true;\n\t                //> and no < will never happen, we will pass it on to the parser when we get to >\n\t                //by default, don't block\n\t                return false;\n\t            };\n\t",
+  "lastActivityDate": "2014-02-08T18:50:05.563",
+  "title": "Asynchronous XmlReader in .NET?",
+  "tags": [
+    "c#",
+    "xml",
+    "xmpp"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

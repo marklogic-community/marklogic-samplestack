@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2647288",
+  "creationDate": "2014-04-18T00:48:56.580",
+  "body": "\n\nMy impression of Python from the short time I've been developing with it is that it's incredible powerful and flexible, but I can't help but feel like \"with great power comes great responsibility.\"  So while I've read numerous blog posts about simple and elegant Python snippets that solve a problems, I wonder if there are design patterns or abuses of Python language features that, once built into an application or library, cause the code to be incredibly brittle and near impossible to refactor.\n\nSo the question is basically what are the most frustrating, but somewhat common, Python \"hacks\" or language feature abuses that someone can introduce that will cause nightmares for future maintainers of that code?",
+  "lastActivityDate": "2014-04-18T17:23:40.463",
+  "title": "What are the most frustrating Python hacks to unwind, rewrite, etc.?",
+  "tags": [
+    "python"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

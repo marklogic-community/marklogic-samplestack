@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642067",
+  "creationDate": "2014-04-17T09:03:14.750",
+  "body": "\n\nI have an ordered list (ol) on my page but the numbering is not showing up at all! I have done this:\n\n\t<ol>\n\t<li>my text</li>\n\t<li>my text</li>\n\t<li>my text</li>\n\t</ol>\n\t\n\nAs I have typed the above, stackoverflow was able to render it correctly the way I wanted it to, like so:\n1. my text\n2. my text\n3. my text\n\nHowever, this is not happening on my webpage. I am viewing this in Firefox on my localhost.\n\nIf any knows why my ol's look like ul's (i.e. no numbering) I would be grateful for help. If not, please let me know how I can achieve a numbered list using ul's.\n\nThanks all",
+  "lastActivityDate": "2014-03-24T04:21:01.977",
+  "title": "Ordered List (ol) showing up un-numbered?",
+  "tags": [
+    "html",
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2264016",
+  "creationDate": "2014-02-17T20:12:30.627",
+  "body": "\n\nAre there any TFS plugins available for the Eclipse IDE? We are trying to centralise our SCM, and since we also develop Java 2 EE applications, we would like to have TFS integration in eclipse. \n\nWhich plugins are available?  Which have you found most useful.\n\nI heard that Microsoft may be releasing one, does anyone know about this?\n\nI have had a look and found the reviews of Teamprise looks good, however would like to have > 1 option!\n\nThanks in advance.",
+  "lastActivityDate": "2014-04-18T18:13:25.970",
+  "title": "TFS plugin for eclipse",
+  "tags": [
+    "tfs",
+    "eclipse-plugin"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2268039",
+  "creationDate": "2014-02-18T10:22:50.260",
+  "body": "\n\nCan I use my own resource names in `themes.xml`? For example:\n\n\t<item name=\"headerBackground\">@drawable/header</item>\n\t\n\nIn this example, `headerBackground` is not a valid resource (`No resource found that matches the given name...`, says Eclipse).\n\nWhere should I create/declare these resources? Is this a bad idea?",
+  "lastActivityDate": "2014-03-14T06:46:50.930",
+  "title": "How do I create my own resource names?",
+  "tags": [
+    "android"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

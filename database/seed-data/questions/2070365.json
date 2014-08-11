@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2070365",
+  "creationDate": "2014-01-18T00:48:29.303",
+  "body": "\n\nCan anyone guide how to generate image from input text. Image might have any extension doesn't matter.",
+  "lastActivityDate": "2014-12-02T15:18:33.737",
+  "title": "How to generate an image from text on fly at runtime",
+  "tags": [
+    "c#",
+    "image",
+    "text",
+    "drawing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2447102",
+  "creationDate": "2014-03-17T20:41:40.153",
+  "body": "\n\nI have a case where I need to load bitmap from a resource dll and release handle to it. The update mechanism may update the dll, and having it open will fail overwriting it.\n\nSo lets say I have something like this:\n\n\tHINSTANCE hInst = LoadLibraryEx(resourceDll, NULL, LOAD_LIBRARY_AS_DATAFILE);\n\tHBITMAP hBitmap = LoadBitmap(hInst, \"some.bmp\")\n\tFreeLibrary(hInst);\n\t\n\nis it valid to use hBitmap after calling FreeLibrary ?\n\nThanks in advance.",
+  "lastActivityDate": "2014-03-17T21:03:56.303",
+  "title": "Is it valid to use HBITMAP after calling FreeLibrary?",
+  "tags": [
+    "gdi",
+    "embedded-resource"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

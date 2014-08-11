@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646561",
+  "creationDate": "2014-04-17T23:14:56.423",
+  "body": "\n\nThe application is running on a windows server 2003 box using asp.net 2.0 and is an IE specific web app.  There is a button that opens a form in an iframe using showModalDialog(...) from a function call located in the JavaScript.\n\nHere is an example of the function:\n\n\t    function ShowBusinessHoursSubForm( source )\n\t{\n\t    var retval = window.showModalDialog(\"htm/\" + locLocaleID + \"/SubFormHostFrame.htm\", source, \"dialogWidth:265px;dialogHeight:261px;help:no;scroll:no;status:no;\");\n\t\n\t}\n\t\n\nThe host frame is loading an aspx page which contains the actual form that is being used.  On the form that is opened there is a button that, when clicked, submits changed to the form.  However, if no changed were made before the form was submitted, another modal window pops up stating that there were no changed to the form.  This modal window is opened through registration of some JavaScript in the button click event.  The code is as follows (C#):\n\n\tstring l_S_ErrorScript = \"<script type='text/javascript' language='javascript'>window.showModalDialog('htm/\" + l_S_Culture + \"/NotChangedErrorDialog.htm', '../../\" + l_S_SkinPath + \"', 'dialogWidth:310px;dialogHeight:145px;scroll:no;help:no;status:no;');</script>\";\n\t\n\tif(!m_Page.ClientScript.IsStartupScriptRegistered(\"ErrorScript\"))\n\t        {\n\t            m_Page.ClientScript.RegisterStartupScript(this.GetType(), \"ErrorScript\", l_S_ErrorScript);\n\t        }\n\t\n\nWhen the button is clicked and this dialog needs to appear the following JavaScript error appears:\n\n> Error: Object doesn't support this property or method\n\nThe weird thing is, if I access the application locally and try it everything works fine, but accessing from another computer causes the error.  Also, depending on what server (we have many servers for testing all with windows server 2003)  the error may not occur on another computer either.  These computers are running the same software version using the same version of IE with the same settings.  I'm inclined to believe that there is some configuration issue somewhere, but with the settings being the same it is hard to tell.  I cannot really change how the app works or the technologies used either.\n\nAnyone have any ideas as to what may be causing this?",
+  "lastActivityDate": "2014-12-11T07:50:56.070",
+  "title": "Javascript error when attempting to open a modal window in a modal window",
+  "tags": [
+    "javascript",
+    "showmodaldialog"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

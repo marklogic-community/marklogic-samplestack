@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648308",
+  "creationDate": "2014-04-18T03:21:32.750",
+  "body": "\n\nI have two interfaces **IHeaderRow**, and **IDetailRow**\n\nI then have an object that implements both **RawRow:IHeaderRow, IDetailRow**\n\nI then need to cast it to **HeaderRow** which implements **IHeaderRow**.\n\nBut when I try, it ends up being null or giving an exception.\n\nI can cast **ObjectRawRow** to either interface **IHeaderRow**, or **IDetailRow**\n\n\tvar ObjectIHeaderRow = ObjectRawRow as IHeaderRow;\n\tvar ObjectIDetailRow = ObjectRawRow as IDetailRow;\n\t\n\nBut I can not cast **ObjectRawRow** to **HeaderRow** , or **ObjectIHeaderRow** to **HeaderRow**.\n\nIt throws the error *Cannot convert source type 'IA' to target type 'A'*\n\nI need to cast it into the actual class **HeaderRow**.\n\nThoughts?\n\nEDIT:\n\nEven though setting up an explicit cast took care of the issue I thought I'd provide an answer to the people wondering, WHY I was doing what I was.\n\nIn short, I'm sequentially processing a file.  Line by line.  I read the row into RawRow, and until I look at a few values, I don't actually know what type of row it is going to be.  I then wanted to cast it to the proper type.",
+  "lastActivityDate": "2014-04-18T05:33:05.933",
+  "title": "Casting between classes that share the same interface",
+  "tags": [
+    "c#",
+    "interface",
+    "casting"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

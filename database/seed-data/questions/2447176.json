@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2447176",
+  "creationDate": "2014-03-17T20:53:06.557",
+  "body": "\n\nI've got a XmlDocument and I want to get the Content (OuterXml) as a pretty printed string. How can I do this?\n\nRegards ",
+  "lastActivityDate": "2014-08-11T02:57:18.540",
+  "title": "XmlDocument OuterXml pretty printed",
+  "tags": [
+    "c#",
+    "xmldocument",
+    "pretty-print"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

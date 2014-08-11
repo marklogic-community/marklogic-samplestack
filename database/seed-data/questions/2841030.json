@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2841030",
+  "creationDate": "2014-05-18T01:22:56.837",
+  "body": "\n\nI'm diving into iPhone OS development and I'm trying to understand how I can add multiple view objects to the \"Left/Root\" view of my SplitView iPad app.  I've figured out how to programmatically add a TableView to that view based on the example code I found in Apple's online documentation...\n\n**RootViewController.h**\n\n\t@interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource> {\n\t\n\t    DetailViewController *detailViewController;\n\t\n\t    UITableView *tableView;\n\t\n\t    NSFetchedResultsController *fetchedResultsController;\n\t    NSManagedObjectContext *managedObjectContext;\n\t}\n\t\n\n**RootViewController.m**\n\n\t- (void)loadView\n\t{\n\t    UITableView *newTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];\n\t    newTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;\n\t    newTableView.delegate = self;\n\t    newTableView.dataSource = self;\n\t    [newTableView reloadData];\n\t\n\t    self.view = newTableView;\n\t    [newTableView release];\n\t}\n\t\n\nbut there are a few things I don't understand about it and I was hoping you veterans could help clear up some confusion.\n1. In the statement `self.view = newTableView`, I assume I'm setting the entire view to a single UITableView.  If that's the case, then how can I add additional view objects to that view alongside the table view?  For example, if I wanted to have a DatePicker view object and the TableView object instead of just the TableView object, then how would I programmatically add that?\n2. Referencing the code above, how can I resize the table view to make room for the DatePicker view object that I'd like to add?\n\nThanks so much in advance for your help!  I'm going to continue researching these questions right now.",
+  "lastActivityDate": "2014-05-18T01:34:57.720",
+  "title": "How can I programmatically add more than just one view object to my view controller?",
+  "tags": [
+    "iphone",
+    "iphone-sdk-3.0",
+    "ipad",
+    "ipad-splitview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

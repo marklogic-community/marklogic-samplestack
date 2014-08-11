@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2649634",
+  "creationDate": "2014-04-18T07:19:48.433",
+  "body": "\n\nI am trying to compile a program I took off a cd from a book that uses directx to render 3d objects. when i press compile I get the following error \n\n\tC1083: Cannot open include file: 'dxerr9.h': No such file or directory\n\t\n\nI am using VC++ 2008 Express Edition and i am running off of Vista. I went to the following folder \n\n[edit]\n\n\tC:\\Program Files (x86)\\Microsoft DirectX SDK (February 2010)\\Include\n\t\n\nI was able to find dxerr.h in the folder and the path is also being included in the VC++ Directories tab in the options window. dont know whats going on. ",
+  "lastActivityDate": "2014-04-18T07:44:32.557",
+  "title": "'dxerr9.h': No such file or directory",
+  "tags": [
+    "c++",
+    "c",
+    "visual-studio-2008",
+    "visual-c++",
+    "directx"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

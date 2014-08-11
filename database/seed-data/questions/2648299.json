@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2648299",
+  "creationDate": "2014-04-18T03:20:36.120",
+  "body": "\n\nI have been using `UIViewController`s and `initWithNibName` with much success, basically using them as a convenient way to design the view with Interface Builder.  Unfortunately I have built a hierarchy of views before noticing this line in the `UIViewController` documentation:\n\n> **Note:** You should not use view\n  controllers to manage views that fill\n  only a part of their window\n\nMy question is this:  Having a very simple NIB that only has a `UIView` in addition to the default First Responder and Owning Object, what is the simplest way to load the `UIView` into my code?\n\nI have not been able to get `loadNibNamed:owner:options:` to work at this point, but suspect the answer will involve it somehow.",
+  "lastActivityDate": "2014-06-03T20:35:42.650",
+  "title": "How to load a UIView from a NIB?",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "uiview",
+    "nib"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2647104",
+  "creationDate": "2014-04-18T00:23:01.443",
+  "body": "\n\nI'm creating a navigation controller based application.\nIn first view, there's a button. When clicked app will play a movie for 10 seconds.\nIn next view, there's another button. When clicked it will also play a movie.\nI'm using two different objects of MPMoviePlayerController in two views.\nBut my problem is that the movie is playing in first view and not in second view. The code that I used to play is same in both the views.\n\nWhat might be the problem?",
+  "lastActivityDate": "2014-04-18T05:55:56.190",
+  "title": "iphone using MPMoviePlayerController in 2 views",
+  "tags": [
+    "iphone",
+    "mpmovieplayercontroller"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

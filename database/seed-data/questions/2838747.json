@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2838747",
+  "creationDate": "2014-05-17T10:59:05.547",
+  "body": "\n\nI have a linux kernel module that needs to find the speed of a given network interface (i.e. \"eth0\"). For linux 2.6.31 how would I find the speed (configured/negotiated)?",
+  "lastActivityDate": "2014-05-17T11:24:32.523",
+  "title": "how can I determine a network device speed from a linux kernel module",
+  "tags": [
+    "linux",
+    "kernel"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

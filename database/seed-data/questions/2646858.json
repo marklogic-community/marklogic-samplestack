@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646858",
+  "creationDate": "2014-04-17T23:49:57.750",
+  "body": "\n\nI've been using using F5 (Start Debugging) for years to build the code (if its out of date), and then debug. This was working on VS 2010 also, however today it just start debugging without a build. Say I do a clean on the project, and then hit F5 instead of building it so it can run it throws an error message saying that the exe doesn't exist to run. How do I make it build first? What could have changed?",
+  "lastActivityDate": "2014-11-04T07:14:01.353",
+  "title": "Visual Studio 2010 isn't building before a run when there are code changes. It was doing working yesterday",
+  "tags": [
+    "visual-studio",
+    "visual-studio-2010",
+    "build",
+    "debugging"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2070658",
+  "creationDate": "2014-01-18T01:58:12.890",
+  "body": "\n\nI'm developing a custom plugin in PHP so existing plugins are not usable. What I want to achieve is that I want to display different url within a post for some users . For users that are registered in wordpress, contacted me and are 'approved'. I want to set up this extra user profile field so I can use this field in a condition. So guests and users without this field or without the right value in this field will get url1 but the other ones url2.\n\n##requirements\n* only users with admin role\n* can create/edit extra user profile field \n* for all other users\n\nI know how I can add extra user profile field in Wordpress (see the links below), but I don't know how to restrict editing that field to users in a given role and how user with admin role can create/edit this filed for all users. It seems to me that I have to add new code under wordpress dashboard/users/new user and/or dashboard/users/authors & users.\n\nI did some google search and found few sites on how to add extra user profile field \n* [Adding and using custom user profile fields](http://justintadlock.com/archives/2009/09/10/adding-and-using-custom-user-profile-fields)\n* [User Contact Fields in WordPress 2.9](http://yoast.com/user-contact-fields-wp29/)\n* [Add Data to User Field in WordPress](http://andrewferguson.net/2006/05/16/add-data-to-user-field-in-wordpress/)\n\nIt seems to me that [Adding and using custom user profile fields](http://justintadlock.com/archives/2009/09/10/adding-and-using-custom-user-profile-fields) is almost what I want to do but I still do not know how to manage the \"only admin' can do that.",
+  "lastActivityDate": "2014-01-24T12:02:12.010",
+  "title": "User permission - triggering code on user role (Wordpress)",
+  "tags": [
+    "php",
+    "wordpress",
+    "roles",
+    "security-roles",
+    "wordpress-plugin-dev"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

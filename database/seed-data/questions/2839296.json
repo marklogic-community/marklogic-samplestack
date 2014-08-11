@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2839296",
+  "creationDate": "2014-05-17T15:31:16.223",
+  "body": "\n\nI debug my project from console with MsBuild.exe. After i compile project i want to start and test it, but i have problem that i can not start Cassini for testing project. Can i run Cassini from console?",
+  "lastActivityDate": "2014-05-18T12:50:04.003",
+  "title": "run Cassini from console",
+  "tags": [
+    "c#",
+    "cassini"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

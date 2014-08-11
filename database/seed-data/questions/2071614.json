@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2071614",
+  "creationDate": "2014-01-18T05:06:48.247",
+  "body": "\n\nam facing a problem in Eclipse android development tool \n\n\tSource not found\n\tEDIT SOURCE LOOKUP PATH\n\t\n\nwhile i debug code in class Instrumentation.class at line\n@param info ActivityInfo from the manifest \n\nabove error is raised.\n\ncan any one guide me how to resolve this issue?? i am new to android development..",
+  "lastActivityDate": "2014-12-16T23:32:52.383",
+  "title": "Source not found Android?",
+  "tags": [
+    "java",
+    "android",
+    "eclipse"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

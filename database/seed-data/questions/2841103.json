@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2841103",
+  "creationDate": "2014-05-18T01:44:07.130",
+  "body": "\n\nI am using `Html.RenderAction<CartController>(c => c.Show());` on my master Page to display the cart for all pages. The problem is when I add an item to the cart and then hit the browser back button. It shows the old cart (from Cache) until I hit the refresh button or navigate to another page.\n\nI've tried [this](http://stackoverflow.com/questions/1160105/asp-net-mvc-disable-browser-cache/1705113#1705113) and it works perfectly but it disables the Cache globally for the whole page an for all pages in my site (since this Action method is used on the master page). I need to enable cache for several other partial views (action methods) for performance reasons.\n\nI wouldn't like to use client side script with AJAX to refresh the cart (and login view) on page load - but that's the only solution I can think of right now.\n\nDoes anyone know better?",
+  "lastActivityDate": "2014-08-15T18:08:39.937",
+  "title": "ASP.NET MVC 2 disable cache for browser back button in partial views",
+  "tags": [
+    "asp.net",
+    "caching",
+    "asp.net-mvc-2",
+    "outputcache",
+    "donut-caching"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

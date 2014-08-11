@@ -1,1 +1,21 @@
-{"id":"/questions/20887671.json", "creationDate":"2014-01-02T16:54:09.947", "body":"\n\nI would like to ask how can I add facebook share and twitter buttons to my website?\n\nI need Facebook share button to come up with pre made text when they open it, and the same for twitter if that is possible?", "lastActivityDate":"2014-01-02T16:54:09.947", "title":"Adding social buttons", "tags":["facebook", "twitter", "share"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"user3151875", "id":"3151875"}}
+{
+  "id": "/questions/20887671",
+  "creationDate": "2014-01-05T08:54:09.947",
+  "body": "\n\nI would like to ask how can I add facebook share and twitter buttons to my website?\n\nI need Facebook share button to come up with pre made text when they open it, and the same for twitter if that is possible?",
+  "lastActivityDate": "2014-08-11T05:42:56.226",
+  "title": "Adding social buttons",
+  "tags": [
+    "facebook",
+    "twitter",
+    "share"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "user3151875",
+    "id": "3151875"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649073",
+  "creationDate": "2014-04-18T05:22:19.793",
+  "body": "\n\nI am getting nullpointerexception, don't know what actually is causing it. I read from java docs that fileinputstream only throws securityexception so don't understand why this exception pops up.\nhere is my code snippet.\n\n\tprivate Properties prop = new Properties();\n\tprivate String settings_file_name = \"settings.properties\";\n\tprivate String settings_dir = \"\\\\.autograder\\\\\";\n\t\n\tpublic Properties get_settings() {\n\t    String path = this.get_settings_directory();\n\t    System.out.println(path + this.settings_dir + this.settings_file_name);\n\t    if (this.settings_exist(path)) {\n\t        try {\n\t            FileInputStream in = new FileInputStream(path + this.settings_dir + this.settings_file_name);\n\t            this.prop.load(in);\n\t            in.close();\n\t        } catch (IOException e) {\n\t            e.printStackTrace();\n\t        }\n\t    } else {\n\t        this.create_settings_file(path);\n\t        try{\n\t            this.prop.load(new FileInputStream(path + this.settings_dir + this.settings_file_name));\n\t        }catch (IOException ex){\n\t            //ex.printStackTrace();\n\t        }\n\t    }\n\t    return this.prop;\n\t}\n\t\n\tprivate String get_settings_directory() {\n\t    String user_home = System.getProperty(\"user.home\");\n\t    if (user_home == null) {\n\t        throw new IllegalStateException(\"user.home==null\");\n\t    }\n\t\n\t    return user_home;\n\t}\n\t\n\nand here is my stacktrace:\n\n\tC:\\Users\\mohamed\\.autograder\\settings.properties\n\tException in thread \"main\" java.lang.NullPointerException\n\t        at autograder.Settings.get_settings(Settings.java:41)\n\t        at autograder.Application.start(Application.java:20)\n\t        at autograder.Main.main(Main.java:19)\n\tJava Result: 1\n\tBUILD SUCCESSFUL (total time: 0 seconds)\n\t\n\tLine 41 is: this.prop.load(in);\n\t",
+  "lastActivityDate": "2014-04-18T06:10:53.140",
+  "title": "FileInputStream throws NullPointerException",
+  "tags": [
+    "java",
+    "nullpointerexception",
+    "fileinputstream"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

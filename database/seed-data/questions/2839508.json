@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2839508",
+  "creationDate": "2014-05-17T16:45:42.697",
+  "body": "\n\nI want to increase the Line2D width. I could not find any method to do that. Do I need to actually make a small rectangle for this purpose?\n\nThank you.",
+  "lastActivityDate": "2014-11-26T00:20:53.173",
+  "title": "Java2D: Increase the line width",
+  "tags": [
+    "java",
+    "swing",
+    "graphics",
+    "java-2d"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2445966",
+  "creationDate": "2014-03-17T17:04:15.553",
+  "body": "\n\nlet's consider a small method:\n\n\tint MyFunction(string foo, int bar)\n\t{\n\t  ...\n\t}\n\t\n\nand some calls:\n\n\tMyFunction(\"\",0)\n\tint x = MyFunction(foo1,bar1)\n\t\n\nHow would you explain this to a non-technical persons? Has anybody a nice metaphor?\n\nI tried to explain method calling (or function application) several times, but I failed. Seems I can't find the right words here.\n\nRegards,\n  forki\n\nUPDATE: It is important for me to explain how the parameters are passed / matched.",
+  "lastActivityDate": "2014-03-17T21:45:15.393",
+  "title": "How to explain method calls?",
+  "tags": [
+    "function",
+    "currying",
+    "method-call"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

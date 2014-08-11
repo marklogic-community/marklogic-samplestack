@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840479",
+  "creationDate": "2014-05-17T22:37:25.697",
+  "body": "\n\nI've got a string of HTML that I need to grab the \"[Title|http://www.test.com]\" pattern out of e.g. \n\n\"dafasdfasdf, adfasd. [Test|http://www.test.com/] adf ddasfasdf [SDAF|http://www.madee.com/] assg ad\"\n\nI need to replace \"[Title|http://www.test.com]\" this with \"Title\".\n\nWhat is the best away to approach this? \n\nI was getting close with:\n\n\tstring test = \"dafasdfasdf adfasd [Test|http://www.test.com/] adf ddasfasdf [SDAF|http://www.madee.com/] assg ad \";\n\t        string p18 = @\"(\\[.*?|.*?\\])\";\n\t        MatchCollection mc18 = Regex.Matches(test, p18, RegexOptions.Singleline | RegexOptions.IgnoreCase);\n\t        foreach (Match m in mc18)\n\t        {\n\t            string value = m.Groups[1].Value;\n\t            string fulltag = value.Substring(value.IndexOf(\"[\"), value.Length - value.IndexOf(\"[\"));\n\t            Console.WriteLine(\"text=\" + fulltag);\n\t        }\n\t\n\nThere must be a cleaner way of getting the two values out e.g. the \"Title\" bit and the url itself.\n\nAny suggestions?",
+  "lastActivityDate": "2014-05-19T19:56:10.300",
+  "title": "RegEx replace query to pick out wiki syntax",
+  "tags": [
+    "c#",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

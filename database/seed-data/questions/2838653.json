@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2838653",
+  "creationDate": "2014-05-17T10:20:44.517",
+  "body": "\n\nI currently have a project built with maven-archetype-webapp artifact. The default packaging for this project is war. \n\nIs it possible for me to insert the maven-ear-plugin in this webapp pom.xml generate an ear file that contains this project war? I tried that, but the war file doesn't get embedded in the generated ear file. It has everything except the war file.\n\nI read many Maven related articles, and perhaps I could use maven-archetype-j2ee-simple artifact. However, I'm reluctant to this use for 2 reasons:-\n* This artifact handles ejbs and all the extra features that I don't use. It makes my project looks bloated.\n* Second, it seems like it requires me to install the web module into the repository first before I can create the ear file. Is this the preferred way to create an ear file?\n\nHow do I create an ear file that contains the war file using maven-ear-plugin from my webapp's pom.xml? If this way is not possible, what's the preferred way?\n\nI'm sorry if my questions sound a little novice, I realized I have whole lot more to learn about Maven.\n\nThanks much.  ",
+  "lastActivityDate": "2014-05-18T16:21:11.223",
+  "title": "How to generate an ear file from a maven-archetype-webapp artifact?",
+  "tags": [
+    "java",
+    "maven-2",
+    "web-applications",
+    "war",
+    "ear"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2645525",
+  "creationDate": "2014-04-17T21:13:28.437",
+  "body": "\n\nI have a user control in silverlight which contains both XMAL and .cs file.  \n\nBut I wanna make it into a base control.  \n\nIn other word,I can make a control inherited it whose area in it can be edited.  \n\nJust like  Master Page in asp.net,you know.  \n\nIn the base control,I only have a lot of description in XMAL,perhaps it can be described in the .cs file,too.",
+  "lastActivityDate": "2014-04-19T21:01:50.180",
+  "title": "how to make a base control in silverlight",
+  "tags": [
+    "asp.net",
+    "wpf",
+    "silverlight",
+    "user-controls"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

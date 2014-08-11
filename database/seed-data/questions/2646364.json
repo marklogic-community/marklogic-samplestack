@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2646364",
+  "creationDate": "2014-04-17T22:51:52.980",
+  "body": "\n\nWhen to go for object pooling using C#? Any good ex...\n\nWhat are the pro's and con's of maintaining a pool of frequently used objects and grab one from the pool instead of creating a new one?",
+  "lastActivityDate": "2014-11-25T14:02:21.067",
+  "title": "When to go for object pooling?",
+  "tags": [
+    "c#",
+    "memory-management",
+    "object",
+    "pooling"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

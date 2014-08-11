@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266125",
+  "creationDate": "2014-02-18T05:14:39.297",
+  "body": "\n\n\t- (void)viewDidLoad {\n\t    [super viewDidLoad];\n\t    [self.tableView setRowHeight:100];\n\t    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];\n\t    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];\n\t}\n\t\n\t\n\t#pragma mark -\n\t#pragma mark Table view data source\n\t\n\t// Customize the number of sections in the table view.\n\t- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n\t    return 1;\n\t}\n\t\n\t\n\t// Customize the number of rows in the table view.\n\t- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {\n\t    return 3;\n\t}\n\t\n\t\n\t// Customize the appearance of table view cells.\n\t- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n\t\n\t    static NSString *CellIdentifier = @\"Cell\";\n\t\n\t    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];\n\t\n\t    if (cell == nil) {\n\t        cell = [[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 100) reuseIdentifier:CellIdentifier] autorelease];\n\t\n\t        // For Name/Phone: \n\t        UITextField *name = [[[UITextField alloc] initWithFrame:CGRectMake(75, 22, 200, 25)] autorelease];\n\t        [name setFont:[UIFont systemFontOfSize:14]];\n\t        [name setPlaceholder:@\"John Doe\"];\n\t        [name setReturnKeyType:UIReturnKeyDone];\n\t        [name setAutocapitalizationType:UITextAutocapitalizationTypeWords];\n\t        [name setAutocorrectionType:UITextAutocorrectionTypeNo];\n\t        [name setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];\n\t\n\t        UITextField *phone = [[[UITextField alloc] initWithFrame:CGRectMake(75, 67, 200, 25)] autorelease];\n\t        [phone setFont:[UIFont systemFontOfSize:14]];\n\t        [phone setPlaceholder:@\"0412 123 123\"];\n\t        [phone setReturnKeyType:UIReturnKeyDone];\n\t        //[phone setKeyboardType:UIKeyboardTypePhonePad];\n\t        [phone setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];\n\t\n\t        UIImageView *background = [[[UIImageView alloc] initWithFrame:CGRectMake(9, 11, 302, 89)] autorelease];\n\t        background.image = [UIImage imageNamed:@\"book-personaldetailsbg.png\"];\n\t\n\t        // Add to the View\n\t        [cell addSubview:background];\n\t        [cell addSubview:name];\n\t        [cell addSubview:phone];\n\t\n\t        // Add actions:\n\t        [name addTarget:self action:@selector(textFieldDone:) forControlEvents:UIControlEventEditingDidEndOnExit]; \n\t        [phone addTarget:self action:@selector(textFieldDone:) forControlEvents:UIControlEventEditingDidEndOnExit]; \n\t\n\t    }\n\t\n\t    return cell;\n\t}\n\t\n\nIs there a reason for this? I only have a few objects set up so I can hardly see why it would be lagging. It jumps, and its not my phone because the settings app works fine.",
+  "lastActivityDate": "2014-12-11T01:59:20.713",
+  "title": "UITableView slow, even with just a few objects?",
+  "tags": [
+    "iphone",
+    "uitableview",
+    "iphone-sdk-3.0",
+    "uitableviewcell"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

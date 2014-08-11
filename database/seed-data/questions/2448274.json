@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2448274",
+  "creationDate": "2014-03-17T23:30:02.280",
+  "body": "\n\nI have quite a few dictionaries where the key is a composite of several different values (mostly strings and integers). Do I implement these keys as classes (and override `GetHashCode()`, `Equals()` etc) or do I use `struct` instead? \n\nReSharper makes it easy to do the overriding, but the code looks horrible. Are there any performance implications of using a struct instead?",
+  "lastActivityDate": "2014-07-04T18:20:12.303",
+  "title": "Composite key in Dictionary; override GetHashCode(), Equals etc or use structs?",
+  "tags": [
+    "c#",
+    ".net",
+    "dictionary",
+    "struct",
+    "value-type"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2451256",
+  "creationDate": "2014-03-18T07:43:45.103",
+  "body": "\n\nI'm probably just doing this wrong, i know.\n\nI'm using custom serialization and when the xml is generated it's putting the class name as the root element\n\nExample:\n\n\t<MyClassName>\n\t <MyIntendedRootNode>\n\t   <ObjectType>\n\t     <Property1/>\n\t     <Property2/>\n\t...\n\t\n\nI'm invoking the serialization by calling xmlserializer.Serialize(writer,Me) so I'm sure that has something to do with it.\n\nI've tried putting XMLRoot onto the class, but I think as vb is compiling this partial class with its aspx page, it's either overwriting this property or ignoring it entirely.\n\nIdeally I'd like to just tell it to either throw away everything it has and use a different root element.\n\nAnybody else do this except me?\n\nThanks",
+  "lastActivityDate": "2014-03-18T08:18:29.477",
+  "title": "Custom XML Serialization, how to write custom root element?",
+  "tags": [
+    "c#",
+    ".net",
+    "vb.net",
+    "xml-serialization"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

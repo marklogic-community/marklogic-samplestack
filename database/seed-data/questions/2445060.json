@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445060",
+  "creationDate": "2014-03-17T12:18:00.367",
+  "body": "\n\nI want to create own filetype to save objects in my app. Basically, I urgently do not need new filetype, but it will be better.\n\nI have class. For example Car. It has constructor (String name, String color, int length, Driver driver). When a car is created (its instance), how to save it like a file?",
+  "lastActivityDate": "2014-03-17T12:44:17.653",
+  "title": "How to create own filetype?",
+  "tags": [
+    "java",
+    "file"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

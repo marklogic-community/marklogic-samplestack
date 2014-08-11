@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2450270",
+  "creationDate": "2014-03-18T04:32:25.510",
+  "body": "\n\nI have a class B which inherits from A which in turn derives from `enabled_shared_from_this`. Now, I want to get a shared pointer to B from an instance of B. `shared_from_this` will return `shared_ptr<A>`, not `shared_ptr<B>`. Should I use `boost::static_pointer_cast` here? Or is there a better way?",
+  "lastActivityDate": "2014-03-22T06:07:16.667",
+  "title": "Getting a shared pointer to a derived class when base class inherits from enable_shared_from_this",
+  "tags": [
+    "c++",
+    "boost"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

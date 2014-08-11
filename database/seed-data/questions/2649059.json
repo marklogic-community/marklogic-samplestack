@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649059",
+  "creationDate": "2014-04-18T05:19:59.180",
+  "body": "\n\nI would like to use NSConnection/NSDistributedObject for interprocess communication. I would like the client to be able to handle the case where the server is only occasionally reachable.\n\nHow can I determine if sending a message to the NSConnection will fail or has failed? Currently if my server (the process that has vended the remote object) dies, the client will **crash** if it sends a selector to the remote object.\n\nIdeally I'd like to have a wrapper for the remote object that can lazily instantiate (or reinstantiate) the connection, and return a default value in the case where the connection could not be instantiated, or the connection has failed. I don't really know the correct way to do this using objective c.\n\nHere's some pseudocode representing this logic:\n\n\tif myConnection is null:\n\t    instantiate myConnection\n\t    if MyConnection is null:\n\t        return defaultValue\n\t\n\t    try\n\t        return [myConnection someMethod]\n\t    catch\n\t        myConnection = null\n\t        return defaultValue\n\t",
+  "lastActivityDate": "2014-05-14T17:09:35.740",
+  "title": "Detecting/Repairing NSConnection failure",
+  "tags": [
+    "objective-c",
+    "cocoa",
+    "nsconnection"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

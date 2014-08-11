@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2446893",
+  "creationDate": "2014-03-17T20:05:04.237",
+  "body": "\n\nI am developing image redraw app. i know the center of one image view which is having scaling property. i.e it can change it frame and center . that to be applied to another view center. when i apply center to newly formed Image view it giving wrong center because of the previous image view is having scaling property. so how can i get exact center to my new image view from previous imageview",
+  "lastActivityDate": "2014-03-17T23:54:24.150",
+  "title": "how to apply the center of image view for another image view center",
+  "tags": [
+    "iphone",
+    "uiimageview",
+    "translation",
+    "rotation",
+    "scaling"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

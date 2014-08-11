@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2839522",
+  "creationDate": "2014-05-17T16:51:55.970",
+  "body": "\n\nI have a server and a client written in C. I try to load a shared library in the server and then pass library function pointers to the client. This way I can change the library without have to compile the client.\n\nBecause of every process has its own separate memory space, I wonder if it is possible to load a shared library on a shared memory, pass the function pointers and map the shared memory on the client and then make the client execute the code of the library loaded by the server.",
+  "lastActivityDate": "2014-05-18T13:45:37.697",
+  "title": "is it possible to load a shared library on a shared memory?",
+  "tags": [
+    "c",
+    "memory",
+    "linker",
+    "shared"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

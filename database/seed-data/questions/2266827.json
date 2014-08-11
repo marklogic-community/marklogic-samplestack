@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266827",
+  "creationDate": "2014-02-18T07:12:53.630",
+  "body": "\n\nI have a list of objects I need to sort on a field, say Score. Without giving much thought I wrote a new class that implements Comparator, that does the task and it works. \n\nNow looking back at this, I am wondering if I should have instead have the my class implement Comparable instead of creating a new class that implements Comparator. The score is the only field that the objects will be ordered on. \n\n1. What I have done acceptable as a practice? \n\n2. Is the right approach \"First have the class implement Comparable (for the natural ordering) and if an alternative field comparison is required, then create a new class that implements Comparator\" ?\n\n3. If (2) above is true, then does it mean that one should implement Comparator only after they have the class implement Comparable? (Assuming I own the original class).\n\nThanks!",
+  "lastActivityDate": "2014-01-17T00:54:21.467",
+  "title": "When to use Comparable and Comparator",
+  "tags": [
+    "java",
+    "comparator",
+    "comparable"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

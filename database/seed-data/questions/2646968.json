@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646968",
+  "creationDate": "2014-04-18T00:05:16.840",
+  "body": "\n\nThere should be a simple Linq query for what I'm trying to accomplish, but I'm producing some ugly code.\n\nI have two tables, one of issues and another of issue status. There is a one-to-many relationship between issue and issue status. When an issue is created an IssueStatus is also created with the status field set to \"Open\" when it is closed, another IssueStatus is created with the status field set to \"Closed\" ... but issues can be re-opened. It seems like I should be able to write something like this:\n\n\t    public static List<Issue> FindOpenIssues(this IList<Issue> issues) {\n\t        return (\n\t            from issue in issues\n\t            from issueStatus in issue.issueStatus.OrderByDescending(x=>x.CreatedOn).Single() \n\t            where issueStatus.Status == \"Open\"\n\t            select issue\n\t            ).ToList();\n\t    }\n\t\n\nThis obviously fails, but there must be a clean way to do this? Thanks!\n\nEdit: As Reed Copsey points out, my intention is to find current open issues. An issue might contain an element \"Open\" and at a later date, an element \"Closed\" ... which is why a simple Where == \"Open\" won't work, it needs to find the element with the most recent date in the list to determine the status of the issue.",
+  "lastActivityDate": "2014-04-18T02:40:32.527",
+  "title": "Help me construct this Linq statement",
+  "tags": [
+    "c#",
+    "linq"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

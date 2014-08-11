@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2643447",
+  "creationDate": "2014-04-17T15:37:02.100",
+  "body": "\n\nI have the following code:\n\n\t<video width=\"640\" height=\"360\" controls id=\"video-player\" poster=\"/movies/poster.png\">\n\t <source src=\"/movies/640x360.m4v\" type='video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"'>\n\t <source src=\"/movies/640x360.ogv\" type='video/ogg; codecs=\"theora, vorbis\"'> \n\t</video>\n\t\n* I'm using Rails (Mongrel in development and Mongrel+Apache in production).\n* Chrome (Mac and Win) can play either file (tested by one then the other source tags) whether locally or from my production servers.\n* Safari (Mac and Win) can play the mp4 file fine locally but *not* from production.\n* Firefox 3.6 won't play the video in either OS. I just get a grey cross in the middle of the video player area.\n* I've made sure that both Mongrel and Apache in each case have the right MIME types set.\n* From Chrome's results I know there is nothing inherently wrong with my video files or the way the files are being asked for or delivered.\n\nFor Firefox I looked at [https://developer.mozilla.org/En/Using_audio_and_video_in_Firefox](https://developer.mozilla.org/En/Using_audio_and_video_in_Firefox) where it refers to an 'error' event and an 'error' attribute. It seems the 'error' event is thrown pretty well straightaway and at that time there is no error attribute. Does anyone know how to diagnose the problem? ",
+  "lastActivityDate": "2014-02-03T05:33:03.437",
+  "title": "HTML5 video (mp4 and ogv) problems in Safari and Firefox - but Chrome is all good",
+  "tags": [
+    "firefox",
+    "video",
+    "safari",
+    "html5",
+    "ogg-theora"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

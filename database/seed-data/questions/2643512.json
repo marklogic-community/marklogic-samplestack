@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2643512",
+  "creationDate": "2014-04-17T15:48:02.250",
+  "body": "\n\nI would like to embed the great [Bottle](http://bottle.paws.de/) web framework into a small application (1st target is Windows OS). This app starts the bottle webserver thanks to the subprocess module.\n\n\timport subprocess\n\tp = subprocess.Popen('python websrv.py')\n\t\n\nThe bottle app is quite simple\n\n\t@route(\"/\")\n\tdef index():\n\t    return template('index')\n\t\n\trun(reloader=True)\n\t\n\nIt starts the default webserver into a Windows console.\n\nAll seems Ok except the fact that I must press Ctrl-C to close the bottle webserver. I would like that the master app terminates the webserver when it shutdowns. I can't find a way to do that (p.terminate() doesn't work in this case unfortunately)\n\nAny idea?\n\nThanks in advance",
+  "lastActivityDate": "2014-10-13T12:03:20.427",
+  "title": "How to stop the Bottle webserver when started from subprocess",
+  "tags": [
+    "python",
+    "windows",
+    "console-application",
+    "subprocess",
+    "bottle"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

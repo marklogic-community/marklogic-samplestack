@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2068472",
+  "creationDate": "2014-01-17T16:04:53.773",
+  "body": "\n\nI have a WSE 3.0 based web service, and a WinForms client application that makes use of the types defined in that service's References.cs, but subclasses them to provide some additional functionality required by the client.\n\nHowever, when I pass an instance of the subclass back to the web service, even though I explicitly cast back to the original type, I get the dreaded:\n\n*Use the XmlInclude or SoapInclude attribute to specify types that are not known statically.*\n\nin reference to my derived type.\n\nCode summary:\n\n\tpublic class DefinedInReferenceCs\n\t{ \n\t    // ... \n\t}\n\t\n\tpublic class ClientSubclass : DefinedInReferenceCs\n\t{\n\t    // My extra stuff\n\t}\n\t\n\tpublic class MyClient\n\t{\n\t    public CallTheWebService(ClientSubclass  obj)\n\t    {\n\t        // obj is an instance of ClientSubclass,  cast as DefinedInReferenceCs\n\t        svc.MyMethod((DefinedInReferenceCs)obj); \n\t        // Throws an exception complaining that ClientSubclass is not statically known\n\t    }\n\t}\n\t\n\nI can get around this by explicitly creating a DefinedInReferenceCs instance and performing a deep copy of the relevant fields.  Is there a better way?",
+  "lastActivityDate": "2014-01-17T19:58:44.407",
+  "title": "Derived type unknown to WSE 3.0 web service",
+  "tags": [
+    "web-services",
+    "xml-serialization",
+    "wse3.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

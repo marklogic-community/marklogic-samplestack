@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2074900",
+  "creationDate": "2014-01-18T13:26:27.100",
+  "body": "\n\nI currently have these models:\n\n\tclass Category(models.Model):\n\t    name = models.CharField(max_length=200)\n\t    parent = models.ForeignKey('self', blank=True, null=True, related_name='child')\n\t    description = models.TextField(blank=True,null=True)\n\t\n\tclass Item(models.Model):\n\t    name = models.CharField(max_length=500)\n\t    ...\n\t    tag = models.ManyToManyField(Category, null=True, blank=True, related_name='tag_item')\n\t\n\nMy issue is, I can't add tags to any Items that I've already created. If I attempt to do something like:\n\n\t>>> cat = Category.objects.get(pk=1)\n\t>>> cat.tag_item.create(item_id = 1)\n\t\n\nI get `TypeError: 'item_id' is an invalid keyword argument for this function`\n\nHowever, if I do:\n\n\t>>> cat.tag_item.create()\n\t\n\nI end up with a newly created empty item.\n\nI also don't understand how I would perform a query to get all tags for a particular item? There is no Tag class because I don't have to specify a `through` attribute on the ManyToManyField since there is no extra data, so I can't use a Tag manager to do something like `Tag.objects.filter(item_id=3)`",
+  "lastActivityDate": "2014-01-18T13:38:48.863",
+  "title": "Django ManyToManyField Creation Problems",
+  "tags": [
+    "python",
+    "django",
+    "django-models",
+    "many-to-many"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

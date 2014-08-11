@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2073563",
+  "creationDate": "2014-01-18T09:33:40.397",
+  "body": "\n\nI'm looking for the following:\n\n1. A nice debugger that allows me to easily view variable values if I use breakpoints. \n\n2. Works very nicely in Windows 7. \n\n3. Has something *similar* to the Toolbox pane in Visual Studio.\n\n4. Built in intellisense, and code completion with the TAB key. \n\n5. Long term support. I mean something that will last and stay in active development for years. I don't want a pet project IDE that will stop developing in a year. I'm just learning so it'll be very dificult at first to switch IDE's.\n\nI'm new so I don't really know which IDE provides what I need between the two. Any help?",
+  "lastActivityDate": "2014-02-18T08:18:08.763",
+  "title": "For someone coming from Visual Studio/C# background and wants to learn Java - Which should I get: Netbeans or Eclipse?",
+  "tags": [
+    "java",
+    "eclipse",
+    "ide",
+    "netbeans"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

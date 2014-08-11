@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2648267",
+  "creationDate": "2014-04-18T03:15:52.057",
+  "body": "\n\nLogback's DBAppender logs all properties in its context and MDC to the database. I would like to control which properties are logged, specifically filtering out certain values, but I can't find any options to do so. The documentation is terse:\n\n> The logging_event_property is used to store the keys and values contained in the MDC or the Context\n\nIs it possible to exclude certain properties from being logged?\n\nHere is an example:\n\nLogback is configured with a `DBAppender` that loads its properties from `vct.properties`:\n\n\t<configuration>\n\t    <property resource=\"vct.properties\" />\n\t\n\t    <appender name=\"DB\" class=\"ch.qos.logback.classic.db.DBAppender\">\n\t        <connectionSource class=\"ch.qos.logback.core.db.DataSourceConnectionSource\">\n\t            <dataSource class=\"com.mchange.v2.c3p0.ComboPooledDataSource\">\n\t                <driverClass>com.mysql.jdbc.Driver</driverClass>\n\t                <jdbcUrl>jdbc:mysql://${log.db.host}:${log.db.port}/${log.db.schema}</jdbcUrl>\n\t                <user>${log.db.username}</user>\n\t                <password>${log.db.password}</password>\n\t            </dataSource>\n\t        </connectionSource>\n\t    </appender>\n\t\n\t    <root level=\"DEBUG\">\n\t        <appender-ref ref=\"DB\" />\n\t    </root>\n\t</configuration>\n\t\n\n`vct.properties` has the connection settings:\n\n\tlog.db.host=localhost\n\tlog.db.port=3306\n\tlog.db.schema=logs_development\n\tlog.db.username=loguser\n\tlog.db.password=logpass\n\t\n\nWhen an event is logged, all of the connection settings are logged:\n\n\tmysql> select * from logging_event_property where event_id=1;\n\t+----------+---------------------+-------------------------------------------+\n\t| event_id | mapped_key          | mapped_value                              |\n\t+----------+---------------------+-------------------------------------------+\n\t|        1 | log.db.host         | localhost                                 | \n\t|        1 | log.db.password     | logpass                                   | \n\t|        1 | log.db.port         | 3306                                      | \n\t|        1 | log.db.schema       | logs_development                          | \n\t|        1 | log.db.username     | loguser                                   | \n\t+----------+---------------------+-------------------------------------------+\n\t",
+  "lastActivityDate": "2014-04-23T21:32:31.563",
+  "title": "Can I prevent logback's DBAppender from logging specific properties?",
+  "tags": [
+    "java",
+    "logback"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

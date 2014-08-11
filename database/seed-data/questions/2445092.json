@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445092",
+  "creationDate": "2014-03-17T12:33:14.620",
+  "body": "\n\n\t Query query =  getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(\n\t                 \"select proj_employee.employee_no as employeeNo, ...\n\t .setResultTransformer(Transformers.aliasToBean(User.class));\n\t\n\nInside User.class\ndoes the property employeNo need to be in capital letter?\n\n\tprivate String EMPLOYEENO \n\t//get/set for EMPLOYEENO\n\t\n\nif i changed to small letter, it doesnt work. can anyone explain why must be in capital letter?",
+  "lastActivityDate": "2014-06-19T21:24:52.240",
+  "title": "Hibernate aliastobean",
+  "tags": [
+    "java",
+    "hibernate"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

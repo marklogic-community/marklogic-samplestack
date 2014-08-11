@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2446098",
+  "creationDate": "2014-03-17T17:33:41.860",
+  "body": "\n\nI am a little confused how jQuery stores data with `.data()` functions. \n\nIs this something called **expando**?\nOr is this using HTML5 Web Storage although I think this is very unlikely?\n\nThe documentation says:\n\n> The .data() method allows us to attach data of any type to DOM elements in a way that is safe from circular references and therefore from memory leaks.\n\nAs I read about expando, it seems to have a risk of memory leak. Unfortunately my skills are not enough to read and understand jQuery code itself, but I want to know how jQuery stores such data by using `data()`.\n* [http://api.jquery.com/data/](http://api.jquery.com/data/)",
+  "lastActivityDate": "2014-04-20T18:03:49.940",
+  "title": "How does jQuery store data with .data()?",
+  "tags": [
+    "javascript",
+    "jquery",
+    "data"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

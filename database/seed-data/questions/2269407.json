@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2269407",
+  "creationDate": "2014-02-18T14:32:32.890",
+  "body": "\n\nI'm in the middle of writing some Cocoa classes to parse ID3 tags from MP3 files. To make them as easy to use as possible, I'm allowing the option to request a tag by the actual ID3 frame id (\"TCON\", \"TPE1\", \"TALB\", etc.) or an equivalent word/phrase (\"genre\", \"artist\", \"album\", etc.)\n\nTo store this data, currently I have a reference class which returns an NSDictionary with the frame id's as keys, and word/phrases as objects. As I need to look up definitions in both directions, currently I have a second method which returns the dictionary 'switched round', so the words/phrases are the keys.\n\nMy question is whether there is a better way to represent this data. Ideally there would be something similar to NSDictionary, the difference being that both the keys and the values must be unique, and you could look up both an \"objectForKey:\" and a \"keyForObject:\"\n\nI could write a class for this myself, but I may lose some of the efficiency from hash tables as described in the NSDictionary documentation... also I'd rather keep the number of classes as low as possible in the overall implementation.\n\nAny ideas? Cheers.",
+  "lastActivityDate": "2014-02-18T15:02:44.870",
+  "title": "Any alternatives to NSDictionary for unique keys AND unique values?",
+  "tags": [
+    "objective-c",
+    "cocoa",
+    "nsdictionary"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

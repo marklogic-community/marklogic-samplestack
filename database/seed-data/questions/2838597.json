@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2838597",
+  "creationDate": "2014-05-17T09:50:02.580",
+  "body": "\n\nWe are getting rid of our flash based charting solutions to help users use our site on IPAD.",
+  "lastActivityDate": "2014-05-17T10:33:46.777",
+  "title": "Any good charting solutions for asp.net that can generate charts on server side and push them to the client?",
+  "tags": [
+    "asp.net",
+    "charts"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

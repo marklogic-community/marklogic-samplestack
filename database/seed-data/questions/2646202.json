@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646202",
+  "creationDate": "2014-04-17T22:35:58.033",
+  "body": "\n\nIf I output a formatted date as follows:\n\n`DateTime.Parse(\"2010-06-02T15:26:37.789 +01:00\").ToString(\"HH:mm:sszzz\")`\n\nI get the expected result:\n\n`15:26:37+01:00`\n\nHowever, if I parse the same date, convert to UTC and output with the same format as follows:\n\n`DateTime.Parse(\"2010-06-02T15:26:37.789 +01:00\").ToUniversalTime().ToString(\"HH:mm:sszzz\")`\n\nI get this:\n\n`14:26:37+01:00`\n\nNow those two dates, the local and UTC versions, should be exactly the same but the outputted text represents two different times.\n\nWhy is this?\n\n##EDIT\n\nTo clarify, I expected the time in UTC to be 14:26:37 as the DST element is removed by UTC. I didn't expect it to still have an offset. The two above times are not equivalent, whereas 15:26:37+**** and 14:26:37+**** are.",
+  "lastActivityDate": "2014-04-17T22:59:05.633",
+  "title": "What's wrong with this date behavior in C#?",
+  "tags": [
+    "c#",
+    ".net-3.5"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

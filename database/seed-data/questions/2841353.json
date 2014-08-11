@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841353",
+  "creationDate": "2014-05-18T02:54:31.927",
+  "body": "\n\nOk, I'm revising for my upcoming year 2 exams on a CS course and its likely something like this will come up. my question is what is an ideal application that would especially benefit from the program features of each of the three languages? I have a vague idea but getting a second opinion could really help.\n* Java  \n  \nPortability, easy - good for GUIs.  \n  \n\n* C++  \n  \nFast but may requite significant changes in order to be moved from system to system, good for image processing.  \n  \n\n* C  \n  \nI'm unsure here small embedded applications?  \n  \n\n\nSome clarification on this would be really appreciated, thanks again StackOverflow ",
+  "lastActivityDate": "2014-05-18T08:39:39.870",
+  "title": "Example applications and benefits of using C , C++ or Java",
+  "tags": [
+    "java",
+    "c++",
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

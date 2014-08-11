@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2647430",
+  "creationDate": "2014-04-18T01:10:47.100",
+  "body": "\n\nSo this question isn't about integrating an existing payment gateway into my site. This is more of a architectural question.\n\nI want to build a system similar to Paypal. Now I understand that Paypal offers a lot of features under the roof and I can't implement all of them at once. I want to implement the core functionality of Paypal and other such services.\n\nSo my question is (rather discussion is) around how would one go about building such a system. Some points to discuss:\n1. Handle payments through existing banks. I am guessing that I would need access to local bank protocols to get this.\n2. Allow users to securely store and process their payments\n3. How does Paypal handle the transactions?\n\nThoughts?",
+  "lastActivityDate": "2014-09-08T20:35:30.927",
+  "title": "Building a complete online payment gateway like Paypal",
+  "tags": [
+    "paypal",
+    "payment-gateway",
+    "banking",
+    "onlinebanking"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

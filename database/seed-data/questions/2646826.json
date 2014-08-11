@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2646826",
+  "creationDate": "2014-04-17T23:46:11.033",
+  "body": "\n\nWe've got our navigation setup so that subsites show in the global navigation but we have a requirement to also put custom links to external sites which is straight forward.  The tricky part is that some of the custom links need security trimming which you don't get when you add your own links to the navigation.\n\nJust wondering if anyone has got some ideas on how to work around this?\n\nThanks\n\nDan",
+  "lastActivityDate": "2014-04-18T07:37:41.853",
+  "title": "SharePoint Navigation Custom Link Security Trimming",
+  "tags": [
+    "sharepoint"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

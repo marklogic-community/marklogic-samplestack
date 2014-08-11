@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268421",
+  "creationDate": "2014-02-18T11:34:22.463",
+  "body": "\n\nIs is possible to create/use a regular expression pattern in ruby that is based on the value of a variable name?\n\nFor instance, we all know we can do the following with Ruby strings:\n\n\tstr = \"my string\"\n\tstr2 = \"This is #{str}\" # => \"This is my string\"\n\t\n\nI'd like to do the same thing with regular expressions:\n\n\tvar = \"Value\"\n\tstr = \"a test Value\"\n\tstr.gsub( /#{var}/, 'foo' ) # => \"a test foo\"\n\t\n\nObviously that doesn't work as listed, I only put it there as an example to show what I'd like to do.  I need to regexp match based on the value of a variable's content.",
+  "lastActivityDate": "2014-08-26T05:04:54.407",
+  "title": "Ruby regular expression using variable name",
+  "tags": [
+    "ruby",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

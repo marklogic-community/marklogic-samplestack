@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2070828",
+  "creationDate": "2014-01-18T02:30:48.883",
+  "body": "\n\nWe are evaluating PostSharp for logging purposes to use in a our project (implemented in .Net). Currently it is running in production enviroment. Can mixing with PostSharp raise licencing issues? As far as I know it is partially free. Am I wrong? What future licencing problems (i.e. is PostSharp planning to be non-free for future releases) can we face, if there are any?",
+  "lastActivityDate": "2014-01-18T02:36:28.693",
+  "title": "PostSharp 1.5 licencing",
+  "tags": [
+    "licensing",
+    "postsharp"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

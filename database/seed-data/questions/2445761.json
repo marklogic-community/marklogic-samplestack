@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2445761",
+  "creationDate": "2014-03-17T16:07:00.987",
+  "body": "\n\nI already started a project, and the models are all synced and everything.",
+  "lastActivityDate": "2014-07-22T15:08:42.797",
+  "title": "Django migrations--is it possible to use South in the middle of the project?",
+  "tags": [
+    "python",
+    "mysql",
+    "database",
+    "django",
+    "django-south"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

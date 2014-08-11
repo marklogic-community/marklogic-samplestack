@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449254",
+  "creationDate": "2014-03-18T01:50:19.347",
+  "body": "\n\nThe `instanceof` keyword in JavaScript can be quite confusing when it is first encountered, as people tend to think that JavaScript is not an object-oriented programming language.\n* What is it?\n* What problems does it solve?\n* When is it appropriate and when not?",
+  "lastActivityDate": "2014-07-28T20:18:16.933",
+  "title": "What is the instanceof operator in JavaScript?",
+  "tags": [
+    "javascript",
+    "operators",
+    "instanceof"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

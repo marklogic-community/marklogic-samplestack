@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2648849",
+  "creationDate": "2014-04-18T04:44:21.617",
+  "body": "\n\nAre dynamic resources truly dynamic?  If I define a DynamicResource, I realise that an expression is created (where?) that is not translated into a resource until runtime, however, What I do not understans is whether this dynamicresouce, once built, is now \"Static\"\n\nFor instance, if I create a context menu via a dynamicresource, are the menuitems which are created at runtime on access then static, even if they are bound?\n\nIf so, how can i create a dynamic context menu in XAML?",
+  "lastActivityDate": "2014-04-21T22:41:47.757",
+  "title": "How are DynamicResources built and their use in contextmenus",
+  "tags": [
+    "c#",
+    "wpf",
+    "xaml",
+    "dynamicresource"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

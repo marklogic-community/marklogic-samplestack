@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2645535",
+  "creationDate": "2014-04-17T21:14:56.670",
+  "body": "\n\nI have a Width and Height parametr. I have been given an array of colors in such format: [r, g, b, a, r, g, b, a, r, g, b, a... etc] \nData can be acsessed by something like this \n\n\tfor(var y = 0; y < height; y++)\n\t{\n\t   for(var x = 0; x < width; x++)\n\t   {\n\t      r = data[y*width + x + 0]\n\t      g = data[y*width + x + 1]\n\t      b = data[y*width + x + 2]\n\t      a = data[y*width + x + 3]\n\t   }\n\t}  \n\t\n\nI want to paint that data on some sprite. How to do such thing? \n\nBTW: I use Flash Builder for mxml+actionscript coding. So if it is easy for you you can give example using MXML (not todraw on some sprite but on some MXML component).",
+  "lastActivityDate": "2014-04-17T23:01:02.353",
+  "title": "How to create an image from array of pixel colors? (Flash, Actionscript 3)",
+  "tags": [
+    "flex",
+    "flash",
+    "actionscript-3",
+    "mxml",
+    "sprite"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

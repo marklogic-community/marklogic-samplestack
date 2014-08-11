@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840458",
+  "creationDate": "2014-05-17T22:27:42.053",
+  "body": "\n\nIf I have a 2D array that is arranged as follows :\n\n\t  String X[][] = new String [][] {{\"127.0.0.9\", \"60\", \"75000\",\"UDP\", \"Good\"},\n\t                              {\"127.0.0.8\", \"75\", \"75000\",\"TCP\", \"Bad\"},\n\t                      {\"127.0.0.9\", \"75\", \"70000\",\"UDP\", \"Good\"},\n\t                      {\"127.0.0.1\", \"\", \"70000\",\"UDP\", \"Good\"},\n\t                      {\"127.0.0.1\", \"75\", \"75000\",\"TCP\", \"Bad\"}\n\t                                   };\n\t\n\nI want to know the frequency of each value .. so I27.0.0.9 gets 2. How can I do a general solution for this ? In Java or any algorithm for any language ?",
+  "lastActivityDate": "2014-05-17T23:57:25.490",
+  "title": "2D Array values frequency",
+  "tags": [
+    "java",
+    "algorithm",
+    "search"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

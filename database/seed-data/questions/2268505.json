@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2268505",
+  "creationDate": "2014-02-18T11:49:47.533",
+  "body": "\n\nIs there a way to remove the border/frame (the Aero bit) of another application's window (say notepad) from a VB.NET program?",
+  "lastActivityDate": "2014-06-10T14:23:46.470",
+  "title": "Remove another program's frame/window/border (the Aero bit) using VB.NET",
+  "tags": [
+    ".net",
+    "vb.net",
+    "window",
+    "border"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

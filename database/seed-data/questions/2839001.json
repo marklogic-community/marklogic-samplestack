@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839001",
+  "creationDate": "2014-05-17T13:12:37.803",
+  "body": "\n\nI'm trying to create a resized image from a bitmap, set a new height/width and a new resolution and save it to PNG. I can do this either from directly A) `Image.FromFile(filename)` or B) `New Bitmap(imageSource)` to create the the **** Bitmap to be passed to ****. Both work okay schmokay, but **** does not allow me to set a new width/height on creation (but it does allow me to preserve values with `useIcm=True`) and **** does not allow me to preseve values.\n\nOkay, now on to some code and examples:\n\n1. `Dim sourceBitmap As New\nBitmap(imagePath & myImage1Name)`\n<-not good at all (#1 overload). Doesn't preserve\nthings like `HorizontalResolution`\nor `PixelFormat` on `.Save`\n\n2. `Dim sourceBitmap2 As Bitmap = Image.FromFile(imagePath & myImage1Name,\nTrue)` <-not good (#5 overload). it *does*\npreserve things like\n`HorizontalResolution` or\n`PixelFormat` on `.Save`, but it\n**** allow me to initialize image at a new size.\n3. `Dim targetBitmap As New\nBitmap(sourceBitmap2, newWidth,\nnewHeight)` <-not good. Even though\n`sourceBitmap2` (see #2 above) was\ninitialized with `useIcm=True`, it\ndoesn't matter once I've passed it\nin as the source in `targetBitmap`.\n\nBasically, I'm looking for a way to contruct a New Bitmap with both something like `useIcm=True`*and* set the width/height at the same time (`Width`/`Height` are read-only properties once it's created).\n\nI've gone down the `Graphics.DrawImage` route as well and it's the same - `Graphics.FromImage(sourceBitmap)` does not preserve values.\n\nWhy do I need these values to be preserved? Because I need to convert these pictures to PNG (for file size) with a new resolution and keep the same physical dimensions (w/h in inches) for printing. I know the new pixel width/height needed based on the resolution values I'll pass in with `.SetResolution(xDpi,yDpi)` to preserve physical dimensions, so that's not the problem. The issue is things like the `PixelFormatSize` need to remain unchanged (yes, I've tried `EncoderParameters` - they don't work. I can give you the gory details if you like, but suffice it to say for now, they just don't work).\n\nWhew, got that off my chest! Okay, anyone who really knows how all this works can help?\n\n**EDIT**: Files types needed to pull in to convert to PNG: BMP, TIF, GIF, WMF, EMF.",
+  "lastActivityDate": "2014-07-03T06:04:32.143",
+  "title": "Preserving Bitmap values when creating a new Bitmap from System.Drawing.Image",
+  "tags": [
+    ".net",
+    "image",
+    "gdi+"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

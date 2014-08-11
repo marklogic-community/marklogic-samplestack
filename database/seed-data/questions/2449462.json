@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2449462",
+  "creationDate": "2014-03-18T02:23:20.583",
+  "body": "\n\nThe ones they use with grouped table view.\n\nI'm using a table view that links to another view that has text on it. To make it look less 'plain' I wanted to add that striped background and then put something like a white 'text box' on that.\n\nDo they allow it to be used?",
+  "lastActivityDate": "2014-03-18T07:34:22.093",
+  "title": "Does apple mind you using that striped table view background in your own views?",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "interface",
+    "interface-builder"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

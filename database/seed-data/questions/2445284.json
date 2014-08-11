@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2445284",
+  "creationDate": "2014-03-17T13:29:36.530",
+  "body": "\n\nHow would I usually represent this business logic in a graph?\n\n\tA is true if\n\t B is true or\n\t C is true\n\t\n\tC is true if\n\t D is true and\n\t E is true and\n\t F is true\n\t\n\tX is true if\n\t Y is true and\n\t C is not true \n\t\n\nIs it a directed acyclic graph?  How do I represent the 'and'/'or' logic in the graph, in graph terminology?\n\n(I am looking for the correct graph terminology, so I can focus my reading.)",
+  "lastActivityDate": "2014-04-02T12:03:31.093",
+  "title": "What sort of graph to represent this business logic decision tree?",
+  "tags": [
+    "algorithm",
+    "graph",
+    "business-logic",
+    "decisiontrees"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

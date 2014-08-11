@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2072789",
+  "creationDate": "2014-01-18T07:43:59.007",
+  "body": "\n\nI'm searching for a tool to dump a database including DDL and content as plain SQL-SCript, so that in can be archived in plain text format. I know e.g. the Oracle dump tools or mysqldump, but is there a tool which can connect to different datasources and get the job done? GUI would be great.\n\nThanks,\n  Chris",
+  "lastActivityDate": "2014-01-27T23:51:01.417",
+  "title": "Searching for (freeware) database migration tool",
+  "tags": [
+    "sql",
+    "database",
+    "migration",
+    "dump"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642200",
+  "creationDate": "2014-04-17T09:36:36.363",
+  "body": "\n\nI'm using the will_paginate gem for my Rails project and it's working beautifully.  Unfortunately, on paginated result sets with a larger number of pages, the link section is too wide.  Instead of:\n\n`« Previous 1 2 … 5 6 7 8 9 10 11 12 13 … 18 19 Next »`\n\nI would like to show:  \n\n`« Previous 1 2 … 5 6 7 8 9 … 18 19 Next »`\n\nHow can I reduce the number of page links being rendered?  I looked at the will_paginate docs on github but couldn't find a solution.  \n\nThanks!\nMoe",
+  "lastActivityDate": "2014-06-18T04:01:05.637",
+  "title": "Customizing Number of Page Links Rendered With will_paginate?",
+  "tags": [
+    "ruby-on-rails",
+    "will-paginate"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

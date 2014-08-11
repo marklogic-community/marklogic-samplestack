@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448804",
+  "creationDate": "2014-03-18T00:38:46.417",
+  "body": "\n\nI've got a huge problem. I made a special ID for the things in our webpage. Let's see an example:\n\nH0059 - this is the special ID called registration number. The last two chars are the things' id.\n\nI'd like to cut off the useless characters, to get the real  ID, what means strip the first char, and all the 0s before any other numbers.\n\nExample: \n\n\tL0745 => 745, V1754 => 1754, L0003 => 3, B0141 => 141, P0040 => 40, V8000 => 8000\n\t\n\nPlease help me in this.\n\nI've tried with strreplace and explode but failed :( Thanks for the help.",
+  "lastActivityDate": "2014-03-18T00:57:23.677",
+  "title": "String useless character strip - PHP",
+  "tags": [
+    "php",
+    "string",
+    "numbers",
+    "character"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

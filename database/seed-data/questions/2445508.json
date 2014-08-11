@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2445508",
+  "creationDate": "2014-03-17T14:46:55.900",
+  "body": "\n\nI am looking for a component that resizes and ftp's images to a website.\nIt doesn't have to be free.\nIn fact, I prefer something we pay for that comes with solid support.\n\nIt has to be able to transfer multiple images at once too.\n\nWe work in an ASP.NET MVC environment but the component could be in Flash or Java.",
+  "lastActivityDate": "2014-03-25T11:13:26.307",
+  "title": "Client side image resize and ftp component",
+  "tags": [
+    "image",
+    "ftp",
+    "resize",
+    "client"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

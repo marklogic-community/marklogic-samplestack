@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266646",
+  "creationDate": "2014-02-18T06:48:06.380",
+  "body": "\n\nI am using python [logging](http://docs.python.org/library/logging.html) module and I want to disable the console logging for some time but it doesn't work.\n\n\t\n\t  #!/usr/bin/python\n\t  import logging\n\t\n\t  logger = logging.getLogger() # this gets the root logger\n\t  # ... here I add my own handlers \n\t  #logger.removeHandler(sys.stdout)\n\t  #logger.removeHandler(sys.stderr)\n\t\n\t  print logging.handlers \n\t  # this will print [<logging.StreamHandler instance at ...>]\n\t  # but I may have other handlers there that I want to keep\n\t\n\t  logger.debug(\"bla bla\")\n\t\n\nThe above code displays the \"bla bla\" on stdout and I don't know how can I safely disable the console handler. How can I bu sure that I temporary remove the console streamhandler and not another one?",
+  "lastActivityDate": "2014-11-30T11:19:44.710",
+  "title": "How to I disable and re-enable console logging in Python?",
+  "tags": [
+    "python",
+    "logging",
+    "console",
+    "stdout"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

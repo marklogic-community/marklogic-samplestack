@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3042129",
+  "creationDate": "2014-06-17T10:14:44.250",
+  "body": "\n\nI'm trying to create a CI process for SQL Server Reporting Services.\nI am fairly new to TFS but quite experienced with MSBuild.  In the past I've used a combination of MSBuild with Team City so the whole build process is more or less custom.\n\nHere lies the start of my problems, as the solution I am deploying only contains Report Server projects (*rds*), no compilation is required.  I thought that I would override the the first default task that TFS runs (*EndToEndIteration*) to override the default TFS build sequence and inject my own.\n\nThe first snag that I have come across is that the build always fails, how can I set the status of the build to success?  Currently the EndToEndIteration task is very light and only has a message.\n\nIs this the best method to create a custom build process in TFS where compilation is not required?  Or should I use the default sequence and override one of the hook tasks mentioned in \n* [http://msdn.microsoft.com/en-us/library/aa337604%28VS.80%29.aspx](http://msdn.microsoft.com/en-us/library/aa337604%28VS.80%29.aspx)\n(*ie: AfterCompile*)\n\nThe core steps that I'd like to achieve are:\n1. Bundle the RDL and datasource files\n2. Connect to the host server to\nregister/deploy the reports\n3. Re-apply any subscriptions that\npreviously existed\n4. Run tests to verify the deployment\nsucceeded and is returning results\nas expected\n\nI have found another article on Report services deployment:\n* [http://stackoverflow.com/questions/88710/reporting-services-deployment](http://stackoverflow.com/questions/88710/reporting-services-deployment)\n\nBut it doesn't mention the best practice for customizing the standard build process.\n\nAny help would be appreciated.",
+  "lastActivityDate": "2014-11-09T21:53:54.720",
+  "title": "Customizing the TFS 2008 build sequence to avoid compilation and deploy SSRS",
+  "tags": [
+    "msbuild",
+    "continuous-integration",
+    "tfs2008",
+    "ssrs-2008"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

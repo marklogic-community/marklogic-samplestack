@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2070454",
+  "creationDate": "2014-01-18T01:09:09.387",
+  "body": "\n\nJust looking for some advice really. I've had to write some integration tests to test some BL I need to access (later from the web app) and I have configured them to use singleton life-cycle. \n\nI will use in the web application 'PerWebRequest'. Just really assessing whether or not this is a good thing to do? or if it matters?",
+  "lastActivityDate": "2014-01-18T01:19:47.427",
+  "title": "What is the recommended life-time for a windsor object for integration testing?",
+  "tags": [
+    "castle-windsor"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

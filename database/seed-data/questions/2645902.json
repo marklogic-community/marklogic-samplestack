@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2645902",
+  "creationDate": "2014-04-17T21:57:20.263",
+  "body": "\n\nCan YouTube videos be played from within an AndroidOS without launching the separate YouTube player? How about WebOS or Blackberry?\n\nOn the iPhone I can do this with a WebView and the embedded YouTube code and I'm weighing the possibility of porting my app to other mobile platforms. Thanks",
+  "lastActivityDate": "2014-03-31T22:46:31.007",
+  "title": "Can YouTube be embedded in Android Applications? How about WebOS or Blackberry?",
+  "tags": [
+    "iphone",
+    "android",
+    "video",
+    "youtube",
+    "webos"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2446663",
+  "creationDate": "2014-03-17T19:20:23.273",
+  "body": "\n\nI'm trying to output to Trace.axd from an ASP.NET MVC app.  I have traces in OnActionExecuting(), OnActionExecuted(), OnResultExecuting() and OnResultExecuted() and all of them output to Trace.axd except for OnResultExecuted().\n\nFor completeness' sake here's my code (exactly the same for OnActionX() ):\n\n\t    protected override void OnResultExecuting(ResultExecutingContext filterContext)\n\t    {\n\t        resultStartTime = DateTime.Now;\n\t        filterContext.HttpContext.Trace.Warn(\"OnResultExecuting: \" + actionStartTime);\n\t        base.OnResultExecuting(filterContext);\n\t    }\n\t\n\t    protected override void OnResultExecuted(ResultExecutedContext filterContext)\n\t    {\n\t        DateTime resultEndTime = DateTime.Now;\n\t        filterContext.HttpContext.Trace.Warn(\"OnResultExecuted: \" + resultEndTime);\n\t        filterContext.HttpContext.Trace.Warn(\"OnResultExecuted - OnResultExecuting: \" + (resultEndTime - resultStartTime).TotalSeconds);\n\t        base.OnResultExecuted(filterContext);\n\t    }\n\t\n\nI am using ELMAH but I have disabled it and I still get the problem.",
+  "lastActivityDate": "2014-12-17T18:52:01.730",
+  "title": "Trace not working in OnResultExecuted() in MVC",
+  "tags": [
+    "asp.net-mvc",
+    "trace",
+    "action-filter"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

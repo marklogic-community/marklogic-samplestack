@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2073630",
+  "creationDate": "2014-01-18T09:43:02.870",
+  "body": "\n\nI have installed/configured [Elmah](http://code.google.com/p/elmah) on my personal SharePoint dev environment and everything works great since I'm logged in as admin, etc.  I am using the MS Sql Server Error Log.  (I am also using [log4net](http://logging.apache.org/log4net) to handle DEBUG/INFO/etc level logging and log statements are also stored in the db, in the same table as ELMAH's.)\n\nHowever, on the actual dev server (not my personal environment), when I access [http://example/elmah.axd](http://example/elmah.axd) I get the error \"Login failed for user 'NT AUTHORITY\\ANONYMOUS LOGON'\". I understand that this is the traditional error for the \"double-hop problem\" but I don't even want my credentials to be passed along - I would just like the database access to be made with the credentials of the Application Pool Identity.  When using the SP object model the SPSecurity.RunWithElevatedPrivileges is available; however, I do not want to modify the Elmah source.\n\nMy production environment precludes the use of SQL Server authentication, changing impersonation to false, or giving myself permissions on the db directly.\n\nHow can I get this to work?  Am I missing something?",
+  "lastActivityDate": "2014-04-17T23:10:51.350",
+  "title": "Accessing Elmah.axd with SqlErrorLog in SharePoint without adding user to db",
+  "tags": [
+    "sharepoint-2007",
+    "log4net",
+    "elmah"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

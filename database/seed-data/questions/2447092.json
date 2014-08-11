@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2447092",
+  "creationDate": "2014-03-17T20:40:22.007",
+  "body": "\n\nI am building a DMS for our intranet and use a taxonomy hierarchy because we need access control that way. All company locations manage (upload,edit) their own documents but should be able to access all. This is inherited to the child terms and works fine.\n\nAdditionally we want simple 3-step workflow (draft,published,archived). So i introduced roles for editor, publisher and docadmin and set permissions for the transitions. Also triggers to effectivly (un)publish documents.\n\nBut (of course) a user of role publisher can do the transition for ALL documents. But we want publisher for each company location (top taxonomy level, see above).\n\nCould this be achieved?  Do i have to set it up by myself (i guess \"rules\" is appropriate to do this) or is there another module helping.\n\nrole inheritance was a guess, but that is only about roles (naturally).\n\"module grants\" i use and checked first option. That way my thoughts are going. I hope you get my idea resp. problem.\n\ndrupal 6.16 current \n\nedit: \nI reread the docs and found ie. [http://drupal.org/node/408018](http://drupal.org/node/408018) Revisioning for categorized content. Will reread that.",
+  "lastActivityDate": "2014-03-31T06:28:22.460",
+  "title": "Drupal workflow action access integrated with taxonomy access control?",
+  "tags": [
+    "drupal",
+    "permissions",
+    "workflow",
+    "taxonomy",
+    "access-control"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

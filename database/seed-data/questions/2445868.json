@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2445868",
+  "creationDate": "2014-03-17T16:40:52.747",
+  "body": "\n\nI have an application processing network communication with blocking calls. Each thread manages a single connection. I've added a timeout on the read and write operation by using select prior to read or write on the socket.\n\nSelect is known to be inefficient when dealing with large number of sockets. But is it ok, in term of performance to use it with a single socket or are there more efficient methods to add timeout support on single sockets calls ? The benefit of select is to be portable.",
+  "lastActivityDate": "2014-03-17T17:44:01.277",
+  "title": "Is select() Ok to implement single socket read/write timeout?",
+  "tags": [
+    "c++",
+    "c",
+    "sockets",
+    "select"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

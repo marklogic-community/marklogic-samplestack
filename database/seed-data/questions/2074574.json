@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2074574",
+  "creationDate": "2014-01-18T12:31:40.217",
+  "body": "\n\nIn the context of Ext-js datastore.\nis it a good practice to share data store across multiple components(eg. combobox, grid).\nCurrently have multiple lists(presented in grids) where I allow user to save their preferences:\n\n<pre>\nlist1, choose a color\nlist2, choose a style\n...\n</pre>\n\nthese preferences use a single datastore X.\n\nuser can add or remove on each list.\n\non a separate gui user have these list represented in comboboxes cb1, cb2.\nis it a good idea for these comboboxes also use the datastore X and do filter on it?\n\nthanks",
+  "lastActivityDate": "2014-05-27T06:21:32.453",
+  "title": "Ext-js data store sharing",
+  "tags": [
+    "extjs"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

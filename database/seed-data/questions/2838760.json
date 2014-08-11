@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2838760",
+  "creationDate": "2014-05-17T11:04:41.103",
+  "body": "\n\ni have a problem with my code to read the xml.I have use ajax to read xml data and populate it in combobox. My problem is it only read the first data.Here is my code\n\nmy xml like this\n\n\t <info>\n\t <area>\n\t        <code>1</code>\n\t        <name>area1</name>\n\t </area>\n\t  <area>\n\t         <code>2</code>\n\t         <name>area2</name>\n\t  </area>\n\t  </info>\n\t\n\nand my javascript\n\n\t if(http.readyState == 4 && http.status == 200) {\n\t   //get select elements\n\t   var item = document.ProblemMaintenanceForm.elements[\"probArea\"];\n\t   //empty combobox\n\t   item.options.length = 0;\n\t   //read xml data from action file\n\t   var test = http.responseXML.getElementsByTagName(\"area\");\n\t   alert(test.length);\n\t   for ( var i=0; i < test.length; i++ ){\n\t          var tests = test[i];\n\t          item.options[item.options.length] = new Option(tests.getElementsByTagName(\"name\")[i].childNodes[0].nodeValue,tests.getElementsByTagName(\"code\")[i].childNodes[0].nodeValue);\n\t\n\t\n\t                             }\n\t\n\t\n\t                     }\n\t",
+  "lastActivityDate": "2014-05-18T17:10:31.503",
+  "title": "read xml in javascript problem",
+  "tags": [
+    "javascript",
+    "xml",
+    "ajax"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

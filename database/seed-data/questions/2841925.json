@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2841925",
+  "creationDate": "2014-05-18T06:05:50.620",
+  "body": "\n\nI have strange discarding behavior of struts2 while setting cache option for my image.\n\nI'm trying to put image from db to be cached on client side\nTo render image I use ( [http://struts.apache.org/2.x/docs/how-can-we-display-dynamic-or-static-images-that-can-be-provided-as-an-array-of-bytes.html](http://struts.apache.org/2.x/docs/how-can-we-display-dynamic-or-static-images-that-can-be-provided-as-an-array-of-bytes.html) ) where special result type render as follow:\n\n\tpublic void execute(ActionInvocation invocation) throws Exception {\n\t     ...//some preparation\n\t    HttpServletResponse response = ServletActionContext.getResponse();\n\t    HttpServletRequest request = ServletActionContext.getRequest();\n\t    ServletOutputStream os = response.getOutputStream();\n\t    try\n\t    {\n\t        byte[] imageBytes = action.getImage();\n\t        response.setContentType(\"image/gif\");\n\t        response.setContentLength(imageBytes.length);\n\t        //I want cache up to 10 min\n\t        Date future = new Date(((new Date()).getTime() + 1000 * 10*60l));\n\t        ;\n\t        response.addDateHeader(\"Expires\", future.getTime());\n\t      response.setHeader(\"Cache-Control\", \"max-age=\" + 10*60 + \"\");\n\t        response.addHeader(\"cache-Control\", \"public\"); \n\t        response.setHeader(\"ETag\", request.getRequestURI());\n\t        os.write(imageBytes);\n\t    }\n\t    catch(Exception e)\n\t    {\n\t        response.sendError(HttpServletResponse.SC_NOT_FOUND);\n\t    }\n\t\n\t    os.flush();\n\t    os.close();\n\t}\n\t\n\nBut when image is embedded to page it is always reloaded (Firebug shows code 200), and neither Expires, nor max-age are presented in header\n\n\tHost    localhost:9090\n\tAccept  image/png,image/*;q=0.8,*/*;q=0.5\n\tAccept-Language en-us,en;q=0.5\n\tAccept-Encoding gzip,deflate\n\tAccept-Charset  ISO-8859-1,utf-8;q=0.7,*;q=0.7\n\tKeep-Alive  300\n\tConnection  keep-alive\n\tReferer http://localhost:9090/web/result?matchId=1\n\tCookie  JSESSIONID=4156BEED69CAB0B84D950932AB9EA1AC; \n\tIf-None-Match   /web/_srv/teamcolor\n\tCache-Control   max-age=0 \n\t\n\nI have no idea why it is dissapered, may be problem in url? It is forms with parameter:\n\n\t http://localhost:9090/web/_srv/teamcolor?loginId=3\n\t",
+  "lastActivityDate": "2014-06-13T13:59:58.750",
+  "title": "Struts 2 discard cache header",
+  "tags": [
+    "caching",
+    "struts2"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

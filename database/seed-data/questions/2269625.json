@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2269625",
+  "creationDate": "2014-02-18T15:14:39.837",
+  "body": "\n\nI'm trying to translate the following C# example, which constructs an IronPython module, to F#.\n\n\tusing System;\n\tusing IronPython.Runtime;\n\t\n\t[assembly: PythonModule(\"my_module\", typeof(MyModule))]\n\t\n\tpublic static class MyModule {\n\t    public static void hello_world() {\n\t        Console.WriteLine(\"hello world\");\n\t    }\n\t}\n\t\n\nUsing PythonModule allows `from my_module import *`, among other things.\n\nI am having trouble figuring out how to apply the PythonModule attribute in F#.  The F# documentation only talks about assembly attributes related to modules, and attached to do().  It's not clear to me how to define static classes that are interpreted as python modules, but I am not a C#/F#/IronPython expert.",
+  "lastActivityDate": "2014-02-18T15:41:20.447",
+  "title": "Using assembly attributes in F#",
+  "tags": [
+    "c#",
+    "f#",
+    "ironpython"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

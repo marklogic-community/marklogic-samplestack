@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2647728",
+  "creationDate": "2014-04-18T01:49:09.823",
+  "body": "\n\nI am trying to set the font-weight for an element based on the font that gets chosen. For example, I may be trying to do something like this:\n\n\th1 {\n\t    font-family: Arial Narrow, Impact, sans-serif;\n\t    font-weight: ?;\n\t}\n\t\n\nLet's say I want the font-weight to be \"bold\" if the user has Arial Narrow installed on their system, but \"normal\" if the browser has to use Impact, and maybe \"bold\" if the user's system has neither of those fonts. Is this possible? If so, how would I go about doing this?",
+  "lastActivityDate": "2014-04-18T01:50:40.827",
+  "title": "CSS: set font weight depending on fallback font",
+  "tags": [
+    "css",
+    "fonts"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

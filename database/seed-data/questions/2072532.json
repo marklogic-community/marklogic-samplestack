@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072532",
+  "creationDate": "2014-01-18T07:09:29.577",
+  "body": "\n\nI would like to create a C pre-processor macro that will single-quote the argument. Just like the common used `#X`.\n\nI want `Q(A)` to be expanded to `'A'`.\n\nI am using gcc on Linux.\n\nDoes any one have an idea?\n\nI know `#` double-quotes. I am looking for a similar mechanism fir single-quoting.",
+  "lastActivityDate": "2014-08-03T04:46:11.940",
+  "title": "How to single-quote an argument in a macro?",
+  "tags": [
+    "c",
+    "preprocessor"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

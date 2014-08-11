@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448242",
+  "creationDate": "2014-03-17T23:26:01.927",
+  "body": "\n\nI'm playing around with templates. I'm not trying to reinvent the std::vector, I'm trying to get a grasp of templateting in C++.\n\nCan I do the following?\n\n\ttemplate <typename T>\n\ttypedef struct{\n\t  size_t x;\n\t  T *ary;\n\t}array;\n\t\n\nWhat I'm trying to do is a basic templated version of:\n\n\ttypedef struct{\n\t  size_t x;\n\t  int *ary;\n\t}iArray;\n\t\n\nIt looks like it's working if I use a class instead of struct, so is it not possible with typedef structs?",
+  "lastActivityDate": "2014-09-05T21:51:32.700",
+  "title": "Struct with template variables in C++",
+  "tags": [
+    "c++",
+    "class",
+    "templates",
+    "struct"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

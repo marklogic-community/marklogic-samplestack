@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840525",
+  "creationDate": "2014-05-17T22:53:30.727",
+  "body": "\n\nI am trying to extent a website page that displays google maps with the [LabeledMarker](http://gmaps-utility-library-dev.googlecode.com/svn/tags/labeledmarker/1.4/). Google Maps API defines a class called GMarker which is extended by the LabeledMarker.\n\nThe problem is, I cant seem to load the LabeledMarker script properly, i.e. after the Google API loads and I get the 'GMarker not defined' error.\n\n**What is the correct way to specify the scripts in such cases?**\n\nI am using ASP.NET's ClientScript.RegisterClientScriptInclude() first for the google API url and then immediately after with the LabeledMarker script file.\n\nThe initial google API loader writes further script links that load the actual GMarker class. Shouldnt all those scripts be executed before the next script block(LabeledMarker script) is processed.\n\nI have checked the generated HTML and the script blocks are emitted in the right order.\n\n\t<script src=\"google api url\" type=\"text/javascript\"></script>\n\t...\n\t(the above scripts uses document.write() etc to append further script blocks/sources)\n\t...\n\t<script src=\"Scripts/LabeledMarker.js\" type=\"text/javascript\"></script>\n\t\n\nOnce again, **the LabeledMarker.js seems to get executed before the google API finishes loading.**",
+  "lastActivityDate": "2014-05-28T21:13:32.003",
+  "title": "How to correctly load dependent JavaScript files",
+  "tags": [
+    "javascript",
+    "google-maps",
+    "registerclientscriptblock"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

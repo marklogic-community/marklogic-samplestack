@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2069763",
+  "creationDate": "2014-01-17T21:57:09.177",
+  "body": "\n\nCan someone please explain to me what is the difference between an event handler and a callback function?",
+  "lastActivityDate": "2014-05-17T16:49:54.037",
+  "title": "Difference between event handlers and callbacks",
+  "tags": [
+    "design",
+    "architecture",
+    "language-agnostic",
+    "software-engineering"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

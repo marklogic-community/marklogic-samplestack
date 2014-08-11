@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3043066",
+  "creationDate": "2014-06-17T14:49:10.293",
+  "body": "\n\nIn the following:\n\n`<span>This cost $15.99 per item</span>`\n\nhow do I return \"$15.99\" using jquery? The value can also be for example \"$7\".",
+  "lastActivityDate": "2014-07-11T11:19:15.780",
+  "title": "jQuery: match currency with a regular expression",
+  "tags": [
+    "jquery",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

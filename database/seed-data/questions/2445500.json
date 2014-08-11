@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445500",
+  "creationDate": "2014-03-17T14:43:56.227",
+  "body": "\n\nI generally need to do a fair amount of text processing for my research, such as removing the last token from all lines, extracting the first two tokens from each line, splitting each line into tokens, etc.\n\nWhat is the best way to perform this? Should I learn Perl for this? Or should I learn some kind of shell commands? The main concern is speed. If I need to write long code for such stuff, it defeats the purpose. \n\nEDIT: \n\nI started learning sed on @Mimisbrunnr 's recommendation and already could do what I needed to. But it seems people favor awk more. So, will try that. Thanks for all your replies.",
+  "lastActivityDate": "2014-03-18T03:01:06.440",
+  "title": "What's the best tool to do text processing in Linux or Mac?",
+  "tags": [
+    "linux",
+    "text-processing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

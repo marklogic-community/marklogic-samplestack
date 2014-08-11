@@ -1,1 +1,20 @@
-{"id":"/questions/20887638.json", "creationDate":"2014-01-02T16:51:08.790", "body":"\n\nI am a newbie to selenium webdriver. I am currently testing Search functionality in my project. I have written some code that navigates to the page, enters some data (that is retrieved from excel sheet) in the search field and submits the query.\n\nNow, because there is a sample data of 1000 items that the search functionality has to run through.. how can I perform verification if the returned result (filtered results) is correct?\n\nDo I have to write my own search function or do I keep a store of expected results on another excel sheet and compare with the search query result?.. \n\nPlease help.\nThank you.", "lastActivityDate":"2014-01-02T17:59:48.427", "title":"Newbie to selenium- Testing search functionality", "tags":["excel", "selenium"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"MSyed", "id":"3154353"}}
+{
+  "id": "/questions/20887638",
+  "creationDate": "2014-01-05T08:51:08.790",
+  "body": "\n\nI am a newbie to selenium webdriver. I am currently testing Search functionality in my project. I have written some code that navigates to the page, enters some data (that is retrieved from excel sheet) in the search field and submits the query.\n\nNow, because there is a sample data of 1000 items that the search functionality has to run through.. how can I perform verification if the returned result (filtered results) is correct?\n\nDo I have to write my own search function or do I keep a store of expected results on another excel sheet and compare with the search query result?.. \n\nPlease help.\nThank you.",
+  "lastActivityDate": "2014-08-11T05:42:56.219",
+  "title": "Newbie to selenium- Testing search functionality",
+  "tags": [
+    "excel",
+    "selenium"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "MSyed",
+    "id": "3154353"
+  }
+}

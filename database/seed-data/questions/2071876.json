@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071876",
+  "creationDate": "2014-01-18T05:41:37.803",
+  "body": "\n\nDoes the following code invoke UB ?\n\n\tint main(){\n\t  volatile int i = 0;\n\t  volatile int* p = &i;\n\t  int j = ++i * *p;\n\t}\n\t",
+  "lastActivityDate": "2014-01-29T03:34:12.187",
+  "title": "Does the following code invoke UB?",
+  "tags": [
+    "c++",
+    "undefined-behavior"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2450668",
+  "creationDate": "2014-03-18T05:36:11.573",
+  "body": "\n\nI am doing some image sampling.  What my question is, is there a 'crosshair' tool in visual studio?  I want to have several instances on a single form, be able to move them around and then sample those points, obviously returning the color of the pixel at the center of the crosshair, is there already a tool that will do this, before I go and write one?\n\nThanks, R.",
+  "lastActivityDate": "2014-03-18T06:12:49.577",
+  "title": "crosshair tool, is there one? Visual studio 2008",
+  "tags": [
+    "c#",
+    "visual-studio-2008"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

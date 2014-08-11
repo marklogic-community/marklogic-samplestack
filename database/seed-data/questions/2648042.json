@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2648042",
+  "creationDate": "2014-04-18T02:38:04.790",
+  "body": "\n\nI wonder if it's possible to load jQuery within [Opera User JavaScript](http://www.opera.com/docs/userjs/ \"Opera User JavaScript\"), so that I can use jQuery functionality in it, even on pages that are not currently using jQuery.",
+  "lastActivityDate": "2014-06-19T09:16:54.950",
+  "title": "Using jQuery within Opera User JavaScript",
+  "tags": [
+    "javascript",
+    "jquery",
+    "opera"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

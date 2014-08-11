@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2265729",
+  "creationDate": "2014-02-18T04:01:11.000",
+  "body": "\n\nI have a method which scans plain text (specifically in the QIF format) looking for dates which occur after a 'D' on a new line:\n\n\tdates = \"D2009-11-12\\nPApple Store\\nMSnow Leopard\\nD2009-11-13\\nPApple Store\\nMiMac\".scan(/^\\s*D\"?(.+?)[\\r\\n?|\\n]/m)\n\t# => [[\"2009-11-12\"], [\"2009-11-13\"]]\n\t\n\t\"D2009-11-12\\r\\nPApple Store\\r\\nMSnow Leopard\\r\\nD2009-11-13\\r\\nPApple Store\\r\\nMiMac\".scan(/^\\s*D\"?(.+?)[\\r\\n?|\\n]/m)\n\t# => [[\"2009-11-12\"], [\"2009-11-13\"]]\n\t\n\nThis works well across a variety of format, but I've just come across an issue with files generated from Quicken on the Mac, which saves them in MacOS Classic format.  That is to say the lines are delimited using carriage returns, not new lines (i.e. '\\r' not '\\n' or '\\n\\r').\n\n\t\"D2009-11-12\\rPApple Store\\rMSnow Leopard\\rD2009-11-13\\rPApple Store\\rMiMac\".scan(/^\\s*D\"?(.+?)[\\r\\n?|\\n]/m)\n\t# => [[\"2009-11-12\"]]\n\t\n\nThe problem appears to be that Ruby's multi-line regex code doesn't consider '\\r' to be a new line delimiter (which of course it isn't).  \n\nWhat is the best way to support the original parsing yet also handle these Mac OS Classic files?   \n\nShould I replace all occurrances of '\\r' with '\\n\\r' and, if so, how should I go about doing this since a call to `string.gsub(/\\r/, '\\n\\r')` will result in `\\n\\r\\r` being replaced in some scenarios.  I would like to call `string.gsub(/[^\\n]\\r/, '$1\\n\\r')` but this isn't supported by the `gsub` method.",
+  "lastActivityDate": "2014-02-18T04:40:13.920",
+  "title": "How can I use String#scan to scan multiple lines separated only by a carriage return, not a new line",
+  "tags": [
+    "ruby",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

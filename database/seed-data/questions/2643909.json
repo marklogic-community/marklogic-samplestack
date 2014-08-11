@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2643909",
+  "creationDate": "2014-04-17T16:55:07.027",
+  "body": "\n\nI'm new to moq and setting up mocks so i could do with a little help. How do I mock up an SqlDataReader using Moq?\n\nUpdate\n\nAfter further testing this is what I have so far:\n\n\tprivate IDataReader MockIDataReader()\n\t{\n\t    var moq = new Mock<IDataReader>();\n\t    moq.Setup( x => x.Read() ).Returns( true );\n\t    moq.Setup( x => x.Read() ).Returns( false );\n\t    moq.SetupGet<object>( x => x[\"Char\"] ).Returns( 'C' );\n\t\n\t    return moq.Object;\n\t}\n\t\n\tprivate class TestData\n\t{\n\t    public char ValidChar { get; set; }\n\t}\n\t\n\tprivate TestData GetTestData()\n\t{\n\t   var testData = new TestData();\n\t\n\t   using ( var reader = MockIDataReader() )\n\t   {\n\t       while ( reader.Read() )\n\t       {\n\t           testData = new TestData\n\t           {\n\t               ValidChar = reader.GetChar( \"Char\" ).Value\n\t           };\n\t       }\n\t   }\n\t\n\t   return testData;\n\t}\n\t\n\nThe issue you is when I do reader.Read in my GetTestData() method its always empty. I need to know how to do something like \n\n\treader.Stub( x => x.Read() ).Repeat.Once().Return( true ) \n\t\n\nas per the rhino mock example: [Mocking a DataReader and getting a Rhino.Mocks.Exceptions.ExpectationViolationException: IDisposable.Dispose(); Expected #0, Actual #1](http://stackoverflow.com/questions/1792984/mocking-a-datareader-and-getting-a-rhino-mocks-exceptions-expectationviolationexc)",
+  "lastActivityDate": "2014-01-18T13:24:21.420",
+  "title": "How to mock an SqlDataReader using Moq - Update",
+  "tags": [
+    "c#",
+    "unit-testing",
+    "mocking",
+    "moq"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

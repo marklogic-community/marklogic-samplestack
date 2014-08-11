@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646940",
+  "creationDate": "2014-04-18T00:00:56.957",
+  "body": "\n\nToday I use SQLite and send a database-file with the project. \n\nHowever I want the database to be created when the user first starts the software. \n\nIs there a way to copy the code needed to create a database based on the existing database? The problem is that when a user downloads a new version he might be tricked into copying over his last database and lose the data. I'd like a nice way to check the version of the database and modify it if I need new columns or tables etc. Or, if it does not exist at all, create a new database?\n\nI know I can probably make create the code to make the database from the beginning but I want it to be based on the existing database I have created by a gui.\n\n**Answered. Final code:**\n\n\t            //Copy the database from the resource\n\t            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(\"resourcename\"))\n\t            {\n\t                if (stream == null)\n\t                    throw new NullReferenceException(\"Stream is null. Cannot find the database in the resources\");\n\t                FileStream writer = new FileStream(Constants.SqLiteFile, FileMode.Create);\n\t                int Length = 256;\n\t                Byte[] buffer = new Byte[Length];\n\t                int bytesRead = stream.Read(buffer, 0, Length);\n\t                // write the required bytes\n\t                while (bytesRead > 0)\n\t                {\n\t                    writer.Write(buffer, 0, bytesRead);\n\t                    bytesRead = stream.Read(buffer, 0, Length);\n\t                }\n\t                stream.Close();\n\t                writer.Close();\n\t            }\n\t",
+  "lastActivityDate": "2014-04-18T03:38:33.283",
+  "title": "SQLite - Creating and changing databases on the fly",
+  "tags": [
+    "c#",
+    "database",
+    "sqlite"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

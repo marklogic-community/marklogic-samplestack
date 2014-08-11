@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2643415",
+  "creationDate": "2014-04-17T15:32:47.447",
+  "body": "\n\nI'm using videoDisplay MXML component for my Flex app.\n\nI would like to autoload videos (in order to display the first frame) without automatically run them.\n\nWhat's the easiest way to do it ?\n\nthanks",
+  "lastActivityDate": "2014-07-08T13:46:26.310",
+  "title": "FLEX, VideoDisplay: how to autoload without autorunning",
+  "tags": [
+    "flex",
+    "videodisplay"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

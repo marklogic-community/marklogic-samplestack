@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3042627",
+  "creationDate": "2014-06-17T13:03:26.950",
+  "body": "\n\nI have a method that will either return an object or `None` if the lookup fails. Which style of the following is better?\n\n\tdef get_foo(needle):\n\t    haystack = object_dict()\n\t    if needle not in haystack: return None\n\t    return haystack[needle]\n\t\n\nor,\n\n\tdef get_foo(needle):\n\t    haystack = object_dict()\n\t    try:\n\t        return haystack[needle]\n\t    except KeyError:\n\t        # Needle not found\n\t        return None\n\t\n\nI'm undecided as to which is more more desirable myself. Another choice would be `return haystack[needle] if needle in haystack else None`, but I'm not sure that's any better.",
+  "lastActivityDate": "2014-06-17T13:12:56.177",
+  "title": "Which style of return is \"better\" for a method that might return None?",
+  "tags": [
+    "python",
+    "coding-style"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

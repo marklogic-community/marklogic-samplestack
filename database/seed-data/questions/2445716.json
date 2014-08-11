@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445716",
+  "creationDate": "2014-03-17T15:55:53.023",
+  "body": "\n\n\t(\"dd/MM/yyyy HH\")+ \" - \" + (x.Hour+1).ToString();\n\t\n\nSo here is example\n\nwhat I got and what I need :\n\n\t0  --->   00 \n\t3  --->   03 \n\t12 --->   12\n\t\n\nHow can I use ToString for it ?\n\nI've tried :\n\n\tx.ToString(\"dd/MM/yyyy HH\") + \" - \" + x.AddHours(1).ToString(\"HH\");\n\t\n\ndoesn't works ...",
+  "lastActivityDate": "2014-03-17T16:04:12.443",
+  "title": "int.ToString like HH formatted of DateTime",
+  "tags": [
+    "c#",
+    ".net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

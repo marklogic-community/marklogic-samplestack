@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074409",
+  "creationDate": "2014-01-18T12:00:48.337",
+  "body": "\n\nI'm writing a small data structures library in C#, and I'm running into an architectural problem. Essentially I have a class which implements the visitor pattern, and there are many possible implementations of visitors:\n\n\tpublic interface ITreeVisitor<T, U>\n\t{\n\t    U Visit(Nil<T> s);\n\t    U Visit(Node<T> s);\n\t}\n\t\n\tpublic abstract class Tree<T> : IEnumerable<T>\n\t{\n\t    public readonly static Tree<T> empty = new Nil<T>();\n\t    public abstract U Accept<U>(ITreeVisitor<T, U> visitor);\n\t}\n\t\n\tpublic sealed class Nil<T> : Tree<T>\n\t{\n\t    public override U Accept<U>(ITreeVisitor<T, U> visitor) { return visitor.Visit(this); }\n\t}\n\t\n\tpublic sealed class Node<T> : Tree<T>\n\t{\n\t    public Tree<T> Left { get; set; }\n\t    public T Value { get; set; }\n\t    public Tree<T> Right { get; set; }\n\t\n\t    public override U Accept<U>(ITreeVisitor<T, U> visitor) { return visitor.Visit(this); }\n\t}\n\t\n\nAnytime I want to pass in a visitor, I have to create a visitor class, implement the interface, and pass it in like this:\n\n\tclass InsertVisitor<T> : ITreeVisitor<T, Tree<T>> where T : IComparable<T>\n\t{\n\t    public T v { get; set; };\n\t\n\t    public Tree<T> Visit(Nil<T> s)\n\t    {\n\t        return new Node<T>() { Left = Tree<T>.empty, Value = v, Right = Tree<T>.empty };\n\t    }\n\t\n\t    public Tree<T> Visit(Node<T> s)\n\t    {\n\t        switch (v.CompareTo(s.Value))\n\t        {\n\t            case -1: return new Node<T>() { Left = Insert(v, s.Left), Value = s.Value, Right = s.Right };\n\t            case 1: return new Node<T>() { Left = s.Left, Value = s.Value, Right = Insert(v, s.Right) };\n\t            default: return s;\n\t        }\n\t    }\n\t}\n\t\n\tpublic static Tree<T> Insert<T>(T value, Tree<T> tree) where T : IComparable<T>\n\t{\n\t    return tree.Accept<Tree<T>>(new InsertVisitor<T>() { v = value });\n\t}\n\t\n\nI don't like writing that much boilerplate code, because it gets very messy when you have a non-trivial number of visitor implementations.\n\nI want to write something similar to [anonymous classes Java](http://www.developer.com/java/other/article.php/3300881/The-Essence-of-OOP-using-Java-Anonymous-Classes.htm) (concept code):\n\n\tpublic static Tree<T> Insert<T>(T v, Tree<T> tree) where T : IComparable<T>\n\t{\n\t    return tree.Accept<Tree<T>>(new InsertVisitor<T>()\n\t        {\n\t            public Tree<T> Visit(Nil<T> s) { return new Node<T>() { Left = Tree<T>.empty, Value = v, Right = Tree<T>.empty }; }\n\t            public Tree<T> Visit(Node<T> s)\n\t            {\n\t                switch (v.CompareTo(s.Value))\n\t                {\n\t                    case -1: return new Node<T>() { Left = Insert(v, s.Left), Value = s.Value, Right = s.Right };\n\t                    case 1: return new Node<T>() { Left = s.Left, Value = s.Value, Right = Insert(v, s.Right) };\n\t                    default: return s;\n\t                 }\n\t            }\n\t        };\n\t}\n\t\n\n**Is there any way to simulate anonymous classes with interface implementations in C#?**",
+  "lastActivityDate": "2014-08-04T09:40:42.293",
+  "title": "How do I simulate anonymous classes in C#",
+  "tags": [
+    "c#",
+    "design-patterns",
+    "anonymous-class"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

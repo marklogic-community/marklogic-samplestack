@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647193",
+  "creationDate": "2014-04-18T00:36:55.390",
+  "body": "\n\nI'm writing several C programs for an embedded system where every bit of performance we can squeeze out will matter.  Part of that is accessing log files.  When determining if a file exists, is there any performance difference between using open / fopen, and stat ? I've been using stat on the assumption that it only has to do a quick check against the file system, whereas fopen would have to actually gain access to a file and manipulate internal data structures before returning.  Is there any merit to this ?",
+  "lastActivityDate": "2014-04-18T01:29:30.600",
+  "title": "Performance of fopen vs stat",
+  "tags": [
+    "c",
+    "file-io",
+    "fopen"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

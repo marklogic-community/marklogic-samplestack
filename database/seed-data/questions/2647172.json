@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2647172",
+  "creationDate": "2014-04-18T00:32:51.323",
+  "body": "\n\n// From my form\n\n\tBindingSource bs = new BindingSource();\n\t\n\tprivate void fillStudentGrid()\n\t{\n\t     bs.DataSource = Admin.GetStudents();\n\t     dgViewStudents.DataSource = bs;\n\t}\n\t\n\n// From the Admin class\n\n\tpublic static List<Student> GetStudents()\n\t\n\t{\n\t    DojoDBDataContext conn = new DojoDBDataContext();\n\t\n\t    var query =\n\t        (from s in conn.Students\n\t         select new Student\n\t         {\n\t             ID = s.ID,\n\t             FirstName = s.FirstName,\n\t             LastName = s.LastName,\n\t             Belt = s.Belt\n\t         }).ToList();\n\t\n\t    return query;\n\t}\n\t\n\nI'm trying to fill a datagridview control in Winforms, and I only want a few of the values. The code compiles, but throws a runtime error:\n\n*Explicit construction of entity type 'DojoManagement.Student' in query is not allowed.*\n\nIs there a way to get it working in this manner?",
+  "lastActivityDate": "2014-10-12T21:54:22.620",
+  "title": "Fill WinForms DataGridView From Anonymous Linq Query",
+  "tags": [
+    "c#",
+    "winforms",
+    "linq",
+    "linq-to-sql",
+    "datagridview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649007",
+  "creationDate": "2014-04-18T05:12:34.560",
+  "body": "\n\ntwitter today presented [new APIs](http://dev.twitter.com/anywhere/begin)\n\nPlease look at \"User login & signup\". So there is explained how to authenticate user. And according to this code it's simple to authenticate user at client-side. But how to get auth data now at server-side?",
+  "lastActivityDate": "2014-04-26T10:47:48.230",
+  "title": "New twitter's API",
+  "tags": [
+    "twitter",
+    "twitter-anywhere"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

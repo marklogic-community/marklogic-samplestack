@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642373",
+  "creationDate": "2014-04-17T10:27:21.323",
+  "body": "\n\nThis is a very very basic question and I know one way is to do the following:\n\n\tchar buffer[33];\n\titoa(aq_width, buffer,10);\n\t\n\nwhere aq_width is the int, but then I can't guarantee what size of buffer I would need in order to do this... I can always allocate a very large buffer size, but that wouldn't be very nice... any other pretty and simple way to do this?",
+  "lastActivityDate": "2014-04-17T10:31:57.163",
+  "title": "converting an int to char*",
+  "tags": [
+    "c++",
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

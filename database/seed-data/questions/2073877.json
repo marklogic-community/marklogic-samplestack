@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2073877",
+  "creationDate": "2014-01-18T10:33:43.183",
+  "body": "\n\nWhat is the correct way to have the option tag default value set in IE6?\n\nI've tried doing \n\n\t<option SELECTED>\n\t<option selected='selected'>\n\t<option selected='true'>\n\t\n\nnone of them work in ie6, any ideas?",
+  "lastActivityDate": "2014-01-18T10:37:38.757",
+  "title": "What is the correct way to have the option tag default value set in IE6?",
+  "tags": [
+    "html"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

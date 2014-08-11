@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2840711",
+  "creationDate": "2014-05-17T23:50:40.850",
+  "body": "\n\nWell basically I may want to execute a script that may take as much as 1 hours as well.\n\nWhat I really want to do is Send SMS to my users using a third party API. So its basically like I supply my script with an array of phone numbers and fire the method to send SMS.\n\nHowever assuming it take 5 seconds to send 1 SMS and I want to send 1000 SMS which is roughly 1 - 2 hours. I can't use `set_time_limit()` because I am on shared host.\n\nOne way to do this is store numbers in a session and execute each SMS and use javascript to refresh that page until end. This way I need to keep my browser open and the execution will stop if my Internet Connection is disconnected.\n\nSo, Is there any better way to do this ?\n\nHope I am clear enough to explain what I want? I want to execute a large script that may take hours to execute without getting timeout.",
+  "lastActivityDate": "2014-11-06T02:59:17.263",
+  "title": "How to execute a large PHP Script?",
+  "tags": [
+    "php",
+    "timeout",
+    "execution"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

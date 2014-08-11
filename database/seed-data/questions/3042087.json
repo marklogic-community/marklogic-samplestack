@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3042087",
+  "creationDate": "2014-06-17T09:56:46.977",
+  "body": "\n\nI have an array, i don't know the length but i do know it will be >=48bytes. The first 48bytes are the header and i need to split the header into two.\n\nWhats the easiest way? I am hoping something as simple as header.split(32); would work ([0] is 32 bytes [1] being 16 assuming header is an array of 48bytes)\n\nusing .NET",
+  "lastActivityDate": "2014-06-17T10:55:39.047",
+  "title": "Array split by range?",
+  "tags": [
+    ".net",
+    "arrays"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

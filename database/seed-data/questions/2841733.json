@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841733",
+  "creationDate": "2014-05-18T05:01:18.837",
+  "body": "\n\nHi\nIs there a way to decompile the binary from an IPhone app.\nI jailbroke my IPhone and was surprised to find other app's dbs wide open to be copied.\nSo I exported my most important table and hardcoded it into code.\nInstead of loading table into array from a db I just generated code to fill the array and kept only the most basic DB info so relationships still work.\nTook a while but now works fine.\n\nI was just wondering am I safe, could someone decompile the binary for the app easily and extract the data. In Java its easy to decompile *.class files though thats bytecode  where I presume iphone apps are more low level.\n\nI know IPhone sdk 4 can mark files as secure. Anyone know can this be overridden by jailbreaks or is this an unix lock?",
+  "lastActivityDate": "2014-05-18T05:39:34.697",
+  "title": "Securing files on IPhone",
+  "tags": [
+    "iphone",
+    "security",
+    "jailbreak"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}
