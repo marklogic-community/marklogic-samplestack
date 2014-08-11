@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642502",
+  "creationDate": "2014-04-17T11:13:50.933",
+  "body": "\n\nIf I have handle to file how do I create a document and write to it? Right now, I am having to delete the file completely and recreate with new content as shown below :\n\n\tIFile file = getFile(); \n\tfile.delete();\n\tfile.create(input, false, null);\n\t\n\n**EDIT** : This is in an eclipse plugin, not a regular java program.",
+  "lastActivityDate": "2014-04-25T16:53:13.703",
+  "title": "How do I write to a file in eclipse?",
+  "tags": [
+    "java",
+    "eclipse"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

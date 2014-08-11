@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448981",
+  "creationDate": "2014-03-18T01:08:14.523",
+  "body": "\n\nI'm using mod_rewrite to map my old directory structure to a new one. I have the following rule in my top-level .htaccess file, and it works:\n\n\tRewriteEngine On\n\tRewriteCond %{REQUEST_URI} /blog/archives/(.*)\n\tRewriteRule ^.*$ /archives/%1 [L,R=301]\n\t\n\nAs you can guess, this takes `http://example.com/blog/archives/00001.php` and redirects it to `http://example.com/archives/00001.php`.\n\nBut when I add these rewrite rules to the .htaccess file in the /blog directory\n\n\tRewriteEngine on\n\tRewriteRule atom.xml$ /atom.xml [L,R=301]\n\t\n\nthe top-level redirect no longer works. If I move the rule in the /blog .htaccess file to the top-levle file both rules work. Can someone explain what is happening here?",
+  "lastActivityDate": "2014-03-18T01:14:13.313",
+  "title": "Does mod_rewrite in subdirectories' .htaccess override higher levels?",
+  "tags": [
+    "apache",
+    ".htaccess",
+    "mod-rewrite"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

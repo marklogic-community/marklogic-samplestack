@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2074216",
+  "creationDate": "2014-01-18T11:30:20.360",
+  "body": "\n\n\t/*\n\t * PURPOSE\n\t *      Search if a string contains a string and print it out from there\n\t */\n\t#include <stdio.h>\n\t\n\tvoid searchHaystack(char cHaystack[], char cNeedle[]);\n\tvoid showResult(int iOffset, char cHaystack[]);\n\t\n\tint main() {\n\t    // Declarations\n\t    char cHaystack[50], cNeedle[50];\n\t\n\t    // Input\n\t    puts(\"Haystack:\");\n\t    gets(cHaystack);\n\t    puts(\"Needle:\");\n\t    gets(cNeedle);\n\t\n\t    // Call searcher\n\t    searchHaystack(cHaystack, cNeedle);\n\t\n\t    return 0;\n\t}\n\t\n\tvoid searchHaystack(char cHaystack[], char cNeedle[]) {\n\t    // Declarations\n\t    int iCntr, iCntr2, iFoundOffset;\n\t\n\t    // Search the haystack for the first letter of the needle\n\t    for (iCntr == 0; iCntr < 50 && cHaystack[iCntr] != '\\0'; iCntr++) {\n\t        if (cHaystack[iCntr] == cNeedle[0]) {\n\t            iFoundOffset = iCntr;\n\t            for (iCntr2 == 1; iCntr2 < 50 && (cHaystack[iCntr+iCntr2] == cNeedle[iCntr2] || cNeedle[iCntr2] == '\\0'); iCntr2++) {\n\t                if (cNeedle[iCntr2] == '\\0') {\n\t                    showResult(iFoundOffset, cHaystack);\n\t                }\n\t            }\n\t        }\n\t    }\n\t}\n\t\n\tvoid showResult(int iOffset, char cHaystack[]) {\n\t    int iCntr;\n\t\n\t    // Print the substring char by char\n\t    for (iCntr == iOffset; iCntr < 50 && cHaystack[iCntr] != '\\0'; iCntr++) {\n\t        printf(\"%c\", cHaystack[iCntr]);\n\t    }\n\t    printf(\"\\n\");\n\t}\n\t\n\nLooking at my debugger I noticed that cHaystack[] and cNeedle[] aren't passed to searchHaystack properly as only the first char is conserved. How do I fix this? I haven't learned about pointers yet.\n\nAlso, I'm getting this warning on all three for loops:\n\n> statement with no effect\n\nWhat's up with that?",
+  "lastActivityDate": "2014-01-18T12:53:32.033",
+  "title": "C: passing arrays to another method properly",
+  "tags": [
+    "c"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

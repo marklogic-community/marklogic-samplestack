@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2840830",
+  "creationDate": "2014-05-18T00:21:51.757",
+  "body": "\n\n\tclass RunAround;\n\tclass HopUpAndDown;\n\tclass Sleep;\n\t\n\ttemplate<typename Acts> int doThis();\n\ttemplate<> int doThis<RunAround>()    { /* run run run.. */ return 3; }\n\ttemplate<> int doThis<HopUpAndDown>() { /* hop hop hop.. */ return 2; }\n\ttemplate<> int doThis<Sleep>()        { /* zzz.. */ return -2; }\n\t\n\tstruct Results\n\t{   \n\t    template<typename Act> int& operator()()\n\t    {\n\t        static int result;\n\t        return result;\n\t    }\n\t};\n\t\n\t\n\t\n\tint main()\n\t{\n\t    Results results;\n\t    //results<RunAround>() = doThis<RunAround>();\n\t    results.operator ()<RunAround>() = doThis<RunAround>();\n\t    results.operator ()<Sleep>() = doThis<Sleep>();\n\t    return 0;\n\t};\n\t\n\nIf I remove the comment, the compiler thinks I am calling `operator()` in non-existant template class `Results<RunAround>` when I want `operator<RunAround>()` in class `Results`.\n\nIf I want to continue using an operator overload instead of a normal name, am I doomed to use the awful syntax below the comment (which does work)?  ",
+  "lastActivityDate": "2014-05-18T02:03:39.390",
+  "title": "How to call a templated operator overload without using the word 'operator'?",
+  "tags": [
+    "c++",
+    "templates",
+    "syntax",
+    "operator-overloading"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

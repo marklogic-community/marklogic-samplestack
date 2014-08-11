@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2264503",
+  "creationDate": "2014-02-17T23:33:31.737",
+  "body": "\n\ndjango code:\n\n\treturn render_to_response(template_name, {\n\t        \"form\": form,\n\t    }, context_instance=RequestContext(request))\n\t\n\nand  html:\n\n\t<script type=\"text/javascript\">\n\t        var a='{{form}}'\n\t\n\t       alert(a) \n\t</script>\n\t\n\nit's error  is 'unterminated string literal',\n\nand i see this in firebug :\n\n\t<script type=\"text/javascript\">\n\t        var a='\"<tr><th><label for=\"id_username\">Username:</label></th><td><input id=\"id_username\" type=\"text\" class=\"textinput\" name=\"username\" maxlength=\"30\" /></td></tr><tr><th><label for=\"id_email\">Email (optional):</label></th><td><input id=\"id_email\" type=\"text\" class=\"textinput\" name=\"email\" /></td></tr>\"';\n\t            alert(a) \n\t    </script>\n\t\n\nhow do i alert the 'form' string .\n\nthanks",
+  "lastActivityDate": "2014-02-18T03:32:46.870",
+  "title": "why i can't alert this string which is return from django render_to_response",
+  "tags": [
+    "javascript",
+    "python",
+    "django"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

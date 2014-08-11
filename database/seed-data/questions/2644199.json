@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2644199",
+  "creationDate": "2014-04-17T17:44:43.560",
+  "body": "\n\nHow do you pass a parameter into an include file? I tried the following but it doesn't work.\n\ninclude \"myfile.php?var=123\";\n\nand in myfile.php, I try to retrieve the parameter using $_GET[\"var\"].\n\n`include \"myfile.php?var=123\";` will not work. PHP searches for a file with this exact name and does not parse the parameter\n\nfor that I also did this:\n\n`include \"http://MyGreatSite.com/myfile.php?var=123\";`but it does not also work.\n\nAny hints? Thanks.",
+  "lastActivityDate": "2014-04-17T20:37:11.107",
+  "title": "Pass value to an include file in php",
+  "tags": [
+    "php"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

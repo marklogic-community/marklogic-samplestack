@@ -1,1 +1,20 @@
-{"id":"/questions/20887660.json", "creationDate":"2014-01-02T16:52:36.133", "body":"\n\nI have searched and searched to no avail.  I am using \n\n\t<telerik:RadDatePicker ID=\"prev_startempdate\" runat=\"server\" Width=\"115px\">\n\t<Calendar ShowRowHeaders=\"False\" Width=\"160\" />\n\t        </telerik:RadDatePicker>\n\t\n\nWhen my page first loads it works fine, but when the page does a partial update to show more fields depending on a certain answer the calendar popups stop working.  If I manually type a date, they get removed from the box as well.  Any help is appreciated.", "lastActivityDate":"2014-01-02T16:52:36.133", "title":"Telerik RadDatePicker breaking on partial update", "tags":["c#", "telerik"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"TheDizzle", "id":"2820641"}}
+{
+  "id": "/questions/20887660",
+  "creationDate": "2014-01-05T08:52:36.133",
+  "body": "\n\nI have searched and searched to no avail.  I am using \n\n\t<telerik:RadDatePicker ID=\"prev_startempdate\" runat=\"server\" Width=\"115px\">\n\t<Calendar ShowRowHeaders=\"False\" Width=\"160\" />\n\t        </telerik:RadDatePicker>\n\t\n\nWhen my page first loads it works fine, but when the page does a partial update to show more fields depending on a certain answer the calendar popups stop working.  If I manually type a date, they get removed from the box as well.  Any help is appreciated.",
+  "lastActivityDate": "2014-08-11T05:42:56.223",
+  "title": "Telerik RadDatePicker breaking on partial update",
+  "tags": [
+    "c#",
+    "telerik"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "TheDizzle",
+    "id": "2820641"
+  }
+}

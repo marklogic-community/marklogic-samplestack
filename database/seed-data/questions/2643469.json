@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643469",
+  "creationDate": "2014-04-17T15:40:36.257",
+  "body": "\n\nThis\n\n\t- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {\n\t\n\tUITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];\n\t\n\tif (cell.accessoryType == UITableViewCellAccessoryNone) {\n\t    cell.accessoryType = UITableViewCellAccessoryCheckmark;\n\t}\n\telse {\n\t    cell.accessoryType = UITableViewCellAccessoryNone;\n\t}\n\t\n\t[tableView deselectRowAtIndexPath:indexPath animated:YES];\n\t\n\n}\n\n... modifies the \"accessoryType\" of every 6th cell INSTEAD of just the selected row.  What am I missing?\n\nThanks\n\nUPDATED: Here is the cell creation code ...\n\n\t- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n\t\n\t    static NSString *TC = @\"TC\";\n\t\n\t    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: TC];\n\t    if (cell == nil) {\n\t        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PlayerTableViewCell] autorelease];\n\t    }\n\t\n\t    NSUInteger row = [indexPath row];\n\t    cell.textLabel.text = [NSString stringWithFormat:@\"Person %d\", row+1];\n\t\n\t    return cell;\n\t}\n\t\n\n**MY SOLUTION** based on the marked answer below is ...\n\n\t- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n\t\n\t    // EVERY row gets its one Identifier\n\t    NSString *TC = [NSString stringWithFormat: @\"TC%d\", indexPath.row];\n\t\n\t    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: TC];\n\t    if (cell == nil) {\n\t        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TC] autorelease];\n\t    }\n\t\n\t    NSUInteger row = [indexPath row];\n\t    cell.textLabel.text = [NSString stringWithFormat:@\"Person %d\", row+1];\n\t\n\t    return cell;\n\t}\n\t\n\nIf there is a better way I'm all ears.  Would be nice if we could just change the SPECIFIC Cell according to the NSIndexPath passed in someday (at least that seems a whole lot more intuitive to me).",
+  "lastActivityDate": "2014-05-15T06:58:16.253",
+  "title": "Problem implementing a UITableView that allows for multiple row selections",
+  "tags": [
+    "iphone",
+    "uitableview",
+    "multiple-select"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

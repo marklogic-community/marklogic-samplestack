@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647820",
+  "creationDate": "2014-04-18T02:05:04.880",
+  "body": "\n\nI want to **toggle a process's visibility at runtime**, I have a Windows Form app that starts via a process another console app hidden by default but I'd like to allow the admin user to toggle this state via a checkbox and show the console app if they choose.\n\nI have this but it's not working:\n\n\tprivate void checkBox1_CheckedChanged(object sender, EventArgs e)\n\t    {\n\t        ProcessWindowStyle state = cvarDataServiceProcess.StartInfo.WindowStyle;\n\t        if (state == ProcessWindowStyle.Hidden)\n\t            cvarDataServiceProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;\n\t        else if (state == ProcessWindowStyle.Normal)\n\t            cvarDataServiceProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;            \n\t    }\n\t",
+  "lastActivityDate": "2014-06-14T02:11:29.553",
+  "title": "Toggle Process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden at runtime",
+  "tags": [
+    "c#",
+    "process",
+    "window-style"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

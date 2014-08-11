@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2264167",
+  "creationDate": "2014-02-17T21:28:56.897",
+  "body": "\n\nThe way jQuery's `.clone()` seems to work, once you insert a cloned object somewhere, you cannot insert it again another time without re-cloning the original object. For example, if you do this:  \n\n\n\tvar cloned = $('#elem1').clone();\n\t$('#elem2').after(cloned);\n\t$('#elem2').after(cloned);\n\t\n\nOnly one copy of `elem1` will get copied and the second `after` call would have done nothing.  \n\n\nIs there a way to not \"clear the clipboard\" after using a cloned object? Right now I am making do by cloning the object again before inserting it somewhere. Is there a better way to do this?",
+  "lastActivityDate": "2014-02-17T21:30:34.337",
+  "title": "jQuery clone infinite times?",
+  "tags": [
+    "jquery",
+    "clone",
+    "infinite"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

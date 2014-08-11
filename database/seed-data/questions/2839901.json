@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2839901",
+  "creationDate": "2014-05-17T19:22:56.527",
+  "body": "\n\nI want to make an EditBox disappear completely when the user selects a particular iption, instead of just graying it out. I tried using EnableWindow(false), but that just grays it out. I want the user to not see the control at all...can anyone help, or is this not possible in MSVC 2008 ?",
+  "lastActivityDate": "2014-05-17T19:27:32.363",
+  "title": "How to make an edit box disapper at runtime (NOT gray) in MSVC 2008 using MFC?",
+  "tags": [
+    "visual-studio-2008",
+    "gui",
+    "mfc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

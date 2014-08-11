@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268016",
+  "creationDate": "2014-02-18T10:18:10.527",
+  "body": "\n\nSSMS 2008 comes with a great set of standard reports, including one named Schema Changes History. When I run this report, I see all schema changes made since a certain date. My question is this. How is the date determined? For example, on one database for a particular server, the changes are as of 2/14/2010 1:35:15 pm. But on another database on the same server, the changers are as of 1/5/2010 9:09:15 am. These are not the dates the databases were created.\n\nThanks.",
+  "lastActivityDate": "2014-02-18T10:53:19.753",
+  "title": "SQL Server Management Studio 2008 - Standard Reports - Schema Changes History - How is the Date Determined?",
+  "tags": [
+    "sql-server",
+    "ssms-2008"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

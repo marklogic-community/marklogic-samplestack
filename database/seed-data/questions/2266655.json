@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266655",
+  "creationDate": "2014-02-18T06:49:39.803",
+  "body": "\n\nmy XML is referencing a DTD like this:\n\n< !DOCTYPE article PUBLIC \"-//OWNER//NAME//EN\" \"http://invalid/path/to.dtd\">\n\nThe DTD is not available via the given URL, but I can download it to my disc. I tried to implement a custom XmlResolver to load the DTD, but it does not work. My custom XmlResolver implements GetEntity and via the debugger I can see the following calls comming in:\n1. The requested uri is the xml document to be loaded. I open a stream for this document and return it. That works fine.\n2. The DTD is requested as a URI of the format \"file:///absolut/path/to.xml/-//OWNER//NAME//EN\". I'm using a regular expression to check for -//.*?// which works fine, but looks not very clean for me. But if the DTD is selfcontained, it works.\n3. The DTD is referencing modules.ent. That results in a call to GetEntity with an URI of: \"file:///absolut/path/to.xml/-//OWNER//NAME//modules.ent\". Obviously now it get's quite strange to reconstruct the intension of the path.\n\nAny hint how to implement that in a correct way? I think public external DTDs are quite common in the publishing sector so there must be a clean solution!?\n\ncheers,\nAchim",
+  "lastActivityDate": "2014-02-18T13:03:31.860",
+  "title": "Handle public external DTDs in .Net via XmlResolver",
+  "tags": [
+    "c#",
+    ".net",
+    "xml",
+    "dtd"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841589",
+  "creationDate": "2014-05-18T04:07:02.717",
+  "body": "\n\n\t// ... snipped includes for iostream and fusion ...\n\tnamespace fusion = boost::fusion;\n\t\n\tclass Base\n\t{\n\tprotected: int x;\n\tpublic: Base() : x(0) {}\n\t    void chug() { \n\t        x++;\n\t        cout << \"I'm a base.. x is now \" << x << endl;\n\t    }\n\t};\n\t\n\tclass Alpha : public Base\n\t{\n\tpublic:\n\t    void chug() { \n\t        x += 2;\n\t        cout << \"Hi, I'm an alpha, x is now \" << x << endl;\n\t    }\n\t};\n\t\n\tclass Bravo : public Base\n\t{\n\tpublic:\n\t    void chug() { \n\t        x += 3;\n\t        cout << \"Hello, I'm a bravo; x is now \" << x << endl; \n\t    }\n\t};\n\t\n\tstruct chug {\n\t    template<typename T>\n\t    void operator()(T& t) const\n\t    {\n\t        t->chug();\n\t    }\n\t};\n\t\n\tint main()\n\t{\n\t    typedef fusion::vector<Base*, Alpha*, Bravo*, Base*> Stuff;\n\t    Stuff stuff(new Base, new Alpha, new Bravo, new Base);\n\t\n\t    fusion::for_each(stuff, chug());     // Mutates each element in stuff as expected\n\t\n\t    /* Output:\n\t       I'm a base.. x is now 1\n\t       Hi, I'm an alpha, x is now 2\n\t       Hello, I'm a bravo; x is now 3\n\t       I'm a base.. x is now 1\n\t    */\n\t\n\t    cout << endl;\n\t\n\t    // If I don't put 'const' in front of Stuff...\n\t    typedef fusion::result_of::push_back<const Stuff, Alpha*>::type NewStuff;\n\t\n\t    // ... then this complains because it wants stuff to be const:\n\t    NewStuff newStuff = fusion::push_back(stuff, new Alpha);\n\t\n\t    // ... But since stuff is now const, I can no longer mutate its elements :(\n\t    fusion::for_each(newStuff, chug());\n\t\n\t    return 0;\n\t};\n\t\n\nHow do I get for_each(newStuff, chug()) to work?  \n\n(Note: I'm only assuming from the [overly brief documentation](http://www.boost.org/doc/libs/1_43_0/libs/fusion/doc/html/fusion/algorithm/transformation/functions/push_back.html) on boost::fusion that I am supposed to create a new vector every time I call push_back.)",
+  "lastActivityDate": "2014-12-05T01:33:21.607",
+  "title": "What is the proper use of boost::fusion::push_back?",
+  "tags": [
+    "c++",
+    "boost",
+    "boost-fusion"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

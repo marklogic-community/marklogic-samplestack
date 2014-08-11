@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647666",
+  "creationDate": "2014-04-18T01:40:20.627",
+  "body": "\n\nI'm using Mirven's [Twitter OAuth Sinatra](http://github.com/mirven/twitter-oauth-sinatra/) example and trying to figure out how I can send a 'next page' parameter with the Oauth request:\n\nie. The user attempts to visit `/edit/profile` which requires a login so I redirect to `/request` which deals with login via twitter - I now want to be able to redirect the user to the address they were originally looking for if they log in successfully.\n\nI thought I could do this in the `.get_request_token`[line](http://github.com/mirven/twitter-oauth-sinatra/blob/master/app.rb#L47) with this code:\n\n\t  @request_token = @consumer.get_request_token({:oauth_callback => \"http://#{request.host}/auth\"},{:next => params['next'] || '/'})\n\t\n\nBut `params` has no additional items in the `/auth` handler.\n\nI'm new to OAuth, how would I go about doing this?",
+  "lastActivityDate": "2014-04-18T08:07:29.133",
+  "title": "Passing parameters thru Ruby's OAuth",
+  "tags": [
+    "ruby",
+    "oauth",
+    "sinatra"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

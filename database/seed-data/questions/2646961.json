@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646961",
+  "creationDate": "2014-04-18T00:03:59.463",
+  "body": "\n\nI'm running a post, and need the request to be replied fast. So I wanted to put a worker running some operations in background and reply the request imidiatly.\n\nThe worker is always finite in operations and executes in [0;1] second\n\nHow can I do this? Is there any module that suports this in the google app engine api?\n\n###Edit:\n\nIn python",
+  "lastActivityDate": "2014-08-28T07:26:33.783",
+  "title": "Threads or background processes in Google App Engine (GAE)",
+  "tags": [
+    "python",
+    "google-app-engine",
+    "multithreading"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

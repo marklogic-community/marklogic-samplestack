@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649701",
+  "creationDate": "2014-04-18T07:36:15.167",
+  "body": "\n\n> `K&R C Programming Language: pg. 105`\n\n> Extend `entab` and `detab` to accept the shorthand\n\n> `entab -m +n`\n\n> to mean tab stops every `n` columns, starting at column `m`.\n\n`entab` replaces a number of spaces with a tab character and `detab` does the opposite. The question I have concerns the tab stops and `entab`. I figure that for `detab` it's pretty easy to determine the number of spaces needed to reach the next tab stop, so no worries there. With `entab`, replacing spaces with tabs is slightly more difficult since I cannot for sure know how large the tab character goes to its own tab stop (unless there is a way to know for sure).\n\nAm I even thinking about this thing properly?",
+  "lastActivityDate": "2014-12-21T07:08:29.713",
+  "title": "I need help understanding what Exercise 5-12 is asking for in the C Programming Language book",
+  "tags": [
+    "c",
+    "tabstop",
+    "knr"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2264037",
+  "creationDate": "2014-02-17T20:27:22.590",
+  "body": "\n\nI have this code:\n\n\tfunction some_object(...) {\n\t   this.data = {...};\n\t\n\t   this.do_something = function(...) {\n\t      var arr = [...];\n\t\n\t      arr.sort(function (a, b) {\n\t         return this.data[a] - this.data[b];\n\t      });  \n\t   }\n\t}\n\t\n\nHowever it's not working I think because `this` cannot be accessed in `sort` - another `this` is seen there for some reason, not the `this` of enclosing outer object.\n\nWhat to do? thanks",
+  "lastActivityDate": "2014-02-17T21:54:23.673",
+  "title": "access outer \"this\" in Javascript sort method",
+  "tags": [
+    "javascript"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

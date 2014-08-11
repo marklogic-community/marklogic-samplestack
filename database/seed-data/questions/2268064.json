@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2268064",
+  "creationDate": "2014-02-18T10:27:06.513",
+  "body": "\n\nI'm building a website that allows user to connect using Facebook Connect. So far I'm able to log the user in and fetch data about them (name, email, pic, etc.). If I fetch the email (using Users.getInfo) I get a proxied email (apps+blahblah@facebook.com), which is absolutely great. Problem is, that email doesn't work. I've tried sending an email to it and I never received it. There are two reasons I see that could cause this:\n1. I don't have enough permissions. Ok, I can understand that, but if I don't have enough permissions then why are they returning an email at all?\n2. The email has to be somehow sent from the application itself (I've tried sending it from my Gmail account) -- but how would Facebook know that the email is coming from the application?\n\nSo which is it? Or is it something else?",
+  "lastActivityDate": "2014-06-13T09:41:35.243",
+  "title": "Facebook proxy email not arriving -- do I need permissions?",
+  "tags": [
+    "facebook"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2446752",
+  "creationDate": "2014-03-17T19:38:33.833",
+  "body": "\n\nI have an iPhone project where I have a series of Managed Objects in a Managed Object Context within the main application thread.  On a separate thread, I import new objects from a webserver into a second Managed Object Context.\n\nIf the import goes ok without errors, I save the import context.  This triggers contextDidSave from which I call mergeChangesFromContextDidSaveNotification.  The two contexts merge ok.  So far, so good.\n\nMy desired functionality is to have any objects that are in the original MOC but not in the imported MOC to be deleted (the idea is that the user is refreshing the data, and so old data should be deleted), but the merge seems to just combine the 2 MOCs.\n\nPlease can you advise if there is a way of managing the merge of the 2 MOCs so that those not in one are deleted in the other?\n\nThanks,\n\nJohn",
+  "lastActivityDate": "2014-04-19T04:15:39.427",
+  "title": "Core Data: Merging multiple Managed Object Contexts and deleting objects",
+  "tags": [
+    "iphone",
+    "core-data",
+    "object",
+    "context",
+    "managed"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

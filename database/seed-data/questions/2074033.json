@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074033",
+  "creationDate": "2014-01-18T11:03:17.690",
+  "body": "\n\nI am working with a Java framework that generates some (proxy) classes at runtime, using a custom ClassLoader. I would like to get for any such class that the custom ClassLoader returns from loadClass(..) the raw byte array that corresponds to this class. Is this possible? I know that if a class exists as a resource then you can use an input stream to load the class in binary format but how can I go about this if the class is generated at runtime?",
+  "lastActivityDate": "2014-05-23T13:58:39.817",
+  "title": "Get bytes for a class that was generated at runtime",
+  "tags": [
+    "java",
+    "class-loading",
+    "classloader"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642056",
+  "creationDate": "2014-04-17T09:00:35.203",
+  "body": "\n\nI have the following;\n\n\t    <% using(Html.BeginForm(\"GetRecommendedProducts\", \"Home\", FormMethod.Post)) { %>\n\t        <% Html.RenderPartial(\"QuickQuote\", Model.quickQuote); %>\n\t        <div class=\"But brown\" style=\"float:left;\">\n\t            <a href=\".\" onclick=\"$.unblockUI(); return false;\">Close</a>\n\t        </div>\n\t        <div class=\"But green\" style=\"\">\n\t            <a href=\".\" onclick=\"this.form.submit(); return false;\">Go</a>\n\t        </div>\n\t    <%} %>\n\t\n\nWhen I click the anchor I do not get a post to my action.  I know this should be possible so what am I doing wrong? \n\nThe partial view only contains fields and not another BeginForm or anything like that.\n\nIf I use a submit button it works ok but I can't use a submit button I need to use an anchor.",
+  "lastActivityDate": "2014-04-17T11:24:08.640",
+  "title": "post to actionrequest from an anchor",
+  "tags": [
+    "asp.net-mvc",
+    "postback"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

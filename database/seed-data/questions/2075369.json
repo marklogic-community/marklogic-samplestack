@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2075369",
+  "creationDate": "2014-01-18T15:11:48.753",
+  "body": "\n\nI have query that runs in the controller:\n\n\t$data['query'] = $this->Member->select_sql($id);    \n\t$this->load->view('myform');\n\t\n\nand then outputs data in the view:\n\n\tforeach ($query->result() as $row):\n\t   echo $row->post_title;\n\t   echo $row->post_user_id;\n\tendforeach;\n\t\n\nSo this outputs me a list of posts made by a user. Now I would like to run one more query that would for each post loop through my user table and output user information next to each post. (I dont want to select data from a view or joint those 2 tables at this time in MySQL)\n\nAny ideas? ",
+  "lastActivityDate": "2014-08-26T16:24:05.687",
+  "title": "How to query a database from view - CodeIgniter",
+  "tags": [
+    "php",
+    "codeigniter"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

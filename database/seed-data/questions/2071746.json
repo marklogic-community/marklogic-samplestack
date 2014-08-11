@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071746",
+  "creationDate": "2014-01-18T05:22:28.230",
+  "body": "\n\nWhat files do I need to have to deploy a GWT web app to Tomcat, preferably in a War?\n\nCan't quite distinguish if Build.xml is actually needed when there is already a 'war' folder when you create a new app via the wizard in Eclipse.\n\nCan someone advise?",
+  "lastActivityDate": "2014-01-18T05:27:50.160",
+  "title": "What Files to Deploy to Tomcat?",
+  "tags": [
+    "tomcat",
+    "gwt"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

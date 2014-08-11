@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2450084",
+  "creationDate": "2014-03-18T04:01:59.023",
+  "body": "\n\nThe specification of `ReadableByteChannel.read()` shows `-1` as result value for end-of-stream. Moreover it specifies `ClosedByInterruptException`as possible result if the thread is interrupted.\n\nNow I thought that would be all - and it is most of the time. However, now and then I get the following:\n\n\tjava.io.IOException: Eine vorhandene Verbindung wurde vom Remotehost geschlossen\n\t at sun.nio.ch.SocketDispatcher.read0(Native Method)\n\t at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:25)\n\t at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:233)\n\t at sun.nio.ch.IOUtil.read(IOUtil.java:206)\n\t at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:236)\n\t at ...\n\t\n\nI do not unterstand why I don't get `-1` in this case. Also this is not a clean exception, as I cannot catch it without catching any possible `IOException`.\n\nSo here are my questions:\n1. Why is this exception thrown in the first place?\n2. Is it safe to assume that ANY exception thrown by read are about the socket being closed?\n3. Is all this the same for `write()`?\n\nAnd by the way: If I call `SocketChannel.close()` do I have to call `SocketChannel.socket().close()` as well or is this implied by the earlier?\n\nThanks, Steffen",
+  "lastActivityDate": "2014-03-21T23:34:03.713",
+  "title": "Why do IOExceptions occur in ReadableByteChannel.read()",
+  "tags": [
+    "java",
+    "sockets",
+    "exception",
+    "nio"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

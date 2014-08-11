@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2263462",
+  "creationDate": "2014-02-17T16:30:22.283",
+  "body": "\n\nI got the vibe using session variable is sort of looked down upon in ASP.NET MVC. \n\nOnce a user logs in, I would like to retain the user's userId so that I do not have to query it all the time etc. \n\nWhat is the most efficient way to do that in ASP.NET MVC? ",
+  "lastActivityDate": "2014-02-18T05:35:57.163",
+  "title": "asp.net mvc - where to store userid - integer?",
+  "tags": [
+    "asp.net-mvc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

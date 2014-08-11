@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448035",
+  "creationDate": "2014-03-17T22:58:59.133",
+  "body": "\n\nMy app uses a \"per-user session\" to allow multiple sessions from the same user to share state.  It operates very similarly to the django session by pickling objects.\n\nI need to pickle a complex object that refers to django model objects.  The standard pickling process stores a denormalized object in the pickle.  So if the object changes on the database between pickling and unpickling, the model is now out of date.  (I know this is true with in-memory objects too, but the pickling is a convenient time to address it.)\n\nClearly it would be cleaner to store this complex in the database, but it's not practical. The code for it is necessarily changing rapidly as the project evolves. Having to update the database schema every time the object's data model changes would slow the project down a lot.\n\nSo what I'd like is a way to not pickle the full django model object.  Instead just store its class and id, and re-fetch the contents from the database on load.  Can I specify a custom pickle method for this class?  I'm happy to write a wrapper class around the django model to handle the lazy fetching from db, if there's a way to do the pickling.",
+  "lastActivityDate": "2014-03-17T23:48:40.020",
+  "title": "How to customize pickle for django model objects",
+  "tags": [
+    "python",
+    "django",
+    "pickle"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

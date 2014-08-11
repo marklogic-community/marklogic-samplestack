@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2446772",
+  "creationDate": "2014-03-17T19:41:42.130",
+  "body": "\n\nI have a Abc field in the database and I want to make sure that the user doesnot cross the limit of the field in database, therefore I use validation that would say \"You cannot enter more than 50 characters\".\n\nNow the question is that because the memory to store Chinese,Indic script and other such languages take more than 1 byte how would I validate the length.\n\nWhat happens right now is that user has input of 30 characters and he gets a display message saying \"You cannot enter more than 50 characters\".\n\nfor solution what I know is I can increase the size of the database or check the byte length but it doesn't seems to be a good Idea.\n\nWhat approach would you follow to get it done?",
+  "lastActivityDate": "2014-03-17T20:09:46.303",
+  "title": "How to validate field length",
+  "tags": [
+    "c#",
+    ".net",
+    "database",
+    "globalization"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

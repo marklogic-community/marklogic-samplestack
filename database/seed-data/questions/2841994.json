@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2841994",
+  "creationDate": "2014-05-18T06:38:10.907",
+  "body": "\n1. I've a NULL gtklabel. Upon the occurrence of an event, I set a text in this label (with gtk_label_set_text). How can I reset the gtklabel after the event (reset to NULL)?\n2. How can I set the max length (characters) of a GtkTextView?\n3. What's the easiest way to set the distance from the margin of a widget in a GtkTable?",
+  "lastActivityDate": "2014-05-18T07:29:38.380",
+  "title": "GtkLabel reset and GtkTextView max length",
+  "tags": [
+    "gtk",
+    "gtktextview"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

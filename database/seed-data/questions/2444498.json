@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2444498",
+  "creationDate": "2014-03-17T08:52:32.707",
+  "body": "\n\nGrails tends to write out the URL for everything that uses its tags as /appName/whatever.  For instance, if I use the tag:\n\n\t<g:javascript library=\"jquery\"/>\n\t\n\nthe resulting tag is\n\n\t<script src=\"/appName/jquery/jquery.js\"></script>\n\t\n\nThis causes an issue with using ProxyPass with Apache/Tomcat.  All of my CSS, JS, Images and links have that /appName prefixed to them.\n\nIs there a way to work around this with ProxyPass or possibly a way for Grails to not prefix the appName to the front of all of my URL's?  ",
+  "lastActivityDate": "2014-04-18T08:51:47.227",
+  "title": "Grails URL's with Tomcat/Apache ProxyPass",
+  "tags": [
+    "apache",
+    "url",
+    "tomcat",
+    "grails",
+    "proxypass"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

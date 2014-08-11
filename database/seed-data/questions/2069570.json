@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2069570",
+  "creationDate": "2014-01-17T20:40:46.930",
+  "body": "\n\nI've been working on converting a Silverlight project from Silverlight 2 to Silverlight 3. Note that I've **never had SL 2** binaries or development components installed on my machine (it's only a month old).\n\nThis has been going fine and the app was running until I started getting a build error with `ValidateXaml` raising a `FileNotFoundException` in `System.Core`. I don't know why this suddenly started happening but from some searching around the answer seemed to be putting various Silverlight DLLs in the GAC. This did indeed solve the build errors. I didn't try testing to check if the app ran correctly after that.\n\nSome time later I'm trying to run the app again. Now I'm getting yet another `FileNotFoundException`, this time in `System.Windows.Controls`. I've tried removing all Silverlight DLLs from the GAC and adding them back in again without any success. Here's the stack trace:\n\n<pre>\nMessage: Unhandled Error in Silverlight Application \nCode: 4004    \nCategory: ManagedRuntimeError       \nMessage: System.IO.FileNotFoundException: Could not load file or assembly 'System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The system cannot find the file specified.\nFile name: 'System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\n   at MyNamespace.Page.InitializeComponent()\n   at MyNamespace.Page..ctor()\n   at MyNamespace.App.Application_Startup(Object sender, StartupEventArgs e)\n   at System.Windows.CoreInvokeHandler.InvokeEventHandler(Int32 typeIndex, Delegate handlerDelegate, Object sender, Object args)\n   at MS.Internal.JoltHelper.FireEvent(IntPtr unmanagedObj, IntPtr unmanagedObjArgs, Int32 argsTypeIndex, String eventName)     \n</pre>\n\nThis entire experience has been very frustrating and I'd love to know **what is causing these problems and how to fix them?**",
+  "lastActivityDate": "2014-01-17T21:39:52.413",
+  "title": "Silverlight application broken with FileNotFoundException in System.Windows.Controls",
+  "tags": [
+    "silverlight",
+    "silverlight-3.0",
+    "filenotfoundexception"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

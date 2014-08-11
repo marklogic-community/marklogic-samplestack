@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2446023",
+  "creationDate": "2014-03-17T17:17:11.090",
+  "body": "\n\n\tQuery query=getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(\n\t                \"select...\n\t\n\tgetHibernateTemplate().setCacheQueries(true);\n\tList result= query.list();\n\tgetHibernateTemplate().setCacheQueries(false);\n\t\n\treturn result;\n\t\n\nmay i know when i do manual \"createSQLQuery\" how to use cacheQuery? the above doesnt cache the result. show_sql still showing every request get from database",
+  "lastActivityDate": "2014-03-17T21:54:59.677",
+  "title": "hibernat createSQLQuery use CacheQuery?",
+  "tags": [
+    "java",
+    "hibernate",
+    "ehcache"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

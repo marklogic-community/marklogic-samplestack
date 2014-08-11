@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2265040",
+  "creationDate": "2014-02-18T01:49:44.263",
+  "body": "\n\nI'm currently working on creating an Assembly with virtual properties. The examples on MSDN are only creating normal properties. How do I create a class inside an assembly which has virtual properties?\n\nI would like to be able to generate a class like this:\n\n\t    public class ClassA\n\t    {\n\t        public virtual int Id { get; set; }\n\t        public virtual string Name { get; set; }\n\t        public virtual string ClassName { get; set; }\n\t        public virtual ClassB Partner { get; set; }\n\t    }\n\t\n\t    public class ClassB\n\t    {\n\t        public virtual int Id { get; set; }\n\t        public virtual string Name { get; set; }\n\t    }\n\t\n\nThe PropertyBuilder class doesn't have PropertyAttributes.Virtual, so I don't know how to create a virtual property. If I create this class in Visual Studio myself, and then open it in [Reflector](http://en.wikipedia.org/wiki/.NET_Reflector), the properties themselfes are virtual, so it is possible.\n\nHow can it be done?",
+  "lastActivityDate": "2014-02-18T02:06:33.140",
+  "title": "How can I generate Virtual Properties with the AssemblyBuilder in C# 4.0?",
+  "tags": [
+    "c#",
+    "reflection",
+    "visual-studio-2010",
+    ".net-4.0",
+    "reflection.emit"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

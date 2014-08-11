@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266594",
+  "creationDate": "2014-02-18T06:38:27.893",
+  "body": "\n\nAm using vim and have a large text file that contains *some* html thrown in throoghout.  Am trying to prepare it for the web and need to add `<p></p>` tags to the lines that are not yet formatted.  Here is an example of what I have:\n\n\tParagraph text one one line [... more ... ]\n\tOther paragraph text on the next line [... more ... ]  \n\t<h1>html element thrown in on its own line</h1>\n\tMore paragraph text [... more ... ]  \n\t<!-- some other element (always own line) -->\n\tThere is still more text!\n\t\n\nI am looking for a way to search for the lines that *don't* begin with a `<` character and, for those lines, add opening and closing `<p></p>` tags ... so that, afterwards, my file resembles this:\n\n\t<p>Paragraph text one one line [... more ... ] </p>\n\t<p>Other paragraph text on the next line [... more ... ]   </p>\n\t<h1>html element thrown in on its own line</h1>\n\t<p>More paragraph text [... more ... ]   </p>\n\t<!-- some other element (always own line ) -->\n\t<p>There is still more text! </p>\n\t\n\nHow do I find lines that *don't* match a starting `<` character?",
+  "lastActivityDate": "2014-02-18T07:51:02.620",
+  "title": "Find lines that don't begin with a \"<\", perform action",
+  "tags": [
+    "regex",
+    "vim",
+    "sed"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

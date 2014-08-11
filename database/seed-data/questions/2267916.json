@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2267916",
+  "creationDate": "2014-02-18T10:01:29.437",
+  "body": "\n\nI'm trying to develop an application in which I want the ability for certain forms to be able to notify any subscribers of events happening. \n\nI understand that I'm going to have to have forms know about other interfaces in order to be able to subscribe to events etc. I'm just wondering if anybody has any hints and tips, or even a \"favorite tutorial\" that they could point me in the direction of so I could try to understand the programming involved in achieving such a task.",
+  "lastActivityDate": "2014-02-18T11:06:14.580",
+  "title": "Notification Model/Pattern",
+  "tags": [
+    "c#",
+    "design-patterns"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

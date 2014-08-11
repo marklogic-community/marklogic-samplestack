@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646717",
+  "creationDate": "2014-04-17T23:35:54.950",
+  "body": "\n\nI have an XML doc like this:\n\n\t<Persons>\n\t <Person Id=\"10000\" FullName=\"Jon Doe\">\n\t  <Status StatusID=\"1\" StatusDesc=\"Active\"/>\n\t      <Fields>\n\t          <Field FieldId=\"1\" Value=\"xxxx\"/>\n\t          <Field FieldId=\"2\" Value=\"yyyy\"/>\n\t          <Field FieldId=\"2\" Value=\"zzzz\"/>\n\t      </Fields>\n\t </Person>\n\t <Person Id=\"10001\" FullName=\"John Smith\">\n\t  <Status StatusID=\"2\" StatusDesc=\"New\"/>\n\t  <Fields>\n\t      <Field FieldId=\"3\" Value=\"aaaa\"/>\n\t      <Field FieldId=\"4\" Value=\"bbbb\"/>\n\t     <Field FieldId=\"5\" Value=\"ccccv\"/>\n\t  </Fields>\n\t </Person>\n\t</Persons>\n\t\n\nI want to write an XML query that returns the \"Person\" ID and all \"Fields\" elements.\nI can get all \"Fields\" elements but not the \"Person\" ID. \nThe same applies when I need the \"Status\" element. \n\nAny help will be appreciated.",
+  "lastActivityDate": "2014-04-18T00:24:23.657",
+  "title": "LINQ to XML simple query",
+  "tags": [
+    "c#",
+    "linq-to-xml"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

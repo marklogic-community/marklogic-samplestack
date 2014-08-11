@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2649179",
+  "creationDate": "2014-04-18T05:42:22.560",
+  "body": "\n\nI'm ashamed to say that my SQL experience is used so infrequently, it falls down when I have to construct a slightly complex query so I'd appreciate an SQL experts advice.\n\nEssentially I have two tables, similar to the following\n\n\tgames(game_id, game_date, player_a_id, player_a_score, player_b_id, player_b_score)\n\tplayers(player_id, player_name)\n\t\n\nI wish to construct a query that returns in the same result set, player names and scores ie.\n\ngame_id, game_date, player_a_name, player_a_score, player_b_name, player_b_score\n\nHere is my naive approach that I would like to optimize\n\n\tselect games.game_id, games.game_date, (select player_name from players where player_id = games.player_a_id), games.player_a_score, (select player_name from players where player_id = games.player_b_id), games.player_b_score)\n\t\n\nCan anyone advise me the best way to approach this?\n\nThanks!",
+  "lastActivityDate": "2014-04-18T05:46:56.313",
+  "title": "SQL - Multiple Joins to one table - Two values from two keys",
+  "tags": [
+    "sql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

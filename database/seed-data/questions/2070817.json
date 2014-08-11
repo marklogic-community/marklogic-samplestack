@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2070817",
+  "creationDate": "2014-01-18T02:27:59.770",
+  "body": "\n\nI am trying to add a table with space between cell as the background colour of the cell is white and the background color of the table is blue, you can easily see that padding and margin are not working (I am applying it to the `td`), it will only add space inside of the cell.",
+  "lastActivityDate": "2014-03-10T22:20:15.647",
+  "title": "Add space between cells (td) using css",
+  "tags": [
+    "html",
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

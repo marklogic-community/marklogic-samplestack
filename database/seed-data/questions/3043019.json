@@ -1,0 +1,16 @@
+{
+  "id": "/questions/3043019",
+  "creationDate": "2014-06-17T14:39:08.620",
+  "body": "\n\nhi\nI have the following script that replace `a` param to `b` param and match only the `c` parameter in line\nhow to change the perl syntax: `if /$c/` in order to export c param to the follwoing perl syntax\n\n\t#!/bin/bash\n\texport a='@d&' \n\texport b='new text' \n\texport c='bla bla'\n\techo $LINE |  perl -pe 'next if /^#/; s/(^|\\s)\\Q$ENV{a}\\E(\\s|$)/$1$ENV{b}$2/ if /$c/' \n\t\n\nexample of line\n\n\tparameter=@d&\n\t\n\nwhen `c` is the *parameter*",
+  "lastActivityDate": "2014-06-17T18:03:23.937",
+  "title": "perl + export param in to perl syntax in shell script",
+  "tags": [
+    "perl"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

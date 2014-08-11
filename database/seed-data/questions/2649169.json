@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2649169",
+  "creationDate": "2014-04-18T05:40:52.877",
+  "body": "\n\nWhen writing a print stylesheet, is there a way to ensure that an image is always only on a single page, instead of spanning multiple pages. The images much smaller than the page, but based on the document flow, they end up at the bottom of the page and get split. An example of the behavior I'm seeing is below:\n\n\tPage 1 |                    |\n\t       |  (text text text)  |\n\t       |  (text text text)  |\n\t       |  ________________  |\n\t       | | Top of image   | |\n\t       |____________________|\n\t       ------page break------\n\t        ____________________\n\tPage 2 | | Rest of image  | |\n\t       | |________________| |\n\t       |         …          |\n\t\n\nWhat I'd like\n\n\tPage 1 |                    |\n\t       |  (text text text)  |\n\t       |  (text text text)  |\n\t       |                    |\n\t       |                    |\n\t       |____________________|\n\t       ------page break------\n\t        ____________________\n\tPage 2 |  ________________  |\n\t       | | Full image     | |\n\t       | |                | |\n\t       | |________________| |\n\t       |         …          |\n\t\n\nAll those times I bitching about floats in LaTeX, and here I am asking for the same functionality... Can this be done? I'm not necessarily concerned about it working in all browsers, since this is often just a one-off document I'm writing to be turned into a PDF.",
+  "lastActivityDate": "2014-09-25T05:34:40.960",
+  "title": "Print styles: How to ensure image doesn't span a page break",
+  "tags": [
+    "css",
+    "image",
+    "printing",
+    "print-style"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

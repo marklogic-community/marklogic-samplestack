@@ -1,0 +1,16 @@
+{
+  "id": "/questions/3042856",
+  "creationDate": "2014-06-17T14:00:06.320",
+  "body": "\n\nI have the following script which identifies lines in a file which I want to remove, based on an array but does not remove them.\n\nWhat should I change?\n\n\tsourcefile = \"C:\\\\Python25\\\\PC_New.txt\" \n\tfilename2 = \"C:\\\\Python25\\\\PC_reduced.txt\"\n\t\n\toffending = [\"Exception\",\"Integer\",\"RuntimeException\"]\n\t\n\tdef fixup( filename ): \n\t    print \"fixup \", filename \n\t    fin = open( filename ) \n\t    fout = open( filename2 , \"w\") \n\t    for line in fin.readlines(): \n\t        for item in offending: \n\t                print \"got one\",line \n\t                line = line.replace( item, \"MUST DELETE\" ) \n\t                line=line.strip()\n\t                fout.write(line)  \n\t    fin.close() \n\t    fout.close() \n\t\n\tfixup(sourcefile)\n\t",
+  "lastActivityDate": "2014-05-01T13:26:16.007",
+  "title": "Python script to remove lines from file containing words in array",
+  "tags": [
+    "python"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

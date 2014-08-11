@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2841567",
+  "creationDate": "2014-05-18T03:57:18.367",
+  "body": "\n\nAlright, i had this homework recently (don't worry, i've already done it, but in c++) but I got curious how i could do it in python. The problem is about 2 light sources that emit light. I won't get into details tho.\n\nHere's the code (that I've managed to optimize a bit in the latter part):\n\n\timport math, array\n\timport numpy as np\n\tfrom PIL import Image\n\t\n\tsize = (800,800)\n\twidth, height = size\n\t\n\ts1x = width * 1./8\n\ts1y = height * 1./8\n\ts2x = width * 7./8\n\ts2y = height * 7./8\n\t\n\tr,g,b = (255,255,255)\n\tarr = np.zeros((width,height,3))\n\thy = math.hypot\n\tprint 'computing distances (%s by %s)'%size,\n\tfor i in xrange(width):\n\t    if i%(width/10)==0:\n\t        print i,    \n\t    if i%20==0:\n\t        print '.',\n\t    for j in xrange(height):\n\t        d1 = hy(i-s1x,j-s1y)\n\t        d2 = hy(i-s2x,j-s2y)\n\t        arr[i][j] = abs(d1-d2)\n\tprint ''\n\t\n\tarr2 = np.zeros((width,height,3),dtype=\"uint8\")        \n\tfor ld in [200,116,100,84,68,52,36,20,8,4,2]:\n\t    print 'now computing image for ld = '+str(ld)\n\t    arr2 *= 0\n\t    arr2 += abs(arr%ld-ld/2)*(r,g,b)/(ld/2)\n\t    print 'saving image...'\n\t    ar2img = Image.fromarray(arr2)\n\t    ar2img.save('ld'+str(ld).rjust(4,'0')+'.png')\n\t    print 'saved as ld'+str(ld).rjust(4,'0')+'.png'\n\t\n\nI have managed to optimize most of it, but there's still a huge performance gap in the part with the 2 for-s, and I can't seem to think of a way to bypass that using common array operations... I'm open to suggestions :D\n\nEdit:\nIn response to Vlad's suggestion, I'll post the problem's details:\nThere are 2 light sources, each emitting light as a sinusoidal wave: \nE1 = E0*sin(omega1*time+phi01)\nE2 = E0*sin(omega2*time+phi02)\nwe consider omega1=omega2=omega=2*PI/T and phi01=phi02=phi0 for simplicity\nby considering x1 to be the distance from the first source of a point on the plane, the intensity of the light in that point is\nEp1 = E0*sin(omega*time - 2*PI*x1/lambda + phi0)\nwhere\nlambda = speed of light * T (period of oscillation)\nConsidering both light sources on the plane, the formula becomes\nEp = 2*E0*cos(PI*(x2-x1)/lambda)*sin(omega*time - PI*(x2-x1)/lambda + phi0)\nand from that we could make out that the intensity of the light is maximum when\n(x2-x1)/lambda = (2*k) * PI/2\nand minimum when\n(x2-x1)/lambda = (2*k+1) * PI/2\nand varies in between, where k is an integer\n\nFor a given moment of time, given the coordinates of the light sources, and for a known lambda and E0, we had to make a program to draw how the light looks\nIMHO i think i optimized the problem as much as it could be done...",
+  "lastActivityDate": "2014-05-18T06:22:56.250",
+  "title": "Python optimization problem?",
+  "tags": [
+    "python",
+    "optimization",
+    "numpy",
+    "for-loop",
+    "physics"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

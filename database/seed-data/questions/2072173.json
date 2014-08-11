@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072173",
+  "creationDate": "2014-01-18T06:22:40.497",
+  "body": "\n\nI made a simple project named \"employee\" with an \"info\" app.\n\nWhen I add a new employee the fields comes one below the other, like this:\n\n<pre>\nname:____\n\neno:____\n\nphone1:____\n\nphone2:____\n</pre>\n\nHow can I get the output to be like this:\n\n<pre>\nname:____\n\neno:____\n\nphone1:________________ phone2:____________\n</pre>",
+  "lastActivityDate": "2014-01-18T09:33:30.043",
+  "title": "Django: Adjacents Fields",
+  "tags": [
+    "django",
+    "django-fields"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2266104",
+  "creationDate": "2014-02-18T05:11:22.330",
+  "body": "\n\nIf I have valvo that obtain from database, How can I set volvo option status into active(checked) by using JQuery?\n\n\t<select name=\"car\">\n\t      <option value=\"volvo\">Volvo</option>\n\t      <option value=\"saab\">Saab</option>\n\t      <option value=\"mercedes\">Mercedes</option>\n\t      <option value=\"audi\">Audi</option>\n\t</select>\n\t\n\nI don't know how to manager control that have same identity.   \n`??? $('input[name=\"car\"]').attr('checked', true);`",
+  "lastActivityDate": "2014-06-30T10:20:46.580",
+  "title": "How to set drop down list option up to specific value",
+  "tags": [
+    "javascript",
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

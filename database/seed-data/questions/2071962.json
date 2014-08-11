@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2071962",
+  "creationDate": "2014-01-18T05:57:37.330",
+  "body": "\n\nI have a UITableView with style \"Grouped\" which I use to set some options in my App. I'd like for one of the cells of this UITableView to only show up depending on whether another of this UITableView's cells is activated or not. If it's not, the first cell should show up (preferably with a smooth animation), if it is, the first cell should hide.\n\nI tried returning `nil` in the appropriate `-tableView:cellForRowAtIndexPath:` to hide the cell, but that doesn't work and instead throws an exception.\n\nI'm currently stuck and out of ideas how to solve this, so I hope some of you can point me in the right direction.",
+  "lastActivityDate": "2014-01-18T08:30:32.460",
+  "title": "Can I show/hide a certain cell in an UITableView depending on the state of another cell?",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "cocoa-touch",
+    "iphone-sdk-3.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

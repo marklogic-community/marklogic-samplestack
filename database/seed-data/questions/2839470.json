@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2839470",
+  "creationDate": "2014-05-17T16:30:05.620",
+  "body": "\n\nI'm trying to create a structure array which links input strings to classes as follows:\n\n\tstruct {string command; CommandPath cPath;} cPathLookup[] = {\n\t    {\"set an alarm\", AlarmCommandPath},\n\t    {\"send an email\", EmailCommandPath},\n\t    {\"\", NULL}\n\t};\n\t\n\nwhich will be used as follows:\n\n\tCommandPath *cPath = NULL;\n\tstring input;\n\tgetline(cin, input);\n\tfor(int i = 0; cPathLookup[i] != \"\"; i++) {\n\t        if(cPathLookup[i].command == input)\n\t                cPath = new cPathLookup[i].cPath;\n\t}\n\t\n\nObviously, this code is meaningless, but I think my intention is apparent - depending on input, I'd like cPath to be initialized as either a new AlarmCommandPath or a new EmailCommandPath. I could handle it with a function returning an instance depending on input, but a whole sequence of ifs just seems inelegant.\n\nI should also note that, in case it's not apparent and important, that AlarmCommandPath and EmailCommandPath are derived from CommandPath, and CommandPath is an abstract class.\n\nThanks for any help you can offer.\n\nEDIT: I just noticed that, in spite of CommandPath being abstract, I have a declaration:\n\n\tCommandPath *cPath = NULL;\n\t\n\nin working code. Why does that compile?",
+  "lastActivityDate": "2014-05-17T18:57:34.190",
+  "title": "Class lookup structure array in C++",
+  "tags": [
+    "c++",
+    "class",
+    "inheritance",
+    "pointers"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

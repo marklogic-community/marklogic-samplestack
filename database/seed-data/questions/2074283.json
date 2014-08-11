@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2074283",
+  "creationDate": "2014-01-18T11:40:25.650",
+  "body": "\n\nI want to take a class, loop through it's properties, get the property value, and call a method passing that property value in.  I think I can get the property values, but what does the lambda expression's body look like? What body is used to call a method on each property?\n\nThis is what I have so far...\n\n\tAction<T> CreateExpression<T>( T obj )\n\t{\n\t foreach( var property in typeof( T ).GetProperties() )\n\t {\n\t  Expression value = Expression.Property( Expression.Constant( obj ), property );\n\t  var method = Expression.Call( typeof( SomeType ), \"SomeMethod\", null, value );\n\t }\n\t\n\t // What expression body can be used that will call\n\t // all the method expressions for each property?\n\t var body = Expression...\n\t return Expression.Lambda<Action<T>>( body, ... ).Compile();\n\t}\n\t",
+  "lastActivityDate": "2014-09-16T22:31:38.560",
+  "title": "Expression to Call a Method on Each Property of a Class",
+  "tags": [
+    "c#",
+    "lambda",
+    "expression-trees"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643165",
+  "creationDate": "2014-04-17T14:27:37.733",
+  "body": "\n\nI want to know if there is a built-in BASH command that prints some text on stderr, just like the `echo` command that prints text on stdout. I don't want to use temporary io-redirection. I use a built-in command to generate an error on stderr such as `ls --asdf` (ls: unrecognized option '--asdf') but I want something neater.\n\nEdit ----\n\nActually I am trying to demonstrate stderr/stdout redirection, and my example looks like:\n\n\tsh test.sh >test-out.txt 2>test-err.txt\n\t\n\nFor clarity, I want to keep the test.sh file as simple and clean as possible, this means avoiding `>` operator inside the file.",
+  "lastActivityDate": "2014-04-18T13:10:06.250",
+  "title": "Bash command that prints a message on stderr",
+  "tags": [
+    "linux",
+    "bash",
+    "shell"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

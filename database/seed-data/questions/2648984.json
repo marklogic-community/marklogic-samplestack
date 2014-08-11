@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2648984",
+  "creationDate": "2014-04-18T05:08:03.857",
+  "body": "\n\nI need to log URLs that are linking to my site in a Java Servlet.",
+  "lastActivityDate": "2014-08-07T17:18:34.053",
+  "title": "HttpServletRequest - how to obtain the referring URL?",
+  "tags": [
+    "java",
+    "servlets"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

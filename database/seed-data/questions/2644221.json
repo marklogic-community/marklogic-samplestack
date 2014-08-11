@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644221",
+  "creationDate": "2014-04-17T17:47:38.027",
+  "body": "\n\nwhat I'm trying to do is..\n\nif a user types in `[[0,0,0], [0,0,1], [1,1,0]]` and press enter,\nthe program should convert this string to several lists; \none list holding `[0][0][0]`, other for `[0][0][1]`, and the last list for `[1][1][0]`\n\nI thought tuple thing would work out but no luck... :(\n\nI started python yesterday -- (I'm C / C++ guy.) and\ncannot use the full advantages of this language...\n\nDoes python have a good way to handle this? I need help~ :'(",
+  "lastActivityDate": "2014-04-17T20:35:12.430",
+  "title": "How can I convert this string to list of lists?",
+  "tags": [
+    "python",
+    "list",
+    "tuples"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

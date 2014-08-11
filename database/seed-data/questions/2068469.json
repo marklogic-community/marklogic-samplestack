@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2068469",
+  "creationDate": "2014-01-17T16:03:36.747",
+  "body": "\n\nWhen I right click on ASP.NET development server, it says \n[http://localhost:1394/testing](http://localhost:1394/testing) \nas the ROOT URL.  This does not go well with my code.  I think the main reason is my code assumes it is in the root folder, and things start breaking when that is not the case.  If I deploy this website, then it all works, but I lose my debugging capabilities.  Is there a way I can make it skip the name of the folder (which is \"testing\" in this case)?\n\nI am using virtual URL. Things break on virtual urls, not on static ones.  (But virtual url works fine when deployed, and make sure it is in the root folder, otherwise it will not work.) \n\nHere are the issues I am facing on virtual url's.  Images are broken, if I right click on them, it lists the url without the folder-name [http://localhost:1394/images/xyz.jpg](http://localhost:1394/images/xyz.jpg) instead of [http://localhost:1394/testing/images/xyz.jpg](http://localhost:1394/testing/images/xyz.jpg).  If I click on an asp:button, it postbacks to [http://localhost:1394/storecategory/virtualcategory.aspx](http://localhost:1394/storecategory/virtualcategory.aspx) instead of [http://localhost:1394/testing/storecategory/virtualcategory.aspx](http://localhost:1394/testing/storecategory/virtualcategory.aspx).  So, you see it is eating up testing from the url, so I wanted to see if there is a way I can make [http://localhost:1394/](http://localhost:1394/) as the url instead of [http://localhost:1394/testing/](http://localhost:1394/testing/). \n\nPlease let me know if this is confusing.  ",
+  "lastActivityDate": "2014-01-17T17:13:04.817",
+  "title": "visual studio debugging - url includes foldername - breaking my code",
+  "tags": [
+    "asp.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

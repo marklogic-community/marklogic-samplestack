@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2071257",
+  "creationDate": "2014-01-18T04:02:47.020",
+  "body": "\n\nI'm writing a script that uploads a file to a cgi script that expects a multipart request, such as a form on a HTML page. The `boundary` is a unique token that annotates the file contents in the request body. Here's an example body:\n\n\t--BOUNDARY\n\tContent-Disposition: form-data; name=\"paramname\"; filename=\"foo.txt\"\n\tContent-Type: text/plain\n\t\n\t... file contents here ...\n\t--BOUNDARY--\n\t\n\nThe `boundary` cannot be present in the file contents, for obvious reasons.\n\nWhat should I do in order to create an unique boundary? Should I generate a random string, check to see if it is in the file contents, and if it is, generate a new, rinse and repeat, until I have a unique string? Or would a \"pretty random token\" (say, combination of timestamp, process id, etc) be enough?",
+  "lastActivityDate": "2014-04-18T22:48:42.373",
+  "title": "Generating multipart boundary",
+  "tags": [
+    "multipart"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

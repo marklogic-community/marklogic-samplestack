@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2451261",
+  "creationDate": "2014-03-18T07:46:47.433",
+  "body": "\n\nI have a .Net 2 C# application I am developing which uses a VB 6 generated COM DLL. The VB DLL is updated frequently any my application crashes with a System.Runtime.InteropServices.COMException (0x80040154).  The part of the COM DLL I use does not change but the version (and CLSID) will.\n\nThe \"Specific Version\" option for the reference is false. The WrapperTool is tlbimp.\n\nHow do I tell my application not to worry about changes in the DLL? Is there any way of checking just the functions I am using?",
+  "lastActivityDate": "2014-05-06T18:57:08.897",
+  "title": "Loose coupling of COM in C# or How to avoid COMException 0x80040154",
+  "tags": [
+    "c#",
+    "com",
+    "vb6",
+    "sharpdevelop"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

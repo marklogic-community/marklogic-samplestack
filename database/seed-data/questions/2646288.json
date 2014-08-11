@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646288",
+  "creationDate": "2014-04-17T22:43:50.620",
+  "body": "\n\nI need to retrieve some info from web. For example, I can visit weather.com to search my zip code to get HTML file that contains the temperature or something. I need to make a python script to do this automatically. \n\nI think there are two ways to do this.\n1. Run wget to download the web page, parse it to get the information I want.\n2. If the website provides the web service, just run it to get the info.\n\nAnd these are my questions.\n1. What function do I use for the web service in python?\n2. How can I know if a web site provides what web service?\n3. If web service is not provided, is there a better way than run wget and parse?\n\nIf you can give me some examples, that would be much better. ",
+  "lastActivityDate": "2014-04-17T22:48:13.037",
+  "title": "Retrieve some info from the web automatically",
+  "tags": [
+    "web-services",
+    "information-retrieval"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

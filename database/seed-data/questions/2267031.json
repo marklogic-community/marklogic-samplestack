@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267031",
+  "creationDate": "2014-02-18T07:44:36.500",
+  "body": "\n\nI'd like to get the ID of a particular row from within a Firebird 2.1 stored procedure. I can't seem to remember the syntax, and it's driving me nuts.\n\nThis is how the code might look in TSQL, used by Microsoft SQL Server. \n\n\t    @ID = SELECT ID FROM ADDRESS WHERE \n\t      POBox = :POBOX AND\n\t      ExtendedAddress = :EXTENDEDADDRESS AND\n\t      StreetAddress = :STREETADDRESS AND\n\t      Locality = :LOCALITY AND\n\t      Region = :REGION AND\n\t      PostalCode = :POSTALCODE AND\n\t      CountryName = :COUNTRYNAME;\n\t\n\nWhat's the Firebird equivalent?\n\n**UPDATE**: The [Firebird SQL migration guide](http://www.firebirdsql.org/manual/migration-mssql-syntax.html) suggests that this should work\n\n\t    SELECT ID INTO :ID FROM ADDRESS WHERE \n\t      POBox = :POBOX AND\n\t      ExtendedAddress = :EXTENDEDADDRESS AND\n\t      StreetAddress = :STREETADDRESS AND\n\t      Locality = :LOCALITY AND\n\t      Region = :REGION AND\n\t      PostalCode = :POSTALCODE AND\n\t      CountryName = :COUNTRYNAME;\n\t\n\nBut I get a syntax error at \"INTO\" when I try to create the stored proc.",
+  "lastActivityDate": "2014-02-18T14:28:26.453",
+  "title": "Selecting a scalar value in a Firebird stored procedure",
+  "tags": [
+    "sql",
+    "select",
+    "firebird"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

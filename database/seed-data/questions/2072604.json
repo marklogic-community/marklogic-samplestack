@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2072604",
+  "creationDate": "2014-01-18T07:20:14.923",
+  "body": "\n\nI am trying to make this query work:\n\n\tSELECT Stock.*,\n\t       StockFeatures.Features,\n\t       StockDescriptions.Detailed,\n\t       StockDescriptions.Technical,\n\t       PRD1.RuleValue as Price, \n\t       PRD2.RuleValue as WasPrice,\n\t       PRD2.RuleValue-PRD1.RuleValue as Save,\n\t       PRD1.Quantity\n\tFROM \n\t    StockFeatures, Stock INNER JOIN\n\t    PriceRuleDetail PRD1 ON PRD1.Sku = Stock.Sku\n\t        AND PRD1.PriceRule = 'RG' LEFT JOIN\n\t    PriceRuleDetail PRD2 ON PRD2.Sku = Stock.Sku\n\t        AND PRD2.PriceRule = 'RRP' LEFT JOIN\n\t    StockDescriptions ON StockDescriptions.Sku = Stock.Sku\n\tWHERE Stock.GeneralStkStatus < 3\n\tAND Stock.Sku = '11044'\n\tAND StockFeatures.Sku = Stock.Sku\n\tORDER BY PRD1.Quantity ASC\n\t\n\nIt returns no results whenever there isn't a StockFeatures.Features row in the StockFeatures table - which there frequently wont be. How do I make it just come up with NULL values whenever there isn't anything in that table???\n\nThe table has the columns Sku and Features (Sku should be linked with the Stock.Sku column).\n\nAny help would be appreciated.\n\nThanks in advance.",
+  "lastActivityDate": "2014-01-18T07:23:51.280",
+  "title": "SQL Query Producing No Results",
+  "tags": [
+    "sql",
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

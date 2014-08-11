@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2070681",
+  "creationDate": "2014-01-18T02:04:08.053",
+  "body": "\n\nEveryone referred to it as Socket Programming or Network Programming in C and we started using it by using by including `sys/socket.h` & `netinet/in.h`. We thought it was 100% true. But question raised in my mind when I saw this book\n\n**Internetworking With TCP/IP Volume III: Client-Server Programming and Applications,** which was available in 4 different versions\n1. Linux/POSIX Sockets\n2. AT&T TLI (Transport Layer Interface) Sockets\n3. BSD (Berkeley) sockets\n4. Window Sockets\n\nI'm confused. This clearly shows that there is no standard for Socket API. \n\nalso I'm surprised to see `sys/socket.h` & `netinet/in.h` which are part of POSIX C library in the [http://en.wikipedia.org/wiki/Berkeley_sockets](http://en.wikipedia.org/wiki/Berkeley_sockets) . I'm more confused now.\n1. Why isn't there a standard for this? \n2. What more socket APIs are available? \n3. What are the differences between each of these Socket API? \n4. When People say Just \"Network Programming in C\" / \"Socket Programming\" what exactly they are referring to?\n5. Links for any further information?",
+  "lastActivityDate": "2014-11-19T13:46:25.483",
+  "title": "What more socket APIs are available? What are the differences between each of these Socket API?",
+  "tags": [
+    "sockets",
+    "network-programming",
+    "posix",
+    "winsock"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

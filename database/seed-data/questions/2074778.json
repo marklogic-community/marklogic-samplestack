@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2074778",
+  "creationDate": "2014-01-18T13:06:05.683",
+  "body": "\n\nIf two classes both need to know about each other to do their job, i.e. class A must maintain a reference to class B **and** class B must maintain a reference to class A, is this generally a sign that inheritance would be a better idea than composition, **provided you aren't violating the Liskov Substitution principle**?  My thinking is that this is the case because, if A and B both need to know about each other, they're already pretty tightly coupled and the coupling may be due to essential complexity of the problem you're trying to solve.  Inheritance is the most straightforward, convenient way to express such coupling.\n\nAlso, I've started to notice that two classes mutually maintaining references to each other and knowing about each other seems to always result in messiness very quickly.  Is this a well-accepted smell?  If so, what are some ways of refactoring it besides just using inheritance instead of composition?\n\nEdit:  A good example of when this comes into play is template method vs. strategy.  If your strategy classes require intimate knowledge of the base class, then you could use inheritance and template method instead, or you could simply have a strategy class that knows about the base class.",
+  "lastActivityDate": "2014-01-18T15:06:20.747",
+  "title": "Composition vs. Inheritance: Is the need for mutual referencing a good hint?",
+  "tags": [
+    "inheritance",
+    "oop",
+    "code-smell",
+    "coupling"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

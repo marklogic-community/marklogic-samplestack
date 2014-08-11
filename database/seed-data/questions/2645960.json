@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2645960",
+  "creationDate": "2014-04-17T22:04:18.760",
+  "body": "\n\nI want to split a string like \"001A\" into \"001\" and \"A\"",
+  "lastActivityDate": "2014-04-17T23:44:19.193",
+  "title": "How to split string into numerics and alphabets using Regex",
+  "tags": [
+    "c#",
+    "regex"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

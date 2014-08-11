@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644144",
+  "creationDate": "2014-04-17T17:36:09.637",
+  "body": "\n\nhere is the issue :\nThere is a ASP.NET MVC 2 web app, lets call it myapp.com. I want dynamic subdomains (user created categories) like something.myapp.com. So i have set up URL rewrite with rule rewriting something.myapp.com -> myapp.com/something (which is handled by MVC next..). But, the first ActionLink throws an exception \n\nSystem.Web.HttpException: Cannot use a leading .. to exit above the top directory\n\nbecause, obviously, the URL is still something.myapp.com for it. Is there any elegant solution for this ? I dont want to redirect (I want to keep URL something.myapp.com in browser). Also I dont like the idea of writing custom ActionLink, some of the most basic stuff in MVC...\n\nthanx guys :)\n\nRoman",
+  "lastActivityDate": "2014-01-12T02:18:36.390",
+  "title": "ASP.NET MVC ActionLink vs. URL Rewrite",
+  "tags": [
+    "asp.net-mvc",
+    "url-rewriting",
+    "actionlink"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

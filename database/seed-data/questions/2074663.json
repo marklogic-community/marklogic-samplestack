@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2074663",
+  "creationDate": "2014-01-18T12:44:56.377",
+  "body": "\n\nI need to go to two tables to get the appropriate info\n\n\texp_member_groups\n\t-group_id\n\t-group_title\n\t\n\texp_members\n\t-member_id\n\t-group_id\n\t\n\nI have the appropriate member_id\n\nSo I need to check the members table, get the group_id, then go to the groups table and match up the group_id and get the group_title from that.",
+  "lastActivityDate": "2014-01-18T13:08:47.790",
+  "title": "What kind of SQL join would this be?",
+  "tags": [
+    "sql",
+    "expressionengine"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2447206",
+  "creationDate": "2014-03-17T20:57:20.477",
+  "body": "\n\nBased on [Please explain JSONP](http://stackoverflow.com/questions/2067472/please-explain-jsonp), I understand that JSONP can be used to get around the same-origin policy. \n\nBut in order to do that, the page must use a `<script>` tag.  \n\nI know that pages can dynamically emit new script tags, such as with:  \n\n\t<script type=\"text/javascript\" language='javascript'>\n\t\n\t  document.write('<script type=\"text/javascript\" ' + \n\t                 'id=\"contentloadtag\" defer=\"defer\" ' +\n\t                 'src=\"javascript:void(0)\"><\\/script>');\n\t  var contentloadtag=document.getElementById(\"contentloadtag\");\n\t  contentloadtag.onreadystatechange=function(){\n\t    if (this.readyState==\"complete\") { init(); }\n\t  }\n\t</script>\n\t\n\n(the above works in IE, don't think it works in FF). \n\n... but does this mean, effectively, that every JSONP call requires me to emit another `<script>` tag into the document?  Can I remove the `<script>` tags that are done? ",
+  "lastActivityDate": "2014-03-17T23:13:22.507",
+  "title": "Does JSONP scale? How many JSONP requests can I send before my page fills up with <script> tags?",
+  "tags": [
+    "json",
+    "jsonp"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649049",
+  "creationDate": "2014-04-18T05:18:29.547",
+  "body": "\n\nI am creating a vertical button bar with 3 buttons.\nHow do I force the same width for all three buttons so it doesn't look like crap?\n\n\t<s:ButtonBar x=\"10\" y=\"10\" dataProvider=\"{viewstack1}\" >\n\t    <s:layout>\n\t        <s:VerticalLayout gap=\"-1\"/>\n\t    </s:layout>\n\t</s:ButtonBar>\n\t<mx:ViewStack id=\"viewstack1\" left=\"115\" paddingRight=\"0\" right=\"0\" bottom=\"0\" top=\"0\">\n\t    <s:NavigatorContent label=\"ABC Products\" width=\"100%\" height=\"100%\"><custom:Banner  width=\"100%\" height=\"100%\"/></s:NavigatorContent>\n\t    <s:NavigatorContent label=\"Btn Player\" width=\"100%\" height=\"100%\"><custom:Player /></s:NavigatorContent>\n\t    <s:NavigatorContent label=\"Btn Cleaner\" width=\"100%\" height=\"100%\"><custom:Cleaner width=\"100%\"/></s:NavigatorContent>\n\t</mx:ViewStack>\n\t",
+  "lastActivityDate": "2014-10-23T22:17:48.353",
+  "title": "Vertical ButtonBar buttons width",
+  "tags": [
+    "flex",
+    "flex4",
+    "buttonbar"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

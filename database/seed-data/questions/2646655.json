@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2646655",
+  "creationDate": "2014-04-17T23:27:23.960",
+  "body": "\n\nI have a constructor like:\n\n\tpublic Blah(string a, string b)\n\t{\n\t\n\t}\n\t\n\tpublic Blah(string a, string b, string c)\n\t{\n\t  this.a =a;\n\t  this.b =b;\n\t  this.c =c;\n\t}\n\t\n\nHow can I call the 2nd constructor from the 1st one?\n\nlike:\n\n\tpublic Blah(string a, string b)\n\t{\n\t   Blah(a,b, \"\");\n\t}\n\t",
+  "lastActivityDate": "2014-03-05T08:02:06.603",
+  "title": "How to call other constructors from a constructor in c#?",
+  "tags": [
+    "c#"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

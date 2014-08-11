@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649027",
+  "creationDate": "2014-04-18T05:15:15.800",
+  "body": "\n\nI have to work with some code that isn't truly MVC (i.e., it doesn't use an explicit framework among other things). Right now we make do with servlets that pass data to services.\n\nHere is my problem. I am receiving a post to a servlet that contains a whole bunch of address data that I have to save to the database. The data is (obviously) in the `HttpServletRequest` object. My question is, how do I pass this data into a service? I am reluctant to do it like this:\n\n\tAddressService.saveAddress(request);\n\t\n\nBecause I don't think the service should have a dependency on the request. My other option is to do something like this:\n\n\tString addressLine = request.getParameter(\"addressLine\");\n\t..\n\t.. about 7 other parameters\n\t..\n\tString zip = request.getParameter(\"zip\");\n\t\n\tAddressService.saveAddress(addressLine, ... 7 other parameters ..., zip);\n\t\n\nBut I don't like having a function with a huge number of parameters either. I was thinking of making an intermediate object called `AddressData` that would hold data from the request, and then passing that into the service. Is that an acceptable way of doing things?",
+  "lastActivityDate": "2014-04-18T06:38:40.577",
+  "title": "MVC implementation/best-practices question",
+  "tags": [
+    "mvc",
+    "design-patterns"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

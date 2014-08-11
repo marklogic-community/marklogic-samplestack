@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643348",
+  "creationDate": "2014-04-17T15:17:17.533",
+  "body": "\n\nI have implemented lucene for my application and it works very well unless you have introduced something like japanese characters.\n\nThe problem is that if I have japanese string こんにちは、このバイネイです and I search with こ that is the first character than it works well whereas if I use more than one japanese character(こんにち)in search token search fails and there is no document found.\n\nAre japanese characters supported in lucene? what are the settings to be done to get it working?",
+  "lastActivityDate": "2014-05-03T02:08:50.880",
+  "title": "Lucene Search for japanese characters",
+  "tags": [
+    "c#",
+    "asp.net",
+    "lucene.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

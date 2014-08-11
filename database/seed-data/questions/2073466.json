@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2073466",
+  "creationDate": "2014-01-18T09:18:21.610",
+  "body": "\n\nI am writing a program that will basically make a xml copy of most things in the local computer SAM store for users.\n\nCurrently it only prints a XMLElement for each user but it does not print the attributes for them.\n\n\t<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\t<WindowsUserList xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\t  <windowsUserEntry />\n\t  <windowsUserEntry />\n\t  ...\n\t  <windowsUserEntry />\n\t  <windowsUserEntry />\n\t</WindowsUserList>\n\t\n\nThis is my main code, the check box text has formatted name for a search as its text (accounting* for example to get users accounting1, 2, 3 ect..)\n\n\twindowsUserList listUsers = new windowsUserList();\n\tPrincipalContext context = new PrincipalContext(ContextType.Machine, Settings.Default.ipAddress, Settings.Default.username, Settings.Default.password);\n\tforeach (CheckBox cbx in groupBox1.Controls.OfType<CheckBox>())\n\t{\n\t  if (cbx.Checked)\n\t  {\n\t    UserPrincipal usr = new UserPrincipal(context);\n\t    if (cbx.Text == \"\")\n\t    {\n\t      usr.Name = txtCustom.Text;\n\t    }\n\t    else\n\t    {\n\t      usr.Name = cbx.Text;\n\t    }\n\t    PrincipalSearcher search = new PrincipalSearcher(usr);\n\t    PrincipalSearchResult<Principal> results = search.FindAll();\n\t    foreach (Principal result in results)\n\t    {\n\t      listUsers.AddUser(new windowsUserEntry((UserPrincipal)result));\n\t    } // foreach (Principal result in results)\n\t  }//if (cbx.Checked)\n\t}//foreach (CheckBox cbx in groupBox1.Controls.OfType<CheckBox>())\n\tXmlSerializer s = new XmlSerializer(typeof(windowsUserList));\n\tTextWriter w = new StreamWriter(dlgSave.OpenFile());\n\ts.Serialize(w, listUsers);\n\tw.Close();\n\t\n\nThe code for windows user list/entry is very long so I posted it to [pastebin](http://pastebin.com/d7b187c02)",
+  "lastActivityDate": "2014-01-18T20:41:08.917",
+  "title": "XMLSerializer is not writing elements in a list",
+  "tags": [
+    "c#",
+    "xml-serialization"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

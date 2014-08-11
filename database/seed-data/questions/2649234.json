@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649234",
+  "creationDate": "2014-04-18T05:50:24.050",
+  "body": "\n\nSo the other day my C# application crashed.  Usually, with a .NET application, if you have an unhandled exception you get a nice error message with a stack trace.\n\nHowever, this time, I got a different dialog that just told me there was an error and offered to attach a Debugger, but there was no stack trace in the dialog and the machine it was running on had no debugger installed.\n\nWhat gives?  Why don't I see the default .NET exception handler?",
+  "lastActivityDate": "2014-04-18T06:13:55.177",
+  "title": "Default .NET exception handler",
+  "tags": [
+    ".net",
+    "exception-handling"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

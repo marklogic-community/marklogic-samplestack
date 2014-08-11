@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2444866",
+  "creationDate": "2014-03-17T11:07:54.077",
+  "body": "\n\nMost of the time I don't want to render a layout when the request comes from AJAX. To this end I've been writing `render :layout => !request.xhr?` frequently in my controller actions.\n\nHow can I make this the *default*? I.e., I'd like to be able to write\n\n\tdef new\n\t  Post.find(params[:id])\n\tend\n\t\n\nand have the functionality be\n\n\tdef show\n\t  Post.find(params[:id])\n\t  render :layout => !request.xhr?\n\tend\n\t\n\n(I'm fine manually specifying a layout in the rare cases in which I want to use one.)",
+  "lastActivityDate": "2014-03-18T07:18:20.357",
+  "title": "Never render a layout in response to xhrs",
+  "tags": [
+    "ruby-on-rails",
+    "ajax"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

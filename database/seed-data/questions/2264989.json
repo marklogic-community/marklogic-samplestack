@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2264989",
+  "creationDate": "2014-02-18T01:41:54.740",
+  "body": "\n\nI want to convert video as it is uploaded to H.264 or an alternate HQ video to play in a flash player. I would like to support as many file formats as possible. \n\nCan anyone recommend a tool. Thanks\n\n**EDIT:** Need to be compatible on a Windows shared hosting account.",
+  "lastActivityDate": "2014-02-18T09:48:30.837",
+  "title": "ASP.NET C# Programatically convert video on the fly",
+  "tags": [
+    "c#",
+    "asp.net",
+    "video"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

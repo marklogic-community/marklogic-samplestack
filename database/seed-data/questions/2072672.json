@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2072672",
+  "creationDate": "2014-01-18T07:28:42.660",
+  "body": "\n\nI have the below SQL Trigger on a SQL 2005 box that is *supposed* to help me replicate certain Person Info to another database to be used for Reporting and various other things as a reference.\n\nI have 1 DB named Connect which is where the current app manipulates the Person Data on tblPerson.  I have another DB, on same physical box, named MATRIX where a new app manipulates it's Data.  I am trying to build a Table in MATRIX called tblIdentificationMap that simply stores all of the various ID's we have from the different apps in house.\n\nWhen I enable this Trigger and try to update tblPerson I get the following error --> `Msg 208, Level 16, State 1, Procedure tblPersonIDMap_OnUpdate, Line 15\nInvalid object name 'MATRIX.dbo.tblIndentificationMap'.\n`\n\nThis is my UPDATE statement -->\n\n\t`  use Connect\n\t  update tblPerson\n\t  set MiddleName = 'Fakey'\n\t  where PersonID = 258243`\n\t\n\nAnd this is my Trigger -->\n\n\tALTER TRIGGER [dbo].[tblPersonIDMap_OnUpdate] \n\t\n\t\n\tON  [dbo].[tblPerson] \n\t   AFTER UPDATE\n\tAS \n\tBEGIN\n\t    -- SET NOCOUNT ON added to prevent extra result sets from\n\t    -- interfering with SELECT statements.\n\t    SET NOCOUNT ON;\n\t\n\t\n\t\n\t\n\t\n\tUPDATE MATRIX.dbo.tblIndentificationMap\n\t        SET     m.PersonID = i.PersonID\n\t                ,m.FirstName = i.FirstName\n\t                ,m.MiddleName = i.MiddleName\n\t                ,m.LastName = i.LastName\n\t\n\t    FROM MATRIX.dbo.tblIdentificationMap m, inserted i, deleted d\n\t    WHERE d.PersonID = m.PersonID\n\tEND\n\t",
+  "lastActivityDate": "2014-01-18T07:47:10.127",
+  "title": "Cross DB SQL Trigger Epic Failure",
+  "tags": [
+    "sql",
+    "sql-server-2005",
+    "triggers"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2069960",
+  "creationDate": "2014-01-17T22:54:34.553",
+  "body": "\n\nI'm writing a shell script that is supposed to be run by users only in sudo user list, what's the appropriate way of doing this? \n\nwhat I'm thinking is in the shell script, try to create a dummy file in system dir such as /var/run/ and remove it, so users not in sudo list will receive a permission error, but I believe there gotta be a more appropriate way of doing this, thanks for helping",
+  "lastActivityDate": "2014-01-17T23:16:43.620",
+  "title": "Write shell script that can only be run by a sudo user in Ubuntu",
+  "tags": [
+    "shell",
+    "ubuntu",
+    "scripting",
+    "sudo"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

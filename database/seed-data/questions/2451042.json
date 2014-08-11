@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2451042",
+  "creationDate": "2014-03-18T06:54:48.570",
+  "body": "\n\nI have the following piece of code:\n\n\t// setup the AJAX request\n\tvar pageRequest = false;\n\tif(window.XMLHttpRequest)     pageRequest = new XMLHttpRequest();\n\telse if(window.ActiveXObject) pageRequest = new ActiveXObject(\"Microsoft.XMLHTTP\");\n\t\n\t// callback\n\tpageRequest.onreadystatechange = function() {\n\t\n\t    alert('pageRequest.readyState: ' + pageRequest.readyState\n\t        + '\\npageRequest.status: ' + pageRequest.status);\n\t}\n\t\n\tpageRequest.open('POST','ajax.php',true);\n\t\n\t// q_str contains something like 'data=value...'\n\t\n\tpageRequest.setRequestHeader(\"Content-type\", \"application/x-www-form-urlencoded\");\n\tpageRequest.setRequestHeader(\"Content-length\", q_str.length);\n\tpageRequest.setRequestHeader(\"Connection\", \"close\");\n\t\n\tpageRequest.send(q_str);\n\t\n\nThis works fine in Chrome, but IE chokes on it, spitting out an \"Unspecified error.\" and it points to the line with the alert() in it. Why can't it display the alert?\n\nEdit: Okay, after I dismiss the error dialog, I get the three alerts as expected....\n\nEdit: Now it's really getting weird. If I change\n\n\talert('pageRequest.readyState: ' + pageRequest.readyState\n\t        + '\\npageRequest.status: ' + pageRequest.status);\n\t\n\nto\n\n\talert('pageRequest.readyState: ' + pageRequest.readyState);\n\t\n\nthen it works and I get 5 alerts. (1,1,2,3,4)",
+  "lastActivityDate": "2014-03-18T08:25:26.153",
+  "title": "Why isn't IE displaying this alert()?",
+  "tags": [
+    "javascript",
+    "internet-explorer",
+    "xmlhttprequest",
+    "alert"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

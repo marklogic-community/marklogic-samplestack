@@ -1,1 +1,20 @@
-{"id":"/questions/21085596.json", "creationDate":"2014-01-13T07:01:44.557", "body":"\n\nI am trying to test a Rest service through HTTP sampler using Jmeter. The first sampler generates a token and I am using this token for authorization in the header manager of another HTTP sampler \"GetUserandPolicies\"(Rest WS request) using RegEx and ForEach controller. I can see in the view results tree that RegEx is working fine passing the actual token to the next request. But the Rest Request is failing giving a response message as Forbidden and Response Code 403 which means that the server is able to recognise the request but denying the access.There is no port number for this HTTP sampler which I suspect would be the culprit. But, the same test is passing with another tool (iTKO LISA) without any port value. Both the samplers \"TokenGeneration\" and \"GetUserandPolicies\" have no port values. I need some help on this. I am using the POST method in the HTTP  sampler\n\nPlease find the sampler result:\n\n\tThread Name: Thread Group 1-1\n\tSample Start: 2014-01-13 12:12:29 IST\n\tLoad time: 1390\n\tLatency: 1390\n\tSize in bytes: 382\n\tHeaders size in bytes: 354\n\tBody size in bytes: 28\n\tSample Count: 1\n\tError Count: 1\n\tResponse code: 403\n\tResponse message: Forbidden\n\t\n\nResponse headers:\n\n\tHTTP/1.1 403 Forbidden\n\tServer: Apache-Coyote/1.1\n\tAccess-Control-Allow-Origin: *\n\tAccess-Control-Allow-Methods: GET, POST, PUT, OPTIONS\n\tAccess-Control-Allow-Credentials: true\n\tAccess-Control-Allow-Headers: Authorization, X-Requested-With, Content-Type\n\tContent-Type: text/plain;charset=UTF-8\n\tContent-Length: 28\n\tDate: Mon, 13 Jan 2014 06:42:30 GMT\n\t\n\nHTTPSampleResult fields:\n\n\tContentType: text/plain;charset=UTF-8\n\tDataEncoding: UTF-8\n\t", "lastActivityDate":"2014-01-13T14:45:52.510", "title":"403 forbidden message while executing a rest message through Jmeter", "tags":["rest", "jmeter"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"user3151437", "id":"3151437"}}
+{
+  "id": "/questions/21085596",
+  "creationDate": "2014-01-15T23:01:44.557",
+  "body": "\n\nI am trying to test a Rest service through HTTP sampler using Jmeter. The first sampler generates a token and I am using this token for authorization in the header manager of another HTTP sampler \"GetUserandPolicies\"(Rest WS request) using RegEx and ForEach controller. I can see in the view results tree that RegEx is working fine passing the actual token to the next request. But the Rest Request is failing giving a response message as Forbidden and Response Code 403 which means that the server is able to recognise the request but denying the access.There is no port number for this HTTP sampler which I suspect would be the culprit. But, the same test is passing with another tool (iTKO LISA) without any port value. Both the samplers \"TokenGeneration\" and \"GetUserandPolicies\" have no port values. I need some help on this. I am using the POST method in the HTTP  sampler\n\nPlease find the sampler result:\n\n\tThread Name: Thread Group 1-1\n\tSample Start: 2014-01-13 12:12:29 IST\n\tLoad time: 1390\n\tLatency: 1390\n\tSize in bytes: 382\n\tHeaders size in bytes: 354\n\tBody size in bytes: 28\n\tSample Count: 1\n\tError Count: 1\n\tResponse code: 403\n\tResponse message: Forbidden\n\t\n\nResponse headers:\n\n\tHTTP/1.1 403 Forbidden\n\tServer: Apache-Coyote/1.1\n\tAccess-Control-Allow-Origin: *\n\tAccess-Control-Allow-Methods: GET, POST, PUT, OPTIONS\n\tAccess-Control-Allow-Credentials: true\n\tAccess-Control-Allow-Headers: Authorization, X-Requested-With, Content-Type\n\tContent-Type: text/plain;charset=UTF-8\n\tContent-Length: 28\n\tDate: Mon, 13 Jan 2014 06:42:30 GMT\n\t\n\nHTTPSampleResult fields:\n\n\tContentType: text/plain;charset=UTF-8\n\tDataEncoding: UTF-8\n\t",
+  "lastActivityDate": "2014-08-11T05:42:56.228",
+  "title": "403 forbidden message while executing a rest message through Jmeter",
+  "tags": [
+    "rest",
+    "jmeter"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "user3151437",
+    "id": "3151437"
+  }
+}

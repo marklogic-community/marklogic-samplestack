@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2449305",
+  "creationDate": "2014-03-18T01:58:49.893",
+  "body": "\n\nWhen using `:methods` in `to_json`, is there a way to rename the key? I'm trying to replace the real id with a base62 version of it and I want that the value of `base62_id` has the key `id`.\n\n\t@obj.to_json(\n\t    :except => :id\n\t    :methods => :base62_id\n\t)\n\t\n\nI tried to do\n\n\t@obj.to_json(\n\t    :except => :id\n\t    :methods => { :id => :base62_id }\n\t)\n\t\n\nbut that didn't work.\n\nAny advice?",
+  "lastActivityDate": "2014-03-18T03:07:49.097",
+  "title": "using different key for to_json :methods",
+  "tags": [
+    "ruby-on-rails",
+    "json"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

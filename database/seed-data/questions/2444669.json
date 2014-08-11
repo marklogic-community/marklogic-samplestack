@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2444669",
+  "creationDate": "2014-03-17T10:01:22.633",
+  "body": "\n\nI am using eclipse with the maven 2 plugin.\n\nI want to add the dependency for sqljdbc4, how can I do that?\n\nCan't seem to find it via the 'add dependency' option in eclipse?",
+  "lastActivityDate": "2014-10-16T14:15:01.907",
+  "title": "Using eclipse and maven 2, how to get dependancy for sqljdbc4?",
+  "tags": [
+    "java",
+    "eclipse",
+    "maven-2"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

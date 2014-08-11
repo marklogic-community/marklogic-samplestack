@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2072087",
+  "creationDate": "2014-01-18T06:13:34.977",
+  "body": "\n\nI have 3 `UIImageViews`, and they all have tags 1, 2, 3, and are inside of an `NSMutableArray`. I want to save the images to a file upon termination of the app, then load them back whe the app loads and extract them from the array, and still have them have the tags.",
+  "lastActivityDate": "2014-01-18T06:21:49.983",
+  "title": "Will saved images have tag properties with them when I load them back?",
+  "tags": [
+    "iphone",
+    "persistence",
+    "uiimageview",
+    "uiimage",
+    "nsmutablearray"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2069135",
+  "creationDate": "2014-01-17T18:48:55.933",
+  "body": "\n\nI'm using logback (with slf4j) to do the logging, and I've got many XML content to be logged in both text files and HTML files (with HTMLLayout). However, logback just inserts the raw XML in the <TD> tags for the HTMLLayout, without any escaping or <pre> processing.\n\nHere is the snippet of my logback.xml:\n\n\t<appender name=\"ALL\" class=\"ch.qos.logback.core.rolling.RollingFileAppender\">     \n\t<rollingPolicy class=\"ch.qos.logback.core.rolling.TimeBasedRollingPolicy\">\n\t  <FileNamePattern>${DIR_ALL}/%d{yyyy-MM-dd}.%i.html</FileNamePattern>\n\t  <TimeBasedFileNamingAndTriggeringPolicy class=\"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP\">\n\t    <MaxFileSize>500KB</MaxFileSize>\n\t  </TimeBasedFileNamingAndTriggeringPolicy>\n\t</rollingPolicy>\n\t<layout class=\"ch.qos.logback.classic.html.HTMLLayout\">\n\t  <pattern>%d{HH:mm:ss.SSS}%logger{1}%msg</pattern>\n\t  <cssBuilder class=\"ch.qos.logback.classic.html.UrlCssBuilder\">\n\t    <url>${CSS_HREF}</url>\n\t  </cssBuilder>\n\t  <title>Logs (ALL)</title>\n\t</layout>\n\t\n\n\n\nAnd the following is what I got:\n\n\t<td class=\"Message\">(DemoCall) parsing response failed. Details:\n\t<call><action>getmessage</action></call> \n\t</td> \n\t\n\nWhat I'm expecting:\n\n\t<td class=\"Message\">(DemoCall) parsing response failed. Details:\n\t&lt;call&gt;&lt;action&gt;getmessage&lt;/action&gt;&lt;/call&gt;\n\t</td>\n\t\n\nOr better wrap the above message with a <pre> tag.\nDo I need to extend the HTMLLayout to archive that? Or is it my job to do a StringEscapeUtils.escapeHTML(msg) for each log statement (I'm not going to do that, since there also is a file appender for which the escaping is not needed).\n\nThanks!",
+  "lastActivityDate": "2014-01-27T04:14:58.390",
+  "title": "How to make XML get escaped in HTMLLayout of logback?",
+  "tags": [
+    "escaping",
+    "logback"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

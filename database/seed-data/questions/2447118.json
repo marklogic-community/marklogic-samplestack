@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2447118",
+  "creationDate": "2014-03-17T20:45:02.973",
+  "body": "\n\nI've been writing Java for the last couple of years , and now I've started to write in python (in addition). \n\nThe problem is that when I look at my Python code it looks like someone tried to hammer Java code into a python format , and it comes out crappy because - well , python ain't Java. \n\nAny tips on how to escape this pattern of \"Writing Java in Python\"? \n\nThanks!",
+  "lastActivityDate": "2014-08-05T22:19:54.507",
+  "title": "Programming in Python vs. programming in Java",
+  "tags": [
+    "java",
+    "python",
+    "programming-languages"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

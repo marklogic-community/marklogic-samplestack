@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2069177",
+  "creationDate": "2014-01-17T19:00:50.860",
+  "body": "\n\nI need to know if the two patches are effectively the same.\n\nI have an old patch file and new patch file created with the unix diff command.  Just diff'ing the patches reports differences due to the timestamp when the patch was created.\n\nIs there a way (with diff?) that can reliably tell me if the two patches are effectively the same?",
+  "lastActivityDate": "2014-01-18T15:30:33.537",
+  "title": "diff'ing diffs with diff?",
+  "tags": [
+    "unix",
+    "shell",
+    "diff",
+    "patch"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

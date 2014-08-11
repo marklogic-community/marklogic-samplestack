@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2449545",
+  "creationDate": "2014-03-18T02:36:28.237",
+  "body": "\n\nI have a jquery accordion style menu that I'd like to add some shortcut links to across the top. When one of these shortcuts is clicked, it should have the same effect as if the user clicked the corresponding a tag that serves as that panel's header...\n\nHere's some code...\n\n\t<div>\n\t    Application Shortcuts > <a href=\"\" \n\t    onclick=\"simulateAclick(\"generalSettings\")>Open General Settings</a>\n\t</div>\n\t\n\t\n\t<ul class=\"menu collapsible\">\n\t  <li class='header'><a href='#' id=\"generalSettings\">General Settings</a>\n\t      <ul class='acitem'>...stuff goes here...\n\t\n\nIn the example above, clicking on \"Open General Settings\" toggles the \"acitem\" UL's child elements visible. I'd just like to simulate a click on that element, from a link at the top of my app...",
+  "lastActivityDate": "2014-03-18T02:41:48.417",
+  "title": "How can I simulate a click event via script?",
+  "tags": [
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

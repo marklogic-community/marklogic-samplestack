@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2072195",
+  "creationDate": "2014-01-18T06:25:10.507",
+  "body": "\n\nI am attempting to populate a table based on 2 and 3 week intervals for a semi-monthly pay period in TSQL. The table should populate,\n\n\t2 week date\n\t2 week date\n\t3 week date\n\t2 week date\n\t2 week date\n\t3 week date\n\t\n\n..based on the first date I supply, subsequently adding 2 or 3 weeks to the last date supplied.  I should be able to supply a start date and end date.  It may be that it's just early in the morning, but can't think of an elegant way to accomplish this task.  Any pointers?\n\nThanks!\nGeorge",
+  "lastActivityDate": "2014-01-18T06:37:16.180",
+  "title": "TSQL Selecting 2 & 3 week intervals",
+  "tags": [
+    "sql",
+    "sql-server",
+    "tsql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

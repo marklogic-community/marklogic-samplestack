@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449601",
+  "creationDate": "2014-03-18T02:45:21.903",
+  "body": "\n\nI've got an existing pom file that includes a maven-jar-plugin section. It runs for the test-jar goal and is currently excluding a few directories:\n\n\t<excludes>\n\t     <exclude>...</exclude>\n\t     <exclude>...</exclude>\n\t     <exclude>somedir/**</exclude>\n\t </excludes>\n\t\n\nI need to include a file in the somedir directory but leave out the rest of the files in the somedir directory. I've read that includes have precedence over excludes so I added something like the following (there was no includes section before):\n\n\t<includes>\n\t    <include>somedir/somefile.xml</include>\n\t</includes>\n\t\n\nThis ends up creating a jar file for test with only a few files in it (just the stuff in META-INF). The file that I included is not in the jar either. What I'd expect is a jar that is identical to the jar that was created before my includes change with the one additional file.\n\nWhat am I missing here?",
+  "lastActivityDate": "2014-03-18T06:04:04.313",
+  "title": "maven-jar-plugin includes vs excludes",
+  "tags": [
+    "xml",
+    "maven-2",
+    "pom.xml"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

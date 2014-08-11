@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2644353",
+  "creationDate": "2014-04-17T18:11:56.960",
+  "body": "\n\nI have a Silverlight application that reads its content from an XML file. User can enter data and It'll be stored in SQL database. How can I read the data from SQL database and store it into an XML file ?\n\nThanks,",
+  "lastActivityDate": "2014-04-18T00:10:30.270",
+  "title": "How to read data from SQL database and store it into an XML file?",
+  "tags": [
+    "sql",
+    "xml"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

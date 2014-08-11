@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448728",
+  "creationDate": "2014-03-18T00:29:27.097",
+  "body": "\n\nI have HTML in a CDATA element (HTML is too crappy to be parsed) and I would like to remove `<a href>` tags, but keep text in the tags.\n\nI'm searching around regex but still not find a good way to do that.\n\nAll advices are welcome!",
+  "lastActivityDate": "2014-03-18T02:06:39.187",
+  "title": "Howto remove HTML <a> tags in a CDATA element",
+  "tags": [
+    "html",
+    "xml",
+    "string",
+    "cdata"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

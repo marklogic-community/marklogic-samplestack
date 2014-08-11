@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2264005",
+  "creationDate": "2014-02-17T20:07:45.580",
+  "body": "\n\nI have an app that has a tab bar, each tab contains a separate table. The first table uses core data to persist its entries and checkmarks. The second table on the second tab uses an NSMutableArray to populate it (I would use core data but I would have to pre populate it and this table does not allow that)  I would like to persist check marks the same way I do in the first table with core data but something is wrong. The code looks like this:\n\n\t -(void)viewDidLoad {\n\t    [super viewDidLoad];\n\tairport = [[NSMutableArray alloc] init];\n\t[airport addObject:@\"Passport\"];\n\t}\n\t-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n\treturn 1;\n\t}\n\t\n\t\n\t// Customize the number of rows in the table view.\n\t- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {\n\treturn [airport count];\n\t}\n\t\n\t\n\t// Customize the appearance of table view cells.\n\t- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath        *)indexPath {\n\t\n\tstatic NSString *CellIdentifier = @\"Cell\";\n\t\n\tUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];\n\tif (cell == nil) {\n\t    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];\n\t}\n\t\n\t// Set up the cell...\n\tNSString *cellValue = [airport objectAtIndex:indexPath.row];\n\tcell.textLabel.text = cellValue;\n\t//[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];\n\t\n\t\n\tNSManagedObject *item = [[self fetchedResultsController] objectAtIndexPath:indexPath];\n\tcell.textLabel.text = [item valueForKey:@\"name\"]; //CHANGED TO DETAIL\n\t\n\t\n\tif ([[item valueForKey:@\"check\"] boolValue]) {\n\t    cell.accessoryType = UITableViewCellAccessoryCheckmark;\n\t} else {\n\t    cell.accessoryType = UITableViewCellAccessoryNone;\n\t}\n\t\n\tcell.selectionStyle = UITableViewCellSelectionStyleNone;\n\t\n\t    return cell;\n\t\n\n}\n\n\t- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {\n\t\n\t\n\tNSManagedObject *selectedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];\n\t\n\t\n\tif ([[selectedObject valueForKey:@\"check\"] boolValue]) {\n\t    [selectedObject setValue:[NSNumber numberWithBool:NO] forKey:@\"check\"];\n\t} else {\n\t    [selectedObject setValue:[NSNumber numberWithBool:YES] forKey:@\"check\"];\n\t}\n\t\n\tUITableViewCell *thisCell = [tableView cellForRowAtIndexPath:indexPath]; \n\tif (thisCell.accessoryType == UITableViewCellAccessoryNone) {\n\t    thisCell.accessoryType = UITableViewCellAccessoryCheckmark;  \n\t} else {\n\t    thisCell.accessoryType = UITableViewCellAccessoryNone;\n\t} \n\t[tableView deselectRowAtIndexPath:indexPath animated:NO];       \n\t\n\n}\n\nI believe the line cell.textLabel.text = [item valueForKey@\"name\"];\n is whats causing it. All that I would like for this to do is have the table populated from the array and check marks persisted. Any help is GREATLY appreciated. Thanks in advance.",
+  "lastActivityDate": "2014-06-26T13:00:07.300",
+  "title": "Is there anyway to populate a UITableView with an array but persist checkmarks?",
+  "tags": [
+    "uitableview",
+    "core-data",
+    "uitableviewcell",
+    "persistence",
+    "nsmutablearray"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2648536",
+  "creationDate": "2014-04-18T03:55:15.773",
+  "body": "\n\nI have a custom `NSWindowController` subclass that loads a NIB file during initialization like this:\n\n\tself = [super initWithNibNamed:@\"myNib\"];\n\tif (self != nil) {\n\t    [self window];\n\t}\n\t\n\nThe nib contains some custom views and some other controls. The `NSWindowController` is the file's owner and at least one of the views even binds to it.\n\nSimply, what do I have to do to close and release that window? I spend the whole day trying to figure that out and I am still clueless. Please help me.",
+  "lastActivityDate": "2014-07-24T18:00:38.707",
+  "title": "How to close a window (unload a NIB)?",
+  "tags": [
+    "cocoa",
+    "nib",
+    "nswindowcontroller",
+    "unloading"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

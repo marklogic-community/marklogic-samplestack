@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266583",
+  "creationDate": "2014-02-18T06:35:59.523",
+  "body": "\n\nIs there a way to tell if the current inspector window, in Outlook 2007, is a Read window, or a Compose window? \n\nI know we can capture events, and set flags on it, but I dont want to capture New/Reply/Forward events. Is there a way to tell this from the Inspector object? Any property? Any MAPI property?\n\nA pointer in the right direction will be appreciated.\n\nRegards,",
+  "lastActivityDate": "2014-02-18T07:38:47.153",
+  "title": "Differentiating between a Compose Inspector and a Read Inspector",
+  "tags": [
+    "c#",
+    "outlook",
+    "mapi",
+    "add-in"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

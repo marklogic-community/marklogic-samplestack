@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2068816",
+  "creationDate": "2014-01-17T17:18:42.917",
+  "body": "\n\nI'm a const fiend, and I strive to make everything as const as possible.\n\nI've tried looking at various dissassembly outputs from const and non const versions of functions, and I've yet to see a marked improvement however.  I'm assuming compilers nowadays are able to do smart things with non const functions that could technically be const.\n\nAre there still cases where const is useful at the machine level?  Any examples?",
+  "lastActivityDate": "2014-01-17T17:40:14.900",
+  "title": "Usefulness of const (C++)",
+  "tags": [
+    "c++",
+    "const"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

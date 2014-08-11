@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2068483",
+  "creationDate": "2014-01-17T16:06:19.667",
+  "body": "\n\nI have a script.vbs that can be anywhere on a clients PC and it needs to create a directory relative to its location.   Is there a way for the executing .vbs to know where it is running?",
+  "lastActivityDate": "2014-01-17T16:56:17.800",
+  "title": "Is there anyway to get the path of a VBScript (.vbs) while it is running?",
+  "tags": [
+    "vbscript"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

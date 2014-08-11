@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2447003",
+  "creationDate": "2014-03-17T20:25:40.667",
+  "body": "\n\nCorrect me if anything is wrong.\n\nNow when we use Spring DAO for ORM templates, when we use @Transactional attribute,\nwe do not have control over the transaction and/or session when the method is called externally, not within the method.\n\nLazy loading saves resources - less queries to the db, less memory to keep all the collections fetched in the app memory.\n\nSo, if lazy=false, then everything is fetched, all associated collections, that is not effectively, if there are 10,000 records in a linked set.\n\nNow, I have a method in a DAO class that is supposed to return me a User object.\nIt has collections that represent linked tables of the database.\nI need to get a object by id and then query its collections.\n\nHibernate \"failed to lazily initialize a collection\" exception occurs when I try to access the linked collection that this DAO method returns.\n\nExplain please, what is a workaround here?\n\n**Update**: All right, let me ask you this. DAO is an abstract layer, so a method \"getUserById(Integer id)\" is supposed to return an Object. \n\nWhat if in some cases I need these linked collections of the User object and in other situation I need those collections. \n\nAre there only two ways: \n1) lazy loading = false \n2) create different methods: getUserByIdWithTheseCollections(), getUserByIdWithOtherCollections() and inside those methods use your approach?\n\nI mean are there only 2 ways and nothing better?\n\n**Update 2**: Explain please, what would give me the explicit use of SESSIONFACTORY?\nHow does it look in practice? We create an instance of DAO object,\nthen inject it with session factory and this would mean that two consequent\nmethod calls to DAO will run within the same transaction?\nIt seems to me that anyway, DAO is detached from the classes that make use of it!\n\nThe logic and transactions are encapsulated within DAO, right?",
+  "lastActivityDate": "2014-08-14T14:26:30.243",
+  "title": "DAO, Spring and Hibernate",
+  "tags": [
+    "java",
+    "hibernate",
+    "spring",
+    "dao"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

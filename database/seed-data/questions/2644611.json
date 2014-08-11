@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2644611",
+  "creationDate": "2014-04-17T18:56:19.343",
+  "body": "\n\nWhat should be the ideal number of parallel java threads for copying a large set of files from a quad core linux box to an external shared folder? I can see that with a single thread it is taking a hell lot of time to move the files one by one. Multiple threads is improving the copy performance, but I don't know what should be the exact number of threads. \n\nI am using Java executor service to create the thread pool. ",
+  "lastActivityDate": "2014-04-17T19:49:37.343",
+  "title": "What should be the ideal number of parallel java threads for copying a large set of files from a quad core ubuntu linux box to an external shared folder?",
+  "tags": [
+    "java",
+    "multithreading",
+    "file-io",
+    "concurrency"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

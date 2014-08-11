@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2265914",
+  "creationDate": "2014-02-18T04:37:21.597",
+  "body": "\n\nI'm trying to move from django 1.0.2 to 1.1 and I am getting the \n\nfollowing error in one of my templates: \n\nRequest Method: GET \n\nRequest URL:    [http://localhost:8000/conserv/media_assets/vod/](http://localhost:8000/conserv/media_assets/vod/)\n\nException Type: TemplateSyntaxError \n\nException Value:        Caught an exception while rendering: 'NoneType' \n\nobject has no attribute 'label' \n\nException Location:     /opt/local/Library/Frameworks/Python.framework/ \n\nVersions/2.6/lib/python2.6/site-packages/django/template/debug.py in \n\nrender_node, line 81 \n\nPython Executable:      /opt/local/Library/Frameworks/Python.framework/ \n\nVersions/2.6/Resources/Python.app/Contents/MacOS/Python \n\nPython Version: 2.6.2 \n\nThe error is on the line with the \"for\" tag. \n\nMy template: \n\n\t                    {% for field in upload_image_form %} \n\t\n\t                            <tr> \n\t\n\t                                    <td class=\"label\"> \n\t\n\t                                            {{field.name}} \n\t\n\t                                    </td> \n\t\n\t                                    <td> \n\t\n\t                                            {{field}} \n\t\n\t                                    </td> \n\t\n\t                            </tr> \n\t\n\t                    {% endfor %} \n\t\n\nMy form: \n\nclass UploadImageForm(ModelForm): \n\n\tclass Meta: \n\t\n\t    model = ImageUpload \n\t\n\t    fields = ('thumb') \n\t\n\nMy model: \n\nclass ImageUpload(models.Model): \n\n\tthumb = models.FileField(upload_to='thumbs', blank=True, \n\t\n\nnull=True) \n\nDoes anyone know how can I solve it? \n\nThanks, \n\nArshavski Alexander. ",
+  "lastActivityDate": "2014-02-18T05:22:27.987",
+  "title": "moving to Django 1.1 problem",
+  "tags": [
+    "python",
+    "django-templates"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

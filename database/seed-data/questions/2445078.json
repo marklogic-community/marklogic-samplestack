@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2445078",
+  "creationDate": "2014-03-17T12:25:43.917",
+  "body": "\n\nHere is the deal:\n\n1. I created an SVN repository, say, foo. It is at `http://www.example.com/foo`.\n\n2. Then I did an svn checkout.\n\n3. I made some updates and changes to my local copy of the code over the week. I haven't committed yet.\n\n4. I realized that I wanted to rename the repository. So I did this:\n\nsvn copy `http://example.com/foo``http://example.com/bar`\n\nsvn delete `http://example.com/foo`\n\n1. I finish my changes (and local svn still thinks I'm working under \"foo\".) `svn commit` fails because the repo has been renamed.\n\n2. I try to use `svn switch --relocate` but it yells at me because svn is awful.\n\n3. I try using the script [here](http://www.mi-ange.net/blog/msg.php?id=63&lng=en) to replace \"foo\" with \"bar\" in my billion .svn/ folders.\n\n4. This replace is taking a long time. I wonder if something hung? Or maybe sshfs failed? I kill it. Ctrl-C.\n\n5. I look and see that half my files have \"foo\" and the others have \"bar\" in the URLs in the sundry .svn/ folders.\n\nAll I want to do is commit my files with the new name. I could re-checkout the branch, but then I have no way to remember which files I changed, which is why I was using version control in the first place, and svn is so godawful at moving and renaming things.\n\nWhat do I need to do to:\n\n1. Have a \"clean\" copy of my \"bar\" svn branch? and, most importantly:\n\n2. Commit the changes I made?",
+  "lastActivityDate": "2014-03-17T12:42:26.500",
+  "title": "Help renaming svn repository",
+  "tags": [
+    "svn",
+    "rename"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

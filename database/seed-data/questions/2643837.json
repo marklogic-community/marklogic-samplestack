@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2643837",
+  "creationDate": "2014-04-17T16:46:46.470",
+  "body": "\n\nI am tackling the challenge of using both the capabilities of a **8 core** machine and a high-end **GPU (Tesla 10)**.\n\nI have one big input file, one thread for each core, and one for the the GPU handling.\nThe Gpu thread, to be efficient, needs a big number of lines from the input, while\nthe Cpu thread needs only one line to proceed (storing multiple lines in a temp buffer was slower). The file doesn't need to be read sequentially. I am using **boost**.\n\nMy strategy is to have a **mutex** on the input stream and each thread **locks** - **unlocks** it.\nThis is not optimal because the gpu thread should have a higher precedence when locking the mutex, being the fastest and the most demanding one.\n\nI can come up with different solutions but before rush into implementation I would like to have some guidelines.\n\nWhat approach do you use / recommend ?",
+  "lastActivityDate": "2014-04-20T18:36:33.177",
+  "title": "What strategies are efficient to handle concurrent reads on heterogeneous multi-core architectures?",
+  "tags": [
+    "c++",
+    "multithreading",
+    "design",
+    "boost",
+    "concurrency"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

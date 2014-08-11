@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2263979",
+  "creationDate": "2014-02-17T19:54:40.143",
+  "body": "\n\nI've got a Tcl/Tk window with an entry box in which I'd like to force upper case character entry. That is, if any letters are typed I'd like them to appear in upper case in the entry field, instead of simply rejecting any lowercase input.\n\nI've looked at the documentation for [entry](http://www.tcl.tk/man/tcl8.4/TkCmd/entry.htm) and the [Entry Validation](http://wiki.tcl.tk/768) page on the Tcl/Tk wiki, but I must not be looking in the correct place because although there are lots of validation examples, I can't find an example of filtering key input to change the case.\n\nThe closest I've been able to get is something like the following:\n\n\tentry .message -validate key -validatecommand {\n\t    .message insert %i [string toupper \"%S\"]\n\t    return 0\n\t}\n\t\n\nThis forces the *first* character typed to upper case, but subsequent characters are not translated. In fact, the validate script is not called at all after the first character. If I omit the `.message insert` command for testing, the validate script is called for each character.",
+  "lastActivityDate": "2014-02-18T01:27:45.133",
+  "title": "Force upper case input in Tcl/Tk entry field",
+  "tags": [
+    "tcl",
+    "validation",
+    "tk"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

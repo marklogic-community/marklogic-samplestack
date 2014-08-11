@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2644330",
+  "creationDate": "2014-04-17T18:08:19.340",
+  "body": "\n\nI have a Class which models a User and another which models his country. Something like this:\n\n\tpublic class User{\n\t    private Country country;\n\t    //other attributes and getter/setters\n\t}\n\t\n\tpublic class Country{\n\t    private Integer id;\n\t    private String name;\n\t    //other attributes and getter/setters\n\t}\n\t\n\nI have a Spring form where I have a combobox so the user can select his country or can select the undefined option to indicate he doen't want to provide this information. So I have something like this:\n\n\t<form:select path=\"country\">\n\t    <form:option value=\"\">-Select one-</form:option>\n\t    <form:options items=\"${countries}\" itemLabel=\"name\" itemValue=\"id\"/>\n\t</form:select>\n\t\n\nIn my controller I get the autopopulated object with the user information and I want to have country set to null when the \"-Select one-\" option has been selected. So I have set a initBinder with a custom editor like this:\n\n\t@InitBinder\n\tprotected void initBinder(WebDataBinder binder) throws ServletException {\n\t    binder.registerCustomEditor(Country.class, \"country\", new CustomCountryEditor());\n\t}\n\t\n\nand my editor do something like this:\n\n\tpublic class CustomCountryEditor(){\n\t    @Override\n\t    public String getAsText() {\n\t        //I return the Id of the country \n\t    }\n\t\n\t    @Override\n\t    public void setAsText(String str) {\n\t        //I search in the database for a country with id = new Integer(str)\n\t        //and set country to that value\n\t        //or I set country to null in case str == null\n\t    }\n\t}\n\t\n\nWhen I submit the form it works because when I have country set to null when I have selected \n \"-Select one-\" option or the instance of the country selected. The problem is that when I load the form I have a method like the following one to load the user information. \n\n\t@ModelAttribute(\"user\")\n\tpublic User getUser(){\n\t   //loads user from database\n\t}\n\t\n\nThe object I get from getUser() has country set to a specific country (not a null value), but in the combobox is not selected any option. I've debugged the application and the CustomCountryEditor works good when setting and getting the text, thoughgetAsText method is called for every item in the list \"countries\" not only for the \"country\" field.\n\nAny idea?\nIs there a better way to set null the country object when I select no country option in the combobox?\n\nThanks",
+  "lastActivityDate": "2014-04-21T15:56:04.153",
+  "title": "Setting nested object to null when selected option has empty value",
+  "tags": [
+    "java",
+    "spring",
+    "data-binding",
+    "null",
+    "spring-mvc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

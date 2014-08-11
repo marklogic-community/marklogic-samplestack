@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2263665",
+  "creationDate": "2014-02-17T18:01:51.667",
+  "body": "\n\nI consider myself somewhat familiar with Vim,\n* hate the arrow keys (let alone the mouse),\n* regularly look up tips and plugins to get the most out of this tool,\n* use it daily to manage my cloud servers, etc.\n\nHowever, I always find myself doing the same mistakes probably inherited from the GUI-world:\n* *too* often switching to visual mode to see what piece of code I'm about to manipulate,\n* undoing changes to retrieve lost statements because I forget to utilize registers (and pasting code on temporary lines just to grab it after other edits),\n* relying on Ctrl-C & Ctrl-V when working with operating system's clipboard,\n* keep pressing `j` button to browse through lengthy files to find certain functions.\n\nProbably my Hungarian keyboard layout prevents me from being faster as most of the special characters (`/`, `[`, etc.) are only available as a key combination (with Shift or Alt Gr).\n\nGiven this specific situation, what pieces of advice could you give me? Have you faced similar bad habits when you were a Vim-novice? I'd like to see my productivity skyrocket (who wouldn't?). Thanks in advance.",
+  "lastActivityDate": "2014-03-18T16:25:33.253",
+  "title": "Inefficiency in Vim",
+  "tags": [
+    "vim",
+    "productivity"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

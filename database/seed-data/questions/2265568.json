@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2265568",
+  "creationDate": "2014-02-18T03:31:51.893",
+  "body": "\n\nI create an object of the class:\n\n\tRectangle rec = new Rectangle(2,4);\n\t\n\nWhich gives my rectangle and height of 2 and a width of 4.\n\nBut is there anyway I can call the no arg constructor later on in my code without creating a new object?\n\nwithout doing this:\n\n\tRectangle rec2 = new Rectangle();\n\t",
+  "lastActivityDate": "2014-09-14T19:26:53.083",
+  "title": "How do I call the no arg constructor after I have allready created an object of the class?",
+  "tags": [
+    "java",
+    "constructor"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

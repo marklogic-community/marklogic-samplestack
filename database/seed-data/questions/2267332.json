@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2267332",
+  "creationDate": "2014-02-18T08:29:20.760",
+  "body": "\n\nI'd like the user to be able to make multiple selections via the admin interface, and store the result as a list of comma-separated values. A select-multiple or a list of checkboxes would be great. However, I don't need the items in this list of values to refer to any models in particular... I just want a text list of items, plain and simple, hence I don't think the ManyToManyField is the one I'm looking for. What's the quickest way to do this in Django?",
+  "lastActivityDate": "2014-12-12T20:17:46.087",
+  "title": "Is there a Django ModelField that allows for multiple choices, aside from ManyToMany?",
+  "tags": [
+    "python",
+    "django",
+    "forms"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2263416",
+  "creationDate": "2014-02-17T16:15:29.597",
+  "body": "\n\nReading Kohana's documentation, I found out that the main difference in 3.0 version is that it follows the HMVC pattern instead of MVC as version 2.x does. The page about this in Kohana's docs and the one on wikipedia didn't really give me a clear idea.\n\nSo question: what is the HMVC pattern and how does it differ from MVC?",
+  "lastActivityDate": "2014-11-17T06:47:34.283",
+  "title": "What is the HMVC pattern?",
+  "tags": [
+    "php",
+    "mvc",
+    "kohana",
+    "hmvc"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

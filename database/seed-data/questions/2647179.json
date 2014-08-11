@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2647179",
+  "creationDate": "2014-04-18T00:34:29.707",
+  "body": "\n\nI can get the html page using urllib, and use BeautifulSoup to parse the html page, and it looks like that I have to generate file to be read from BeautifulSoup.\n\n\timport urllib                                       \n\tsock = urllib.urlopen(\"http://SOMEWHERE\") \n\thtmlSource = sock.read()                            \n\tsock.close()                                        \n\t--> write to file\n\t\n\nIs there a way to call BeautifulSoup without generating file from urllib?",
+  "lastActivityDate": "2014-04-18T00:42:05.910",
+  "title": "Using urllib and BeautifulSoup to retrieve info from web with Python",
+  "tags": [
+    "python",
+    "urllib2",
+    "beautifulsoup"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2647951",
+  "creationDate": "2014-04-18T02:23:00.043",
+  "body": "\n\nThe problem I'm having is, using the POCO templates, generating my POCO classes the first time only and not overwriting them when the templates are re-ran. I know this sounds hokey and the reason is that I'm actually changing these templates and trying to generate metadata classes rather than the actual POCO classes, but these metadata classes will be hand-edited and I want to keep those edits in the future but still regenerate a certain amount of it. I have it all working exactly as I want except for the regeneration of the files.\n\nI have looked into T4 and it seems that there is [a flag to do just this](http://www.olegsych.com/2010/03/t4-tutorial-integrating-generated-files-in-visual-studio-projects/) (see the Output.PreserveExistingFile property) but I don't understand where/how to set this flag. If you can tell me where/how to set this in the default POCO templates, then I think that's all I really need.\n\nThanks!! :-)",
+  "lastActivityDate": "2014-04-18T03:00:57.507",
+  "title": "Generate EF4 POCO classes first time only",
+  "tags": [
+    "c#",
+    "visual-studio-2010",
+    "code-generation",
+    "t4",
+    "entity-framework-4"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

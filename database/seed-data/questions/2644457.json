@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644457",
+  "creationDate": "2014-04-17T18:28:36.433",
+  "body": "\n\nI'm using lighttpd as webserver for php application server. The avg. load on this server is about 2-3. MySQL database is separated to another server (it's load ~0.4). How could I scale php application server?\n\nThank you.",
+  "lastActivityDate": "2014-04-17T18:56:19.710",
+  "title": "How to scale php application servers horizontally?",
+  "tags": [
+    "php",
+    "architecture",
+    "scalability"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

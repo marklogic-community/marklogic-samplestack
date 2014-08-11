@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2647473",
+  "creationDate": "2014-04-18T01:15:07.107",
+  "body": "\n\ni send ajax requests with jquery, and i have a function:\n\n\t$('input').ajaxSuccess(function(e, xhr, settings) {\n\t    console.log(xhr.responseText);\n\t});\n\t\n\nAjax response ara russian letters in utf-8, all server (apache, php) and files are in utf-8 but response text is something like this:\n\n\t\\u0421\\u043b\\u0438\\u0448\\u043a\\u043e\\u043c \\u043c\\u0430\\u043b\\u043e \\u0431\\u0443\\u043a\\u0432!\n\t\n\nhow could i decode this characters to normal words? Thanks for help!",
+  "lastActivityDate": "2014-04-18T03:06:18.080",
+  "title": "jquery ajax encoding problem!",
+  "tags": [
+    "javascript",
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

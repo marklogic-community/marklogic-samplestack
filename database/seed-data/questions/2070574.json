@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2070574",
+  "creationDate": "2014-01-18T01:36:33.900",
+  "body": "\n\nI tried to iterate backwards with ruby using a Range and each. This way:\n\n\t(4..0).each do |i|\n\t  puts i\n\tend\n\t==> 4..0\n\t\n\nIteration through 0..4 writes the numbers. On the other Range r = 4..0 seems to be ok, r.first == 4, r.last == 0. Seems to be strange to me that the construct above does not produce the expected result. What is the a reason for that? What are the situations when this behaviour is reasonable?",
+  "lastActivityDate": "2014-01-16T12:17:03.793",
+  "title": "Is there a reason that we cannot iterate on \"reverse Range\" in ruby?",
+  "tags": [
+    "ruby",
+    "iteration",
+    "range"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

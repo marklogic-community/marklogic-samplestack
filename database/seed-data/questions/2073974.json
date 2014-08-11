@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2073974",
+  "creationDate": "2014-01-18T10:54:06.363",
+  "body": "\n\nEverything was working perfectly ... suddenly after I installed Visual studio 2010 beta2, IE8 started to behave strangely.\nOnly the data that was sent to the browser gets posted back when submit button is clicked. Any additional fields are ignored and are nulls. It works perfectly on FireFox 3.5+.\n\nI uninstalled Visual studio 2010 beta2 ... but the problem remains ... I will try system restore later as last option.\n\nEdit:\nAfter farther investigation the problem was with jquery submit() handling on IE8 ... it is bogous: \n\n\t $(function() {\n\t $('form').submit(function() {\n\t    $(this).attr('disabled', 'disabled');\n\t    setTimeout(\n\t    function() {\n\t        $(this).attr('disabled', '');\n\t    },\n\t 5000);\n\t });\n\t });\n\t",
+  "lastActivityDate": "2014-01-21T21:45:51.160",
+  "title": "IE8 is posting form data partially",
+  "tags": [
+    "forms",
+    "post",
+    "internet-explorer-8"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

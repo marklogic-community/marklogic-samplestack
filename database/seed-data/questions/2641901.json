@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2641901",
+  "creationDate": "2014-04-17T08:13:18.417",
+  "body": "\n\nI guess this question will sound familiar, but I am yet another programmer baffled by REST.\n\nI have a traditional web application which goes from StateA to StateB and so on\nIf the user goes to (url of) StateB, I want to make sure that he has visited StateA before.\nTraditionally, I'd do this using session state.\n\nSince session state is not allowed in REST, how do I achieve this?",
+  "lastActivityDate": "2014-04-17T11:19:47.830",
+  "title": "How to manage state in REST",
+  "tags": [
+    "rest"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

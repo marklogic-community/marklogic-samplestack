@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2646681",
+  "creationDate": "2014-04-17T23:31:09.810",
+  "body": "\n\nHas anyone used the Play framework for a reasonably complex or large, deployed production app yet? If so, I would like to hear what the pros and cons of that experience were and what you might do differently if you could start over. \n\nIn particular, I'm interested in how well it worked for projects that are big enough that it requires a small team and/or apps that had requirements that go beyond what demo/test projects can (e.g. scalability requirements). \n\n[The other question on this topic](http://stackoverflow.com/questions/1597086/any-experience-with-play-java-web-development-framework) does not cover use in production, and as we all know, the true wins (and gotchas) of platforms often don't show up until used in battle. ",
+  "lastActivityDate": "2014-12-25T15:16:02.207",
+  "title": "Play Framework: Real-world production experiences?",
+  "tags": [
+    "java",
+    "playframework"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

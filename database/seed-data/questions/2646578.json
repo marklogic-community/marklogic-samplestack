@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646578",
+  "creationDate": "2014-04-17T23:17:50.463",
+  "body": "\n\nI'm trying to build a way of mapping from one type to another, knwoing they will (should) have the same structure. [Related Question](http://stackoverflow.com/questions/2622003/call-webservice-without-adding-a-webreference-with-complex-types).\n\nFor ease of the fiddly bits, I'm using AutoMapper from Codeplex, with the following function:\n\n\tprivate static List<Type> seenTypes = new List<Type>();\n\t\n\tprivate static void MapDataObjects(Type a, Type b)\n\t{\n\t    AutoMapper.Mapper.CreateMap(a, b);\n\t\n\t    PropertyInfo[] aProps = a.GetProperties();\n\t    PropertyInfo[] bProps = b.GetProperties();\n\t    foreach (PropertyInfo aProp in aProps)\n\t    {\n\t        if (aProp.PropertyType.Namespace.StartsWith(\"System\") \n\t             || seenTypes.Contains(aProp.PropertyType))\n\t            continue;\n\t\n\t        foreach (PropertyInfo bProp in bProps)\n\t        {\n\t            if (aProp.Name == bProp.Name)\n\t            {\n\t                MapDataObjects(aProp.PropertyType, bProp.PropertyType);\n\t                seenTypes.Add(aProp.PropertyType);\n\t                break;\n\t            }\n\t        }\n\t    }\n\t }\n\t\n\nWhich appears to work fine when stepping through the code, however calling my Map function gives the following error:\n\n\tAutoMapper.AutoMapperMappingException: \n\t     Trying to map TDXDataTypes.ClientActivity[] to ClientActivity[].\n\tUsing mapping configuration for TDXDataTypes.ClientActivity[] to ClientActivity[]\n\tDestination property: Activities\n\tException of type 'AutoMapper.AutoMapperMappingException' was thrown. \n\t    ---> System.ArgumentException: \n\t         Type 'ClientActivity[]' does not have a default constructor\n\t",
+  "lastActivityDate": "2014-04-18T00:13:58.510",
+  "title": "Using AutoMapper to dynamically map objects including arrays",
+  "tags": [
+    "c#",
+    "reflection",
+    "automapper"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

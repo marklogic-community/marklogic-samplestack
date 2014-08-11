@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2839823",
+  "creationDate": "2014-05-17T18:53:30.963",
+  "body": "\n\nThis works:\n\n\tenum TPriority \n\t{\n\t    EPriorityIdle = -100,\n\t    EPriorityLow = -20,\n\t    EPriorityStandard = 0,\n\t    EPriorityUserInput = 10,\n\t    EPriorityHigh = 20\n\t};\n\t\n\tTPriority priority = EPriorityIdle; \n\t\n\nBut this doesn't work:\n\n\tTPriority priority = -100;\n\t\n\nAny reason?",
+  "lastActivityDate": "2014-05-17T20:03:48.160",
+  "title": "enum type in C++",
+  "tags": [
+    "c++",
+    "enums"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

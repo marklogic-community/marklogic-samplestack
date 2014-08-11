@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266926",
+  "creationDate": "2014-02-18T07:27:14.223",
+  "body": "\n\nSay I have a web application that accepts a parameter called \"content\". Whatever is present in this parameter will be output as a part of the HTML response.\n\nExample JSP code:\n\n\t<%= request.getParameter(\"content\") %>\n\t\n\nI know this is silly and it should be sanitized and so on, but my question is if an attacker can actually take advantage of this? The way I understand it you'd only change the content sent to yourself, so the only one an attacker could hurt is himself? Correct?",
+  "lastActivityDate": "2014-02-18T07:41:43.890",
+  "title": "Can an attacker take advantage of HTML tag injection in request parameters?",
+  "tags": [
+    "html",
+    "http",
+    "hacking",
+    "injection"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

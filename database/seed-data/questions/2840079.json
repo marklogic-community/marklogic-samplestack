@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2840079",
+  "creationDate": "2014-05-17T20:25:44.620",
+  "body": "\n\nWith c++, Is there a way to get a derived class to inherit its own static initializer? I am trying to do something like the following:\n\n\tclass Base {\n\t\n\tpublic:\n\t        class StaticInit {\n\t                public:\n\t                virtual StaticInit() =0;\n\t        };\n\t};\n\t\n\t\n\t\n\tclass Derived: public Base {\n\t  public:\n\t        virtual StaticInit::StaticInit() {\n\t           //do something with the derived class\n\t        }\n\t        static StaticInit init;\n\t  }\n\t\n\tstatic Derived::StaticInit init;\n\t\n\nit would also be nice if I didn't have to define the init var in each derived class. I am currently redefining the StaticInit internal class in each derived class but it seems redundant.\n\nEach derived class is a singleton, and I need the instance to be stored in a lookup table at program startup.",
+  "lastActivityDate": "2014-05-17T20:36:53.600",
+  "title": "Statically Init a derived class",
+  "tags": [
+    "c++"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

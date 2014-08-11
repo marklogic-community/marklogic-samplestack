@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2838965",
+  "creationDate": "2014-05-17T12:55:55.673",
+  "body": "\n\nThis question came from looking at [this question](http://stackoverflow.com/questions/2838889/how-can-this-verbose-unpythonic-routine-be-improved/) on Stackoverflow.\n\n\tdef fringe8((px, py), (x1, y1, x2, y2)):\n\t\n\nPersonally, it's been one of my pet peeves to see a function that takes *two arguments with fixed-number iterables* (like a tuple) or *two or more dictionaries* (Like in the [Shotgun API](https://shotgunsoftware.zendesk.com/forums)). It's just hard to use, because of all the verbosity and double-bracketed enclosures.\n\nWouldn't this be better:\n\n\t>>> class Point(object):\n\t...     def __init__(self, x, y):\n\t...         self.x = x\n\t...         self.y = y\n\t...     \n\t>>> class Rect(object):\n\t...     def __init__(self, x1, y1, x2, y2):\n\t...         self.x1 = x1\n\t...         self.y1 = y1\n\t...         self.x2 = x2\n\t...         self.y2 = y2\n\t...     \n\t>>> def fringe8(point, rect):\n\t...     # ...\n\t...\n\t>>>\n\t>>> point = Point(2, 2)\n\t>>> rect = Rect(1, 1, 3, 3)\n\t>>>\n\t>>> fringe8(point, rect)\n\t\n\n**Is there a situation where taking two or more iterable arguments is justified?** Obviously the standard `itertools` Python library needs that, but I can't see it being pretty in maintainable, flexible code design.",
+  "lastActivityDate": "2014-05-17T13:25:44.670",
+  "title": "I don't like Python functions that take two or more iterables. Is it a good idea?",
+  "tags": [
+    "python",
+    "function",
+    "code-design",
+    "iterables"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

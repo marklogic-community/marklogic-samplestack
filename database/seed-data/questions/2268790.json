@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2268790",
+  "creationDate": "2014-02-18T12:48:20.710",
+  "body": "\n\nI have an application I'm working on that uses two third party libraries, each with pre-compiled libs and dlls, one of which provides necessary .lib files for both debug and release builds (A[d].lib) and the other which provides only .lib files for release builds (B.lib). Compiling in Release mode (using MSVC9) works fine, however attempting to compile in debug mode fails because third party `A` requires LIBCMTD.lib (or MSVCRTD.lib) while third party `B` requires LIBCMT.lib (or MSVCRT.lib). Can I work around this or am I stuck debugging in release mode?\n\nThanks",
+  "lastActivityDate": "2014-02-18T14:05:02.167",
+  "title": "Is compiling in debug mode possible despite a third party library having no debug-build lib?",
+  "tags": [
+    "c++",
+    "linker",
+    "visual-c++",
+    "3rd-party-library"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2264462",
+  "creationDate": "2014-02-17T23:19:59.200",
+  "body": "\n\nI have a WSH javascript containing a function. I want to call that function form another javascriptfile . How can I do that ? \n\nThanks,",
+  "lastActivityDate": "2014-02-17T23:22:35.170",
+  "title": "javascript call function in another file",
+  "tags": [
+    "javascript",
+    "file",
+    "function",
+    "call"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

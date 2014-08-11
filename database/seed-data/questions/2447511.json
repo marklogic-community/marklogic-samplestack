@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2447511",
+  "creationDate": "2014-03-17T21:43:31.283",
+  "body": "\n\nI need to position this update button on www.euroworker.no/order (you'll have to add an item to the cart, use the Kjøp button to add and Handlevogn to view the cart). Works in FF and IE. (Although there is another alignment problems with IE) but not in Chrome or Safari. I had it working before, but the only thing I can think of to do is target safari and Chrome. Is this possible?\n\nHere's the CSS and HTML(Smarty) for you.\n\nHTML(Smarty):\n\n\t    {capture assign=\"cartUpdate\"}\n\t\n\t     <div id=\"cartUpdate\"><!--<input type=\"submit\" class=\"submit\" value=\"{tn _update}\" />-->\n\t     <button type=\"submit\" class=\"submit\" id=\"oppdatersubmit\" name=\"saveFields\" title=\"Oppdater\" value=\"\">&nbsp;</button> </div>\n\t    {/capture}\n\t    {assign var=\"cartUpdate\" value=$cartUpdate|@str_split:10000}\n\t    {php}$GLOBALS['cartUpdate'] = $this->get_template_vars('cartUpdate'); $this->assign_by_ref('GLOBALS', $GLOBALS);{/php}\n\t\n\t    {form action=\"controller=order action=update\" method=\"POST\" enctype=\"multipart/form-data\" handle=$form id=\"cartItems\"}\n\t\n\tCONTENT\n\t\n\t{/form}\n\t\n\nAnd the CSS:\n\n\t#oppdatersubmit {\n\t background-image:url(../../upload/oppdater.png);\n\t background-repeat:no-repeat;\n\t background-position:left;\n\t background-color:none;\n\t border:none;\n\t overflow:hidden;\n\t outline:none;\n\t    white-space: nowrap;\n\t width:77px;\n\t height:25px;\n\t cursor:pointer;\n\t position:absolute;\n\t}\n\t\n\t#cartUpdate {\n\t position:absolute;\n\t width:160px;\n\t height:30px;\n\t left:580px;\n\t bottom:130px;\n\t}\n\t\n\nNeed to change these for Chrome and Safari. \n\nThanks.",
+  "lastActivityDate": "2014-06-06T08:24:33.927",
+  "title": "Can you target Google Chrome?",
+  "tags": [
+    "css",
+    "safari",
+    "google-chrome",
+    "target"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

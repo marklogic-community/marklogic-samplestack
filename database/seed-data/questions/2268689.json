@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2268689",
+  "creationDate": "2014-02-18T12:27:59.360",
+  "body": "\n\nI have a simple scenario below it works in XP ie6 but doesn't work in Windows 7 IE8..\n\n\t<html>\n\t<head>\n\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE7\"/>\n\t</head>\n\t<body>\n\t<iframe src=\"http://m.dabr.co.uk\" width=\"800\" Height=\"600\" /> \n\t</body>\n\t</html>\n\t\n\nWhy?  and how do i fix it?",
+  "lastActivityDate": "2014-02-18T14:49:55.630",
+  "title": "Why do some Iframes applications Work in IE8 and others dont",
+  "tags": [
+    "internet-explorer-8",
+    "iframe"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

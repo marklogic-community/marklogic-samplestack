@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2072407",
+  "creationDate": "2014-01-18T06:56:29.120",
+  "body": "\n\nI find myself frequently writing code like this:\n\n\tk = 0\n\tfor i in mylist:\n\t    # y[k] = some function of i\n\t    k += 1\n\t\n\nInstead, I could do\n\n\tfor k in range(K):\n\t    # y[k] = some function of mylist[k]\n\t\n\nbut that doesn't seem \"pythonic\". (You know... indexing. Ick!) Is there some syntax that allows me to extract both the index (k) and the element (i) simultaneously using either a loop, list comprehension, or generator? The task is in scientific computing, so there is a lot of stuff in the loop body, making a list comprehension probably not powerful enough on its own, I think.\n\nI welcome tips on related concepts, too, that I might not have even though of. Thank you.",
+  "lastActivityDate": "2014-01-18T10:55:50.280",
+  "title": "How to get list index and element simultaneously in Python?",
+  "tags": [
+    "python"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2647333",
+  "creationDate": "2014-04-18T00:56:39.687",
+  "body": "\n\nI'm trying to create an options menu in a C# forms project, and I'm curious if there's a less ugly way to do this. I have a ListBox that has the different categories of options, and when you select a category, the options for that category appear in a panel on the right. Basically, something identical to the options menu in Visual Studio itself.\n\nObviously, different controls have to use the same real estate here, as every category has different options which need to be displayed in the same area of my form. So when you select a category, the controls for every other category must become hidden.\n\nI'm currently using a different Panel object for each category (13 currently), but designing each panel is a headache because i need to drag the other 12 panels out of the way each time I need to alter one. Is there a better way to do this? I'm open to any suggestions, whether its a complete change in the implementation, or even just a Visual Studio tip for working with 1 of 13 panels that all overlap.\n\nIf all else fails I could use a TabControl rendered horizontally, but I don't like how that looks.\n\nThanks in advance.",
+  "lastActivityDate": "2014-04-18T01:08:08.717",
+  "title": "Creating Options Menu with overlapping panels",
+  "tags": [
+    "c#",
+    ".net",
+    "visual-studio",
+    "winforms"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

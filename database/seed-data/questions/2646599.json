@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2646599",
+  "creationDate": "2014-04-17T23:20:04.950",
+  "body": "\n\nWhat is the simplest way in VBA to determine the size (i.e., number of keys) in a dictionary object?",
+  "lastActivityDate": "2014-04-17T23:27:28.133",
+  "title": "Find size of dictionary object in VBA",
+  "tags": [
+    "vba",
+    "dictionary",
+    "size"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

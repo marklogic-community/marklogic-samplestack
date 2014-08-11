@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2073393",
+  "creationDate": "2014-01-18T09:07:29.547",
+  "body": "\n\nMy goal is to extend the already set style of an object. So assuming I have the following two styles:\n\n\t<Style TargetType=\"Ellipse\" x:Key=\"OriginalStyle\">\n\t    <Setter Property=\"Fill\" Value=\"Blue\"/>\n\t    <Setter Property=\"Width\" Value=\"100\"/>\n\t    <Setter Property=\"Height\" Value=\"200\"/>\n\t</Style>\n\t<Style TargetType=\"Ellipse\" x:Key=\"NewStyle\">\n\t    <Setter Property=\"Fill\" Value=\"Red\"/>\n\t</Style>\n\t\n\nWhat I'd like to do is assign OriginalStyle to an Ellipse, then later apply the second style only changing the properties it affects. So ideally I want to do something like this:\n\n\tStyle OriginalStyle;\n\tStyle NewStyle;\n\tEllipse ellipse = new Ellipse();\n\tellipse .Style = OriginalStyle;\n\t// Later in an event hanler\n\tellipse.Style = NewStyle; // I would want to keep the settings from the old style in here: in this example setting the style like this would make me lose the Width and Height properties!\n\t\n\nI've tried to dynamically construct a new Style and add the properties of NewStyle and OldStyle - however the Property property of the styles are always null so this lead to a dead end:\n\n\tStyle combinedStyle = new Style();\n\tforeach (Setter setter in Old.Setters)\n\t{\n\t     combinedStyle.Setters.Add(setter);  // Get exception \"Element is already the child of another element.\"\n\t}\n\tforeach (Setter setter in NewStyle.Setters)\n\t{\n\t     combinedStyle.Setters.Add(setter);  // Get exception \"Element is already the child of another element.\"\n\t}\n\t\n\nIt seems like there is no way to dynamically merge styles in Silverlight. Could someone confirm this or show me a better approach to achieve merging?",
+  "lastActivityDate": "2014-01-19T02:13:52.740",
+  "title": "How can styles be merged in Silverlight?",
+  "tags": [
+    "silverlight",
+    "silverlight-3.0",
+    "styles"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

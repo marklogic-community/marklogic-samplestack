@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2068934",
+  "creationDate": "2014-01-17T17:48:46.900",
+  "body": "\n\ni want a BasicEditField to behave just like a label field...the reason i want this is i cant use label field in my case as in case of 9500 the onFocus method does not work for some reason...but it does in case of basic edit field...so i need to create my own label field...",
+  "lastActivityDate": "2014-01-18T23:14:52.397",
+  "title": "Blackberry - BasicEditField with LabelField behaviour",
+  "tags": [
+    "gui",
+    "blackberry",
+    "custom-controls"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

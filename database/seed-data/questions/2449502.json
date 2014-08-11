@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2449502",
+  "creationDate": "2014-03-18T02:29:00.857",
+  "body": "\n\nI understand very well the need for websites' front ends to be coded and compressed as much as possible, however, I feel like I have more lax standards than others when it comes to practical applications.\n\nFor instance, while I understand why some would, I don't see anything wrong with putting selectors in the `<html>` or `<body>` tags on a website with an expected small visitation rate. I would only do this for a cheap website for a small client, because I can't really justify the cost of time otherwise.\n\nSo, that said, do you think it's okay to draw a line? Where do you draw yours?",
+  "lastActivityDate": "2014-03-18T02:39:55.680",
+  "title": "Where to draw the line between efficiency and practicality",
+  "tags": [
+    "html",
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

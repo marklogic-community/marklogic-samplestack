@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2645255",
+  "creationDate": "2014-04-17T20:41:57.093",
+  "body": "\n\nI've a main method using SchemaUpdate to display at the console what tables to alter/create and it works fine in my Hibernate project:\n\n\t public static void main(String[] args) throws IOException {\n\t  //first we prepare the configuration\n\t  Properties hibProps = new Properties();\n\t  hibProps.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(\"jbbconfigs.properties\"));\n\t  Configuration cfg = new AnnotationConfiguration();\n\t  cfg.configure(\"/hibernate.cfg.xml\").addProperties(hibProps);\n\t\n\t  //We create the SchemaUpdate thanks to the configs\n\t  SchemaUpdate schemaUpdate = new SchemaUpdate(cfg);\n\t\n\t\n\t  //The update is executed in script mode only\n\t  schemaUpdate.execute(true, false);\n\t  ...  \n\t\n\nI'd like to reuse this code in a JPA project, having no hibernate.cfg.xml file (and no .properties file), but a persistence.xml file (autodetected in the META-INF directory as specified by the JPA spec).\n\nI tried this too simple adaptation,\n\n\tConfiguration cfg = new AnnotationConfiguration();\n\tcfg.configure();\n\t\n\nbut it failed with that exception.\n\n\tException in thread \"main\" org.hibernate.HibernateException: /hibernate.cfg.xml not found\n\t\n\nHas anybody done that?\nThanks.",
+  "lastActivityDate": "2014-09-15T17:46:27.110",
+  "title": "How to use Hibernate SchemaUpdate class with a JPA persistence.xml?",
+  "tags": [
+    "hibernate",
+    "jpa",
+    "persistence.xml"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201409",
+  "itemTally": 0,
+  "owner": null
+}

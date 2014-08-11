@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2072480",
+  "creationDate": "2014-01-18T07:04:35.140",
+  "body": "\n\nI have a Silverlight 3 control that makes a cross-domain HTTP request to http:// somedomain/. I am using the browser HTTP stack to make this request. A proper clientaccesspolicy.xml on somedomain is in place.\n\nMy browser has a set of cookies for somedomain and I want these to by used when said HTTP request is made.\n\nWhen my Silverlight control is loaded from http:// localhost/, however, none of my cookies seem to be transmitted (I am using Fiddler to trace HTTP traffic)!\n\nWhen I upload the xap to http:// somedomain/ though and load it from there (so that the HTTP request is not cross-domain), I see that all of my browser/IE cookies for somedomain are transmitted and everything is fine.\n\nIs this intended behavior? I have checked MSDN and it says that browser cookies are always transmitted, regardless of whether the request is cross-domain or not.\n\nThanks in advance!",
+  "lastActivityDate": "2014-06-30T03:17:41.230",
+  "title": "Silverlight not sending cookies in cross-domain browser requests",
+  "tags": [
+    "silverlight",
+    "cookies",
+    "cross-domain"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

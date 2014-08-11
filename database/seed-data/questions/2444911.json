@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2444911",
+  "creationDate": "2014-03-17T11:22:28.423",
+  "body": "\n\nI have been working on a C# 4.0 WPF project and need to figure out how to databind a Boolean value.  I have a reference to my Application.Current object in a window.  My \"App\" object contains a boolean field called \"Downloaded\" that is true if the user has downloaded information from a web service.  I need to databind a textbox's IsEnabled field to this Downloaded value.  Any tips?  Here is what I have come up with so far.  (Any useful links to better learn WPF XAML are greatly appreciated!)\n\nC# code:\n\n\tclass MainWindow : Window\n\t{\n\t    private App MyApp = App.Current as App; \n\t}\n\t\n\nXAML:\n\n\t<TextBox ... IsEnabled=\"{Binding Source=MyApp, Path=Downloaded}\" />\n\t",
+  "lastActivityDate": "2014-11-11T17:23:39.510",
+  "title": "Bind boolean value",
+  "tags": [
+    "c#",
+    "wpf",
+    "xaml",
+    "binding",
+    "boolean"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201411",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2072032",
+  "creationDate": "2014-01-18T06:07:00.580",
+  "body": "\n\nI cant find any sorting function in the java API for vectors.\nCollections.sort is only for List and not for Vector\n\nI dont want to write my own sorting algo because I think java should implement this\n\nIm looking for something like, class ClassName implements Comparator ...\n\nClassName cn; sort(cn);",
+  "lastActivityDate": "2014-12-26T00:54:43.590",
+  "title": "sorting vector in java",
+  "tags": [
+    "java",
+    "vector",
+    "sorting"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

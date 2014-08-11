@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2072086",
+  "creationDate": "2014-01-18T06:13:34.353",
+  "body": "\n\nI have a SQL script that has to be run every time a client executes the \"database management\" functionality. The script includes creating stored procedures on the client database.  Some of these clients might already have the stored procedure upon running the script, and some may not. I need to have the missing stored procedures added to the client database, but it doesn't matter how much I try to bend T-SQL syntax, I get\n\n> *CREATE/ALTER PROCEDURE' must be the first statement in a query batch*\n\nI've read that dropping before creating works, but I don't like doing it that way.\n\n\tIF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'MyProc')\n\tDROP PROCEDURE MyProc\n\tGO\n\t\n\tCREATE PROCEDURE MyProc\n\t...\n\t\n\nHow can I add check for the existence of a stored procedure and create it if it doesn't exist but alter it if it does exist?",
+  "lastActivityDate": "2014-10-10T12:57:38.533",
+  "title": "How to check if a stored procedure exists before creating it",
+  "tags": [
+    "sql",
+    "sql-server",
+    "tsql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

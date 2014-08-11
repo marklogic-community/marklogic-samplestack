@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2445642",
+  "creationDate": "2014-03-17T15:33:26.497",
+  "body": "\n\ni want to log messages from multiple classes. the problem is that currently i can log all messages into single file.i want to do this class A should log its messages into ALog.txt and class B should log its messages into BLog.txt\n\nplease tell me the sample config file for these settings",
+  "lastActivityDate": "2014-03-17T16:16:08.257",
+  "title": "Log4net: seperate log files for each class",
+  "tags": [
+    "log4net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

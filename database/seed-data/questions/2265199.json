@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2265199",
+  "creationDate": "2014-02-18T02:16:27.413",
+  "body": "\n\nI have a field in my database and i want to store the information encoded. So i would like use the AES_ENCRYPT(),  AES_DECRYPT() functions. \n\nI have a little problem about the right usage...\n\nSo this is my code what i need to modify, but i try it many ways and always get SQL syntax error.\n\n\t $query=\"update users set test='\".$_POST['info'].\"' where name='\".$_SESSION['user'].\"'\";\n\t mysql_query($query) or die(mysql_error());\n\t\n\nI tried like this: \n\n\t  $query=\"update users set (test='\".$_POST['info'].\"',  AES_ENCRYPT('\".$_POST['info'].\"', 'secretkey') ) where name='\".$_SESSION['user'].\"'\";\n\t     mysql_query($query) or die(mysql_error());\n\t\n\nand this:\n\n\t $query=\"update users set test='\".$_POST['info'].\"' where name='\".$_SESSION['user'].\"'\";\n\t     mysql_query(AES_ENCRYPT('$query','secretkey') or die(mysql_error());\n\t\n\nThanks for the help.",
+  "lastActivityDate": "2014-07-06T05:44:17.493",
+  "title": "Storing information ecoded in mysql",
+  "tags": [
+    "php",
+    "mysql",
+    "encryption"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2266972",
+  "creationDate": "2014-02-18T07:33:50.557",
+  "body": "\n\nI have a WCF RESTful service using the WebHttpBinding and I want to know if I can use this in Silverlight 3 without any modifications?",
+  "lastActivityDate": "2014-02-18T12:13:42.433",
+  "title": "Can I use a WCF RESTful service from Silverlight?",
+  "tags": [
+    "wcf",
+    "rest",
+    "silverlight-3.0",
+    "service"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

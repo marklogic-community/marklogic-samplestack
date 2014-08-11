@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2451141",
+  "creationDate": "2014-03-18T07:17:46.270",
+  "body": "\n\nI have an admin controller located inside /controllers/admin/admin_controller.rb\nI also have a pages controller located inside /controllers/admin/pages_controller.rb\nIn my routes.rb file, I have the following:\n\n\t  map.namespace :admin do |admin|\n\t    admin.resources :pages\n\t  end\n\t\n\nWhen the user goes to localhost:3000/admin, I'd like the user to see a page with a link to `/admin/pages` (Pages CRUD) and to `/` (To go back home). Since I am using a namespace, I cannot have an index action for `/admin`. How would I get this done and still have my controllers located inside my `/controllers/admin` folder (rather than using admin as a `map.resources` component and a `has_many` association to pages). Please note I am only interested in the `show` action of admin.",
+  "lastActivityDate": "2014-03-12T03:28:40.273",
+  "title": "Namespace with index action in Rails",
+  "tags": [
+    "ruby-on-rails",
+    "namespaces",
+    "routes"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

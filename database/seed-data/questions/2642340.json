@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642340",
+  "creationDate": "2014-04-17T10:13:31.897",
+  "body": "\n\nI'm in the middle of putting up my first django application on shared hosting.  This should be an easy thing, but I am just not seeing it.  \n\nI tried to follow the directions of the django documentation, and created a 404.html page within my template folder.  I just wrote \"This is a 404 page.\" in the .html file.  I also did the same thing for a 500.html page and wrote in it \"This is a 500 page.\"\n\nHowever when I hit a 'bad page' I get a standard 404 page from the browser (Oops! This link appears to be broken. in Chrome) when I would expect \"This is a 404 page.\" \n\nWhat's even more interesting is out of frustration I wrote {% asdfjasdf %} in the 404.html, and instead of getting the \"Oops!...\" error I get \"This is a 500 page,\" so it definitely sees the 404.html template.\n\nHere's what I can confirm:\n* Debug = False  \n* I am running apache on a shared hosting  \n* I have not done anything special with .htaccess and 404 errors.  \n* If I run with Debug = True, it says it's a 404 error.\n* I am using FastCGI\n\nAnything else anyone think I could try?\n\nThank you very much!",
+  "lastActivityDate": "2014-12-15T23:18:46.823",
+  "title": "Django 404 page not showing up",
+  "tags": [
+    "django",
+    "setup"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

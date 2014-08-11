@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2447305",
+  "creationDate": "2014-03-17T21:13:27.417",
+  "body": "\n\nIs there an easy way to write to and read from the windows event log in VBA?",
+  "lastActivityDate": "2014-08-25T04:11:19.923",
+  "title": "Write/Read to Windows Event Log",
+  "tags": [
+    "api",
+    "vba",
+    "event-log"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

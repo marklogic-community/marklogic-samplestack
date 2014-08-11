@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2450708",
+  "creationDate": "2014-03-18T05:43:11.503",
+  "body": "\n\nhow can i write the query, to update the table `videos`, and set the value of field `name` to 'something' where the `average` is max(), or UPDATE the table, where `average` has the second value by size!!!\n\ni think the query must look like this!!!\n\n\tUPDATE videos \n\t   SET name = 'something' \n\t WHERE average IN (SELECT `average`\n\t                     FROM `videos`\n\t                 ORDER BY `average` DESC\n\t                    LIMIT 1)\n\t\n\nbut it doesn't work!!!",
+  "lastActivityDate": "2014-03-18T06:02:47.870",
+  "title": "update myqsl table",
+  "tags": [
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

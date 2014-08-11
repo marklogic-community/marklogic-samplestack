@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2071822",
+  "creationDate": "2014-01-18T05:32:46.037",
+  "body": "\n\nas a warning I have very limited experience with PHP, with just over 1 month of learning it.\n\nI have a textform that when its submitted it goes through str_replaces on the allowed tags (eg [img]) to turn them into html tags.\n\nWhat I want to do Is grab the URLS from the $string and add links to the original image and the url to the resized. What im basically asking, i guess, is how do i grab urls from a string? so that I can use them to add links to resized imgs.\n\n\t<a href=\"linkToOriginal\"><img src=\"\"location/resize.php?file=', $string);`\n\t\n\nwhat i do at the moment is just replace [img] with html img tag which is put right next to the url in the text field. $string being the large body of text.\n\n\t $imageOpen = str_replace('[img]', '<img src=\"http://location/resize.php?file=', $string);\n\t   $imageClose = str_replace('[/img]', '\"/></a>', $imageOpen);\n\t\n\nIf this isnt clear please tell me, as im pretty awful at explaining things!",
+  "lastActivityDate": "2014-01-18T06:03:53.500",
+  "title": "getting a link with str_replace",
+  "tags": [
+    "php",
+    "url"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

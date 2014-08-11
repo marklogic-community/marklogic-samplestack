@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2266979",
+  "creationDate": "2014-02-18T07:35:02.930",
+  "body": "\n\nUsually, I putExtra inside an Intent to transfer stuff between Activities.\n\nBut it seems like I can't do this with a Service?\n\n\tBundle extras = getIntent().getExtras();\n\t\n\nThat doesn't work for a android Service.  How do I send a string from an Activity to a Service then?",
+  "lastActivityDate": "2014-02-18T07:53:41.133",
+  "title": "How do I send some data (eg. a String) from my Activity to a Service ...in Android?",
+  "tags": [
+    "java",
+    "android",
+    "data",
+    "service",
+    "activity"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}

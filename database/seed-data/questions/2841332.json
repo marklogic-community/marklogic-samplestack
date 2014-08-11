@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2841332",
+  "creationDate": "2014-05-18T02:50:25.960",
+  "body": "\n\nI have a very strange problem and the following code wont compile:\n\n\t#ifndef MYWINDOW_HPP_INCLUDED\n\t#define MYWINDOW_HPP_INCLUDED\n\t\n\tclass MyWindow{\n\t\n\t    private:\n\t        WNDCLASSEX window_class;\n\t        HWND window_handle;\n\t        HDC device_context_handle;\n\t        HGLRC open_gl_render_context;\n\t        MSG message;\n\t        BOOL quit;\n\t\n\t    public:\n\t        Window(int height=416, int width=544, WindowStyle window_style=WINDOWED);\n\t        void Show();\n\t        void Close();\n\t        ~Window();\n\t\n\t};\n\t\n\t#endif // MYWINDOW_HPP_INCLUDED\n\t\n\nI get the following error:\n    error: expected '=', ',', ';', 'asm' or '**attribute**' before 'MyWindow'\n\nI can't see any syntax errors here, although I coukd be wrong as I am very (very) new in c++. Thanks in advance, ell.\n\nEDIT:\nYeah, I tried renaming my class to MyWindow from Window to solve the problem but it didn't work, I forgot to rename the constructor. I have updated the code now but that still hasn't solved the problem. Here is the only other code I have in my project, I linked it because adding al those spaces would take a while: \n[ here's the code ](http://pastebin.com/uzQnX92w)",
+  "lastActivityDate": "2014-05-23T14:00:00.880",
+  "title": "C++ (g++) Compile Error, Expected \"=\"/etc. Before 'MyWindow\" (my class name)",
+  "tags": [
+    "c++",
+    "oop",
+    "class",
+    "g++",
+    "compiler-errors"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

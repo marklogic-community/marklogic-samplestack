@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2643675",
+  "creationDate": "2014-04-17T16:15:43.400",
+  "body": "\n\nI have program that runs fast enough. I want to see the number of threads created by the program.\n\n\tldd test\n\t\n\nshows use of library pthread. but how to find out number of threads created by the program. I only have command line access to the PC on which the program is run.\nThe platform is linux.",
+  "lastActivityDate": "2014-04-17T18:07:51.950",
+  "title": "find out the number of threads created by a short running program",
+  "tags": [
+    "linux",
+    "profiling",
+    "multithreading",
+    "pthreads"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

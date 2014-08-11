@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2448737",
+  "creationDate": "2014-03-18T00:31:00.777",
+  "body": "\n\nI'm trying to log the raw body of HTTP POST requests in our application based on Struts, running on Tomcat 6. I've found one [previous post](http://stackoverflow.com/questions/1046721/accessing-the-raw-body-of-a-put-or-post-request) on SO that was somewhat helpful, but the accepted solution doesn't work properly in my case. The problem is, I want to log the POST body only in certain cases, **and** let Struts parse the parameters from the body after logging. Currently, in the Filter I wrote I can read and log the body from the HttpServletRequestWrapper object, but after that Struts can't find any parameters to parse, so the DispatchAction call (which depends on one of the parameters from the request) fails.\n\nI did some digging through Struts and Tomcat source code, and found that it doesn't matter if I store the POST body into a byte array, and expose a Stream and a Reader based on that array; when the parameters need to get parsed, Tomcat's Request object accesses its internal InputStream, which has already been read by that time.\n\nDoes anyone have an idea how to implement this kind of logging correctly?",
+  "lastActivityDate": "2014-03-23T22:48:33.217",
+  "title": "Struts and logging HTTP POST request body",
+  "tags": [
+    "java",
+    "tomcat",
+    "logging",
+    "servlets",
+    "http-post"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

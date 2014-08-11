@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2444919",
+  "creationDate": "2014-03-17T11:26:11.660",
+  "body": "\n\nGot this line of code [here](http://blogs.silverlight.net/blogs/msnow/archive/2008/07/17/tip-of-the-day-20-how-to-increase-the-isolated-storage-quota-for-your-app.aspx) but its not working.\n\n\tprivate void Button_Click(object sender, RoutedEventArgs e)\n\t    {\n\t        using (IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication())\n\t        {\n\t            long newSpace = isf.Quota + 1523456786435;\n\t            try\n\t            {\n\t                if (true == isf.IncreaseQuotaTo(newSpace))\n\t                {\n\t                    Debug.WriteLine(\"success\");\n\t                }\n\t                else\n\t                {\n\t                    Debug.WriteLine(\"unsuccessful\");\n\t                }\n\t            }\n\t            catch (Exception ex)\n\t            {\n\t\n\t                throw ex;\n\t            }\n\t        }\n\t    }\n\t",
+  "lastActivityDate": "2014-10-10T14:28:18.903",
+  "title": "Silverlight 4.0: How to increase quota in Isolated File Storage",
+  "tags": [
+    "silverlight-4.0",
+    "isolatedstorage",
+    "isolatedstoragefile"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201410",
+  "itemTally": 0,
+  "owner": null
+}

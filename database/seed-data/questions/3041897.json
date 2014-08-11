@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3041897",
+  "creationDate": "2014-06-17T08:43:05.547",
+  "body": "\n\nI need to sort a 2 dimensional array of doubles on multiple columns using either C or C++. Could someone point me to the algorithm that I should use or an existing library (perhaps boost?) that has this functionality?\n\nI have a feeling that writing a recursive function may be the way to go but I am too lazy to write out the algorithm or implement it myself if it has been done elsewhere. :-)\n\nThanks",
+  "lastActivityDate": "2014-08-31T01:45:03.763",
+  "title": "Sorting a 2 dimensional array on multiple columns",
+  "tags": [
+    "c++",
+    "c",
+    "algorithm",
+    "sorting"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

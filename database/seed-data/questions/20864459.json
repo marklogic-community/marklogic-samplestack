@@ -1,1 +1,23 @@
-{"id":"/questions/20864459.json", "creationDate":"2014-01-01T00:11:35.307", "body":"\n\nWhat's the best way to assert that the expected results matches the actual results when both are arrays of objects?  My immediate thought was to use Array prototype filter and check that the intersection is the same size as expected, i.e.:\n\n\tdescribe('select',function(){\n\t  it(\"should return selected columns\", function(done) {\n\t    var query = \"select lunchTime, name\";\n\t\n\t    var actual = ... results of the query, an array of anonymous objects ...\n\t\n\t    // expected results\n\t    var expected = [{\"lunchTime\": \"12:00:00\", \"name\": \"John\"}, \n\t                   {\"lunchTime\": \"12:00:00\", \"name\": \"Dave\"}, \n\t                   {\"lunchTime\": \"13:00:00\", \"name\": \"Sally\"}, \n\t                   {\"lunchTime\": \"12:00:00\", \"name\": \"Ben\"}, \n\t                   {\"lunchTime\": \"12:00:00\", \"name\": \"Dana\"}, \n\t                   {\"lunchTime\": \"13:00:00\", \"name\": \"Mike\"}];\n\t\n\t    var intersection = actual.filter(function(n) {\n\t        return expected.indexOf(n) != -1\n\t    });\n\t\n\t    expect(intersection).to.have.length(expected.length);\n\t    expect(actual).to.have.length(expected.length);\n\t  });\n\t});\n\t\n\nDoes this approach make sense?  Is there a better way to assert the query results match expectations?", "lastActivityDate":"2014-01-01T03:13:58.327", "title":"Mocha/Chai testing expected vs actual arrays of objects", "tags":["javascript", "testing", "mocha", "matcher", "chai"], "docScore":0, "comments":[], "answers":[], "creationYearMonth":"201401", "itemTally":0, "owner":{"displayName":"marfarma", "id":"149060"}}
+{
+  "id": "/questions/20864459",
+  "creationDate": "2014-01-03T16:11:35.307",
+  "body": "\n\nWhat's the best way to assert that the expected results matches the actual results when both are arrays of objects?  My immediate thought was to use Array prototype filter and check that the intersection is the same size as expected, i.e.:\n\n\tdescribe('select',function(){\n\t  it(\"should return selected columns\", function(done) {\n\t    var query = \"select lunchTime, name\";\n\t\n\t    var actual = ... results of the query, an array of anonymous objects ...\n\t\n\t    // expected results\n\t    var expected = [{\"lunchTime\": \"12:00:00\", \"name\": \"John\"}, \n\t                   {\"lunchTime\": \"12:00:00\", \"name\": \"Dave\"}, \n\t                   {\"lunchTime\": \"13:00:00\", \"name\": \"Sally\"}, \n\t                   {\"lunchTime\": \"12:00:00\", \"name\": \"Ben\"}, \n\t                   {\"lunchTime\": \"12:00:00\", \"name\": \"Dana\"}, \n\t                   {\"lunchTime\": \"13:00:00\", \"name\": \"Mike\"}];\n\t\n\t    var intersection = actual.filter(function(n) {\n\t        return expected.indexOf(n) != -1\n\t    });\n\t\n\t    expect(intersection).to.have.length(expected.length);\n\t    expect(actual).to.have.length(expected.length);\n\t  });\n\t});\n\t\n\nDoes this approach make sense?  Is there a better way to assert the query results match expectations?",
+  "lastActivityDate": "2014-08-11T05:42:56.206",
+  "title": "Mocha/Chai testing expected vs actual arrays of objects",
+  "tags": [
+    "javascript",
+    "testing",
+    "mocha",
+    "matcher",
+    "chai"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": {
+    "displayName": "marfarma",
+    "id": "149060"
+  }
+}

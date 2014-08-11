@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2840061",
+  "creationDate": "2014-05-17T20:16:02.540",
+  "body": "\n\nI am trying to create a website using Symfony and PostgreSQL. I cant find any documentation that shows how to do this. All the documentation assumes the backend db is mySQL.\n\nAnyone knows how to do this?",
+  "lastActivityDate": "2014-05-18T00:41:19.533",
+  "title": "Using symfony with postgresql",
+  "tags": [
+    "postgresql",
+    "symfony1"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2447878",
+  "creationDate": "2014-03-17T22:38:44.097",
+  "body": "\n\nI've got Hudson (continuous integration system) with the git plugin running on a Tomcat Windows Service. msysgit is installed and the msysgit bin dir is in the path. PuTTY/Pageant/plink are installed and msysgit is configured to use them. \n\nWhen I run a job that attempts to clone the git repository I get the following error:\n\n\t$ git clone -o origin git@hostname:project.git \"e:\\HUDSON_HOME\\jobs\\Project Trunk\\workspace\" \n\tERROR: Error cloning remote repo 'origin' : Could not clone git@hostname:project.git \n\tERROR: Cause: Error performing git clone -o origin git@hostname:project.git e:\\HUDSON_HOME\\jobs\\Project Trunk\\workspace \n\tTrying next repository \n\tERROR: Could not clone from a repository \n\tFATAL: Could not clone \n\thudson.plugins.git.GitException: Could not clone \n\t\n1. Running git clone -o origin git@hostname:project.git \"e:\\HUDSON_HOME\\jobs\\Project Trunk\\workspace\" from the command line works without error.  \n2. I've confirmed that my issue is not the same as [http://stackoverflow.com/questions/1177292/hudson-git-clone-error](http://stackoverflow.com/questions/1177292/hudson-git-clone-error) because git is in the path and I don't get any error about the git executable on Hudson's Configure System page.  \n\nThis leads me to believe that the problem is that the user who owns the Tomcat/Hudson Windows service (Local System) has no SSH key set up to be able to clone the git repository. \n\nMy question is, how can I set things up so that the git plugin/msysgit know to use a particular SSH key when trying to clone? I don't think Pageant will work because the Tomcat service is running as the \"Local System\" user, but I may be wrong.  I have tried setting Pageant up as a service (using runassvc.exe), passing the appropriate key, and having it run as \"Local System\". The Tomcat/Hudson service doesn't seem to be able to see the key from the pageant service.  Are there any other techniques for setting up a key?\n\nThanks.\n\nEDIT: The discussion on [http://n4.nabble.com/Hudson-with-git-and-ssh-td375633.html](http://n4.nabble.com/Hudson-with-git-and-ssh-td375633.html) shows that someone else had a similar question.  ssh-agent was suggested and this tool does come with msysgit but I'm not sure how to use it in conjunction with the Hudson service.  Still, good clue if anyone can fill in the gaps.  Thanks to Peter for the comment with the link.\n\nAlso, the discussion on [http://n4.nabble.com/questions-about-git-and-github-plug-ins-td383420.html](http://n4.nabble.com/questions-about-git-and-github-plug-ins-td383420.html) starts off with the same question.  I'm  trying to resurrect that thread.",
+  "lastActivityDate": "2014-04-27T14:31:55.627",
+  "title": "How to configure Hudson and git plugin with an SSH key",
+  "tags": [
+    "git",
+    "tomcat",
+    "windows-services",
+    "ssh",
+    "hudson"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

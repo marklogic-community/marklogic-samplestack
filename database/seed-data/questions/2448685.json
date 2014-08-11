@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2448685",
+  "creationDate": "2014-03-18T00:23:35.790",
+  "body": "\n\nI'm new to SharePoint and I'm creating a public website using SharePoint Server 2007.\n\n**I want to create solution or installer of my SharePoint website to copy it to another server other then my local machine.**\n\nAnyone helps me out to solve this problem.\n\nThanks.",
+  "lastActivityDate": "2014-03-18T04:28:40.040",
+  "title": "How to create SharePoint Solution?",
+  "tags": [
+    "sharepoint",
+    "installer",
+    "wspbuilder"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

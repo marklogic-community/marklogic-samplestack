@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2449857",
+  "creationDate": "2014-03-18T03:28:18.687",
+  "body": "\n\nSorry if this is too simple, but thanks in advance for helping. This is for MySQL but might be relevant for other RDMBSs\n\ntblA has 4 columns: colA, colB, colC, mydata, A_id\nIt has about 10^9 records, with 10^3 distinct values for colA, colB, colC.\n\ntblB has 3 columns: colA, colB, B_id\nIt has about 10^4 records.\n\nI want all the records from tblA (except the A_id) that have a match in tblB. In other words, I want to use tblB to describe the subset that I want to extract and then extract those records from tblA. Namely:\n\n\tSELECT a.colA, a.colB, a.colC, a.mydata \n\tFROM tblA as a\n\tINNER JOIN tblB as b\n\tON \n\t  a.colA=b.colA\n\t  a.colB=b.colB\n\t;\n\t\n\nIt's taking a really long time (more than an hour) on a newish computer (4GB, Core2Quad, ubuntu), and I just want to check my understanding of the following optimization steps.\n\n** Suppose this is the only query I will ever run on these tables. So ignore the need to run other queries.\n\nNow my questions:\n\n1. What indexes should I create to optimize this query?\nI think I just need a multiple index on (colA, colB) for both tables.\nI don't think I need separate indexes for colA and colB.\nAnother stack overflow article (that I can't find) mentioned that when adding new indexes, it is slower when there are existing indexes, so that might be a reason to use the multiple index.\n\n2. Is INNER JOIN correct? I just want results where a match is found.\n\n3. Is it faster if I join (tblA to tblB) or the other way around, (tblB to tblA)?\nThis [previous answer](http://stackoverflow.com/questions/2256985/speeding-up-inner-joins-between-a-large-table-and-a-small-table) says that the optimizer should take care of that.\n\n4. Does the order of the part after ON matter? \nThis [previous answer](http://stackoverflow.com/questions/340139/execution-order-of-conditions-in-sql-where-clause) say that the optimizer also takes care of the execution order.",
+  "lastActivityDate": "2014-12-11T14:04:32.587",
+  "title": "For extract a large subset of a table from MySQL, how does Indexing, order of tables affect speed of query?",
+  "tags": [
+    "mysql",
+    "sql",
+    "optimization",
+    "indexing"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201412",
+  "itemTally": 0,
+  "owner": null
+}

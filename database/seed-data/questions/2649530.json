@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649530",
+  "creationDate": "2014-04-18T06:49:20.383",
+  "body": "\n\nso i have 4 divs (i actually have many more but this will simplify the question). i want to display them in two columns. the 4 divs vary in height. the number of actual divs in the end will vary. \nso if i have this\n\n\t<div id=\"1\" style=\"height: 200px\" class=\"inline\">some content here</div>\n\t<div id=\"2\" style=\"height: 600px\" class=\"inline\">some content here</div>\n\t<div id=\"3\" style=\"height: 300px\" class=\"inline\">some content here</div>\n\t<div id=\"4\" style=\"height: 200px\" class=\"inline\">some content here</div>\n\t\n\nwith styling thus\n\n\t.inline { display: inline-block; vertical-align: top; width: 48%;}\n\t\n\nso #1 would go left and then #2 would shove up beside it to the right, great, but the #3 will not slide up the 400px to fit nicely below #1. (of course)... it goes on the left side but at 600px from the top clearing the bottom of #2. etc... \n\nhow would i get the divs to slide up into the empty spaces, is it possible with css? jquery maybe?\ni know i could write column divs to mark it up, but since the number of divs constantly change and the heights vary according to content. It would be nice to just get rid of the space since we dont really care about the order.\n\nany thoughts?",
+  "lastActivityDate": "2014-04-18T07:22:52.657",
+  "title": "div stacking/layout with css or javascript",
+  "tags": [
+    "jquery",
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

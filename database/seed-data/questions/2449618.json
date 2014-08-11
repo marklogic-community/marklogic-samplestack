@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2449618",
+  "creationDate": "2014-03-18T02:48:32.880",
+  "body": "\n\nIt's always seemed a little at odds with the principles of Java that the Java Servlet Spec (2.5 version [here](http://jcp.org/aboutJava/communityprocess/mrel/jsr154/index2.html)) includes a set of magic attributes containing info about included resources, namely:\n\n\tjavax.servlet.include.request_uri\n\tjavax.servlet.include.context_path\n\tjavax.servlet.include.servlet_path\n\tjavax.servlet.include.path_info\n\tjavax.servlet.include.query_string\n\t\n\nIt's not even specifically pointed out in the [API documentation](http://java.sun.com/products/servlet/2.5/docs/servlet-2_5-mr2/index.html), only in the spec where it is a must for correct implementation.\n\nThis approach feels very wrong, an exposed implementation detail that clients will use and depend on. Why is this information exposed in this way?",
+  "lastActivityDate": "2014-03-18T03:17:13.040",
+  "title": "Why are there magic attributes exposed in the Servlet spec?",
+  "tags": [
+    "java",
+    "attributes",
+    "servlets"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

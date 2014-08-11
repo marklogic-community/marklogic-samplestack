@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2451281",
+  "creationDate": "2014-03-18T07:52:28.260",
+  "body": "\n\nI am building a MapView and I want my custom overlay items to display the name of the location they are marking when the user taps them, like the Android Maps app.\n\nI setup the onTap listener and the floating TextView to hold the location name.  I still need to set it up so that it redraws the label when the user moves the map, etc.\n\nAnyway, I am wondering if I am reinventing the wheel here.  Is there a built-in method I am unaware of?  I would think that most implementations of MapView have labels.\n\nFor reference, my implementation so far:\n\nin map xml:\n\n\t<LinearLayout android:id=\"@+id/mapBubbleWrap\"\n\t    android:layout_width=\"wrap_content\" \n\t    android:layout_height=\"wrap_content\" \n\t    android:layout_alignParentTop=\"true\">\n\t    <TextView android:id=\"@+id/mapBubble\" \n\t        android:layout_width=\"wrap_content\" \n\t        android:layout_height=\"wrap_content\" \n\t        android:visibility=\"gone\" \n\t        android:background=\"#ffffff\" \n\t        android:textColor=\"#ff0000\"/>\n\t</LinearLayout>\n\t\n\nin my extended ItemizedOverlay:\n\n\tpublic boolean onTap(int index) {\n\t\n\t    this.setFocus( mOverlays.get(index) );      \n\t    return true;\n\t}\n\t\n\nin my Activity onFocus:\n\n\tpublic void onFocusChanged( ItemizedOverlay overlay, OverlayItem item ) {\n\t    if( item != null) {\n\t        mapBubble.setText(item.getTitle());\n\t        Point newPoint = mapView.getProjection().toPixels(item.getPoint(), null);\n\t        mapBubbleWrap.setPadding(newPoint.x, newPoint.y-10, 0, 0);\n\t        mapBubble.setVisibility(View.VISIBLE);\n\t    }\n\t}\n\t",
+  "lastActivityDate": "2014-03-18T09:19:56.977",
+  "title": "Android: Map Overlay Labels",
+  "tags": [
+    "android"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2448315",
+  "creationDate": "2014-03-17T23:34:07.100",
+  "body": "\n\nI'm trying to set up a feature where after accessing a wepage, the user is not allowed to return until they have been away for x minuets. It's on a login system, so I don't need to worry about IPs etc. What I had in mind was as following:\n1. User accesses page; current time (of access) is logged (in database?).\n2. User tries to return to page; get time since last access (from database?).\n3. If user has been away for x minuets, allow page access.\n4. If user has been away for less than x minuets, block page access.\n\nAll this would be done (I guess) with a MYSQL database. Anyone now how to achieve this? I just spent the last 3 hours trying and failing...I guess I don't know enough.\n\nThanks in advance!",
+  "lastActivityDate": "2014-03-17T23:36:24.107",
+  "title": "Create a page use limit in php?",
+  "tags": [
+    "php",
+    "database",
+    "time",
+    "limit"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

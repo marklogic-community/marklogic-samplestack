@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2072918",
+  "creationDate": "2014-01-18T08:02:14.243",
+  "body": "\n\nI want my PHP pages to be cached. To allow cache I use:\n\n\tsession_cache_limiter('private');\n\tsession_cache_expire(180);\n\tsession_start();\n\t\n\nSince I'm only using sessions for these cache headers, should I just drop these 3 line and replace them with (I'm never using $_SESSION):\n\n\theader('Expires: <some GMT date>');\n\theader('Cache-Control: private, max-age=<some GMT date in the future>, pre-check=<some GMT date in the future>');\n\theader('Last-Modified: <some GMT date>');\n\t",
+  "lastActivityDate": "2014-01-21T06:02:02.387",
+  "title": "PHP using session_cache_limiter() and session_cache_expire() or multiple header()",
+  "tags": [
+    "php",
+    "http",
+    "caching",
+    "http-1.1"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

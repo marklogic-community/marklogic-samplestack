@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2266915",
+  "creationDate": "2014-02-18T07:23:57.270",
+  "body": "\n\nI started learning scala a few days ago and when learning it, I am comparing it with other [functional programming](http://en.wikipedia.org/wiki/Functional_programming) languages like ([Haskell](http://en.wikipedia.org/wiki/Haskell_%28programming_language%29), [Erlang](http://en.wikipedia.org/wiki/Erlang_%28programming_language%29)) which I had some familiarity with. Does Scala has [guard](http://en.wikipedia.org/wiki/Guard_%28computer_science%29) sequences available?\n\nI went through pattern matching in Scala, but is there any concept equivalent to guards with `otherwise` and all?",
+  "lastActivityDate": "2014-05-12T16:08:20.540",
+  "title": "Does Scala have guards?",
+  "tags": [
+    "scala",
+    "haskell",
+    "functional-programming"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

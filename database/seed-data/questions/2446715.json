@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2446715",
+  "creationDate": "2014-03-17T19:32:26.823",
+  "body": "\n\n\t i am having an form for uploading an excel file like\n\t\n\t   <form enctype=\"multipart/form-data\" action=\"http://localhost/joomla/Joomla_1.5.7/index.php?option=com_jumi&fileid=7\" method=\"POST\">\n\t     Please choose a file: <input name=\"file\" type=\"file\" id=\"file\" /><br />\n\t     <input type=\"submit\" value=\"Upload\" />\n\t    </form> \n\t\n\nAnd in the FIle [http://localhost/joomla/Joomla_1.5.7/index.php?option=com_jumi&fileid=7](http://localhost/joomla/Joomla_1.5.7/index.php?option=com_jumi&fileid=7)\n\n\ti have retrived the uploaded file contents by\n\t\n\t\n\t\n\t  <?php echo \"Name\". $_FILES['file']['name'] . \"<br />\";\n\t\n\t   echo \"Type: \" . $_FILES[\"file\"][\"type\"] . \"<br />\";\n\t   echo \"Size: \" . ($_FILES[\"file\"][\"size\"] / 1024) . \" Kb<br />\";\n\t   echo \"Stored in: \" . $_FILES[\"file\"][\"tmp_name\"] . \"<br />\";\n\t   $string = file_get_contents( $_FILES[\"file\"][\"tmp_name\"] );\n\t\n\t        foreach ( explode( \"\\n\", $string ) as $userString )\n\t\n\t    {\n\t\n\t        $userString = trim( $userString );\n\t                    echo $userString;$array = explode( ';', $userString );\n\t\n\t\n\t\n\t          $userdata = array\n\t       ( 'cf_id'=>trim( $array[0] ),\n\t      'text_0'=>trim( $array[1] ),\n\t        'text_1'=>trim( $array[2] ),\n\t         'text_2'=>trim( $array[3] ),\n\t       'text_3'=>trim($array[4]),\n\t       'text_6'=>trim($array[5]),\n\t        'text_7'=>trim($array[6]),\n\t   'text_9'=>trim($array[7]),\n\t      'text_12'=>trim($array[8]));\n\t\n\t\n\t\n\t           global $db; $db=& JFactory::getDBO();\n\t\n\t\n\t          $query =  'INSERT INTO #__chronoforms_UploadAuthor VALUES (\"'.$userdata['cf_id'].'\",\"'.$userdata['text_0'].'\",\"'.$userdata['text_1'].'\",\"'.$userdata['text_2'].'\",\"'.$userdata['text_3'].'\",\"'.$userdata['text_6'].'\",\"'.$userdata['text_7'].'\",\"'.$userdata['text_9'].'\")';\n\t\n\t          $db->Execute($query);\n\t\n\t          echo \"<br>\";\n\t\n\t            }\n\t\n\ni am trying to insert the contents into the table #__chronoforms_UploadAuthor in Joomla database . it doent shows any error but it is not inserted into the database..\n\nPlease help me.. Y the contents are not inserted into the database...And how to make it inserted into the database..\n\nEDIT:\n\ni have echoed the Query and its shown as \nINSERT INTO jos_chronoforms_UploadAuthor VALUES (\"1\",\"\"Concept-paper-WSN_02.pdf\"\",\"\"Wi-SenseScape, wireless sensor networks\"\",\"\"TCS Innovation Labs, Bangalore\"\",\"\"Internal\"\",\"\"Wi-SenseScape\"\",\"\"Harish Reddy, Vishnu, Deepika, T.Chakravarty and Balamuralidhar\"\",\"\"2008\"\",\"\",\"\")  .. since there are 2 double quotes , it is not inserted into the database .. Pls tel me how to solve this..\n\nso that the QUery should be like\nINSERT INTO jos_chronoforms_UploadAuthor VALUES (\"1\",\"Concept-paper-WSN_02.pdf\",\"Wi-SenseScape, wireless sensor networks\",\"TCS Innovation Labs, Bangalore\"\",\"Internal\"\",\"\"Wi-SenseScap\",\"Harish Reddy, Vishnu, Deepika, T.Chakravarty and Balamuralidhar\",\"2008\",\"\",\"\")",
+  "lastActivityDate": "2014-07-16T14:58:40.297",
+  "title": "Not Inserted into database in PHP script",
+  "tags": [
+    "php",
+    "joomla1.5"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

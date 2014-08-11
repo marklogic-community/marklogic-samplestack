@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2073086",
+  "creationDate": "2014-01-18T08:26:12.233",
+  "body": "\n\nI need a way to attach some pre-processing to each assignment of the window.location. Is there a way to do this. I basically need to serialize some info, that will be used in the new location.",
+  "lastActivityDate": "2014-01-18T08:32:39.657",
+  "title": "Javascript: How to intercept window.location change",
+  "tags": [
+    "javascript",
+    "jquery"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

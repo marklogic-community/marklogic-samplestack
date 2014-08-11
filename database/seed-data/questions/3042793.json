@@ -1,0 +1,18 @@
+{
+  "id": "/questions/3042793",
+  "creationDate": "2014-06-17T13:43:54.403",
+  "body": "\n\nWould this be better as a stored procedure or leave it as is?\n\n\tINSERT INTO `user_permissions` \n\t    ( `user_id`, `object_id`, `type`, `view`, `add`, `edit`, `delete`, `admin`, `updated_by_user_id` ) \n\t    SELECT `user_id`, $object_id, '$type', 1, 1, 1, 1, 1, $user_id \n\t    FROM `user_permissions` \n\t    WHERE `object_id` = $object_id_2 AND `type` = '$type_2' AND `admin` = 1\n\t\n\nYou can think of this with different objects, lets say you have groups and subgroups. If someone creates a subgroup, it is making everyone who had access to the parent group now also have access to the subgroup.\n\nI've never made a stored procedure before, but this looks like it might be time. This call be probably be called very often. \n\nShould I be creating a procedure or will the performance be insignificant?",
+  "lastActivityDate": "2014-07-12T01:47:32.367",
+  "title": "SELECT INTO or Stored Procedure?",
+  "tags": [
+    "php",
+    "stored-procedures",
+    "mysql"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201407",
+  "itemTally": 0,
+  "owner": null
+}

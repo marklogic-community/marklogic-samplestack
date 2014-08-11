@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2643741",
+  "creationDate": "2014-04-17T16:27:01.237",
+  "body": "\n\nI have problems running a dynamic LIKE statement in my project: \nthis query works like a charm and returns all items with a 't' in there name: \n\n\tconst char *sql = \"select * from bbc_ipad_v1_node where name LIKE '%%t%%'\";\n\t\n\nWhen I try to do this dynamically I do not get erros, but just an empty result. It seems that the value is nill. I try to bind a string value 's' which outputs a correct value\n\n\tNSLog(@\"bbc_ : search menu items from db based on: %@\",s);\n\tconst char *sql = \"select * from bbc_ipad_v1_node where name LIKE '%%?%%'\";\n\tsqlite3_stmt *statement;\n\tif (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {\n\tsqlite3_bind_text(statement, 1, [s UTF8String],-1,SQLITE_TRANSIENT);\n\t\n\nHow should I bind this value instead of using:\n\n\tconst char *sql = \"select * from bbc_ipad_v1_node where name LIKE '%%?%%'\";\n\t\n\nThomas",
+  "lastActivityDate": "2014-01-25T11:39:29.273",
+  "title": "How to use the SQLITE3 LIKE statement",
+  "tags": [
+    "iphone",
+    "sqlite3",
+    "statements"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "/questions/3042412",
+  "creationDate": "2014-06-17T11:51:08.277",
+  "body": "\n\n**For Binary tree:** You no need to consider tree node values, I am interested about different tree topologies with 'N' nodes.\n\n**For Binary Search Tree:** We obviously consider tree node values.",
+  "lastActivityDate": "2014-01-09T09:35:33.083",
+  "title": "With ' N ' no of nodes, how many different Binary and Binary Search Trees possible?",
+  "tags": [
+    "tree",
+    "binary-tree"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

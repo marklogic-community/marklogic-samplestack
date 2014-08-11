@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2646234",
+  "creationDate": "2014-04-17T22:38:43.457",
+  "body": "\n\nI don't know if it is possible to do this, but I have tried several ways and nothing seems to work. Basically I need to access the same static member from several files which include the same class definition.\n\n\t// Filename: S.h\n\t\n\tclass S {\n\tpublic:\n\t    static int foo;\n\t\n\t    static void change(int new_foo) {\n\t        foo = new_foo;\n\t    }\n\t\n\t};\n\t\n\tint S::foo = 0;\n\t\n\nThen in a class definition (other .cpp file) I have:\n\n\t// Filename: A.h\n\t\n\t#include \"S.h\"    \n\t\n\tclass A {\n\tpublic:\n\t    void do_something() {\n\t        S::change(1);\n\t    }\n\t};\n\t\n\nAnd in another file:\n\n\t// Filename: program.cpp\n\t\n\t#include \"S.h\"\n\t#include \"A.h\"\n\t\n\tint main (int argc, char * const argv[]) {\n\t    A a = new A();\n\t    S::change(2);        \n\t\n\t    std::cout << S::foo << std::endl;\n\t\n\t    a->do_something();\n\t\n\t    std::cout << S::foo << std::endl;\n\t\n\t}\n\t\n\nNow, I would expect the second function call to change the S::foo to 1, but the output is still:\n\n\t2\n\t\n\nIs the A.h file creating a local copy of the static class?\n\nThank you\nTommaso",
+  "lastActivityDate": "2014-04-17T22:43:23.027",
+  "title": "How to share a static variable between C++ source files?",
+  "tags": [
+    "c++",
+    "file",
+    "class",
+    "static",
+    "scope"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

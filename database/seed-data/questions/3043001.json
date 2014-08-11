@@ -1,0 +1,20 @@
+{
+  "id": "/questions/3043001",
+  "creationDate": "2014-06-17T14:34:33.880",
+  "body": "\n\ni use to create a custom function like winexec(...):Hwnd that will retun the handle of executed application.\n\ni did use the findwindow() but having problem if it change window caption.",
+  "lastActivityDate": "2014-06-17T22:56:50.483",
+  "title": "How to get the Handle that is executed in winexec or shellexecute?",
+  "tags": [
+    "delphi",
+    "shell",
+    "handle",
+    "shellexecute",
+    "hwnd"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

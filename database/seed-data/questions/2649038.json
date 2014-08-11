@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2649038",
+  "creationDate": "2014-04-18T05:17:01.717",
+  "body": "\n\nI'm just looking at `NSString.h` and wonder why some method declaration args use \n`(NSString *)string;` while others use `(NSString *)aString`.  \n\nWhat are the conventions practiced here?",
+  "lastActivityDate": "2014-05-22T21:23:18.140",
+  "title": "What does the 'a' prefix represent in aString?",
+  "tags": [
+    "iphone",
+    "objective-c",
+    "iphone-sdk-3.0"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

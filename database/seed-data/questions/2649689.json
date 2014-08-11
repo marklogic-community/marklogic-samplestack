@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2649689",
+  "creationDate": "2014-04-18T07:34:30.763",
+  "body": "\n\nI just handed in this function in an assignment. It is done (hence no homework tag). But I would like to see how this can be improved.\n\nEssentially, the function sums the squares of all the integers between 1 and the given number, using the following formula:\n\n\tn(n+1)(2n+1)/6\n\t\n\nWhere `n` is the maximum number.\n\nThe function below is made to catch any overflow and return 0 should any occur.\n\n\tUInt32 sumSquares(const UInt32 number)\n\t{\n\t    int result = 0;\n\t    __asm\n\t    {\n\t        mov eax, number  //move number in eax\n\t        mov edx, 2       //move 2 in edx\n\t        mul edx          //multiply (2n)\n\t        jo end           //jump to end if overflow\n\t        add eax, 1       //addition (2n+1)\n\t        jo end           //jump to end if overflow\n\t        mov ecx, eax     //move (2n+1) in ecx\n\t\n\t        mov ebx, number  //move number in ebx\n\t        add ebx, 1       //addition (n+1)\n\t        jo end           //jump to end if overflow\n\t\n\t        mov eax, number //move number in eax for multiplication\n\t        mul ebx         //multiply n(n+1)\n\t        jo end          //jump to end if overflow\n\t        mul ecx         //multiply n(n+1)(2n+1)\n\t        jo end          //jump to end if overflow\n\t        mov ebx, 6      //move 6 in ebx\n\t        div ebx         //divide by 6, the result will be in eax\n\t\n\t        mov result, eax //move eax in result\n\t\n\tend:\n\t    }\n\t\n\t    return result;\n\t}\n\t\n\nBasically, I want to know what I can improve in there. In terms of best-practices mostly. One thing sounds obvious: smarter overflow check (with a single check for whatever maximum input would cause an overflow).",
+  "lastActivityDate": "2014-04-18T19:43:19.953",
+  "title": "Help improving a simple assembly function",
+  "tags": [
+    "assembly",
+    "x86"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201404",
+  "itemTally": 0,
+  "owner": null
+}

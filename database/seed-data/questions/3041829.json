@@ -1,0 +1,19 @@
+{
+  "id": "/questions/3041829",
+  "creationDate": "2014-06-17T08:23:36.470",
+  "body": "\n\nI am trying to use Reflection.Emit to generate a wrapper class in a dynamic assembly. Automatic wrapper generation is part of a new open-source library I'm writing called \"GoInterfaces\".\n\nThe wrapper class implements `IEnumerable<string>` and wraps `List<string>`. In C# terms, all it does is this:\n\n\tclass List1_7931B0B4_79328AA0 : IEnumerable<string>\n\t{\n\t    private readonly List<string> _obj;\n\t\n\t    public List1_7931B0B4_79328AA0(List<string> obj)\n\t    {\n\t        this._obj = obj;\n\t    }\n\t    IEnumerator IEnumerable.GetEnumerator()\n\t    {\n\t        return this._obj.GetEnumerator();\n\t    }\n\t    public sealed IEnumerator<string> GetEnumerator()\n\t    {\n\t        return this._obj.GetEnumerator();\n\t    }\n\t}\n\t\n\nHowever, when I try to call the GetEnumerator() method on my wrapper class, I get ExecutionEngineException. So I saved my dynamic assembly to a DLL and used ildasm on it. Is there anything wrong with the following code?\n\n\t.class public auto ansi sealed List`1_7931B0B4_79328AA0\n\t    extends [mscorlib]System.Object\n\t    implements [mscorlib]System.Collections.Generic.IEnumerable`1<string>, \n\t               [Loyc.Runtime]Loyc.Runtime.IGoInterfaceWrapper\n\t{\n\t    .field private initonly class \n\t        [mscorlib]System.Collections.Generic.List`1<string> _obj\n\t\n\t    .method public hidebysig virtual final instance \n\t            class [mscorlib]System.Collections.Generic.IEnumerator`1<string> \n\t            GetEnumerator() cil managed\n\t    {\n\t        // Code size       12 (0xc)\n\t        .maxstack  1\n\t        IL_0000:  ldarg.0\n\t        IL_0001:  ldfld      class [mscorlib]System.Collections.Generic.List`1<string> List`1_7931B0B4_79328AA0::_obj\n\t        IL_0006:  call       instance valuetype [mscorlib]System.Collections.Generic.List`1/Enumerator<!0> class [mscorlib]System.Collections.Generic.List`1<string>::GetEnumerator()\n\t        IL_000b:  ret\n\t    } // end of method List`1_7931B0B4_79328AA0::GetEnumerator\n\t\n\t\n\t    .method public hidebysig virtual final instance \n\t            class [mscorlib]System.Collections.IEnumerator \n\t            System.Collections.IEnumerable.GetEnumerator() cil managed\n\t    {\n\t        .override [mscorlib]System.Collections.IEnumerable::GetEnumerator\n\t        // Code size       12 (0xc)\n\t        .maxstack  1\n\t        IL_0000:  ldarg.0\n\t        IL_0001:  ldfld      class [mscorlib]System.Collections.Generic.List`1<string> List`1_7931B0B4_79328AA0::_obj\n\t        IL_0006:  call       instance valuetype [mscorlib]System.Collections.Generic.List`1/Enumerator<!0> class [mscorlib]System.Collections.Generic.List`1<string>::GetEnumerator()\n\t        IL_000b:  ret\n\t    } // end of method List`1_7931B0B4_79328AA0::System.Collections.IEnumerable.GetEnumerator\n\t    ...\n\t\n\nI have a test suite that wraps all sorts of different things, including interfaces derived from other interfaces, and multiple interface methods with identical signatures. It's only when I try to wrap `IEnumerable<T>` that this problem occurs. I'd be happy to send the source code (2 *.cs files, no dependencies) if anyone would like.",
+  "lastActivityDate": "2014-06-17T22:36:26.257",
+  "title": "What might cause this ExecutionEngineException?",
+  "tags": [
+    ".net",
+    "reflection.emit",
+    "dynamic-assemblies",
+    "executionengineexception"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

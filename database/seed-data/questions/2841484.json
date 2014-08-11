@@ -1,0 +1,16 @@
+{
+  "id": "/questions/2841484",
+  "creationDate": "2014-05-18T03:36:55.647",
+  "body": "\n\nHere is the relevant code (doesn't work):\n\n\t<html>\n\t<head>\n\t<title>testing td checkboxes</title>\n\t<style type=\"text/css\">\n\ttd { border: 1px solid #000; }\n\tlabel { border: 1px solid #f00; width: 100%; height: 100% }\n\t</style>\n\t</head>\n\t<body>\n\t<table>\n\t<tr><td>Some column title</td><td>Another column title</td></tr>\n\t<tr><td>Value 1<br>(a bit more info)</td><td><label><input type=\"checkbox\" /> &nbsp;</label></td></tr>\n\t<tr><td>Value 2</td><td><input type=\"checkbox\" /></td></tr>\n\t</table>\n\t</body>\n\t</html>\n\t\n\nThe reason is that I want a click anywhere in the table cell to check/uncheck the checkbox.\n\nedits:\nBy the way, no javascript solutions please, for accessibility reasons.\nI tried using display: block; but that only works for the width, not for the height",
+  "lastActivityDate": "2014-06-23T09:04:05.317",
+  "title": "How can a <label> completely fill its parent <td>?",
+  "tags": [
+    "css"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201406",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2644706",
+  "creationDate": "2014-04-17T19:11:10.007",
+  "body": "\n\nHow do I set up a gem to have a binary command, e.g. \"project newProject\" that uses Thor's set of generator commands to create files, etc.?\n\nA good answer would describe how to lay out the skeleton of a gem that when run from the command line, i.e. \"project newProject\", creates one file named \"newProject.txt\" in the directory it's run from.\n\nI've seen that Rails 3 is using Thor to power its generators; seems like a really good solution and I'd like to use a similar approach in a non-Rails ruby gem I'm working on. Tried looking at the Rails 3 source but it's a bit labyrinthine, hence the question.",
+  "lastActivityDate": "2014-05-13T02:25:15.163",
+  "title": "Using Thor for generators in a Ruby gem",
+  "tags": [
+    "ruby",
+    "rubygems",
+    "thor"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "/questions/2841451",
+  "creationDate": "2014-05-18T03:27:04.183",
+  "body": "\n\nIs there any existing Python library that can validate data in Excel format? Or what kind of keyword should I use to search such an open source project? Thanks.",
+  "lastActivityDate": "2014-05-18T05:26:41.640",
+  "title": "Python library to validate Excel data",
+  "tags": [
+    "python",
+    "excel",
+    "validation"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201405",
+  "itemTally": 0,
+  "owner": null
+}

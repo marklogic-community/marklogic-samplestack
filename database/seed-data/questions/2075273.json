@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2075273",
+  "creationDate": "2014-01-18T14:47:02.970",
+  "body": "\n\nI'm designing a web service that serves up JSON through a REST API. This API is currently being used by an iPhone app to do CRUD operations.\n\nMy question is, can I design a web client that uses this REST API using nothing more than ExtJS (or some other RIA framework) and HTML pages? In other words, can I create a static HTML page that uses ExtJS to send AJAX calls to the REST API and receive JSON data from it? Or is this thinking too naive and wrong?",
+  "lastActivityDate": "2014-01-18T16:34:06.923",
+  "title": "Designing a web service to be used by the iPhone and a web client",
+  "tags": [
+    "ajax",
+    "json",
+    "api",
+    "rest",
+    "extjs"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

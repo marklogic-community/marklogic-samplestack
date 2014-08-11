@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2642988",
+  "creationDate": "2014-04-17T13:40:22.320",
+  "body": "\n\nI can't figure out what is going on here.  I have some nested lists of checkboxes that I would like to check when the parent is checked.  More importantly, I can't even get the alert to show up.  It's as if the click event is not firing.  Any ideas?\n\n\t<script type=\"text/javascript\"> \n\t$(document).ready(function() {\n\t$(\"#part_mapper_list input[type=checkbox]\").click(function(){\n\t    alert(\"clicked\");\n\t    if ($(this).attr(\"checked\") == \"checked\"){\n\t        $(this + \" input\").attr(\"checked\") = \"checked\";\n\t    } else {\n\t        $(this + \" input\").attr(\"checked\") = \"\";\n\t    }\n\t});\n\t}\n\t</script>\n\t<link rel=\"stylesheet\" href=\"style.css\">\n\t<div>\n\t<ul id=\"part_mapper_list\">\n\t<?php\n\t$makes = array(\"Audi\", \"BMW\", \"Mini\", \"Porsche\", \"Volkswagen\");\n\t$generations = array(\"Generation 1\", \"Generation 2\", \"Generation 3\", \"Generation 4\", \"Generation 5\");\n\t$modelclusters = array(\"Model Cluster 1\", \"Model Cluster 2\", \"Model Cluster 3\", \"Model Cluster 4\", \"Model Cluster 5\");\n\t$cars = array(\"Car 1\", \"Car 2\", \"Car 3\", \"Car 4\", \"Car 5\");\n\t\n\t    foreach($makes as $mappermake){\n\t        echo \"<li id=\\\"\" . $mappermake . \"\\\" class=\\\"mapper_make\\\">+<input type=\\\"checkbox\\\" name=\\\"mapper_make\\\" value=\\\"\" . $mappermake . \"\\\">\" . $mappermake . \"</input><ul>\";\n\t        foreach($generations as $mappergen){\n\t            echo \"<li id=\\\"\" . $mappergen . \"\\\" class=\\\"mapper_gen\\\">+<input type=\\\"checkbox\\\" name=\\\"mapper_gen\\\" value=\\\"\" . $mappergen . \"\\\">\" . $mappergen . \"</input><ul>\";\n\t            foreach($modelclusters as $mappermodelcluster){\n\t                echo \"<li id=\\\"\" . $mappermodelcluster . \"\\\" class=\\\"mapper_modelcluster\\\">+<input type=\\\"checkbox\\\" name=\\\"mapper_modelcluster\\\" value=\\\"\" . $mappermodelcluster . \"\\\">\" . $mappermodelcluster . \"</input><ul>\";\n\t                foreach($cars as $mappercar){\n\t                    echo \"<li id=\\\"\" . $mappercar . \"\\\" class=\\\"mapper_car\\\"><input type=\\\"checkbox\\\" name=\\\"mapper_car\\\" value=\\\"\" . $mappercar . \"\\\">\" . $mappercar . \"</input></li>\";\n\t                }\n\t                echo \"</ul></li>\";\n\t            }\n\t            echo \"</ul></li>\";\n\t        }\n\t        echo \"</ul></li>\";\n\t    }\n\t?>\n\t<input id=\"submit_mapping\" type=\"submit\">\n\t</div>\n\t",
+  "lastActivityDate": "2014-08-15T17:36:44.757",
+  "title": "Jquery: Handling Checkbox Click Event with JQuery",
+  "tags": [
+    "jquery",
+    "jquery-selectors"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201408",
+  "itemTally": 0,
+  "owner": null
+}

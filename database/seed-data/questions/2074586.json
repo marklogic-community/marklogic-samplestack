@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2074586",
+  "creationDate": "2014-01-18T12:33:32.090",
+  "body": "\n\nI have 2 forms. In form1 i have a textbox called TextBox1\nIn Form2 i have another textbox called TextBox2.\n\nI want the text from textbox1 to textbox2, i tried this.\n\n\tTextBox2.Text = Form1.TextBox1.Text\n\t\n\nDo i need to make changes to the first textbox?",
+  "lastActivityDate": "2014-01-19T00:57:01.490",
+  "title": "How to get text from form1",
+  "tags": [
+    ".net",
+    "vb.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201401",
+  "itemTally": 0,
+  "owner": null
+}

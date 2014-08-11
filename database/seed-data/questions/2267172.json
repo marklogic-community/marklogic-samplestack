@@ -1,0 +1,19 @@
+{
+  "id": "/questions/2267172",
+  "creationDate": "2014-02-18T08:07:06.703",
+  "body": "\n\nOur Continuous Integration process appears to be executing programs that are in contention for for files.  During the build, certain pdb's aren't able to be copied because they are in use by another process.  \n\n**Question: Ideally it would be faster to have the concurrent building of each project executing however I was wondering if this would be the cause of the contention and if so is there a way to mitigate the problem.  Thanks!**",
+  "lastActivityDate": "2014-03-04T06:00:38.010",
+  "title": "CruiseControl.NET Continuous Integration Blocking File Access",
+  "tags": [
+    ".net",
+    "msbuild",
+    "continuous-integration",
+    "cruisecontrol.net"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

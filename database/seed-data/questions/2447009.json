@@ -1,0 +1,17 @@
+{
+  "id": "/questions/2447009",
+  "creationDate": "2014-03-17T20:26:40.323",
+  "body": "\n\nI am trying to write a statement for counting the employees attendance and execute their `id` , `name` and the days that he has working on the last 3 months by counting the duplicate `id` on `NewTimeAttendance`  for month 1, 2 and 3.\n\nI tried to count:\n\n\tSelect COUNT(employeeid)\n\t  from NewTimeAttendance\n\t where employeeid=1 and (month=1 or month = 2 or month = 3)\n\t\n\nThis is absolutely working, but just for one employee.\n\nThe second try: \n\n\tSELECT COUNT(NewEmployee.EmployeeID)\n\t  FROM NewEmployee INNER JOIN NewTimeAttendance \n\t    ON NewEmployee.EmployeeID = NewTimeAttendance.EmployeeID\n\t   and (month=1 or month =2 or month = 3)\n\t\n\nThis is working, but it counts all employees and I want it to execute each `EmployeeId`, `EmployeeName` and `number of days` as new record.\n\nLast try: (before you see the code ... it is wrong ..but I am trying)\n\n\tfor i in  0..27 loop\n\t   SELECT COUNT(NewEmployee.EmployeeID),NewEmployee.EmployeeId,EmployeeName\n\t     FROM NewEmployee INNER JOIN NewTimeAttendance \n\t       ON NewEmployee.EmployeeID(i) = NewTimeAttendance.EmployeeID\n\t      and (month=1 or month =2 or month = 3)\n\tend loop\n\t\n\nI really need help...thanks in advance.",
+  "lastActivityDate": "2014-03-17T21:06:25.937",
+  "title": "counting employee attendance",
+  "tags": [
+    "sql",
+    "count"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201403",
+  "itemTally": 0,
+  "owner": null
+}

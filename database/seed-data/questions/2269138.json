@@ -1,0 +1,20 @@
+{
+  "id": "/questions/2269138",
+  "creationDate": "2014-02-18T13:42:41.030",
+  "body": "\n\nI am implementing the system menu (Restore, Move, Size...) on a borderless window and I want the mouse cursor to move to the center of the Window when size or move is selected.  Ideally in VB but C# is fine as well.",
+  "lastActivityDate": "2014-02-19T14:50:23.027",
+  "title": "WPF: How do I position the mouse cursor in code?",
+  "tags": [
+    "wpf",
+    "mouse",
+    "cursor",
+    "position",
+    "move"
+  ],
+  "docScore": 0,
+  "comments": [],
+  "answers": [],
+  "creationYearMonth": "201402",
+  "itemTally": 0,
+  "owner": null
+}
