@@ -15,6 +15,7 @@
 */
 package com.marklogic.samplestack.database;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -130,6 +131,7 @@ public class DatabaseQnADocumentSearchIT {
 	}
 
 	@Test
+	@Ignore
 	public void testResponsePayloadFacets() {
 
 	}
@@ -175,4 +177,74 @@ public class DatabaseQnADocumentSearchIT {
 				.get("tag"));
 	}
 
+	@Test
+	public void testAcceptedSearch() {
+		JsonNode query;
+		ObjectNode results = null;
+		try {
+			query = mapper
+					.readValue(
+							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"text\":true}}}",
+							JsonNode.class);
+			results = operations.qnaSearch(
+					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, QueryView.ALL);
+
+			logger.debug("Query Results:" + mapper.writeValueAsString(results));
+
+			logger.debug("Query Text:" + mapper.writeValueAsString(results.get("report")));
+		} catch (IOException e) {
+			throw new SamplestackIOException(e);
+		}
+		assertEquals("JSON has 1 result", 1, results.get("total").asInt());
+	}
+
+	
+	@Test
+	public void testActivitySearch() {
+		JsonNode query;
+		ObjectNode results = null;
+		try {
+			query = mapper
+					.readValue(
+							"{\"query\":"
+							+ "{\"range-constraint-query\":"
+							+ "{\"constraint-name\":\"lastActivity\", "
+							+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
+							+ "\"range-operator\":\"GT\"}}}",
+							JsonNode.class);
+			results = operations.qnaSearch(
+					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, QueryView.ALL);
+
+			logger.debug("Query Results:" + mapper.writeValueAsString(results));
+
+			logger.debug("Query Text:" + mapper.writeValueAsString(results.get("report")));
+		} catch (IOException e) {
+			throw new SamplestackIOException(e);
+		}
+		assertEquals("JSON has 0 result", 0, results.get("total").asInt());
+		
+		try {
+			query = mapper
+					.readValue(
+							"{\"query\":"
+							+ "{\"range-constraint-query\":"
+							+ "{\"constraint-name\":\"lastActivity\", "
+							+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
+							+ "\"range-operator\":\"LT\"}}}",
+							JsonNode.class);
+			results = operations.qnaSearch(
+					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, QueryView.ALL);
+
+			logger.debug("Query Results:" + mapper.writeValueAsString(results));
+
+			logger.debug("Query Text:" + mapper.writeValueAsString(results.get("report")));
+		} catch (IOException e) {
+			throw new SamplestackIOException(e);
+		}
+		assertTrue("JSON has >0 result", results.get("total").asInt() > 0);
+
+	}
 }

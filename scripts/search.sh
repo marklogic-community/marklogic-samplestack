@@ -47,5 +47,8 @@ curl --user admin:admin --digest -Haccept:application/json "http://localhost:800
 
 # bulk
 curl --user admin:admin --digest -Haccept:"multipart/mixed;boundary=multipart-boundary" "http://localhost:8006/v1/search?q=what&directory=/questions/&options=questions&view=all&format=json" 
-curl --user admin:admin --digest -Haccept:"application/json" "http://localhost:8006/v1/search?q=&directory=/questions/&options=questions&view=facets&format=json"  | python -mjson.tool
+curl --user admin:admin --digest -Haccept:"application/json" "http://localhost:8006/v1/search?q=resolved:true&directory=/questions/&options=questions&view=facets&format=json"  | python -mjson.tool
+curl --user admin:admin --digest -Haccept:"application/json" -Hcontent-type:application/json -X POST -d@'str.json' "http://localhost:8006/v1/search?directory=/questions/&options=questions&view=all&format=json"  | python -mjson.tool | grep query
+curl --user admin:admin --digest -Haccept:"application/json" -Hcontent-type:application/json -X POST -d@'date.json' "http://localhost:8006/v1/search?directory=/questions/&options=questions&view=all"  | python -mjson.tool 
+curl --user admin:admin --digest -Haccept:"application/json" -Hcontent-type:application/json -X POST -d@'date-override.json' "http://localhost:8006/v1/search?directory=/questions/&options=questions&view=all"  | python -mjson.tool 
 
