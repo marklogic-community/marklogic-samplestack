@@ -103,6 +103,11 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
         $parse('search.criteria.constraints.userName.value')($scope) &&
         $scope.store.session
       );
+      var resolvedOnly =
+          $parse('search.criteria.constraints.resolved.value')($scope);
+      if ($scope.store.session) {
+        $scope.resolvedOnly = (resolvedOnly === true);
+      }
 
       var handlersSet = false;
       var setHandlers = function () {
@@ -123,6 +128,8 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
           'store.session.id',
           function (newVal, oldVal) {
             if (newVal !== oldVal) {
+              $scope.search.criteria.constraints.resolved.value = null;
+              $scope.resolvedOnly = false;
               $scope.search.criteria.q = $scope.searchbarText;
             }
           }
@@ -143,6 +150,17 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
           }
         );
 
+        $scope.$watch(
+          'resolvedOnly',
+          function (newVal, oldVal) {
+            if (newVal === true) {
+              $scope.search.criteria.constraints.resolved.value = true;
+            }
+            else {
+              $scope.search.criteria.constraints.resolved.value = null;
+            }
+          }
+        );
         handlersSet = true;
       };
 

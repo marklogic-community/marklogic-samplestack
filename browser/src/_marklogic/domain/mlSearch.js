@@ -258,7 +258,7 @@ define(['_marklogic/module'], function (module) {
                   .replace(/T.*/, 'T00:00:00');
             }
             if (constraint.type === 'boolean') {
-              q.value = constraint.value;
+              q.boolean = constraint.value;
             }
 
             synt.push(mySynt);
@@ -323,7 +323,17 @@ define(['_marklogic/module'], function (module) {
         }
         if (constraint.type === 'boolean' ) {
           if (typeof constraint.value === 'boolean') {
-            param[constraint.queryStringName] = constraint.value;
+            if (constraint.value === true) {
+              param[constraint.queryStringName] = 'yes';
+            }
+            else {
+              if (constraint.value === false) {
+                param[constraint.queryStringName] = 'no';
+              }
+              else {
+                param[constraint.queryStringName] = null;
+              }
+            }
           }
         }
         if (constraint.type === 'text' ) {
@@ -354,6 +364,12 @@ define(['_marklogic/module'], function (module) {
         constraint,
         stateParams
       ) {
+        if (constraint.type === 'boolean') {
+          if (typeof stateParams[constraint.queryStringName] !== 'string') {
+            stateParams[constraint.queryStringName] = '';
+          }
+        }
+
         var trimmed = stateParams[constraint.queryStringName] &&
             stateParams[constraint.queryStringName].trim();
 
