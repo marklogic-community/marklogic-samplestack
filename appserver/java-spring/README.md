@@ -13,12 +13,12 @@ Note that this readme is accurate, but there are pending changes to improve the 
 
 *To build and run in one step:*
 
-* ./gradlew appserver    Runs assemble, dbLoad, and bootrun
+* `./gradlew appserver`    Runs assemble, dbLoad, and bootrun
 
 *To build the app*
 
 * `./gradlew assemble`   This command bootstraps the middle tier and builds the Java project
-* `./gradlew dbLoad`     This command loads some sample data
+* `./gradlew dbLoad`    This command loads some sample data
 * `./gradlew bootrun`       This command runs the middle tier and MarkLogic services
 * See the sibling project in /browser for instructions on running the browser application
 
@@ -35,11 +35,9 @@ See project wiki http://github.com/marklogic/samplestack-marklogic/wiki
 * GET /session
 * POST /login
 * GET /logout
- 
 * GET /questions  Get a paginated list of questions (snippet form)
 * GET /questions?q=term&start=20
 * POST /search
-
 * POST /questions
 * GET /questions/{id}
 * POST /questions/{id}/comments
@@ -49,10 +47,8 @@ See project wiki http://github.com/marklogic/samplestack-marklogic/wiki
 * POST /questions/{id}/answers/{id}/upvotes
 * POST /questions/{id}/answers/{id}/downvotes
 * POST /questions/{id}/answers/{id}/accept
-
 * GET /tags
 * GET /tags?q=
-
 * GET /contributors paginated list of foo object URIs as JSON array
 * POST /contributors Create a user
 * GET/PUT/DELETE /contributors/{id} Get, update, remove Users
