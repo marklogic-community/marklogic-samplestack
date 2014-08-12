@@ -41,7 +41,12 @@ define(['_marklogic/module'], function (module) {
             var deferred = $q.defer();
 
             if (!mlStore.session) {
-              var sessionId = $cookieStore.get('sessionId');
+              var sessionId;
+              try {
+                sessionId = $cookieStore.get('sessionId');
+              }
+              catch (err) { $rootScope.log(err); }
+
               if (sessionId) {
 
                 var sess = sessionModel.getOne(sessionId);
@@ -50,7 +55,11 @@ define(['_marklogic/module'], function (module) {
                   // should be exempt from it -- we'd prefer to drop the
                   // session silently
                   function () {
-                    $cookieStore.put('sessionId', sess.id);
+                    try {
+                      $cookieStore.put('sessionId', sess.id);
+                    }
+                    catch (err) { $rootScope.log(err); }
+
                     mlStore.session = sess;
                     deferred.resolve(sess);
                   },
@@ -79,7 +88,10 @@ define(['_marklogic/module'], function (module) {
             sess.$ml.waiting.then(
               function () {
                 mlStore.session = sess;
-                $cookieStore.put('sessionId', sess.id);
+                try {
+                  $cookieStore.put('sessionId', sess.id);
+                }
+                catch (err) { $rootScope.log(err); }
                 deferred.resolve(sess);
               },
               deferred.reject
@@ -98,12 +110,22 @@ define(['_marklogic/module'], function (module) {
 
             // the heaviest part of being logged in is the cookie
             // the rest we'll just wipe out
-            var sessionId = $cookieStore.get('sessionId');
 
-            sessionModel.del(sessionId).then(
-              successHandler,
-              deferred.reject
-            );
+            var sessionId;
+
+            try {
+              sessionId = $cookieStore.get('sessionId');
+              sessionModel.del(sessionId).then(
+                successHandler,
+                deferred.reject
+              );
+            }
+            catch (err) {
+              $rootScope.log(err);
+              // we can't log out of a session we can't identify
+              deferred.reject(err);
+            }
+
             return deferred.promise;
           };
 
