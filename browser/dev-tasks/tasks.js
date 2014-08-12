@@ -553,7 +553,7 @@ function runTests (opts, cb) {
   // set cursor position
   process.stdout.write('\u001b[1;3H' + chalk.blue('\nUnit Tests:'));
   stream.on('error', cb);
-  stream.on('after_flush', cb);
+  stream.on('end', cb);
   stream.write({path: 'http://localhost:3004/unit-runner.html'});
   stream.end();
 }
