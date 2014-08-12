@@ -83,6 +83,7 @@ assemble.dependsOn(dbInit, dbConfigure, test)
  * LOAD
  */
 task dbLoad(type: MarkLogicSlurpTask)
+dbLoad.mustRunAfter(assemble)
 
 /*
  * CLEAR
@@ -102,6 +103,7 @@ task props(type: Copy) {
  * appserver dependency
  */
 appserver.dependsOn(clean, assemble, dbLoad, bootRun)
+bootRun.shouldRunAfter(dbLoad)
 
 
 //TODO load a bigger dataset from remote server
