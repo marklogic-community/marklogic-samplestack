@@ -26,7 +26,7 @@ define(['app/module'], function (module) {
           {
             criteria: {
               constraints: {
-                resolvedOnly: {
+                resolved: {
                   constraintName: 'resolved',
                   constraintType: 'value',
                   type: 'boolean',
@@ -42,19 +42,21 @@ define(['app/module'], function (module) {
                   constraintName: 'tag',
                   constraintType: 'range',
                   type: 'enum',
-                  subType: 'text',
+                  subType: 'value',
                   queryStringName: 'tags'
                 },
                 dateStart: {
-                  constraintName: 'activityDate',
+                  constraintName: 'lastActivity',
                   constraintType: 'range',
                   type: 'date',
+                  operator: 'GE',
                   queryStringName: 'date-start'
                 },
                 dateEnd: {
-                  constraintName: 'activityDate',
+                  constraintName: 'lastActivity',
                   constraintType: 'range',
                   type: 'date',
+                  operator: 'LE',
                   queryStringName: 'date-end'
                 }
               }
@@ -81,7 +83,7 @@ define(['app/module'], function (module) {
               constraints: {
                 required: [
                   'userName',
-                  'resolvedOnly',
+                  'resolved',
                   'tags',
                   'dateStart',
                   'dateEnd'
@@ -89,17 +91,17 @@ define(['app/module'], function (module) {
                 properties: {
                   userName: {
                     properties: {
-                      constraintName: { enum: ['user'] },
+                      constraintName: { enum: ['userName'] },
                       type: { enum: ['text'] },
-                      value: { type: ['string', null] },
+                      value: { type: ['string', 'null'] },
                       queryStringName: { enum: ['user'] }
                     }
                   },
-                  resolvedOnly: {
+                  resolved: {
                     properties: {
                       constraintName: { enum: ['resolved'] },
                       type: { enum: ['boolean'] },
-                      value: { type: ['boolean', null] },
+                      value: { type: ['boolean', 'null'] },
                       queryStringName: { enum: ['resolved'] }
                     }
                   },
@@ -108,25 +110,25 @@ define(['app/module'], function (module) {
                       constraintName: { enum: ['tag'] },
                       type: { enum: ['enum'] },
                       subType: { enum: ['string'] },
-                      values: { type: ['array', null] },
+                      values: { type: ['array', 'null'] },
                       queryStringName: { enum: ['tags'] }
                     }
                   },
                   dateStart: {
                     properties: {
-                      constraintName: { enum: ['last-activity'] },
+                      constraintName: { enum: ['lastActivity'] },
                       operator: { enum: ['GT'] },
                       type: { enum: ['date'] },
-                      value: { type: ['date', null] },
+                      value: { type: ['date', 'null'] },
                       queryStringName: { enum: ['date-start'] }
                     }
                   },
                   dateEnd: {
                     properties: {
-                      constraintName: { enum: ['last-activity'] },
+                      constraintName: { enum: ['lastActivity'] },
                       operator: { enum: ['LT'] },
                       type: { enum: ['date'] },
-                      value: { type: ['date', null] },
+                      value: { type: ['date', 'null'] },
                       queryStringName: { enum: ['date-end'] }
                     }
                   }

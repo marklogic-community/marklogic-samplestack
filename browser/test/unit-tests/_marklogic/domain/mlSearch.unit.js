@@ -217,7 +217,7 @@ define([
               'and-query': { queries: [
                 { 'range-constraint-query' : {
                   'constraint-name': 'dummy',
-                  value: '2001-01-01'
+                  value: '2001-01-01T00:00:00'
                 } }
               ] }
             }

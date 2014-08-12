@@ -235,20 +235,30 @@ define(['_marklogic/module'], function (module) {
         else {
           if (constraint.value) {
             var mySynt = {};
-            mySynt[queryType] = {
-              'constraint-name': constraint.constraintName,
-              'operator': constraint.operator
-            };
+            var q = { 'constraint-name': constraint.constraintName };
+            mySynt[queryType] = q;
+
+            if (constraint.operator) {
+              if (constraint.constraintType === 'range') {
+                q['range-operator'] = constraint.operator;
+              }
+              if (constraint.constraintType === 'value') {
+                q['operator'] = constraint.operator;
+              }
+            }
 
             if (constraint.type === 'text') {
-              mySynt[queryType].text = constraint.value;
+              q.text = constraint.value;
+            }
+            if (constraint.type === 'value') {
+              q.value = constraint.value;
             }
             if (constraint.type === 'date') {
-              mySynt[queryType].value =
-                  constraint.value.format('YYYY-MM-DD');
+              q.value = constraint.value.toISOString()
+                  .replace(/T.*/, 'T00:00:00');
             }
             if (constraint.type === 'boolean') {
-              mySynt[queryType].value = constraint.value;
+              q.value = constraint.value;
             }
 
             synt.push(mySynt);
@@ -304,6 +314,9 @@ define(['_marklogic/module'], function (module) {
         }
         if (constraint.type === 'date' ) {
           if (constraint.value) {
+            // TODO: here we are wiping out tht time portion to accomodate
+            // the type conigured on the server while not expsoing the user
+            // to times
             param[constraint.queryStringName] =
                 constraint.value.format('YYYY-MM-DD');
           }

@@ -100,7 +100,8 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
 
       $scope.searchbarText = $scope.search.criteria.q;
       $scope.showMineOnly = Boolean(
-        $parse('search.criteria.constraints.userName.value')($scope)
+        $parse('search.criteria.constraints.userName.value')($scope) &&
+        $scope.store.session
       );
 
       var handlersSet = false;
@@ -131,7 +132,7 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
           'showMineOnly',
           function (newVal, oldVal) {
             if (newVal !== oldVal) {
-              if (newVal) {
+              if (newVal && $scope.store.session) {
                 $scope.search.criteria.constraints.userName.value =
                     $scope.store.session.userInfo.userName;
               }
