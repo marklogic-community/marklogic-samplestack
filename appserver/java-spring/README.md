@@ -9,9 +9,9 @@ The implementation of samplestack that runs using
 
 ## Quickstart 
 
-Note that this readme is accurate, but there are pending changes to improve the experience for EA-2.
-
 *To build and run in one step:*
+
+Start with an out-of-the box MarkLogic server, installed and running.  By default, MarkLogic will be secured with username admin, password admin.  If you have already secured MarkLogic, you need to update gradle.properties with the admin credentials you used to secure it.
 
 * `./gradlew appserver`    Runs assemble, dbLoad, and bootrun
 
@@ -32,29 +32,30 @@ See project wiki http://github.com/marklogic/samplestack-marklogic/wiki
 
 ### Endpoints
 
-* GET /session
-* POST /login
-* GET /logout
-* GET /questions  Get a paginated list of questions (snippet form)
-* GET /questions?q=term&start=20
-* POST /search
-* POST /questions
-* GET /questions/{id}
-* POST /questions/{id}/comments
-* POST /questions/{id}/answers
-* POST /questions/{id}/upvotes
-* POST /questions/{id}/downvotes
-* POST /questions/{id}/answers/{id}/upvotes
-* POST /questions/{id}/answers/{id}/downvotes
-* POST /questions/{id}/answers/{id}/accept
-* GET /tags
-* GET /tags?q=
-* GET /contributors paginated list of foo object URIs as JSON array
-* POST /contributors Create a user
-* GET/PUT/DELETE /contributors/{id} Get, update, remove Users
+By default the middle-tier appserver will be running on port 8090
+
+* GET /v1/session
+* POST /v1/login
+* GET /v1/logout
+* GET /v1/questions  Get a paginated list of questions (snippet form)
+* GET /v1/questions?q=term&start=20
+* POST /v1/search
+* POST /v1/questions
+* GET /v1/questions/{id}
+* POST /v1/questions/{id}/comments
+* POST /v1/questions/{id}/answers
+* POST /v1/questions/{id}/upvotes
+* POST /v1/questions/{id}/downvotes
+* POST /v1/questions/{id}/answers/{id}/upvotes
+* POST /v1/questions/{id}/answers/{id}/downvotes
+* POST /v1/questions/{id}/answers/{id}/accept
+* GET /v1/tags
+* GET /v1/tags?q=
+* GET /v1/contributors paginated list of foo object URIs as JSON array
+* POST /v1/contributors Create a user
+* GET/PUT/DELETE /v1/contributors/{id} Get, update, remove Users
 
 TODO: related tags
-
 
 
 ## License
