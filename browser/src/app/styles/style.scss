@@ -3,6 +3,20 @@
 @import 'dialogs/all';
 @import 'directives/all';
 
+.spinner {
+  background-image: url('/app/images/spinner.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 50vh;
+  position: absolute;
+  width: 100vh;
+  z-index: 1;
+}
+
+.uninitialized {
+  visibility: hidden;
+}
+
 .disabled {
   color: #bbb;
 }

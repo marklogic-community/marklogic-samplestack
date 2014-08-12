@@ -681,7 +681,7 @@ function lrManualSetup (port, cb) {
   });
 }
 
-tasks['watch'] = {
+tasks.default = tasks['watch'] = {
   deps: ['watchCalled', 'build', 'unit'],
   func: function (cb) {
     startServer(h.targets.build, 3000);

@@ -1,4 +1,6 @@
 <div>
+  <div ng-if="initializing || loading" class="spinner">
+  </div>
   <div ng-if="globalError.length" marked="globalError" class="has-error"></div>
 
   <header class="ss-page-header">
@@ -8,7 +10,9 @@
         <a ui-sref="root.layout.explore">samplestack</a>
       </h1>
     </div>
-    <div class="ss-page-header-actions">
+    <div class="ss-page-header-actions"
+      ng-class="{ uninitialized: initializing || loading }"
+    >
 
       <div class="ss-login">
         <span ng-if="store.session" ss-account-dropdown></span>
@@ -28,12 +32,15 @@
     </div>
   </header>
 
-  <div ng-if="localError" class="has-error">{{localError}}</div>
-  <section class="ss-main">
-    <div ui-view></div>
-  </section>
+  <div ng-class="{ uninitialized: initializing || loading }">
+    <div ng-if="localError" class="has-error">{{localError}}</div>
+    <section class="ss-main">
+      <div ui-view></div>
+    </section>
 
-  <footer class="ss-page-footer">
-    Copyright MarkLogic Corporation 2014
-  </footer>
+    <footer class="ss-page-footer">
+      Copyright MarkLogic Corporation 2014
+    </footer>
+  </div>
+</div>
 </div>

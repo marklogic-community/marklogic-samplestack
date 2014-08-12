@@ -40,6 +40,7 @@ define([
             allTagsDialog = _allTagsDialog_;
 
             scope = $rootScope.$new();
+            scope.setLoading = function () {};
             scope.setPageTitle = sinon.spy();
 
             $httpBackend.whenGET('/app/states/_root.html')

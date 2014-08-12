@@ -5,6 +5,7 @@ define(['app/module'], function (module) {
     '$scope',
     '$rootScope',
     '$q',
+    '$log',
     'marked',
     'mlAuth',
     'loginDialog',
@@ -13,15 +14,26 @@ define(['app/module'], function (module) {
       $scope,
       $rootScope,
       $q,
+      $log,
       marked,
       mlAuth,
       loginDialog,
       contributorDialog
     ) {
+      var initDefer = $q.defer();
+      $rootScope.initializing = initDefer.promise;
+      $rootScope.loading = false;
+      $rootScope.setLoading = function (isLoading) {
+        $rootScope.loading = isLoading;
+      };
+      $rootScope.log = $log;
+
       $rootScope.marked = marked;
       $rootScope.globalError = '';
       $rootScope.setLocalError = function (error) {
         $rootScope.localError = error;
+        $rootScope.loading = false;
+        delete $rootScope.initializing;
       };
       $rootScope.clearLocalError = function () {
         $rootScope.localError = null;
@@ -29,9 +41,6 @@ define(['app/module'], function (module) {
       $rootScope.$on('$stateChangeSuccess', function () {
         $rootScope.clearLocalError();
       });
-
-      var initDefer = $q.defer();
-      $rootScope.initializing = initDefer.promise;
 
       $q.all([
         // anything that is required for init should happen here

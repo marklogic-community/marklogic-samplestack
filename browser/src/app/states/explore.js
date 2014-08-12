@@ -30,6 +30,8 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
       allTagsDialog
     ) {
 
+      $scope.setLoading(true);
+
       var dasherize = function (str) {
         return str && str.length ?
           str.trim()
@@ -74,6 +76,8 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
             if (!handlersSet) {
               setHandlers();
             }
+
+            $scope.setLoading(false);
           },
           function (reason) {
             throw new Error(
