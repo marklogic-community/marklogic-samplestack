@@ -38,6 +38,7 @@ define([
 
             scope = $rootScope.$new();
             scope.setPageTitle = sinon.spy();
+            scope.setLoading = function () {};
 
             $httpBackend.whenGET('/app/states/_root.html')
                 .respond(rootHtml);

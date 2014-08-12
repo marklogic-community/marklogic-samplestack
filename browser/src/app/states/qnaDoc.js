@@ -13,11 +13,14 @@ define(['app/module'], function (module) {
       ssQnaDoc
     ) {
 
+      $scope.setLoading(true);
+
       var init = function () {
         var doc = ssQnaDoc.getOne({ id: appRouting.params.id });
         doc.$ml.waiting.then(
           function () {
             $scope.doc = doc;
+            $scope.setLoading(false);
             $scope.canVoteQuestion = function () {
               if (!$scope.store.session) {
                 return false;

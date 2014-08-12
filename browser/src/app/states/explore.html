@@ -24,12 +24,14 @@
       Show my entries only
     </div>
     <div
-      class="ss-filters-resolved ss-no-backend"
+      class="ss-filters-resolved"
+      ng-class="{ disabled: !store.session }"
     >
       <input
-        ng-model="search.criteria.constraints.resolved.value"
+        ng-model="resolvedOnly"
+        ng-change="setResolvedOnly()"
         type="checkbox"
-        disabled
+        ng-disabled="!store.session"
       />
       Show resolved only
     </div>

@@ -260,7 +260,7 @@ define([
               'and-query': { queries: [
                 { 'range-constraint-query' : {
                   'constraint-name': 'dummy',
-                  value: true
+                  'boolean': true
                 } }
               ] }
             }
@@ -385,7 +385,7 @@ define([
             }
           }
         } });
-        s.getStateParams().should.have.property('test-name', true);
+        s.getStateParams().should.have.property('test-name', 'yes');
       });
 
       it('should produce stateParams without a boolean', function () {
