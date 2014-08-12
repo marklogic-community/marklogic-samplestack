@@ -20,8 +20,10 @@ git clone https://github.com/marklogic/marklogic-samplestack
 
 ### Java/Spring implementation
 
-* ```cd appserver/java-spring```
-* gradlew appserver
+*See the [README in appserver/java-spring directory](appserver/java-spring/README.md)*
+
+* `cd appserver/java-spring`
+* `./gradlew appserver`
 
 See README.md in appserver/java-spring for further information on the samplestack-java
 
