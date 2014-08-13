@@ -27,7 +27,7 @@ define(['testHelper'], function (testHelper) {
           function () {
             obj.$ml.should.not.have.property('error');
             obj.$ml.should.not.have.property('wating');
-            obj.value.should.equal(1);
+            expect(obj.value).to.equal(1);
             done();
           }
         );
