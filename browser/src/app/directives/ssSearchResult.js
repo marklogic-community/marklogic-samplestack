@@ -6,7 +6,7 @@ define(['app/module'], function (module) {
    * @restrict E
    *
    * @description
-   * TBD
+   * Directive for displaying a search result from a set of results.
    *
    */
 
