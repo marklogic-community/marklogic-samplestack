@@ -10,7 +10,8 @@ define(['app/module'], function (module) {
    * Controller for {@link allTagsDialog}.
    * @param {angular.Scope} $scope (injected)
    * @param {ui.bootstrap.modal.$modalInstance} $modalInstance (injected)
-   * @param  {ui.bootstrap.$modalInstance} $modalInstance
+   * @param  {ui.bootstrap.$modalInstance} allTagsStartFromFilter Filter for
+   * columnar display of tags
    * @param  {Array.<object>} unselTags unselected tags
    * @param  {Array.<object>} selTags selected tags
    */
@@ -138,9 +139,9 @@ define(['app/module'], function (module) {
    * Displays all tags in the database in a paged modal, and allows for
    * searching and selecting the tags for inclusion as filters on a search.
    * Uses <a href="http://angular-ui.github.io/bootstrap/"
-   * target="_blaank">ui.bootstrap.modal</a>. Also see the
+   * target="_blank">ui.bootstrap.modal</a>. Also see the
    * {@link allTagsDialogCtlr}
-   * and the {@link allTagsStartFrom allTagsStartFrom filter}. .
+   * and the {@link allTagsStartFrom allTagsStartFrom filter}.
    * @param {Array.<object>} unselTags unselected tags
    * @param {Array.<object>} selTags selected tags
    * @returns {angular.Promise} the promise will either be rejected

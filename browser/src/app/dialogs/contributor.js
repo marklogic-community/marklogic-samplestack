@@ -1,5 +1,17 @@
 define(['app/module'], function (module) {
 
+  /**
+   * @ngdoc controller
+   * @kind constructor
+   * @name contributorDialogCtlr
+   * @usage the controller is injected by the $modal service
+   * @description
+   * Controller for {@link contributorDialog}.
+   * @param {angular.Scope} $scope (injected)
+   * @param {ui.bootstrap.modal.$modalInstance} $modalInstance (injected)
+   * @param {object} ssContributor
+   * @param {string} contributorId
+   */
   module.controller('contributorDialogCtlr', [
     '$scope', '$modalInstance', 'ssContributor', 'contributorId',
     function ($scope, $modalInstance, ssContributor, contributorId) {

@@ -1,5 +1,17 @@
 define(['app/module'], function (module) {
 
+  /**
+   * @ngdoc controller
+   * @kind constructor
+   * @name loginDialogCtlr
+   * @usage the controller is injected by the $modal service
+   * @description
+   * Controller for {@link loginDialog}.
+   * @param {angular.Scope} $scope (injected)
+   * @param {ui.bootstrap.modal.$modalInstance} $modalInstance (injected)
+   * @param {object} ssSession Session object
+   * @param {object} mlAuth Authentication object
+   */
   module.controller('loginDialogCtlr', [
 
     '$scope',
@@ -42,8 +54,10 @@ define(['app/module'], function (module) {
    * @name loginDialog
    *
    * @description
-   * TBD
-   *
+   * Displays a user login form in a modal.
+   * Uses <a href="http://angular-ui.github.io/bootstrap/"
+   * target="_blank">ui.bootstrap.modal</a>.
+   * @param {object} $modal (injected)
    */
 
   module.factory('loginDialog', [
