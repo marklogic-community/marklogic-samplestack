@@ -526,7 +526,7 @@ define(['testHelper'], function (helper) {
         var inst = impl1.create({
           id: '1'
         });
-        inst.errors('').length.should.equal(1);
+        expect(inst.errors('').length).to.equal(1);
       });
 
       it('can find an error on a property', function () {
@@ -536,7 +536,7 @@ define(['testHelper'], function (helper) {
           myProp2: {},
           myProp3: {}
         });
-        inst.errors('myProp3').length.should.equal(1);
+        expect(inst.errors('myProp3').length).to.equal(1);
       });
 
       it('can inform of zero errors on a property', function () {
@@ -544,7 +544,7 @@ define(['testHelper'], function (helper) {
           id: '1',
           myProp2: {}
         });
-        inst.errors('myProp2').length.should.equal(0);
+        expect(inst.errors('myProp2').length).to.equal(0);
       });
 
       it('can answer whether a property is valid', function () {
@@ -560,7 +560,7 @@ define(['testHelper'], function (helper) {
           id: '1',
           myProp4: {}
         });
-        inst.errors('myProp4').length.should.equal(2);
+        expect(inst.errors('myProp4').length).to.equal(2);
       });
 
       it(

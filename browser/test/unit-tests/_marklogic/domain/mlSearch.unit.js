@@ -455,7 +455,7 @@ define([
         });
 
         s.criteria.q.should.equal('stuff');
-        s.getCurrentPage().should.equal(2);
+        expect(s.getCurrentPage()).to.equal(2);
         s.criteria.constraints.should.deep.equal({
           a: { type: 'boolean', queryStringName: 'a', value: true },
           b: { type: 'text', queryStringName: 'b', value: 'test' },

@@ -99,7 +99,7 @@ define([
           scope.authenticate();
           $httpBackend.flush();
           $timeout.flush();
-          modalClose.args[0].length.should.equal(1);
+          expect(modalClose.args[0].length).to.equal(1);
         });
 
         it('can handle bad auth', function () {

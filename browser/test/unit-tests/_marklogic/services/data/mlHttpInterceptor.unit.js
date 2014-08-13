@@ -91,8 +91,8 @@ define(['testHelper'], function (helper) {
             $http.put('/v1/second')
           ]).then(
             function (responses) {
-              responses[0].status.should.equal(200);
-              responses[1].status.should.equal(200);
+              expect(responses[0].status).to.equal(200);
+              expect(responses[1].status).to.equal(200);
               done();
             },
             function (reason) { assert(JSON.stringify(reason)); done(); }
