@@ -67,6 +67,17 @@ define(['app/module'], function (module) {
           }
         };
 
+       /**
+        * Handle typeahead menu selection.
+        * @param {object} $item Tag object
+        * @param {number} $model Tag count
+        * @param {string} $label Menu label text
+        */
+        scope.selectTagTypeahead = function ($item, $model, $label) {
+          scope.selectTag($item);
+          scope.selected = ''; // Clear typeahead menu
+        };
+
         scope.unselectTag = function (tag) {
           if (scope.criteria.values) {
             scope.criteria.values.splice(

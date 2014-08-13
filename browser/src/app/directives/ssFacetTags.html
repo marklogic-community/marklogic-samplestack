@@ -3,7 +3,7 @@
   ng-model="selected"
   typeahead="tag.count as tag.name+' ('+tag.count+')' for tag in toArray(unselTags).concat(toArray(selTags)) | filter:$viewValue | orderBy:sort"
   class="ss-typeahead-input"
-  typeahead-on-select="selectTag(tag)"
+  typeahead-on-select="selectTagTypeahead($item, $model, $label)"
 />
 
 <ul>
