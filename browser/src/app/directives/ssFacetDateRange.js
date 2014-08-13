@@ -216,7 +216,7 @@ define(['app/module'], function (module) {
                 // new selected value
                 if (newVal === scope[rangeNames[index]]) {
                   constraintsCopy[criteriaNames[index]].value
-                    = undefined;
+                    = null;  // using null to match search response value
                 }
                 else {
                   constraintsCopy[criteriaNames[index]].value
@@ -226,7 +226,9 @@ define(['app/module'], function (module) {
             });
             // Apply changes to the criteria constraints all at once
             // so that the watch in explore.js will only trigger ONE TIME.
-            scope.criteria.constraints = constraintsCopy;
+            if (!angular.equals(scope.criteria.constraints, constraintsCopy)) {
+              scope.criteria.constraints = constraintsCopy;
+            }
           }
         });
 
