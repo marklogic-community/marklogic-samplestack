@@ -20,7 +20,6 @@ define(['app/module'], function (module) {
     var convertDateToUTC;
     var refreshChart;
     var transformResults;
-    var emitDates;
 
   /**
    * Utility funct to convert standard Date() object to UTC for HighCharts
@@ -52,7 +51,7 @@ define(['app/module'], function (module) {
     */
     transformResults = function (resultsArray) {
       var convertedDates;
-      if (resultsArray instanceof Array) {
+      if (resultsArray instanceof Object) {
         convertedDates = [];
         angular.forEach(resultsArray, function (dateInfo) {
           convertedDates.push({
@@ -66,20 +65,6 @@ define(['app/module'], function (module) {
         });
       }
       return convertedDates;
-    };
-
-    emitDates = function (scope) {
-      if (scope.dtStartSelection && scope.dtEndSelection) {
-        scope.$emit(
-          'datesChange',
-          {
-            dates: {
-              start: scope.dtStartSelection,
-              end: scope.dtEndSelection
-            }
-          }
-        );
-      }
     };
 
     refreshChart = function (scope) {
@@ -103,6 +88,9 @@ define(['app/module'], function (module) {
             scope.dtDataEnd = x;
           }
         }
+
+        // TODO - handle shadows
+
         // set inputs to match data high and low
         scope.dtStartSelection  = scope.dtDataStart;
         scope.dtEndSelection    = scope.dtDataEnd;
@@ -209,15 +197,38 @@ define(['app/module'], function (module) {
         scope[prop] = convertDateToUTC(event);
       };
 
-      scope.$watch('dtStartSelection', function () {
-        chartUpdateSelection();
-        emitDates(scope);
-      });
+      scope.$watchCollection(
+        '[dtStartSelection, dtEndSelection]',
+        function (newValues, oldValues) {
+          var constraintsCopy = angular.copy(scope.criteria.constraints);
+          var criteriaNames   = ['dateStart','dateEnd'];
+          // internal variables tracking the datas start and endpoints,
+          // this is *not* related to date range selection
+          var rangeNames      = ['dtDataStart','dtDataEnd'];
 
-      scope.$watch('dtEndSelection', function () {
-        chartUpdateSelection();
-        emitDates(scope);
-      });
+          if (!angular.equals(newValues, oldValues)) {
+            angular.forEach(newValues, function (newVal, index) {
+              if (oldValues[index] !== newVal) {
+                // re-render chart with new selection
+                chartUpdateSelection();
+
+                // set the attached search criteria object to the
+                // new selected value
+                if (newVal === scope[rangeNames[index]]) {
+                  constraintsCopy[criteriaNames[index]].value
+                    = undefined;
+                }
+                else {
+                  constraintsCopy[criteriaNames[index]].value
+                    = window.moment(newVal);
+                }
+              }
+            });
+            // Apply changes to the criteria constraints all at once
+            // so that the watch in explore.js will only trigger ONE TIME.
+            scope.criteria.constraints = constraintsCopy;
+          }
+        });
 
       // Calender Picker end
 
@@ -275,9 +286,14 @@ define(['app/module'], function (module) {
                       }
                     }
                   }
-
-                  scope.dtStartSelection = convertDateToUTC(selSeriesLow);
-                  scope.dtEndSelection = convertDateToUTC(selSeriesHigh);
+                  if (selSeriesLow) {
+                    scope.dtStartSelection = convertDateToUTC(selSeriesLow);
+                    scope.dtEndSelection = convertDateToUTC(selSeriesHigh);
+                  }
+                  else {
+                    // restore the rendering of the previous selection
+                    chartUpdateSelection();
+                  }
                 });
                 event.preventDefault();  // stop zoom from happening
               }
@@ -385,19 +401,34 @@ define(['app/module'], function (module) {
     };
 
     var onWatchResults = function (scope) {
-      if (scope.search && scope.search.results) {
-        scope.results = {};
-        scope.results.facetValues = toArray(
-          scope.search.results.facets.dates
-        );
+      if (scope.results) {
         // update scope variable, will trigger re-render
-        scope.chartData = transformResults(scope.results.facetValues);
-        scope.chartShadowData = angular.copy(scope.chartData) ||
-            scope.chartData;
+        scope.chartData = transformResults(scope.results);
+        scope.chartShadowData = angular.copy(scope.chartData);
         // data of chart has refreshed,
         // now re-select that data per our
         // previous selection, if any
         refreshChart(scope);
+      }
+    };
+
+    var onWatchCriteria = function (scope) {
+      var constraintsCopy = angular.copy(scope.criteria.constraints);
+      if (constraintsCopy.dateStart.value && constraintsCopy.dateEnd.value) {
+        var dateStart   = constraintsCopy.dateStart.value.utc().valueOf();
+        var dateEnd     = constraintsCopy.dateEnd.value.utc().valueOf();
+
+        // any changes to selections will re-render chart selection
+        // automatically due to a watch on those variables
+        if (dateStart !== scope.dtStartSelection
+                || dateEnd !== scope.dtEndSelection) {
+          scope.dtStartSelection = (dateStart
+                                    && dateStart !== scope.dtStartSelection) ?
+                                      dateStart : scope.dtStartSelection;
+          scope.dtEndSelection = (dateEnd
+                                    && dateEnd !== scope.dtEndSelection) ?
+                                      dateEnd : scope.dtEndSelection;
+        }
       }
     };
 
@@ -424,7 +455,8 @@ define(['app/module'], function (module) {
           'is-open="endOpened" show-button-bar="false" show-weeks="false" />',
 
       scope: {
-        search: '=search'
+        criteria: '=criteria',
+        results: '=results'
       },
       compile: function compile (tElement, tAttrs, transclude) {
         tElement.addClass('ss-facet-date-range');
@@ -436,8 +468,12 @@ define(['app/module'], function (module) {
           },
           post: function (scope, element, attrs) {
             scope.$watch(
-              'search.results.facets.dates',
+              'results',
               onWatchResults.bind(null, scope)
+            );
+            scope.$watch(
+              'criteria',
+              onWatchCriteria.bind(null, scope)
             );
           }
         };

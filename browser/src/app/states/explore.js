@@ -58,7 +58,7 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
 
         $log.debug('searching at ' + new Date().toISOString());
 
-        var shadowConstraints = ['tags'];
+        var shadowConstraints = ['tags','dateStart','dateEnd'];
         $scope.search.go(shadowConstraints, ssSearch).then(
           function () {
             if ($scope.search.pageOutOfBounds()) {
