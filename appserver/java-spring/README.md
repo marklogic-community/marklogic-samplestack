@@ -28,7 +28,7 @@ Start with an out-of-the box MarkLogic server, installed and running.  By defaul
 
 *To use with Eclipse*
 
-See project wiki http://github.com/marklogic/samplestack-marklogic/wiki
+See project wiki https://github.com/marklogic/marklogic-samplestack/wiki/Getting-Started-in-Eclipse
 
 ### Endpoints
 
