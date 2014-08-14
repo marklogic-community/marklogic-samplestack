@@ -12,9 +12,11 @@ define(['app/module'], function (module) {
 
     '$parse',
     'mlUtil',
+    'appRouting',
     function (
       $parse,
-      mlUtil
+      mlUtil,
+      appRouting
     ) {
       return {
         restrict: 'E',
@@ -73,6 +75,14 @@ define(['app/module'], function (module) {
                       ' at ' + date.format('h:mm');
 
                 }
+              };
+
+              scope.goTag = function (tag) {
+                appRouting.go(
+                  'root.layout.explore',
+                  { tags: tag },
+                  { reload: true }
+                );
               };
 
             }

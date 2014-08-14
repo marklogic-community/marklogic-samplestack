@@ -13,6 +13,7 @@
   z-index: 1;
 }
 
+
 .uninitialized {
   visibility: hidden;
 }
@@ -22,11 +23,36 @@
 }
 
 .ss-no-backend {
-  background-color: #f9f9a4;
+  background-color: #a52a2a;
 }
 
-.ss-ui-todo {
-  background-color: #f9f9a4;
+.ss-backend-incomplete {
+  background-color: #ffd1d1;
+}
+
+.ss-incomplete {
+  background-color: #ffd;
+}
+
+.ss-ui-incomplete {
+  background-color: #ffd;
+}
+
+.ss-incomplete-message {
+  text-align: center;
+}
+
+.ss-facet-date-range {
+  @extend .ss-ui-incomplete;
+}
+
+.ss-explore .ss-tags a {
+  @extend .ss-ui-incomplete;
+}
+
+.ss-answer-form,
+.ss-answer-form textarea {
+  @extend .ss-ui-incomplete;
 }
 
 .has-error {

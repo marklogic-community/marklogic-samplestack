@@ -24,7 +24,8 @@
 
 .ss-qnadoc
 .ss-vote {
-  background-color: #eee;
+  // background-color: #eee;
+  @extend .ss-ui-incomplete;
   border: solid 1px #ccc;
   float: left;
   height: 76px;

@@ -428,7 +428,6 @@ define(['app/module'], function (module) {
       },
       compile: function compile (tElement, tAttrs, transclude) {
         tElement.addClass('ss-facet-date-range');
-        tElement.addClass('ss-no-backend');
 
         return {
           pre: function (scope, element, attrs) {

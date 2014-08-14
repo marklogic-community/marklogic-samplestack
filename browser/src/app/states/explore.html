@@ -35,7 +35,7 @@
       />
       Show resolved only
     </div>
-    <section class="ss-filters-date">
+    <section class="ss-filters-date ss-ui-incomplete">
       <header>
         <h3>Date</h3>
         <a href="" class="ss-clear-date" ng-click="dateScope.clearSelection()">Clear</a>
@@ -55,7 +55,7 @@
         totals="{ total: search.results.total, shadow: search.results.shadowTotals.tags }"
         num-tags="8"
       ></ss-facet-tags>
-      <div class="ss-open-all-tags" ng-click="openAllTags()">more...</div>
+      <div class="ss-open-all-tags" disabled ng-click="angular.noop()"><span class="ss-incomplete">more...</span></div>
     </section>
   </section>
 

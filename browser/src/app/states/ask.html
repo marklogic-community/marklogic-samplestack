@@ -3,15 +3,15 @@
   <header>
     <h2>Ask a Question</h2>
   </header>
-  <form class="form-inline">
+  <form class="form-inline ss-ui-incomplete">
     <div class="ss-ask-title">
       <label>Title</label> <input type="text" class="form-control" />
     </div>
     <div ss-markdown-editor content="question"></div>
     <!-- todo https://github.com/TimSchlechter/bootstrap-tagsinput -->
-    <div class="ss-ask-tags">
-      <label>Tags</label> <input type="text" data-role="tagsinput" class="form-control" />
+    <div class="ss-ask-tags ss-ui-incomplete">
+      <label>Tags</label> <input disabled type="text" data-role="tagsinput" class="form-control" />
     </div>
-    <button ng-click="post()">Post Your Question</button>
+    <button disabled class="ss-ui-incomplete" ng-click="post()">Post Your Question</button>
   </form>
 </section>

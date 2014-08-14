@@ -26,11 +26,16 @@
         class="ss-ask-button"
         ng-disabled="!store.session"
         ng-click="ask()"
+        ng-class="{ disabled: !store.session }"
       >
         Ask a Question
       </button>
     </div>
   </header>
+
+  <div class="ss-incomplete-message">
+    <span class="ss-incomplete">(yellow shading indicates incomplete features)</span>
+  </div>
 
   <div ng-class="{ uninitialized: initializing || loading }">
     <div ng-if="localError" class="has-error">{{localError}}</div>

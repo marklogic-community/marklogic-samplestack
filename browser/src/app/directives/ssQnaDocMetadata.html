@@ -1,6 +1,10 @@
 <div ng-if="docType != 'comment'" class="ss-metadata">
   <ul class="ss-tags">
-    <li ng-repeat="tag in doc.tags">{{tag}}</li>
+    <li ng-repeat="tag in doc.tags">
+      <a href="/?tags={{tag}}">
+        {{tag}}
+      </a>
+    </li>
   </ul>
   <div class="ss-author"
   >

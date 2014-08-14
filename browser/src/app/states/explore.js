@@ -90,24 +90,28 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
 
       $scope.setPageTitle('explore');
 
-      var params = angular.copy(appRouting.params);
-      if (params.q) {
-        dedasherize(params.q);
-      }
-      var search = ssSearch.create();
-      search.assignStateParams(params);
-      $scope.search = search;
+      var handleParams = function () {
+        var params = angular.copy(appRouting.params);
+        if (params.q) {
+          dedasherize(params.q);
+        }
+        var search = ssSearch.create();
+        search.assignStateParams(params);
+        $scope.search = search;
 
-      $scope.searchbarText = $scope.search.criteria.q;
-      $scope.showMineOnly = Boolean(
-        $parse('search.criteria.constraints.userName.value')($scope) &&
-        $scope.store.session
-      );
-      var resolvedOnly =
-          $parse('search.criteria.constraints.resolved.value')($scope);
-      if ($scope.store.session) {
-        $scope.resolvedOnly = (resolvedOnly === true);
-      }
+        $scope.searchbarText = $scope.search.criteria.q;
+        $scope.showMineOnly = Boolean(
+          $parse('search.criteria.constraints.userName.value')($scope) &&
+          $scope.store.session
+        );
+        var resolvedOnly =
+            $parse('search.criteria.constraints.resolved.value')($scope);
+        if ($scope.store.session) {
+          $scope.resolvedOnly = (resolvedOnly === true);
+        }
+      };
+      handleParams();
+
 
       var handlersSet = false;
       var setHandlers = function () {
