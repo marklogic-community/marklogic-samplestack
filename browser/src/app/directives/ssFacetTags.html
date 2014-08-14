@@ -15,7 +15,8 @@
     />
     <span>
       <!-- {{ tag.name }} ({{ tag.shadow.count }}/{{ totals.shadow }}) -->
-      {{ tag.name }} ({{ (100 * tag.shadow.count / totals.shadow | number : 1) || '~0' }}% of {{ totals.shadow }})
+      <!-- {{ tag.name }} ({{ (100 * tag.shadow.count / totals.shadow | number : 1) || '~0' }}% of {{ totals.shadow }}) -->
+      {{ tag.name }} ({{ tag.count }})
     </span>
   </li>
 </ul>
