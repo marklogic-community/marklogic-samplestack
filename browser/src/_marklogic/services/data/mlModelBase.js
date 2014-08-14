@@ -231,13 +231,10 @@ define(['_marklogic/module'], function (module) {
       };
 
       MlModel.prototype.validateObject = function (obj) {
-        var own = {};
-        Object.getOwnPropertyNames(obj).reduce(
-          function (dummy, key) {
-            own[key] = obj[key];
-          }
+        return mlSchema.validate(
+          angular.fromJson(angular.toJson(obj)),
+          this.$mlSpec.schema.id
         );
-        return mlSchema.validate(dedate(own), this.$mlSpec.schema.id);
       };
 
       MlModel.prototype.testValidity = function () {
