@@ -86,7 +86,26 @@
 .ss-comment {
   border-bottom: solid 1px #aaa;
   font-size: smaller;
-  padding: 10px 0 10px 0px;
+  padding: 10px 0;
+}
+
+.ss-question-title {
+  height: 60px;
+
+  h3 {
+    float: left;
+  }
+
+  .ss-so-link {
+    overflow: hidden;
+    right: 0;
+    text-align: right;
+  }
+
+  .ss-so-link > * {
+    height: 50px;
+    line-height: 60px;
+  }
 }
 
 .ss-add-comment {
