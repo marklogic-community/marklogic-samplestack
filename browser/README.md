@@ -66,11 +66,20 @@ marklogic-samplestack/browser> bower install
 
 **If you get this far without errors, your Samplestack browser installation is complete.**
 
-> If npm install gives you errors, you may have a version of npm which was not reliable.  Try updating npm before rerunning the above install commands
+If npm install gives you errors, you may have a version of npm which was not reliable.  Try updating npm before rerunning the above install commands
 
 > ```
 > from-anywhere> npm update -g npm
 > ```
+
+On Mac OSX, if you get errors coming from the ~/.npm directory, please do the
+following:
+
+```
+rm -rf ~/.npm
+mkdir ~/.npm
+```
+and then re-run `npm install`.
 
 ## Build, Unit Test, Run
 
