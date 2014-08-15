@@ -114,19 +114,19 @@ Once you have the database, appserver, and browser tiers of the application conf
 
 ### Restarting the Two Tiers
 
-To stop and restart the middle tier App Server, from its terminal window:
+* To stop and restart the middle tier App Server, press `Control+C`
+* To restart,
+  * `cd marklogic-samplestack/appserver/java-spring
+  * `./gradlew bootrun`
 
-* (press `Control+C`)
-* marklogic-samplestack/appserver/java-spring> `./gradlew bootrun`
-
-To stop and restart the browser tier, from its terminal window:
-
-* (press `Control+C`)
-* marklogic-samplestack/browser> `gulp run`
+* To stop the browser tier, press `Control+C`
+* To restart,
+  * `cd marklogic-samplestack/browser`
+  * `gulp run`
 
 ### Next Steps
 * Explore the application running at http://localhost:3000.
-* Use the login credentials `joeUser@marklogic.com`, password `joesPassword` to view and search content restricted to the Contributor role.
+  * Use the login credentials `joeUser@marklogic.com`, password `joesPassword` to view and search content restricted to the Contributor role.
 * Explore the README in the database, appserver and browser directories for details on each tier.
 * View the database configuration by visiting http://localhost:8001.
 * Explore the database contents using Query Console. Go to http://localhost:8000/qconsole, select the `samplestack` database, and click Explore.
