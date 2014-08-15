@@ -463,12 +463,17 @@ process.on('SIGINT', function () {
 function startServer (path, port) {
   if (!getActiveServer(port)) {
     var connect = require('connect');
-    var url = require('url');
-    var proxy = require('proxy-middleware');
     var serveStatic = require('serve-static');
+    var request = require('request');
 
     var server = connect()
-      .use('/v1', proxy(url.parse('http://localhost:8090/v1')))
+      .use('/v1/', function (req, res) {
+        req.pipe(
+          request(
+            buildParams.build.restUrl + '/v1/' + req.url
+          )
+        ).pipe(res);
+      })
       .use(
         require('connect-modrewrite')(
         // if lacking a dot, redirect to index.html

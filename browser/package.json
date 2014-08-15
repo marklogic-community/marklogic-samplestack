@@ -66,7 +66,7 @@
     "open": "0.0.5",
     "phantomjs": "1.9.7-14",
     "protractor": "1.0.0",
-    "proxy-middleware": "0.5.0",
+    "request": "2.40.0",
     "selenium-webdriver": "2.42.1",
     "serve-static": "1.4.2",
     "shelljs": "0.3.0",
