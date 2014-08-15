@@ -1,7 +1,7 @@
 define(['testHelper','mocks/index'], function (helper, mocksIndex) {
 
   return function () {
-    xdescribe('ssFacetDateRange', function () {
+    describe('ssFacetDateRange', function () {
       var el;
       var scope;
       var $compile;
@@ -26,6 +26,7 @@ define(['testHelper','mocks/index'], function (helper, mocksIndex) {
 
             dsElement = angular.element(
               '<div ss-facet-date-range ' +
+                  'criteria="criteria" ' +
                   'results="results" ' +
                 '></div>'
             );
@@ -33,7 +34,8 @@ define(['testHelper','mocks/index'], function (helper, mocksIndex) {
             dsElement.append(qtElement);
             dsElement.append(pageElement);
 
-            scope.results   = mockSeachObj.results.facets.date.filtered;
+            scope.results     = mockSeachObj.results.facets.dates;
+            scope.criteria    = mockSeachObj.criteria;
             $compile(dsElement)(scope);
 
             scope.$digest();
@@ -88,7 +90,7 @@ define(['testHelper','mocks/index'], function (helper, mocksIndex) {
 
             chart.options.chart.events.click();
             points = chart.getSelectedPoints();
-            points.length.should.equal(6);
+            points.length.should.equal(4);
           }
       );
 
@@ -109,7 +111,7 @@ define(['testHelper','mocks/index'], function (helper, mocksIndex) {
 
             chart.options.chart.events.selection.call(chart,event);
             points = chart.getSelectedPoints();
-            points.length.should.equal(3);
+            points.length.should.equal(2);
           }
       );
 

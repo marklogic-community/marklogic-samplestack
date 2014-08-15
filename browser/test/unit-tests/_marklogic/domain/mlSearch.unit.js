@@ -6,14 +6,16 @@ define([
   return function () {
     describe('mlSearch', function () {
       var $httpBackend;
+      var $injector;
       var mlSearch;
       var mlUtil;
 
       beforeEach(function (done) {
         angular.mock.module('_marklogic');
         inject(
-          function (_$httpBackend_, _mlSearch_, _mlUtil_) {
+          function (_$httpBackend_, _$injector_, _mlSearch_, _mlUtil_) {
             $httpBackend = _$httpBackend_;
+            $injector = _$injector_;
             mlSearch = _mlSearch_;
             mlUtil = _mlUtil_;
             done();
@@ -548,6 +550,64 @@ define([
 
         $httpBackend.flush();
       });
+
+      it(
+        'should not modify wathed criteria when doing a shadow query',
+        function (done) {
+          var shadowResult = angular.copy(mocks.searchResult);
+          angular.forEach(shadowResult.facets, function (facet) {
+            angular.forEach(facet.facetValues, function (facetValues) {
+              facetValues.count = facetValues.count * 2;
+            });
+          });
+          helper.setExpectCsrf($httpBackend);
+          $httpBackend.expectPOST(/\/v1\/search$/)
+              .respond(mocks.searchResponse);
+          $httpBackend.expectPOST(/\/v1\/search$/)
+              .respond(mocks.searchResponse);
+
+          var s = mlSearch.create({
+            criteria: {
+              q: 'testy',
+              constraints: {
+                dummy: {
+                  queryStringName: 'dummy',
+                  constraintName: 'dummy',
+                  constraintType: 'range',
+                  type: 'enum',
+                  subType: 'text',
+                  values: ['test1', 'test2']
+                }
+              }
+            }
+          });
+
+          var scope = $injector.get('$rootScope').$new();
+
+          scope.search = s;
+          scope.$watch(
+            'search.criteria',
+            function (newVal, oldVal) {
+              assert(false, 'detected a criteria change:\n\n' +
+                  '\toldVal:\n' + JSON.stringify(oldVal, null, ' ') +
+                  '\n\n\tnewVal:\n' + JSON.stringify(newVal, null, ' '));
+            },
+            true
+          );
+
+          s.go(['dummy'], mlSearch).then(
+            function () {
+              scope.$apply();
+              assert(true);
+              done();
+            },
+            function (reason) { assert(false, JSON.stringify(reason)); done(); }
+          );
+
+          $httpBackend.flush();
+
+        }
+      );
     });
 
   };
