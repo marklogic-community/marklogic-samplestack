@@ -31,7 +31,7 @@ The setup instructions assume you have the `git`, `javac`, `node`, `bower`, and 
 The setup procedure may install additional software, such as Gradle and Angular.
 
 ## Getting Started
-Follow this procedure to set up samplestack in your environment.
+Follow this procedure to set up Samplestack in your environment.
 
 1. Install MarkLogic 8 Early Access. See http://ea.marklogic.com/download.
 
@@ -50,7 +50,7 @@ Follow this procedure to set up samplestack in your environment.
 ### Setting Up the Middle and Database Tiers
 The setup assume you have MarkLogic Server running on your localhost and that your Admin user credentials are admin:admin. To change this, modify `appserver/java-spring/gradle.properties`.
 
-To install required software, configure, and build the Java middle tier and database tier of samplestack, run the following commands from the root of your cloned repository:
+To install required software, configure, and build the Java middle tier and database tier of Samplestack, run the following commands from the root of your cloned repository:
 
 ```bash
 cd appserver/java-spring
@@ -63,7 +63,7 @@ If the command fails such that you need to run it again, run the following comma
 ./gradlew dbteardown
 ```
 
-This command will not return. When you see output of the following form, the mi ddle tier is running, and you can proceed with the browser tier setup:
+This command will not return. When you see output of the following form, the middle tier is running, and you can proceed with the browser tier setup:
 ```
 Started Application in X seconds...
 >Building 85% > :bootRun
@@ -80,7 +80,7 @@ The middle tier App Server runs on port 8090 by default. Visit http://localhost:
 *For details, see the [README in the appserver/java-spring directory](appserver/java-spring/README.md)*
 
 ### Setting Up the Browser Tier
-Use the following procedure To install required software and bootstrap the samplestack browser tier. You should already have the middle and database tiers running.
+Use the following procedure to install required software and bootstrap the Samplestack browser tier. You should already have the middle and database tiers running.
 
 For detailed instructions and troubleshooting, see the [README in the browser directory](browser/README.md).
 
@@ -120,15 +120,16 @@ gulp run
 
 ### Next Steps
 * Explore the application running at http://localhost:3000.
+** Use the login credentials joeUser@marklogic.com, password joesPassword to view and search content restricted to the Contributor role.
 * Explore the README in the database, appserver and browser directories for details on each tier.
 * View the database configuration by visiting http://localhost:8001.
-* Explore the database contents using Query Console. Go to http://localhost:8000/qconsole, select the samplestack database, and click Explore.
+* Explore the database contents using Query Console. Go to http://localhost:8000/qconsole, select the `samplestack` database, and click Explore.
 
 ## Additional Information
 For more information, see the following:
 * README for the [database](database/README.md), [appserver](appserver/java-spring/README.md), and [browser](browser/README.md) tier.
-* [Samplestack wiki](wiki).
-* [MarkLogic product documentation](http://docs-ea.marklogic.com). The credentials are available on the MarkLogic EA download page.
+* [Samplestack wiki](https://github.com/marklogic/marklogic-samplestack/wiki).
+* [MarkLogic product documentation](http://docs.marklogic.com). 
 
 ## License
 

@@ -26,6 +26,10 @@ Start with an out-of-the box MarkLogic server, installed and running.  By defaul
 
 * `./gradlew test` This command runs unit tests
 
+*To build javadocs*
+
+* `./gradlew javadoc` These docs are built in build/docs/javadoc
+
 *To use with Eclipse*
 
 See project wiki https://github.com/marklogic/marklogic-samplestack/wiki/Getting-Started-in-Eclipse
