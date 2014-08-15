@@ -1,20 +1,7 @@
-known issues
+### Browser Build Process
 
-the code is messy and under-documented, but gulp is not something we're trying
-to teach, it will be cleaned up for ea3
+The build process for the browser webapp is automated in the `browser/dev-tasks` directory.
 
-renaming watched directories crashes watch
+The code in this directory has evolved along with the [gulp](https://github.com/gulpjs/gulp), the task-runner that is being used.
 
-todo
-
-menu to
-  manually run unit tests
-  manually run e2e tests (or one e2e test maybe)
-  manually invoke gradlew assemble, clean, dbLoad
-  run or rerun gradlew bootrun
-  rebuild browser
-
-  e2e run against instrumented and report
-
-  xunit options for unit and e2e
-  
+At the present time, this code isn't well-documented nor is it intended to be modified.  For instructions on the tasks that are supported, please see the [browser README](../README.md).
