@@ -52,14 +52,14 @@ The setup assume you have MarkLogic Server running on your localhost and that yo
 
 To install required software, configure, and build the Java middle tier and database tier of Samplestack, run the following commands from the root of your cloned repository:
 
-```bash
+```
 cd appserver/java-spring
 ./gradlew appserver
 ```
 
 If the command fails such that you need to run it again, run the following command first to reset the database state:
 
-```bash
+```
 ./gradlew dbteardown
 ```
 
@@ -84,24 +84,24 @@ Use the following procedure to install required software and bootstrap the Sampl
 
 For detailed instructions and troubleshooting, see the [README in the browser directory](browser/README.md).
 
-**Important**: in order to run the application you must be running *both* the middle-tier **and** the browser webapp.  To do this, **use a separtate terminal window for the steps below**.
-
 **NOTE:** If you are on Windows, you must use a Windows command shell, not Cygwin.
+
+**Important**: In order to run the application you must be running *both* the middle-tier **and** the browser webapp.  To do this, **use a separate terminal window for the steps below**.
 
 1. Go to the browser subdirectory of the project:
 
-    ```bash
+    ```
     cd browser
     ```
 2. Install the browser application.
 
-    ```bash
+    ```
     npm install
     bower install
     ```
 3. Run the following command to build the web application, run its unit tests, and bring up the required execution environment:
 
-    ```bash
+    ```
     gulp run
     ```
 
@@ -114,15 +114,19 @@ Once you have the database, appserver, and browser tiers of the application conf
 
 ### Restarting the Two Tiers
 
-* To stop and restart the middle tier App Server, press `Control+C`
+* To stop the middle tier App Server, press `Control+C`
 * To restart,
-  * `cd marklogic-samplestack/appserver/java-spring
-  * `./gradlew bootrun`
+```
+cd marklogic-samplestack/appserver/java-spring
+./gradlew bootrun
+```
 
 * To stop the browser tier, press `Control+C`
 * To restart,
-  * `cd marklogic-samplestack/browser`
-  * `gulp run`
+```
+cd marklogic-samplestack/browser
+gulp run
+```
 
 ### Next Steps
 * Explore the application running at http://localhost:3000.
