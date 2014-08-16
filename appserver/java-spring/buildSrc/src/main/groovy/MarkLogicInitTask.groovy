@@ -117,7 +117,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
     void restBoot() {
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/v1/rest-apis").with {
             headers."accept" = "application/json"
-            auth.basic config.marklogic.admin.user, config.marklogic.admin.user
+            auth.basic config.marklogic.admin.user, config.marklogic.admin.password
             it
         }
         def params = [:]
