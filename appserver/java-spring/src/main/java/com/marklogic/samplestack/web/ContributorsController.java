@@ -31,8 +31,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.marklogic.client.pojo.PojoPage;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.ContributorAddOnService;
 
 /**
  * Provides HTTP access to contributor objects. Contributors are the
@@ -45,7 +46,10 @@ public class ContributorsController {
 	static Random random = new Random();
 
 	@Autowired
-	private ContributorService service;
+	private ContributorAddOnService service;
+
+	@Autowired
+	private PojoRepository<Contributor, String> repository;
 
 	/**
 	 * Lists contributors, based on an optional query string.
@@ -57,7 +61,7 @@ public class ContributorsController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	PojoPage<Contributor> listContributors(@RequestParam(required = false) String q) {
 		if (q == null) {
-			return service.readAll(0);
+			return repository.readAll(0);
 		} else {
 			return service.search(q);
 		}
@@ -72,7 +76,7 @@ public class ContributorsController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	Contributor get(@PathVariable("id") String id) {
-		return service.read(id);
+		return repository.read(id);
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class ContributorsController {
 	@ResponseStatus(HttpStatus.CREATED)
 	Contributor newContributor(@RequestBody Contributor contributor) {
 		contributor.setId(UUID.randomUUID().toString());
-		service.write(contributor);
+		service.store(contributor);
 		return contributor;
 	}
 
@@ -101,7 +105,7 @@ public class ContributorsController {
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	Contributor replaceContributor(@PathVariable("id") String id,
 			@RequestBody Contributor contributor) {
-		service.write(contributor);
+		service.store(contributor);
 		return contributor;
 	}
 
@@ -113,6 +117,6 @@ public class ContributorsController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	void removeContributor(@PathVariable("id") String id) {
-		service.delete(id);
+		repository.delete(id);
 	}
 }

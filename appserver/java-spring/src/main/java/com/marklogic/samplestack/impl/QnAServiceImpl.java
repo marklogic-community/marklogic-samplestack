@@ -15,6 +15,8 @@
  */
 package com.marklogic.samplestack.impl;
 
+import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -27,15 +29,15 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentMetadataPatchBuilder.Call;
-import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
-import com.marklogic.client.document.ServerTransform;
+import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
@@ -44,28 +46,39 @@ import com.marklogic.samplestack.domain.Answer;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
+import static com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 
 @Component
 /**
  * Implementation of the QnAService interface.
  */
-public class QnAServiceImpl extends AbstractMarkLogicDataService implements
-		QnAService {
+public class QnAServiceImpl implements QnAService {
+
 
 	@Autowired
-	private ContributorService contributorService;
+	protected MarkLogicOperations operations;
+	
+	protected JSONDocumentManager jsonDocumentManager(ClientRole role) {
+		return operations.newJSONDocumentManager(role);
+	};
+	
+	@Autowired
+	protected ObjectMapper mapper;
+	
+	@Autowired
+	private ContributorAddOnService contributorService;
+	
 
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
-
-	private static SamplestackType type = SamplestackType.QUESTIONS;
-
+	
 	private static String idFromUri(String uri) {
 		return uri.replace(".json", "");
 	}
@@ -74,15 +87,17 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 		return id + ".json";
 	}
 
+	private String generateUri() {
+		
+		return QUESTIONS_DIRECTORY + UUID.randomUUID() + ".json";
+		
+	}
+	
 	@Override
 	public QnADocument findOne(ClientRole role, String stringQuery, long start) {
-		DocumentPage page = operations.searchInClass(role,
-				SamplestackType.QUESTIONS, stringQuery, start);
-		if (page.hasNext()) {
-			JacksonHandle jacksonHandle = page.next().getContent(
-					new JacksonHandle());
-			QnADocument newDocument = new QnADocument(
-					(ObjectNode) jacksonHandle.get());
+		ObjectNode node = operations.findOneQuestion(role, stringQuery, start);
+		if (node != null) {
+			QnADocument newDocument = new QnADocument(node);
 			return newDocument;
 		} else {
 			return null;
@@ -90,16 +105,19 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	}
 
 	@Override
-	public QnADocument ask(String userName, QnADocument question) {
-		String documentUri = generateUri(type);
+	public QnADocument ask(Contributor user, InitialQuestion question) {
+		String documentUri = generateUri();
 		question.setId(idFromUri(documentUri));
-		ServerTransform askTransform = new ServerTransform("ask");
-		askTransform.put("userName", userName);
-
+		
+		Date now = new Date();
+		question.setCreationDate(now);
+		question.updateLastActivityDate();
+		question.setOwner(user.asSparseContributor());
+		
+		JsonNode jsonNode = mapper.convertValue(question, JsonNode.class);
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-				documentUri, new JacksonHandle(question.getJson()),
-				askTransform);
-
+				documentUri, new JacksonHandle(jsonNode));
+		
 		return new QnADocument((ObjectNode) operations.getJsonDocument(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, documentUri));
 	}
@@ -124,15 +142,20 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 		answer.setId("/answers/" + UUID.randomUUID().toString());
 		answer.setItemTally(0);
 		answer.setComments(new ArrayList<Comment>());
+		answer.setCreationDate(new Date());
 		
 		// put ths sparse contributor data on this node
 		SparseContributor owner = contributor.asSparseContributor();
 		answer.setOwner(owner);
 
 		try {
-			DocumentPatchHandle patch = patchBuilder.insertFragment(
-					"/node()/node('answers')", Position.LAST_CHILD,
-					mapper.writeValueAsString(answer)).build();
+			 patchBuilder
+					  .insertFragment("/node()/node('answers')", 
+							  Position.LAST_CHILD,
+							  mapper.writeValueAsString(answer));
+			patchBuilder.replaceValue("/lastActivityDate", ISO8601Formatter.format(new Date()));
+			DocumentPatchHandle patch = patchBuilder.build();
+			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
 					documentUri, patch);
 		} catch (MarkLogicIOException e) {
@@ -175,6 +198,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 					.replaceInsertFragment("acceptedAnswerId", "/node()",
 							Position.LAST_CHILD,
 							mapper.writeValueAsString(acceptNode));
+			patchBuilder.replaceValue("/lastActivityDate", ISO8601Formatter.format(new Date()));
 			patchBuilder.replaceInsertFragment("accepted", "/node()", Position.LAST_CHILD, acceptFlagNode);
 			patchBuilder.addPermission("samplestack-guest", Capability.READ);
 			DocumentPatchHandle patch = patchBuilder.build();
@@ -194,8 +218,9 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 		boolean done = false;
 		while (iterator.hasNext() || done) {
 			JsonNode answer = iterator.next();
-			if (! previousAnsweredId.isMissingNode() 
-					&& answer.get("id").asText().equals(previousAnsweredId)) {
+			String id = answer.get("id").asText();
+			if (! previousAnsweredId.isMissingNode()
+					&& id.equals(previousAnsweredId.asText())) {
 				String toLowerReputationUserName = answer.get("owner").get("userName").asText();
 				Contributor toLowerReputation = contributorService.getByUserName(toLowerReputationUserName);
 				toLowerReputation.setReputation(toLowerReputation.getReputation() - 1);
@@ -203,14 +228,13 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 			}
 			if (answer.get("id").asText().equals(answerId)) {
 				String toRaiseReputationUserName = answer.get("owner").get("userName").asText();
-				Contributor toLowerReputation = contributorService.getByUserName(toRaiseReputationUserName);
-				toLowerReputation.setReputation(toLowerReputation.getReputation() + 1);
-				contributorService.store(toLowerReputation, transaction);
+				Contributor toRaiseReputation = contributorService.getByUserName(toRaiseReputationUserName);
+				toRaiseReputation.setReputation(toRaiseReputation.getReputation() + 1);
+				contributorService.store(toRaiseReputation, transaction);
 		
 			}
 		}
 		
-
 		transaction.commit();
 		QnADocument acceptedDocument = getByPostId(answerId);
 		
@@ -321,6 +345,8 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 					.insertFragment("//object-node()[id=\""+postId+"\"]/array-node('comments')",
 							Position.LAST_CHILD,
 							mapper.writeValueAsString(comment));
+			patchBuilder.replaceValue("/lastActivityDate", ISO8601Formatter.format(new Date()));
+			
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
@@ -337,7 +363,7 @@ public class QnAServiceImpl extends AbstractMarkLogicDataService implements
 	@Override
 	public void deleteAll() {
 		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				SamplestackType.QUESTIONS);
+				QUESTIONS_DIRECTORY);
 	}
 
 }

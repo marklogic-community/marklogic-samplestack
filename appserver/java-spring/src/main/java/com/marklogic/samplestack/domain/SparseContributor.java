@@ -23,6 +23,11 @@ package com.marklogic.samplestack.domain;
  */
 public class SparseContributor {
 
+	/**
+	 * The String identifier for this user, a primary key.
+	 */
+	public String id;
+	
 	/** The contributor's display name */
 	public String displayName;
 
@@ -45,5 +50,13 @@ public class SparseContributor {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getId() {
+		return id;
 	}
 }

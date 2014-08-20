@@ -40,20 +40,13 @@ import com.marklogic.client.pojo.annotation.Id;
  * </pre>
  * 
  */
-public class Contributor extends SparseContributor {
-
-	/** URL of this contributor's website. */
-	private String websiteUrl;
-
-	/**
-	 * A number that is updated each time somebody votes on a contributor's
-	 * posts
-	 */
-	private int reputation;
+public class Contributor {
 
 	/** A markdown mini bio of the contributor */
 	private String aboutMe;
 
+	/** The contributor's display name */
+	public String displayName;
 
 	@Id
 	/**
@@ -61,45 +54,63 @@ public class Contributor extends SparseContributor {
 	 */
 	public String id;
 
+
 	/** The location of the user, as a String */
 	private String location;
+
+	/**
+	 * A number that is updated each time somebody votes on a contributor's
+	 * posts
+	 */
+	private int reputation;
+
+	/** The username.  */
+	public String userName;
 
 	/** Set of posts on which this contributor has voted */
 	private Set<String> votes = new HashSet<String>();
 
-	public String getWebsiteUrl() {
-		return websiteUrl;
-	}
+	/** URL of this contributor's website. */
+	private String websiteUrl;
 
-	public void setWebsiteUrl(String websiteUrl) {
-		this.websiteUrl = websiteUrl;
-	}
-
-	public int getReputation() {
-		return reputation;
-	}
-
-	public void setReputation(int reputation) {
-		this.reputation = reputation;
+	/**
+	 * return a copy of this object as sparse object, to be used
+	 * within QnADocument serializations
+	 * @return a SparseContributor object with values from this one.
+	 */
+	public SparseContributor asSparseContributor() {
+		SparseContributor sparseContributor = new SparseContributor();
+		sparseContributor.setId(this.id);
+		sparseContributor.setDisplayName(this.getDisplayName());
+		sparseContributor.setUserName(this.getUserName());
+		return sparseContributor;
 	}
 
 	public String getAboutMe() {
 		return aboutMe;
 	}
 
-	public void setAboutMe(String aboutMe) {
-		this.aboutMe = aboutMe;
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public String getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public int getReputation() {
+		return reputation;
 	}
 
 	
+	public String getUserName() {
+		return userName;
+	}
+
 	public Set<String> getVotes() {
 		if (votes == null) {
 			this.votes = new HashSet<String>();
@@ -107,8 +118,8 @@ public class Contributor extends SparseContributor {
 		return votes;
 	}
 
-	public void setVotes(Set<String> votes) {
-		this.votes = votes;
+	public String getWebsiteUrl() {
+		return websiteUrl;
 	}
 
 	public boolean hasVotedOn(String postId) {
@@ -119,25 +130,39 @@ public class Contributor extends SparseContributor {
 		}
 	}
 
-	public String getId() {
-		return id;
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
+	}
+	
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
+	
 	public void setId(String id) {
 		this.id = id;
 	}
 
 
-	/**
-	 * return a copy of this object as sparse object, to be used
-	 * within QnADocument serializations
-	 * @return a SparseContributor object with values from this one.
-	 */
-	public SparseContributor asSparseContributor() {
-		SparseContributor sparseContributor = new SparseContributor();
-		sparseContributor.setDisplayName(this.getDisplayName());
-		sparseContributor.setUserName(this.getUserName());
-		return sparseContributor;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setReputation(int reputation) {
+		this.reputation = reputation;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setVotes(Set<String> votes) {
+		this.votes = votes;
+	}
+
+
+	public void setWebsiteUrl(String websiteUrl) {
+		this.websiteUrl = websiteUrl;
 	}
 
 }

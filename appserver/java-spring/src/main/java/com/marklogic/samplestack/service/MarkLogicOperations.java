@@ -27,7 +27,6 @@ import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.domain.SamplestackType;
 
 /**
  * Encapsulates interaction with MarkLogic.
@@ -43,18 +42,13 @@ public interface MarkLogicOperations {
 	public JsonNode getJsonDocument(ClientRole role, String documentUri);
 	
 	/**
-	 * Convenience method to send a String query over a particular range of documents.
-	 * The expectation is that there will be an options node on the server that corresponds
-	 * to this directory/Class of objects, and which configures the search string
-	 * that the client uses here.  This version of search provides a SearchHandle object
-	 * which is populated by data from the Search API response object.
+	 * Convenience method to send a String query over the questions corpus.
 	 * @param role The security role under which to run the query.
-	 * @param type The directory to look in.  Must begin and end with '/'
 	 * @param queryString The Search API query string, as configured by a persisted options file.
 	 * @param start The index of the first result returned.
-	 * @return A page of results.
+	 * @return A single result.
 	 */
-	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
+	public ObjectNode findOneQuestion(ClientRole role,
 			String queryString, long start);
 	
 	/**
@@ -70,9 +64,9 @@ public interface MarkLogicOperations {
 	/**
 	 * Delete an entire directory/class of objects.
 	 * @param role the caller's role
-	 * @param type The type of object to remove (contributors or qnadocs)
+	 * @param type The directory to delete
 	 */	
-	public void deleteDirectory(ClientRole role, SamplestackType type);
+	public void deleteDirectory(ClientRole role, String directory);
 	
 	/**
 	 * Deletes an document by URI
@@ -140,4 +134,12 @@ public interface MarkLogicOperations {
 	 */
 	public StringQueryDefinition newStringQueryDefinition(String optionsName);
 
+	/**
+	 * Wraps a call to REST API /v1/values to get back tag values and frequencies
+	 * @param role Role to search with
+	 * @param combinedQuery a JSON node containing the options definition for this query.
+	 * @param start the first index to retrieve.
+	 * @return A values response in a JSON structure.
+	 */
+	public ObjectNode tagValues(ClientRole role, JsonNode combinedQuery, long start);
 }

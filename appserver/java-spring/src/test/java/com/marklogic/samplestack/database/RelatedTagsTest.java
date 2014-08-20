@@ -59,7 +59,6 @@ public class RelatedTagsTest {
 		
 		logger.info("" + relatedTags);
 		
-		
 		logger.info("" + manager.getRelatedTags("xquery"));
 		
 		fail("No assertions");

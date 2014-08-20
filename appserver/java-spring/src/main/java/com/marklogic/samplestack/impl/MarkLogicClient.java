@@ -15,6 +15,9 @@
  */
 package com.marklogic.samplestack.impl;
 
+import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
+import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
+
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -33,13 +36,15 @@ import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.RawQueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.client.query.SuggestDefinition;
+import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.service.MarkLogicOperations;
+
 
 /**
  * Encapsulates Samplestack's interactions with the database in a single class.
@@ -48,6 +53,7 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
  * @see com.marklogic.client.DatabaseClient
  */
 public class MarkLogicClient implements MarkLogicOperations {
+
 
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
@@ -84,24 +90,29 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	/*
-	 * TODO M3 remove/refactor due to pojo facade/document split.
-	 */
-	public DocumentPage searchInClass(ClientRole role, SamplestackType type,
+	public ObjectNode findOneQuestion(ClientRole role,
 			String queryString, long start) {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		QueryDefinition stringQuery = queryManager.newStringDefinition(
-				type.optionsName()).withCriteria(queryString);
+				QUESTIONS_OPTIONS).withCriteria(queryString);
 
-		stringQuery.setDirectory(type.directoryName());
-		return newJSONDocumentManager(role).search(stringQuery, start);
+		stringQuery.setDirectory(QUESTIONS_DIRECTORY);
+		DocumentPage page = newJSONDocumentManager(role).search(stringQuery, start);
+		if (page.hasNext()) {
+			JacksonHandle handle = new JacksonHandle();
+			handle = page.nextContent(handle);
+			return (ObjectNode) handle.get();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
-	public void deleteDirectory(ClientRole role, SamplestackType type) {
+	public void deleteDirectory(ClientRole role, String directory) {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
-		deleteDef.setDirectory(type.directoryName());
+		deleteDef.setDirectory(directory);
 		queryManager.delete(deleteDef);
 	}
 
@@ -143,13 +154,11 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
 			long start, QueryView view) {
 		JacksonHandle handle = new JacksonHandle();
-		String qnaDirName = SamplestackType.QUESTIONS.directoryName();
-		String optionsName = SamplestackType.QUESTIONS.optionsName();
 		QueryManager queryManager = getClient(role).newQueryManager();
 
 		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
-				new JacksonHandle(structuredQuery), optionsName);
-		qdef.setDirectory(qnaDirName);
+				new JacksonHandle(structuredQuery), QUESTIONS_OPTIONS);
+		qdef.setDirectory(QUESTIONS_DIRECTORY);
 		queryManager.setView(view);
 
 		handle = queryManager.search(qdef, handle, start);
@@ -183,6 +192,18 @@ public class MarkLogicClient implements MarkLogicOperations {
 		QueryManager queryManager = getClient(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newQueryManager();
 		return queryManager.newStringDefinition(optionsName);
+	}
+
+	@Override
+	public ObjectNode tagValues(ClientRole role, JsonNode combinedQuery, long start) {
+		QueryManager queryManager = getClient(role).newQueryManager();
+		ValuesDefinition valdef = queryManager.newValuesDefinition("tags");
+		JacksonHandle handle = new JacksonHandle();
+		handle.set(combinedQuery);
+		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle);
+		valdef.setQueryDefinition(qdef);
+		JacksonHandle responseHandle = queryManager.values(valdef, new JacksonHandle(), start);
+		return (ObjectNode) responseHandle.get();
 	}
 
 }

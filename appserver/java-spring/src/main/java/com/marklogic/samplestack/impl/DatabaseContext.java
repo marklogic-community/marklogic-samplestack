@@ -52,10 +52,17 @@ public class DatabaseContext {
 		c.putClient(ClientRole.SAMPLESTACK_CONTRIBUTOR, writerClient);
 		DatabaseClient guestClient = databaseClient(ClientRole.SAMPLESTACK_GUEST);
 		c.putClient(ClientRole.SAMPLESTACK_GUEST, guestClient);
+		
 		return c;
 	}
 	
 	@Bean
+	/**
+	 * This repository object manages operations for the Contributor POJO Class.
+	 * Generally accessed through calls to the ContributorService, which 
+	 * mediates and limits some of the access.
+	 * @return A PojoRepository object to manage Contributors.
+	 */
 	public PojoRepository<Contributor, String> repository() {
 		return markLogicOperations().getContributors();
 	}

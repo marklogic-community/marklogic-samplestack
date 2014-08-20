@@ -18,17 +18,21 @@ package com.marklogic.samplestack.integration.web;
 
 import java.io.UnsupportedEncodingException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.samplestack.Application;
+import com.marklogic.samplestack.service.ContributorAddOnService;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
+import com.marklogic.samplestack.testing.Utils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,6 +41,19 @@ import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
 @Category(IntegrationTests.class)
 public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 
+	@Autowired
+	private ContributorAddOnService contributorService;
+	
+	@Before
+	public void setupUsers() {
+		contributorService.delete(Utils.joeUser.getId());
+		contributorService.delete(Utils.maryUser.getId());	
+		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryUser);
+	}
+	
+	
+	
 	@Override
     @Test
 	public void testAnonymousCanSearch() throws UnsupportedEncodingException,

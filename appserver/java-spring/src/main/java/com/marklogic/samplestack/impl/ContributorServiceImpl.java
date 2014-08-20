@@ -15,6 +15,8 @@
  */
 package com.marklogic.samplestack.impl;
 
+import static com.marklogic.samplestack.SamplestackConstants.CONTRIBUTORS_OPTIONS;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,24 +33,23 @@ import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.ContributorAddOnService;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
  * Beyond the repository interface, provides a few useful methods for searching
  * the Contributors domain.
- * @see com.marklogic.samplestack.service.ContributorService
+ * @see com.marklogic.samplestack.service.ContributorAddOnService
  */
 @Component
-public class ContributorServiceImpl extends AbstractMarkLogicDataService
-		implements ContributorService {
+public class ContributorServiceImpl implements ContributorAddOnService {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(ContributorServiceImpl.class);
 
 	@Autowired
-	private MarkLogicOperations operations;
-
+	protected MarkLogicOperations operations;
+	
 	@Autowired
 	private PojoRepository<Contributor, String> repository;
 
@@ -145,8 +146,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 		return repository.search(query, start, searchHandle, transaction);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public PojoQueryBuilder getQueryBuilder() {
+	public PojoQueryBuilder<Contributor> getQueryBuilder() {
 		return repository.getQueryBuilder();
 	}
 
@@ -187,7 +187,7 @@ public class ContributorServiceImpl extends AbstractMarkLogicDataService
 	@Override
 	public PojoPage<Contributor> search(String queryString) {
 		StringQueryDefinition qdef = operations
-				.newStringQueryDefinition("contributors");
+				.newStringQueryDefinition(CONTRIBUTORS_OPTIONS);
 		qdef.setCriteria(queryString);
 		return this.search(qdef, 1);
 	}

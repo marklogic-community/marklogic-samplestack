@@ -17,14 +17,14 @@ package com.marklogic.samplestack.service;
 
 import com.marklogic.client.Transaction;
 import com.marklogic.client.pojo.PojoPage;
-import com.marklogic.client.pojo.PojoRepository;
+import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 
 /**
  * Defines methods for interacting with the database of User objects.
  * TODO will be replaced by direct use of the Pojo Facade, new for MarkLogic 8.
  */
-public interface ContributorService extends PojoRepository<Contributor, String>{
+public interface ContributorAddOnService {
 
 	/**
 	 * Get a specific user by UserName
@@ -53,4 +53,25 @@ public interface ContributorService extends PojoRepository<Contributor, String>{
 	 * @param transaction transaction in which to store the contributor.
 	 */
 	void store(Contributor contributor, Transaction transaction);
+
+	/**
+	 * Wraps PojoRepository.delete
+	 * @param id
+	 */
+	public void delete(String... id);
+
+	/**
+	 * Wraps PojoRepository.read
+	 * @param id
+	 * @return
+	 */
+	public Contributor read(String id);
+
+	/**
+	 * Wraps PojoRepository.search
+	 * @param qdef A query definition
+	 * @param start the first object to retrieve
+	 * @return
+	 */
+	public PojoPage<Contributor> search(QueryDefinition qdef, long start);
 }

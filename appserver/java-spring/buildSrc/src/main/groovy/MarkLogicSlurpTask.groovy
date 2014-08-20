@@ -6,11 +6,13 @@ import java.util.regex.Pattern
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import com.marklogic.client.io.BytesHandle
+import com.marklogic.client.document.ServerTransform
 
 
 public class MarkLogicSlurpTask extends MarkLogicTask {
 
     String seedDirectory = "database/seed-data"
+    
 
     void putRdf(client, uri, rdftriples) {
         client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
@@ -31,6 +33,8 @@ include '**/*.nt'}
         def BATCH_SIZE = 300
         def numWritten = 0
         def writeSet = docMgr.newWriteSet()
+        def contribWriteSet = docMgr.newWriteSet()
+        def transform = new ServerTransform("contrib-to-pojo")
         jsonFiles.each { 
             def pattern = Pattern.compile(".*" + "seed-data")
             def docUri = it.path.replaceAll(pattern, "").replaceAll("\\\\", "/")
@@ -43,14 +47,22 @@ include '**/*.nt'}
                 numWritten++;
                 if ( numWritten % BATCH_SIZE == 0) {
                     logger.info("Writing batch")
+                    docMgr.write(contribWriteSet, transform)
                     docMgr.write(writeSet)
                     writeSet = docMgr.newWriteSet()
+                    contribWriteSet = docMgr.newWriteSet()
                 }
-                writeSet.add(docUri, new BytesHandle(it.text.getBytes("UTF-8")))
+                if (it.path.contains("contributors")) {
+                    docUri = docUri.replaceAll(~"/contributors/", "com.marklogic.samplestack.domain.Contributor/")
+                    contribWriteSet.add(docUri, new BytesHandle(it.text.getBytes("UTF-8")))
+                } else {
+                    writeSet.add(docUri, new BytesHandle(it.text.getBytes("UTF-8")))
+                }
             }
         }
         if (numWritten % BATCH_SIZE > 0) {
             docMgr.write(writeSet)
+            docMgr.write(contribWriteSet, transform)
         }
     }
 }

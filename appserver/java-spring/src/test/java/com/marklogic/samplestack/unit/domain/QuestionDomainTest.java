@@ -1,12 +1,15 @@
 package com.marklogic.samplestack.unit.domain;
 
-import static org.junit.Assert.assertEquals;
+import static com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.samplestack.domain.Answer;
@@ -27,34 +30,42 @@ public class QuestionDomainTest {
 	}
 	
 	@Test
-	public void testInitialQuestion() throws JsonProcessingException {
+	public void testInitialQuestion() throws JsonProcessingException, JSONException {
 		InitialQuestion initialQuestion;
 		initialQuestion = new InitialQuestion();
 		initialQuestion.setText("text");
 		initialQuestion.setTitle("title");
 		initialQuestion.setTags(new String[] {"tag1", "tag2"});
-		// initialQuestion.setOwner(Utils.joeUser.asSparseContributor());
+		initialQuestion.setOwner(Utils.joeUser.asSparseContributor());
+		String expected ="{answers:[],comments:[],creationDate:null,id:null,docScore:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
 		
-		assertEquals("JSON of initial question", "{\"title\":\"title\",\"text\":\"text\",\"tags\":[\"tag1\",\"tag2\"],\"owner\":null}", mapper.writeValueAsString(initialQuestion));
+		JSONAssert.assertEquals(mapper.writeValueAsString(initialQuestion),
+				expected, false);
 	}
 
 
 	@Test
-	public void testAnswer() throws JsonProcessingException {
+	public void testAnswer() throws JsonProcessingException, JSONException {
 		Answer answer = new Answer();
 		answer.setId("/answers/"+134);
 		answer.setText("text");
 		answer.setComments(new ArrayList<Comment>());
 		answer.setItemTally(0);
 		answer.setOwner(Utils.joeUser.asSparseContributor());
-		assertEquals("JSON of answer", "{\"id\":\"/answers/134\",\"text\":\"text\",\"itemTally\":0,\"comments\":[],\"owner\":{\"displayName\":\"joeUser\",\"userName\":\"joeUser@marklogic.com\"}}", mapper.writeValueAsString(answer));
+		Date now = new Date();
+		answer.setCreationDate(now);
+		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) + "\",id:\"/answers/134\",text:\"text\",itemTally:0,comments:[],owner:{displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"}}";
+		JSONAssert.assertEquals(expected, mapper.writeValueAsString(answer), false);
 	}
 	
 	@Test
-	public void testComment() throws JsonProcessingException {
+	public void testComment() throws JsonProcessingException, JSONException {
 		Comment comment  = new Comment();
 		comment.setText("Comment Text");
 		comment.setOwner(Utils.joeUser.asSparseContributor());
-		assertEquals("JSON of comment", "{\"owner\":{\"displayName\":\"joeUser\",\"userName\":\"joeUser@marklogic.com\"},\"text\":\"Comment Text\",\"creationDate\":null}", mapper.writeValueAsString(comment));
+		Date now = new Date();
+		comment.setCreationDate(now);
+		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) +"\",text:\"Comment Text\",owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"}}";
+		JSONAssert.assertEquals(expected, mapper.writeValueAsString(comment), false);
 	}
 }

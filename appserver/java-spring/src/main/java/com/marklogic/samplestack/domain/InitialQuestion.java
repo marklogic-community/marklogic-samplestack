@@ -15,57 +15,124 @@
  */
 package com.marklogic.samplestack.domain;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
 
 /**
- * A POJO to represent the information provided when a contributor first asks a question
+ * A POJO to represent the information provided when a contributor first asks a question.
+ * After the initial object generation, this domain model is managed as JSON documents, 
+ * not POJOs.
  * @see com.marklogic.samplestack.domain.QnADocument
  */
 public class InitialQuestion {
 	
-	@NotNull
-	/** The title of the question */
-	private String title;
+	private Answer[] answers;
 	
+	private Comment[] comments;
+	
+	private Date creationDate;
+	
+	private String id;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	private long docScore;
+	private long itemTally;
+	
+	private Date lastActivityDate;
+	private SparseContributor owner;
+	
+	/** A string array of tags associated with this question */
+	private String[] tags;
 	@NotNull
 	/** The markdown text of the question */
 	private String text;
 	
-	/** A string array of tags associated with this question */
-	private String[] tags;
 	
+	@NotNull
+	/** The title of the question */
+	private String title;
+	public InitialQuestion() {
+		this.tags = new String[] {};
+		this.comments = new Comment[] {};
+		this.answers = new Answer[] {};
+		this.docScore = 0L;
+		this.itemTally = 0L;
+	}
 	
-	public String getTitle() {
-		return title;
+	public Answer[] getAnswers() {
+		return answers;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public Comment[] getComments() {
+		return comments;
 	}
-	public String getText() {
-		return text;
+	public Date getCreationDate() {
+		return creationDate;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public long getDocScore() {
+		return docScore;
+	}
+	public long getItemTally() {
+		return itemTally;
+	}
+	public Date getLastActivityDate() {
+		return lastActivityDate;
+	}
+	public SparseContributor getOwner() {
+		return this.owner;
 	}
 	public String[] getTags() {
 		return tags;
 	}
-	public void setTags(String[] tags) {
-		this.tags = tags;
+	public String getText() {
+		return text;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setAnswers(Answer[] answers) {
+		this.answers = answers;
+	}
+	public void setComments(Comment[] comments) {
+		this.comments = comments;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public void setDocScore(long docScore) {
+		this.docScore = docScore;
+	}
+	public void setItemTally(long itemTally) {
+		this.itemTally = itemTally;
+	}
+	public void setLastActivityDate(Date lastActivityDate) {
+		this.lastActivityDate = lastActivityDate;
 	}
 	
-	public InitialQuestion() {
-		this.tags = new String[] {};
-	}
-	
-	private SparseContributor owner;
-
 	public void setOwner(SparseContributor owner) {
 		this.owner = owner;
 	}
 	
-	public SparseContributor getOwner() {
-		return this.owner;
+	public void setTags(String[] tags) {
+		this.tags = tags;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void updateLastActivityDate() {
+		this.lastActivityDate = new Date();
 	}
 	
 }

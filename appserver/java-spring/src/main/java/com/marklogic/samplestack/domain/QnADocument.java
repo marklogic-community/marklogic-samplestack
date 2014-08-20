@@ -15,6 +15,7 @@
  */
 package com.marklogic.samplestack.domain;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -25,7 +26,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  * The main payload for operations on questions and answers.
  *
  */
-public class QnADocument extends JsonObjectWrapper {
+public class QnADocument {
+	
+	protected ObjectNode json;
+
+	public String getId() {
+		return json.get("id").asText();
+	}
+	
+	public void setId(String id) {
+		json.put("id", id);
+	}
+	
+	public JsonNode getJson() {
+		return json;
+	}
 	
 	/**
 	 * Constructor for QnADocuments that includes just a mapper and Strings for title and text.
@@ -34,8 +49,8 @@ public class QnADocument extends JsonObjectWrapper {
 	 * @param text Text (markdown) of the question.
 	 */
 	public QnADocument(ObjectMapper mapper, String title, String text) {
-		super(mapper.createObjectNode());
-		this.json.put("title", title);
+		this.json = mapper.createObjectNode();
+		this.json = this.json.put("title", title);
 		this.json.put("text", text);
 	}
 	
@@ -45,7 +60,7 @@ public class QnADocument extends JsonObjectWrapper {
 	 * @param jsonObject A JSON node that contains a question and answer document.
 	 */
 	public QnADocument(ObjectNode jsonObject) {
-		super(jsonObject);
+		this.json = jsonObject;
 	}
 
 

@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -67,16 +66,16 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		return contributor;
 	}
 
-	@After
+	//@After
 	public void cleanout() {
-		contributorService.deleteAll();
+		contributorRepository.deleteAll();
 	}
 
 	@Test
 	public void testContributorCRUD() throws JsonProcessingException {
 		
 		Contributor c1 = getContributor();
-		contributorService.write(c1);
+		contributorService.store(c1);
 
 		Contributor c2 = contributorService.read(c1.getId());
 
@@ -89,15 +88,15 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		Contributor contributor = contributorService.search(qdef, 1).iterator().next();
 		assertEquals("Retrieved one conributor", "grechaw@marklogic.com", contributor.getUserName());
 
-		PojoPage<Contributor> contributorPage = contributorService.readAll(1);
+		PojoPage<Contributor> contributorPage = contributorRepository.readAll(1);
 		assertEquals("Retrieved one conributor", 1, contributorPage.size());
-		contributorPage = contributorService.readAll(2);
+		contributorPage = contributorRepository.readAll(2);
 		assertEquals("Retrieved one conributor", 0, contributorPage.size());
 
 		
-		contributorService.delete(c1.getId());
+		contributorRepository.delete(c1.getId());
 
-		contributorPage = contributorService.readAll(1);
+		contributorPage = contributorRepository.readAll(1);
 		assertEquals("Retrieved one conributor after delete", 0, contributorPage.size());
 		
 	}
@@ -105,10 +104,10 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 	@Test(expected=SampleStackDataIntegrityException.class)
 	public void testUserNameCardinality() {
 		Contributor c1 = getContributor();
-		contributorService.write(c1);
+		contributorService.store(c1);
 
 		c1.setId(UUID.randomUUID().toString());
-		contributorService.write(c1);
+		contributorService.store(c1);
 		fail("Updated ID of a contributor");
 		
 	}

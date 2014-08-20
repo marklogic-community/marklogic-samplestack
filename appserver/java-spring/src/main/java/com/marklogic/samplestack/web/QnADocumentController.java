@@ -38,7 +38,7 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.ContributorAddOnService;
 import com.marklogic.samplestack.service.QnAService;
 
 /**
@@ -60,7 +60,7 @@ public class QnADocumentController {
 	ObjectMapper mapper;
 
 	@Autowired
-	private ContributorService contributorService;
+	private ContributorAddOnService contributorService;
 
 	/** 
 	 * Searches for QnADocuments and returns search results to request body
@@ -83,18 +83,16 @@ public class QnADocumentController {
 
 	/**
 	 * Exposes endpoint for asking a question.
-	 * @param sparseQuestion A POJO constructed from the request body.
+	 * @param initialQuestion A POJO constructed from the request body.
 	 * @return The newly-created QnADocument's JSON node.
 	 */
 	@RequestMapping(value = "questions", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
-	JsonNode ask(@RequestBody InitialQuestion sparseQuestion) {
-		QnADocument qnaDoc = new QnADocument(mapper, sparseQuestion.getTitle(),
-				sparseQuestion.getText(), sparseQuestion.getTags());
-		QnADocument answered = qnaService.ask(
-				ClientRole.securityContextUserName(), qnaDoc);
+	JsonNode ask(@RequestBody InitialQuestion initialQuestion) {
+		Contributor asker = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument answered = qnaService.ask(asker, initialQuestion);
 		return answered.getJson();
 	}
 

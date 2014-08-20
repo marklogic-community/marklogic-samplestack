@@ -18,6 +18,7 @@ package com.marklogic.samplestack.testing;
 import static org.junit.Assert.assertEquals;
 
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 
 /**
  * Testing utilities, especially for making stock Contributor objects.
@@ -65,6 +66,14 @@ public class Utils {
 		maryUser.setDisplayName("maryUser");
 		maryUser.setUserName("maryAdmin@marklogic.com");
 		maryUser.setId(MarysUUID);
+	}
+
+	public static InitialQuestion newQuestion() {
+		InitialQuestion q = new InitialQuestion();
+		q.setTitle("How do I get to know MarkLogic quickly?");
+		q.setText("I mean, there are several reasons. \n* bullet\n*bullet And so it goes.");
+		q.setTags(new String[] {"xquery", "javascript", "programming"});
+		return q;
 	}
 
 }

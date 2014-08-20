@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.marklogic.samplestack.database;
 
 import static org.junit.Assert.assertEquals;
@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -36,16 +37,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.FailedRequestException;
 import com.marklogic.client.ForbiddenUserException;
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
+import com.marklogic.client.io.DocumentMetadataHandle;
+import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.MarkLogicOperations;
@@ -63,26 +65,45 @@ public class DatabaseQnADocumentSearchIT {
 	private final Logger logger = LoggerFactory
 			.getLogger(DatabaseQnADocumentSearchIT.class);
 
-
 	@Autowired
 	private ObjectMapper mapper;
 
 	@Autowired
 	private MarkLogicOperations operations;
 
-	
-	private void loadJson(String path) throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
+	private void loadJson(String path, boolean withGuestPerms) throws ResourceNotFoundException,
+			ForbiddenUserException, FailedRequestException, IOException {
 		ClassPathResource resource = new ClassPathResource(path);
-		JSONDocumentManager docMgr = operations.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		docMgr.write("/" + path, new InputStreamHandle(resource.getInputStream()));
+		JSONDocumentManager docMgr = operations
+				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 		
+		DocumentMetadataHandle metadataHandle = new DocumentMetadataHandle();
+		
+		if (withGuestPerms) {
+			metadataHandle.withPermission("samplestack-guest", Capability.READ);
+		}
+		
+		docMgr.write("/" + path,
+				metadataHandle,
+				new InputStreamHandle(resource.getInputStream()));
 	}
-	
+
 	@Before
-	public void setupSearch() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
-		loadJson("questions/20864442.json");
-		loadJson("questions/20864445.json");
-		loadJson("questions/20864449.json");
+	public void setupSearch() throws ResourceNotFoundException,
+			ForbiddenUserException, FailedRequestException, IOException {
+		loadJson("questions/20864442.json", false);
+		loadJson("questions/20864445.json", true);
+		loadJson("questions/20864449.json", false);
+	}
+
+	@After
+	public void teardownSearch() throws ResourceNotFoundException,
+			ForbiddenUserException, FailedRequestException, IOException {
+		JSONDocumentManager docMgr = operations
+				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		docMgr.delete("/questions/20864442.json");
+		docMgr.delete("/questions/20864445.json");
+		docMgr.delete("/questions/20864449.json");
 	}
 
 	@Test
@@ -113,20 +134,35 @@ public class DatabaseQnADocumentSearchIT {
 	 * sort by relevance (score)
 	 */
 	public void defaultSearchOrdersByActivityDescending() {
-		DocumentPage results = operations.searchInClass(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS, "", 1);
-		assertTrue("Need data to test searches", results.getTotalSize() > 0);
+		ObjectNode query = mapper.createObjectNode();
+		ObjectNode queryNode = query.putObject("query");
+		queryNode.put("qtext", "");
+		ObjectNode results = operations
+				.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1,
+						QueryView.RESULTS);
+		assertTrue("Need data to test searches", results.size() > 0);
 	}
 
 	@Test
-	@Ignore
 	public void guestSearchSeesOnlyResolvedQuestions() {
-		//TODO
+		ObjectNode query = mapper.createObjectNode();
+		ObjectNode queryNode = query.putObject("query");
+		queryNode.put("qtext", "");
+		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_GUEST,
+				query, 1, QueryView.RESULTS);
+		assertEquals("Guest sees only approved docs", results.get("results")
+				.size(), 1);
 	}
 
 	@Test
-	@Ignore
 	public void authenticatedSearchSeesUnresolvedQuestions() {
+		ObjectNode query = mapper.createObjectNode();
+		ObjectNode queryNode = query.putObject("query");
+		queryNode.put("qtext", "");
+		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				query, 1, QueryView.RESULTS);
+		assertEquals("Logged-in user sees all docs", results.get("results")
+				.size(), 3);
 
 	}
 
@@ -144,8 +180,7 @@ public class DatabaseQnADocumentSearchIT {
 			query = mapper
 					.readValue("{\"query\":{\"qtext\":\"tag:monotouch\"}}",
 							JsonNode.class);
-			results = operations.qnaSearch(
-					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, QueryView.FACETS);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
@@ -154,6 +189,36 @@ public class DatabaseQnADocumentSearchIT {
 		}
 		assertNotNull("JSON has facet results", results.get("facets")
 				.get("tag"));
+	}
+	
+	
+	@Test
+	public void testTagValues() throws JsonProcessingException {
+		//TODO make POJO for values
+		ObjectNode topNode = mapper.createObjectNode();
+		ObjectNode combinedQuery = topNode.putObject("search");
+		ObjectNode queryNode = combinedQuery.putObject("query");
+		ObjectNode optionsNode = combinedQuery.putObject("options");
+		ArrayNode valuesNode = optionsNode.putArray("values");
+		ObjectNode thisValuesDef = valuesNode.addObject();
+		thisValuesDef.put("name", "tags");
+		ObjectNode rangeNode = thisValuesDef.putObject("range");
+		rangeNode.put("type",  "xs:string");
+		rangeNode.put("json-property",  "tags");
+		thisValuesDef.put("values-option", "limit=100");
+		queryNode.put("qtext", "");
+		
+		ObjectNode results;
+		logger.debug(mapper.writeValueAsString(topNode));
+		try {
+			results = operations.tagValues(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					topNode, 1);
+
+			logger.debug("Values Results:" + mapper.writeValueAsString(results));
+		} catch (IOException e) {
+			throw new SamplestackIOException(e);
+		}
+		
 	}
 
 	@Test
@@ -165,8 +230,7 @@ public class DatabaseQnADocumentSearchIT {
 					.readValue(
 							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"monotouch\"}}}",
 							JsonNode.class);
-			results = operations.qnaSearch(
-					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, QueryView.FACETS);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
@@ -186,65 +250,70 @@ public class DatabaseQnADocumentSearchIT {
 					.readValue(
 							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
 							JsonNode.class);
-			results = operations.qnaSearch(
-					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, QueryView.ALL);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
-			logger.debug("Query Text:" + mapper.writeValueAsString(results.get("report")));
+			logger.debug("Query Text:"
+					+ mapper.writeValueAsString(results.get("report")));
+
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
 		assertEquals("JSON has 1 result", 1, results.get("total").asInt());
 	}
 
-	
 	@Test
 	public void testActivitySearch() {
 		JsonNode query;
 		ObjectNode results = null;
 		try {
-			query = mapper
-					.readValue(
-							"{\"query\":"
-							+ "{\"range-constraint-query\":"
-							+ "{\"constraint-name\":\"lastActivity\", "
-							+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
-							+ "\"range-operator\":\"GT\"}}}",
-							JsonNode.class);
-			results = operations.qnaSearch(
-					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+			query = mapper.readValue("{\"query\":"
+					+ "{\"range-constraint-query\":"
+					+ "{\"constraint-name\":\"lastActivity\", "
+					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
+					+ "\"range-operator\":\"GT\"}}}", JsonNode.class);
+			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, QueryView.ALL);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
-			logger.debug("Query Text:" + mapper.writeValueAsString(results.get("report")));
+			logger.debug("Query Text:"
+					+ mapper.writeValueAsString(results.get("report")));
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
 		assertEquals("JSON has 0 result", 0, results.get("total").asInt());
-		
+
 		try {
-			query = mapper
-					.readValue(
-							"{\"query\":"
-							+ "{\"range-constraint-query\":"
-							+ "{\"constraint-name\":\"lastActivity\", "
-							+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
-							+ "\"range-operator\":\"LT\"}}}",
-							JsonNode.class);
-			results = operations.qnaSearch(
-					ClientRole.SAMPLESTACK_CONTRIBUTOR,
+			query = mapper.readValue("{\"query\":"
+					+ "{\"range-constraint-query\":"
+					+ "{\"constraint-name\":\"lastActivity\", "
+					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
+					+ "\"range-operator\":\"LT\"}}}", JsonNode.class);
+			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, QueryView.ALL);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
-			logger.debug("Query Text:" + mapper.writeValueAsString(results.get("report")));
+			logger.debug("Query Text:"
+					+ mapper.writeValueAsString(results.get("report")));
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
 		assertTrue("JSON has >0 result", results.get("total").asInt() > 0);
 
 	}
+
+	@Test
+	@Ignore
+	// this is tested in Java Client API now. takes some time, so ignoring.
+	public void make105Requests() throws JsonProcessingException {
+		for (int i = 0; i < 105; i++) {
+			logger.debug("Running many queries... " + i);
+			testTagSearch();
+		}
+	}
+
 }

@@ -15,6 +15,8 @@
 */
 package com.marklogic.samplestack.integration.service;
 
+import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
+
 import java.io.IOException;
 
 import org.junit.Before;
@@ -25,11 +27,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.SamplestackType;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.ContributorAddOnService;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
 import com.marklogic.samplestack.testing.Utils;
@@ -40,8 +42,12 @@ public abstract class MarkLogicIntegrationIT {
 	protected MarkLogicOperations operations;
 
 	@Autowired
-	protected ContributorService contributorService;
+	protected ContributorAddOnService contributorService;
 
+	@Autowired
+	protected PojoRepository<Contributor, String> contributorRepository;
+
+	
 	@Autowired
 	protected QnAService qnaService;
 
@@ -51,15 +57,6 @@ public abstract class MarkLogicIntegrationIT {
 	protected JSONDocumentManager contribManager;
 
 	protected ObjectNode content;
-
-	public void setup(String testUri) {
-		// write a document using writer connection.
-		content = mapper.createObjectNode();
-		content.put("body", "content");
-		contribManager = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		contribManager.write(testUri, new JacksonHandle(content));
-	}
 
 	protected JsonNode getTestJson(String testPath) {
 		ClassPathResource r = new ClassPathResource(testPath);
@@ -75,8 +72,8 @@ public abstract class MarkLogicIntegrationIT {
 	@Before
 	public void cleanout() {
 		if (!initialized) {
-			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, SamplestackType.QUESTIONS);
-			contributorService.deleteAll();
+			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, QUESTIONS_DIRECTORY);
+			contributorRepository.deleteAll();
 			contributorService.store(Utils.joeUser);
 			contributorService.store(Utils.maryUser);
 		}

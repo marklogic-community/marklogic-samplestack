@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 
 /**
@@ -59,13 +60,13 @@ public interface QnAService {
 	/**
 	 * Publishes a new Question to the Samplestack database.
 	 * 
-	 * @param userName
+	 * @param user
 	 *            The userName who asked the question
 	 * @param question
 	 *            The new completed details section.
 	 * @return The QnADocument created by the ask operation
 	 */
-	public QnADocument ask(String userName, QnADocument question);
+	public QnADocument ask(Contributor user, InitialQuestion question);
 
 	/**
 	 * Adds an answer to an existing QnADocument
@@ -135,15 +136,15 @@ public interface QnAService {
 	/**
 	 * Adds a comment to a given post Id.
 	 * 
-	 * @param contributor
-	 * 			  The author of the comment.
+	 * @param owner
+	 *            The owner of the comment
 	 * @param postId
 	 *            The target post id (question or answer) for the comment.
 	 * @param text
 	 *            the text of the comment
 	 * @return The updated QnADocument
 	 */
-	public QnADocument comment(Contributor contributor, String postId, String text);
+	public QnADocument comment(Contributor owner, String postId, String text);
 
 	/**
 	 * Removes all the QnA documents from the database. Convenient for testing.

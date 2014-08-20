@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.QnAService;
@@ -79,7 +80,7 @@ public class MockQnAService implements QnAService {
 	}
 
 	@Override
-	public QnADocument ask(String userName, QnADocument question) {
+	public QnADocument ask(Contributor user, InitialQuestion question) {
 		return answered;
 	}
 

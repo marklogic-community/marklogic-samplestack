@@ -26,5 +26,4 @@ public class Comment {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	
 }

@@ -1,5 +1,6 @@
 package com.marklogic.samplestack.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class Answer {
@@ -9,6 +10,7 @@ public class Answer {
 	public long itemTally;
 	public List<Comment> comments;
 	public SparseContributor owner;
+	public Date creationDate;
 	
 	public String getText() {
 		return text;
@@ -40,5 +42,10 @@ public class Answer {
 	public void setOwner(SparseContributor owner) {
 		this.owner = owner;
 	}
-	
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public Date getCreationDate() {
+		return this.creationDate;
+	}
 }
