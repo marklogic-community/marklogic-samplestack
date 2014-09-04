@@ -1,64 +1,69 @@
-/*!
- * TODO -- this is outdated
- * gulpfile.js for MarkLogic web app
+/**
+ * This gulpfile module:
  *
- * All of the actual functionality is in GulpWorker.  This is done
- * so that this repository can be used as a part of a larger project.
- * The larger project would use the GulpWorker without this gulpfile,
- * thus allowing it own the tasks themselves and their names, in order to:
+ * * monkey-patches the console to clean it up a bit.
+ * * assigns the tasks which are defined in dev-tasks into the gulp
+ * process.
  *
- * (a) avoid name collisions
- * (b) combine functionality from this repo with that of another (others).
+ * The gulpfile does not export anythying, it only has side-effects.
  *
- * Any changes to the build process for this repo are thus to be made in
- * GulpWorker.js.
+ * All of the actual gulp-based functionality is in the
+ * {@link dev-tasks dev-tasks module}.
+ *
+ * @module browser/gulpfile
+ * @see {dev-tasks}
  */
 
 var gulp = require('gulp');
-var _ = require('lodash');
-var tasks = require('./dev-tasks/tasks');
-var log = require('gulp-util').log;
 var chalk = require('chalk');
+var tasks = require('./dev-tasks');
 
-// gulp.addListener('err', function(e) {
-//   console.log(e.err.stack);
-// });
+var consoleLogOrig = console.log;
 
-_.forEach(tasks, function(task, taskName) {
-  gulp.task(taskName, task.deps, task.func);
-});
+var ctx = require('./dev-tasks/context');
 
-// monkey-patch console.log to suppress unremarkables
-var unremarkablesExpr;
-// var unremarkables = _.reduce(tasks,
-//   function(result, task, taskName) {
-//     if (task.unremarkable) {
-//       result.push('\'' + taskName + '\'');
-//     }
-//     return result;
-//   },
-//   []
-// );
-var unremarkables = ['watch'];
-if (unremarkables.length) {
-  unremarkablesExpr = new RegExp(unremarkables.join('|'));
+// expression to test for task names whose starting and ending log messages
+// we wish to suppress
+var taskNoLogExpr = new RegExp([
+  'watch'
+].join('|'));
+
+/**
+ * Returns true if a call to task's console.log should is to be suppressed.
+ * @param {Array} logArgs The arguments passed to console.log.
+ */
+var noLogTask = function (logArgs) {
+  return logArgs.length > 1 &&
+      (logArgs[1] === 'Starting' || logArgs[1] === 'Finished') &&
+      taskNoLogExpr.test(chalk.stripColor(logArgs[2]));
+};
+
+/**
+ * Mokey-patched version of console.log that suppresses log messages which
+ * are superfluous or distracting for the developer. Gulp developers assure
+ * that the next version of gulp will have a cleaner way to manage logging.
+ */
+console.log = function () {
+  if (noLogTask(arguments)) {
+    return;
+  }
+  if (arguments[1] && arguments[1].match(/Using gulpfile/)) {
+    return;
+  }
+  consoleLogOrig.apply(console, arguments);
+};
+
+// loop the tasks and assign them into the gulp process
+var taskName;
+for (taskName in tasks) {
+  gulp.task(taskName, tasks[taskName].deps, tasks[taskName].func);
 }
 
-var cl = console.log;
-/**
- * TODO
- * @return {[type]} [description]
- */
-console.log = function() {
-  var args = Array.prototype.slice.call(arguments);
-  if (args.length > 1 && (args[1] === 'Starting' || args[1] === 'Finished') &&
-      unremarkablesExpr &&
-      unremarkablesExpr.test(chalk.stripColor(args[2])))
-  {
-    return;
-  }
-  if (args.length > 1 && (args[1] === 'silent mode: test failed')) {
-    return;
-  }
-  return cl.apply(console, args);
-};
+if (!ctx.isChildProcess()) {
+  gulp.seq = [];
+  gulp._resetAllTasks();
+  gulp.reset();
+  gulp.task(ctx.currentTask(), function () {
+    ctx.restartChild();
+  });
+}
