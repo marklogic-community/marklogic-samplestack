@@ -5,7 +5,7 @@ define(['app/module'], function (module) {
    * @name ssSearch
    * @requires mlModelBase
    * @requires mlSchema
-   * @requires mlSeearch
+   * @requires mlSearch
    *
    * @description
    * TBD
@@ -24,6 +24,16 @@ define(['app/module'], function (module) {
       var SsSearchObject = function (spec) {
         spec = mlUtil.merge(
           {
+            facets: {
+              tags: {
+                valuesType: 'object',
+                shadowConstraints: [ 'tags' ]
+              },
+              dates: {
+                valuesType: 'array',
+                shadowConstraints: [ 'dateStart', 'dateEnd' ]
+              }
+            },
             criteria: {
               constraints: {
                 resolved: {
@@ -43,21 +53,22 @@ define(['app/module'], function (module) {
                   constraintType: 'range',
                   type: 'enum',
                   subType: 'value',
-                  queryStringName: 'tags'
+                  queryStringName: 'tags',
+                  facetValuesType: 'object'
                 },
                 dateStart: {
                   constraintName: 'lastActivity',
                   constraintType: 'range',
-                  type: 'date',
+                  type: 'dateTime',
                   operator: 'GE',
-                  queryStringName: 'date-start'
+                  queryStringName: 'date-ge'
                 },
                 dateEnd: {
                   constraintName: 'lastActivity',
                   constraintType: 'range',
-                  type: 'date',
-                  operator: 'LE',
-                  queryStringName: 'date-end'
+                  type: 'dateTime',
+                  operator: 'LT',
+                  queryStringName: 'date-lt'
                 }
               }
             }
@@ -94,7 +105,7 @@ define(['app/module'], function (module) {
                       constraintName: { enum: ['userName'] },
                       type: { enum: ['text'] },
                       value: { type: ['string', 'null'] },
-                      queryStringName: { enum: ['user'] }
+                      queryStringName: { enum: ['contributor'] }
                     }
                   },
                   resolved: {
@@ -117,19 +128,19 @@ define(['app/module'], function (module) {
                   dateStart: {
                     properties: {
                       constraintName: { enum: ['lastActivity'] },
-                      operator: { enum: ['GT'] },
-                      type: { enum: ['date'] },
-                      value: { type: ['date', 'null'] },
-                      queryStringName: { enum: ['date-start'] }
+                      operator: { enum: ['GE'] },
+                      type: { enum: ['dateTime'] },
+                      value: { type: ['date-time', 'null'] },
+                      queryStringName: { enum: ['date-ge'] }
                     }
                   },
                   dateEnd: {
                     properties: {
                       constraintName: { enum: ['lastActivity'] },
                       operator: { enum: ['LT'] },
-                      type: { enum: ['date'] },
-                      value: { type: ['date', 'null'] },
-                      queryStringName: { enum: ['date-end'] }
+                      type: { enum: ['dateTime'] },
+                      value: { type: ['date-time', 'null'] },
+                      queryStringName: { enum: ['date-lt'] }
                     }
                   }
                 }
@@ -138,6 +149,8 @@ define(['app/module'], function (module) {
           }
         }
       });
+
+      SsSearchObject.prototype.$mlSpec.serviceName = 'ssSearch';
 
       SsSearchObject.prototype.onResponsePOST = function (data) {
         // do some renaming
@@ -165,8 +178,31 @@ define(['app/module'], function (module) {
             item.content.docScore = docScore;
           });
         }
-
       };
+
+      // TODO for now, we will have full dateTimes in stateparams
+      // so we won't monkey with stateParams production or parsing
+      // return to this issue if we change the constraint to a date
+      //
+      // SsSearchObject.prototype.stateParamFromConstraint = function (
+      //   constraint
+      // ) {
+      //   var parentFunc = mlSearch.object.prototype.stateParamFromConstraint;
+      //   var param = {};
+      //   switch (constraint.queryStringName) {
+      //     case 'date-start':
+      //     case 'date-end':
+      //       if (constraint.value) {
+      //         param[constraint.queryStringName] =
+      //             constraint.value.toISOString().replace(/T.*/, '');
+      //       }
+      //       return param;
+      //     default:
+      //       return parentFunc.call(this, constraint);
+      //   }
+      // };
+      //
+      //
 
       return mlModelBase.extend('SsSearchObject', SsSearchObject);
     }

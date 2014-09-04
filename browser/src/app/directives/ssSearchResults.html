@@ -1,6 +1,7 @@
 <header>
-  <h2 ng-if="search.results.total > 0">
-    Browsing {{search.results.total | number:0}} Questions
+  <h2 ng-if="search.results.total > 0"
+    ng-bind-template="Browsing {{search.results.total | number:0}} Questions"
+  >
   </h2>
   <h2 ng-if="search.results.total == 0">
     No Results
@@ -11,9 +12,9 @@
       ng-disabled="!search.hasPrevPage()"
       ng-click="search.incrementPage(-1)"
     >&lt;</button>
-    <span>
-      {{search.getCurrentPage() }} /
-      {{search.getPageCount() }}
+    <span
+      ng-bind-template="{{search.getCurrentPage() }} / {{search.getPageCount() }}"
+    >
     </span>
     <button
       type="button"
@@ -26,7 +27,9 @@
       ng-repeat="sort in sorts"
       ng-click="setSort()"
       ng-class="selectedSort == sort ? 'ss-sort-active': ''"
-    >{{sort.label}}</li>
+      ng-bind-template="{{sort.label}}"
+    >
+    </li>
   </ul>
 </header>
 <section class="ss-result" ng-repeat="item in search.results.items">
@@ -39,9 +42,9 @@
       ng-disabled="!search.hasPrevPage()"
       ng-click="search.incrementPage(-1)"
     >&lt;</button>
-    <span>
-      {{search.getCurrentPage() }} /
-      {{search.getPageCount() }}
+    <span
+      ng-bind-template="{{search.getCurrentPage() }} / {{search.getPageCount() }}"
+    >
     </span>
     <button
       type="button"

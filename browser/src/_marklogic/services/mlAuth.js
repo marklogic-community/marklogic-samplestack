@@ -12,6 +12,7 @@ define(['_marklogic/module'], function (module) {
         '$q',
         '$window',
         '$cookieStore',
+        '$timeout',
         'mlStore',
         function (
           $injector,
@@ -19,13 +20,20 @@ define(['_marklogic/module'], function (module) {
           $q,
           $window,
           $cookieStore,
+          $timeout,
           mlStore
         ) {
           var sessionModel = $injector.get(this.sessionModel);
 
+          var onSessionChange = function () {
+            $rootScope.$broadcast('sessionChange');
+          };
+
           $rootScope.$on('logout', function (evt) {
             svc.logout().then(
-              angular.noop,
+              function () {
+                onSessionChange();
+              },
               function (err) {
                 $rootScope.$broadcast('logoutFailed', err);
                 $window.alert(
@@ -62,20 +70,24 @@ define(['_marklogic/module'], function (module) {
 
                     mlStore.session = sess;
                     deferred.resolve(sess);
+                    onSessionChange();
                   },
                   function () {
                     // don't really care -- we just don't have a session
                     // won't clear cookie b/c might work next time
                     deferred.resolve();
+                    onSessionChange();
                   }
                 );
               }
               else {
                 // we don't think we have a session
                 deferred.resolve();
+                onSessionChange();
               }
             }
             else {
+              // already have a session
               deferred.resolve(mlStore.session);
             }
             return deferred.promise;
@@ -93,6 +105,7 @@ define(['_marklogic/module'], function (module) {
                 }
                 catch (err) { $rootScope.log(err); }
                 deferred.resolve(sess);
+                onSessionChange();
               },
               deferred.reject
             );
@@ -106,6 +119,7 @@ define(['_marklogic/module'], function (module) {
               $cookieStore.remove('sessionId');
               delete mlStore.session;
               deferred.resolve();
+              onSessionChange();
             };
 
             // the heaviest part of being logged in is the cookie

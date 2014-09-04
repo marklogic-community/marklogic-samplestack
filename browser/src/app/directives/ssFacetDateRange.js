@@ -1,9 +1,9 @@
-define(['app/module'], function (module) {
+define(['app/module', 'highcharts'], function (module, Highcharts) {
 
   /**
    * @ngdoc directive
    * @name ssFacetDateRange
-   * @restrict A
+   * @restrict E
    *
    * @description
    * Directive rendering an array of search objects as a chart.
@@ -11,437 +11,376 @@ define(['app/module'], function (module) {
    * for filtering. Uses <a href="https://github.com/pablojim/highcharts-ng"
    * target="_blank">highcharts-ng</a> for chart functionality.
    */
-  module.directive('ssFacetDateRange', function () {
 
-    var chart;
-    var chartClearSelection;
-    var chartUpdateSelection;
-    var chartSelectAll;
-    var convertDateToUTC;
-    var refreshChart;
-    var transformResults;
-    var emitDates;
+  module.directive('ssFacetDateRange', [
+    'mlUtil',
+    function (mlUtil) {
 
-  /**
-   * Utility funct to convert standard Date() object to UTC for HighCharts
-   * @param {Object} dateToConvert as Date obj or Date().getTime() ms
-   * @param {Boolean} retDateObj set return type as Date() or ms
-   * @returns {Date}
-   */
-    convertDateToUTC = function (dateToConvert, retDateObj) {
-      dateToConvert = (dateToConvert instanceof Date) ?
-          dateToConvert :
-          new Date(dateToConvert);
+      return {
+        restrict: 'E',
 
-      // milliseconds offset from GMT/UTC
-      var timeZoneOffsetMs = dateToConvert.getTimezoneOffset() * 60 * 1000;
-      var convertedDateMs = Date.UTC(
-        dateToConvert.getUTCFullYear(),
-        dateToConvert.getUTCMonth(),
-        dateToConvert.getUTCDate()
-      );
+        template:
+          '<highchart class="highcharts ss-facet-date-range" ' +
+          '  config="highchartsConfig"></highchart>' +
+          '<label>From:</label>' +
+          '<input ng-model=pickerDateStart type="text" ' +
+          '  datepicker-popup="MM/dd/yyyy" ' +
+          '  datepicker-options="dateStartOptions" ' +
+          '  ng-change="applyPickerDates()"  ' +
+          '  ng-click="pickerOpen(\'dateStartOpened\')" ' +
+          '  is-open="dateStartOpened" ' +
+          '  onfocus="this.blur()" ' +
+          '  placeholder="{{dateStartPlaceholder}}" ' +
+          '  class="form-control ng-valid-date" ' +
+          '  />' +
+          '<label>To:</label>' +
+          '<input ng-model="pickerDateEnd" type="text" ' +
+          '  datepicker-popup="MM/dd/yyyy" ' +
+          '  datepicker-options="dateEndOptions" ' +
+          '  ng-change="applyPickerDates()"  ' +
+          '  ng-click="pickerOpen(\'dateEndOpened\')" ' +
+          '  is-open="dateEndOpened" ' +
+          '  onfocus="this.blur()" ' +
+          '  placeholder="{{dateEndPlaceholder}}" ' +
+          '  class="form-control ng-valid-date"' +
+          '  />',
 
-      var convertedDate = convertedDateMs + timeZoneOffsetMs;
-      return (retDateObj) ? new Date(convertedDate) : convertedDate;
-    };
+        scope: {
+          constraints: '=constraints',
+          results: '=results'
+        },
 
-    /*
-    * Converts result "name" format to actual date
-    * @param {array} [resultsArray] - date string "201402"
-    * @returns {Date.UTC}
-    */
-    transformResults = function (resultsArray) {
-      var convertedDates;
-      if (resultsArray instanceof Array) {
-        convertedDates = [];
-        angular.forEach(resultsArray, function (dateInfo) {
-          convertedDates.push({
-            x: Date.UTC(
-              dateInfo.name.substring(0,4),
-              dateInfo.name.substring(4,6),
-              1
-            ),
-            y: dateInfo.count
-          });
-        });
-      }
-      return convertedDates;
-    };
+        link: {
+          pre: function (scope) {
+            scope.dateData = [];
+            // when highcarts itself loads, store a copy of the instance on the
+            // scope
+            var onChartLoaded = function (chart) {
+              // once the actual chart is loaded by highcharts-ng, maintain
+              // a reference to it
+              scope.chart = chart;
+              // scope.chart.series = [ { data: scope.dateData} ];
+            };
 
-    emitDates = function (scope) {
-      if (scope.dtStartSelection && scope.dtEndSelection) {
-        scope.$emit(
-          'datesChange',
-          {
-            dates: {
-              start: scope.dtStartSelection,
-              end: scope.dtEndSelection
-            }
-          }
-        );
-      }
-    };
+            // using scope.dateData and the constraints, assign the
+            // selected/non-selected status of points on the chart and the
+            // dateStart and dateEnd variables
+            var chartUpdateSelections = function (event) {
+              var i;
 
-    refreshChart = function (scope) {
-      var dateData    = scope.chartData;
-      var dataLength;
-      var x;
-      var i;
+              // $timeout(function () {
 
-      if (dateData && dateData.length > 0) {
-        dataLength  = dateData.length;
-        // determine start and end dates for data
-        scope.dtDataStart =
-            scope.dtDataEnd = convertDateToUTC(dateData[0].x);
+              // do nothing if there isn't date data
+              // TODO: show some sort of message instead of a blank chart
 
-        for (i = 0; i < dataLength; i++) {
-          x = convertDateToUTC(dateData[i].x);
-          if (x < scope.dtDataStart) {
-            scope.dtDataStart = x;
-          }
-          if (x > scope.dtDataEnd) {
-            scope.dtDataEnd = x;
-          }
-        }
-        // set inputs to match data high and low
-        scope.dtStartSelection  = scope.dtDataStart;
-        scope.dtEndSelection    = scope.dtDataEnd;
+              // note: using the embedded chart b/c highcharts-ng requires
+              // an extra event loop to process its version of the series
+              var series = scope.chart.target.series;
+              if (series && series[0] && series[0].data.length) {
+                var allPoints = series[0].data;
+                if (!scope.constraints.dateStart.value &&
+                    !scope.constraints.dateEnd.value
+                ) {
+                  // absent any criteria, all points are considered "in"
+                  for (i = 0; i < allPoints.length; i++) {
+                    allPoints[i].select(true, true);
+                  }
+                }
+                else {
+                  // moment value is being cloned to make sure we aren't
+                  // touching the criteria itself
 
-        // set chart extremes from shadow data
-        // scope.chartShadowData
+                  var selectionStart = mlUtil.moment(
+                    scope.constraints.dateStart.value
+                  );
+                  if (isNaN(selectionStart)) {
+                    selectionStart = null;
+                  }
+                  // *if* there is an actual constraint, create a scope
+                  // variable
+                  // for it (again, separate from the actual criteria)
+                  // scope.dateStart = selectionStart;
 
-        scope.highchartsConfig.series[0].data = scope.chartData;
-      }
-      // else {
-      //   // TODO: Show chart loading
-      // }
-    };
+                  // if there isnn't an actual constraint, we start selecting
+                  // at the first point
+                  if (!selectionStart) {
+                    selectionStart = allPoints[0].x;
+                  }
 
-   /*
-    * Sets up all settings and function for directive UI
-    * @param {object} [scope] - set return type as Date() or ms
-    * @param {object} [element] - as Date obj or Date().getTime() ms
-    * @param {object} [attrs] - set return type as Date() or ms
-    */
-    var setup = function (scope, element, attrs) {
+                  // same principles for the end point as for the start point
+                  var selectionEnd = mlUtil.moment(
+                    scope.constraints.dateEnd.value
+                  );
+                  if (isNaN(selectionEnd)) {
+                    selectionEnd = null;
+                  }
+                  // scope.dateEnd = selectionEnd;
+                  if (!selectionEnd) {
+                    // for to select to end by adding one to the date
+                    selectionEnd =
+                        allPoints[allPoints.length - 1].x + 1;
+                  }
 
-     /*
-      * Resets chart selection to select all points
-      */
-      chartClearSelection = function () {
-        var selectedPoints = chart.getSelectedPoints();
-        var pointsLength = selectedPoints.length;
-        if (pointsLength > 0) {
-          for (var i = 0; i < pointsLength; i = i + 1) {
-            selectedPoints[i].select(false);
-          }
-        }
-      };
+                  // make the selection assignments based on whether a point
+                  // is within bounds
+                  for (i = 0; i < allPoints.length; i++) {
+                    // mamke a moment variable so we can compare
+                    var pointVal = mlUtil.moment(allPoints[i].x);
+                    var isPointIn = pointVal >= selectionStart &&
+                        pointVal < selectionEnd;
+                    // assign point selected status. second param is whether
+                    // or
+                    // not
+                    // to accumulate the selections (as opposed to allowing
+                    // the
+                    // selection of one point to unselect another)
+                    allPoints[i].select(isPointIn, true);
+                  }
+                }
 
-     /*
-      * Changes selection to range of date,
-      * watch on start/end triggers chartUpdateSelection()
-      */
-      chartSelectAll = function () {
-        scope.dtStartSelection = scope.dtDataStart;
-        scope.dtEndSelection = scope.dtDataEnd;
-      };
+              }
+              // });
+              return false; // no more jquery event handling
+            };
 
-     /*
-      * Updates chart to match the currently selected range
-      */
-      chartUpdateSelection = function () {
-        var points = (chart && chart.series &&
-              chart.series[0] && chart.series[0].points) ?
-                  chart.series[0].points :
-                  undefined;
+            var assignIfDifferent = function (newDate, constraint) {
+              var newValidDate = isNaN(newDate) ? null : newDate;
+              if (newValidDate === null) {
+                if (constraint.value === null) {
+                  return false;
+                }
+                else {
+                  constraint.value = newValidDate;
+                  return true;
+                }
+              }
 
-        if (points &&
-            !(scope.dtStartSelection instanceof Date) &&
-            !(scope.dtEndSelection instanceof Date)
-        ) {
-          chartClearSelection();
-          angular.forEach(points, function (point, index) {
-            // convert to UTC as original series was standard Date
-            if (convertDateToUTC(point.x) >= scope.dtStartSelection &&
-                convertDateToUTC(point.x) <= scope.dtEndSelection
-            ) {
-              point.select(true, true);
-            }
-          });
-        }
-      };
+              if (!newValidDate.isSame(constraint.value)) {
+                constraint.value = newValidDate;
+                return true;
+              }
+              else {
+                return false;
+              }
+            };
 
+            // based on which points are currently selected on the chart,
+            // assign the constraints for search.
+            //
+            // this method DOES modify criteria
+            var setScopeSelectedRange = function (event) {
 
-      // Date Picker Settings
-      scope.minDate = scope.dtDataStart;
-      scope.maxDate = scope.dtDataEnd;
+              var foundChange = false;
 
-      scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1
-      };
+              scope.$apply(function () {
+                var newStart;
+                var newEnd;
+                if (event.xAxis) {
+                  newStart = mlUtil.moment(event.xAxis[0].min).startOf('d');
+                  newEnd = mlUtil.moment(event.xAxis[0].max)
+                      .startOf('d').add('d', 1);
+                }
+                else {
+                  newStart = mlUtil.moment(event.point.x);
+                  newEnd = mlUtil.moment(event.point.x).add('M', 1);
+                }
+                if (assignIfDifferent(newStart, scope.constraints.dateStart)) {
+                  foundChange = true;
+                }
+                if (assignIfDifferent(newEnd, scope.constraints.dateEnd)) {
+                  foundChange = true;
+                }
+                if (foundChange) {
+                  scope.$emit('criteriaChange');
+                }
+              });
 
+              return false;
+            };
 
-      // Calender Picker Setup and Management
+            var clearSelectedRange = function (event) {
+              scope.$apply(function () {
+                var noop = !scope.constraints.dateStart.value &&
+                    !scope.constraints.dateEnd.value;
+                if (!noop) {
+                  scope.constraints.dateStart.value = null;
+                  scope.constraints.dateEnd.value = null;
+                  scope.$emit('criteriaChange');
+                }
+              });
+              return false;
 
-     /*
-      * Opens Calendar by ng-click event on directive input fields
-      * @param {object} [event] - click event
-      * @param {string} [prop] - the property bound to the input calendar
-      * state being open or not.  On being set TRUE it opens.
-      */
-      scope.open = function (event,prop) {
-        event.preventDefault();
-        event.stopPropagation();
+            };
 
-        scope[prop] = true;
-      };
+            scope.highchartsConfig = {
+              options: {
+                chart: {
+                  type: 'column',
+                  zoomType: 'x',
+                  events: {
+                    load: onChartLoaded.bind(this),
+                    redraw: chartUpdateSelections,
+                    click: clearSelectedRange,
+                    selection: setScopeSelectedRange
+                  }
+                },
 
-     /*
-      * Calendar Picker ng-change event on directive.  Convert selection
-      * (standard Date) to UTC Date
-      * @param {object} [event] - change event
-      * @param {string} [prop] - the property bound to the input calendar
-      * dtStartSelection or dtEndSelection, depending on wiring
-      */
-      scope.selectDate = function (event,prop) {
-        scope[prop] = convertDateToUTC(event);
-      };
+                legend: {
+                  enabled: false
+                },
 
-      scope.$watch('dtStartSelection', function () {
-        chartUpdateSelection();
-        emitDates(scope);
-      });
+                xAxis: {
+                  type: 'datetime',
+                  title: { text: null },
+                  // showFirstLabel: true,
+                  // showLastLabel: true,
+                  // startOnTick: true,
+                },
+                yAxis: {
+                  min: 0, title: {text: null}, labels: { enabled: false }
+                },
 
-      scope.$watch('dtEndSelection', function () {
-        chartUpdateSelection();
-        emitDates(scope);
-      });
+                tooltip: {
+                  formatter: function () {
+                    /* jshint ignore:start */
+                    return '<strong>' +
+                      mlUtil.moment(this.x).format('MMM YYYY') +
+                      '</strong>' + ': ' + this.y + ' questions';
+                    /* jshint ignore:end */
+                  }
+                },
 
-      // Calender Picker end
-
-      // Expose functions for clearing selection to $parent scope
-      scope.$parent.dateScope = {};
-      scope.$parent.dateScope.clearSelection = chartSelectAll;
-
-      scope.highchartsConfig = {
-        options: {
-          chart: {
-            type: 'column',
-            zoomType: 'x',
-            events: {
-              load: function (event) {
-                // this is a workaround
-                //
-                // the closre on chart feels strange
-                var self = this;
-                chart = self;
-              },
-              redraw: function () {
-                chartUpdateSelection();
-              },
-              click: function (event) {
-                // call scope apply so any changes to data model will be
-                // triggered with scope.$digest() after this executes
-                var self = this;
-                scope.$apply(function () {
-                  chartSelectAll();
-                });
-              },
-              selection: function (event) {
-                // call scope apply so any changes to data model will be
-                // triggered with scope.$digest() after this executes
-                var self = this;
-                scope.$apply(function () {
-                  chartClearSelection();
-                  var seriesData = self.series[0].data;
-                  var selSeriesLow;
-                  var selSeriesHigh;
-
-                  for (var i = 0, l = seriesData.length; i < l; i++) {
-                    if (seriesData[i].x >= event.xAxis[0].min
-                        && seriesData[i].x <= event.xAxis[0].max) {
-                      seriesData[i].select(true, true);
-                      if (selSeriesLow === undefined) {
-                        selSeriesLow  = selSeriesHigh = seriesData[i].x;
-                      }
-                      // find highest and lowest selected dates
-                      if (seriesData[i].x < selSeriesLow) {
-                        selSeriesLow = seriesData[i].x;
-                      }
-                      if (seriesData[i].x > selSeriesHigh) {
-                        selSeriesHigh = seriesData[i].x;
-                      }
+                plotOptions: {
+                  series: {
+                    color: '#DBEDFA',
+                    states: { select: { color: '#70B8ED' } },
+                    marker: {
+                      enabled: true,
+                      states: { select: { enabled: true } }
+                    },
+                    allowPointSelect: true,
+                    point: {
+                      events: { click: setScopeSelectedRange }
                     }
+                  },
+                  column: {
+                    animation: false,
+                    groupPadding: 0,
+                    pointPadding: 0,
+                    borderWidth: 0
                   }
+                }
+              },
 
-                  scope.dtStartSelection = convertDateToUTC(selSeriesLow);
-                  scope.dtEndSelection = convertDateToUTC(selSeriesHigh);
+              title: { text: null },
+              subtitle: { text: null }
+
+            };
+
+            scope.dateStartOptions = scope.dateEndOptions = {
+              formatYear: 'yy',
+              startingDay: 1,
+              showWeeks: false,
+              showButtonBar: false
+            };
+
+            scope.pickerOpen = function (scopeVar) {
+              scope[scopeVar] = true;
+              return false;
+            };
+
+            scope.applyPickerDates = function () {
+              var foundChange = false;
+              if (assignIfDifferent(
+                mlUtil.moment(scope.pickerDateStart),
+                scope.constraints.dateStart
+              )) {
+                foundChange = true;
+              }
+              if (assignIfDifferent(
+                mlUtil.moment(scope.pickerDateEnd).add('d', 1),
+                scope.constraints.dateEnd
+              )) {
+                foundChange = true;
+              }
+              if (foundChange) {
+                scope.$emit('criteriaChange');
+              }
+            };
+
+          },
+
+          post: function (scope) {
+            scope.$on('newResults', function () {
+              // empty the dateDate without losing the array object
+              var newData = [];
+              var maxCount = 0;
+
+              angular.forEach(scope.results, function (item) {
+                // we display the *shadow* counts, not the counts
+                // that result from applying this directive's criteria
+                newData.push({
+                  x: Date.UTC(
+                    item.shadow.name.substring(0,4),
+                    item.shadow.name.substring(4,6) - 1,
+                    1
+                  ),
+                  y: item.shadow.count
                 });
-                event.preventDefault();  // stop zoom from happening
+
+                if (item.shadow.count > maxCount) {
+                  maxCount = item.shadow.count;
+                }
+              });
+
+              scope.chart.target.yAxis.max = maxCount;
+              scope.chart.target.options.plotOptions.column
+                  .pointWidth =
+                      scope.chart.target.chartWidth / newData.length - 8;
+              scope.highchartsConfig.series = [ { data: newData }];
+
+              var dateToPickerStart = function (val) {
+                return val ?
+                    new Date(mlUtil.stripZone(
+                      mlUtil.moment(val))
+                    ) :
+                  null;
+              };
+
+              var dateToPickerEnd = function (val) {
+                return val ?
+                    new Date(mlUtil.stripZone(
+                      mlUtil.moment(val).subtract('d', 1)
+                    )) :
+                  null;
+              };
+
+              if (newData.length) {
+                var date;
+
+                scope.dateStartPlaceholder = mlUtil.moment(
+                  dateToPickerStart(newData[0].x)
+                ).format('MM/DD/YYYY');
+
+                scope.dateEndPlaceholder = mlUtil.moment(
+                  dateToPickerEnd(newData[newData.length - 1].x)
+                ).format('MM/DD/YYYY');
               }
-            }
-          },
 
-          legend: {
-            enabled: false
-          },
-
-          xAxis: {
-            type: 'datetime',
-            title: {
-              text: null
-            }
-          },
-
-          yAxis: {
-            min: 0,
-            title: {
-              text: null
-            },
-            labels: {
-              enabled: false
-            }
-          },
-
-          tooltip: {
-            formatter: function () {
-              var formattedDate;
-
-              // TODO: do not introduce dependency on globally scoped
-              // Highcharts
-              /* jshint ignore:start */
-              formattedDate = Highcharts.dateFormat(
-                '%b %e, %Y', this.x
+              scope.pickerDateStart = dateToPickerStart(
+                scope.constraints.dateStart.value
               );
-              /* jshint ignore:end */
-              return '<strong>' +
-                  formattedDate +
-                  '</strong>' + ': ' + this.y;
-            }
-          },
 
-          plotOptions: {
-            series: {
-              color: '#DBEDFA',
-              states: {
-                select: {
-                  color: '#70B8ED'
-                }
-              },
-              marker: {
-                enabled: true,
-                states: {
-                  select: {
-                    enabled: true
-                  }
-                }
-              },
-              allowPointSelect: true,
-              point: {
-                events: {
-                  click: function (event) {
-                    // call scope apply so any changes to data model will
-                    // be triggered with scope.$digest() after this
-                    // executes
-                    var self = this;
-                    scope.$apply(function () {
-                      scope.dtStartSelection   = self.x;
-                      scope.dtEndSelection     = self.x;
-                    });
-                  }
-                }
-              }
-            },
-            column: {
-              animation: false,
-              groupPadding: 0,
-              pointPadding: 0,
-              borderWidth: 0
-            }
+              scope.pickerDateEnd = dateToPickerEnd(
+                scope.constraints.dateEnd.value
+              );
+
+            });
+
+
           }
-        },
-
-        title: {
-          text: null
-        },
-
-        subtitle: {
-          text: null
-        },
-
-        series: [{
-          data: scope.chartData
-        }]
-      };
-
-    };
-
-    var toArray = function (obj) {
-      return obj ?
-          Object.keys(obj).map(function (key) { return obj[key]; }) :
-          [];
-    };
-
-    var onWatchResults = function (scope) {
-      if (scope.search && scope.search.results) {
-        scope.results = {};
-        scope.results.facetValues = toArray(
-          scope.search.results.facets.dates
-        );
-        // update scope variable, will trigger re-render
-        scope.chartData = transformResults(scope.results.facetValues);
-        scope.chartShadowData = angular.copy(scope.chartData) ||
-            scope.chartData;
-        // data of chart has refreshed,
-        // now re-select that data per our
-        // previous selection, if any
-        refreshChart(scope);
-      }
-    };
-
-    return {
-      restrict: 'A',
-      template: '<highchart class="highcharts" ' +
-          'config="highchartsConfig"></highchart>' +
-          '<label for="date-from">From:</label>' +
-          '<input type="text" id="date-from" ' +
-          'class="form-control ng-valid-date" datepicker-popup="MM/dd/yyyy" ' +
-          'ng-model="dtStartSelection" ' +
-          'ng-click="open($event,\'startOpened\')" ' +
-          'ng-change="selectDate(dtStartSelection,\'dtStartSelection\')"  ' +
-              'datepicker-options="dateOptions" min-date="minDate" ' +
-              'max-date="maxDate" is-open="startOpened" ' +
-              'show-button-bar="false" show-weeks="false" /> ' +
-          '<label for="date-to">To:</label>' +
-          '<input type="text" id="date-to" ' +
-          'class="form-control ng-valid-date" datepicker-popup="MM/dd/yyyy"' +
-          'ng-model="dtEndSelection" ng-click="open($event,\'endOpened\')"' +
-          'ng-change="selectDate(dtEndSelection,\'dtEndSelection\')"  ' +
-          'datepicker-options="dateOptions" min-date="minDate" ' +
-          'max-date="maxDate" ' +
-          'is-open="endOpened" show-button-bar="false" show-weeks="false" />',
-
-      scope: {
-        search: '=search'
-      },
-      compile: function compile (tElement, tAttrs, transclude) {
-        tElement.addClass('ss-facet-date-range');
-
-        return {
-          pre: function (scope, element, attrs) {
-            scope.chartData = [];
-            setup(scope, element, attrs);
-          },
-          post: function (scope, element, attrs) {
-            scope.$watch(
-              'search.results.facets.dates',
-              onWatchResults.bind(null, scope)
-            );
-          }
-        };
-      }
-    };
-  });
+        } // end link
+      }; // end return
+    }
+  ]); // end directive
 });

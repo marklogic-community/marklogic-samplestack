@@ -53,19 +53,6 @@ define(['app/module'], function (module) {
         };
 
        /**
-        * Initialize objects, watch results object (which is tags)
-        * @todo Can avoid watching same object in both unergister()
-        * and initialize()?
-        */
-        var initialize = function () {
-          scope.selTags = {};
-          scope.unselTags = {};
-          scope.$watch(
-            'results', resetSelections, true
-          );
-        };
-
-       /**
         * Handle tag selection in UI
         */
         scope.selectTag = function (tag) {
@@ -75,11 +62,13 @@ define(['app/module'], function (module) {
             if (scope.criteria.values.indexOf(tag.name) < 0) {
               // Add tag o criteria array
               scope.criteria.values.push(tag.name);
+              scope.$emit('criteriaChange');
             }
           }
           // Add tag as first value in criteria
           else {
             scope.criteria.values = [tag.name];
+            scope.$emit('criteriaChange');
           }
         };
 
@@ -101,6 +90,7 @@ define(['app/module'], function (module) {
             scope.criteria.values.splice(
               scope.criteria.values.indexOf(tag.name), 1
             );
+            scope.$emit('criteriaChange');
           }
         };
 
@@ -123,15 +113,11 @@ define(['app/module'], function (module) {
           return scope.selTags  && Object.keys(scope.selTags).length > 0;
         };
 
-       /**
-        * Set up directive by watching results object (which is tags)
-        */
-        var unregister = scope.$watch('results', function (results) {
-          if (results) {
-            unregister();
-            initialize();
-          }
-        });
+        // set up and then wait for results
+        scope.selTags = {};
+        scope.unselTags = {};
+        scope.$on('newResults', resetSelections);
+
       }
     };
   });

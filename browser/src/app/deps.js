@@ -31,7 +31,7 @@ require.config({
     'state-helper': { deps: ['angular', 'ui-router'] },
     'ui-bootstrap': { deps: ['angular'] },
     'highcharts-ng': { deps: ['angular', 'highcharts'] },
-    'highcharts': { deps: ['jquery'] },
+    'highcharts': { deps: ['jquery'], exports: 'Highcharts' },
     'angular-sanitize': { deps: ['angular'] },
     'ng-markdown': { deps: ['angular', 'angular-sanitize'] },
     'angular-marked': { deps: ['angular'] },

@@ -1,5 +1,5 @@
 <div>
-  <div ng-if="initializing || loading" class="spinner">
+  <div ng-if="loading" class="spinner">
   </div>
   <div ng-if="globalError.length" marked="globalError" class="has-error"></div>
 
@@ -7,11 +7,11 @@
     <!-- @todo move form classes (.form-control, .btn, etc.) into sass without losing styling -->
     <div class="ss-app-title">
       <h1>
-        <a ui-sref="root.layout.explore">samplestack</a>
+        <a href="/">samplestack</a>
       </h1>
     </div>
     <div class="ss-page-header-actions"
-      ng-class="{ uninitialized: initializing || loading }"
+      ng-class="{ loading: loading }"
     >
 
       <div class="ss-login">
@@ -37,7 +37,7 @@
     <span class="ss-incomplete">(yellow shading indicates incomplete features)</span>
   </div>
 
-  <div ng-class="{ uninitialized: initializing || loading }">
+  <div ng-class="{ loading: loading }">
     <div ng-if="localError" class="has-error">{{localError}}</div>
     <section class="ss-main">
       <div ui-view></div>

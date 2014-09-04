@@ -39,7 +39,7 @@ define(['_marklogic/module'], function (module) {
        *
        * The intercept assumes that the CSRF token is named `X-CSRF-TOKEN`.
        * and that it may be retrived from a GET request to
-       * `<protocol:server:port>//v1\/session`.
+       * `<protocol:server:port>//v1/session`.
        *
        * As such, before the interceptor will allow through
        * any methods that require CSRF (POST, PUT, PATCH, DELETE), it will

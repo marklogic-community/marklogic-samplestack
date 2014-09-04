@@ -11,8 +11,8 @@ define(['app/module'], function (module) {
    */
 
   module.controller('layoutCtlr', [
-    '$scope', 'appRouting',
-    function ($scope, appRouting) {
+    '$scope', 'appRouting', 'appInitialized',
+    function ($scope, appRouting, appInitialized) {
       $scope.ask = function () {
         appRouting.go('root.layout.ask');
       };

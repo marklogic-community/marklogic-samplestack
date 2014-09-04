@@ -79,9 +79,8 @@ define(['app/module'], function (module) {
 
               scope.goTag = function (tag) {
                 appRouting.go(
-                  'root.layout.explore',
-                  { tags: tag },
-                  { reload: true }
+                  'root.layout.explore.results',
+                  { tags: tag }
                 );
               };
 

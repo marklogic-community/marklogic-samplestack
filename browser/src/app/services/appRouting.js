@@ -79,7 +79,7 @@ define(['app/module'], function (module) {
        * @name appRouting
        *
        * @description
-       * TBD
+       * TBD -- like now -- or now -- it';s really time to do this.
        *
        */
 

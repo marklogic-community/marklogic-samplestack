@@ -26,7 +26,12 @@ define(
           name: 'root.layout',
           abstract: true,
           controller: 'layoutCtlr',
-          templateUrl: '/app/states/_layout.html'
+          templateUrl: '/app/states/_layout.html',
+          resolve: {
+            appInitialized: [
+              'mlAuth', function (mlAuth) { return mlAuth.restoreSession(); }
+            ]
+          }
         }
       ]
     };
@@ -40,12 +45,17 @@ define(
       },
       {
         name: 'root.layout.explore',
-        // will deal with all sorts of parameters here, potentially
-        // as sub-states
-        url: '/?q&tags&date-start&date-end&resolved&contributor&page',
+        abstract: true,
+        templateUrl: '/app/states/explore.html',
         controller: 'exploreCtlr',
-        reloadOnSearch: false,
-        templateUrl: '/app/states/explore.html'
+        children: [
+          {
+            name: 'root.layout.explore.results',
+            url: '/?q&tags&date-ge&date-lt&resolved&contributor&page',
+            controller: 'exploreResultsCtlr',
+            templateUrl: '/app/states/exploreResults.html'
+          }
+        ]
       },
       {
         name: 'root.layout.qnaDoc',

@@ -32,6 +32,8 @@ define([
                   .respond(200);
               $httpBackend.expectGET('/app/states/explore.html')
                   .respond(200);
+              $httpBackend.expectGET('/app/states/exploreResults.html')
+                  .respond(200);
 
               $rootScope.$apply();
               $httpBackend.flush();

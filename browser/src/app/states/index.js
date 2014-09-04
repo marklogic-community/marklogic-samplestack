@@ -4,6 +4,7 @@ define([
   './_statesHierarchy',
   './ask',
   './explore',
+  './exploreResults',
   './fourOhFour',
   './qnaDoc'
 ], function () {});

@@ -1,6 +1,6 @@
 .highcharts {
   height: 240px;
-  min-width: 275px;
+  min-width: 286px;
 }
 
 .ss-filters-date {
@@ -22,9 +22,11 @@
     }
   }
 
-  .form-control {
+  input {
     display: inline-block;
-    padding: 6px 3px;
+    margin: 0 6px;
+    padding: 1px;
+    text-align: center;
     width: 33%;
   }
 }

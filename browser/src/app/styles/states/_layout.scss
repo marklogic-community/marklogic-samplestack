@@ -57,10 +57,10 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+  max-width: $view-max-width;
+  min-width: $view-min-width;
   padding: 10px;
   text-align: center;
-  min-width: $view-min-width;
-  max-width: $view-max-width;
 }
 
 ul.ss-sort,

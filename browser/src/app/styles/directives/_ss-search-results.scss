@@ -57,56 +57,68 @@
 }
 
 .ss-result {
+  border-bottom: solid 1px #000;
   padding: 10px;
   padding-left: 80px;
-  border-bottom: solid 1px black;
+
   .ss-votes {
-    position: absolute;
-    left: 0;
-    width: 70px;
+    background-color: #eee;
+    border: solid 1px #ccc;
     height: 84px;
-    background-color: #EEE;
-    border: solid 1px #CCC;
-    .ss-score, .ss-answers {
+    left: 0;
+    position: absolute;
+    width: 70px;
+
+    .ss-score,
+    .ss-answers {
       padding: 0;
-      label, span, .ss-divider {
+
+      label, 
+      span,
+      .ss-divider {
         display: block;
-        width: 100%;
         position: absolute;
         text-align: center;
+        width: 100%;
         z-index: 20;
       }
     }
+
     .ss-score label {
       top: -2px;
     }
+
     .ss-score span {
-      top: 14px;
       font-size: 18px;
+      top: 14px;
     }
+
     .ss-answers label {
       top: 62px;
     }
+
     .ss-answers span {
-      top: 43px;
       font-size: 18px;
+      top: 43px;
     }
+
     .ss-divider {
+      background-color: #000;
+      height: 1px;
+      margin: 0 4px;
       position: absolute;
       top: 40px;
       width: 60px;
-      height: 1px;
-      margin: 0 4px;
-      background-color: black;
     }
+
     .ss-checked {
+      background-image: url('/app/images/checkmark.png');
+      height: 40px;
+      left: 12px;
       position: absolute;
       top: 41px;
-      left: 12px;
       width: 50px;
-      height: 40px;
       z-index: 10;
-      background-image:url('/app/images/checkmark.png');
     }
   }
 }

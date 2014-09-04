@@ -2,7 +2,7 @@ define(['app/module'], function (module) {
 
   /**
    * @ngdoc service
-   * @name ssContributor
+   * @name ssVote
    * @requires mlModelBase
    * @requires mlSchema
    *

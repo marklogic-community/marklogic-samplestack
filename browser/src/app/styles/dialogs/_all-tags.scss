@@ -4,11 +4,15 @@
     margin: 0;
     padding: 0;
 
+    .ss-sort-active {
+      font-weight: bold;
+    }
+
     .ss-sort {
       float: right;
       position: relative;
 
-    .ss-sort li {
+      li {
         cursor: pointer;
         margin-left: 10px;
       }
@@ -29,9 +33,6 @@
     width: 100%;
   }
 
-  ul .ss-sort-active {
-    font-weight: bold;
-  }
 
   input.ss-typeahead-input {
     font-size: 14px;

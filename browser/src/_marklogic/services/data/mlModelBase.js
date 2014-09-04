@@ -27,9 +27,9 @@ define(['_marklogic/module'], function (module) {
 
   module.factory('mlModelBase', [
 
-    '$http', '$q','$parse', 'mlSchema', 'mlUtil', 'mlWaiter',
+    '$http', '$q','$parse', '$injector', 'mlSchema', 'mlUtil', 'mlWaiter',
     function (
-      $http, $q, $parse, mlSchema, mlUtil, mlWaiter
+      $http, $q, $parse, $injector, mlSchema, mlUtil, mlWaiter
     ) {
       var self = this;
       this.baseUrl = '/v1';
@@ -313,11 +313,16 @@ define(['_marklogic/module'], function (module) {
         return http(this, 'DELETE');
       };
 
+      MlModel.prototype.getService = function () {
+        return $injector.get(this.$mlSpec.serviceName);
+      };
+
+
       var svc = {};
 
       svc.object = MlModel;
 
-      svc.extend = function (name, constructor) {
+      svc.extend = function (name, constructor, serviceName) {
 
         var protoProp;
         angular.forEach(

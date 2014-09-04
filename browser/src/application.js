@@ -35,7 +35,6 @@ define(['app/module', 'app/components'], function (module) {
 
           $rootScope.globalError = alert;
           $rootScope.loading = false;
-          delete $rootScope.initializing;
 
           $rootScope.$on('$stateChangeSuccess', function () {
             $rootScope.globalError = '';

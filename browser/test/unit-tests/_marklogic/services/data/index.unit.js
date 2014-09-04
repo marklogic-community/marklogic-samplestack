@@ -1,11 +1,15 @@
 define([
   './mlHttpInterceptor.unit',
   './mlModelBase.unit',
+  // './mlModelFactory.unit',
+  // './mlModelSpec.unit',
   './mlSchema.unit',
   './mlWaiter.unit'
 ], function (
   mlHttpInterceptor,
   mlModelBase,
+  // mlModelFactory,
+  // mlModelSpec,
   mlSchema,
   mlWaiter
 ) {
@@ -13,6 +17,8 @@ define([
     describe('data', function () {
       mlHttpInterceptor();
       mlModelBase();
+      // mlModelFactory();
+      // mlModelSpec();
       mlSchema();
       mlWaiter();
     });

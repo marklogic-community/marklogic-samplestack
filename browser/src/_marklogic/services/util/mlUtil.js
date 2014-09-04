@@ -46,7 +46,16 @@ define([
      * It is also used by mlModel elements when serializing and deserializing
      * JSON dates for $http.
      */
-    moment: moment,
+    moment: moment.utc,
+
+    stripZone: function (dateish) {
+      return dateish.toISOString().replace(/Z.*$/, '');
+    },
+
+    objectify: function (obj) {
+      // TODO: this is cheap and dirty
+      return angular.fromJson(angular.toJson(obj));
+    },
 
     /**
      * @ngdoc property

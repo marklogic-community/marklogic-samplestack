@@ -68,12 +68,7 @@ define(['app/module'], function (module) {
 
       $scope.setPageTitle('doc');
       $scope.searchbarText = appRouting.params.q ? appRouting.params.q : null;
-      if ($scope.initializing) {
-        $scope.initializing.then(init);
-      }
-      else {
-        init();
-      }
+      init();
 
     }
 

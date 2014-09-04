@@ -6,14 +6,24 @@ define([
   return function () {
     describe('mlSearch', function () {
       var $httpBackend;
+      var $injector;
+      var $timeout;
       var mlSearch;
       var mlUtil;
 
       beforeEach(function (done) {
-        angular.mock.module('_marklogic');
+        module('_marklogic');
         inject(
-          function (_$httpBackend_, _mlSearch_, _mlUtil_) {
+          function (
+            _$httpBackend_,
+            _$injector_,
+            _$timeout_,
+            _mlSearch_,
+            _mlUtil_
+          ) {
             $httpBackend = _$httpBackend_;
+            $injector = _$injector_;
+            $timeout = _$timeout_;
             mlSearch = _mlSearch_;
             mlUtil = _mlUtil_;
             done();
@@ -38,8 +48,8 @@ define([
         });
         s.$ml.waiting.then(
           function () {
-            s.results.should.be.ok;
-            s.$ml.valid.should.be.true;
+            expect(s.results).to.be.ok;
+            expect(s.$ml.valid).to.be.true;
             done();
           },
           function (reason) { assert(false, JSON.stringify(reason)); done(); }
@@ -217,7 +227,7 @@ define([
               'and-query': { queries: [
                 { 'range-constraint-query' : {
                   'constraint-name': 'dummy',
-                  value: '2001-01-01T00:00:00'
+                  value: '2001-01-01T00:00:00.000'
                 } }
               ] }
             }
@@ -232,7 +242,7 @@ define([
                 constraintName: 'dummy',
                 constraintType: 'range',
                 queryStringName: 'dummy',
-                type: 'date',
+                type: 'dateTime',
                 value: mlUtil.moment('2001-01-01')
               }
             }
@@ -314,12 +324,15 @@ define([
           constraints: {
             dummy: {
               queryStringName: 'test-name',
-              type: 'date',
+              type: 'dateTime',
               value: mlUtil.moment('2001-01-01')
             }
           }
         } });
-        s.getStateParams().should.have.property('test-name', '2001-01-01');
+        s.getStateParams().should.have.property(
+          'test-name',
+          mlUtil.moment('2001-01-01').toISOString().replace(/Z.*/, '')
+        );
       });
 
       it('should produce stateParams with an enum', function () {
@@ -431,9 +444,9 @@ define([
             a: { type: 'boolean', queryStringName: 'a' },
             b: { type: 'text', queryStringName: 'b'  },
             c: { type: 'enum', subType: 'string', queryStringName: 'c'  },
-            d: { type: 'date', queryStringName: 'd'  },
+            d: { type: 'dateTime', queryStringName: 'd'  },
             e: { type: 'enum', queryStringName: 'e' },
-            f: { type: 'date', queryStringName: 'f' },
+            f: { type: 'dateTime', queryStringName: 'f' },
             g: { type: 'text', queryStringName: 'g' },
             h: { type: 'boolean', queryStringName: 'h' },
             i: { type: 'boolean', queryStringName: 'i' }
@@ -466,7 +479,7 @@ define([
             values: ['1', '2']
           },
           d: {
-            type: 'date',
+            type: 'dateTime',
             queryStringName: 'd',
             value: mlUtil.moment('2001-01-01')
           },
@@ -476,7 +489,7 @@ define([
             values: null
           },
           f: {
-            type: 'date',
+            type: 'dateTime',
             queryStringName: 'f',
             value: null
           },
@@ -523,12 +536,17 @@ define([
         $httpBackend.expectPOST(/\/v1\/search$/).respond(mocks.searchResponse);
 
         var s = mlSearch.create({
+          facets: {
+            tag: {
+              constraints: ['tag']
+            }
+          },
           criteria: {
             q: 'testy',
             constraints: {
               dummy: {
-                queryStringName: 'dummy',
-                constraintName: 'dummy',
+                queryStringName: 'tag',
+                constraintName: 'tag',
                 constraintType: 'range',
                 type: 'enum',
                 subType: 'text',
@@ -538,7 +556,7 @@ define([
           }
         });
 
-        s.go(['dummy'], mlSearch).then(
+        s.shadowSearch().then(
           function () {
             assert(true);
             done();
@@ -548,6 +566,72 @@ define([
 
         $httpBackend.flush();
       });
+
+      it(
+        'should not modify watched criteria when doing a shadow query',
+        function (done) {
+          var shadowResult = angular.copy(mocks.searchResult);
+          angular.forEach(shadowResult.facets, function (facet) {
+            angular.forEach(facet.facetValues, function (facetValues) {
+              facetValues.count = facetValues.count * 2;
+            });
+          });
+          helper.setExpectCsrf($httpBackend);
+          $httpBackend.expectPOST(/\/v1\/search$/)
+              .respond(mocks.searchResponse);
+          $httpBackend.expectPOST(/\/v1\/search$/)
+              .respond(mocks.searchResponse);
+
+          var s = mlSearch.create({
+            facets: {
+              tag: {
+                constraints: ['tag']
+              }
+            },
+            criteria: {
+              q: 'testy',
+              constraints: {
+                dummy: {
+                  queryStringName: 'tag',
+                  constraintName: 'tag',
+                  constraintType: 'range',
+                  type: 'enum',
+                  subType: 'text',
+                  values: ['test1', 'test2']
+                }
+              }
+            }
+          });
+
+          var scope = $injector.get('$rootScope').$new();
+
+          scope.search = s;
+          var beWatching = false;
+          scope.$watch(
+            'search.criteria',
+            function (newVal, oldVal) {
+              if (beWatching) {
+                assert(false, 'detected a criteria change:\n\n' +
+                    '\toldVal:\n' + JSON.stringify(oldVal, null, ' ') +
+                    '\n\n\tnewVal:\n' + JSON.stringify(newVal, null, ' '));
+              }
+            },
+            true
+          );
+          scope.$apply();
+
+          beWatching = true;
+          s.shadowSearch().then(
+            function () {
+              assert(true);
+              done();
+            },
+            function (reason) { assert(false, JSON.stringify(reason)); done(); }
+          );
+
+          $httpBackend.flush();
+        }
+      );
     });
 
   };

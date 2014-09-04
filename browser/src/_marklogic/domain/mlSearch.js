@@ -57,7 +57,7 @@ define(['_marklogic/module'], function (module) {
                   { $ref: 'http://marklogic.com/#searchConstraintText' },
                   { $ref: 'http://marklogic.com/#searchConstraintBoolean' },
                   { $ref: 'http://marklogic.com/#searchConstraintEnum' },
-                  { $ref: 'http://marklogic.com/#searchConstraintDate' }
+                  { $ref: 'http://marklogic.com/#searchConstraintDateTime' }
                 ]
               }
             }
@@ -109,13 +109,13 @@ define(['_marklogic/module'], function (module) {
       });
 
       mlSchema.addSchema({
-        id: 'http://marklogic.com/#searchConstraintDate',
+        id: 'http://marklogic.com/#searchConstraintDateTime',
         allOf: [
           { $ref: 'http://marklogic.com/#searchConstraintBase' },
           {
             required: ['type'],
             properties: {
-              type: { enum: ['date'] },
+              type: { enum: ['dateTime'] },
               value: { type: ['date-time', 'null' ] },
               operator: { enum: ['GE', 'LE' ] }
             }
@@ -148,7 +148,7 @@ define(['_marklogic/module'], function (module) {
           facets: {
             type: 'object',
             patternProperties: {
-              '^.+$': { type: 'object' }
+              '^.+$': { type: ['object', 'array'] }
             }
           }
         }
@@ -181,26 +181,53 @@ define(['_marklogic/module'], function (module) {
             additionalProperties: false,
             properties: {
               criteria: { $ref: 'http://marklogic.com/#searchCriteria' },
+              facets: {
+                patternProperties: {
+                  '^.+$': {
+                    properties: {
+                      name: { type: 'string' },
+                      valuesType: { enum: ['array', 'object'] },
+                      shadowConstraints: {
+                        type: 'array', items: { type: 'string' }
+                      }
+                    }
+                  }
+                }
+              },
               results: { $ref: 'http://marklogic.com/#searchResults' }
             }
           })
         }
       });
 
+      MlSearchObject.prototype.$mlSpec.serviceName = 'mlSearch';
+
       MlSearchObject.prototype.put = throwMethod('PUT'),
       MlSearchObject.prototype.del = throwMethod('DELETE'),
       MlSearchObject.prototype.getOne = throwMethod('GET'),
       MlSearchObject.prototype.onResponsePOST = function (data) {
+        var self = this;
+
         data.items = data.results;
         delete data.results;
         this.results = data;
         var facets = this.results.facets;
         angular.forEach(facets, function (facet, facetName) {
-          var keyed = {};
-          angular.forEach(facet.facetValues, function (value) {
-            keyed[value.name] = value;
-          });
-          facets[facetName] = keyed;
+          var facetSpec = self.facets && self.facets[facetName];
+          if (facetSpec && facetSpec.valuesType === 'object') {
+            var keyed = {};
+            angular.forEach(
+              self.results.facets[facetName].facetValues,
+              function (value) {
+                keyed[value.name] = value;
+              }
+            );
+            facets[facetName] = keyed;
+          }
+          else {
+            facets[facetName] = facet.facetValues;
+          }
+          delete facets[facetName].facetValues;
         });
         this.$ml.pagingInfo = getPageCalcs(this);
       };
@@ -253,9 +280,9 @@ define(['_marklogic/module'], function (module) {
             if (constraint.type === 'value') {
               q.value = constraint.value;
             }
-            if (constraint.type === 'date') {
+            if (constraint.type === 'dateTime') {
               q.value = constraint.value.toISOString()
-                  .replace(/T.*/, 'T00:00:00');
+                  .replace(/Z.*/, '');
             }
             if (constraint.type === 'boolean') {
               q.boolean = constraint.value;
@@ -312,13 +339,13 @@ define(['_marklogic/module'], function (module) {
             param[constraint.queryStringName] = vals;
           }
         }
-        if (constraint.type === 'date' ) {
+        if (constraint.type === 'dateTime' ) {
           if (constraint.value) {
             // TODO: here we are wiping out tht time portion to accomodate
             // the type conigured on the server while not expsoing the user
             // to times
             param[constraint.queryStringName] =
-                constraint.value.format('YYYY-MM-DD');
+                constraint.value.toISOString().replace(/Z.*/, '');
           }
         }
         if (constraint.type === 'boolean' ) {
@@ -398,7 +425,7 @@ define(['_marklogic/module'], function (module) {
         if (constraint.type === 'text') {
           constraint.value = trimmed;
         }
-        if (constraint.type === 'date') {
+        if (constraint.type === 'dateTime') {
           if (trimmed && trimmed.length) {
             constraint.value = mlUtil.moment(trimmed);
           }
@@ -514,66 +541,87 @@ define(['_marklogic/module'], function (module) {
         return info;
       };
 
-      MlSearchObject.prototype.makeShadowQueries = function (
-        shadowConstraints,
+      var makeShadowSearches = function (
+        self,
         service
       ) {
-        var self = this;
-        return shadowConstraints.reduce(function (acc, constraint) {
+        // TODO: this implementation means that, for instance, the date
+        // range shadow still bears the impact of the tags criteria --
+        // is this what we want? I've heard tell that each constraint might
+        // want a shadow that is *NOT* impacted by other constraints...
+        var shadowSearches = {};
+        angular.forEach(self.facets, function (facet, name) {
           var spec = angular.copy(self.criteria);
-          delete spec.constraints[constraint].values;
-          delete spec.constraints[constraint].value;
-          // TODO: this implementation means that, for instance, the date
-          // range shadow still bears the impact of the tags criteria --
-          // is this what we want? I've heard tell that each constraint might
-          // want a shadow that is *NOT* impacted by other constraints...
-          acc[constraint] = service.create({ criteria: spec });
-          return acc;
-        }, {});
+          angular.forEach(facet.shadowConstraints, function (constraint) {
+            delete spec.constraints[constraint].values;
+            delete spec.constraints[constraint].value;
+          });
+          shadowSearches[name] = service.create({
+            criteria: spec
+          });
+        });
+        return shadowSearches;
       };
 
-      MlSearchObject.prototype.go = function (
-        shadowConstraints,
+      MlSearchObject.prototype.shadowSearch = function (
+        shadowSpecs,
         service
       ) {
         var self = this;
         var deferred = $q.defer();
 
-        var shadows = this.makeShadowQueries(
-          shadowConstraints, service
-        );
+        var shadowSearches = makeShadowSearches(self, this.getService());
 
         var todo = [];
         todo.push(this.post().$ml.waiting);
         angular.forEach(
-          shadows,
+          shadowSearches,
           function (shadow) { todo.push(shadow.post().$ml.waiting); }
         );
         $q.all(todo).then(
           function () {
             self.results.shadowTotals = {};
-            angular.forEach(shadows, function (shadow, key) {
+            angular.forEach(shadowSearches, function (shadow, facetName) {
               // merge the shadow results with the filtered results
-              var filteredFacetStats = self.results.facets[key];
-              var shadowedFacetStats = shadow.results.facets[key];
+              var filteredFacetStats = self.results.facets[facetName];
+              var shadowedFacetStats = shadow.results.facets[facetName];
               // shadows will be the larger set so it is the baseline
-              angular.forEach(shadowedFacetStats, function (
-                shadowStat, shadowStatKey
-              ) {
-                // if we didn't get any numbers for a key in the filtered
-                // results, at least start with an object there
-                filteredFacetStats[shadowStatKey] = mlUtil.merge(
-                  { name: shadowStatKey }, filteredFacetStats[shadowStatKey]
-                );
-                filteredFacetStats[shadowStatKey].shadow = shadowStat;
-              });
+              if (self.facets[facetName].valuesType === 'object') {
+                angular.forEach(shadowedFacetStats, function (
+                  shadowStat, shadowStatKey
+                ) {
+                  // if we didn't get any numbers for a key in the filtered
+                  // results, at least start with an object there
+                  filteredFacetStats[shadowStatKey] = mlUtil.merge(
+                    { name: shadowStatKey }, filteredFacetStats[shadowStatKey]
+                  );
+                  filteredFacetStats[shadowStatKey].shadow = shadowStat;
+                });
+              }
+              else {
+                var filteredIterator = 0;
+                var newStats = [];
+                // var tempDict = {};
+                angular.forEach(shadowedFacetStats, function (stat) {
+                  var newStat = { name: stat.name, shadow: stat };
+                  var filteredStat = filteredFacetStats[filteredIterator];
+                  if (
+                    filteredStat && filteredStat.name === newStat.name
+                  ) {
+                    mlUtil.merge(newStat, filteredStat);
+                    filteredIterator++;
+                  }
+                  newStats.push(newStat);
+                });
+                self.results.facets[facetName] = newStats;
+              }
 
               // we have now merged in the shadow query stats for this
               // facet and can loop
               // client code must deal with facet stats that don't have
               // anything other than shadow data
               // and we shouldn't have got
-              self.results.shadowTotals[key] = shadow.results.total;
+              self.results.shadowTotals[facetName] = shadow.results.total;
             });
 
             deferred.resolve();

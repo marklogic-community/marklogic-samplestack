@@ -199,8 +199,10 @@ var refireWatchFunc = function () {
 var setProcessWatch = function () {
   var watcher = $.watch({
     glob: [
-      path.join(ctx.paths.rootDir, '*'),
-      path.join(ctx.paths.rootDir, 'dev-tasks/**/*')
+      path.join(ctx.paths.rootDir, 'dev-tasks/build/**/*'),
+      path.join(ctx.paths.rootDir, 'dev-tasks/tasks/**/*'),
+      path.join(ctx.paths.rootDir, 'dev-tasks/unit/**/*'),
+      path.join(ctx.paths.rootDir, 'dev-tasks/*')
     ],
     name: 'processWatch',
     emitOnGlob: false,

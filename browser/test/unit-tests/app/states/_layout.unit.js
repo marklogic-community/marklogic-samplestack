@@ -39,9 +39,14 @@ define([
               .respond(200);
           $httpBackend.expectGET('/app/states/explore.html')
               .respond(200);
+          $httpBackend.expectGET('/app/states/exploreResults.html')
+              .respond(200);
 
           ctlr = $controller(
-            'layoutCtlr', { $scope: scope }
+            'layoutCtlr', {
+              $scope: scope,
+              authRestored: {}
+            }
           );
           $httpBackend.flush();
           done();

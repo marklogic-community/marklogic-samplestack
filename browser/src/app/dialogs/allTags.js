@@ -111,10 +111,11 @@ define(['app/module'], function (module) {
 
       /**
        * Handle typeahead selection.
-       * @param {object} $item selected item [description]
+       * @param {object} $item selected item
        * @param {*} $model selected value
        * @param {string} $label selected label
        */
+
       $scope.onMenuSelect = function ($item, $model, $label) {
         // Add to selected (if not there already)
         if ($scope.selTags.indexOf($item) === -1) {

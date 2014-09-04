@@ -12,26 +12,32 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
   module.controller('exploreCtlr', [
 
     '$scope',
-    '$parse',
-    '$window',
-    '$log',
-    '$q',
+    '$timeout',
     'appRouting',
     'ssSearch',
     'allTagsDialog',
     function (
       $scope,
-      $parse,
-      $window,
-      $log,
-      $q,
+      $timeout,
       appRouting,
       ssSearch,
       allTagsDialog
     ) {
+      // after everything is arranged, this function is called to initialize
+      // the state
+      var init = function () {
+        $scope.setPageTitle('explore');
 
-      $scope.setLoading(true);
+        // while we haven't finished loading, say so
+        $scope.setLoading(true);
 
+        $scope.search = ssSearch.create();
+
+        setWatches();
+      };
+
+      // convert spaces to dashes and encode dashes so that
+      // we will tend to have a prettier url
       var dasherize = function (str) {
         return str && str.length ?
           str.trim()
@@ -40,32 +46,105 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
           null;
       };
 
-      var dedasherize = function (str) {
-        return str && str.length ?
-          str.trim()
-            .replace(/-/g, ' ')
-            .replace(/%2D/g, '-')
-            .trim() :
-          null;
+      var setWatches = function () {
+        var onChange = function (newVal, oldVal) {
+          if (newVal !== oldVal) { $scope.$emit('criteriaChange'); }
+        };
+
+        $scope.$watch(
+          'search.criteria.q', onChange
+        );
+        $scope.$watch(
+          'search.criteria.constraints.userName.value', onChange
+        );
+        $scope.$watch(
+          'search.criteria.constraints.resolved.value', onChange
+        );
       };
 
-      var runSearch = function () {
+      $scope.applyScopeToSearch = function () {
+        $scope.search.criteria.constraints.userName.value =
+            $scope.showMineOnly === true ?
+              $scope.store.session.userInfo.userName :
+              null;
+        $scope.search.criteria.constraints.resolved.value =
+            $scope.resolvedOnly === true ? true : null;
+        $scope.search.criteria.q = $scope.searchbarText;
+      };
+
+      $scope.applySearchToScope = function () {
+        // showMineOnly only if the user is a contributor AND they have
+        // specified it in the url. see also setShowMineOnly and
+        // showMineOnlyEnabled
+        $scope.showMineOnly = ($scope.showMineOnlyEnabled() &&
+            $scope.search.criteria.constraints.userName.value) ? true : null;
+
+        // IF there is a session, set resolved only if they have specified
+        // it in the url.  see also setResolvedOnly and resolvedOnly enabled
+        if ($scope.resolvedOnlyEnabled()) {
+          $scope.resolvedOnly =
+              $scope.search.criteria.constraints.resolved.value === true;
+        }
+
+        $scope.searchbarText = $scope.search.criteria.q;
+      };
+
+
+      // these inputs are only enabled for contributors
+      $scope.showMineOnlyEnabled = $scope.resolvedOnlyEnabled = function () {
+        return $scope.store.session;
+      };
+
+      $scope.onCriteriaChange = function () {
+        $scope.applyScopeToSearch();
         var newStateParams = $scope.search.getStateParams();
         if (newStateParams.q) {
           newStateParams.q = dasherize(newStateParams.q);
         }
         appRouting.updateQueryParams(newStateParams);
+      };
 
-        $log.debug('searching at ' + new Date().toISOString());
+      // whenever criteria changes, go to the state that represents the
+      // criteria's results
+      $scope.$on('criteriaChange', $scope.onCriteriaChange);
 
-        var shadowConstraints = ['tags'];
-        $scope.search.go(shadowConstraints, ssSearch).then(
+      // will be broadcast by mlAuth on a change to the session state
+      // do a search b/c permissions are impacted
+      $scope.$on('sessionChange', function () {
+        $scope.runSearch();
+      });
+
+      $scope.clearTagsConstraint = function () {
+        var tags = $scope.search.criteria.constraints.tags;
+        if (tags.values && tags.values.length) {
+          tags.values = [];
+          $scope.$emit('criteriaChange');
+        }
+      };
+
+      $scope.clearDatesConstraints = function () {
+        $scope.search.criteria.constraints.dateStart.value = null;
+        $scope.search.criteria.constraints.dateEnd.value = null;
+        $scope.$emit('criteriaChange');
+      };
+
+      $scope.runSearch = function () {
+        $scope.searching = true;
+
+        $scope.applyScopeToSearch();
+
+        $scope.search.shadowSearch().then(
           function () {
+
+            // if the search params specify an out-of-bounds page,
+            // change the page spec
             if ($scope.search.pageOutOfBounds()) {
               $scope.search.setPageInBounds();
-              runSearch();
+              $scope.$emit('criteriaChange');
               return;
             }
+
+            // until there is snippeting, abbreviate the body
             $scope.search.results.items.forEach(function (item) {
               if (item.content.body && item.content.body.length > 400) {
                 item.content.body = item.content.body.substring(0,400) +
@@ -73,151 +152,32 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
               }
             });
 
-            if (!handlersSet) {
-              setHandlers();
-            }
-
-            $scope.setLoading(false);
+            // notify directives so they don't have to watch
+            // wait for a digestcycle so that we don't show repeaters
+            // while they're repeating
+            $timeout(function () {
+              $scope.$broadcast('newResults');
+              // so templates can stop showing spinners
+              $scope.searching = false;
+              // so the layout can stop showing its spinner
+              $scope.setLoading(false);
+            });
           },
           function (reason) {
+            // so templates can stop showing spinners
+            $scope.searching = false;
+            // so the layout can stop showing its spinner
+            $scope.setLoading(false);
             throw new Error(
               JSON.stringify(reason),
               'ssSearch:post'
             );
           }
         );
-      };
-
-      $scope.setPageTitle('explore');
-
-      var handleParams = function () {
-        var params = angular.copy(appRouting.params);
-        if (params.q) {
-          dedasherize(params.q);
-        }
-        var search = ssSearch.create();
-        search.assignStateParams(params);
-        $scope.search = search;
-
-        $scope.searchbarText = $scope.search.criteria.q;
-        $scope.showMineOnly = Boolean(
-          $parse('search.criteria.constraints.userName.value')($scope) &&
-          $scope.store.session
-        );
-        var resolvedOnly =
-            $parse('search.criteria.constraints.resolved.value')($scope);
-        if ($scope.store.session) {
-          $scope.resolvedOnly = (resolvedOnly === true);
-        }
-      };
-      handleParams();
-
-
-      var handlersSet = false;
-      var setHandlers = function () {
-        $scope.$watch(
-          'search.criteria',
-          function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-              // TODO what if the user *didn't* want to apply the search bar
-              // text? The ux needs to be considered
-              $scope.search.criteria.q = $scope.searchbarText;
-              runSearch();
-            }
-          },
-          true
-        );
-
-        $scope.$watch(
-          'store.session.id',
-          function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-              $scope.search.criteria.constraints.resolved.value = null;
-              $scope.resolvedOnly = false;
-              $scope.search.criteria.q = $scope.searchbarText;
-            }
-          }
-        );
-
-        $scope.$watch(
-          'showMineOnly',
-          function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-              if (newVal && $scope.store.session) {
-                $scope.search.criteria.constraints.userName.value =
-                    $scope.store.session.userInfo.userName;
-              }
-              else {
-                $scope.search.criteria.constraints.userName.value = null;
-              }
-            }
-          }
-        );
-
-        $scope.$watch(
-          'resolvedOnly',
-          function (newVal, oldVal) {
-            if (newVal === true) {
-              $scope.search.criteria.constraints.resolved.value = true;
-            }
-            else {
-              $scope.search.criteria.constraints.resolved.value = null;
-            }
-          }
-        );
-        handlersSet = true;
-      };
-
-      $scope.setQueryText = function () {
-        $scope.search.criteria.q = $scope.searchbarText;
-      };
-
-      if ($scope.initializing) {
-        $scope.initializing.then(function () {
-
-          $scope.$watch('store.session.id', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-
-              if (!newVal) {
-                $scope.showMineOnly = false;
-              }
-              runSearch();
-            }
-          });
-
-          if (!$scope.store.session) {
-            $scope.showMineOnly = false;
-            $scope.search.criteria.constraints.userName.value = null;
-          }
-          runSearch();
-        });
-      }
-      else {
-        runSearch();
-      }
-
-      $scope.clearTagsConstraint = function () {
-        $scope.search.criteria.constraints.tags.values = [];
-      };
-
-      $scope.openAllTags = function () {
-        // Open dialog and pass in tags
-        var dialogResult = allTagsDialog(
-          angular.copy($scope.unselTags),
-          angular.copy($scope.selTags)
-        );
-
-        dialogResult.result.then(
-          // On success, save tag state based on selection in dialog
-          function (data) {
-            $scope.unselTags = data.unselTags;
-            $scope.selTags = data.selTags;
-            // cheapy hack for now
-            $scope.$emit('tagsChange', { tags: $scope.selTags });
-          }
-        );
 
       };
+
+      init();
 
     }
 

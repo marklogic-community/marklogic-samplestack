@@ -14,7 +14,7 @@
 }
 
 
-.uninitialized {
+.loading {
   visibility: hidden;
 }
 
@@ -39,15 +39,8 @@
 }
 
 .ss-incomplete-message {
+  max-width: $view-max-width;
   text-align: center;
-}
-
-.ss-facet-date-range {
-  @extend .ss-ui-incomplete;
-}
-
-.ss-explore .ss-tags a {
-  @extend .ss-ui-incomplete;
 }
 
 .ss-answer-form,
@@ -66,17 +59,17 @@ p.has-error {
 }
 
 .ml-edit-tools {
-  width: 400px;
-  padding: 5px;
+  background-color: #ddd;
   margin-top: 10px;
-  background-color: #DDD;
+  padding: 5px;
+  width: 400px;
 }
 
 .ss-divider {
-  width: 205px;
+  background-color: #000;
   height: 1px;
   margin: 5px 0;
-  background-color: black;
+  width: 205px;
 }
 
 .ss-typeahead-item {
@@ -84,6 +77,6 @@ p.has-error {
 }
 
 .ss-column {
-  position: relative;
   float: left;
+  position: relative;
 }

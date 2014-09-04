@@ -37,7 +37,7 @@ define([
                 queries: [ {
                   'range-constraint-query': {
                     'constraint-name': 'lastActivity',
-                    'value': '2014-08-01T00:00:00',
+                    'value': '2014-08-01T00:00:00.000',
                     'range-operator': 'GE'
                   }
                 } ]
@@ -81,6 +81,45 @@ define([
         $httpBackend.flush();
         assert(true);
       });
+
+      it('should get back an object for tags facet results', function (done) {
+        var s = ssSearch.create();
+        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
+        s.post().$ml.waiting.then(
+          function () {
+            expect(s.results.facets.tags).not.to.be.an('array');
+            done();
+          }
+        );
+        $httpBackend.flush();
+      });
+
+      it('should get back an array for dates facet results', function (done) {
+        var s = ssSearch.create();
+        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
+        s.post().$ml.waiting.then(
+          function () {
+            expect(s.results.facets.dates).to.be.an('array');
+            done();
+          }
+        );
+        $httpBackend.flush();
+      });
+
+      it('should have shadows dates', function (done) {
+        var s = ssSearch.create();
+        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
+        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
+        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
+        s.shadowSearch().then(
+          function () {
+            expect(s.results.facets.dates[0].shadow).to.be.ok;
+            done();
+          }
+        );
+        $httpBackend.flush();
+      });
+
     });
 
   };

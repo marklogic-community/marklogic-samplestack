@@ -18,7 +18,7 @@
       <input
         type="checkbox"
         ng-model="showMineOnly"
-        ng-change="setUserName()"
+        ng-change="onCriteriaChange()"
         ng-disabled="!store.session"
       />
       Show my entries only
@@ -29,20 +29,21 @@
     >
       <input
         ng-model="resolvedOnly"
-        ng-change="setResolvedOnly()"
+        ng-change="onCriteriaChange()"
         type="checkbox"
         ng-disabled="!store.session"
       />
       Show resolved only
     </div>
-    <section class="ss-filters-date ss-ui-incomplete">
+    <section class="ss-filters-date">
       <header>
         <h3>Date</h3>
-        <a href="" class="ss-clear-date" ng-click="dateScope.clearSelection()">Clear</a>
+        <a href="" class="ss-clear-date" ng-click="clearDatesConstraints()">Clear</a>
       </header>
-      <div ss-facet-date-range
-        search="search"
-      ></div>
+      <ss-facet-date-range
+        constraints="search.criteria.constraints"
+        results="search.results.facets.dates"
+      ></ss-facet-date-range>
     </section>
     <section class="ss-filters-tags">
       <header>
@@ -60,6 +61,7 @@
   </section>
 
   <section class="ss-results">
-    <ss-search-results search="search"></ss-search-results>
+    <ui-view></ui-view>
   </section>
+
 </section>
