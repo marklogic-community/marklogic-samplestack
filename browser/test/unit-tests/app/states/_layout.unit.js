@@ -1,8 +1,9 @@
 define([
   'testHelper',
   'text!/app/states/_layout.html',
+  'text!/app/directives/ssAccountDropdown.html',
   'mocks/index'
-], function (helper, html, mocks) {
+], function (helper, html, acctDropdownHtml, mocks) {
 
   return function () {
     describe('_layout', function () {
@@ -31,7 +32,7 @@ define([
           $httpBackend.expectGET(
             '/app/directives/ssAccountDropdown.html'
           )
-              .respond(200);
+              .respond(acctDropdownHtml);
           $httpBackend.expectGET('/app/states/_root.html')
               .respond(200);
           $httpBackend.expectGET('/app/states/_layout.html')
