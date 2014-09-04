@@ -1,6 +1,3 @@
-# most of the ignored files are platform-specific
-/scripts/
-
 # npm- amd js dev-tasks related
 .sass-cache
 node_modules
