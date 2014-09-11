@@ -66,7 +66,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**", "/contributors/**").permitAll()
 			.and()
 			.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/search").permitAll()

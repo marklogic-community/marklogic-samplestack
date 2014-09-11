@@ -95,6 +95,19 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		assertEquals("Id name matches when get By ID", getById.getId(),
 				returnedUser.getId());
+		
+		logout();
+		getById = mapper.readValue(
+				this.mockMvc
+						.perform(
+								get("/contributors/" + returnedUser.getId())
+										.session((MockHttpSession) session)
+										.locale(Locale.ENGLISH))
+						.andExpect(status().isOk()).andReturn().getResponse()
+						.getContentAsString(), Contributor.class);
+
+		assertEquals("Id name matches when get By ID", getById.getId(),
+				returnedUser.getId());
 	}
 
 }

@@ -58,7 +58,6 @@ public class ContributorsController {
 	 */
 	@RequestMapping(value = "contributors", method = RequestMethod.GET)
 	public @ResponseBody
-	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	PojoPage<Contributor> listContributors(@RequestParam(required = false) String q) {
 		if (q == null) {
 			return repository.readAll(0);
@@ -74,7 +73,6 @@ public class ContributorsController {
 	 */
 	@RequestMapping(value = "contributors/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	Contributor get(@PathVariable("id") String id) {
 		return repository.read(id);
 	}
