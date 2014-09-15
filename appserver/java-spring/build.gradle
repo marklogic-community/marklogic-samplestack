@@ -18,6 +18,7 @@ buildscript {
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 group = samplestackGroup
