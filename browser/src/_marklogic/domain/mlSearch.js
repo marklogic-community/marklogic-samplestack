@@ -156,6 +156,12 @@ define(['_marklogic/module'], function (module) {
           q: {
             oneOf: [ { type: 'string' }, { type: 'null' } ]
           },
+          sort: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          },
           start: { type: 'integer', minimum: 0 },
           constraints: {
             patternProperties: {
@@ -470,6 +476,14 @@ define(['_marklogic/module'], function (module) {
           },
         };
 
+        if (this.criteria.sort && this.criteria.sort.length) {
+          criteriaToPost.query.qtext = [
+            criteriaToPost.query.qtext,
+            // working around that middle tier doesn't take array
+            'sort:' + this.criteria.sort[0]
+          ];
+        }
+
         if (myCriteria.start) {
           criteriaToPost.start = myCriteria.start;
         }
@@ -560,6 +574,9 @@ define(['_marklogic/module'], function (module) {
         if (this.criteria.q) {
           params.q = this.criteria.q;
         }
+        if (this.criteria.sort) {
+          params.sort = this.criteria.sort[0];
+        }
         angular.forEach(this.criteria.constraints, function (constraint) {
           mlUtil.merge(params, self.stateParamFromConstraint(constraint));
         });
@@ -644,6 +661,9 @@ define(['_marklogic/module'], function (module) {
           }
         }
         this.criteria.q = stateParams.q ? stateParams.q.trim() : null;
+        if (stateParams.sort && stateParams.sort.length) {
+          this.criteria.sort = [ stateParams.sort.trim() ];
+        }
         angular.forEach(this.criteria.constraints, function (constraint) {
           mlUtil.merge(params, self.constraintFromStateParam(
             constraint,

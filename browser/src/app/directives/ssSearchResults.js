@@ -21,6 +21,31 @@ define(['app/module'], function (module) {
         templateUrl: '/app/directives/ssSearchResults.html',
         scope: {
           search: '='
+        },
+        link: function (scope, element, attrs) {
+          scope.$watch('search.results', function () {
+            //Sort settings
+            scope.sorts = [
+              {
+                label: 'relevance',
+                value: ['relevance']
+              },
+              {
+                label: 'newest',
+                value: ['active']
+              },
+              {
+                label: 'score',
+                value: ['score']
+              }
+            ];
+
+            scope.setSort = function (sort) {
+              scope.search.criteria.sort = sort;
+              scope.$emit('criteriaChange');
+            };
+
+          });
         }
       };
     }

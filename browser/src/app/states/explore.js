@@ -55,6 +55,9 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
           'search.criteria.q', onChange
         );
         $scope.$watch(
+          'search.criteria.sort', onChange
+        );
+        $scope.$watch(
           'search.criteria.constraints.userName.value', onChange
         );
         $scope.$watch(

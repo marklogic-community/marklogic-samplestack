@@ -27,10 +27,10 @@
   li {
     cursor: pointer;
     margin-left: 10px;
+  }
 
-    .ss-sort-active {
-      font-weight: bold;
-    }
+  li.ss-sort-active {
+    font-weight: bold;
   }
 
   .ss-paging {
@@ -73,7 +73,7 @@
     .ss-answers {
       padding: 0;
 
-      label, 
+      label,
       span,
       .ss-divider {
         display: block;

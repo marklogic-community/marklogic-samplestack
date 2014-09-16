@@ -51,7 +51,7 @@ define(
         children: [
           {
             name: 'root.layout.explore.results',
-            url: '/?q&tags&date-ge&date-lt&resolved&contributor&page',
+            url: '/?q&tags&date-ge&date-lt&resolved&contributor&page&sort',
             controller: 'exploreResultsCtlr',
             templateUrl: '/app/states/exploreResults.html'
           }

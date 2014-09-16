@@ -6,27 +6,11 @@
   <h2 ng-if="search.results.total == 0">
     No Results
   </h2>
-  <div ng-if="search.results.total > 0" class="ss-paging">
-    <button
-      type="button"
-      ng-disabled="!search.hasPrevPage()"
-      ng-click="search.incrementPage(-1)"
-    >&lt;</button>
-    <span
-      ng-bind-template="{{search.getCurrentPage() }} / {{search.getPageCount() }}"
-    >
-    </span>
-    <button
-      type="button"
-      ng-disabled="!search.hasNextPage()"
-      ng-click="search.incrementPage(1)"
-    >&gt;</button>
-  </div>
   <ul class="ss-sort">
     <li
       ng-repeat="sort in sorts"
-      ng-click="setSort()"
-      ng-class="selectedSort == sort ? 'ss-sort-active': ''"
+      ng-click="setSort(sort.value)"
+      ng-class="{ 'ss-sort-active': search.criteria.sort[0] == sort.value }"
       ng-bind-template="{{sort.label}}"
     >
     </li>
