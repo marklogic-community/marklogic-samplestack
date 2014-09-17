@@ -14,9 +14,14 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
     String seedDirectory = "database/seed-data"
     
 
+	private writerClient() {
+		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
+		client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
+		client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
+		return client
+	}
+	
     void putRdf(client, uri, rdftriples) {
-        client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
-        client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
         def params = [:]
         params.path = "/v1/graphs"
         params.queryString = "graph="+uri
@@ -27,7 +32,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
 
     @TaskAction
     void load() {
-        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
+		RESTClient client = writerClient()
         def jsonFiles = project.fileTree(dir: "../../" + seedDirectory).matching { include '**/*.json' 
 include '**/*.nt'}
         def BATCH_SIZE = 300

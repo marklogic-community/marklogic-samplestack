@@ -12,9 +12,8 @@ public class MarkLogicTeardownTask extends MarkLogicTask {
     }
 
     void teardownRest() {
-        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/v1/rest-apis/" + config.marklogic.rest.name)
-        client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
-        def params = [:]
+		RESTClient client = bootstrapClient();
+		def params = [:]
         params.queryString = "include=content&include=modules"
         try {
             client.delete(params)

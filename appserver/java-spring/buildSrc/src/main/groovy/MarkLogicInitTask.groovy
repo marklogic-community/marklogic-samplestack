@@ -22,15 +22,28 @@ public class MarkLogicInitTask extends MarkLogicTask {
         restBoot()
     }
 
+	private void delayUntil(Date ts) {
+		Date now = new Date();
+		if (now > ts) {
+			return;
+		}
+		else {
+			Thread.sleep(5000);
+			logger.warn("Waiting for server restart at " + ts);
+			delayUntil(ts);
+		}
+	}
+	
     void adminInit() {
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/init")
         def params = [:]
         params.contentType = "application/json"
         params.body = "{}"
         try {
-            client.post(params)
+            def response = client.post(params)
+			logger.warn(response);
             logger.warn("MarkLogic initialized.  Waiting for server restart.")
-            Thread.sleep(5000)
+            delayUntil(new Date());
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
