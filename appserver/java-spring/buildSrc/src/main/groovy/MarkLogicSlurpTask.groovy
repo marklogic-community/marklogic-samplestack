@@ -7,6 +7,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import com.marklogic.client.io.BytesHandle
 import com.marklogic.client.document.ServerTransform
+import com.marklogic.client.io.DocumentMetadataHandle
+import com.marklogic.client.io.DocumentMetadataHandle.Capability
 
 
 public class MarkLogicSlurpTask extends MarkLogicTask {
@@ -38,8 +40,8 @@ include '**/*.nt'}
         def BATCH_SIZE = 300
         def numWritten = 0
         def writeSet = docMgr.newWriteSet()
-        def contribWriteSet = docMgr.newWriteSet()
-        def transform = new ServerTransform("contrib-to-pojo")
+        def acceptedPermissionMetadata = new DocumentMetadataHandle().withPermission("samplestack-guest", Capability.READ)
+        def pojoCollectionMetadata = new DocumentMetadataHandle().withCollections("com.marklogic.samplestack.domain.Contributor")
         jsonFiles.each { 
             def pattern = Pattern.compile(".*" + "seed-data")
             def docUri = it.path.replaceAll(pattern, "").replaceAll("\\\\", "/")
@@ -52,22 +54,21 @@ include '**/*.nt'}
                 numWritten++;
                 if ( numWritten % BATCH_SIZE == 0) {
                     logger.info("Writing batch")
-                    docMgr.write(contribWriteSet, transform)
                     docMgr.write(writeSet)
                     writeSet = docMgr.newWriteSet()
-                    contribWriteSet = docMgr.newWriteSet()
                 }
-                if (it.path.contains("contributors")) {
-                    docUri = docUri.replaceAll(~"/contributors/", "com.marklogic.samplestack.domain.Contributor/")
-                    contribWriteSet.add(docUri, new BytesHandle(it.text.getBytes("UTF-8")))
+                def bh = new BytesHandle(it.text.getBytes("UTF-8"))
+                if (it.text.contains("acceptedAnswerId")) {
+                    writeSet.add(docUri, acceptedPermissionMetadata, bh)
+                } else if (it.text.contains("domain.Contributor")) {
+                    writeSet.add(docUri, pojoCollectionMetadata, bh)
                 } else {
-                    writeSet.add(docUri, new BytesHandle(it.text.getBytes("UTF-8")))
+                    writeSet.add(docUri, bh)
                 }
             }
         }
         if (numWritten % BATCH_SIZE > 0) {
             docMgr.write(writeSet)
-            docMgr.write(contribWriteSet, transform)
         }
     }
 }
