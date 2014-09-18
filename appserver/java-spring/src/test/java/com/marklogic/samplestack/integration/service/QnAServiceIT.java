@@ -213,7 +213,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		QnADocument submitted = service.ask(Utils.joeUser,
 				newQuestion);
 
-		int docScore = submitted.getJson().get("docScore").asInt();
+		int voteCount = submitted.getJson().get("voteCount").asInt();
 
 		QnADocument answered = service
 				.answer(Utils.maryUser, submitted.getId(),
@@ -230,9 +230,9 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		service.voteUp(Utils.joeUser, submitted.getId());
 		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				submitted.getId());
-		int newScore = votedOn.getJson().get("docScore").asInt();
+		int newScore = votedOn.getJson().get("voteCount").asInt();
 		assertEquals("Vote score should be one higher than before",
-				docScore + 1, newScore);
+				voteCount + 1, newScore);
 		
 		try {
 			service.voteUp(Utils.joeUser, submitted.getId());
@@ -251,7 +251,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		service.voteDown(Utils.maryUser, answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
-		int newerScore = votedTwiceOn.getJson().get("docScore").asInt();
+		int newerScore = votedTwiceOn.getJson().get("voteCount").asInt();
 		assertEquals("Vote score should be one higher than before",
 				newScore - 1, newerScore);
 

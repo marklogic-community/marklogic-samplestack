@@ -42,7 +42,7 @@ public class InitialQuestion {
 		this.id = id;
 	}
 
-	private long docScore;
+	private long voteCount;
 	private long itemTally;
 	
 	private Date lastActivityDate;
@@ -62,7 +62,7 @@ public class InitialQuestion {
 		this.tags = new String[] {};
 		this.comments = new Comment[] {};
 		this.answers = new Answer[] {};
-		this.docScore = 0L;
+		this.voteCount = 0L;
 		this.itemTally = 0L;
 	}
 	
@@ -75,8 +75,8 @@ public class InitialQuestion {
 	public Date getCreationDate() {
 		return creationDate;
 	}
-	public long getDocScore() {
-		return docScore;
+	public long getVoteCount() {
+		return voteCount;
 	}
 	public long getItemTally() {
 		return itemTally;
@@ -105,8 +105,8 @@ public class InitialQuestion {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	public void setDocScore(long docScore) {
-		this.docScore = docScore;
+	public void setVoteCount(long voteCount) {
+		this.voteCount = voteCount;
 	}
 	public void setItemTally(long itemTally) {
 		this.itemTally = itemTally;

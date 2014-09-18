@@ -85,7 +85,7 @@
           "name":"score",
           "sort-order":{
             "direction":"descending",
-            "json-property":"docScore"
+            "json-property":"voteCount"
           }
         },
         {

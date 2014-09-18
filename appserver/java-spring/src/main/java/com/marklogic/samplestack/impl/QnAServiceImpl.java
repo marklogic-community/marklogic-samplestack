@@ -80,11 +80,11 @@ public class QnAServiceImpl implements QnAService {
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
 	
 	private static String idFromUri(String uri) {
-		return uri.replace(".json", "");
+		return uri.replace("/questions/", "").replace(".json", "");
 	}
 
 	private static String uriFromId(String id) {
-		return id + ".json";
+		return "/questions/" + id + ".json";
 	}
 
 	private String generateUri() {
@@ -139,7 +139,7 @@ public class QnAServiceImpl implements QnAService {
 		
 		Answer answer = new Answer();
 		answer.setText(answerText);
-		answer.setId("/answers/" + UUID.randomUUID().toString());
+		answer.setId(UUID.randomUUID().toString());
 		answer.setItemTally(0);
 		answer.setComments(new ArrayList<Comment>());
 		answer.setCreationDate(new Date());
@@ -286,7 +286,7 @@ public class QnAServiceImpl implements QnAService {
 			
 			try {
 				Call call = patchBuilder.call().add(delta);
-				patchBuilder.replaceApply("/node()/docScore", call);
+				patchBuilder.replaceApply("/node()/voteCount", call);
 		
 				patchBuilder.replaceApply("//object-node()[id=\""+postId+"\"]/itemTally", call);
 				DocumentPatchHandle patch = patchBuilder.build();

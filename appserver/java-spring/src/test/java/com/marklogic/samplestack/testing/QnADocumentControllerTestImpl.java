@@ -157,7 +157,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		
 		this.mockMvc
 		.perform(
-				get(askedQuestion.getId())
+				get("/questions/" + askedQuestion.getId())
 						.with(csrf())
 						.session((MockHttpSession) session))
 						.andExpect(status().isOk()).andReturn().getResponse()
@@ -177,7 +177,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		this.mockMvc
 				.perform(
-						post(askedQuestion.getId() + "/comments")
+						post("/questions/" + askedQuestion.getId() + "/comments")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -196,7 +196,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 			// send a contributor to the questions endpoint
 			String answeredQuestion = this.mockMvc
 					.perform(
-							post(docId + "/answers").with(csrf())
+							post("/questions/" + docId + "/answers").with(csrf())
 									.session((MockHttpSession) session)
 									.contentType(MediaType.APPLICATION_JSON)
 									.content(
@@ -238,7 +238,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		answerQuestion();
 		String answerId = answeredQuestion.getJson().get("answers").get(0)
 				.get("id").asText();
-		String url = askedQuestion.getId().replace(".json", "") + answerId
+		String url = "/questions/" + askedQuestion.getId().replace(".json", "") + "/answers/" + answerId
 				+ "/comments";
 
 		this.mockMvc
@@ -262,7 +262,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		askQuestion();
 		this.mockMvc
 				.perform(
-						post(this.askedQuestion.getId() + "/upvotes")
+						post("/questions/" + this.askedQuestion.getId() + "/upvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -281,7 +281,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		askQuestion();
 		this.mockMvc
 				.perform(
-						post(this.askedQuestion.getId() + "/downvotes")
+						post("/questions/" + this.askedQuestion.getId() + "/downvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -303,7 +303,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		this.mockMvc
 				.perform(
-						post(this.askedQuestion.getId() + answerId + "/upvotes")
+						post("/questions/" + this.askedQuestion.getId() + "/answers/" + answerId + "/upvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -325,9 +325,11 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		this.mockMvc
 				.perform(
-						post(
-								this.askedQuestion.getId() + answerId
-										+ "/downvotes")
+						post("/questions/" +
+								this.askedQuestion.getId() + 
+								"/answers/" +
+								answerId + 
+								"/downvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -365,7 +367,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	private void failAcceptQuestion(String docId, String answerId)
 			throws UnsupportedEncodingException, Exception {
 		this.mockMvc.perform(
-				post(docId + answerId + "/accept")
+				post("/questions/" + docId + "/answers/" + answerId + "/accept")
 						.with(csrf())
 						.session((MockHttpSession) session)
 						.contentType(MediaType.APPLICATION_JSON).content("{}"))
@@ -377,7 +379,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		logger.debug("Accepting answer: " + docId + answerId + "/accept");
 		String acceptedQuestion = this.mockMvc
 				.perform(
-						post(docId + answerId + "/accept")
+						post("/questions/" + docId + "/answers/" + answerId + "/accept")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
@@ -426,7 +428,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		this.mockMvc
 				.perform(
-						post(docId + answerId + "/accept")
+						post("/questions/" + docId + "/answers/" + answerId + "/accept")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
