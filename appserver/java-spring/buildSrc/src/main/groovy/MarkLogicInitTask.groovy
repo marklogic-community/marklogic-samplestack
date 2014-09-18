@@ -3,7 +3,7 @@ import groovyx.net.http.RESTClient
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.*
-
+import java.net.URLDecoder
 
 
 public class MarkLogicInitTask extends MarkLogicTask {
@@ -11,7 +11,6 @@ public class MarkLogicInitTask extends MarkLogicTask {
     def roles
     def users
     def privileges
-
 
 
     @TaskAction
@@ -43,7 +42,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
             def response = client.post(params)
 			logger.warn(response);
             logger.warn("MarkLogic initialized.  Waiting for server restart.")
-            delayUntil(new Date());
+            delayUntil(new Date()); // TODO look for timestamp
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
@@ -104,7 +103,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
     }
 
     void assignPrivileges(jsonRole) {
-        def privilegeName = jsonRole.name.replaceAll(~".json","")
+        def privilegeName = java.net.URLDecoder.decode(jsonRole.name).replaceAll(~".json","").replaceAll(~"^\\d+-","")
         try {
             RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/privileges/" + privilegeName + "/properties")
             client.headers."accept" = "application/json"
@@ -123,8 +122,8 @@ public class MarkLogicInitTask extends MarkLogicTask {
     void createUsers() {
         logger.warn("Creating users, roles, and privileges if absent...")
         roles.listFiles().each { createRole(it) }
-        privileges.listFiles().each { assignPrivileges(it) }
         users.listFiles().each { createUser(it) }
+        privileges.listFiles().each { assignPrivileges(it) }
     }
 
     void restBoot() {
