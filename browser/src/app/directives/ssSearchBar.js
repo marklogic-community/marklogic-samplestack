@@ -22,7 +22,7 @@ define(['app/module'], function (module) {
         scope.setQueryText = function () {
           scope.$emit('criteriaChange');
         };
-        scope.showTips = true;
+        scope.showTips = false;
       }
     };
   });

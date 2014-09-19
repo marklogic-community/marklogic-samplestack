@@ -3,13 +3,13 @@
   <div class="ss-search-bar-tools">
     <button ng-click="setQueryText()">Search</button>
     <div class="ss-search-tips" ng-click="showTips=!showTips">Search Tips
-      <span class="ss-search-tips-icon" ng-hide="!showTips">&#9660;</span>
-      <span class="ss-search-tips-icon" ng-hide="showTips">&#9650;</span>
+      <span class="ss-search-tips-icon" ng-show="!showTips">&#9660;</span>
+      <span class="ss-search-tips-icon" ng-show="showTips">&#9650;</span>
     </div>
   </div>
 </form>
 
-<div class="ss-search-tips-panel" ng-hide="showTips">
+<div class="ss-search-tips-panel" ng-show="showTips">
   <dl>
     <dt>foo</dt>
       <dd>[necks]</dd>
