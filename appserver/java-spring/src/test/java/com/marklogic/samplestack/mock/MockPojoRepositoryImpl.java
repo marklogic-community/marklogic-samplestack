@@ -214,6 +214,24 @@ public class MockPojoRepositoryImpl implements
 			return true;
 		}
 
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Contributor next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	}
+
+	@Override
+	public void defineIdProperty(String fieldName) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

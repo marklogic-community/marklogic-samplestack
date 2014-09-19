@@ -158,10 +158,6 @@ public class ContributorServiceImpl implements ContributorAddOnService {
 		repository.setPageLength(length);
 	}
 
-	public void defineIdField(String fieldName) {
-		repository.defineIdField(fieldName);
-	}
-
 	public DatabaseClient getDatabaseClient() {
 		return repository.getDatabaseClient();
 	}
