@@ -2,6 +2,44 @@
   <input type="text" ng-model="searchbarText"/>
   <div class="ss-search-bar-tools">
     <button ng-click="setQueryText()">Search</button>
-    <div class="ss-search-tips ss-ui-incomplete">Search Tips</label>
+    <div class="ss-search-tips" ng-click="showTips=!showTips">Search Tips
+      <span class="ss-search-tips-icon" ng-hide="!showTips">&#9660;</span>
+      <span class="ss-search-tips-icon" ng-hide="showTips">&#9650;</span>
+    </div>
   </div>
 </form>
+
+<div class="ss-search-tips-panel" ng-hide="showTips">
+  <dl>
+    <dt>foo</dt>
+      <dd>[necks]</dd>
+    <dt>bar</dt>
+      <dd>"toes knees"</dd>
+    <dt>baz</dt>
+      <dd>sticks:1234<br />boots:pants (yours)</dd>
+  </dl>
+  <dl>
+    <dt>foo</dt>
+      <dd>plates<br />belljars:99 (99+)</dd>
+    <dt>bar</dt>
+      <dd>flauberts</dd>
+    <dt>baz</dt>
+      <dd>beaks:"apples oranges"<br />title:apples</dd>
+  </dl>
+  <dl>
+    <dt>foo</dt>
+      <dd>[necks]</dd>
+    <dt>bar</dt>
+      <dd>"toes knees"</dd>
+    <dt>baz</dt>
+      <dd>sticks:1234<br />boots:pants (yours)</dd>
+  </dl>
+  <dl>
+    <dt>foo</dt>
+      <dd>plates<br />belljars:99 (99+)</dd>
+    <dt>bar</dt>
+      <dd>flauberts</dd>
+    <dt>baz</dt>
+      <dd>beaks:"apples oranges"<br />title:apples</dd>
+  </dl>
+</div>

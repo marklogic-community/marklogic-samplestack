@@ -37,5 +37,41 @@
   .ss-search-tips {
     display: inline-block;
     padding: 5px;
+    cursor: pointer;
+  }
+
+  .ss-search-tips-icon {
+    position: relative;
+    top: -0.1em;
+    font-size: 80%;
   }
 }
+
+.ss-search-tips-panel {
+  width: 100%;
+  height: 120px;
+  background-color: #f9f9f9;
+  padding: 10px;
+
+  dl, dt, dd {
+    position: relative;
+    float: left;
+  }
+
+  dl {
+    width: 25%;
+  }
+
+  dt {
+    width: 20%;
+    margin-bottom: 2px;
+    color: #999;
+    font-weight: normal;
+  }
+
+  dd {
+    width: 80%;
+    margin-bottom: 2px;
+  }
+}
+
