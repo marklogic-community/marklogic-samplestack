@@ -1,7 +1,7 @@
 define(['app/module'], function (module) {
 
   /**
-   * @ngdoc service
+   * @ngdoc domain
    * @name ssSession
    * @requires mlModelBase
    * @requires mlSchema
@@ -10,7 +10,6 @@ define(['app/module'], function (module) {
    *
    * @description
    * TBD
-   *
    */
 
   module.factory('ssSession', [

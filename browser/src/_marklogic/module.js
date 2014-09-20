@@ -23,8 +23,28 @@ define(
      * @ngdoc module
      * @name _marklogic
      * @description
-     * The `marklogic` module contains sample code that you might want
-     * to use in your own Marklogic-based application development projects.
+     * The `marklogic` module provides Angular components that perform
+     * functions that are related to accessing a MarkLogic-based application,
+     * along with other functions that form a foundation for building an
+     * application like Samplestack.  There are no specific Samplestack
+     * features implemented in this module.
+     *
+     * We have separated the functionality in this module in the hopes that it
+     * may help developers to find software code within this app that can serve
+     * as examples of how one might implement their own application.
+     *
+     * This module is referenced as a dependency by the main
+     * {@link app app module}.
+     *
+     *  **Please note:** While the functionality in this module is relatively
+     * generic in nature (i.e. it doesn't directly implement Samplestack
+     * application features), it is not meant to be considered as a supported
+     * MarkLogic library on its own.
+     *
+     * Developers may use this code in their applications (subject to the
+     * licensing terms), but such use outside of
+     * Samplestack is not directly supported by MarkLogic
+     * Corporation.
      */
     return angular.module('_marklogic', deps);
   }

@@ -165,6 +165,7 @@ define(['_marklogic/module'], function (module) {
     }
   ]);
 
+  // add mlHttpInterceptor to interceptors list of $httpProvider
   module.config([
     '$httpProvider',
     function ($httpProvider) {

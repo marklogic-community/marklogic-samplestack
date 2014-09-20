@@ -6,14 +6,24 @@ define(['app/module'], function (module) {
    * @kind constructor
    * @name allTagsDialogCtlr
    * @usage the controller is injected by the $modal service
-   * @description
-   * Controller for {@link allTagsDialog}.
    * @param {angular.Scope} $scope (injected)
    * @param {ui.bootstrap.modal.$modalInstance} $modalInstance (injected)
    * @param  {ui.bootstrap.$modalInstance} allTagsStartFromFilter Filter for
    * columnar display of tags
    * @param  {Array.<object>} unselTags unselected tags
    * @param  {Array.<object>} selTags selected tags
+   * @property {Array.<string>} $scope.unselTags set of tags that are found
+   * in tags facet results but not presently selected as criteria.
+   * @property {Array.<string>} $scope.selTags set of tags that are found
+   * in tags facet results are are presently selected as criteria.
+   * @property {Array.<string>} $scope.tags set of tags that are found
+   * in tags facet results. Since the list of tags is limited by configuration
+   * to 8, at most 8 tags will be in this array at any time.
+   *
+   *
+   * @description
+   * Controller for {@link allTagsDialog}. This dialog isn't fully implemented.
+   * More detail TBD.
    */
   module.controller('allTagsDialogCtlr', [
 
@@ -31,6 +41,8 @@ define(['app/module'], function (module) {
     ) {
 
       // Tag settings
+      /**
+       */
       $scope.unselTags = unselTags;
       $scope.selTags = selTags;
       $scope.tags = unselTags.concat(selTags);

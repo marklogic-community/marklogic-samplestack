@@ -12,19 +12,82 @@ define(['_marklogic/module'], function (module) {
    * @requires mlWaiter
    *
    * @description
-   * Service from which domain-specific model elements iare derived.
+   * Service from which domain-specific model elements are derived.
    *
    * The `mlModelBase` service is primarily a means to derive domain-specific
-   * services that can themselves create and manage model objects.
+   * services that can themselves create and manage instances of model objects.
    *
-   *  The model objects spawned by these domain-specific services
+   * Domain objects derived from mlModel base are found in the <a
+   * href="/marklogic-samplestack/api/_marklogic/domain">_marklogic/domain</a>
+   * and
+   * <a href="/marklogic-samplestack/api/app/domain">app/domain</a> directories.
+   *
+   * The model objects spawned by these domain-specific services
    * have features to assist in validating, tracking and managing model data
    * exhcnage with a server. In addition, specifc directives may provide
    * additinal features by binding to these object.
    *
-   * More TODO
+   * The Samplestack application uses mlModelBase to define domain objects
+   * which:
+   *
+   * - can be validated for schema-level errors (such as presence of a property
+   * of the correct type and bounds) using JSON Schema via {@link mlSchema};
+   * - have facilities for being used with REST endpoints, including endpoints
+   * that require "tweaks", such as changing endpoint names for certain HTTP
+   * methods, or overriding what is sent to the server or how responses from
+   * the server are processed;
+   * - provide metadata about their status while HTTP methods are *in progress*
+   * using {@link mlWaiter}.
+   *
+   * Some of the primary reasons for mlModelBase are consistency, error
+   * reduction
+   * and thorough testing. By centralizing the code that handles common issues
+   * associated with model elements (the "M" in MVC). By centralizing the
+   * key behaviors of model elements, more attention can be paid to ensuring
+   * quality in the generic functionality, and there is both less room for
+   * error in individual elements, as well as less effort required to define
+   * them.
+   *
+   * The principle of doing it right once, making components testable (and
+   * testing them well) is one
+   * key to getting the most out of AngularJS.
+   *
+   * This `mlModelBase` object certainly does not solve all problems, but it
+   * allows Samplestack to have such centralized functionality in one
+   * object that can be extended as requirements change.
+   *
+   * In Angular 2.0, which is currently being designed, plans are forming to
+   * implement a lot of this functionality within Angular's Data module. There
+   * are also other publicly available libraries that try to solve some of these
+   * issues in various ways, but generally each requires a level of buy-in which
+   * locks in certain behaviors. In order to maintain flexibility, and until
+   * Angular 2.0's data module can be evaluated for incproration, this
+   * customized solution has been developed for Samplestack. The development
+   * team looks forward to future developments in this space which might help
+   * to lessen the amount of custom code.
+   *
+   * It should be noted that most of this service is about providing a
+   * **default** implementation of a model element, where instances use
+   * prototype methods which can and are expected to be overriden in specific
+   * model objects.  For example, a model object may want to override the hook
+   * that handles processing responses from the server for POSTs using the
+   * by specifying such an override of the `onResponsePOST` method.
+   *
+   * <p style="color: red">
+   * **TODO** the current version of this object  makes documentation difficult
+   * because of the way that
+   * instances are defined -- that is, there is no Angular component associated
+   * with instances of mlModelBase, and such no good place, in Angular terms,
+   * to put documentation.
+   * </p>
+   *
+   * <p style="color: red">
+   * **For this reason, and to improve overall clarity of the code,
+   * the mlModelBase object is presently being refactored.** Expect the next
+   * revision to have more and clearer documentation, where both the services
+   * that manage mlModel elements _and_ the instances are documented.
+   * </p>
    */
-
   module.factory('mlModelBase', [
 
     '$http', '$q','$parse', '$injector', 'mlSchema', 'mlUtil', 'mlWaiter',
@@ -34,8 +97,23 @@ define(['_marklogic/module'], function (module) {
       var self = this;
       this.baseUrl = '/v1';
 
-      // MlModel prototype obj
-
+      /**
+       * @ngdoc property
+       * @name _marklogic.mlModelBase#object
+       * @type {function}
+       * @description This is the constructor that creates instances of
+       * a given mlModelBase-derived object. It is configured when the
+       * derivation is defined. The default implementation is:
+       *
+       * ```javascript
+       * this.preconstruct(spec);
+       * Object.defineProperty(this, '$ml', {
+       *   value: {}
+       * });
+       * this.assignData(spec || {});
+       * this.postconstruct(spec);
+       * ```
+       */
       var MlModel = function (spec) {
         this.preconstruct(spec);
         Object.defineProperty(this, '$ml', {
@@ -340,8 +418,21 @@ define(['_marklogic/module'], function (module) {
 
         var svcImplementation = {};
         svcImplementation[name] = constructor;
+
         svcImplementation.object = constructor;
 
+        /**
+         * @ngdoc method
+         * @name _marklogic.mlModelBase#create
+         * @param {?Object} spec If specified, the parameter is an initial
+         * value for the object.
+         * @returns {object} the created instance
+         *
+         * @description Creates an instance of the
+         * mlModelBase-derived object.
+         *
+         * The default implementation calls the `object` constructor.
+         */
         svcImplementation.create = function (spec) {
           return new svcImplementation[name](spec);
         };
@@ -356,14 +447,84 @@ define(['_marklogic/module'], function (module) {
               svcImplementation.create(spec);
         };
 
+        /**
+         * @ngdoc method
+         * @name _marklogic.mlModelBase#getOne
+         * @param {object} spec Either an existing instance to (re-)fetch, or
+         * a plain object that otherwise uniquely specifies an instance
+         * of the element.
+         * @returns {object} The instance. Because instances expose their
+         * http=-related status in their $ml metadata property, it may be used
+         * to follow progress through the promise via `[instance].$ml.waiting`,
+         * as managed by the {@link mlWaiter} service..
+         *
+         * @description Fetches a single instance from the server (using GET),
+         * based on the specified criteria.
+         *
+         * The default implementation either uses the spec as the instance
+         * whose data should be fetched, or, if the spec isn't already an
+         * instance of the model element, it creates one based on the spec.
+         *
+         * This means that one can pass either an existing instance of the
+         * model element **or** pass a specification, such as an object
+         * containing an `id` property, to specify what data to fetch.
+         */
         svcImplementation.getOne = function (spec) {
           return ensureInstance(spec).getOne();
         };
 
+        /**
+         * @ngdoc method
+         * @name _marklogic.mlModelBase#post
+         * @param {object} spec Either an existing instance to post, or
+         * a plain object whose data should be used to create an instance prior
+         * to posting.
+         * @returns {object} The instance. Because instances expose their
+         * http=-related status in their $ml metadata property, it may be used
+         * to follow progress through the promise via `[instance].$ml.waiting`,
+         * as managed by the {@link mlWaiter} service..
+         *
+         * @description POSTs an instance of the model element to the server.
+         *
+         * The default implementation merges the response from the server
+         * into the instance.
+         *
+         * The default implementation either uses the spec as the instance
+         * whose data should be posted, or, if the spec isn't already an
+         * instance of the model element, it creates one based on the spec.
+         *
+         * This means that one can pass either an existing instance of the
+         * model element **or** pass a specification of data that should be
+         * used to create a new instance prior to posting.
+         */
         svcImplementation.post = function (spec) {
           return ensureInstance(spec).post();
         };
 
+        /**
+         * @ngdoc method
+         * @name _marklogic.mlModelBase#del
+         * @param {object} spec Either an existing instance to delete, or
+         * a plain object whose data should be used to specify the instance for
+         * deletion.
+         * @returns {angular.Promise} promise to be resolved when the deletion
+         * is complete
+         * or rejected when/if it fails.
+         *
+         * @description DELETEs an instance of the model element froom the
+         * server.
+         *
+         * The default implementation merges the response from the server
+         * into the instance.
+         *
+         * The default implementation either uses the spec as the instance
+         * whose data should be posted, or, if the spec isn't already an
+         * instance of the model element, it creates one based on the spec.
+         *
+         * This means that one can pass either an existing instance of the
+         * model element **or** pass a specification of data that should be
+         * used to create a new instance prior to posting.
+         */
         svcImplementation.del = function (spec) {
           var deferred = $q.defer();
           var instance = ensureInstance(spec);

@@ -1,12 +1,20 @@
 define(['app/module'], function (module) {
 
   /**
-   * @ngdoc service
+   * @ngdoc domain
    * @name ssContributor
    * @requires mlModelBase
    * @requires mlSchema
    *
    * @description
+   * Information associated with a contributor (as
+   * {@link SsContributorObject}).
+   *
+   * `ssContributor` is a derivation of {@link mlModelBase},
+   * customized to be able to fetch contributor information (GET).
+   *
+   * It is also used by {@link ssSession} to expose information
+   * about the currently logged-in user.
    */
 
   module.factory('ssContributor', [
@@ -15,6 +23,20 @@ define(['app/module'], function (module) {
     function (
       mlModelBase, mlSchema
     ) {
+      /**
+       * @ngdoc type
+       * @name SsContributorObject
+       * @description The model instance prototype for
+       * {@link ssContributor}.
+       */
+
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#constructor
+       * @param {object} spec Data used to populate
+       * the new instance.
+       * @description Constructor. Uses default implementation.
+       */
       var SsContributorObject = function (spec) {
         mlModelBase.object.call(this, spec);
       };
@@ -77,12 +99,29 @@ define(['app/module'], function (module) {
         return questions;
       };
 
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#prototype.preconstruct
+       * @param {object} spec Instance spec from constructor.
+       * @description Override. Parses the `votes` property, if present,
+       * any, provided to the constructor and replaces the
+       * property value with the result.
+       */
+
       SsContributorObject.prototype.preconstruct = function (spec) {
         if (spec && spec.votes && spec.votes instanceof Array) {
           spec.votes = parseVotes(spec.votes);
         }
       };
 
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#prototype.onHttpResponseGET
+       * @param {object} data Data from the call to the server.
+       * @description Override. Parses the `votes` property, if present,
+       * any, provided to the constructor and replaces the
+       * property value with the result.
+       */
       SsContributorObject.prototype.onHttpResponseGET = function (data) {
         if (data && data.votes) {
           data.votes = parseVotes(data.votes);
@@ -90,10 +129,31 @@ define(['app/module'], function (module) {
         this.assignData(data);
       };
 
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#prototype.hasVotesOnQuestion
+       * @param {object} qnaDoc The {@link SsQnaDocObject} instance about
+       * which to
+       * determine voting.
+       * @description Override. Whether or not the contributor has
+       * voted on the given question.
+       */
       SsContributorObject.prototype.hasVotedOnQuestion = function (qnaDoc) {
         return parseVote(qnaDoc.id, this.votes, true);
       };
 
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#prototype.hasVotedOnAnswer
+       * @param {object} qnaDoc The {@link SsQnaDocObject} instance about
+       * which to
+       * determine voting.
+       * @param {object} answer The {@link SsQnaDocObject} `answer` about
+       * which to
+       * determine voting.
+       * @description Override. Whether or not the contributor has
+       * voted on the given answer.
+       */
       SsContributorObject.prototype.hasVotedOnAnswer = function (
         qnaDoc,
         answer
@@ -121,11 +181,16 @@ define(['app/module'], function (module) {
           }
         })
       };
+
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#prototype.getResourceId
+       * @description Overrides the resource id.
+       * @returns {string} 'contributors'
+       */
       SsContributorObject.prototype.getResourceId = function () {
         return 'contributors';
       };
-
-
 
       return mlModelBase.extend('SsContributorObject', SsContributorObject);
     }

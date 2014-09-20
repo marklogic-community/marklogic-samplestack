@@ -8,6 +8,10 @@ define(['app/module'], function (module) {
    * @description
    * Directive for displaying a set of search results.
    *
+   * The view binds to various properties of the `$scope.results` property
+   * and assigns the `item` property in an ngRepeater
+   * for use by the {@link ssSearchResult} directive.
+   *
    */
   module.directive('ssSearchResults', [
     '$parse',
@@ -17,35 +21,6 @@ define(['app/module'], function (module) {
         templateUrl: '/app/directives/ssSearchResults.html',
         scope: {
           search: '='
-        },
-        controller: function ($scope) {
-
-        },
-        link: function (scope, element, attrs) {
-          scope.$watch('search.results', function () {
-              // // Sort settings
-              // scope.sorts = [
-              //   {
-              //     label: 'votes',
-              //     value: ['']
-              //   },
-              //   {
-              //     label: 'newest',
-              //     value: ['creationDate']
-              //   },
-              //   {
-              //     label: 'relevance',
-              //     value: ['-score']
-              //   }
-              // ];
-              // scope.selectedSort = scope.sorts[2]; // Default sort
-              //
-              // scope.setSort = function () {
-              //   scope.selectedSort = this.sort;
-              //   scope.$emit('sort', { sort: this.sort });
-              // };
-
-          });
         }
       };
     }

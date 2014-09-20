@@ -1,16 +1,46 @@
 define(['app/module', 'highcharts'], function (module, Highcharts) {
 
+  /* jshint ignore:start */
+
   /**
    * @ngdoc directive
    * @name ssFacetDateRange
    * @restrict E
+   * @param {object} constraints The search `criteria.constraints property from {@link ssSearch}
+   * @param {object} results The search `results` for the date facet form {@link ssSearch}
    *
    * @description
-   * Directive rendering an array of search objects as a chart.
-   * Selection of a single date result or a range of dates is allowed
-   * for filtering. Uses <a href="https://github.com/pablojim/highcharts-ng"
-   * target="_blank">highcharts-ng</a> for chart functionality.
+   * Renders date range facet of search results into a
+   * <a href="https://github.com/pablojim/highcharts-ng"
+   * target="_blank">highcharts-ng</a> chart, and allows the user
+   * to specify a range of dates over which to filter the search by selecting
+   * a range within the chart or by using date-picker dropdowns.
+   *
+   * Listens for `newResults` event to trigger popuplation of results.
+   *
+   * When the user selects a range either through the chart or using the date
+   * pickers, a `criteriaChange` event is emitted so that the search may be
+   * updated..
+   *
+   * ## `scope` properties/methods:
+   *
+   * | Variable  | Type | Details |
+   * |--|--|--|
+   * | `dateData`  | {@type Array}  | Array of Configuration for the highcharts object. |
+   * | `highchartsConfig`  | {@type object}  | Configuration for the highcharts object. |
+   * | `chart` | {@type object} | Reference to the actual Highcharts chart |
+   * | `store.session`  | {@link ssSession}  | As provided by $rootScope, provides session information. |
+   * | `dateStartOptions`  | {@type ojbect}  | Configuration for date start picker |
+   * | `dateEndOptions`  | {@type ojbect}  | Configuration for date end picker |
+   * | `pickerOpen` | {@type function(string)}  | Opens one or the other date picker as specified by the parameter. |
+   * | `applyPickerDates`  | {@type function}  | Applies the values in the date pickers to the relevant properties of the search constraints, and if they have been modified, emits `criteriaChange` |
+   * | `dateStartPlaceholder` | {@type string}  | Formatted representation of the first date found (shadowed) search results to use as placeholder in the dateStart picker. |
+   * | `dateEndPlaceholder` | {@type string}  | Formatted representation of the late date found (shadowed) search results to use as placeholder in the dateEnd picker. |
+   * | `pickerDateStart`  | {@type Date? }  | If a Date object, the value of the dateStart search constraint represented as a day for the dateStart picker. |
+   * | `pickerDateEnd`  | {@type Date? }  | If a Date object, the value of the dateEnd search constraint represented as a day for the dateEnd picker. |
    */
+
+  /* jshint ignore:end */
 
   module.directive('ssFacetDateRange', [
     'mlUtil',
@@ -52,7 +82,7 @@ define(['app/module', 'highcharts'], function (module, Highcharts) {
 
         link: {
           pre: function (scope) {
-            scope.dateData = [];
+            // scope.dateData = [];
             // when highcarts itself loads, store a copy of the instance on the
             // scope
             var onChartLoaded = function (chart) {

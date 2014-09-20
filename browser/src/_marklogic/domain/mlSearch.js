@@ -1,39 +1,146 @@
 define(['_marklogic/module'], function (module) {
 
   /**
-   * @ngdoc service
+   * @ngdoc domain
    * @name mlSearch
    * @requires mlModelBase
    * @requires mlSchema
    *
    * @description
-   * An mlModel element that represents a MarkLogic search. Has both criteria
-   * and results. It is posted to effect the search based on the criteria.
+   * Represents a MarkLogic search. It houses both the
+   * criteria used in the search and, once posted, the results of the search.
+   * Implements generalized MarkLogic search for the the browser (as
+   * {@link MlSearchObject}).
    *
-   * @example
-   *  <example module="mlSearchExample">
-   *    <file name="search.js">
-   *      angular.module('mlSearchExample', ['marklogic'])
-   *        .controller('ExxampleController', [
-   *          '$scope', 'mlSearch',
-   *          function ($scope, mlSearch) {
-   *            var search = mlSearch.create({
-   *              criteria: {
-   *                q: '"red flag"'
-   *              }
-   *            });
-   *            search.post().$ml.waiting.then(
-   *              function () {
-   *                console.log('there are ' + search.results.count +
-   *                    'items in the results!'
-   *                );
-   *              },
-   *              handleError
-   *            );
-   *          }
-   *        ]);
-   *    </file>
-   *  </example>
+   * `mlSearch` is a derivation of {@link mlModelBase}, customized to:
+   *
+   * - determine validity of search criteria;
+   * - aid in mapping between URL parameters and search criteria;
+   * - aid in handling configuring and operating the paging and and sorting
+   * of searches;
+   * - handle the POSTing and processing of responses into a unified object;
+   * - configure and execute faceted searches and "shadow queries".
+   *
+   * The schema of an mlSearch is very similar to a combination of the inputs
+   * and outputs of the MarkLogic REST
+   * API, but is customized to clarify the distinction between inputs and
+   * outputs, and to ease handling within a dynamic web application.
+   *
+   * In Samplestack, mlSearch itself is customized by {@link ssSearch}.
+   *
+   * Instances are generated using the `create` method of {@link mlSearch},
+   * which optionally takes an object which can be used to set the initial
+   * configuration for the search.
+   *
+   * Please use the "View Source" link to see the source code for the
+   * full schema of mlSearch instances.
+   *
+   * For **HTTP support**, mlSearch implements **only** the POST method.
+   *
+   * When posted, a copy of the criteria property is transformed to
+   * standard MarkLogic REST API form and posted to the server at the search
+   * endpoint.
+   *
+   * When the response is received, it is transofrmed to the runtime form
+   * and stored in the `results` property, where metadata about the search,
+   * results items themselves, and facet calculation results are available.
+   *
+   * If any facets are configured with **shadows**, then shadow facets are
+   * calculated, and  results
+   * are combined
+   * into the main facet results so that they may accessed together.
+   *
+   * *Example:*
+   *
+   * ```javascript
+   * angular.module('mlSearchExample', ['marklogic'])
+   *   .controller('ExampleController', [
+   *     '$scope', 'mlSearch',
+   *     function ($scope, mlSearch) {
+   *       // create an instance of mlSearch, passing in the configuration
+   *       // (note that after creation, the properties of the search may be
+   *       // subsequently modified, too)
+   *       var search = mlSearch.create({
+   *         criteria: {
+   *           // search for this text
+   *           q: '"red flag"',
+   *           // results beginning at 11th item
+   *           start: 11,
+   *           // results ending at 20th item
+   *           limit: 20,
+   *           // only include results where someCustomCritera === true
+   *           constraints: {
+   *             someCustomCriteria: {
+   *               type: 'boolean',
+   *               value: true
+   *             },
+   *             myFacetName: {
+   *               type: 'enum',
+   *               subType: 'string',
+   *               values: ['some text', 'some other text']
+   *             }
+   *           }
+   *         },
+   *         // configure that we want facet values for the `myFacetName` facet
+   *         // and that a shadow query which calculates alternate facet values
+   *         // should be included which *omits* myFacetName. This gives
+   *         // context to what the results *would have* looked like without
+   *         // the applied myFacetName settings
+   *         facets: {
+   *           myFacetName: {
+   *             valuesType: 'object',
+   *             shadowConstraints: [ 'myFacetName' ]
+   *           }
+   *         }
+   *       });
+   *       search.post().$ml.waiting.then(
+   *         // success, do whatever you do when the results have been returned
+   *         function () {
+   *           console.log('there are ' + search.results.count +
+   *               'items in the results!'
+   *           );
+   *         },
+   *         // something went wrong, "handleError" is a function that deals
+   *         // with the error message
+   *         handleError
+   *       );
+   *     }
+   *   ]);
+   * ```
+   *
+   * The above would result in a POST to /v1/search that looks like:
+   *
+   * ```json
+   * {
+   *   "query":{
+   *     "qtext":"\"red flag\"",
+   *     "and-query":{
+   *       "queries":[
+   *         {
+   *           "value-constraint-query":{
+   *             "constraint-name":"constrName",
+   *             "boolean":true
+   *           }
+   *         },
+   *         {
+   *           "range-constraint-query":{
+   *             "constraint-name":"facetName",
+   *             "value":"some text"
+   *           }
+   *         },
+   *         {
+   *           "range-constraint-query":{
+   *             "constraint-name":"facetName",
+   *             "value":"some other text"
+   *           }
+   *         }
+   *       ]
+   *     }
+   *   },
+   *   "start":11
+   * }
+   * ```
+   *
    */
   module.factory('mlSearch', [
 
@@ -163,6 +270,27 @@ define(['_marklogic/module'], function (module) {
         };
       };
 
+
+      /**
+       * @ngdoc type
+       * @name MlSearchObject
+       * @description The model instance prototype for
+       * {@link mlSearch}, derived from {@link mlModelBase}.
+       *
+       */
+
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#constructor
+       * @param {object} spec Data used to populate
+       * the new instance.
+       * @description Constructor. Creates the simplest of search specifications
+       * by creating the `criteria` property with an empty `q` (query string)
+       * property and `constraints` property.
+       *
+       * Application-specific derivations should override this method to
+       * configure the application's search feature(s).
+       */
       var MlSearchObject = function (spec) {
         spec = mlUtil.merge({
           criteria: {
@@ -172,7 +300,10 @@ define(['_marklogic/module'], function (module) {
         }, spec);
         mlModelBase.object.call(this, spec);
       };
+
       MlSearchObject.prototype = Object.create(mlModelBase.object.prototype);
+
+
       Object.defineProperty(MlSearchObject.prototype, '$mlSpec', {
         value: {
           schema: mlSchema.addSchema({
@@ -205,6 +336,22 @@ define(['_marklogic/module'], function (module) {
       MlSearchObject.prototype.put = throwMethod('PUT'),
       MlSearchObject.prototype.del = throwMethod('DELETE'),
       MlSearchObject.prototype.getOne = throwMethod('GET'),
+
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.onResponsePOST
+       * @param {object} data Response from the server.
+       * @description Override arranges key properties of the search results
+       * in order to simplify their usage in the browser.
+       *
+       * Moves facet values from the facetValues subproperty up into the
+       * `results.facets object.
+       *
+       * If a facet is configured to keep its results as an object, converts
+       * the array to an object.
+       *
+       * Initializes `$ml.pagingInfo` helper properties.
+       */
       MlSearchObject.prototype.onResponsePOST = function (data) {
         var self = this;
 
@@ -232,6 +379,15 @@ define(['_marklogic/module'], function (module) {
         this.$ml.pagingInfo = getPageCalcs(this);
       };
 
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.getMlConstraint
+       * @param {object} constraint Browser-side constraint object.
+       * @description Based on the browser-side object,
+       * create the constraint object that will be passsed to the server when
+       * POSTing
+       * a search.
+       */
       MlSearchObject.prototype.getMlConstraint = function (constraint) {
         var synt = [];
         var self = this;
@@ -296,7 +452,15 @@ define(['_marklogic/module'], function (module) {
       };
 
 
-      MlSearchObject.prototype.getHttpDataPOST = function (httpMethod) {
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.getHttpDataPOST
+       * @description Override. Based on browser-side format of search,
+       * constructs a version of the criteria that will be POSTed to the
+       * server.
+       * @returns {Object} server-interpretable search specification.
+       */
+      MlSearchObject.prototype.getHttpDataPOST = function () {
         var myCriteria = angular.copy(this.criteria);
         var self = this;
 
@@ -327,6 +491,16 @@ define(['_marklogic/module'], function (module) {
         return criteriaToPost;
       };
 
+
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.stateParamFromConstraint
+       * @param {object} constraint a constraint object.
+       * @description Based on the constraint object, determine the state
+       * parameter for routing along with its value.
+       * @returns {Object} A plain object containing the found state parameter
+       * and its value.
+       */
       MlSearchObject.prototype.stateParamFromConstraint = function (
         constraint
       ) {
@@ -371,6 +545,15 @@ define(['_marklogic/module'], function (module) {
         return param;
       };
 
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.getStateParams
+       * @param {object} oldParams Parameters currently active for the state
+       * @description Based on the search criteria and
+       * existing parameters, return an object
+       * representing routing state parameters.constraint object.
+       * @returns {Object} new parameters.
+       */
       MlSearchObject.prototype.getStateParams = function (oldParams) {
         var self = this;
         var params = {};
@@ -387,6 +570,15 @@ define(['_marklogic/module'], function (module) {
         return params;
       };
 
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.constraintFromStateParam
+       * @param {object} constraint a search constraint for which
+       * to find a value in stateParams
+       * @param {object} stateParams state params
+       * @description Based on the state params, assign value to the specified
+       * constraint
+       */
       MlSearchObject.prototype.constraintFromStateParam = function (
         constraint,
         stateParams
@@ -435,6 +627,13 @@ define(['_marklogic/module'], function (module) {
         }
       };
 
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.assignStateParams
+       * @param {object} stateParams full set of state parameters
+       * @description Based on the state params, assign as relevant
+       * search configured values.
+       */
       MlSearchObject.prototype.assignStateParams = function (stateParams) {
         var params = {};
         var self = this;
@@ -456,6 +655,15 @@ define(['_marklogic/module'], function (module) {
         this.testValidity();
       };
 
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.setCurrentPage
+       * @param {integer} pageNum page number to make current in search
+       * config.
+       * @description If a valid page number assign start to cause search
+       * to begin at the correct results item.
+       * @returns {boolean} Whether or not the page number is valid
+       */
       MlSearchObject.prototype.setCurrentPage = function (pageNum) {
         this.$ml.pagingInfo = getPageCalcs(this);
         if (pageNum > 0) {
@@ -467,6 +675,8 @@ define(['_marklogic/module'], function (module) {
           return false;
         }
       };
+
+      //TODO document these functions
 
       MlSearchObject.prototype.incrementPage = function (increment) {
         var newPage = this.getCurrentPage() + increment;
@@ -563,9 +773,15 @@ define(['_marklogic/module'], function (module) {
         return shadowSearches;
       };
 
+      /**
+       * @ngdoc method
+       * @name MlSearchObject#prototype.shadowSearch
+       * @description Use facet configuration to execute both the main search
+       * and any shadow queries that are required.
+       * @returns {angular.Promise} promise to be resolved when all search
+       * results have been returned and processed.
+       */
       MlSearchObject.prototype.shadowSearch = function (
-        shadowSpecs,
-        service
       ) {
         var self = this;
         var deferred = $q.defer();

@@ -1,14 +1,18 @@
 define(['app/module'], function (module) {
 
   /**
-   * @ngdoc service
+   * @ngdoc domain
    * @name ssSearch
    * @requires mlModelBase
    * @requires mlSchema
    * @requires mlSearch
    *
    * @description
-   * TBD
+   * Implements search for the Samplestack application (as
+   * {@link SsSearchObject}).
+   *
+   * `ssSearch` is a derivation of {@link mlSearch},
+   * customized for the specifics of Samplestack.
    *
    */
 
@@ -21,6 +25,22 @@ define(['app/module'], function (module) {
 
       var mlSearchObj = mlSearch.object;
 
+      /**
+       * @ngdoc type
+       * @name SsSearchObject
+       * @description The model instance prototype for
+       * {@link ssSearch}, derived from {@link MlSearchObject}.
+       */
+
+      /**
+       * @ngdoc method
+       * @name SsContributorObject#constructor
+       * @param {object} spec Data used to populate
+       * the new instance.
+       * @description Constructor. Creates the basic structure of a search,
+       * including the definitions for search criteria and facets, and
+       * sets the pageLength for search results.
+       */
       var SsSearchObject = function (spec) {
         spec = mlUtil.merge(
           {
@@ -152,6 +172,24 @@ define(['app/module'], function (module) {
 
       SsSearchObject.prototype.$mlSpec.serviceName = 'ssSearch';
 
+
+      /**
+       * @ngdoc method
+       * @name SsSearchObject#prototype.onHttpResponsePOST
+       * @param {object} data Data from the call to the server.
+       * @description Override. Simplifies and
+       * adapts the search results for the browser.
+       *
+       * Renames facet reusults for clarity.
+       *
+       * Tweaks answer objects for consistency.
+       *
+       * Calculated docScore.
+       *
+       * <p style="color: red">
+       * This method can be simplified when seed data are improved.
+       * </p>
+       */
       SsSearchObject.prototype.onResponsePOST = function (data) {
         // do some renaming
         data.facets.tags = data.facets.tag;

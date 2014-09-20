@@ -31,11 +31,9 @@ define(['_marklogic/module'], function (module) {
    * does not have a **non-enumerable** `$ml` property, then a
    * **non-enumerable** one is created for tracking purposes.
    *
-   * The example below is taken from {@link mlModelBase}.
+   * This example below is taken from {@link mlModelBase}.
    *
-   * @example
-   * <example module="mlWaiterExample">
-   *   <file name="script.js">
+   * ```javascript
    *     var http = function (instance, httpMethod) {
    *       var httpConfig = instance.getHttpConfig(httpMethod);
    *       var waiter = mlWaiter.waitOn(instance);
@@ -51,8 +49,31 @@ define(['_marklogic/module'], function (module) {
    *       );
    *       return instance;
    *     };
-   *   </file>
-   * </example>
+   * ```
+   *
+   * In practice, an application will frequently use the properties managed
+   * by mlWaiter when conducting HTTP-based operations on model elements.
+   *
+   * Example:
+   *
+   * ```javascript
+   * myElement.post().$ml.waiting.then(
+   *   function () {
+   *     // the post is completed
+   *   }
+   * );
+   * ```
+   * In a template, the same property can be used to visually indicate that an
+   * http method is in progress.
+   *
+   * Example:
+   *
+   * ```html
+   * <div ng-if="$ml.waiting">
+   *   we are waiting for a round trip with the server
+   * </div>
+   * ```
+   *
    */
   module.factory('mlWaiter', [
     '$q',
@@ -62,7 +83,7 @@ define(['_marklogic/module'], function (module) {
         /**
          * @ngdoc method
          * @name mlWaiter#waitOn
-         * @param {object} [objectInstance] The object that is the subject of
+         * @param {object} objectInstance The object that is the subject of
          * the
          * promise.
          * @returns {angular.Deferred} to be used by the caller to signal

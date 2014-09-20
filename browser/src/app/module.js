@@ -27,7 +27,17 @@ define(
      * The `app` module is the Samplestack application module. It is an
      an implementation of a MarkLogic-based
      * AngularJS application. It depends on and uses the components of the
-     _marklogic module.
+     * _marklogic module.
+     *
+     * At present, Angular.js does not provide strong support for documenting
+     * *applications*, as opposed to libraries. As such, certain parts of the
+     * documentation for the application may seem unwieldy. We have documented
+     * controllers, dialogs and states using customized templates.
+     *
+     * The dev team has started conversations with the Angular devs on how to
+     * go about documenting these types of objects and may have early access
+     * to better methods for documentation. That said, the current
+     * implementation of the docs is expected to be adequate.
      */
     return angular.module('app', deps);
   }

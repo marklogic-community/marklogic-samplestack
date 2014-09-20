@@ -1,14 +1,28 @@
 define(['_marklogic/module'], function (module) {
 
   /**
-   * @ngdoc service
+   * @ngdoc domain
    * @name mlSession
    * @requires mlModelBase
    * @requires mlSchema
    *
    * @description
-   * TBD
+   * Handles authentication and subsequent user information
+   * associated with a session with a REST server.
    *
+   * `mlSearch` is a derivation of {@link mlModelBase}, customized to
+   * handle logging into a REST server via a username
+   * and password. Its default configuration reuqires both properties to be
+   * strings of at least 5 characters.
+   *
+   * When a session is *succcessfully* posted to the REST server, the response
+   * from the server overwrites the session information that was used during the
+   * login process. As such, and in particular, **passwords** are cleared upon
+   * successful login.
+   *
+   * After login, the mlSession is considered valid if it has both an `id`
+   * property and an array of strings assigned to the `role` property, which
+   * are to represent the LDAP roles with which the user is associated.
    */
 
   module.factory('mlSession', [
@@ -49,6 +63,7 @@ define(['_marklogic/module'], function (module) {
         })
       };
 
+      //
       MlSessionObject.prototype.onResponsePOST = function (data) {
         delete this.password;
         this.assignData(data); // drops password

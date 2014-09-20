@@ -1,12 +1,13 @@
 define(['app/module'], function (module) {
 
   /**
-   * @ngdoc service
+   * @ngdoc domain
    * @name ssVote
    * @requires mlModelBase
    * @requires mlSchema
    *
    * @description
+   * TODO: This component is not yet implemented.
    */
 
   module.factory('ssVote', [

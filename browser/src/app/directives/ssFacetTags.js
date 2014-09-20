@@ -1,13 +1,52 @@
 define(['app/module'], function (module) {
 
+  /* jshint ignore:start */
+
   /**
    * @ngdoc directive
    * @name ssFacetTags
    * @restrict E
+   * @param {object} criteria The search `criteria.tags` property from {@link ssSearch}
+   * @param {object} results The search `results.facets.tags` property from {@link ssSearch}
+   * @param {object} totals The totals calculated during search
+   * @param {integer} tagsLimit The number of tags to display
    *
    * @description
-   * Directive for displaying a section of selectable tags.
+   * Renders tags facet of search results into a list, and allows the user to select
+   * tags to use a filter in search criteria.
+   *
+   * <p style="color: red">
+   * TODO: should typeahead use the full tags search that the browseTags dialog will be using? The
+   * endpoint for such a feature is not yet implemented
+   * but planned, so maybe we should do so, otherwise the typeahead is
+   * really not all that useful.
+   * </p>
+   *
+   * Displays a typeahead box from which the user may select tags.
+   *
+   * Listens for `newResults` event to trigger popuplation of results.
+   *
+   * When the user selects or unselects a tag, moves the tag between the selected and unselected lists
+   * and emits `criteriaChange` event so that the search may be
+   * updated.
+   *
+   * ## `scope` properties/methods:
+   *
+   * | Variable  | Type | Details |
+   * |--|--|--|
+   * | `selected`  | {@type string}  | Used by typeahead to communicate user selection back to the directive |
+   * | `sort` | {@type Array.<string>} |  Used by the repeater that lists tags. Ordered list of column names by which to sort results (descending by count). |
+   * | `selTags` | {@type Array.<string>} | Selected tags. |
+   * | `unselTags` | {@type Array.<string>} | Unselected tags. |
+   * | `selectTag` | {@type function(string)}  | Select an unselectd tag. |
+   * | `unSelectTag` | {@type function(string)}  | Unselect a selectd tag. |
+   * | `selectTagTypeahead` | {@type function(object, object, strubg)} | Fired by typeahead when user selects from the dropdown. |
+   * | `toArray` | {@type function(object)}  | Return array version of the tags facet values. Used by the repeater. |
+   * | `haveSelectedTags` | {@type function()} | Returns true if there are selected tags. Determines layout of the lists. |
    */
+
+  /* jshint ignore:end */
+
   module.directive('ssFacetTags', function () {
     return {
       restrict: 'E',

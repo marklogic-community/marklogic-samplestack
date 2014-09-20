@@ -4,10 +4,13 @@ define(['app/module'], function (module) {
    * @ngdoc directive
    * @name ssQnaDocMetadata
    * @restrict E
-   *
    * @description
-   * Directive for displaying metadata in QnA document view.
+   * Directive for displaying metadata in QnA document view. Provides helper
+   * functions used to generate the UI element content.
+   *
+   * <p style="color: red">complete me with scope vars</p>
    */
+
   module.directive('ssQnaDocMetadata', [
 
     '$parse',

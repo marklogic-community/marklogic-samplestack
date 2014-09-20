@@ -2,12 +2,13 @@ define(['app/module'], function (module) {
 
   /**
    * @ngdoc directive
-   * @name ssSearchResult;
+   * @name ssSearchResult
    * @restrict E
    *
    * @description
    * Directive for displaying a search result from a set of results.
    *
+   * The view binds to various properties of the `$scope.item` property.
    */
 
   module.directive('ssSearchResult', [

@@ -31,6 +31,90 @@ define([
         );
       });
 
+      // it('should work with the example in the docs', function () {
+      //
+      //   var search = mlSearch.create({
+      //     criteria: {
+      //       // search for this text
+      //       q: '"red flag"',
+      //       // results beginning at 11th item
+      //       start: 11,
+      //       // results ending at 20th item
+      //       limit: 20,
+      //       // only include results where someCustomCritera === true
+      //       constraints: {
+      //         someCustomCriteria: {
+      //           constraintName: 'constrName',
+      //           constraintType: 'value',
+      //           type: 'boolean',
+      //           queryStringName: 'constr-name',
+      //           value: true
+      //         },
+      //         myFacetName: {
+      //           constraintName: 'facetName',
+      //           constraintType: 'range',
+      //           type: 'enum',
+      //           subType: 'value',
+      //           queryStringName: 'facet-name',
+      //           facetValuesType: 'object',
+      //           values: ['some text', 'some other text']
+      //         }
+      //       }
+      //     },
+      //     // configure that we want facet values for the `myFacetName` facet
+      //     // and that a shadow query which calculates alternate facet values
+      //     // should be included which *omits* myFacetName. This gives
+      //     // context to what the results *would have* looked like without
+      //     // the applied myFacetName settings
+      //     facets: {
+      //       myFacetName: {
+      //         valuesType: 'object',
+      //         shadowConstraints: [ 'facetName' ]
+      //       }
+      //     }
+      //   });
+      //
+      //   helper.setExpectCsrf($httpBackend);
+      //   /* jshint ignore:start */
+      //   $httpBackend.expectPOST('/v1/search', {
+      //     "query":{
+      //       "qtext":"\"red flag\"",
+      //       "and-query":{
+      //         "queries":[
+      //           {
+      //             "value-constraint-query":{
+      //               "constraint-name":"constrName",
+      //               "boolean":true
+      //             }
+      //           },
+      //           {
+      //             "range-constraint-query":{
+      //               "constraint-name":"facetName",
+      //               "value":"some text"
+      //             }
+      //           },
+      //           {
+      //             "range-constraint-query":{
+      //               "constraint-name":"facetName",
+      //               "value":"some other text"
+      //             }
+      //           }
+      //         ]
+      //       }
+      //     },
+      //     "start": 11
+      //   }).respond(200);
+      //   /* jshint ignore:end */
+      //
+      //   search.post().$ml.waiting.then(
+      //     function () {
+      //       angular.noop();
+      //       assert(true);
+      //     }
+      //   );
+      //   $httpBackend.flush();
+      // });
+
       it('should be valid for a simple a text query', function () {
         var s = mlSearch.create({
           criteria: { q: 'testy' }

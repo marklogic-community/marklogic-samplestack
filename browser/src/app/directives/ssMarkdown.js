@@ -6,11 +6,15 @@ define([
    * @ngdoc directive
    * @name ssMarkdown
    * @restrict A
-   * @element ANY
+   * @param {string} ssMarkdown Name of the scope property to which
+   * to
+   * bind.
    *
    * @description
-   * TBD
+   * Wraps an instance of
+   * [angular-marked](https://://github.com/Hypercubed/angular-marked).
    */
+
   module.directive('ssMarkdown', [function () {
     return {
       restrict: 'A',
