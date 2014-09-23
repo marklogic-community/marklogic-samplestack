@@ -21,15 +21,16 @@ public class MarkLogicInitTask extends MarkLogicTask {
         restBoot()
     }
 
-	private void delayUntil(Date ts) {
-		Date now = new Date();
-		if (now > ts) {
-			return;
-		}
-		else {
-			Thread.sleep(5000);
-			logger.warn("Waiting for server restart at " + ts);
-			delayUntil(ts);
+	private void delay() {
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/timestamp")
+        def params = [:]
+        client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
+        try {
+			Thread.sleep(1000)
+            client.get(params)
+        } catch (ex) {
+			logger.warn("Waiting for server restart...");
+            delay();
 		}
 	}
 	
@@ -40,9 +41,8 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = "{}"
         try {
             def response = client.post(params)
-			logger.warn(response);
-            logger.warn("MarkLogic initialized.  Waiting for server restart.")
-            delayUntil(new Date()); // TODO look for timestamp
+            logger.warn("MarkLogic initialized.")
+            delay()
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
@@ -61,8 +61,8 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }', config.marklogic.admin.user, config.marklogic.admin.password)
         try {
             client.post(params)
-            logger.warn("MarkLogic admin secured.  Waiting for server restart.")
-            Thread.sleep(5000)
+            logger.warn("MarkLogic admin secured.")
+            delay()
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
