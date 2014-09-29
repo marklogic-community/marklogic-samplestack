@@ -41,7 +41,7 @@ include '**/*.nt'}
         def numWritten = 0
         def writeSet = docMgr.newWriteSet()
         def acceptedPermissionMetadata = new DocumentMetadataHandle().withPermission("samplestack-guest", Capability.READ)
-        def pojoCollectionMetadata = new DocumentMetadataHandle().withCollections("com.marklogic.samplestack.domain.Contributor")
+        def pojoCollectionMetadata = new DocumentMetadataHandle().withCollections("com.marklogic.samplestack.domain.Contributor").withPermission("samplestack-guest", Capability.READ)
         jsonFiles.each { 
             def pattern = Pattern.compile(".*" + "seed-data")
             def docUri = it.path.replaceAll(pattern, "").replaceAll("\\\\", "/")
@@ -61,7 +61,7 @@ include '**/*.nt'}
                 if (it.text.contains("acceptedAnswerId")) {
                     writeSet.add(docUri, acceptedPermissionMetadata, bh)
                 } else if (it.text.contains("domain.Contributor")) {
-                    writeSet.add(docUri, pojoCollectionMetadata, bh)
+                    writeSet.add(docUri.replaceAll("^\\/",""), pojoCollectionMetadata, bh)
                 } else {
                     writeSet.add(docUri, bh)
                 }

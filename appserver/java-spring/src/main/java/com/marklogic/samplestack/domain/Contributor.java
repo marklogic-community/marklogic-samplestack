@@ -27,6 +27,7 @@ import com.marklogic.client.pojo.annotation.Id;
  * <pre>
  *   {
  *       "id": "1070312",
+ *       "originalId":"1070321",
  *       "reputation": "1",
  *       "displayName": "grechaw",
  *       "aboutMe": "This is my user record",
@@ -54,6 +55,11 @@ public class Contributor {
 	 */
 	public String id;
 
+	/**
+	 * The id from the original record, if imported from
+	 * another system.
+	 */
+	public String originalId;
 
 	/** The location of the user, as a String */
 	private String location;
@@ -164,5 +170,15 @@ public class Contributor {
 	public void setWebsiteUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
 	}
+
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+
 
 }
