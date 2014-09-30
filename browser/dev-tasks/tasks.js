@@ -57,6 +57,11 @@ var unitSrcDir = path.join(h.rootDir, h.unitSrc);
 var bootstrapDir =
     'bower_components/bootstrap-sass-official/assets/stylesheets';
 
+var options = {
+  appPort: 4000,
+  unitPort: 4001,
+  coveragePort: 4004
+}
 
 /**************************
 stuff about dealing with
@@ -549,7 +554,7 @@ function startIstanbulServer (testerPath, port) {
 }
 
 function runTests (opts, cb) {
-  startIstanbulServer(h.targets.unit, 3004);
+  startIstanbulServer(h.targets.unit, options.coveragePort);
   var myOpts = opts || {};
   myOpts.silent = true;
   var stream = $.mochaPhantomjs(myOpts);
@@ -559,7 +564,7 @@ function runTests (opts, cb) {
   process.stdout.write('\u001b[1;3H' + chalk.blue('\nUnit Tests:'));
   stream.on('error', cb);
   stream.on('end', cb);
-  stream.write({path: 'http://localhost:3004/unit-runner.html'});
+  stream.write({path: 'http://localhost:' + options.coveragePort + '/unit-runner.html'});
   stream.end();
 }
 
@@ -588,13 +593,13 @@ function writeRunMenu () {
 
   message = '\n\n' + ten +
       '--> ' + chalk.magenta('BUILD server') + ' : ' +
-      chalk.bold.blue('http://localhost:3000') +
+      chalk.bold.blue('http://localhost:' + options.appPort) +
       '\n' + ten +
       '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
-      chalk.bold.blue('http://localhost:3001/unit-runner.html') +
+      chalk.bold.blue('http://localhost:' + options.unitPort + '/unit-runner.html') +
       '\n' + ten +
       '--> ' + chalk.magenta('COVERAGE') + '   : ' +
-      chalk.bold.blue('http://localhost:3004/coverage') +
+      chalk.bold.blue('http://localhost:' + options.coveragePort + '/coverage') +
       '\n';
   process.stdout.write(message);
 }
@@ -605,13 +610,13 @@ function writeWatchMenu () {
 
   message = '\n' + ten +
       '--> ' + chalk.magenta('BUILD') + '        : ' +
-      chalk.bold.blue('http://localhost:3000') +
+      chalk.bold.blue('http://localhost:' + options.appPort) +
       '\n' + ten +
       '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
-      chalk.bold.blue('http://localhost:3001/unit-runner.html') +
+      chalk.bold.blue('http://localhost:' + options.unitPort + '/unit-runner.html') +
       '\n' + ten +
       '--> ' + chalk.magenta('COVERAGE') + '     : ' +
-      chalk.bold.blue('http://localhost:3004/coverage') +
+      chalk.bold.blue('http://localhost:' + options.coveragePort + '/coverage') +
       '\n' + ten +
       'watching for ' + chalk.green('changes') + ' to the ' +
       chalk.red.italic.dim('src') + ' and ' +
@@ -623,9 +628,9 @@ function writeWatchMenu () {
 tasks['run'] = {
   deps: ['build', 'unit'],
   func: function (cb) {
-    startServer(h.targets.build, 3000);
-    startServer(h.targets.unit, 3001);
-    startIstanbulServer(h.targets.unit, 3004);
+    startServer(h.targets.build, options.appPort);
+    startServer(h.targets.unit, options.unitPort);
+    startIstanbulServer(h.targets.unit, options.coveragePort);
     cb();
     writeRunMenu();
   }
@@ -689,9 +694,9 @@ function lrManualSetup (port, cb) {
 tasks.default = tasks['watch'] = {
   deps: ['watchCalled', 'build', 'unit'],
   func: function (cb) {
-    startServer(h.targets.build, 3000);
-    startServer(h.targets.unit, 3001);
-    startIstanbulServer(h.targets.unit, 3004);
+    startServer(h.targets.build, options.appPort);
+    startServer(h.targets.unit, options.unitPort);
+    startIstanbulServer(h.targets.unit, options.coveragePort);
     amWatching = true;
 
     var lrChanger;
