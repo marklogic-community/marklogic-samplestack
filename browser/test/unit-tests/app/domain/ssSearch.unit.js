@@ -32,7 +32,7 @@ define([
           '/v1/search',
           {
             query: {
-              qtext: '',
+              qtext: ['', 'sort:relevance'],
               'and-query': {
                 queries: [ {
                   'range-constraint-query': {
@@ -52,7 +52,7 @@ define([
         assert(true);
       });
 
-      it('should be produce a query for "resolved"', function () {
+      it('should produce a query for "resolved"', function () {
         var self = this;
         var s = ssSearch.create({
           criteria: { constraints: { resolved: {
@@ -63,7 +63,7 @@ define([
           '/v1/search',
           {
             query: {
-              qtext: '',
+              qtext: ['', 'sort:relevance'],
               'and-query': {
                 queries: [ {
                   'value-constraint-query': {
