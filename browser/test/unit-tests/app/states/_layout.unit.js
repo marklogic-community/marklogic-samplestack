@@ -45,7 +45,7 @@ define([
           ctlr = $controller(
             'layoutCtlr', {
               $scope: scope,
-              authRestored: {}
+              appInitialized: {}
             }
           );
           $httpBackend.flush();

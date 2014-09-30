@@ -70,14 +70,6 @@ define([
         contributorDialogStub.calledOnce.should.be.true;
       });
 
-      it('should do its initialization routine', function () {
-        $rootScope.initializing.should.be.ok;
-        scope.$apply();
-        deferredRestore.resolve();
-        $timeout.flush();
-        $rootScope.should.not.have.property('initializing');
-        $rootScope.initialized.should.be.true;
-      });
     });
 
   };
