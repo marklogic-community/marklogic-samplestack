@@ -31,19 +31,11 @@
         }
       },
       {
-        "name":"lastActivity",
+        "name":"date",
         "range":{
           "type":"xs:dateTime",
           "facet":"false",
           "json-property":"lastActivityDate"
-        }
-      },
-      {
-        "name":"date",
-        "range":{
-          "type":"xs:string",
-          "facet":"true",
-          "json-property":"creationYearMonth"
         }
       },
       {

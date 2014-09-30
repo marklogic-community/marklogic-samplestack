@@ -1,8 +1,6 @@
 package com.marklogic.samplestack.domain;
 
-import static com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
-
-import java.util.Date;
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -23,43 +21,91 @@ import com.marklogic.samplestack.impl.CustomObjectMapper;
  */
 public class DateFacetBuilder {
 	
+	/** This interval is used for calculations to make buckets */
+	public enum BucketInterval { 
+		BY_DAY,
+		BY_WEEK,
+		BY_MONTH;
+
+		/** returns (approximate) the bucket duration in milliseconds */
+		public long bucketDuration() {
+			if (this == BY_DAY) {
+				return 1000 * 60 * 60 * 24;
+			}
+			else if (this == BY_WEEK) {
+				return 1000 * 60 * 60 * 24 * 7;
+			}
+			else {
+				// by month
+				return 1000 * 60 * 60 * 24 * 30;
+			}
+		}
+	};
+
 	private ObjectNode facetNode;
-	private ObjectNode constaintNode;
+	private ObjectNode constraintNode;
 	private ArrayNode bucketNode;
 	
 	public DateFacetBuilder(ObjectMapper mapper) {
 		this.facetNode = mapper.createObjectNode();
-		this.constaintNode = facetNode.putObject("constraint");
-		this.constaintNode.put("type", "xs:dateTime");
-		this.constaintNode.put("facet", true);
-		this.bucketNode = constaintNode.putArray("bucket");
+		this.constraintNode = facetNode.putObject("constraint");
+		ObjectNode rangeNode = this.constraintNode.putObject("range");
+		rangeNode.put("type", "xs:dateTime");
+		rangeNode.put("facet", true);
+		rangeNode.put("json-property", "lastActivityDate");
+		this.bucketNode = rangeNode.putArray("bucket");
 	}
-	
+
 	private DateFacetBuilder name(String name) {
-		this.constaintNode.put("name", name);
+		this.constraintNode.put("name", name);
 		return this;
 	}
 
-	private DateFacetBuilder bucket(Date ge, Date lt, String name, String label) {
+	private DateFacetBuilder bucket(DateTime ge, DateTime lt, String name, String label) {
 		ObjectNode thisBucket = this.bucketNode.addObject();
-		thisBucket.put("ge", ISO8601Formatter.format(ge));
-		thisBucket.put("lt", ISO8601Formatter.format(lt));
+		thisBucket.put("ge", ge.toString());
+		thisBucket.put("lt", lt.toString());
 		thisBucket.put("name", name);
 		thisBucket.put("label", label);
 		return this;
 	}
 	
-	public static ObjectNode dateFacet(int nBuckets, Date min, Date max) {
+	public static ObjectNode dateFacet(DateTime min, DateTime max) {
 		DateFacetBuilder fb = new DateFacetBuilder(new CustomObjectMapper());
-		long interval = max.getTime() - min.getTime();
-		long bucketSize = interval / nBuckets;
-		int i = 0;
-		for (long dateInterval = min.getTime(); dateInterval < max.getTime(); dateInterval += bucketSize, i++) {
-			Date lower = new Date(dateInterval);
-			Date upper = new Date(dateInterval + bucketSize);
-			String label = ISO8601Formatter.format(lower) + "-" + ISO8601Formatter.format(upper);
-			fb.name("lastActivityDate").bucket(lower, upper, Integer.toString(i), label);
+		fb.name("date");
+		long interval = max.getMillis() - min.getMillis();
+		if (interval / BucketInterval.BY_DAY.bucketDuration() < 40) {
+			DateTime bucketStart = min.minus(min.getMillisOfDay());
+			while (bucketStart.isBefore(max)) {
+				DateTime bucketEnd = bucketStart.plusDays(1);
+				String name = bucketStart.toString();
+				String label = bucketStart.toString("yyyy-MM-dd");
+				fb.bucket(bucketStart, bucketEnd, name, label);
+				bucketStart = bucketStart.plusDays(1);
+			}
 		}
+		else if (interval / BucketInterval.BY_WEEK.bucketDuration() < 40) {
+			DateTime bucketStart = min.minusDays(min.getDayOfWeek()).minus(min.getMillisOfDay());
+			while (bucketStart.isBefore(max)) {
+				DateTime bucketEnd = bucketStart.plusWeeks(1);
+				String name = bucketStart.toString();
+
+				String label = bucketStart.toString("yyyy-ww");
+				fb.bucket(bucketStart, bucketEnd, name, label);
+				bucketStart = bucketStart.plusWeeks(1);
+			}
+		} else {
+			DateTime bucketStart = min.minusDays(min.getDayOfMonth()).minus(min.getMillisOfDay());
+			while (bucketStart.isBefore(max)) {
+				DateTime bucketEnd = bucketStart.plusMonths(1);
+				String name = bucketStart.toString();
+				String label = bucketStart.toString("yyyy-MM");
+				fb.bucket(bucketStart, bucketEnd, name, label);
+				bucketStart = bucketStart.plusMonths(1);
+			}
+		}
+		
+		
 		return fb.facetNode;
 	}
 }

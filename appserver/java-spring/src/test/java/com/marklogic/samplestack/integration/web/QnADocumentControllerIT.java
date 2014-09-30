@@ -47,9 +47,9 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 	@Before
 	public void setupUsers() {
 		contributorService.delete(Utils.joeUser.getId());
-		contributorService.delete(Utils.maryUser.getId());	
+		contributorService.delete(Utils.maryAdmin.getId());	
 		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryUser);
+		contributorService.store(Utils.maryAdmin);
 	}
 	
 	

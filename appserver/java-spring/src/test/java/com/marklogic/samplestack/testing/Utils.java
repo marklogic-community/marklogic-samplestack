@@ -52,7 +52,7 @@ public class Utils {
 	}
 	
 
-	public static Contributor maryUser;
+	public static Contributor maryAdmin;
 	public static Contributor joeUser;
 
 	static {
@@ -62,10 +62,10 @@ public class Utils {
 
 		joeUser.setId(JoesUUID);
 
-		maryUser = Utils.getBasicUser();
-		maryUser.setDisplayName("maryUser");
-		maryUser.setUserName("maryAdmin@marklogic.com");
-		maryUser.setId(MarysUUID);
+		maryAdmin = Utils.getBasicUser();
+		maryAdmin.setDisplayName("maryUser");
+		maryAdmin.setUserName("maryAdmin@marklogic.com");
+		maryAdmin.setId(MarysUUID);
 	}
 
 	public static InitialQuestion newQuestion() {

@@ -18,8 +18,9 @@ package com.marklogic.samplestack.database;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -44,7 +45,7 @@ public class DocumentSecurityIT extends MarkLogicIntegrationIT {
 
 	private static final String TEST_URI = "/test/security.json";
 	
-	@Before
+	@PostConstruct
 	public void setup() {
 		// write a document using writer connection.
 		content = mapper.createObjectNode();
@@ -54,7 +55,7 @@ public class DocumentSecurityIT extends MarkLogicIntegrationIT {
 		contribManager.write(TEST_URI, new JacksonHandle(content));
 	}
 	
-	@After
+	@PreDestroy
 	public void tearDown() {
 		contribManager.delete(TEST_URI);
 	}

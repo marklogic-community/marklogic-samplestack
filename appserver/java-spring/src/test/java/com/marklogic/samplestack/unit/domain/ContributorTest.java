@@ -46,7 +46,7 @@ public class ContributorTest {
 	@Before
 	public void init() throws JsonParseException, JsonMappingException, IOException {
 		joe = Utils.joeUser;
-		mary = Utils.maryUser;
+		mary = Utils.maryAdmin;
 	}
 	
 	@Test

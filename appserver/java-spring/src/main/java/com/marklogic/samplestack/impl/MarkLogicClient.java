@@ -18,8 +18,10 @@ package com.marklogic.samplestack.impl;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
 
+import java.util.Date;
 import java.util.HashMap;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +33,7 @@ import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
@@ -205,5 +208,20 @@ public class MarkLogicClient implements MarkLogicOperations {
 		JacksonHandle responseHandle = queryManager.values(valdef, new JacksonHandle(), start);
 		return (ObjectNode) responseHandle.get();
 	}
-
+	
+	@Override
+	public DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
+		DateTime[] dates = new DateTime[2];
+		QueryManager queryManager = getClient(role).newQueryManager();
+		ValuesDefinition valdef = queryManager.newValuesDefinition("dates");
+		valdef.setAggregate("min", "max");
+		JacksonHandle handle = new JacksonHandle();
+		handle.set(structuredQuery);
+		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, "dates");
+		valdef.setQueryDefinition(qdef);
+		ValuesHandle responseHandle = queryManager.values(valdef, new ValuesHandle());
+		dates[0] = new DateTime(responseHandle.getAggregates()[0].get("xs:dateTime", Date.class));
+		dates[1] = new DateTime(responseHandle.getAggregates()[1].get("xs:dateTime", Date.class));
+		return dates;
+	}
 }

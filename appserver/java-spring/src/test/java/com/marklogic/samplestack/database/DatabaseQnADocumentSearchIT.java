@@ -21,8 +21,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -30,7 +31,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -42,14 +42,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.FailedRequestException;
 import com.marklogic.client.ForbiddenUserException;
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.io.DocumentMetadataHandle;
-import com.marklogic.client.io.DocumentMetadataHandle.Capability;
-import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.integration.service.TestDataBuilder;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 
@@ -71,40 +68,20 @@ public class DatabaseQnADocumentSearchIT {
 	@Autowired
 	private MarkLogicOperations operations;
 
-	private void loadJson(String path, boolean withGuestPerms) throws ResourceNotFoundException,
-			ForbiddenUserException, FailedRequestException, IOException {
-		ClassPathResource resource = new ClassPathResource(path);
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		
-		DocumentMetadataHandle metadataHandle = new DocumentMetadataHandle();
-		
-		if (withGuestPerms) {
-			metadataHandle.withPermission("samplestack-guest", Capability.READ);
-		}
-		
-		docMgr.write("/" + path,
-				metadataHandle,
-				new InputStreamHandle(resource.getInputStream()));
+	private TestDataBuilder dataBuilder;
+	
+	@PostConstruct
+	public void setup() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
+		dataBuilder = new TestDataBuilder(operations, null);
+		dataBuilder.setupSearch();
 	}
-
-	@Before
-	public void setupSearch() throws ResourceNotFoundException,
-			ForbiddenUserException, FailedRequestException, IOException {
-		loadJson("questions/20864442.json", false);
-		loadJson("questions/20864445.json", true);
-		loadJson("questions/20864449.json", false);
+	
+	@PreDestroy
+	public void teardown() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
+		dataBuilder.teardownSearch();
 	}
-
-	@After
-	public void teardownSearch() throws ResourceNotFoundException,
-			ForbiddenUserException, FailedRequestException, IOException {
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		docMgr.delete("/questions/20864442.json");
-		docMgr.delete("/questions/20864445.json");
-		docMgr.delete("/questions/20864449.json");
-	}
+	
+	
 
 	@Test
 	/**
@@ -162,7 +139,7 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				query, 1, QueryView.RESULTS);
 		assertEquals("Logged-in user sees all docs", results.get("results")
-				.size(), 3);
+				.size(), 10);
 
 	}
 
@@ -194,7 +171,7 @@ public class DatabaseQnADocumentSearchIT {
 	
 	@Test
 	public void testTagValues() throws JsonProcessingException {
-		//TODO make POJO for values
+		//TODO make POJO for values?
 		ObjectNode topNode = mapper.createObjectNode();
 		ObjectNode combinedQuery = topNode.putObject("search");
 		ObjectNode queryNode = combinedQuery.putObject("query");

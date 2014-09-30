@@ -10,8 +10,8 @@
     <appender-ref ref="stdout"/>
   </root>
 
-<logger name="org.apache.directory" level="ERROR"/>
-  <logger name="com.marklogic" level="DEBUG"/>
+ <logger name="org.apache.directory" level="ERROR"/>
+ <logger name="com.marklogic" level="INFO"/>
 
 
 </configuration>

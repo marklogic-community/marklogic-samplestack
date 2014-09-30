@@ -15,7 +15,6 @@
 */
 package com.marklogic.samplestack.integration.service;
 
-import static com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -35,6 +34,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -101,7 +101,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				submittedQuestionAndAnswer.getJson().get("title").asText());
 		assertEquals(newQuestion.getTags().length,
 				submittedQuestionAndAnswer.getJson().get("tags").size());
-        
+
 		String lastActivityString = ISO8601Formatter.format(newQuestion.getLastActivityDate());
 		assertEquals(lastActivityString,
 				submittedQuestionAndAnswer.getJson().get("lastActivityDate").asText());
@@ -129,7 +129,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		// TODO somehow assert the question I just asked is in this list?
 		// Mary answers the question.
-		answeredQuestion = service.answer(Utils.maryUser,
+		answeredQuestion = service.answer(Utils.maryAdmin,
 				submittedQuestionAndAnswer.getId(),
 				"I think your question is very good.");
 
@@ -138,7 +138,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
 		
 		assertEquals("answered question has an answer",
-				Utils.maryUser.getUserName(),
+				Utils.maryAdmin.getUserName(),
 				answer.get("owner").get("userName").asText());
 		
 		assertFalse("answer has creationDate", 
@@ -216,7 +216,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		int voteCount = submitted.getJson().get("voteCount").asInt();
 
 		QnADocument answered = service
-				.answer(Utils.maryUser, submitted.getId(),
+				.answer(Utils.maryAdmin, submitted.getId(),
 						"I think your question is very good.  I want lots of votes too.");
 		String answerId = answered.getJson().get("answers").get(0).get("id")
 				.asText();
@@ -224,7 +224,9 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		
 		// vote up
 		int joesReputation = Utils.joeUser.getReputation();
-		int marysReputation = Utils.joeUser.getReputation();
+		int marysReputation = Utils.maryAdmin.getReputation();
+		int joesVotes = Utils.joeUser.getVotes().size();
+		int marysVotes = Utils.maryAdmin.getVotes().size();
 		
 		// joe votes his own question up, reputation +1 for joe.
 		service.voteUp(Utils.joeUser, submitted.getId());
@@ -248,7 +250,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		}
 
 		// mary votes her own answer down, her rep should be -1
-		service.voteDown(Utils.maryUser, answerId);
+		service.voteDown(Utils.maryAdmin, answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
 		int newerScore = votedTwiceOn.getJson().get("voteCount").asInt();
@@ -256,12 +258,12 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				newScore - 1, newerScore);
 
 		Contributor joesState = contributorRepository.read(Utils.joeUser.getId());
-		assertEquals("joe has voted once", 1, joesState.getVotes().size());
+		assertEquals("joe has voted once", joesVotes + 1, joesState.getVotes().size());
 		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
 		assertEquals("joe reputation has gained", joesReputation + 1, joesState.getReputation());
 		
-		Contributor marysState = contributorRepository.read(Utils.maryUser.getId());
-		assertEquals("mary has voted once", 1, marysState.getVotes().size());
+		Contributor marysState = contributorRepository.read(Utils.maryAdmin.getId());
+		assertEquals("mary has voted once", marysVotes + 1, marysState.getVotes().size());
 		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
 		assertEquals("marys reputation has suffered", marysReputation - 1, marysState.getReputation());
 		
@@ -276,7 +278,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		QnADocument submitted = service.ask(Utils.joeUser,
 				newQuestion);
 
-		QnADocument answered = service.answer(Utils.maryUser,
+		QnADocument answered = service.answer(Utils.maryAdmin,
 				submitted.getId(), "I think your question is very good.");
 
 		String answerId = answered.getJson().get("answers").get(0).get("id")
@@ -327,10 +329,9 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 	@Test
 	public void testDefaultSearchService() throws JsonProcessingException {
 		testComments(); // get a document in there.
-		JsonNode structuredQuery = getTestJson("queries/blank.json");
+		ObjectNode structuredQuery = getTestJson("queries/blank.json");
 		// test view-all
-		ObjectNode jsonResults = service.rawSearch(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1);
+		ObjectNode jsonResults = service.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1);
 
 		logger.info(mapper.writeValueAsString(jsonResults));
 		assertTrue("Blank query got back results", jsonResults.get("results")
@@ -342,5 +343,22 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		assertNotNull("Blank query got back tag facet",
 				jsonResults.get("facets").get("tag"));
 
+	}
+	
+	@Test
+	public void testDateFacets() throws JsonProcessingException {
+		
+		ObjectNode structuredQuery = getTestJson("queries/blank.json");
+		// test view-all
+		ObjectNode jsonResults = service.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1, true);
+		logger.info(mapper.writeValueAsString(jsonResults));
+		assertTrue("Blank query got back results", jsonResults.get("results")
+				.size() > 0);
+		assertEquals("Blank query got back facets", 2, jsonResults
+				.get("facets").size());
+		assertNotNull("Blank query got back date facet",
+				jsonResults.get("facets").get("date"));
+		assertNotNull("Blank query got back tag facet",
+				jsonResults.get("facets").get("tag"));
 	}
 }

@@ -15,6 +15,8 @@
  */
 package com.marklogic.samplestack.service;
 
+import org.joda.time.DateTime;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.Transaction;
@@ -142,4 +144,12 @@ public interface MarkLogicOperations {
 	 * @return A values response in a JSON structure.
 	 */
 	public ObjectNode tagValues(ClientRole role, JsonNode combinedQuery, long start);
+
+	/**
+	 * Get the minimum and maximum dates for a given structure query result
+	 * @param role Role to search with
+	 * @param structuredQuery a JSONNode with structured query to qualify the date range.
+	 * @return A two-element array with minimum and maximum returned date values.
+	 */
+	DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery);
 }

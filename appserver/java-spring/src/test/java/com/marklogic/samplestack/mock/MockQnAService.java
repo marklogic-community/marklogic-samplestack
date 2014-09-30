@@ -74,7 +74,7 @@ public class MockQnAService implements QnAService {
 	}
 
 	@Override
-	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery,
+	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
 			long start) {
 		return emptySearchResults;
 	}
@@ -123,6 +123,12 @@ public class MockQnAService implements QnAService {
 	@Override
 	public void deleteAll() {
 		//
+	}
+
+	@Override
+	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
+			long start, boolean includeDates) {
+		return rawSearch(role, structuredQuery, start, false);
 	}
 
 
