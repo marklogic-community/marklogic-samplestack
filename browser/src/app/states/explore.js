@@ -149,8 +149,8 @@ define(['app/module','mocks/index'], function (module,mocksIndex) {
 
             // until there is snippeting, abbreviate the body
             $scope.search.results.items.forEach(function (item) {
-              if (item.content.body && item.content.body.length > 400) {
-                item.content.body = item.content.body.substring(0,400) +
+              if (item.content.text && item.content.text.length > 400) {
+                item.content.text = item.content.text.substring(0,400) +
                     '...';
               }
             });

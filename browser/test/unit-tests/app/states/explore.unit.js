@@ -79,8 +79,8 @@ define([
 
           var expectedResults = angular.copy(mocks.searchResult);
           angular.forEach(expectedResults.items, function (item) {
-            if (item.content.body && item.content.body.length > 400) {
-              item.content.body = item.content.body.substring(0,400) +
+            if (item.content.text && item.content.text.length > 400) {
+              item.content.text = item.content.text.substring(0,400) +
                   '...';
             }
           });

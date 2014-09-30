@@ -36,7 +36,7 @@
       ></div>
     </div>
     <div class="ss-qnadoc-content">
-      <div ss-markdown="doc.body"></div>
+      <div ss-markdown="doc.txt"></div>
       <ss-qna-doc-metadata doc="doc" doc-type="question"></ss-qna-doc-metadata>
       <div class="ss-comments">
         <div ng-repeat="comment in doc.comments">
@@ -81,7 +81,7 @@
           <div class="ss-checked" ng-if="answer.id == doc.acceptedAnswerId">&nbsp;</div>
         </div>
         <div class="ss-answer ss-qnadoc-content">
-          <div ss-markdown="answer.body"></div>
+          <div ss-markdown="answer.text"></div>
           <ss-qna-doc-metadata doc="answer" doc-type="answer"></ss-qna-doc-metadata>
           <div class="ss-comments">
             <div ng-repeat="comment in answer.comments">
