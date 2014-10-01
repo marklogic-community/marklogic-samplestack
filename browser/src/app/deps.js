@@ -7,21 +7,23 @@ names.
 
 require.config({
   paths: {
-    'lodash': 'deps/lodash/dist/lodash.compat<%=min%>',
-    'angular': 'deps/angular/angular<%=min%>',
-    'ui-router': 'deps/angular-ui-router/release/angular-ui-router<%=min%>',
-    'state-helper': 'deps/angular-ui-router.stateHelper/statehelper<%=min%>',
-    'ui-bootstrap': 'deps/angular-bootstrap/ui-bootstrap-tpls<%=min%>',
-    'angular-sanitize': 'deps/angular-sanitize/angular-sanitize<%=min%>',
-    'ng-markdown': 'deps/ngMarkdown/wizMarkdown/wizMarkdown<%=min%>',
-    'marked': 'deps/marked/lib/marked<%=min%>',
-    'angular-marked': 'deps/angular-marked/angular-marked<%=min%>',
-    'jquery': 'deps/jquery/dist/jquery<%=min%>',
+    /* jshint ignore: start */
+    'lodash': 'deps/lodash/dist/lodash.compat<%=options.min%>',
+    'angular': 'deps/angular/angular<%=options.min%>',
+    'ui-router': 'deps/angular-ui-router/release/angular-ui-router<%=options.min%>',
+    'state-helper': 'deps/angular-ui-router.stateHelper/statehelper<%=options.min%>',
+    'ui-bootstrap': 'deps/angular-bootstrap/ui-bootstrap-tpls<%=options.min%>',
+    'angular-sanitize': 'deps/angular-sanitize/angular-sanitize<%=options.min%>',
+    'ng-markdown': 'deps/ngMarkdown/wizMarkdown/wizMarkdown<%=options.min%>',
+    'marked': 'deps/marked/lib/marked<%=options.min%>',
+    'angular-marked': 'deps/angular-marked/angular-marked<%=options.min%>',
+    'jquery': 'deps/jquery/dist/jquery<%=options.min%>',
     'highcharts': 'deps/highcharts/highcharts',
-    'highcharts-ng': 'deps/highcharts-ng/dist/highcharts-ng<%=min%>',
-    'highlightjs': 'deps/highlightjs/highlight.pack<%=min%>',
+    'highcharts-ng': 'deps/highcharts-ng/dist/highcharts-ng<%=options.min%>',
+    'highlightjs': 'deps/highlightjs/highlight.pack<%=options.min%>',
     'json': 'deps/requirejs-plugins/src/json',
     'text': 'deps/requirejs-plugins/lib/text'
+    /* jshint ignore: end */
   },
 
   shim: {

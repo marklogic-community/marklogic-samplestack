@@ -21,7 +21,7 @@ var helper = require('../helper');
 var $ = helper.$;
 
 var ctx = require('../context');
-var buildParams = ctx.buildParams;
+var options = ctx.options;
 var buildSteps = require('./buildSteps');
 
 var rebaser = require('../rebaser');
@@ -63,7 +63,7 @@ module.exports = function (stream) {
   ));
   srcStream = srcStream.pipe(rebaser(ctx.paths.buildDir));
 
-  srcStream = buildSteps.embedLr(srcStream);
+  srcStream = buildSteps.embedLr(srcStream, ctx.options.liveReloadPorts.webApp);
 
   var unitStream = stream;
   unitStream = unitStream.pipe($.tap(
@@ -74,8 +74,12 @@ module.exports = function (stream) {
   ));
   unitStream = unitStream.pipe(rebaser(ctx.paths.unitDir));
 
-  srcStream = buildSteps.applyTemplateParams(srcStream, buildParams.build);
-  unitStream = buildSteps.applyTemplateParams(unitStream, buildParams.unit);
+  srcStream = buildSteps.applyTemplateParams(
+    srcStream, { options: options }
+  );
+  unitStream = buildSteps.applyTemplateParams(
+    unitStream, { options: options.envs.unit }
+  );
 
   // now that files are rearranged and template parameters have been applied,
   // merge them back together

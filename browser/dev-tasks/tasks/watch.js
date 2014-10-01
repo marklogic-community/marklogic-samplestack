@@ -8,6 +8,8 @@ var ctx = require('../context');
 var helper = require('../helper');
 var $ = helper.$;
 
+var addresses = ctx.options.addresses;
+
 var runBuild = require('../build/runBuild');
 var runUnit = require('../unit/runUnit');
 
@@ -27,13 +29,13 @@ function writeWatchMenu () {
 
   message = '\n' + ten +
       '--> ' + chalk.magenta('BUILD') + '        : ' +
-      chalk.bold.blue('http://localhost:3000') +
+      chalk.bold.blue(addresses.webApp.href) +
       '\n' + ten +
       '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
-      chalk.bold.blue('http://localhost:3001/unit-runner.html') +
+      chalk.bold.blue(addresses.unitRunner.href) +
       '\n' + ten +
       '--> ' + chalk.magenta('COVERAGE') + '     : ' +
-      chalk.bold.blue('http://localhost:3004/coverage') +
+      chalk.bold.blue(addresses.unitCoverage.href) +
       '\n' + ten +
       'watching for ' + chalk.green('changes') + ' to the ' +
       chalk.red.italic.dim('src') + ' and ' +
@@ -95,14 +97,14 @@ function lrManualSetup (port, cb) {
 }
 
 var watchTaskFunc = function (cb) {
-  ctx.startServer(ctx.paths.targets.build, 3000);
-  ctx.startServer(ctx.paths.targets.unit, 3001);
-  ctx.startIstanbulServer(ctx.paths.targets.unit, 3004);
+  ctx.startServer(ctx.paths.targets.build, addresses.webApp.port);
+  ctx.startServer(ctx.paths.targets.unit, addresses.unitRunner.port);
+  ctx.startIstanbulServer(ctx.paths.targets.unit, addresses.unitCoverage.port);
   ctx.amWatching = true;
 
   var lrChanger;
   lrManualSetup(
-    35730,
+    ctx.options.liveReloadPorts.unitCoverage,
     function (changer) {
       lrChanger = changer;
     }
@@ -164,7 +166,7 @@ var watchTaskFunc = function (cb) {
   ctx.setActiveServer('watcher', watcher);
 
   lrSetup(
-    35729,
+      ctx.options.liveReloadPorts.webApp,
     path.join(ctx.paths.targets.build, '**/*'),
     'reload-build-watch',
     function (file) {

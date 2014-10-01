@@ -12,7 +12,10 @@ var ctx = require('../context');
 
 
 module.exports = function (opts, cb) {
-  ctx.startIstanbulServer(ctx.paths.targets.unit, 3004);
+  ctx.startIstanbulServer(
+    ctx.paths.targets.unit,
+    ctx.options.addresses.unitCoverage.port
+  );
   var myOpts = opts || {};
   myOpts.silent = true;
   var stream = $.mochaPhantomjs(myOpts);
@@ -22,6 +25,6 @@ module.exports = function (opts, cb) {
   process.stdout.write('\u001b[1;3H' + chalk.blue('\nUnit Tests:'));
   stream.on('error', cb);
   stream.on('end', cb);
-  stream.write({path: 'http://localhost:3004/unit-runner.html'});
+  stream.write({ path: ctx.options.addresses.unitRunnerCoverage.href });
   stream.end();
 };

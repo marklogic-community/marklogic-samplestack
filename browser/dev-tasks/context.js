@@ -12,7 +12,7 @@ var gulp = require('gulp');
 var chalk = require('chalk');
 var minimist = require('minimist');
 var helper = require('./helper');
-var buildParams = require('../buildParams');
+var options = require('../options');
 
 // make it easier to get to plugins
 var $ = helper.$;
@@ -68,7 +68,7 @@ self = module.exports = {
     }
   },
 
-  buildParams: buildParams,
+  options: options,
 
   paths:  {
     rootDir: rootDir,
@@ -138,7 +138,7 @@ self = module.exports = {
       var server = connect()
         .use('/v1/', function (req, res) {
           req.pipe(
-            request(buildParams.build.restUrl + '/v1/' + req.url)
+            request(options.addresses.appServer.href + 'v1' + req.url)
           )
           .on('error', function (err) {
             console.log(err);
@@ -146,11 +146,10 @@ self = module.exports = {
           .pipe(res);
         });
 
-      // TODO: is this conditional reasonable?
-      if (html5 && buildParams.appSettings.html5Mode) {
+      if (options.html5Mode) {
         server.use(
           require('connect-modrewrite')(
-          // if lacking a dot, redirect to index.html
+            // if lacking a dot, redirect to index.html
             ['!\\. /index.html [L]']
           )
         );
@@ -179,7 +178,7 @@ self = module.exports = {
 
       im.hookLoader(testerPath);
       app.use('/coverage', require('connect-livereload')({
-        port: 35730
+        port: options.liveReloadPorts.unitCoverage
       }));
       app.use('/coverage', im.createHandler());
       app.use(im.createClientHandler(

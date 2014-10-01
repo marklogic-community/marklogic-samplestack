@@ -7,10 +7,8 @@ define(['_marklogic/module'], function (module) {
    * @description
    * Configures CSRF handling in the {@link mlHttpInterceptor}.
    *
-   * @property {boolean=} [disableCsrf=`false`] If true, CSRF handling on
-   * requests
-   * will be suppressed and CSRF tokens on responses will be ignored.
-   * Defaults to `false` (CSRF enabled).
+   * @property {boolean=} [enableCsrf=`false`] If true, CSRF handling is enabled
+   * and the browser app will blcok until it can get a CSRF token.
    *
    * @property {string=} [endpoint="/v1/session"] Configured the endpoint
    * for requesting the CSRF token. Defaults to `'/v1/sesion'`.
@@ -23,7 +21,7 @@ define(['_marklogic/module'], function (module) {
     function () {
       var self = this;
 
-      this.disableCsrf = false;
+      this.enableCsrf = true;
       this.csrfUrl = '/v1/session';
       this.headerName = 'X-CSRF-TOKEN';
 
@@ -130,7 +128,7 @@ define(['_marklogic/module'], function (module) {
               // ensure we have $http
               $http = $http || $injector.get('$http');
 
-              if (self.disableCsrf) {
+              if (!self.enableCsrf) {
                 return config;
               }
               else {

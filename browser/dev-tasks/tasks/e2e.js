@@ -6,12 +6,16 @@ var helper = require('../helper');
 
 var winExt = /^win/.test(process.platform) ? '.cmd' : '';
 
-var seleniumParts = ctx.buildParams['e2e'].seleniumAddress.match(
-  /([^:]*):\/\/([^:]*):(.*)[\/]?$/
-);
-var seleniumProtocol = seleniumParts[1];
-var seleniumHost = seleniumParts[2];
-var seleniumPort = seleniumParts[3];
+// var seleniumParts = ctx.options.addresses.seleniumServer.match(
+//   /([^:]*):\/\/([^:]*):(.*)[\/]?$/
+// );
+// var seleniumProtocol = seleniumParts[1];
+// var seleniumHost = seleniumParts[2];
+// var seleniumPort = seleniumParts[3];
+var seleniumUrl = ctx.options.addresses.seleniumServer;
+var seleniumProtocol = seleniumUrl.protocol;
+var seleniumHost = seleniumUrl.host;
+var seleniumPort = seleniumUrl.port;
 
 var seleniumVersion;
 var seleniumJar;
@@ -113,7 +117,7 @@ myTasks.push({
 var ptorConfig = {
   stackTrace: false,
   allScriptsTimeout: 5000,
-  baseUrl: 'http://localhost:3002',
+  baseUrl: ctx.options.envs.e2e.appServer,
   rootElement: 'html',
   chromeOnly: false,
   framework: 'cucumber',
@@ -150,7 +154,10 @@ myTasks.push({
   name: 'e2e',
   deps: ['build', 'selenium-start'],
   func: function (cb) {
-    ctx.startServer(helper.targets.build, 3002);
+    ctx.startServer(
+      helper.targets.build,
+      ctx.options.util.portFromAddress(ctx.options.envs.e2e.webApp)
+    );
 
     ptorConfig.seleniumAddress = seleniumUrl;
     var Runner = require('protractor/lib/runner');

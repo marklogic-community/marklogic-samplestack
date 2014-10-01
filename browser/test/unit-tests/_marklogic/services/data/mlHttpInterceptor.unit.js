@@ -11,7 +11,7 @@ define(['testHelper'], function (helper) {
         beforeEach(function (done) {
           module('_marklogic');
           module(function (mlHttpInterceptorProvider) {
-            mlHttpInterceptorProvider.disableCsrf = true;
+            mlHttpInterceptorProvider.enableCsrf = false;
           });
           inject(
             function (_$http_, _$httpBackend_, _$q_) {

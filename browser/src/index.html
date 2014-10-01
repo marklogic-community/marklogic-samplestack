@@ -8,7 +8,7 @@
   endabled browser or other script-enabled assistive technology
   -->
   <base href="/"/>
-  <noscript><%= noscriptHtml %></noscript>
+  <noscript>This application requires Javascript. Please enable it in your browser.</noscript>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -51,7 +51,7 @@
 
 </body>
 
-<script src="/deps/requirejs/require<%=min%>.js"></script>
+<script src="/deps/requirejs/require<%=options.min%>.js"></script>
 
 <script>
 
@@ -69,7 +69,7 @@ See app/services/appRouting.js
 
 var app;
 /* jshint ignore:start */
-<% if(e2eMock) { %>
+<% if(options.e2eMock) { %>
 app = 'mockedApp.js';
 <% } else { %>
 app = 'application.js';

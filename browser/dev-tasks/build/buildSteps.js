@@ -17,7 +17,7 @@ var helper = require('../helper');
 // make it easier to get to plugins
 var $ = helper.$;
 var ctx = require('../context');
-var buildParams = ctx.buildParams;
+var options = ctx.options;
 
 var srcDir = path.join(ctx.paths.rootDir, ctx.paths.src);
 
@@ -75,25 +75,6 @@ module.exports = {
 
   sass: function (stream) {
 
-    var rubySassCheck = function () {
-      var which = require('shelljs').which;
-
-      if (!which('sass') || !which('ruby')) {
-        $.util.log('[' + chalk.cyan('build') + '] ' +
-          chalk.yellow('ruby-sass') +
-          ' configured but ' + chalk.red('ruby and/or ruby-sass not found'));
-        $.util.log('[' + chalk.cyan('build') + '] ' +
-          chalk.yellow('falling back to ') + chalk.green('node-sass-safe') +
-          ' (which does not require sass)');
-
-        buildParams.sassCompiler = 'node-sass-safe';
-        return false;
-      }
-      else {
-        return true;
-      }
-    };
-
     var importDirs =
         ['bower_components/bootstrap-sass-official/assets/stylesheets'];
 
@@ -107,78 +88,35 @@ module.exports = {
     var sassPipe;
     var sassParams;
 
-    // if the build is configured to use RUBY sass instead of NODE sass
-    if (buildParams.sassCompiler === 'ruby-sass') {
-      if (rubySassCheck()) {
+    sassParams = {
+      includePaths: importDirs,
+      onError: ctx.errorHandler
+    };
 
-        sassParams = {
-          sourcemap: true,
-          sourcemapPath: '.',
-          loadPath: importDirs
-        };
+    // BELIEVE that WINDOWS no longer bombs on source maps
+    // TODO: verify
+    // if (buildParams.sassCompiler !== 'node-sass-safe' &&
+    //     process.platform !== 'win32'
+    // ) {
+    sassParams.sourceComments = 'map';
+    sassParams.sourceMap = '';
+    // }
 
-        var sourcesPaths = [path.join(srcDir, '**/*.scss')].concat(
-          importDirs.map(function (dir) {
-            return path.join(dir, '**/*.scss');
-          })
-        );
+    sassPipe = lazypipe()
+      .pipe(helper.fs.src, path.join(srcDir, '**/*.scss'))
+      .pipe($.sass, sassParams)
+      .pipe($.tap, function (file) {
+        file.base = file.base.replace(/\/src/, '');
+      });
 
-        sassPipe = lazypipe()
-          // we grab the files from a higher base because we need to get
-          // into the bower_components directory
-          .pipe(helper.fs.src, sourcesPaths, { base: helper.rootDir })
-          .pipe($.rubySass, sassParams);
-
-        return stream.pipe(
-          // ruby-sass has some issues with error handling so the best we can
-          // do is let it report them and swallow them.  TODO: This needs to be
-          // revisited if we continue to offer ruby-sass as an option
-          $.if('**/*.scss', sassPipe().on('error', ctx.errorHandler))
-        );
-
-      }
-      else {
-        // TODO: what do we do -- throw an error?
-        throw new Error('You must fix the SASS configuration.');
-      }
-    }
-    else {
-
-      // default is NODE sass (order of magnitude faster than ruby sass,
-      // though less stable and not completely up to date, hence the ruby sass
-      // option for those who prefer or need it
-      sassParams = {
-        includePaths: importDirs,
-        onError: ctx.errorHandler
-      };
-
-      if (buildParams.sassCompiler !== 'node-sass-safe' &&
-          process.platform !== 'win32'
-      ) {
-        // TODO these params might cause node-sass to SEGFAULT on ScSS syntax
-        // errors.
-        // will be fixed when https://github.com/sass/node-sass/pull/366
-        // is merged
-        sassParams.sourceComments = 'map';
-        sassParams.sourceMap = '';
-      }
-
-      sassPipe = lazypipe()
-        .pipe(helper.fs.src, path.join(srcDir, '**/*.scss'))
-        .pipe($.sass, sassParams)
-        .pipe($.tap, function (file) {
-          file.base = file.base.replace(/\/src/, '');
-        });
-
-      return stream.pipe($.if('**/*.scss', sassPipe()));
-    }
+    return stream.pipe($.if('**/*.scss', sassPipe()));
 
   },
 
-  embedLr: function (stream) {
+  embedLr: function (stream, port) {
     return stream.pipe($.if(
       path.join(ctx.paths.buildDir, 'index.html'),
-      $.embedlr()
+      $.embedlr({ port: port })
     ));
   },
 

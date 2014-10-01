@@ -7,7 +7,7 @@ define(['app/module', 'app/components'], function (module) {
   // all components to be defined and included.
 
   //read buildParams app settings into a variable via lodash template
-  var appSettings = angular.fromJson('<%= JSON.stringify(appSettings) %>');
+  var buildOptions = angular.fromJson('<%= JSON.stringify(options) %>');
 
   module.config([
     '$provide',
@@ -45,13 +45,13 @@ define(['app/module', 'app/components'], function (module) {
       });
 
       mlAuthProvider.sessionModel = 'ssSession';
-      mlHttpInterceptorProvider.disableCsrf = appSettings.disableCsrf;
+      mlHttpInterceptorProvider.enableCsrf = buildOptions.enableCsrf;
 
       // Apply the statesHierarchy as configuration for the
       // appRoutingProvider/appRouting service.
       appRoutingProvider.configure(statesHierarchy);
 
-      if (appSettings.html5Mode === false) {
+      if (buildOptions.html5Mode === false) {
         appRoutingProvider.forceHashMode();
       }
 

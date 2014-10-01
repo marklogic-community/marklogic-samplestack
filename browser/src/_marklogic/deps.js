@@ -13,10 +13,10 @@ referenced where used.
 
 require.config({
   paths: {
-    'angular': 'deps/angular/angular<%=min%>',
-    'angular-cookies': 'deps/angular-cookies/angular-cookies<%=min%>',
-    'moment': 'deps/momentjs/moment<%=min%>',
-    'lodash': 'deps/lodash/dist/lodash.compat<%=min%>'
+    'angular': 'deps/angular/angular<%=options.min%>',
+    'angular-cookies': 'deps/angular-cookies/angular-cookies<%=options.min%>',
+    'moment': 'deps/momentjs/moment<%=options.min%>',
+    'lodash': 'deps/lodash/dist/lodash.compat<%=options.min%>'
   },
 
   shim: {

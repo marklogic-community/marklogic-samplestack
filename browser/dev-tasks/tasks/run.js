@@ -10,13 +10,13 @@ var writeRunMenu = function () {
   // TODO: parameterize addresses
   message = '\n\n' + ten +
       '--> ' + chalk.magenta('BUILD server') + ' : ' +
-      chalk.bold.blue('http://localhost:3000') +
+      chalk.bold.blue(ctx.options.addresses.appServer.href) +
       '\n' + ten +
       '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
-      chalk.bold.blue('http://localhost:3001/unit-runner.html') +
+      chalk.bold.blue(ctx.options.addresses.unitRunner.href) +
       '\n' + ten +
       '--> ' + chalk.magenta('COVERAGE') + '   : ' +
-      chalk.bold.blue('http://localhost:3004/coverage') +
+      chalk.bold.blue(ctx.options.addresses.unitCoverage.href) +
       '\n';
   process.stdout.write(message);
 };
