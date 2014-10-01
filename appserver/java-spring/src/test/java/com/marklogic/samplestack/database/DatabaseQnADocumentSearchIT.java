@@ -139,7 +139,7 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				query, 1, QueryView.RESULTS);
 		assertEquals("Logged-in user sees all docs", results.get("results")
-				.size(), 10);
+				.size(), 3);
 
 	}
 

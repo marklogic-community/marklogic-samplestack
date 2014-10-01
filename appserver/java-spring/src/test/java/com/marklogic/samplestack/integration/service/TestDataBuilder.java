@@ -15,7 +15,6 @@ import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.InitialQuestion;
-import com.marklogic.samplestack.exception.SamplestackException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
@@ -69,6 +68,15 @@ public class TestDataBuilder {
 			loadJson("questions/20864442.json", false);
 			loadJson("questions/20864445.json", true);
 			loadJson("questions/20864449.json", false);
+            loadJson("/questions/01600486-60ea-4557-bcfc-9c10b06fb8cd.json", false);
+            loadJson("/questions/778d0b9c-419f-496a-a300-44815d79708d.json", false);
+            loadJson("/questions/8450f8a4-2782-4c8a-9fd9-b83bcacc5018.json", false);
+            loadJson("/questions/e3d54960-40f7-4d86-b503-31f14f3dfa12.json", false);
+            loadJson("/questions/fd044632-55eb-4c91-9300-7578cee12eb2.json", false);
+            loadJson("/questions/3410347b-abf0-4e1a-8aa8-f153207322eb.json", false);
+            loadJson("/questions/5dce8909-0972-4289-93cd-f2e8790a17fb.json", false);
+            loadJson("/questions/6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300.json", true);
+
 		} catch (Exception e) {
 			throw new SamplestackIOException(e);
 		}
@@ -82,6 +90,14 @@ public class TestDataBuilder {
 			docMgr.delete("/questions/20864442.json");
 			docMgr.delete("/questions/20864445.json");
 			docMgr.delete("/questions/20864449.json");
+            docMgr.delete("/questions/01600486-60ea-4557-bcfc-9c10b06fb8cd.json");
+            docMgr.delete("/questions/778d0b9c-419f-496a-a300-44815d79708d.json");
+            docMgr.delete("/questions/8450f8a4-2782-4c8a-9fd9-b83bcacc5018.json");
+            docMgr.delete("/questions/e3d54960-40f7-4d86-b503-31f14f3dfa12.json");
+            docMgr.delete("/questions/fd044632-55eb-4c91-9300-7578cee12eb2.json");
+            docMgr.delete("/questions/3410347b-abf0-4e1a-8aa8-f153207322eb.json");
+            docMgr.delete("/questions/5dce8909-0972-4289-93cd-f2e8790a17fb.json");
+            docMgr.delete("/questions/6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300.json");
 		} catch (Exception e) {
 			throw new SamplestackIOException(e);
 		}
@@ -92,10 +108,13 @@ public class TestDataBuilder {
 	 * joeUser. This method generates documents such that:
 	 * 
 	 * joe asks 5 questions joe contributes three answers. joe has made two
-	 * comments joe has received five votes joe has voted three times
+	 * comments joe has received five votes joe has voted three times.
+	 * 
+	 * This method can be used to generate data; however for unit testing
+	 * speed the output of this function is saved to src/test/resources/questions
 	 * 
 	 */
-	public void makeTestCorpus() {
+	public void generateTestCorpus() {
 		if (qnaService == null) {
 			return;
 			// skip -- database context tests don't use this.
@@ -147,5 +166,7 @@ public class TestDataBuilder {
 		qnaService.comment(Utils.joeUser, marysQuestionsIds.get(1),
 				"This question is insightful.");
 
+		// one accepted question
+		qnaService.accept(joesAnswerIds.get(0));
 	}
 }

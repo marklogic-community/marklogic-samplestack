@@ -1,0 +1,12 @@
+{"options":{
+    "values":[
+        {
+            "name":"dates",
+            "range":{
+                "type":"xs:dateTime",
+                "json-property":"lastActivityDate"
+            }
+        }
+    ]
+    }
+}

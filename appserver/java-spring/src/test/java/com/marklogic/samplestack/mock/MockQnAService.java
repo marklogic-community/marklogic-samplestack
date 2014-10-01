@@ -61,7 +61,7 @@ public class MockQnAService implements QnAService {
 	public void setupDocuments() {
 		
 		asked = new QnADocument((ObjectNode) getTestJson("questions/20864442.json"));
-		answered = new QnADocument((ObjectNode) getTestJson("questions/3bb58db7-a2f3-401c-8515-469376c0520d.json"));
+		answered = new QnADocument((ObjectNode) getTestJson("questions/8450f8a4-2782-4c8a-9fd9-b83bcacc5018.json"));
 		emptySearchResults = (ObjectNode) getTestJson("searchresults/mocksearchempty.json");
 		// searchResults = (ObjectNode) getTestJson("searchresults/mocksearch.json");
 		

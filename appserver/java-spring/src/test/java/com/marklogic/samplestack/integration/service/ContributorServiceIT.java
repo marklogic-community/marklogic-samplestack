@@ -86,15 +86,15 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		assertEquals("Retrieved one conributor", "grechaw@marklogic.com", contributor.getUserName());
 
 		PojoPage<Contributor> contributorPage = contributorRepository.readAll(1);
-		assertEquals("Retrieved one conributor", 1, contributorPage.size());
+		assertEquals("Retrieved all conributors from start should be 3", 3, contributorPage.size());
 		contributorPage = contributorRepository.readAll(2);
-		assertEquals("Retrieved one conributor", 0, contributorPage.size());
+		assertEquals("Retrieved all contributors from start=2 should be 1", 2, contributorPage.size());
 
 		
 		contributorRepository.delete(c1.getId());
 
 		contributorPage = contributorRepository.readAll(1);
-		assertEquals("Retrieved one conributor after delete", 0, contributorPage.size());
+		assertEquals("Retrieved two conributors after delete", 2, contributorPage.size());
 		
 	}
 	

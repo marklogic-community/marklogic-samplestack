@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package com.marklogic.samplestack.integration.service;
 
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
@@ -52,7 +52,7 @@ public abstract class MarkLogicIntegrationIT {
 
 	@Autowired
 	protected ObjectMapper mapper;
-	
+
 	protected TestDataBuilder testDataBuilder;
 
 	protected JSONDocumentManager contribManager;
@@ -68,20 +68,17 @@ public abstract class MarkLogicIntegrationIT {
 		}
 	}
 
-	private boolean initialized = false;
-
 	@PostConstruct
 	public void cleanout() {
-		if (!initialized) {
-			operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR, QUESTIONS_DIRECTORY);
-			contributorRepository.deleteAll();
-			contributorService.store(Utils.joeUser);
-			contributorService.store(Utils.maryAdmin);
-			testDataBuilder = new TestDataBuilder(operations, qnaService);
-			testDataBuilder.makeTestCorpus();
-			testDataBuilder.setupSearch();
-		}
-		initialized = true;
-		
+		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				QUESTIONS_DIRECTORY);
+		contributorRepository.deleteAll();
+		contributorService.store(Utils.joeUser);
+		contributorService.store(Utils.maryAdmin);
+		testDataBuilder = new TestDataBuilder(operations, qnaService);
+		// the following method is a slow way to make questions
+		// which are cached on the filesystem for testing purposes.
+		// testDataBuilder.generateTestCorpus();
+		testDataBuilder.setupSearch();
 	}
 }

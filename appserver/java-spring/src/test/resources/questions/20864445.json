@@ -1,14 +1,26 @@
-{"id":"20864445",
- "creationDate":"2014-01-01T00:07:38.573",
- "body":"\n\nHere's a descriptive image of everything I can show:\n[http://i.imgur.com/dIPOhcV.jpg](http://i.imgur.com/dIPOhcV.jpg)\n\nI've got an AMD Radeon 7770HD GHz edition graphics card, along with Integrated Intel HD graphics. I'm also running dual monitors, however I use photoshop on the monitor that uses the AMD graphics card. The second monitor uses my integrated graphics.\n\nWhen I launch photoshop, I get a message saying 3D could not be used as I do not have enough video ram, yet the AMD Radeon 7770HD has PLENTY of ram, photoshop CC requires 500MB while this card has at least 2GB worth of video ram.\n\nThe main problem I have with not being able to use the graphics card, is that if a document gets too big while I'm working on it, it will usually crash the program eventually while I'm in the middle of working on something.\n\nIf the document is fairly small (< 1024x768), it's fine. Any larger, it crashes.\nThe sniffer program does not seem to be able to find my graphics card for some reason, \nyet I just updated my CCC (catalyst control center) with completely new 2013 December drivers for my card.\n\nWhat's going on?",
- "lastActivityDate":"2014-01-01T00:07:38.573",
- "title":"Photoshop CC does not detect AMD Radeon 7770 Card",
- "acceptedAnswerId":"/answers/123184234",
- "accepted":true,
- "tags":["graphics", "photoshop"],
- "voteCount":0,
- "comments":[],
- "answers":[{"id": "/answers/123184234", "text" : "I answer this" }],
- "itemTally":0,
- "owner":{"displayName":"Joe Bid",
- "id":"2785133"}}
+{
+    "accepted": true,
+    "acceptedAnswerId": "123184234",
+    "answers": [
+        {
+            "id": "123184234",
+            "text": "I answer this"
+        }
+    ],
+    "comments": [],
+    "creationDate": "2014-01-01T00:07:38.573",
+    "id": "20864445",
+    "itemTally": 0,
+    "lastActivityDate": "2014-01-01T00:07:38.573",
+    "owner": {
+        "displayName": "Joe Bid",
+        "id": "2785133"
+    },
+    "tags": [
+        "graphics",
+        "photoshop"
+    ],
+    "text": "\n\nHere's a descriptive image of everything I can show:\n[http://i.imgur.com/dIPOhcV.jpg](http://i.imgur.com/dIPOhcV.jpg)\n\nI've got an AMD Radeon 7770HD GHz edition graphics card, along with Integrated Intel HD graphics. I'm also running dual monitors, however I use photoshop on the monitor that uses the AMD graphics card. The second monitor uses my integrated graphics.\n\nWhen I launch photoshop, I get a message saying 3D could not be used as I do not have enough video ram, yet the AMD Radeon 7770HD has PLENTY of ram, photoshop CC requires 500MB while this card has at least 2GB worth of video ram.\n\nThe main problem I have with not being able to use the graphics card, is that if a document gets too big while I'm working on it, it will usually crash the program eventually while I'm in the middle of working on something.\n\nIf the document is fairly small (< 1024x768), it's fine. Any larger, it crashes.\nThe sniffer program does not seem to be able to find my graphics card for some reason, \nyet I just updated my CCC (catalyst control center) with completely new 2013 December drivers for my card.\n\nWhat's going on?",
+    "title": "Photoshop CC does not detect AMD Radeon 7770 Card",
+    "voteCount": 0
+}

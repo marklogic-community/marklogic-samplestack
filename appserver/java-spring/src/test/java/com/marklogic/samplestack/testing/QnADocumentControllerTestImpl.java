@@ -152,7 +152,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		askQuestion();
 
 		assertEquals("question returned contains original question",
-				"Question from contributor",
+				"Mary's Question Number 0",
 				askedQuestion.getJson().get("title").asText());
 		
 		this.mockMvc
