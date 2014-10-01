@@ -53,6 +53,7 @@ public class DateFacetBuilder {
 		rangeNode.put("type", "xs:dateTime");
 		rangeNode.put("facet", true);
 		rangeNode.put("json-property", "lastActivityDate");
+		rangeNode.put("facet-option", "empties");
 		this.bucketNode = rangeNode.putArray("bucket");
 	}
 

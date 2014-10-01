@@ -18,6 +18,7 @@ package com.marklogic.samplestack.integration.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -336,9 +337,9 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		logger.info(mapper.writeValueAsString(jsonResults));
 		assertTrue("Blank query got back results", jsonResults.get("results")
 				.size() > 0);
-		assertEquals("Blank query got back facets", 2, jsonResults
+		assertEquals("Blank query got back facets (no date)", 1, jsonResults
 				.get("facets").size());
-		assertNotNull("Blank query got back date facet",
+		assertNull("Blank query shouldn't retrieve date facet",
 				jsonResults.get("facets").get("date"));
 		assertNotNull("Blank query got back tag facet",
 				jsonResults.get("facets").get("tag"));

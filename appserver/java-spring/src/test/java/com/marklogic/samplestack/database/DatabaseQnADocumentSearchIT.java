@@ -261,7 +261,7 @@ public class DatabaseQnADocumentSearchIT {
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
-		assertEquals("JSON has 0 result", 0, results.get("total").asInt());
+		assertEquals("JSON has 0 result", 3, results.get("total").asInt());
 
 		try {
 			query = mapper.readValue("{\"query\":"

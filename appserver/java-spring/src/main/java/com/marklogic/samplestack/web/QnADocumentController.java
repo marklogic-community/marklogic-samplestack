@@ -76,7 +76,7 @@ public class QnADocumentController {
 		ObjectNode structuredQuery = mapper.createObjectNode();
 		ObjectNode qtext = structuredQuery.putObject("query");
 		qtext.put("qtext",q);
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, true);
 	}
 
 	/**
@@ -277,7 +277,8 @@ public class QnADocumentController {
 			start = postedStartNode.asLong();
 			structuredQuery.remove("start");
 		}
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
+		// TODO review for presence/absense of date facet as performance question.
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, true);
 	}
 
 }

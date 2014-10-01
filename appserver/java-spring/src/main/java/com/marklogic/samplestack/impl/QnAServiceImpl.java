@@ -276,12 +276,14 @@ public class QnAServiceImpl implements QnAService {
 			ObjectNode options = searchNode.putObject("options");
 			options.put("page-length", SamplestackConstants.RESULTS_PAGE_LENGTH);
 
-			logger.debug("Getting min date for query");
 			DateTime[] dateRange = operations.getDateRanges(role,
 					structuredQuery);
-			options.putAll(DateFacetBuilder.dateFacet(dateRange[0],
-					dateRange[1]));
-			logger.debug("Got date range to query: " + dateRange[0].toString() + " to " + dateRange[1].toString());
+			logger.debug("Got ranges for buckets: " + dateRange.toString());
+
+			if (dateRange[0] != null && dateRange[1] != null) {
+				options.putAll(DateFacetBuilder.dateFacet(dateRange[0], dateRange[1]));
+				logger.debug("Got date range to query: " + dateRange[0].toString() + " to " + dateRange[1].toString());
+			}
 		}
 		try {
 			logger.debug("query for raw search: " + mapper.writeValueAsString(docNode) );
@@ -293,7 +295,8 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	// TODO date facet is default ON now.  open issue is to control state from browser.
+	// TODO date facet is default ON now. open issue is to control state from
+	// browser.
 	public ObjectNode rawSearch(ClientRole role, ObjectNode query, long start) {
 		return rawSearch(role, query, start, false);
 	}

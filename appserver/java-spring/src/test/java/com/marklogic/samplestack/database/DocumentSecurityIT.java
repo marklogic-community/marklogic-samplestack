@@ -18,9 +18,6 @@ package com.marklogic.samplestack.database;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -45,25 +42,18 @@ public class DocumentSecurityIT extends MarkLogicIntegrationIT {
 
 	private static final String TEST_URI = "/test/security.json";
 	
-	@PostConstruct
-	public void setup() {
-		// write a document using writer connection.
+		
+
+	@Test
+	public void testDocumentSecurity() {
+		//setup
 		content = mapper.createObjectNode();
 		content.put("body", "content");
 		contribManager = operations
 				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 		contribManager.write(TEST_URI, new JacksonHandle(content));
-	}
-	
-	@PreDestroy
-	public void tearDown() {
-		contribManager.delete(TEST_URI);
-	}
-		
-
-	@Test
-	public void testDocumentSecurity() {
 		// verify no read with GUEST
+
 		try {
 			@SuppressWarnings("unused")
 			JacksonHandle invisibleDoc = operations.newJSONDocumentManager(
@@ -78,6 +68,8 @@ public class DocumentSecurityIT extends MarkLogicIntegrationIT {
 		JacksonHandle foundDoc = contribManager.read(TEST_URI,
 				new JacksonHandle());
 		assertEquals("Contributor got back document", content, foundDoc.get());
-		
+
+		// cleanup
+		contribManager.delete(TEST_URI);
 	}
 }

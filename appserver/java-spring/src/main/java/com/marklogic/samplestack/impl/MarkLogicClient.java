@@ -215,13 +215,20 @@ public class MarkLogicClient implements MarkLogicOperations {
 		QueryManager queryManager = getClient(role).newQueryManager();
 		ValuesDefinition valdef = queryManager.newValuesDefinition("dates");
 		valdef.setAggregate("min", "max");
+		valdef.setView("aggregate");
 		JacksonHandle handle = new JacksonHandle();
 		handle.set(structuredQuery);
 		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, "dates");
 		valdef.setQueryDefinition(qdef);
 		ValuesHandle responseHandle = queryManager.values(valdef, new ValuesHandle());
-		dates[0] = new DateTime(responseHandle.getAggregates()[0].get("xs:dateTime", Date.class));
-		dates[1] = new DateTime(responseHandle.getAggregates()[1].get("xs:dateTime", Date.class));
+		String minDate = responseHandle.getAggregates()[0].getValue();
+		String maxDate = responseHandle.getAggregates()[1].getValue();
+		if (!minDate.equals("")) {
+			dates[0] = new DateTime(minDate);
+		}
+		if (!maxDate.equals("")) {
+			dates[1] = new DateTime(maxDate);
+		}
 		return dates;
 	}
 }
