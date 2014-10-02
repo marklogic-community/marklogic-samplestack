@@ -213,7 +213,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
 		DateTime[] dates = new DateTime[2];
 		QueryManager queryManager = getClient(role).newQueryManager();
-		ValuesDefinition valdef = queryManager.newValuesDefinition("dates");
+		ValuesDefinition valdef = queryManager.newValuesDefinition(QUESTIONS_OPTIONS);
 		valdef.setAggregate("min", "max");
 		valdef.setView("aggregate");
 		JacksonHandle handle = new JacksonHandle();
