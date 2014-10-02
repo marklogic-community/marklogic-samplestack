@@ -31,6 +31,7 @@ import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
+import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.ValuesHandle;
@@ -57,6 +58,8 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
  */
 public class MarkLogicClient implements MarkLogicOperations {
 
+
+	public static final String SEARCH_RESPONSE_TRANSFORM = "search-response";
 
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
@@ -161,7 +164,9 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
 				new JacksonHandle(structuredQuery), QUESTIONS_OPTIONS);
+		ServerTransform responseTransform = new ServerTransform(SEARCH_RESPONSE_TRANSFORM);
 		qdef.setDirectory(QUESTIONS_DIRECTORY);
+		qdef.setResponseTransform(responseTransform);
 		queryManager.setView(view);
 
 		handle = queryManager.search(qdef, handle, start);
@@ -213,12 +218,12 @@ public class MarkLogicClient implements MarkLogicOperations {
 	public DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
 		DateTime[] dates = new DateTime[2];
 		QueryManager queryManager = getClient(role).newQueryManager();
-		ValuesDefinition valdef = queryManager.newValuesDefinition(QUESTIONS_OPTIONS);
+		ValuesDefinition valdef = queryManager.newValuesDefinition("lastActivityDate");
 		valdef.setAggregate("min", "max");
 		valdef.setView("aggregate");
 		JacksonHandle handle = new JacksonHandle();
 		handle.set(structuredQuery);
-		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, "dates");
+		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, QUESTIONS_OPTIONS);
 		valdef.setQueryDefinition(qdef);
 		ValuesHandle responseHandle = queryManager.values(valdef, new ValuesHandle());
 		String minDate = responseHandle.getAggregates()[0].getValue();

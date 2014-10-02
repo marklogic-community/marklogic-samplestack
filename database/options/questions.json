@@ -88,7 +88,7 @@
         },
         "values":[
             {
-                "name":"dates",
+                "name":"lastActivityDate",
                 "range":{
                     "type":"xs:dateTime",
                     "json-property":"lastActivityDate"

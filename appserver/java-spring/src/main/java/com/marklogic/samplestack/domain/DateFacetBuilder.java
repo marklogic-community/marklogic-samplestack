@@ -62,12 +62,12 @@ public class DateFacetBuilder {
 		return this;
 	}
 
-	private DateFacetBuilder bucket(DateTime ge, DateTime lt, String name, String label) {
+	private DateFacetBuilder bucket(DateTime ge, DateTime lt) {
 		ObjectNode thisBucket = this.bucketNode.addObject();
 		thisBucket.put("ge", ge.toString());
 		thisBucket.put("lt", lt.toString());
-		thisBucket.put("name", name);
-		thisBucket.put("label", label);
+		thisBucket.put("name", ge.toString());
+		thisBucket.put("label", ge.toString());
 		return this;
 	}
 	
@@ -79,9 +79,7 @@ public class DateFacetBuilder {
 			DateTime bucketStart = min.minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusDays(1);
-				String name = bucketStart.toString();
-				String label = bucketStart.toString("yyyy-MM-dd");
-				fb.bucket(bucketStart, bucketEnd, name, label);
+				fb.bucket(bucketStart, bucketEnd);
 				bucketStart = bucketStart.plusDays(1);
 			}
 		}
@@ -89,19 +87,14 @@ public class DateFacetBuilder {
 			DateTime bucketStart = min.minusDays(min.getDayOfWeek()).minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusWeeks(1);
-				String name = bucketStart.toString();
-
-				String label = bucketStart.toString("yyyy-ww");
-				fb.bucket(bucketStart, bucketEnd, name, label);
+				fb.bucket(bucketStart, bucketEnd);
 				bucketStart = bucketStart.plusWeeks(1);
 			}
 		} else {
 			DateTime bucketStart = min.minusDays(min.getDayOfMonth()).minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusMonths(1);
-				String name = bucketStart.toString();
-				String label = bucketStart.toString("yyyy-MM");
-				fb.bucket(bucketStart, bucketEnd, name, label);
+				fb.bucket(bucketStart, bucketEnd);
 				bucketStart = bucketStart.plusMonths(1);
 			}
 		}
