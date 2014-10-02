@@ -4,7 +4,6 @@
  * and return a mapping of ids to reputations
  */
 function joinReputations(input, ids) {
-    xdmp.log(ids);
     var reputationMap = {};
     var results = cts.search(
                     cts.andQuery( [
@@ -14,9 +13,9 @@ function joinReputations(input, ids) {
         var nextResult = results.next();
         if (nextResult.done) break;
         var nextObject = nextResult.value;
-        xdmp.log(nextObject);
-        var ownerId = nextObject.owner.id;
-        var ownerReputation = nextObject.owner.reputation;
+        var ownerId = nextObject.id;
+        var ownerReputation = nextObject.reputation;
+        reputationMap[ownerId] = ownerReputation;
     } 
     return reputationMap;
 }
@@ -48,7 +47,7 @@ function searchTransform(context, params, input) {
                 r.originalId = inComing.originalId;
                 r.answerCount = inComing.answers.length;
                 r.title = inComing.title;
-                outputObject.results.push(r);
+                outputObject.results.push({"content":r});
             }
         } else {
             outputObject[key] = inputObject[key];

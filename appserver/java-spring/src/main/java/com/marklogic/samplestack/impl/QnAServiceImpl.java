@@ -42,17 +42,13 @@ import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
-import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.QueryManager.QueryView;
-import com.marklogic.client.query.RawCombinedQueryDefinition;
-import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.Answer;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.domain.DateFacetBuilder;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SparseContributor;
@@ -270,7 +266,7 @@ public class QnAServiceImpl implements QnAService {
 		ObjectNode docNode = mapper.createObjectNode();
 		ObjectNode searchNode = docNode.putObject("search");
 		if (structuredQuery != null) {
-			searchNode.putAll(structuredQuery);
+			searchNode.setAll(structuredQuery);
 		}
 		if (includeDateFacet) {
 			ObjectNode options = searchNode.putObject("options");
@@ -281,15 +277,9 @@ public class QnAServiceImpl implements QnAService {
 			logger.debug("Got ranges for buckets: " + dateRange.toString());
 
 			if (dateRange[0] != null && dateRange[1] != null) {
-				options.putAll(DateFacetBuilder.dateFacet(dateRange[0], dateRange[1]));
+				options.setAll(DateFacetBuilder.dateFacet(dateRange[0], dateRange[1]));
 				logger.debug("Got date range to query: " + dateRange[0].toString() + " to " + dateRange[1].toString());
 			}
-		}
-		try {
-			logger.debug("query for raw search: " + mapper.writeValueAsString(docNode) );
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return operations.qnaSearch(role, docNode, start, QueryView.ALL);
 	}

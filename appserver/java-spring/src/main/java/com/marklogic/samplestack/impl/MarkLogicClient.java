@@ -18,7 +18,6 @@ package com.marklogic.samplestack.impl;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
 
-import java.util.Date;
 import java.util.HashMap;
 
 import org.joda.time.DateTime;

@@ -22,8 +22,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.annotation.PreDestroy;
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;

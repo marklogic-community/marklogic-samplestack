@@ -128,9 +128,8 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_GUEST,
 				query, 1, QueryView.RESULTS);
 		assertEquals("Guest sees only approved docs", results.get("results")
-				.size(), 1);
+				.size(), 2);
 	}
-
 	@Test
 	public void authenticatedSearchSeesUnresolvedQuestions() {
 		ObjectNode query = mapper.createObjectNode();
@@ -139,7 +138,7 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				query, 1, QueryView.RESULTS);
 		assertEquals("Logged-in user sees all docs", results.get("results")
-				.size(), 3);
+				.size(), 10);
 
 	}
 
@@ -238,7 +237,7 @@ public class DatabaseQnADocumentSearchIT {
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
-		assertEquals("JSON has 1 result", 1, results.get("total").asInt());
+		assertEquals("JSON has 2 result", 2, results.get("total").asInt());
 	}
 
 	@Test
@@ -261,7 +260,7 @@ public class DatabaseQnADocumentSearchIT {
 		} catch (IOException e) {
 			throw new SamplestackIOException(e);
 		}
-		assertEquals("JSON has 0 result", 3, results.get("total").asInt());
+		assertEquals("JSON has 0 result", 11, results.get("total").asInt());
 
 		try {
 			query = mapper.readValue("{\"query\":"

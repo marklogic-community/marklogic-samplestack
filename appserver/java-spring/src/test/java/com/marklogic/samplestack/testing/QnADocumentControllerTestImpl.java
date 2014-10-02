@@ -446,7 +446,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.getContentAsString();
 		results = mapper.readValue(searchAnon, JsonNode.class);
 
-		assertEquals("No results for anonymous. ", 1, results.get("results")
+		assertEquals("One results for anonymous. ", 1, results.get("results")
 				.size());
 
 	}

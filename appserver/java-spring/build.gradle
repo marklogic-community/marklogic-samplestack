@@ -113,6 +113,7 @@ task loadRemote(type: MarkLogicSlurpTask) {
 
 /* The code repositories to consult for dependencies */
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url "http://repo.spring.io/snapshot" }
     maven { url "http://repo.spring.io/milestone" }
