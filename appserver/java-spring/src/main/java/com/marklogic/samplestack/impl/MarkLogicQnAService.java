@@ -62,7 +62,7 @@ import com.marklogic.samplestack.service.QnAService;
 /**
  * Implementation of the QnAService interface.
  */
-public class QnAServiceImpl implements QnAService {
+public class MarkLogicQnAService implements QnAService {
 
 	@Autowired
 	protected MarkLogicOperations operations;
@@ -77,7 +77,7 @@ public class QnAServiceImpl implements QnAService {
 	@Autowired
 	private ContributorAddOnService contributorService;
 
-	private final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(MarkLogicQnAService.class);
 
 	private static String idFromUri(String uri) {
 		return uri.replace("/questions/", "").replace(".json", "");

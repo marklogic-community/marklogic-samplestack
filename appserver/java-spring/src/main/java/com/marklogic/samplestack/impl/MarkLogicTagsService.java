@@ -26,7 +26,7 @@ import com.marklogic.samplestack.service.TagsService;
  * Implementation of TagsService
  */
 @Component
-public class TagsServiceImpl implements TagsService {
+public class MarkLogicTagsService implements TagsService {
 
 	@Autowired
 	MarkLogicOperations operations;

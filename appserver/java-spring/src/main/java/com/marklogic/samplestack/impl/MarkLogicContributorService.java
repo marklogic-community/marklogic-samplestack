@@ -42,10 +42,10 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
  * @see com.marklogic.samplestack.service.ContributorAddOnService
  */
 @Component
-public class ContributorServiceImpl implements ContributorAddOnService {
+public class MarkLogicContributorService implements ContributorAddOnService {
 
 	private final Logger logger = LoggerFactory
-			.getLogger(ContributorServiceImpl.class);
+			.getLogger(MarkLogicContributorService.class);
 
 	@Autowired
 	protected MarkLogicOperations operations;
