@@ -20,15 +20,11 @@ import org.joda.time.DateTime;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.Transaction;
-import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.extensions.ResourceManager;
-import com.marklogic.client.pojo.PojoRepository;
-import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.Contributor;
 
 /**
  * Encapsulates interaction with MarkLogic.
@@ -52,16 +48,6 @@ public interface MarkLogicOperations {
 	 */
 	public ObjectNode findOneQuestion(ClientRole role,
 			String queryString, long start);
-	
-	/**
-	 * Searches MarkLogic based on a QueryDefinition.
-	 * @param role the caller's role.
-	 * @param queryDefinition  A query definition.
-	 * @param start the index of the first result to return.
-	 * @return A DocumentPage of results.
-	 */
-	public DocumentPage search(ClientRole role, QueryDefinition queryDefinition, 
-			long start);
 
 	/**
 	 * Delete an entire directory/class of objects.
@@ -85,11 +71,6 @@ public interface MarkLogicOperations {
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role);
 	
 
-	/**
-	 * Get the repository for Contributor objects
-	 */
-	public PojoRepository<Contributor, String> getContributors();
-	
 	/**
 	 * Hooks into MarkLogic extension facilities to initialize a server-side extension
 	 * @param role the caller's role

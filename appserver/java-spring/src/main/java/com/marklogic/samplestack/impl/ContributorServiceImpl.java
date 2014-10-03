@@ -165,10 +165,10 @@ public class ContributorServiceImpl implements ContributorAddOnService {
 	@Override
 	public Contributor getByUserName(String userName) {
 		@SuppressWarnings("rawtypes")
-		PojoQueryBuilder qb = operations.getContributors().getQueryBuilder();
+		PojoQueryBuilder qb = repository.getQueryBuilder();
 		QueryDefinition qdef = qb.value("userName", userName);
 
-		PojoPage<Contributor> page = operations.getContributors().search(qdef,
+		PojoPage<Contributor> page = repository.search(qdef,
 				1);
 		if (page.getTotalSize() == 1) {
 			return page.iterator().next();

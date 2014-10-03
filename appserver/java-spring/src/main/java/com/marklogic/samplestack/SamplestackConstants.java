@@ -4,15 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-
+/**
+ * Various application or database- related constants in the application.
+ */
 public class SamplestackConstants {
 
 
 	public static final String QUESTIONS_DIRECTORY = "/questions/";
 	public static final String QUESTIONS_OPTIONS = "questions";
 	
-
-	public static final String CONTRIBUTORS_DIRECTORY = "/contributors/";
 	public static final String CONTRIBUTORS_OPTIONS = "contributors";
 	public static final int RESULTS_PAGE_LENGTH = 10;
 	

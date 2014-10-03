@@ -18,15 +18,14 @@ package com.marklogic.samplestack.impl;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
 
-import java.util.HashMap;
-
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
@@ -34,7 +33,6 @@ import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.ValuesHandle;
-import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
@@ -45,10 +43,10 @@ import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.client.query.SuggestDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 
+@Component
 /**
  * Encapsulates Samplestack's interactions with the database in a single class.
  * See MarkLogicOperations for documentation of overridden methods.
@@ -64,19 +62,16 @@ public class MarkLogicClient implements MarkLogicOperations {
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicClient.class);
 
-	protected HashMap<ClientRole, DatabaseClient> clients;
+	@Autowired
+	private Clients clients;
 
-	private DatabaseClient getClient(ClientRole role) {
-		return clients.get(role);
+	
+	public Clients getClients() {
+		return clients;
 	}
 
-	private PojoRepository<Contributor, String> contributors;
-
-	/**
-	 * No-argument constructor.
-	 */
-	public MarkLogicClient() {
-		clients = new HashMap<ClientRole, DatabaseClient>();
+	public void setClients(Clients clients) {
+		this.clients = clients;
 	}
 
 	@Override
@@ -89,7 +84,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 	 */
 	public JsonNode getJsonDocument(ClientRole role, String documentUri) {
 		JacksonHandle handle = new JacksonHandle();
-		JacksonHandle jacksonHandle = getClient(role).newJSONDocumentManager()
+		JacksonHandle jacksonHandle = clients.get(role).newJSONDocumentManager()
 				.read(documentUri, handle);
 		return jacksonHandle.get();
 	}
@@ -97,7 +92,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 	@Override
 	public ObjectNode findOneQuestion(ClientRole role,
 			String queryString, long start) {
-		QueryManager queryManager = getClient(role).newQueryManager();
+		QueryManager queryManager = clients.get(role).newQueryManager();
 		QueryDefinition stringQuery = queryManager.newStringDefinition(
 				QUESTIONS_OPTIONS).withCriteria(queryString);
 
@@ -115,7 +110,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 	@Override
 	public void deleteDirectory(ClientRole role, String directory) {
-		QueryManager queryManager = getClient(role).newQueryManager();
+		QueryManager queryManager = clients.get(role).newQueryManager();
 		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
 		deleteDef.setDirectory(directory);
 		queryManager.delete(deleteDef);
@@ -123,43 +118,25 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 	@Override
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role) {
-		return getClient(role).newJSONDocumentManager();
-	}
-
-	public DocumentPage search(ClientRole role,
-			QueryDefinition queryDefinition, long start) {
-		return newJSONDocumentManager(role).search(queryDefinition, start);
-	}
-
-	/**
-	 * Part of setup of this object, puts a DatabaseClient connection into a
-	 * pool of connections based on client role.
-	 * 
-	 * @param role
-	 *            the caller's role
-	 * @param client
-	 *            A DatabaseClient object for interacting with MarkLogic
-	 */
-	public void putClient(ClientRole role, DatabaseClient client) {
-		clients.put(role, client);
+		return clients.get(role).newJSONDocumentManager();
 	}
 
 	@Override
 	public <T extends ResourceManager> void initResource(ClientRole role,
 			String name, T resourceManager) {
-		getClient(role).init(name, resourceManager);
+		clients.get(role).init(name, resourceManager);
 	}
 
 	@Override
 	public void delete(ClientRole role, String documentUri) {
-		getClient(role).newJSONDocumentManager().delete(documentUri);
+		clients.get(role).newJSONDocumentManager().delete(documentUri);
 	}
 
 	@Override
 	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
 			long start, QueryView view) {
 		JacksonHandle handle = new JacksonHandle();
-		QueryManager queryManager = getClient(role).newQueryManager();
+		QueryManager queryManager = clients.get(role).newQueryManager();
 
 		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
 				new JacksonHandle(structuredQuery), QUESTIONS_OPTIONS);
@@ -174,36 +151,27 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 	@Override
 	public String[] suggestTags(ClientRole role, String suggestPattern) {
-		QueryManager mgr = getClient(role).newQueryManager();
+		QueryManager mgr = clients.get(role).newQueryManager();
 		SuggestDefinition suggestDefinition = mgr.newSuggestDefinition("tags");
 		suggestDefinition.setStringCriteria(suggestPattern);
-		return getClient(role).newQueryManager().suggest(suggestDefinition);
+		return clients.get(role).newQueryManager().suggest(suggestDefinition);
 	}
 
 	@Override
 	public Transaction start(ClientRole role) {
-		return getClient(role).openTransaction();
-	}
-
-	@Override
-	public PojoRepository<Contributor, String> getContributors() {
-		if (this.contributors == null) {
-			this.contributors = getClient(ClientRole.SAMPLESTACK_CONTRIBUTOR)
-					.newPojoRepository(Contributor.class, String.class);
-		}
-		return this.contributors;
+		return clients.get(role).openTransaction();
 	}
 
 	@Override
 	public StringQueryDefinition newStringQueryDefinition(String optionsName) {
-		QueryManager queryManager = getClient(
+		QueryManager queryManager = clients.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newQueryManager();
 		return queryManager.newStringDefinition(optionsName);
 	}
 
 	@Override
 	public ObjectNode tagValues(ClientRole role, JsonNode combinedQuery, long start) {
-		QueryManager queryManager = getClient(role).newQueryManager();
+		QueryManager queryManager = clients.get(role).newQueryManager();
 		ValuesDefinition valdef = queryManager.newValuesDefinition("tags");
 		JacksonHandle handle = new JacksonHandle();
 		handle.set(combinedQuery);
@@ -216,7 +184,7 @@ public class MarkLogicClient implements MarkLogicOperations {
 	@Override
 	public DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
 		DateTime[] dates = new DateTime[2];
-		QueryManager queryManager = getClient(role).newQueryManager();
+		QueryManager queryManager = clients.get(role).newQueryManager();
 		ValuesDefinition valdef = queryManager.newValuesDefinition("lastActivityDate");
 		valdef.setAggregate("min", "max");
 		valdef.setView("aggregate");
