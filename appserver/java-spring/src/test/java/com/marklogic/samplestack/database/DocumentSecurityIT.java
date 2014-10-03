@@ -49,16 +49,15 @@ public class DocumentSecurityIT extends MarkLogicIntegrationIT {
 		//setup
 		content = mapper.createObjectNode();
 		content.put("body", "content");
-		contribManager = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		contribManager = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).newJSONDocumentManager();
 		contribManager.write(TEST_URI, new JacksonHandle(content));
 		// verify no read with GUEST
 
 		try {
 			@SuppressWarnings("unused")
-			JacksonHandle invisibleDoc = operations.newJSONDocumentManager(
-					ClientRole.SAMPLESTACK_GUEST).read(TEST_URI,
-					new JacksonHandle());
+			JacksonHandle invisibleDoc = clients.get(ClientRole.SAMPLESTACK_GUEST)
+				.newJSONDocumentManager()
+				.read(TEST_URI, new JacksonHandle());
 			fail("Guest could see invisible documwent");
 		} catch (ResourceNotFoundException e) {
 			// pass

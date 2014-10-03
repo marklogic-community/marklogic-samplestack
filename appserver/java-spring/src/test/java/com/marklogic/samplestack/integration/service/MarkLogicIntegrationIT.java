@@ -15,8 +15,6 @@
  */
 package com.marklogic.samplestack.integration.service;
 
-import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
-
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
@@ -28,18 +26,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.pojo.PojoRepository;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.service.ContributorService;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
 import com.marklogic.samplestack.testing.Utils;
 
 public abstract class MarkLogicIntegrationIT {
 
 	@Autowired
-	protected MarkLogicOperations operations;
+	protected Clients clients;
 
 	@Autowired
 	protected ContributorService contributorService;
@@ -70,12 +67,11 @@ public abstract class MarkLogicIntegrationIT {
 
 	@PostConstruct
 	public void cleanout() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				QUESTIONS_DIRECTORY);
+		qnaService.deleteAll();
 		contributorRepository.deleteAll();
 		contributorService.store(Utils.joeUser);
 		contributorService.store(Utils.maryAdmin);
-		testDataBuilder = new TestDataBuilder(operations, qnaService);
+		testDataBuilder = new TestDataBuilder(clients, qnaService);
 		// the following method is a slow way to make questions
 		// which are cached on the filesystem for testing purposes.
 		// testDataBuilder.generateTestCorpus();

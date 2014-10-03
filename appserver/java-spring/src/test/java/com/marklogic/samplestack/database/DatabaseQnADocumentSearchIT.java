@@ -42,13 +42,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.FailedRequestException;
 import com.marklogic.client.ForbiddenUserException;
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.impl.MarkLogicQnAService;
 import com.marklogic.samplestack.integration.service.TestDataBuilder;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 
 /**
@@ -67,7 +66,8 @@ public class DatabaseQnADocumentSearchIT {
 	private ObjectMapper mapper;
 
 	@Autowired
-	private MarkLogicOperations operations;
+	private Clients clients;
+	
 	@Autowired
 	private MarkLogicQnAService qnaService;
 
@@ -75,7 +75,7 @@ public class DatabaseQnADocumentSearchIT {
 	
 	@PostConstruct
 	public void setup() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
-		dataBuilder = new TestDataBuilder(operations, null);
+		dataBuilder = new TestDataBuilder(clients, null);
 		dataBuilder.setupSearch();
 	}
 	
@@ -189,14 +189,15 @@ public class DatabaseQnADocumentSearchIT {
 		
 		ObjectNode results;
 		logger.debug(mapper.writeValueAsString(topNode));
-		try {
-			results = operations.tagValues(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					topNode, 1);
-
-			logger.debug("Values Results:" + mapper.writeValueAsString(results));
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
+// TODO bring back
+// try {
+//			results = operations.tagValues(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+//					topNode, 1);
+//
+//		logger.debug("Values Results:" + mapper.writeValueAsString(results));
+//		} catch (IOException e) {
+//			throw new SamplestackIOException(e);
+//		}
 		
 	}
 

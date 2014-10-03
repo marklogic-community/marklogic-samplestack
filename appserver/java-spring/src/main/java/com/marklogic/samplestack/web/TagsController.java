@@ -44,7 +44,7 @@ public class TagsController {
 	 * @param q A query pattern
 	 * @return A list of tags as Strings.
 	 */
-	@RequestMapping(value = "tags", method = RequestMethod.GET)
+	@RequestMapping(value = "v1/tags", method = RequestMethod.GET)
 	public @ResponseBody
 	String[] suggestTags(@RequestParam(required = false) String q) {
 		if (q == null) {

@@ -89,6 +89,19 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		return QUESTIONS_DIRECTORY + UUID.randomUUID() + ".json";
 
 	}
+	
+
+	
+	/**
+	 * Start a transaction
+	 * @param role Role to search with
+	 * @return A transaction to use in subsequent calls to MarkLogic 
+	 */
+	private Transaction startTransaction(ClientRole role) {
+		return clients.get(role).openTransaction();
+	}
+
+	
 
 	@Override
 	public QnADocument findOne(ClientRole role, String queryString, long start) {
@@ -123,7 +136,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
 				documentUri, new JacksonHandle(jsonNode));
 
-		return new QnADocument((ObjectNode) operations.getJsonDocument(
+		return new QnADocument((ObjectNode) getJsonDocument(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, documentUri));
 	}
 
@@ -196,8 +209,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		ObjectNode acceptFlagNode = mapper.createObjectNode();
 		acceptFlagNode.put("accepted", true);
 
-		Transaction transaction = operations
-				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		Transaction transaction = startTransaction(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
 		try {
 			patchBuilder.replaceInsertFragment("acceptedAnswerId", "/node()",
@@ -256,7 +268,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 	// TODO implement cache
 	public QnADocument get(ClientRole role, String id) {
 		logger.debug(id);
-		JsonNode json = operations.getJsonDocument(role, uriFromId(id));
+		JsonNode json = getJsonDocument(role, uriFromId(id));
 		QnADocument question = new QnADocument((ObjectNode) json);
 		return question;
 	}
@@ -344,8 +356,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		String qnaDocumentId = qnaDocument.getId();
 		String documentUri = uriFromId(qnaDocumentId);
 
-		Transaction transaction = operations
-				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		Transaction transaction = startTransaction(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
 		try {
 			logger.debug("Voting on " + postId + " at documentURI"
@@ -433,7 +444,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 
 	@Override
 	public void deleteAll() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+		deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				QUESTIONS_DIRECTORY);
 	}
 

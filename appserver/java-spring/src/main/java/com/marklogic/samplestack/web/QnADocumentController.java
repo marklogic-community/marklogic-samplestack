@@ -66,7 +66,7 @@ public class QnADocumentController {
 	 * @param start The index of the first return result.
 	 * @return A Search API JSON response containing matches, facets and snippets.
 	 */
-	@RequestMapping(value = "questions", method = RequestMethod.GET)
+	@RequestMapping(value = "v1/questions", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode getQnADocuments(@RequestParam(required = false) String q,
 			@RequestParam(required = false, defaultValue = "1") long start) {
@@ -84,7 +84,7 @@ public class QnADocumentController {
 	 * @param initialQuestion A POJO constructed from the request body.
 	 * @return The newly-created QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -99,7 +99,7 @@ public class QnADocumentController {
 	 * @param id The id of the document to retrieve.
 	 * @return The QnADocument's JSON with id= id.
 	 */
-	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "v1/questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode get(@PathVariable(value = "id") String id) {
 		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), id);
@@ -111,7 +111,7 @@ public class QnADocumentController {
 	 * @param id the id of the QnADocument to delete.
 	 * @return An empty response, 204 HTTP status.
 	 */
-	@RequestMapping(value = "questions/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "v1/questions/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	ResponseEntity<?> delete(@PathVariable(value = "id") String id) {
@@ -125,7 +125,7 @@ public class QnADocumentController {
 	 * @param id The id of the question to answer.
 	 * @return The updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/answers", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/answers", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -143,7 +143,7 @@ public class QnADocumentController {
 	 * @param answerIdPart The id of the answer that's deemed suitable to the contributor.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/answers/{answerId}/accept", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/answers/{answerId}/accept", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode accept(@PathVariable(value = "answerId") String answerIdPart) {
@@ -165,7 +165,7 @@ public class QnADocumentController {
 	 * @param questionId The id of the question on which to comment.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/comments", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/comments", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
@@ -182,7 +182,7 @@ public class QnADocumentController {
 	 * @param questionId The question's id.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/upvotes", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/upvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
@@ -198,7 +198,7 @@ public class QnADocumentController {
 	 * @param questionId The question's id.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/downvotes", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/downvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
@@ -214,7 +214,7 @@ public class QnADocumentController {
 	 * @param answerIdPart The part of the URL that encodes the answer's id.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/answers/{answerId}/upvotes", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/answers/{answerId}/upvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
@@ -232,7 +232,7 @@ public class QnADocumentController {
 	 * @param answerIdPart The part of the URL that encodes the answer's id.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/answers/{answerId}/downvotes", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/answers/{answerId}/downvotes", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
@@ -249,7 +249,7 @@ public class QnADocumentController {
 	 * @param answerIdPart The part of the URL that encodes the answer's id.
 	 * @return An updated QnADocument's JSON node.
 	 */
-	@RequestMapping(value = "questions/{id}/answers/{answerId}/comments", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/questions/{id}/answers/{answerId}/comments", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
@@ -267,7 +267,7 @@ public class QnADocumentController {
 	 * @param start The index of the first result to return.
 	 * @return A Search Results JSON response.
 	 */
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/search", method = RequestMethod.POST)
 	public @ResponseBody
 	JsonNode search(@RequestBody ObjectNode structuredQuery,
 			@RequestParam(defaultValue = "1", required = false) long start) {

@@ -41,16 +41,13 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 	@Autowired
 	TagsService tagsService;
 
-	@Autowired
-	MarkLogicOperations operations;
-
 	@Test
 	@Ignore
 	public void testTagSuggestion() {
 		JsonNode tagsJson = getTestJson("questions/tags.json");
 
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		JSONDocumentManager docMgr = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR)
+				.newJSONDocumentManager();
 		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
 
 		String[] suggestions = tagsService
@@ -72,10 +69,10 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 	public void testAllTags() {
 		JsonNode tagsJson = getTestJson("questions/tags.json");
 
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		JSONDocumentManager docMgr = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR)
+				.newJSONDocumentManager();
 		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
-
+		
 		String[] suggestions = tagsService
 				.suggestTags(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 		assertTrue("Need suggestions to test", suggestions.length > 1);

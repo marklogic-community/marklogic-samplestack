@@ -28,20 +28,20 @@ public class TagControllerTestImpl extends ControllerTests {
 	
 	public void testTagsAnonymousOK() throws Exception {
 		this.mockMvc.perform(
-				get("/tags"))
+				get("/v1/tags"))
 				.andExpect(status().isOk());
 	}
 	
 	public void testTagsNoArgs() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		this.mockMvc.perform(
-				get("/tags").session((MockHttpSession) session))
+				get("/v1/tags").session((MockHttpSession) session))
 				.andExpect(status().isOk());
 	}
 	
 	public void testTagsWithArgument() throws Exception {
 		this.mockMvc.perform(
-				get("/tags?q=com"))
+				get("/v1/tags?q=com"))
 				.andExpect(status().isOk());
 	}
 }

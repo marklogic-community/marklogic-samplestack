@@ -28,42 +28,11 @@ import com.marklogic.samplestack.domain.ClientRole;
 public interface MarkLogicOperations {
 
 	/**
-	 * Returns a JSON document, as a Jackson JSONNode from the database by URI
-	 * @param role The client role to use in accessing the database.
-	 * @param documentUri the URI of the document in MarkLogic server.
-	 * @return A JsonNode containing the document.
-	 */
-	public JsonNode getJsonDocument(ClientRole role, String documentUri);
-	
-	/**
-	 * Delete an entire directory/class of objects.
-	 * @param role the caller's role
-	 * @param type The directory to delete
-	 */	
-	public void deleteDirectory(ClientRole role, String directory);
-	
-	/**
 	 * Gets a JSONDocumentManager with the caller's role for lower-level document
 	 * access to MarkLogic.
 	 * @param role the caller's role.
 	 */
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role);
-
-	/**
-	 * Wraps a call to the MarkLogic suggest capability
-	 * @param role Role to search with
-	 * @param suggestPattern
-	 * @return An array of Strings matching the suggest pattern.
-	 */
-	public String[] suggestTags(ClientRole role, String suggestPattern);
-
-	
-	/**
-	 * Start a transaction
-	 * @param role Role to search with
-	 * @return A transaction to use in subsequent calls to MarkLogic 
-	 */
-	public Transaction start(ClientRole role);
 
 	/**
 	 * Get a string query definition from the underlying QueryManager

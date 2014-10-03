@@ -44,7 +44,7 @@ public class SessionController {
 	 * @param response The Http response.
 	 * @return A JsonNode with bare-bones acknowledgement.
 	 */
-	@RequestMapping(value = "session", method = RequestMethod.GET)
+	@RequestMapping(value = "v1/session", method = RequestMethod.GET)
 	public @ResponseBody JsonNode hello(HttpServletRequest request,
 			HttpServletResponse response) {
 

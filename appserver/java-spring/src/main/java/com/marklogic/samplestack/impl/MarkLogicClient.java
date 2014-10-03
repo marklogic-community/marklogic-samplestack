@@ -47,46 +47,11 @@ public class MarkLogicClient implements MarkLogicOperations {
 
 	@Autowired
 	private Clients clients;
-
-	@Override
-	/**
-	 * Gets a JSON document from the database as a Jackson JsonNode, 
-	 * based on the caller's ClientRole and the document URI.
-	 * @param role the caller's role.
-	 * @param documentUri the document URI.
-	 * @return A JsonNode containing the document.
-	 */
-	public JsonNode getJsonDocument(ClientRole role, String documentUri) {
-		JacksonHandle handle = new JacksonHandle();
-		JacksonHandle jacksonHandle = clients.get(role).newJSONDocumentManager()
-				.read(documentUri, handle);
-		return jacksonHandle.get();
-	}
-
-	@Override
-	public void deleteDirectory(ClientRole role, String directory) {
-		QueryManager queryManager = clients.get(role).newQueryManager();
-		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
-		deleteDef.setDirectory(directory);
-		queryManager.delete(deleteDef);
-	}
-
+	
+	
 	@Override
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role) {
 		return clients.get(role).newJSONDocumentManager();
-	}
-
-	@Override
-	public String[] suggestTags(ClientRole role, String suggestPattern) {
-		QueryManager mgr = clients.get(role).newQueryManager();
-		SuggestDefinition suggestDefinition = mgr.newSuggestDefinition("tags");
-		suggestDefinition.setStringCriteria(suggestPattern);
-		return clients.get(role).newQueryManager().suggest(suggestDefinition);
-	}
-
-	@Override
-	public Transaction start(ClientRole role) {
-		return clients.get(role).openTransaction();
 	}
 
 	@Override

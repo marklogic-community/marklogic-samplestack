@@ -34,8 +34,7 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements TagsSe
 
 	@Override
 	public String[] suggestTags(ClientRole role, String pattern) {
-		String suggestPattern = "*" + pattern;
-		return operations.suggestTags(role, suggestPattern);
+		return new String[] { };
 	}
 
 }
