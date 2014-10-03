@@ -1,0 +1,19 @@
+{
+    "answers": [],
+    "comments": [],
+    "creationDate": "2014-10-01T08:59:07.602",
+    "id": "6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300",
+    "itemTally": 1,
+    "lastActivityDate": "2014-10-01T08:59:07.602",
+    "owner": {
+        "displayName": "joeUser",
+        "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
+        "userName": "joeUser@marklogic.com"
+    },
+    "tags": [
+        "ada"
+    ],
+    "text": "I had a question about the word abyss and the number 0",
+    "title": "Joe's Question Number 0",
+    "voteCount": 1
+}

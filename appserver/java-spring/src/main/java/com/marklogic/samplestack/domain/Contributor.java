@@ -18,6 +18,8 @@ package com.marklogic.samplestack.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.marklogic.client.pojo.annotation.Id;
+
 /**
  * Represents the end-user of the samplestack application. Its canonical JSON
  * representation is
@@ -25,6 +27,7 @@ import java.util.Set;
  * <pre>
  *   {
  *       "id": "1070312",
+ *       "originalId":"1070321",
  *       "reputation": "1",
  *       "displayName": "grechaw",
  *       "aboutMe": "This is my user record",
@@ -38,10 +41,28 @@ import java.util.Set;
  * </pre>
  * 
  */
-public class Contributor extends SparseContributor {
+public class Contributor {
 
-	/** URL of this contributor's website. */
-	private String websiteUrl;
+	/** A markdown mini bio of the contributor */
+	private String aboutMe;
+
+	/** The contributor's display name */
+	public String displayName;
+
+	@Id
+	/**
+	 * The String identifier for this user, a primary key.
+	 */
+	public String id;
+
+	/**
+	 * The id from the original record, if imported from
+	 * another system.
+	 */
+	public String originalId;
+
+	/** The location of the user, as a String */
+	private String location;
 
 	/**
 	 * A number that is updated each time somebody votes on a contributor's
@@ -49,49 +70,53 @@ public class Contributor extends SparseContributor {
 	 */
 	private int reputation;
 
-	/** A markdown mini bio of the contributor */
-	private String aboutMe;
-
-	
-	/** The location of the user, as a String */
-	private String location;
+	/** The username.  */
+	public String userName;
 
 	/** Set of posts on which this contributor has voted */
 	private Set<String> votes = new HashSet<String>();
 
-	public String getWebsiteUrl() {
-		return websiteUrl;
-	}
+	/** URL of this contributor's website. */
+	private String websiteUrl;
 
-	public void setWebsiteUrl(String websiteUrl) {
-		this.websiteUrl = websiteUrl;
-	}
-
-	public int getReputation() {
-		return reputation;
-	}
-
-	public void setReputation(int reputation) {
-		this.reputation = reputation;
+	/**
+	 * return a copy of this object as sparse object, to be used
+	 * within QnADocument serializations
+	 * @return a SparseContributor object with values from this one.
+	 */
+	public SparseContributor asSparseContributor() {
+		SparseContributor sparseContributor = new SparseContributor();
+		sparseContributor.setId(this.id);
+		sparseContributor.setDisplayName(this.getDisplayName());
+		sparseContributor.setUserName(this.getUserName());
+		return sparseContributor;
 	}
 
 	public String getAboutMe() {
 		return aboutMe;
 	}
 
-	public void setAboutMe(String aboutMe) {
-		this.aboutMe = aboutMe;
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public String getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public int getReputation() {
+		return reputation;
 	}
 
 	
+	public String getUserName() {
+		return userName;
+	}
+
 	public Set<String> getVotes() {
 		if (votes == null) {
 			this.votes = new HashSet<String>();
@@ -99,8 +124,8 @@ public class Contributor extends SparseContributor {
 		return votes;
 	}
 
-	public void setVotes(Set<String> votes) {
-		this.votes = votes;
+	public String getWebsiteUrl() {
+		return websiteUrl;
 	}
 
 	public boolean hasVotedOn(String postId) {
@@ -111,17 +136,49 @@ public class Contributor extends SparseContributor {
 		}
 	}
 
-	/**
-	 * return a copy of this object as sparse object, to be used
-	 * within QnADocument serializations
-	 * @return a SparseContributor object with values from this one.
-	 */
-	public SparseContributor asSparseContributor() {
-		SparseContributor sparseContributor = new SparseContributor();
-		sparseContributor.setId(this.getId());
-		sparseContributor.setDisplayName(this.getDisplayName());
-		sparseContributor.setUserName(this.getUserName());
-		return sparseContributor;
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
 	}
+	
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setReputation(int reputation) {
+		this.reputation = reputation;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setVotes(Set<String> votes) {
+		this.votes = votes;
+	}
+
+
+	public void setWebsiteUrl(String websiteUrl) {
+		this.websiteUrl = websiteUrl;
+	}
+
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+
 
 }

@@ -99,8 +99,8 @@ public class ControllerTests {
 						post("/login")
 						//.with(csrf().asHeader())
 						.param("username", username)
-								.param("password", password))
-				// content(loginBody(username, password)))
+						.param("password", password))
+				// TODO 'restful' login content(loginBody(username, password)))
 				.andExpect(status().isOk()).andReturn();
 
 		this.session = result.getRequest().getSession();
@@ -120,7 +120,7 @@ public class ControllerTests {
 			login("joeUser@marklogic.com", "joesPassword");
 
 			QnADocument qnaDoc = new QnADocument(mapper,
-					"Question from contributor", "I ask questions", "tag1",
+					"Mary's Question Number 0", "I ask questions", "tag1",
 					"tag2");
 
 			String payload = mapper.writeValueAsString(qnaDoc.getJson());

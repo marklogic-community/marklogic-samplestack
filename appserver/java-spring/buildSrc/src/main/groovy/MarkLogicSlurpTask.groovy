@@ -5,30 +5,26 @@ import java.net.URL
 import java.util.regex.Pattern
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+import com.marklogic.client.io.BytesHandle
+import com.marklogic.client.io.Format
+import com.marklogic.client.document.ServerTransform
+import com.marklogic.client.io.DocumentMetadataHandle
+import com.marklogic.client.io.DocumentMetadataHandle.Capability
 
 
 public class MarkLogicSlurpTask extends MarkLogicTask {
 
     String seedDirectory = "database/seed-data"
+    
 
-    void putJson(client, uri, jsonObject) {
-        client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
-        def params = [:]
-        params.path = "/v1/documents"
-        params.queryString = "uri="+uri
-        params.contentType = "application/json"
-        logger.info("POSTING JSON "+new String(jsonObject.getBytes("UTF-8")))
-        // check accepted status for questions
-        if (jsonObject.contains("acceptedAnswerId")) {
-            params.queryString += "&perm:samplestack-guest=read"
-        }
-		params.body = new String(jsonObject.getBytes("UTF-8"))
-        client.put(params)
-    }
-
+	private writerClient() {
+		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
+		client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
+		client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
+		return client
+	}
+	
     void putRdf(client, uri, rdftriples) {
-        client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
-        client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
         def params = [:]
         params.path = "/v1/graphs"
         params.queryString = "graph="+uri
@@ -39,9 +35,14 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
 
     @TaskAction
     void load() {
-        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
+		RESTClient client = writerClient()
         def jsonFiles = project.fileTree(dir: "../../" + seedDirectory).matching { include '**/*.json' 
 include '**/*.nt'}
+        def BATCH_SIZE = 300
+        def numWritten = 0
+        def writeSet = docMgr.newWriteSet()
+        def acceptedPermissionMetadata = new DocumentMetadataHandle().withPermission("samplestack-guest", Capability.READ)
+        def pojoCollectionMetadata = new DocumentMetadataHandle().withCollections("com.marklogic.samplestack.domain.Contributor")
         jsonFiles.each { 
             def pattern = Pattern.compile(".*" + "seed-data")
             def docUri = it.path.replaceAll(pattern, "").replaceAll("\\\\", "/")
@@ -50,9 +51,25 @@ include '**/*.nt'}
                 putRdf(client, docUri, it.text)
             }
             else {
-                logger.info("PUT a JSON object to " + docUri)
-                putJson(client, docUri, it.text)
+                logger.info("Adding a JSON object: " + docUri)
+                numWritten++;
+                if ( numWritten % BATCH_SIZE == 0) {
+                    logger.info("Writing batch")
+                    docMgr.write(writeSet)
+                    writeSet = docMgr.newWriteSet()
+                }
+                def bh = new BytesHandle(it.text.getBytes("UTF-8")).withFormat(Format.JSON)
+                if (it.text.contains("acceptedAnswerId")) {
+                    writeSet.add(docUri, acceptedPermissionMetadata, bh)
+                } else if (it.text.contains("domain.Contributor")) {
+                    writeSet.add(docUri, pojoCollectionMetadata, bh)
+                } else {
+                    writeSet.add(docUri, bh)
+                }
             }
+        }
+        if (numWritten % BATCH_SIZE > 0) {
+            docMgr.write(writeSet)
         }
     }
 }

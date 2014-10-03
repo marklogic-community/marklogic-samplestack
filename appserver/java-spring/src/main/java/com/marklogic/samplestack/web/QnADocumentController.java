@@ -34,10 +34,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.domain.QnADocument;
+import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
+import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.service.ContributorAddOnService;
 import com.marklogic.samplestack.service.QnAService;
 
 /**
@@ -57,7 +58,7 @@ public class QnADocumentController {
 	ObjectMapper mapper;
 
 	@Autowired
-	private ContributorService contributorService;
+	private ContributorAddOnService contributorService;
 
 	/** 
 	 * Searches for QnADocuments and returns search results to request body
@@ -75,23 +76,21 @@ public class QnADocumentController {
 		ObjectNode structuredQuery = mapper.createObjectNode();
 		ObjectNode qtext = structuredQuery.putObject("query");
 		qtext.put("qtext",q);
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, true);
 	}
 
 	/**
 	 * Exposes endpoint for asking a question.
-	 * @param sparseQuestion A POJO constructed from the request body.
+	 * @param initialQuestion A POJO constructed from the request body.
 	 * @return The newly-created QnADocument's JSON node.
 	 */
 	@RequestMapping(value = "questions", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	@ResponseStatus(HttpStatus.CREATED)
-	JsonNode ask(@RequestBody InitialQuestion sparseQuestion) {
-		QnADocument qnaDoc = new QnADocument(mapper, sparseQuestion.getTitle(),
-				sparseQuestion.getText(), sparseQuestion.getTags());
-		QnADocument answered = qnaService.ask(
-				ClientRole.securityContextUserName(), qnaDoc);
+	JsonNode ask(@RequestBody InitialQuestion initialQuestion) {
+		Contributor asker = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument answered = qnaService.ask(asker, initialQuestion);
 		return answered.getJson();
 	}
 
@@ -103,7 +102,7 @@ public class QnADocumentController {
 	@RequestMapping(value = "questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode get(@PathVariable(value = "id") String id) {
-		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), "/questions/" + id);
+		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), id);
 		return qnaDoc.getJson();
 	}
 
@@ -116,7 +115,7 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	ResponseEntity<?> delete(@PathVariable(value = "id") String id) {
-		qnaService.delete("/questions/" + id);
+		qnaService.delete(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
@@ -132,10 +131,10 @@ public class QnADocumentController {
 	@ResponseStatus(HttpStatus.CREATED)
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
-		//validate TODO
-		String answerId = "/questions/" + id;
-		QnADocument answered = qnaService.answer(
-				ClientRole.securityContextUserName(), answerId, answer.get("text").asText());
+		String answerId = id;
+		Contributor owner = contributorService.getByUserName(
+				ClientRole.securityContextUserName());
+		QnADocument answered = qnaService.answer(owner, answerId, answer.get("text").asText());
 		return answered.getJson();
 	}
 	
@@ -148,9 +147,8 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode accept(@PathVariable(value = "answerId") String answerIdPart) {
-		//validate TODO
 		String userName = ClientRole.securityContextUserName();
-		String answerId = "/answers/" + answerIdPart;
+		String answerId = answerIdPart;
 		QnADocument toAccept = qnaService.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1);
 		if (toAccept.getOwnerUserName().equals(userName)) {
 			QnADocument accepted = qnaService.accept(answerId);
@@ -173,8 +171,9 @@ public class QnADocumentController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode comment(@RequestBody JsonNode comment,
 			@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId;
-		QnADocument toCommentOn = qnaService.comment(ClientRole.securityContextUserName(), postId, comment.get("text").asText());
+		String postId = questionId;
+		Contributor commenter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toCommentOn = qnaService.comment(commenter, postId, comment.get("text").asText());
 		return toCommentOn.getJson();
 	}
 	
@@ -188,8 +187,9 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode voteUp(@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId;
-		QnADocument toVoteOn = qnaService.voteUp(ClientRole.securityContextUserName(), postId);
+		String postId = questionId;
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteUp(voter, postId);
 		return toVoteOn.getJson();
 	}
 	
@@ -203,8 +203,9 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode voteDown(@PathVariable(value = "id") String questionId) {
-		String postId = "/questions/" + questionId;
-		QnADocument toVoteOn = qnaService.voteDown(ClientRole.securityContextUserName(), postId);
+		String postId = questionId;
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteDown(voter, postId);
 		return toVoteOn.getJson();
 	}
 	
@@ -219,8 +220,9 @@ public class QnADocumentController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode upVoteAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
-		String answerId = "/answers/" + answerIdPart;
-		QnADocument toVoteOn = qnaService.voteUp(ClientRole.securityContextUserName(), answerId);
+		String answerId = answerIdPart;
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteUp(voter, answerId);
 		return toVoteOn.getJson();
 	}
 	
@@ -235,8 +237,9 @@ public class QnADocumentController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode downVoteAnswer(@PathVariable(value = "answerId") String answerIdPart) {
-		String answerId = "/answers/" + answerIdPart;
-		QnADocument toVoteOn = qnaService.voteDown(ClientRole.securityContextUserName(), answerId);
+		String answerId = answerIdPart;
+		Contributor voter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toVoteOn = qnaService.voteDown(voter, answerId);
 		return toVoteOn.getJson();
 	}
 	
@@ -252,8 +255,9 @@ public class QnADocumentController {
 	@PreAuthorize("hasRole('ROLE_CONTRIBUTORS')")
 	JsonNode commentAnswer(@RequestBody JsonNode comment,
 			@PathVariable(value = "answerId") String answerIdPart) {
-		String answerId = "/answers/" + answerIdPart;
-		QnADocument toCommentOn = qnaService.comment(ClientRole.securityContextUserName(), answerId, comment.get("text").asText());
+		String answerId = answerIdPart;
+		Contributor commenter = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument toCommentOn = qnaService.comment(commenter, answerId, comment.get("text").asText());
 		return toCommentOn.getJson();
 	}
 	
@@ -273,7 +277,8 @@ public class QnADocumentController {
 			start = postedStartNode.asLong();
 			structuredQuery.remove("start");
 		}
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start);
+		// TODO review for presence/absense of date facet as performance question.
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, true);
 	}
 
 }

@@ -1,101 +1,100 @@
 {
-  "options":{
-    "debug":true,
-    "return-qtext":true,
-    "return-query":true,
-    "return-facets":true,
-    "term":{
-      "empty":{
-        "apply":"all-results"
-      }
-    },
-    "constraint":[
-      {
-        "name":"userName",
-        "value":{
-          "json-property":"userName"
-        }
-      },
-      {
-        "name":"id",
-        "range":{
-          "type":"xs:string",
-          "facet":"false",
-          "json-property":"id"
-        }
-      },
-      {
-        "name":"resolved",
-        "value":{
-          "json-property":"accepted"
-        }
-      },
-      {
-        "name":"lastActivity",
-        "range":{
-          "type":"xs:dateTime",
-          "facet":"false",
-          "json-property":"lastActivityDate"
-        }
-      },
-      {
-        "name":"date",
-        "range":{
-          "type":"xs:string",
-          "facet":"true",
-          "json-property":"creationYearMonth"
-        }
-      },
-      {
-        "name":"tag",
-        "range":{
-          "type":"xs:string",
-          "facet":"true",
-          "json-property":"tags",
-          "facet-option":[
-            "frequency-order",
-            "descending",
-            "limit=10"
-          ]
-        }
-      }
-    ],
-    "transform-results":{
-      "apply":"raw"
-    },
-    "default-suggestion-source":{
-      "word":{
-        "json-property":"title"
-      }
-    },
-    "search-option":[
-      "unfiltered"
-    ],
-    "operator":{
-      "name":"sort",
-      "state":[
-        {
-          "name":"active",
-          "sort-order":{
-            "direction":"descending",
-            "json-property":"lastActivityDate"
-          }
+    "options": {
+        "constraint": [
+            {
+                "name": "userName",
+                "value": {
+                    "json-property": "userName"
+                }
+            },
+            {
+                "name": "id",
+                "range": {
+                    "facet": "false",
+                    "json-property": "id",
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "resolved",
+                "value": {
+                    "json-property": "accepted"
+                }
+            },
+            {
+                "name": "date",
+                "range": {
+                    "facet": "false",
+                    "json-property": "lastActivityDate",
+                    "type": "xs:dateTime"
+                }
+            },
+            {
+                "name": "tag",
+                "range": {
+                    "facet": "true",
+                    "facet-option": [
+                        "frequency-order",
+                        "descending",
+                        "limit=10"
+                    ],
+                    "json-property": "tags",
+                    "type": "xs:string"
+                }
+            }
+        ],
+        "debug": true,
+        "default-suggestion-source": {
+            "word": {
+                "json-property": "title"
+            }
         },
-        {
-          "name":"score",
-          "sort-order":{
-            "direction":"descending",
-            "json-property":"docScore"
-          }
+        "operator": {
+            "name": "sort",
+            "state": [
+                {
+                    "name": "active",
+                    "sort-order": {
+                        "direction": "descending",
+                        "json-property": "lastActivityDate"
+                    }
+                },
+                {
+                    "name": "score",
+                    "sort-order": {
+                        "direction": "descending",
+                        "json-property": "voteCount"
+                    }
+                },
+                {
+                    "name": "relevance",
+                    "sort-order": {
+                        "direction": "descending",
+                        "score": null
+                    }
+                }
+            ]
         },
-        {
-          "name":"relevance",
-          "sort-order":{
-            "direction":"descending",
-            "score":null
-          }
-        }
-      ]
+        "return-facets": true,
+        "return-qtext": true,
+        "return-query": true,
+        "term": {
+            "empty": {
+                "apply": "all-results"
+            }
+        },
+        "transform-results": {
+            "apply": "raw"
+        },
+        "values":[
+            {
+                "name":"lastActivityDate",
+                "range":{
+                    "type":"xs:dateTime",
+                    "json-property":"lastActivityDate"
+                }
+            }
+        ],
+        "additional-query" : "<directory-query xmlns='http://marklogic.com/cts'><uri>/questions/</uri></directory-query>"
     }
-  }
 }

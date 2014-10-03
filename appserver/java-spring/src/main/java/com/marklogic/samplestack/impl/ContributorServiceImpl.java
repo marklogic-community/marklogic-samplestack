@@ -15,164 +15,204 @@
  */
 package com.marklogic.samplestack.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import static com.marklogic.samplestack.SamplestackConstants.CONTRIBUTORS_OPTIONS;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.marklogic.client.ResourceNotFoundException;
+import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.Transaction;
-import com.marklogic.client.document.DocumentPage;
-import com.marklogic.client.document.DocumentRecord;
-import com.marklogic.client.io.Format;
-import com.marklogic.client.io.InputStreamHandle;
-import com.marklogic.client.io.StringHandle;
+import com.marklogic.client.io.marker.SearchReadHandle;
+import com.marklogic.client.pojo.PojoPage;
+import com.marklogic.client.pojo.PojoQueryBuilder;
+import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.QueryDefinition;
-import com.marklogic.client.query.StructuredQueryBuilder;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.domain.SamplestackType;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
-import com.marklogic.samplestack.exception.SamplestackException;
-import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.exception.SamplestackNotFoundException;
-import com.marklogic.samplestack.service.ContributorService;
+import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
+import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
- * Service implementation for Contributors.
- * To be replaced by POJO Facade before GA release.
- * @see com.marklogic.samplestack.service.ContributorService
+ * Beyond the repository interface, provides a few useful methods for searching
+ * the Contributors domain.
+ * @see com.marklogic.samplestack.service.ContributorAddOnService
  */
 @Component
-public class ContributorServiceImpl extends AbstractMarkLogicDataService
-		implements ContributorService {
+public class ContributorServiceImpl implements ContributorAddOnService {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(ContributorServiceImpl.class);
 
-	private final SamplestackType type = SamplestackType.CONTRIBUTORS;
+	@Autowired
+	protected MarkLogicOperations operations;
+	
+	@Autowired
+	private PojoRepository<Contributor, String> repository;
 
-	private String docUri(String id) {
-		return type.directoryName() + id + ".json";
+	public void write(Contributor entity) {
+		store(entity);
 	}
 
-	@Override
-	public Contributor get(String id) {
-		try {
-			String documentUri = docUri(id);
-			logger.debug("Fetching document uri " + documentUri);
-			InputStreamHandle handle = jsonDocumentManager(
-					ClientRole.SAMPLESTACK_CONTRIBUTOR).read(documentUri,
-					new InputStreamHandle());
-			return mapper.readValue(handle.get(), Contributor.class);
-		} catch (ResourceNotFoundException e) {
-			throw new SamplestackNotFoundException();
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
+	public void write(Contributor entity, String... collections) {
+		throw new SamplestackUnsupportedException("Collections of contributors is not supported");
 	}
 
-	@Override
-	public void delete(String id) {
-		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).delete(
-				docUri(id));
+	public void write(Contributor entity, Transaction transaction) {
+		store(entity, transaction);
 	}
 
-	@Override
-	// TODO remove, not needed?
-	public List<Contributor> search(String queryString) {
-		DocumentPage page = operations.searchInClass(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, type, queryString, 1);
-		return asList(page);
+	public void write(Contributor entity, Transaction transaction,
+			String... collections) {
+		throw new SamplestackUnsupportedException("Collections of contributors is not supported");
 	}
 
-	// TODO refactor to use multipart response
-	private List<Contributor> asList(DocumentPage page) {
-		List<Contributor> l = new ArrayList<Contributor>();
-		while (page.hasNext()) {
-			DocumentRecord record = page.next();
-			InputStreamHandle handle = record
-					.getContent(new InputStreamHandle());
-			try {
-				l.add(mapper.readValue(handle.get(), Contributor.class));
-			} catch (IOException e) {
-				throw new SamplestackIOException(e);
-			}
-		}
-		return l;
+	public boolean exists(String id) {
+		return repository.exists(id);
 	}
 
-	@Override
-	public List<Contributor> list(long start) {
-		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
-		QueryDefinition qdef = qb.directory(true, type.directoryName());
-		DocumentPage page = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, start);
-		return asList(page);
+	public long count() {
+		return repository.count();
+	}
+
+	public long count(String... collection) {
+		return repository.count(collection);
+	}
+
+	public long count(QueryDefinition query) {
+		return repository.count(query);
+	}
+
+	public void delete(String... ids) {
+		repository.delete(ids);
+	}
+
+	public void deleteAll() {
+		repository.deleteAll();
+	}
+
+	public Contributor read(String id) {
+		return repository.read(id);
+	}
+
+	public Contributor read(String id, Transaction transaction) {
+		return repository.read(id, transaction);
+	}
+
+	public PojoPage<Contributor> read(String[] ids) {
+		return repository.read(ids);
+	}
+
+	public PojoPage<Contributor> read(String[] ids, Transaction transaction) {
+		return repository.read(ids, transaction);
+	}
+
+	public PojoPage<Contributor> readAll(long start) {
+		return repository.readAll(start);
+	}
+
+	public PojoPage<Contributor> readAll(long start, Transaction transaction) {
+		return repository.readAll(start, transaction);
+	}
+
+	public PojoPage<Contributor> search(long start, String... collections) {
+		return repository.search(start, collections);
+	}
+
+	public PojoPage<Contributor> search(long start, Transaction transaction,
+			String... collections) {
+		return repository.search(start, transaction, collections);
+	}
+
+	public PojoPage<Contributor> search(QueryDefinition query, long start) {
+		return repository.search(query, start);
+	}
+
+	public PojoPage<Contributor> search(QueryDefinition query, long start,
+			Transaction transaction) {
+		return repository.search(query, start, transaction);
+	}
+
+	public PojoPage<Contributor> search(QueryDefinition query, long start,
+			SearchReadHandle searchHandle) {
+		return repository.search(query, start, searchHandle);
+	}
+
+	public PojoPage<Contributor> search(QueryDefinition query, long start,
+			SearchReadHandle searchHandle, Transaction transaction) {
+		return repository.search(query, start, searchHandle, transaction);
+	}
+
+	public PojoQueryBuilder<Contributor> getQueryBuilder() {
+		return repository.getQueryBuilder();
+	}
+
+	public long getPageLength() {
+		return repository.getPageLength();
+	}
+
+	public void setPageLength(long length) {
+		repository.setPageLength(length);
+	}
+
+	public DatabaseClient getDatabaseClient() {
+		return repository.getDatabaseClient();
 	}
 
 	@Override
 	public Contributor getByUserName(String userName) {
-		StructuredQueryBuilder qb = new StructuredQueryBuilder("contributors");
-		// TODO repository/facade/json property
-		QueryDefinition qdef = qb.and(qb.directory(true, type.directoryName()),
-				qb.value(qb.element("userName"), userName));
+		@SuppressWarnings("rawtypes")
+		PojoQueryBuilder qb = operations.getContributors().getQueryBuilder();
+		QueryDefinition qdef = qb.value("userName", userName);
 
-		DocumentPage page = operations.search(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, qdef, 1);
+		PojoPage<Contributor> page = operations.getContributors().search(qdef,
+				1);
 		if (page.getTotalSize() == 1) {
-			InputStreamHandle handle = page.nextContent(new InputStreamHandle().withFormat(Format.JSON));
-			try {
-				return mapper.readValue(handle.get(), Contributor.class);
-			} catch (IOException e) {
-				throw new SamplestackIOException(e);
-			}
+			return page.iterator().next();
 		} else if (page.size() > 1) {
 			throw new SampleStackDataIntegrityException(
 					"Cardinality violation for userName " + userName);
 		} else {
 			return null;
 		}
+	}
 
+	@Override
+	public PojoPage<Contributor> search(String queryString) {
+		StringQueryDefinition qdef = operations
+				.newStringQueryDefinition(CONTRIBUTORS_OPTIONS);
+		qdef.setCriteria(queryString);
+		return this.search(qdef, 1);
 	}
 
 	@Override
 	public void store(Contributor contributor) {
 		store(contributor, null);
 	}
-
+	
 	@Override
 	public void store(Contributor contributor, Transaction transaction) {
 		logger.debug("Storing contributor id " + contributor.getId());
-		// TODO cache will speed this up.
 		Contributor cachedContributor = getByUserName(contributor.getUserName());
-		if (cachedContributor != null) logger.debug("cached" + cachedContributor.getId());
-		if (contributor != null) logger.debug("cont" + contributor.getId());
-		
-		if (cachedContributor != null && !(cachedContributor.getId().equals(contributor.getId()))) {
+		if (cachedContributor != null)
+			logger.debug("cached contributor" + cachedContributor.getId());
+		if (contributor != null)
+			logger.debug("contributor " + contributor.getId());
+
+		if (cachedContributor != null
+				&& !(cachedContributor.getId().equals(contributor.getId()))) {
 			throw new SampleStackDataIntegrityException("username "
 					+ contributor.getUserName()
 					+ " collides with pre-existing one");
 		}
-
-		String jsonString = null;
-		try {
-			jsonString = mapper.writeValueAsString(contributor);
-		} catch (JsonProcessingException e) {
-			throw new SamplestackException(e);
-		}
 		if (transaction == null) {
-			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-					docUri(contributor.getId()), new StringHandle(jsonString));
+			repository.write(contributor);
 		} else {
-			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
-					docUri(contributor.getId()), new StringHandle(jsonString),
-					transaction);
+			repository.write(contributor, transaction);
 		}
-	}
 
+	}
 }

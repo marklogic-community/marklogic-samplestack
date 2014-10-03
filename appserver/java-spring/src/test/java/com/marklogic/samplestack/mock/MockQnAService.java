@@ -27,6 +27,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.service.QnAService;
@@ -59,7 +61,7 @@ public class MockQnAService implements QnAService {
 	public void setupDocuments() {
 		
 		asked = new QnADocument((ObjectNode) getTestJson("questions/20864442.json"));
-		answered = new QnADocument((ObjectNode) getTestJson("questions/3bb58db7-a2f3-401c-8515-469376c0520d.json"));
+		answered = new QnADocument((ObjectNode) getTestJson("questions/8450f8a4-2782-4c8a-9fd9-b83bcacc5018.json"));
 		emptySearchResults = (ObjectNode) getTestJson("searchresults/mocksearchempty.json");
 		// searchResults = (ObjectNode) getTestJson("searchresults/mocksearch.json");
 		
@@ -72,28 +74,28 @@ public class MockQnAService implements QnAService {
 	}
 
 	@Override
-	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery,
+	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
 			long start) {
 		return emptySearchResults;
 	}
 
 	@Override
-	public QnADocument ask(String userName, QnADocument question) {
+	public QnADocument ask(Contributor user, InitialQuestion question) {
 		return answered;
 	}
 
 	@Override
-	public QnADocument answer(String userName, String questionId, String answer) {
+	public QnADocument answer(Contributor contributor, String questionId, String answer) {
 		return answered;
 	}
 
 	@Override
-	public QnADocument voteUp(String userName, String postId) {
+	public QnADocument voteUp(Contributor voter, String postId) {
 		return answered;
 	}
 
 	@Override
-	public QnADocument voteDown(String userName, String postId) {
+	public QnADocument voteDown(Contributor voter, String postId) {
 		return asked;
 
 	}
@@ -114,13 +116,19 @@ public class MockQnAService implements QnAService {
 	}
 
 	@Override
-	public QnADocument comment(String userName, String postId, String text) {
+	public QnADocument comment(Contributor commenter, String postId, String text) {
 		return asked;
 	}
 
 	@Override
 	public void deleteAll() {
 		//
+	}
+
+	@Override
+	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
+			long start, boolean includeDates) {
+		return rawSearch(role, structuredQuery, start);
 	}
 
 

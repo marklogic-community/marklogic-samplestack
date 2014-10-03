@@ -24,7 +24,7 @@ Start with an out-of-the box MarkLogic server, installed and running.  By defaul
 
 *To begin developing*
 
-* `./gradlew test` This command runs unit tests
+* `./gradlew test` This command runs unit tests.
 
 *To build javadocs*
 

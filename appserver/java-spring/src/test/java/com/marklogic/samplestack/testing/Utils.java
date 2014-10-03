@@ -17,9 +17,8 @@ package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.UUID;
-
 import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 
 /**
  * Testing utilities, especially for making stock Contributor objects.
@@ -29,6 +28,7 @@ public class Utils {
 	
 	public static String basicUserUUID = "779b383c-dbf3-4008-b9d8-64f0491f1d4a";
 	public static String JoesUUID = "cf99542d-f024-4478-a6dc-7e723a51b040";
+	public static String MarysUUID = "9611450-0663-45a5-8a08-f1c71320475e";
 
 	public static Contributor getBasicUser() {
 		Contributor contributor = new Contributor();
@@ -52,7 +52,7 @@ public class Utils {
 	}
 	
 
-	public static Contributor maryUser;
+	public static Contributor maryAdmin;
 	public static Contributor joeUser;
 
 	static {
@@ -62,10 +62,18 @@ public class Utils {
 
 		joeUser.setId(JoesUUID);
 
-		maryUser = Utils.getBasicUser();
-		maryUser.setDisplayName("maryUser");
-		maryUser.setUserName("maryAdmin@marklogic.com");
-		maryUser.setId(UUID.randomUUID().toString());
+		maryAdmin = Utils.getBasicUser();
+		maryAdmin.setDisplayName("maryUser");
+		maryAdmin.setUserName("maryAdmin@marklogic.com");
+		maryAdmin.setId(MarysUUID);
+	}
+
+	public static InitialQuestion newQuestion() {
+		InitialQuestion q = new InitialQuestion();
+		q.setTitle("How do I get to know MarkLogic quickly?");
+		q.setText("I mean, there are several reasons. \n* bullet\n*bullet And so it goes.");
+		q.setTags(new String[] {"xquery", "javascript", "programming"});
+		return q;
 	}
 
 }

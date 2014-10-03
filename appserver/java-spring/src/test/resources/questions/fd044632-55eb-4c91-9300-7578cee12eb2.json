@@ -1,0 +1,19 @@
+{
+    "answers": [],
+    "comments": [],
+    "creationDate": "2014-10-01T08:59:08.604",
+    "id": "fd044632-55eb-4c91-9300-7578cee12eb2",
+    "itemTally": -1,
+    "lastActivityDate": "2014-10-01T08:59:08.604",
+    "owner": {
+        "displayName": "joeUser",
+        "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
+        "userName": "joeUser@marklogic.com"
+    },
+    "tags": [
+        "python"
+    ],
+    "text": "I had a question about the word balsamic and the number 1",
+    "title": "Joe's Question Number 1",
+    "voteCount": -1
+}

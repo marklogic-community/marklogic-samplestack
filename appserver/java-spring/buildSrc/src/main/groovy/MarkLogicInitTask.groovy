@@ -3,7 +3,7 @@ import groovyx.net.http.RESTClient
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.*
-
+import java.net.URLDecoder
 
 
 public class MarkLogicInitTask extends MarkLogicTask {
@@ -11,7 +11,6 @@ public class MarkLogicInitTask extends MarkLogicTask {
     def roles
     def users
     def privileges
-
 
 
     @TaskAction
@@ -22,15 +21,28 @@ public class MarkLogicInitTask extends MarkLogicTask {
         restBoot()
     }
 
+	private void delay() {
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/timestamp")
+        def params = [:]
+        client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
+        try {
+			Thread.sleep(1000)
+            client.get(params)
+        } catch (ex) {
+			logger.warn("Waiting for server restart...");
+            delay();
+		}
+	}
+	
     void adminInit() {
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/init")
         def params = [:]
         params.contentType = "application/json"
         params.body = "{}"
         try {
-            client.post(params)
-            logger.warn("MarkLogic initialized.  Waiting for server restart.")
-            Thread.sleep(5000)
+            def response = client.post(params)
+            logger.warn("MarkLogic initialized.")
+            delay()
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
@@ -49,8 +61,8 @@ public class MarkLogicInitTask extends MarkLogicTask {
         params.body = String.format('{ "admin-username" : "%s", "admin-password" : "%s", "realm" : "public" }', config.marklogic.admin.user, config.marklogic.admin.password)
         try {
             client.post(params)
-            logger.warn("MarkLogic admin secured.  Waiting for server restart.")
-            Thread.sleep(5000)
+            logger.warn("MarkLogic admin secured.")
+            delay()
         }
         catch (ex) { 
             if ( ex.response.status == 401 )
@@ -91,7 +103,7 @@ public class MarkLogicInitTask extends MarkLogicTask {
     }
 
     void assignPrivileges(jsonRole) {
-        def privilegeName = jsonRole.name.replaceAll(~".json","")
+        def privilegeName = java.net.URLDecoder.decode(jsonRole.name).replaceAll(~".json","").replaceAll(~"^\\d+-","")
         try {
             RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/privileges/" + privilegeName + "/properties")
             client.headers."accept" = "application/json"
@@ -110,8 +122,8 @@ public class MarkLogicInitTask extends MarkLogicTask {
     void createUsers() {
         logger.warn("Creating users, roles, and privileges if absent...")
         roles.listFiles().each { createRole(it) }
-        privileges.listFiles().each { assignPrivileges(it) }
         users.listFiles().each { createUser(it) }
+        privileges.listFiles().each { assignPrivileges(it) }
     }
 
     void restBoot() {

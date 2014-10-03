@@ -55,17 +55,17 @@ public class TagControllerIT extends TagControllerTestImpl {
 		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
 
 	}
-	
+
 	@Test
 	public void testTagsAnonymousOK() throws Exception {
 		super.testTagsAnonymousOK();
 	}
-	
+
 	@Test
 	public void testTagsNoArgs() throws Exception {
 		super.testTagsNoArgs();
 	}
-	
+
 	@Test
 	public void testTagsWithArgument() throws Exception {
 		super.testTagsWithArgument();

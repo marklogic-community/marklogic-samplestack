@@ -15,9 +15,10 @@
  */
 package com.marklogic.samplestack.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 
 /**
@@ -49,27 +50,46 @@ public interface QnAService {
 	 *            A JSON structured query payload, as a JSONNode.
 	 * @param start
 	 *            Index of the first result in the result set.
+	 * @param includeDates
+	 *            Include facet for date values
 	 * @return A QuestionResults object containing results/snippets for the
 	 *         search.
 	 */
-	public ObjectNode rawSearch(ClientRole role, JsonNode structuredQuery,
+	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
+			long start, boolean includeDates);
+	
+	/**
+	 * Send a [JSON] raw structured query to the server, using the options
+	 * configured for a QuestionAndAnswer search.
+	 * 
+	 * @param role
+	 *            ClientRole on whose behalf to execute the search.
+	 * @param structuredQuery
+	 *            A JSON structured query payload, as a JSONNode.
+	 * @param start
+	 *            Index of the first result in the result set.
+	 * @return A QuestionResults object containing results/snippets for the
+	 *         search.
+	 */
+	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
 			long start);
+	
 
 	/**
 	 * Publishes a new Question to the Samplestack database.
 	 * 
-	 * @param userName
+	 * @param user
 	 *            The userName who asked the question
 	 * @param question
 	 *            The new completed details section.
 	 * @return The QnADocument created by the ask operation
 	 */
-	public QnADocument ask(String userName, QnADocument question);
+	public QnADocument ask(Contributor user, InitialQuestion question);
 
 	/**
 	 * Adds an answer to an existing QnADocument
 	 * 
-	 * @param userName
+	 * @param contributor
 	 *            The userName of the contributor adding an answer to the
 	 *            question.
 	 * @param questionId
@@ -78,29 +98,29 @@ public interface QnAService {
 	 *            The answer, in Markdown text representation
 	 * @return The QnADocument as modified by the answer operation
 	 */
-	public QnADocument answer(String userName, String questionId, String answer);
+	public QnADocument answer(Contributor contributor, String questionId, String answer);
 
 	/**
 	 * Adds a vote-up score to a particular question or answer.
 	 * 
-	 * @param userName
+	 * @param voter
 	 *            The contributor who is voting on the question or answer.
 	 * @param postId
 	 *            the id of the question or answer to vote on.
 	 * @return the modified QnADocument, with new score
 	 */
-	public QnADocument voteUp(String userName, String postId);
+	public QnADocument voteUp(Contributor voter, String postId);
 
 	/**
 	 * Adds a vote-down score to a particular question or answer.
 	 * 
-	 * @param userName
+	 * @param voter
 	 *            The contributor who is voting on the question or answer.
 	 * @param postId
 	 *            the id of the question or answer to vote on.
 	 * @return the modified QnADocument, with new score
 	 */
-	public QnADocument voteDown(String userName, String postId);
+	public QnADocument voteDown(Contributor voter, String postId);
 
 	/**
 	 * Marks a particular answer as accepted. Note -- requirement that only
@@ -134,7 +154,7 @@ public interface QnAService {
 	/**
 	 * Adds a comment to a given post Id.
 	 * 
-	 * @param userName
+	 * @param owner
 	 *            The owner of the comment
 	 * @param postId
 	 *            The target post id (question or answer) for the comment.
@@ -142,11 +162,12 @@ public interface QnAService {
 	 *            the text of the comment
 	 * @return The updated QnADocument
 	 */
-	public QnADocument comment(String userName, String postId, String text);
+	public QnADocument comment(Contributor owner, String postId, String text);
 
 	/**
 	 * Removes all the QnA documents from the database. Convenient for testing.
 	 */
 	public void deleteAll();
+
 
 }

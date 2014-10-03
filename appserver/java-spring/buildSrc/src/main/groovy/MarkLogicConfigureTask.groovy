@@ -103,9 +103,11 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             logger.info( "Saving transform " + transformName)
             RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/transforms/" + transformName)
             client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
+            client.getEncoder().putAt("application/javascript", client.getEncoder().getAt("text/plain"))
+            client.getEncoder().putAt("application/vnd.marklogic-javascript", client.getEncoder().getAt("text/plain"))
             client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
             def params = [:]
-            params.contentType = "application/xquery"
+            params.contentType = "application/vnd.marklogic-javascript"
             params.body = transform.text
             put(client, params)
         }

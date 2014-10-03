@@ -68,7 +68,7 @@
     {
       "collation":"http://marklogic.com/collation/",
       "invalid-values":"reject",
-      "localname":"docScore",
+      "localname":"voteCount",
       "namespace-uri":"",
       "range-value-positions":false,
       "scalar-type":"long"
@@ -83,6 +83,8 @@
     }
   ],
   "forest":[
-    "samplestack-1"
+    "samplestack-1",
+    "samplestack-2",
+    "samplestack-3"
   ]
 }
