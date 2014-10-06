@@ -93,7 +93,7 @@ From here, you are presented with a menu that points to three web servers, in or
 
 * **BUILD server: http://localhost:3000**: This is the built application. Unlike the other services presented in the list, this one, the app itself, depends on the middle-tier application to be fully functional. See the [main Samplestack README](../README.md) for notes on using the application.
 * **UNIT TESTS: http://localhost:3001/unit-runner.html**: While the unit tests are executed *during* the build, they are not individually reported. This link allows you to re-run them in a web browser at any time, to see the individual test results, and even to expand each line item to see the code that comprsises each test.
-* **COVERAGE: http://localhost:3004/coverage**: This is a report of the code coverage of unit test.  You can drill down into each part of the webapp by clicking on the rows of the report. As you drill down into individual files, you will see line-by-line color coding that represents how/if a given line or branch of the code has been executed by the unit tests.  **This is also a very handy way to browse the code itself.**
+* **COVERAGE: http://localhost:3002/coverage**: This is a report of the code coverage of unit test.  You can drill down into each part of the webapp by clicking on the rows of the report. As you drill down into individual files, you will see line-by-line color coding that represents how/if a given line or branch of the code has been executed by the unit tests.  **This is also a very handy way to browse the code itself.**
 
 Once you have the webapp running, please see the instructions in the [main README](../README.md) for login credentials and other end-user usage notes.
 
