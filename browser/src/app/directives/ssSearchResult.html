@@ -9,10 +9,10 @@
   <div class="ss-answers">
     <label>answers</label>
     <span
-      ng-bind-template="{{::item.content.answers.length}}"
+      ng-bind-template="{{::item.content.answerCount}}"
     >
     </span>
-    <div class="ss-checked" ng-if="::item.content.acceptedAnswerId">&nbsp;</div>
+    <div class="ss-checked" ng-if="::item.content.accepted">&nbsp;</div>
   </div>
 </div>
 <div class="ss-result-title">
@@ -23,6 +23,6 @@
   </a>
 </div>
 <p
-  ng-bind-template="{{ ::item.content.text }}"
+  ng-bind-template="{{ ::item.content.snippet }}"
 ></p>
 <ss-qna-doc-metadata doc="item.content" doc-type="question"></ss-qna-doc-metadata>
