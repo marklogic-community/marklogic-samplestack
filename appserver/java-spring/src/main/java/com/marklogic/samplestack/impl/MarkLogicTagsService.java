@@ -15,21 +15,17 @@
  */
 package com.marklogic.samplestack.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.TagsService;
 
 /**
  * Implementation of TagsService
  */
 @Component
-public class MarkLogicTagsService implements TagsService {
+public class MarkLogicTagsService extends MarkLogicBaseService implements TagsService {
 
-	@Autowired
-	MarkLogicOperations operations;
 	
 	@Override
 	public String[] suggestTags(ClientRole role) {

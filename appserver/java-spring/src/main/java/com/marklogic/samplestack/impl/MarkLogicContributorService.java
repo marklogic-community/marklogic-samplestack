@@ -22,9 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.Transaction;
-import com.marklogic.client.io.marker.SearchReadHandle;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoQueryBuilder;
 import com.marklogic.client.pojo.PojoRepository;
@@ -32,17 +30,16 @@ import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
-import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
- * Beyond the repository interface, provides a few useful methods for searching
- * the Contributors domain.
- * @see com.marklogic.samplestack.service.ContributorAddOnService
+ * This class exposes those methods of the POJORepository interface
+ * actually implemented in Samplestack.
+ * @see com.marklogic.samplestack.service.ContributorService
  */
 @Component
-public class MarkLogicContributorService implements ContributorAddOnService {
+public class MarkLogicContributorService implements ContributorService {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicContributorService.class);
@@ -53,113 +50,16 @@ public class MarkLogicContributorService implements ContributorAddOnService {
 	@Autowired
 	private PojoRepository<Contributor, String> repository;
 
-	public void write(Contributor entity) {
-		store(entity);
-	}
-
-	public void write(Contributor entity, String... collections) {
-		throw new SamplestackUnsupportedException("Collections of contributors is not supported");
-	}
-
-	public void write(Contributor entity, Transaction transaction) {
-		store(entity, transaction);
-	}
-
-	public void write(Contributor entity, Transaction transaction,
-			String... collections) {
-		throw new SamplestackUnsupportedException("Collections of contributors is not supported");
-	}
-
-	public boolean exists(String id) {
-		return repository.exists(id);
-	}
-
-	public long count() {
-		return repository.count();
-	}
-
-	public long count(String... collection) {
-		return repository.count(collection);
-	}
-
-	public long count(QueryDefinition query) {
-		return repository.count(query);
-	}
-
 	public void delete(String... ids) {
 		repository.delete(ids);
-	}
-
-	public void deleteAll() {
-		repository.deleteAll();
 	}
 
 	public Contributor read(String id) {
 		return repository.read(id);
 	}
 
-	public Contributor read(String id, Transaction transaction) {
-		return repository.read(id, transaction);
-	}
-
-	public PojoPage<Contributor> read(String[] ids) {
-		return repository.read(ids);
-	}
-
-	public PojoPage<Contributor> read(String[] ids, Transaction transaction) {
-		return repository.read(ids, transaction);
-	}
-
-	public PojoPage<Contributor> readAll(long start) {
-		return repository.readAll(start);
-	}
-
-	public PojoPage<Contributor> readAll(long start, Transaction transaction) {
-		return repository.readAll(start, transaction);
-	}
-
-	public PojoPage<Contributor> search(long start, String... collections) {
-		return repository.search(start, collections);
-	}
-
-	public PojoPage<Contributor> search(long start, Transaction transaction,
-			String... collections) {
-		return repository.search(start, transaction, collections);
-	}
-
 	public PojoPage<Contributor> search(QueryDefinition query, long start) {
 		return repository.search(query, start);
-	}
-
-	public PojoPage<Contributor> search(QueryDefinition query, long start,
-			Transaction transaction) {
-		return repository.search(query, start, transaction);
-	}
-
-	public PojoPage<Contributor> search(QueryDefinition query, long start,
-			SearchReadHandle searchHandle) {
-		return repository.search(query, start, searchHandle);
-	}
-
-	public PojoPage<Contributor> search(QueryDefinition query, long start,
-			SearchReadHandle searchHandle, Transaction transaction) {
-		return repository.search(query, start, searchHandle, transaction);
-	}
-
-	public PojoQueryBuilder<Contributor> getQueryBuilder() {
-		return repository.getQueryBuilder();
-	}
-
-	public long getPageLength() {
-		return repository.getPageLength();
-	}
-
-	public void setPageLength(long length) {
-		repository.setPageLength(length);
-	}
-
-	public DatabaseClient getDatabaseClient() {
-		return repository.getDatabaseClient();
 	}
 
 	@Override

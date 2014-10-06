@@ -29,7 +29,6 @@ import com.marklogic.client.extensions.ResourceServices.ServiceResultIterator;
 import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.util.RequestParameters;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 
 
 /**
@@ -39,15 +38,14 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
 @Component
 public class RelatedTagsManager extends ResourceManager {
 
+	@Autowired
+	private Clients clients;
+	
 	public static final String name = "related-tags.xqy";
 
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(RelatedTagsManager.class);
-	
-	@Autowired
-	MarkLogicOperations operations;
-	
 	
 	/**
 	 * Gets tags from the server that are related to the provided one.
@@ -55,12 +53,12 @@ public class RelatedTagsManager extends ResourceManager {
 	 * @return A list of tags related to the input.
 	 */
 	public List<String> getRelatedTags(String tag) {
-		operations.initResource(ClientRole.SAMPLESTACK_CONTRIBUTOR, name,  this);  // is this expensive?
+		clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).init(name,  this);  // is this expensive?
 		RequestParameters params = new RequestParameters();
 		params.add("tag", tag);
 		String[] mimetypes = new String[] { "application/json" };
 	    List<String> results = new ArrayList<String>();
-	    
+
 		ServiceResultIterator resultIterator = getServices().get(params, mimetypes);
 		
 		if (resultIterator.hasNext() ){

@@ -31,7 +31,7 @@ import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.QnAService;
 import com.marklogic.samplestack.testing.Utils;
@@ -42,7 +42,7 @@ public abstract class MarkLogicIntegrationIT {
 	protected MarkLogicOperations operations;
 
 	@Autowired
-	protected ContributorAddOnService contributorService;
+	protected ContributorService contributorService;
 
 	@Autowired
 	protected PojoRepository<Contributor, String> contributorRepository;

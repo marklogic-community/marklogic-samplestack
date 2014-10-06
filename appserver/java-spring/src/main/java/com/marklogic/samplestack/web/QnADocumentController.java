@@ -38,7 +38,7 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
 /**
@@ -58,7 +58,7 @@ public class QnADocumentController {
 	ObjectMapper mapper;
 
 	@Autowired
-	private ContributorAddOnService contributorService;
+	private ContributorService contributorService;
 
 	/** 
 	 * Searches for QnADocuments and returns search results to request body

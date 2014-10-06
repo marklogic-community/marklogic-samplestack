@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 
 @Component
 /**
@@ -54,7 +54,7 @@ public class SamplestackAuthenticationSuccessHandler extends
 	private ObjectMapper mapper;
 	
 	@Autowired
-	private ContributorAddOnService contributorService;
+	private ContributorService contributorService;
 	
 
 	private RequestCache requestCache = new HttpSessionRequestCache();

@@ -16,6 +16,8 @@
 package com.marklogic.samplestack.impl;
 
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
+import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
+import static com.marklogic.samplestack.SamplestackConstants.SEARCH_RESPONSE_TRANSFORM;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,19 +32,25 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentMetadataPatchBuilder.Call;
+import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
-import com.marklogic.client.document.JSONDocumentManager;
+import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
+import com.marklogic.client.query.QueryDefinition;
+import com.marklogic.client.query.QueryManager;
+import com.marklogic.client.query.RawCombinedQueryDefinition;
+import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.client.query.RawQueryDefinition;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.Answer;
@@ -54,28 +62,17 @@ import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.ContributorAddOnService;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component
 /**
  * Implementation of the QnAService interface.
  */
-public class MarkLogicQnAService implements QnAService {
+public class MarkLogicQnAService extends MarkLogicBaseService implements QnAService  {
 
 	@Autowired
-	protected MarkLogicOperations operations;
-
-	protected JSONDocumentManager jsonDocumentManager(ClientRole role) {
-		return operations.newJSONDocumentManager(role);
-	};
-
-	@Autowired
-	protected ObjectMapper mapper;
-
-	@Autowired
-	private ContributorAddOnService contributorService;
+	private ContributorService contributorService;
 
 	private final Logger logger = LoggerFactory.getLogger(MarkLogicQnAService.class);
 
@@ -94,12 +91,20 @@ public class MarkLogicQnAService implements QnAService {
 	}
 
 	@Override
-	public QnADocument findOne(ClientRole role, String stringQuery, long start) {
-		ObjectNode node = operations.findOneQuestion(role, stringQuery, start);
-		if (node != null) {
-			QnADocument newDocument = new QnADocument(node);
+	public QnADocument findOne(ClientRole role, String queryString, long start) {
+		QueryManager queryManager = queryManager(role);
+		QueryDefinition stringQuery = queryManager.newStringDefinition(
+				QUESTIONS_OPTIONS).withCriteria(queryString);
+
+		stringQuery.setDirectory(QUESTIONS_DIRECTORY);
+		DocumentPage page = jsonDocumentManager(role).search(stringQuery, start);
+		if (page.hasNext()) {
+			JacksonHandle handle = new JacksonHandle();
+			handle = page.nextContent(handle);
+			QnADocument newDocument = new QnADocument((ObjectNode) handle.get());
 			return newDocument;
-		} else {
+		}
+		else {
 			return null;
 		}
 	}
@@ -260,6 +265,28 @@ public class MarkLogicQnAService implements QnAService {
 		return findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:" + answerId, 1);
 	}
 
+	private DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
+		DateTime[] dates = new DateTime[2];
+		QueryManager queryManager = clients.get(role).newQueryManager();
+		ValuesDefinition valdef = queryManager.newValuesDefinition("lastActivityDate");
+		valdef.setAggregate("min", "max");
+		valdef.setView("aggregate");
+		JacksonHandle handle = new JacksonHandle();
+		handle.set(structuredQuery);
+		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, QUESTIONS_OPTIONS);
+		valdef.setQueryDefinition(qdef);
+		ValuesHandle responseHandle = queryManager.values(valdef, new ValuesHandle());
+		String minDate = responseHandle.getAggregates()[0].getValue();
+		String maxDate = responseHandle.getAggregates()[1].getValue();
+		if (!minDate.equals("")) {
+			dates[0] = new DateTime(minDate);
+		}
+		if (!maxDate.equals("")) {
+			dates[1] = new DateTime(maxDate);
+		}
+		return dates;
+	}
+	
 	@Override
 	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
 			long start, boolean includeDateFacet) {
@@ -272,7 +299,7 @@ public class MarkLogicQnAService implements QnAService {
 			ObjectNode options = searchNode.putObject("options");
 			options.put("page-length", SamplestackConstants.RESULTS_PAGE_LENGTH);
 
-			DateTime[] dateRange = operations.getDateRanges(role,
+			DateTime[] dateRange = getDateRanges(role,
 					structuredQuery);
 			logger.debug("Got ranges for buckets: " + dateRange.toString());
 
@@ -281,7 +308,18 @@ public class MarkLogicQnAService implements QnAService {
 				logger.debug("Got date range to query: " + dateRange[0].toString() + " to " + dateRange[1].toString());
 			}
 		}
-		return operations.qnaSearch(role, docNode, start, QueryView.ALL);
+		JacksonHandle handle = new JacksonHandle();
+		QueryManager queryManager = clients.get(role).newQueryManager();
+
+		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
+				new JacksonHandle(docNode), QUESTIONS_OPTIONS);
+		ServerTransform responseTransform = new ServerTransform(SEARCH_RESPONSE_TRANSFORM);
+		qdef.setDirectory(QUESTIONS_DIRECTORY);
+		qdef.setResponseTransform(responseTransform);
+		queryManager.setView(QueryView.ALL);
+
+		handle = queryManager.search(qdef, handle, start);
+		return (ObjectNode) handle.get();
 	}
 
 	@Override

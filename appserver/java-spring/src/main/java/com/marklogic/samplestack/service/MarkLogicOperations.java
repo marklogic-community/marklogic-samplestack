@@ -15,14 +15,10 @@
  */
 package com.marklogic.samplestack.service;
 
-import org.joda.time.DateTime;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.extensions.ResourceManager;
-import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 
@@ -40,16 +36,6 @@ public interface MarkLogicOperations {
 	public JsonNode getJsonDocument(ClientRole role, String documentUri);
 	
 	/**
-	 * Convenience method to send a String query over the questions corpus.
-	 * @param role The security role under which to run the query.
-	 * @param queryString The Search API query string, as configured by a persisted options file.
-	 * @param start The index of the first result returned.
-	 * @return A single result.
-	 */
-	public ObjectNode findOneQuestion(ClientRole role,
-			String queryString, long start);
-
-	/**
 	 * Delete an entire directory/class of objects.
 	 * @param role the caller's role
 	 * @param type The directory to delete
@@ -57,43 +43,12 @@ public interface MarkLogicOperations {
 	public void deleteDirectory(ClientRole role, String directory);
 	
 	/**
-	 * Deletes an document by URI
-	 * @param role the caller's role
-	 * @param documentUri uri of the document to delete.
-	 */
-	public void delete(ClientRole role, String documentUri);
-
-	/**
 	 * Gets a JSONDocumentManager with the caller's role for lower-level document
 	 * access to MarkLogic.
 	 * @param role the caller's role.
 	 */
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role);
-	
 
-	/**
-	 * Hooks into MarkLogic extension facilities to initialize a server-side extension
-	 * @param role the caller's role
-	 * @param name the name of the resource extension
-	 * @param resourceManager implementation of a resource manager.
-	 */
-	public <T extends ResourceManager> void initResource(ClientRole role, String name,
-			T resourceManager);
-
-	/**
-	 * The main search for samplestack results.  It is
-	 * a pass-through response from the middle tier to the browser,
-	 * so that the browser can simply use search results from the MarkLogic JSON
-	 * Search API response.
-	 * @param role Role to search with
-	 * @param structuredQuery structured query, JSON String, from browser
-	 * @param start cursor position
-	 * @param view Client can specify which view to retrieve.
-	 * @return A JSON representation of MarkLogic query results.
-	 */
-	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
-			long start, QueryView view);
-	
 	/**
 	 * Wraps a call to the MarkLogic suggest capability
 	 * @param role Role to search with
@@ -126,11 +81,4 @@ public interface MarkLogicOperations {
 	 */
 	public ObjectNode tagValues(ClientRole role, JsonNode combinedQuery, long start);
 
-	/**
-	 * Get the minimum and maximum dates for a given structure query result
-	 * @param role Role to search with
-	 * @param structuredQuery a JSONNode with structured query to qualify the date range.
-	 * @return A two-element array with minimum and maximum returned date values.
-	 */
-	DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery);
 }

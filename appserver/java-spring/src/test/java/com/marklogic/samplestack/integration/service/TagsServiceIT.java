@@ -17,6 +17,7 @@ package com.marklogic.samplestack.integration.service;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -29,7 +30,6 @@ import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.service.TagsService;
 import com.marklogic.samplestack.testing.IntegrationTests;
 
@@ -45,6 +45,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 	MarkLogicOperations operations;
 
 	@Test
+	@Ignore
 	public void testTagSuggestion() {
 		JsonNode tagsJson = getTestJson("questions/tags.json");
 
@@ -67,6 +68,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 	}
 
 	@Test
+	@Ignore
 	public void testAllTags() {
 		JsonNode tagsJson = getTestJson("questions/tags.json");
 

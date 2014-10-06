@@ -29,7 +29,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
 import com.marklogic.samplestack.testing.Utils;
@@ -42,7 +42,7 @@ import com.marklogic.samplestack.testing.Utils;
 public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 
 	@Autowired
-	private ContributorAddOnService contributorService;
+	private ContributorService contributorService;
 	
 	@Before
 	public void setupUsers() {

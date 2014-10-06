@@ -15,10 +15,6 @@
  */
 package com.marklogic.samplestack.impl;
 
-import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
-import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
-
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +22,11 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.client.Transaction;
-import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.document.ServerTransform;
-import com.marklogic.client.extensions.ResourceManager;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.ValuesHandle;
-import com.marklogic.client.query.DeleteQueryDefinition;
-import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
-import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.client.query.RawCombinedQueryDefinition;
-import com.marklogic.client.query.RawQueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
-import com.marklogic.client.query.SuggestDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.MarkLogicOperations;
@@ -55,24 +41,12 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
  */
 public class MarkLogicClient implements MarkLogicOperations {
 
-
-	public static final String SEARCH_RESPONSE_TRANSFORM = "search-response";
-
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicClient.class);
 
 	@Autowired
 	private Clients clients;
-
-	
-	public Clients getClients() {
-		return clients;
-	}
-
-	public void setClients(Clients clients) {
-		this.clients = clients;
-	}
 
 	@Override
 	/**
@@ -90,25 +64,6 @@ public class MarkLogicClient implements MarkLogicOperations {
 	}
 
 	@Override
-	public ObjectNode findOneQuestion(ClientRole role,
-			String queryString, long start) {
-		QueryManager queryManager = clients.get(role).newQueryManager();
-		QueryDefinition stringQuery = queryManager.newStringDefinition(
-				QUESTIONS_OPTIONS).withCriteria(queryString);
-
-		stringQuery.setDirectory(QUESTIONS_DIRECTORY);
-		DocumentPage page = newJSONDocumentManager(role).search(stringQuery, start);
-		if (page.hasNext()) {
-			JacksonHandle handle = new JacksonHandle();
-			handle = page.nextContent(handle);
-			return (ObjectNode) handle.get();
-		}
-		else {
-			return null;
-		}
-	}
-
-	@Override
 	public void deleteDirectory(ClientRole role, String directory) {
 		QueryManager queryManager = clients.get(role).newQueryManager();
 		DeleteQueryDefinition deleteDef = queryManager.newDeleteDefinition();
@@ -119,34 +74,6 @@ public class MarkLogicClient implements MarkLogicOperations {
 	@Override
 	public JSONDocumentManager newJSONDocumentManager(ClientRole role) {
 		return clients.get(role).newJSONDocumentManager();
-	}
-
-	@Override
-	public <T extends ResourceManager> void initResource(ClientRole role,
-			String name, T resourceManager) {
-		clients.get(role).init(name, resourceManager);
-	}
-
-	@Override
-	public void delete(ClientRole role, String documentUri) {
-		clients.get(role).newJSONDocumentManager().delete(documentUri);
-	}
-
-	@Override
-	public ObjectNode qnaSearch(ClientRole role, JsonNode structuredQuery,
-			long start, QueryView view) {
-		JacksonHandle handle = new JacksonHandle();
-		QueryManager queryManager = clients.get(role).newQueryManager();
-
-		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
-				new JacksonHandle(structuredQuery), QUESTIONS_OPTIONS);
-		ServerTransform responseTransform = new ServerTransform(SEARCH_RESPONSE_TRANSFORM);
-		qdef.setDirectory(QUESTIONS_DIRECTORY);
-		qdef.setResponseTransform(responseTransform);
-		queryManager.setView(view);
-
-		handle = queryManager.search(qdef, handle, start);
-		return (ObjectNode) handle.get();
 	}
 
 	@Override
@@ -181,26 +108,4 @@ public class MarkLogicClient implements MarkLogicOperations {
 		return (ObjectNode) responseHandle.get();
 	}
 	
-	@Override
-	public DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
-		DateTime[] dates = new DateTime[2];
-		QueryManager queryManager = clients.get(role).newQueryManager();
-		ValuesDefinition valdef = queryManager.newValuesDefinition("lastActivityDate");
-		valdef.setAggregate("min", "max");
-		valdef.setView("aggregate");
-		JacksonHandle handle = new JacksonHandle();
-		handle.set(structuredQuery);
-		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, QUESTIONS_OPTIONS);
-		valdef.setQueryDefinition(qdef);
-		ValuesHandle responseHandle = queryManager.values(valdef, new ValuesHandle());
-		String minDate = responseHandle.getAggregates()[0].getValue();
-		String maxDate = responseHandle.getAggregates()[1].getValue();
-		if (!minDate.equals("")) {
-			dates[0] = new DateTime(minDate);
-		}
-		if (!maxDate.equals("")) {
-			dates[1] = new DateTime(maxDate);
-		}
-		return dates;
-	}
 }

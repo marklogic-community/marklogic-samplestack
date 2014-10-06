@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 
 /**
  * Provides HTTP access to contributor objects. Contributors are the
@@ -46,7 +46,7 @@ public class ContributorsController {
 	static Random random = new Random();
 
 	@Autowired
-	private ContributorAddOnService service;
+	private ContributorService service;
 
 	@Autowired
 	private PojoRepository<Contributor, String> repository;
