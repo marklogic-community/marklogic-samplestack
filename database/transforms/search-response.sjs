@@ -16,6 +16,7 @@ function joinReputations(ids) {
         var ownerReputation = ownerObject.reputation;
         reputationMap[ownerId] = ownerReputation;
     } 
+    xdmp.log(reputationMap);
     return reputationMap;
 }
 

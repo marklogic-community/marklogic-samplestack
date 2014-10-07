@@ -88,4 +88,6 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		
 		contributorService.delete(c1.getId());
 	}
+	
+
 }

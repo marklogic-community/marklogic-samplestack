@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
-import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
+import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
 import com.marklogic.samplestack.web.JsonHttpResponse;
 
 @ControllerAdvice
@@ -75,7 +75,7 @@ public class ExceptionAdvice {
 	 * @return A JSON message body and 400 response code.
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler({SamplestackIOException.class, SamplestackUnsupportedException.class})
+	@ExceptionHandler({SamplestackIOException.class, SamplestackInvalidParameterException.class})
 	public @ResponseBody JsonNode handleIOException(Exception ex) {
 		return errors.makeJsonResponse(400, ex.getMessage());
 	}

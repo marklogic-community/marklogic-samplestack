@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
+import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
 import com.marklogic.samplestack.service.TagsService;
 
 /**
@@ -84,7 +84,7 @@ public class TagsController {
 			} else if (sortBy.equals("frequency")) {
 				sortBy = "frequency-order";
 			} else {
-				throw new SamplestackUnsupportedException("Sort must be item or frequency");
+				throw new SamplestackInvalidParameterException("Sort must be item or frequency");
 			}
 		}
 		ObjectNode docNode = mapper.createObjectNode();

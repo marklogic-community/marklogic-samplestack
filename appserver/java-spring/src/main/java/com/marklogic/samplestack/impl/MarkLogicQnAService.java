@@ -194,8 +194,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 	 * Involves updating /acceptedAnswerId and the accepted flag of given answer.
 	 */
 	public QnADocument accept(String answerId) {
-		// TODO optimize - remove this database call (or use for etag)
-		// perhaps v document uri values call...
 		QnADocument qnaDocument = getByPostId(answerId);
 
 		String qnaDocumentId = qnaDocument.getId();
@@ -260,7 +258,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 	}
 
 	@Override
-	// TODO implement cache
 	public QnADocument get(ClientRole role, String id) {
 		logger.debug(id);
 		JsonNode json = getJsonDocument(role, uriFromId(id));

@@ -70,6 +70,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 						"/v1/session",
 						"/v1/questions/**",
 						"/v1/contributors/**",
+                        "/v1/hasVoted",
 						"/**"
 						).permitAll()
 			.and()

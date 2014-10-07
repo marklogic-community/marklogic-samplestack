@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -18,8 +19,6 @@ import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.InputStreamHandle;
-import com.marklogic.client.query.DeleteQueryDefinition;
-import com.marklogic.client.query.QueryManager;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -33,7 +32,7 @@ public class TestDataManager {
 
 	public List<String> joesQuestionIds;
 	public List<String> joesAnswerIds;
-	public List<String> marysQuestionsIds;
+	public List<String> marysQuestionIds;
 
 	@Autowired
 	private QnAService qnaService;
@@ -44,7 +43,7 @@ public class TestDataManager {
 	public TestDataManager() {
 		joesQuestionIds = new ArrayList<String>();
 		joesAnswerIds = new ArrayList<String>();
-		marysQuestionsIds = new ArrayList<String>();
+		marysQuestionIds = new ArrayList<String>();
 	}
 
 	
@@ -76,9 +75,10 @@ public class TestDataManager {
 	}
 
 	@PostConstruct
-	public void setupSearch() {
+	public void setupSearchData() {
 		contributorService.store(Utils.joeUser);
 		contributorService.store(Utils.maryAdmin);
+		
 		try {
 			loadJson("questions/20864442.json", false);
 			loadJson("questions/20864445.json", true);
@@ -103,10 +103,25 @@ public class TestDataManager {
 		} catch (Exception e) {
 			throw new SamplestackIOException(e);
 		}
+
+        /* for has voted */
+        joesQuestionIds.add("01600486-60ea-4557-bcfc-9c10b06fb8cd");
+        joesQuestionIds.add("6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300");
+        joesQuestionIds.add("778d0b9c-419f-496a-a300-44815d79708d");
+        joesQuestionIds.add("fd044632-55eb-4c91-9300-7578cee12eb2");
+        joesQuestionIds.add("e3d54960-40f7-4d86-b503-31f14f3dfa12");
+        marysQuestionIds.add("3410347b-abf0-4e1a-8aa8-f153207322eb");
+        marysQuestionIds.add("5dce8909-0972-4289-93cd-f2e8790a17fb");
+        marysQuestionIds.add("8450f8a4-2782-4c8a-9fd9-b83bcacc5018");
+        joesAnswerIds.add("594d5815-3d28-40d2-b1b8-6401a79886ad");
+        joesAnswerIds.add("6432cc02-2770-4b8d-b5f1-0b632875f86d");
+        joesAnswerIds.add("ef376cf4-3a30-44af-b2c5-722e6439723e");
+
+
 	}
 
 	@PreDestroy
-	public void teardownSearch() throws ResourceNotFoundException,
+	public void teardownSearchData() throws ResourceNotFoundException,
 			ForbiddenUserException, FailedRequestException, IOException {
 		try {
 			JSONDocumentManager docMgr = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).newJSONDocumentManager();
@@ -136,8 +151,6 @@ public class TestDataManager {
 		if (toDelete != null) {
 			contributorService.delete(toDelete.getId());
 		}
-		
-		
 	}
 	
 	/**
@@ -174,18 +187,18 @@ public class TestDataManager {
 			question.setText("I, Mary, had a question about the word "
 					+ uniqueWords[i] + " and the number " + i);
 			question.setTags(new String[] { uniqueTags[i] });
-			marysQuestionsIds.add(qnaService.ask(Utils.maryAdmin, question)
+			marysQuestionIds.add(qnaService.ask(Utils.maryAdmin, question)
 					.getId());
 		}
 
 		joesAnswerIds.add(qnaService.answer(Utils.joeUser,
-				marysQuestionsIds.get(0), "My first answer to a question")
+				marysQuestionIds.get(0), "My first answer to a question")
 				.getId());
 		joesAnswerIds.add(qnaService.answer(Utils.joeUser,
-				marysQuestionsIds.get(1), "My second answer to a question")
+				marysQuestionIds.get(1), "My second answer to a question")
 				.getId());
 		joesAnswerIds.add(qnaService.answer(Utils.joeUser,
-				marysQuestionsIds.get(2), "My third answer to a question")
+				marysQuestionIds.get(2), "My third answer to a question")
 				.getId());
 
 		qnaService.voteUp(Utils.maryAdmin, joesQuestionIds.get(0));
@@ -193,17 +206,17 @@ public class TestDataManager {
 		qnaService.voteUp(Utils.maryAdmin, joesQuestionIds.get(2));
 		qnaService.voteDown(Utils.maryAdmin, joesAnswerIds.get(0));
 		qnaService.voteUp(Utils.maryAdmin, joesAnswerIds.get(1));
+		qnaService.voteUp(Utils.joeUser, marysQuestionIds.get(0));
+		qnaService.voteDown(Utils.joeUser, marysQuestionIds.get(1));
+		qnaService.voteDown(Utils.joeUser, marysQuestionIds.get(2));
 
-		qnaService.voteUp(Utils.joeUser, marysQuestionsIds.get(0));
-		qnaService.voteDown(Utils.joeUser, marysQuestionsIds.get(1));
-		qnaService.voteDown(Utils.joeUser, marysQuestionsIds.get(2));
-
-		qnaService.comment(Utils.joeUser, marysQuestionsIds.get(0),
+		qnaService.comment(Utils.joeUser, marysQuestionIds.get(0),
 				"This question is ludicrous.");
-		qnaService.comment(Utils.joeUser, marysQuestionsIds.get(1),
+		qnaService.comment(Utils.joeUser, marysQuestionIds.get(1),
 				"This question is insightful.");
 
 		// one accepted question
 		qnaService.accept(joesAnswerIds.get(0));
+		
 	}
 }

@@ -60,11 +60,21 @@ public class Utils {
 		joeUser.setUserName("joeUser@marklogic.com");
 
 		joeUser.setId(JoesUUID);
+		joeUser.getVotes().add("5dce8909-0972-4289-93cd-f2e8790a17fb");
+		joeUser.getVotes().add("8450f8a4-2782-4c8a-9fd9-b83bcacc5018");
+		joeUser.getVotes().add("3410347b-abf0-4e1a-8aa8-f153207322eb");
 
 		maryAdmin = Utils.getBasicUser();
 		maryAdmin.setDisplayName("maryUser");
 		maryAdmin.setUserName("maryAdmin@marklogic.com");
 		maryAdmin.setId(MarysUUID);
+
+		maryAdmin.getVotes().add("778d0b9c-419f-496a-a300-44815d79708d");
+		maryAdmin.getVotes().add("6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300");
+		maryAdmin.getVotes().add("594d5815-3d28-40d2-b1b8-6401a79886ad");
+		maryAdmin.getVotes().add("6432cc02-2770-4b8d-b5f1-0b632875f86d");
+		maryAdmin.getVotes().add("01600486-60ea-4557-bcfc-9c10b06fb8cd");
+
 	}
 
 	public static InitialQuestion newQuestion() {
@@ -74,5 +84,6 @@ public class Utils {
 		q.setTags(new String[] {"xquery", "javascript", "programming"});
 		return q;
 	}
-
+	
+	
 }
