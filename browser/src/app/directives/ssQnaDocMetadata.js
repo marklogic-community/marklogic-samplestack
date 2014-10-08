@@ -62,8 +62,9 @@ define(['app/module'], function (module) {
               };
               // Return link to Stackoverflow user page
               scope.soUserLink = function () {
-                return scope.soOwnerId() && scope.doc.owner.id ?
-                    'http://stackoverflow.com/users/' + scope.doc.owner.id :
+                return scope.soOwnerId() && scope.doc.owner.originalId ?
+                    'http://stackoverflow.com/users/' +
+                    scope.doc.owner.originalId :
                     null;
               };
               // Is document user valid?
