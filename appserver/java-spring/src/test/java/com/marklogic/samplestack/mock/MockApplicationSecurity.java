@@ -68,7 +68,7 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 				).permitAll()
 	.and()
 	.authorizeRequests()
-		.antMatchers(HttpMethod.POST, "/v1/search").permitAll()
+		.antMatchers(HttpMethod.POST, "/v1/search", "/v1/tags/**").permitAll()
 	.and()
 		.authorizeRequests().antMatchers("/v1/questions/**", "/v1/contributors/**")
 		.authenticated()

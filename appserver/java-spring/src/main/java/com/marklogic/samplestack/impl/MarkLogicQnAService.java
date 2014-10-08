@@ -168,7 +168,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		answer.setOwner(owner);
 
 		try {
-			patchBuilder.insertFragment("/node()/node('answers')",
+			patchBuilder.insertFragment("/node('answers')",
 					Position.LAST_CHILD, mapper.writeValueAsString(answer));
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));

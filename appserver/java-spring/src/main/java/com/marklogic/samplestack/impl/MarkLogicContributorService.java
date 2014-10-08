@@ -28,10 +28,10 @@ import com.marklogic.client.pojo.PojoQueryBuilder;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
+import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.service.ContributorService;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 
 /**
  * This class exposes those methods of the POJORepository interface
@@ -39,13 +39,10 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
  * @see com.marklogic.samplestack.service.ContributorService
  */
 @Component
-public class MarkLogicContributorService implements ContributorService {
+public class MarkLogicContributorService extends MarkLogicBaseService implements ContributorService {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicContributorService.class);
-
-	@Autowired
-	protected MarkLogicOperations operations;
 	
 	@Autowired
 	private PojoRepository<Contributor, String> repository;
@@ -82,8 +79,8 @@ public class MarkLogicContributorService implements ContributorService {
 
 	@Override
 	public PojoPage<Contributor> search(String queryString) {
-		StringQueryDefinition qdef = operations
-				.newStringQueryDefinition(CONTRIBUTORS_OPTIONS);
+		StringQueryDefinition qdef = queryManager(ClientRole.SAMPLESTACK_CONTRIBUTOR)
+				.newStringDefinition(CONTRIBUTORS_OPTIONS);
 		qdef.setCriteria(queryString);
 		return this.search(qdef, 1);
 	}

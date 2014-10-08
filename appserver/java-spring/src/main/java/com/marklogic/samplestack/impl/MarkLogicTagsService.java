@@ -17,6 +17,12 @@ package com.marklogic.samplestack.impl;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.query.QueryManager;
+import com.marklogic.client.query.RawCombinedQueryDefinition;
+import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
 
@@ -26,15 +32,22 @@ import com.marklogic.samplestack.service.TagsService;
 @Component
 public class MarkLogicTagsService extends MarkLogicBaseService implements TagsService {
 
-	
-	@Override
-	public String[] suggestTags(ClientRole role) {
-		return suggestTags(role, "");
-	}
-
-	@Override
-	public String[] suggestTags(ClientRole role, String pattern) {
-		return new String[] { };
+	/**
+	 * Wraps a call to REST API /v1/values to get back tag values and frequencies
+	 * @param role Role to search with
+	 * @param combinedQuery a JSON node containing the options definition for this query.
+	 * @param start the first index to retrieve.
+	 * @return A values response in a JSON structure.
+	 */
+	public ObjectNode getTags(ClientRole role, JsonNode combinedQuery, long start) {
+		QueryManager queryManager = clients.get(role).newQueryManager();
+		ValuesDefinition valdef = queryManager.newValuesDefinition("tags", "tags");
+		JacksonHandle handle = new JacksonHandle();
+		handle.set(combinedQuery);
+		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle);
+		valdef.setQueryDefinition(qdef);
+		JacksonHandle responseHandle = queryManager.values(valdef, new JacksonHandle(), start);
+		return (ObjectNode) responseHandle.get();
 	}
 
 }

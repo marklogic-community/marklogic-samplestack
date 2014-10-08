@@ -10,13 +10,9 @@ import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 
 @Component
 public abstract class MarkLogicBaseService {
-
-	@Autowired
-	protected MarkLogicOperations operations;
 
 	@Autowired
 	protected Clients clients;
