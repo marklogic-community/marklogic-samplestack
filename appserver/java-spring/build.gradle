@@ -44,7 +44,7 @@ task dbInit(type: MarkLogicInitTask)
 
 dbInit.roles = file("../../database/security/roles")
 dbInit.users = file("../../database/security/users")
-dbInit.privileges = file("../../database/security/privileges")
+
 /*
  * TEARDOWN
  * This task removes all trace of samplestack

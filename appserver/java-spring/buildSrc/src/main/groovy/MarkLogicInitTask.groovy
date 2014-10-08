@@ -10,8 +10,6 @@ public class MarkLogicInitTask extends MarkLogicTask {
 
     def roles
     def users
-    def privileges
-
 
     @TaskAction
     void initMarkLogic() {
@@ -102,28 +100,10 @@ public class MarkLogicInitTask extends MarkLogicTask {
         create("roles", jsonRole)
     }
 
-    void assignPrivileges(jsonRole) {
-        def privilegeName = java.net.URLDecoder.decode(jsonRole.name).replaceAll(~".json","").replaceAll(~"^\\d+-","")
-        try {
-            RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/privileges/" + privilegeName + "/properties")
-            client.headers."accept" = "application/json"
-            client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
-            def params = [:]
-            params.queryString = "database=Security&kind=execute"
-            params.contentType = "application/json"
-            params.body = jsonRole.text
-            client.put(params)
-        } catch (ex) {
-            logger.error("Error creating security object.  Privilege name: " + privilegeName + ". Payload: "+jsonRole.text+" .  Skipping...")
-        }
-
-    }
-
     void createUsers() {
-        logger.warn("Creating users, roles, and privileges if absent...")
+        logger.warn("Creating users and roles...")
         roles.listFiles().each { createRole(it) }
         users.listFiles().each { createUser(it) }
-        privileges.listFiles().each { assignPrivileges(it) }
     }
 
     void restBoot() {

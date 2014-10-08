@@ -9,5 +9,22 @@
       "role-name": "rest-reader",
       "capability": "read"
     }
+  ],
+  "privilege": [
+    {
+        "privilege-name":"xdmp:value",
+        "action":"http://marklogic.com/xdmp/privileges/xdmp-value",
+        "kind":"execute"
+    },
+    {
+        "privilege-name":"rest-reader",
+        "action":"http://marklogic.com/xdmp/privileges/rest-reader",
+        "kind":"execute"
+    },
+    {
+        "privilege-name":"sem:sparql",
+        "action":"http://marklogic.com/xdmp/privileges/sem-sparql",
+        "kind":"execute"
+    }
   ]
 }
