@@ -25,11 +25,12 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     def dbProperties = database + sep + "database-properties.json"
     def transforms = database + sep + "transforms"
     def restExtensions = database + sep + "ext"
-    def services = database + sep +"services"
+    def restServices = database + sep +"services"
     def options = database + sep + "options"
     def restProperties = database + sep + "rest-properties.json"
     def file = null
 
+    
     
     @TaskAction
     void configureREST(IncrementalTaskInputs inputs) {
@@ -55,7 +56,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
                 logger.warn("Putting library extension " + change.file.name)
                 putExtension(changeFile)
             }
-            else if (changeFile.path.contains(services)) {
+            else if (changeFile.path.contains(restServices)) {
                 logger.warn("Putting service extension " + change.file.name)
                 putServiceExtension(changeFile)
             }
