@@ -47,10 +47,10 @@ import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.QueryManager;
-import com.marklogic.client.query.RawCombinedQueryDefinition;
-import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.RawQueryDefinition;
+import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.Answer;
@@ -130,6 +130,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		Date now = new Date();
 		question.setCreationDate(now);
 		question.updateLastActivityDate();
+		question.setAcceptedAnswerId(null);
 		question.setOwner(user.asSparseContributor());
 
 		JsonNode jsonNode = mapper.convertValue(question, JsonNode.class);
@@ -204,28 +205,19 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
-		ObjectNode acceptNode = mapper.createObjectNode();
-		acceptNode.put("acceptedAnswerId", answerId);
-		ObjectNode acceptFlagNode = mapper.createObjectNode();
-		acceptFlagNode.put("accepted", true);
-
 		Transaction transaction = startTransaction(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
 		try {
-			patchBuilder.replaceInsertFragment("acceptedAnswerId", "/node()",
-					Position.LAST_CHILD, mapper.writeValueAsString(acceptNode));
+			patchBuilder.replaceValue("/acceptedAnswerId", answerId);
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
-			patchBuilder.replaceInsertFragment("accepted", "/node()",
-					Position.LAST_CHILD, acceptFlagNode);
+			patchBuilder.replaceValue("/accepted", true);
 			patchBuilder.addPermission("samplestack-guest", Capability.READ);
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
 					documentUri, patch, transaction);
 		} catch (MarkLogicIOException e) {
-			throw new SamplestackIOException(e);
-		} catch (JsonProcessingException e) {
 			throw new SamplestackIOException(e);
 		}
 
@@ -366,10 +358,14 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 
 			try {
 				Call call = patchBuilder.call().add(delta);
-				patchBuilder.replaceApply("/node()/voteCount", call);
+				patchBuilder.replaceApply("/voteCount", call);
 
-				patchBuilder.replaceApply("//object-node()[id=\"" + postId
+				if (postId.equals(qnaDocumentId)) {
+					patchBuilder.replaceApply("/itemTally", call);
+				} else {
+					patchBuilder.replaceApply("/answers[id=\"" + postId
 						+ "\"]/itemTally", call);
+				}
 				DocumentPatchHandle patch = patchBuilder.build();
 
 				logger.debug(patch.toString());
@@ -423,9 +419,15 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
 		try {
-			patchBuilder.insertFragment("//object-node()[id=\"" + postId
-					+ "\"]/array-node('comments')", Position.LAST_CHILD,
+			if (postId.equals(qnaDocumentId)) {
+				patchBuilder.insertFragment("/array-node('comments')", Position.LAST_CHILD, 
 					mapper.writeValueAsString(comment));
+			}
+			else {
+				patchBuilder.insertFragment("/answers[id=\"" + postId
+						+ "\"]/array-node('comments')", Position.LAST_CHILD,
+						mapper.writeValueAsString(comment));
+			}
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
 

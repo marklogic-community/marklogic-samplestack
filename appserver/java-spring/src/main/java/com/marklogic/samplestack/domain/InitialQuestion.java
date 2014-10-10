@@ -28,13 +28,23 @@ import javax.validation.constraints.NotNull;
 public class InitialQuestion {
 	
 	private Answer[] answers;
-	
 	private Comment[] comments;
-	
 	private Date creationDate;
-	
 	private String id;
-	
+	private String acceptedAnswerId;
+	private Boolean accepted;
+	public Boolean getAccepted() {
+		return accepted;
+	}
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
+	public String getAcceptedAnswerId() {
+		return acceptedAnswerId;
+	}
+	public void setAcceptedAnswerId(String acceptedAnswerId) {
+		this.acceptedAnswerId = acceptedAnswerId;
+	}
 	public String getId() {
 		return id;
 	}
@@ -64,6 +74,7 @@ public class InitialQuestion {
 		this.answers = new Answer[] {};
 		this.voteCount = 0L;
 		this.itemTally = 0L;
+		this.accepted = false;
 	}
 	
 	public Answer[] getAnswers() {

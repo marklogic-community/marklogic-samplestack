@@ -37,10 +37,10 @@ public class QuestionDomainTest {
 		initialQuestion.setTitle("title");
 		initialQuestion.setTags(new String[] {"tag1", "tag2"});
 		initialQuestion.setOwner(Utils.joeUser.asSparseContributor());
-		String expected ="{answers:[],comments:[],creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
+		String expected ="{answers:[],comments:[],acceptedAnswerId:null,accepted:false,creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
 		
-		JSONAssert.assertEquals(mapper.writeValueAsString(initialQuestion),
-				expected, false);
+		JSONAssert.assertEquals(expected, mapper.writeValueAsString(initialQuestion),
+				false);
 	}
 
 
