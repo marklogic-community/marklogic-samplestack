@@ -11,5 +11,16 @@ World.addPage({
       }
     });
 
+    Object.defineProperty(this, 'docsCount', {
+      get: function () {
+        return q(element(by.className('ss-search-results-count'))
+          .getText()
+          .then(function (text) {
+            return text.replace(/,/, '');
+          })
+        );
+      }
+    });
+
   }
 });

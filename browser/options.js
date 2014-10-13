@@ -37,6 +37,45 @@ var defaults = {
     e2eLcov: 'browser/reports/e2e'
   },
 
+/* jshint ignore:start */
+  sauceBrowsers: {
+    'win7-chrome-33': { platform: 'Windows 7', browserName: 'chrome', version: '33', deviceName: '' },
+    'win7-chrome-38': { platform: 'Windows 7', browserName: 'chrome', version: '38', deviceName: '' },
+    'win7-firefox-22': { platform: 'Windows 7', browserName: 'firefox', version: '22', deviceName: '' },
+    'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
+    // 'win7-ie-9': { platform: 'Windows 7', browserName: 'internet explorer', version: '9', deviceName: '' },
+    // 'win7-ie-10': { platform: 'Windows 7', browserName: 'internet explorer', version: '10', deviceName: '' },
+    'win7-ie-11': { platform: 'Windows 7', browserName: 'internet explorer', version: '11', deviceName: '' },
+    // 'win7-opera-11': { platform: 'Windows 7', browserName: 'opera', version: '11', deviceName: '' },
+    // 'win7-opera-12': { platform: 'Windows 7', browserName: 'opera', version: '12', deviceName: '' },
+    // 'win8-ie-10': { platform: 'Windows 8', browserName: 'internet explorer', version: '10', deviceName: '' },
+    'win8.1-ie-11': { platform: 'Windows 8.1', browserName: 'internet explorer', version: '11', deviceName: '' },
+    'linux-chrome-33': { platform: 'Linux', browserName: 'chrome', version: '33', deviceName: '' },
+    'linux-chrome-38': { platform: 'Linux', browserName: 'chrome', version: '38', deviceName: '' },
+    'linux-firefox-22': { platform: 'Linux', browserName: 'firefox', version: '22', deviceName: '' },
+    'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
+    // 'linux-opera-12': { platform: 'Linux', browserName: 'opera', version: '12', deviceName: '' },
+    'osx10.6-chrome-33': { platform: 'OS X 10.6', browserName: 'chrome', version: '33', deviceName: '' },
+    'osx10.6-chrome-37': { platform: 'OS X 10.6', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.6-firefox-22': { platform: 'OS X 10.6', browserName: 'firefox', version: '22', deviceName: '' },
+    'osx10.6-firefox-32': { platform: 'OS X 10.6', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.9-chrome-33': { platform: 'OS X 10.9', browserName: 'chrome', version: '33', deviceName: '' },
+    'osx10.9-chrome-36': { platform: 'OS X 10.9', browserName: 'chrome', version: '36', deviceName: '' },
+    'osx10.9-firefox-22': { platform: 'OS X 10.9', browserName: 'firefox', version: '22', deviceName: '' },
+    'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' },
+    // 'osx10.9-safari-7': { platform: 'OS X 10.9', browserName: 'safari', version: '7', deviceName: '' },
+  },
+  supportedBrowsers: [
+    'linux-chrome-33',
+    'linux-firefox-22',
+    'osx10.9-chrome-33',
+    'osx10.9-firefox-22',
+    'win7-firefox-22',
+    'win7-chrome-33',
+    'win7-ie-9',
+  ],
+/* jshint ignore:end */
+
   // when not empty string, becomes a tweak to dependency paths so that
   // CDNs which present librarires with ".min.js" URLs can be referenced
   min: '',
@@ -71,7 +110,7 @@ var envOverrides = {
   // NOT yet used
   e2e: {
     // because we want to run against instrumented app for e2e tests
-    webApp: url.parse('http://localhost:3003'),
+    // webApp: url.parse('http://localhost:3003'),
     javaAppServer: url.parse('http://localhost:8090'),
     // TODO: run against **instrumented** app to determine coverage (on 8093)?
     nodeAppServer: url.parse('http://localhost:8090')

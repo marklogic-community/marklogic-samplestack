@@ -2,6 +2,7 @@
   "node": true,
   "browser": false,
   "globals": {
+    "browser": false
   },
   "esnext": false,
   "expr": true,

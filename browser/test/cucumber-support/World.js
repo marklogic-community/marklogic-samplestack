@@ -13,6 +13,7 @@ chai.should();
 global.expect = chai.expect;
 
 global.ptor = require('protractor').getInstance();
+ptor.ignoreSynchronization = false;
 
 var util = require('util');
 
@@ -30,12 +31,22 @@ function addPage (spec) {
   var Page = spec.constructor;
   util.inherits(Page, PageBase);
   pages[spec.name] = new Page();
-  _.forEach(spec.aliases, function(alias) {
+  _.forEach(spec.aliases, function (alias) {
     pages[alias] = pages[spec.name];
   });
 }
 
 World.addPage = addPage;
+
+World.prototype.logout  = function () {
+  return this.userName.then(function (name) {
+    if (name) {
+      element(by.className('ss-user-info-displayName')).click();
+      return element(by.css('button')).click();
+    }
+  });
+};
+
 
 Object.defineProperty(World.prototype, 'pageTitle', {
   get: function () {
@@ -44,13 +55,90 @@ Object.defineProperty(World.prototype, 'pageTitle', {
   }
 });
 
+Object.defineProperty(World.prototype, 'userName', {
+  get: function () {
+    var el = element(by.className('ss-user-info-display-name'));
+    return el.isElementPresent()
+    .then(
+      function (isPresent) {
+        if (isPresent) {
+          return el.getText().then(function (text) {
+            return text.replace(/ \[$/, '');
+          });
+        }
+        else {
+          return null;
+        }
+      },
+      function (err) {
+        console.log('error!');
+        console.log(err);
+      }
+    );
+  }
+});
+
+
+
+
 World.prototype.go = function (page) {
-  var ptorPage = ptor.get(page.url);
+  // console.log(ptor.waitForAngular.toString());
+  // var deferred = q.defer();
   this.currentPage = page;
-  return ptorPage;
+  return ptor.get(
+    page.url
+  );
+  // .then(
+  //   function () {
+  //     console.log('gonna wait');
+  //     return ptor.waitForAngular();
+  //   }
+  // );
+  
+  //   function () {
+  //     (deferred.resolve);
+  //     // )
+  //     // setTimeout(function () { deferred.resolve(); }, 5000);
+  //   }
+  // );
+  // return deferred.promise;
+  // .then(function () {
+  //   return ptor.getCurrentUrl();
+  // });
+  //   function () {
+  //   console.log('gonna wait');
+  //   var promise = ptor.waitForAngular();
+  //   console.log('made promise');
+  //   return promise;
+  //   // return ptor.waitForAngular().then(
+  //   //   function () {
+  //   //     console.log('waited');
+  //   //
+  //   //   },
+  //   //   function (err) {
+  //   //     console.log('err: ' + err);
+  //   //   }
+  //   // );
+  // });
+  // return ptorPage;
+  // ptor.waitForAngular();
+  // return ptor.wait();
+  //
+  // var ptorPage = ptor.get(page.url);
+  // var deferred = q.defer();
+  // q.call(function () {
+  //   ptor.waitForAngular(function () {
+  // this.currentPage = page;
+  //
+  // return ptorPage;
+    // deferred.resolve(ptorPage);
+    // });
+  // });
+  //
+  // return deferred.promise;
 };
 
-var setPrepareStackTrace = function(isOn) {
+var setPrepareStackTrace = function (isOn) {
   if (isOn) {
 
     // monkey-patch stack trace more-or-less compatible with webdriver

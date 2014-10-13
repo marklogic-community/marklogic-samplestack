@@ -1,16 +1,20 @@
+
+
 // TODO: docs
 //
 // TODO in general, we should think about using a port-finding technique
 // in case ports are occupied, and/or give clear messages in those cases
 // so that the developer can reconfigure
 
+var _ = require('lodash');
 var path = require('path');
 var childProcess = require('child_process');
 
 var gulp = require('gulp');
 
 var chalk = require('chalk');
-var minimist = require('minimist');
+// var minimist = require('minimist');
+var argv = require('yargs').argv;
 var helper = require('./helper');
 var options = require('../options');
 
@@ -24,6 +28,9 @@ var watchTaskCalled = false;
 var hadErrors = false;
 
 var rootDir = path.resolve(__dirname, '..');
+var projectRoot = path.resolve(__dirname, '../..');
+var reportsDir = path.resolve(projectRoot, 'reports');
+
 var targets =  {
   build: 'builds/built',
   unit: 'builds/unit-tester',
@@ -71,8 +78,10 @@ self = module.exports = {
   options: options,
 
   paths:  {
+    projectRoot: projectRoot,
     rootDir: rootDir,
     targets: targets,
+    reportsDir: reportsDir,
 
     src: 'src',
     unit: 'test/unit-tests',
@@ -225,23 +234,24 @@ self = module.exports = {
   },
 
   currentTask: function () {
-    var argv = minimist(process.argv.slice(2));
     return argv._[0] || 'default';
   },
 
   isChildProcess: function () {
-    var argv = minimist(process.argv.slice(2));
-    return argv['as-child'];
+    return argv.asChild;
   },
 
   restartChild: function () {
-    var argv = minimist(process.argv.slice(2));
     if (gulpChild) {
       gulpChild.kill('SIGINT');
     }
 
+    var argsArray = process.argv.slice(2).concat('--as-child');
+
     gulpChild = childProcess.spawn(
-      'gulp', argv._.concat('--as-child'), { stdio: 'inherit' }
+      'gulp',
+      argsArray,
+      { stdio: 'inherit' }
     );
   }
 };

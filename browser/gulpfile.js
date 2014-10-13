@@ -25,7 +25,7 @@ var ctx = require('./dev-tasks/context');
 // expression to test for task names whose starting and ending log messages
 // we wish to suppress
 var taskNoLogExpr = new RegExp([
-  'watch'
+  'watch', 'e2e'
 ].join('|'));
 
 /**

@@ -1,7 +1,11 @@
 <header>
   <h2 ng-if="search.results.total > 0"
-    ng-bind-template="Browsing {{search.results.total | number:0}} Questions"
-  >
+  > Browsing
+    <span
+      class="ss-search-results-count"
+      ng-bind-template="{{search.results.total | number:0}}"
+    ></span>
+    Questions
   </h2>
   <h2 ng-if="search.results.total == 0">
     No Results
