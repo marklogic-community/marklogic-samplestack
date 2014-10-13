@@ -1,6 +1,6 @@
 # marklogic-samplestack
 
-README for Version 1.0.0-ea2
+README for Version 1.0.0-EA3 (In Progress)
 
 Samplestack is a demo "Question and Answer" web application that shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
@@ -21,8 +21,8 @@ This README covers the following topics:
 
 ## Prerequisites
 To configure and use this application, you need the following software:
-* Java JDK 1.7
-* MarkLogic 8 EA2 (see instructions [below](#getting-started))
+* Java JDK 1.7 or 1.8
+* MarkLogic 8 Nightly (10/12) (see instructions [below](#getting-started))
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
 * A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp). For details, see [Global Utilities](browser/README.md#global-utilities) in the [browser README](browser/README.md).
 
@@ -31,6 +31,20 @@ The setup instructions assume you have the `git`, `javac`, `node`, `bower`, and 
 The setup procedure may install additional software, such as Gradle and Angular.
 
 ## Getting Started
+
+*note for development branch work:* 
+
+This README is for a development branch that does not work with any released version of MarkLogic
+
+Use MarkLogic nightly from 10/12.  Trunk may work, but use at your own risk.
+Java Client API needs snapshot on or after 10/10/2014.  This should be installed 
+automatically but may require gradle or maven cache cleaning.
+
+This build requires seed data available internally.  The current seed data version is 1.2
+
+*end note* 
+
+
 Follow this procedure to set up Samplestack in your environment.
 
 1. Install MarkLogic 8 Early Access. See http://ea.marklogic.com/download.
