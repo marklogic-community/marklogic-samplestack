@@ -17,7 +17,6 @@ package com.marklogic.samplestack.integration.web;
 
 import groovy.lang.Category;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +27,18 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.LoginTestsImpl;
+import com.marklogic.samplestack.testing.TestDataManager;
 import com.marklogic.samplestack.testing.UnitTests;
-import com.marklogic.samplestack.testing.Utils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = { Application.class })
+@SpringApplicationConfiguration(classes = { Application.class, TestDataManager.class })
 @Category(UnitTests.class)
 public class LoginIT extends LoginTestsImpl {
 
 	@Autowired
 	private ContributorService contributorService;
-	
-	@Before
-	public void setupJoe() {
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryAdmin);
-	}
 	
 	@Test
 	public void loginBadCredentials() throws Exception {

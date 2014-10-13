@@ -95,7 +95,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 		logger.debug("Storing contributor id " + contributor.getId());
 		Contributor cachedContributor = getByUserName(contributor.getUserName());
 		if (cachedContributor != null)
-			logger.debug("cached contributor" + cachedContributor.getId());
+			logger.debug("cached contributor " + cachedContributor.getId());
 		if (contributor != null)
 			logger.debug("contributor " + contributor.getId());
 

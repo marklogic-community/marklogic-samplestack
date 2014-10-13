@@ -17,14 +17,14 @@ Start with an out-of-the box MarkLogic server, installed and running.  By defaul
 
 *To build the app*
 
-* `./gradlew assemble`   This command bootstraps the middle tier and builds the Java project
+* `./gradlew assemble`   This command bootstraps the middle tier, runs tests, and builds the Java project
 * `./gradlew dbLoad`    This command loads some sample data
 * `./gradlew bootrun`       This command runs the middle tier and MarkLogic services
 * See the sibling project in /browser for instructions on running the browser application
 
 *To begin developing*
 
-* `./gradlew test` This command runs unit tests.
+* `./gradlew test` This command runs unit tests.  Note that the tests will no longer pass if you run them after dload.  We wanted to avoid their being overly destructive in a demo environment, and so if you want clean-running tests after dbload, simply issue a dbclear first.
 
 *To build javadocs*
 
@@ -43,6 +43,7 @@ By default the middle-tier appserver will be running on port 8090
 * GET /v1/logout
 * GET /v1/questions  Get a paginated list of questions (snippet form)
 * GET /v1/questions?q=term&start=20
+* GET /v1/hasVoted?postId=id&contributorId=id
 * POST /v1/search
 * POST /v1/questions
 * GET /v1/questions/{id}
@@ -53,13 +54,11 @@ By default the middle-tier appserver will be running on port 8090
 * POST /v1/questions/{id}/answers/{id}/upvotes
 * POST /v1/questions/{id}/answers/{id}/downvotes
 * POST /v1/questions/{id}/answers/{id}/accept
-* GET /v1/tags
-* GET /v1/tags?q=
-* GET /v1/contributors paginated list of foo object URIs as JSON array
-* POST /v1/contributors Create a user
+* POST /v1/tags   with MarkLogic structured query
+* POST /v1/tags/{name}   related tags
+* GET /v1/contributors paginated list of contributors
+* POST /v1/contributors Create a user  (admin role only)
 * GET/PUT/DELETE /v1/contributors/{id} Get, update, remove Users
-
-TODO: related tags
 
 
 ## License

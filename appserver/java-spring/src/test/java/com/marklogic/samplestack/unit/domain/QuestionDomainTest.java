@@ -1,17 +1,15 @@
 package com.marklogic.samplestack.unit.domain;
 
-import static com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
-
 import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.Answer;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -22,12 +20,7 @@ import com.marklogic.samplestack.testing.Utils;
 @Category(UnitTests.class)
 public class QuestionDomainTest {
 
-	private CustomObjectMapper mapper;
-	
-	@Before
-	public void setUp() {
-		mapper = new CustomObjectMapper();
-	}
+	private CustomObjectMapper mapper = new CustomObjectMapper();
 	
 	@Test
 	public void testInitialQuestion() throws JsonProcessingException, JSONException {

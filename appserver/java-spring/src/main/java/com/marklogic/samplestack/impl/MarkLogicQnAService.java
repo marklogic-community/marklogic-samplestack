@@ -326,14 +326,15 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		queryManager.setView(QueryView.ALL);
 
 		JacksonHandle responseHandle = new JacksonHandle();
+		docMgr.setSearchView(QueryView.ALL);
 		DocumentPage docPage = docMgr.search(qdef, start, responseHandle);
 		
 		ObjectNode responseNode = (ObjectNode) responseHandle.get();
 		ArrayNode results = (ArrayNode) responseNode.findPath("results");
 		
 		int objectIndex = 0;
-		ObjectNode reputations = (ObjectNode) responseNode.findPath("reputations");
-
+		JsonNode reputations = responseNode.findPath("reputations");
+		
 		while (docPage.hasNext()) {
 			// the matching document, as returned by extract-document-data specifiation
 			ObjectNode documentResult = (ObjectNode) docPage.nextContent(new JacksonHandle()).get();
@@ -342,7 +343,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 			// and for the snippet to be embedded
 			for (JsonNode ownerNode : documentResult.findValues("owner")) {
 				ObjectNode owner = (ObjectNode) ownerNode;
-				if (reputations.has(owner.get("id").asText())) {
+				if (reputations.isObject() && reputations.has(owner.get("id").asText())) {
 					owner.put("reputation", reputations.get(owner.get("id").asText()).asText());
 				}
 				else {
@@ -364,7 +365,9 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 			tagsNode.addAll((ArrayNode) documentResult.get("tags"));
 			newContent.put("lastActivityDate", documentResult.get("lastActivityDate").asText());
 			newContent.put("id", documentResult.get("id").asText());
-			newContent.put("originalId", documentResult.get("originalId").asText());
+			if (documentResult.get("originalId") != null) {
+				newContent.put("originalId", documentResult.get("originalId").asText());
+			}
 			newContent.put("answerCount", documentResult.get("answers").size());
 			newContent.put("title", documentResult.get("title").asText());
 			newContent.put("owner", documentResult.get("owner"));

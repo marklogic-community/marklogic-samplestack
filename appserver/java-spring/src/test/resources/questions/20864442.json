@@ -1,6 +1,8 @@
 {
     "answers": [],
     "comments": [],
+    "accepted": false,
+    "acceptedAnswerId": null,
     "creationDate": "2014-01-01T00:07:26.893",
     "id": "20864442",
     "itemTally": 0,

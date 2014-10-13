@@ -22,16 +22,25 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -43,14 +52,14 @@ import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.service.QnAService;
 import com.marklogic.samplestack.testing.IntegrationTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { DatabaseContext.class })
+@ContextConfiguration(classes = { DatabaseContext.class, TestDataManager.class})
 @Category(IntegrationTests.class)
 public class QnAServiceIT extends MarkLogicIntegrationIT {
 
-	
 	private final Logger logger = LoggerFactory.getLogger(QnAServiceIT.class);
 
 	@Autowired
@@ -59,6 +68,28 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 	@Autowired
 	ObjectMapper mapper;
 
+	private Date deleteSince = null;
+	
+	@Before
+	public void storeTimestamp() {
+		deleteSince = new Date();
+	}
+
+	@After
+	public void cleanupEachTest() throws JsonParseException, JsonMappingException, IOException {
+		ObjectNode structuredQuery = mapper.readValue(new ClassPathResource("queries/clean-range.json").getInputStream(), ObjectNode.class);
+		ObjectNode rangeQueryNode = (ObjectNode) structuredQuery.get("query").get("range-query");
+		rangeQueryNode.put("value", ISO8601Formatter.format(deleteSince));
+
+		ObjectNode joesQuestions = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1);
+		List<String> toDelete = joesQuestions.findValuesAsText("id");
+		for (String d : toDelete) {
+			logger.debug("Cleaning up from qnatests " + d);
+			qnaService.delete(d);
+		}
+	}
+
+	
 	@Test
 	/**
 	 * In this test we exercise the search/ask/answer/accept flow
@@ -271,6 +302,13 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 	}
 
 	@Test
+	public void testCommentsAndSearch() throws JsonProcessingException {
+		testComments();
+		testDefaultSearchService();
+		testDateFacets();
+	}
+	
+	
 	public void testComments() {
 		InitialQuestion newQuestion = new InitialQuestion();
 		newQuestion.setTitle("How do comments work?");
@@ -327,9 +365,9 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 	}
 
-	@Test
+	/* run by testCommentsAndSearch */
 	public void testDefaultSearchService() throws JsonProcessingException {
-		testComments(); // get a document in there.
+		
 		ObjectNode structuredQuery = getTestJson("queries/blank.json");
 		// test view-all
 		ObjectNode jsonResults = service.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1);
@@ -346,7 +384,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 	}
 	
-	@Test
+	/* run by testCommentsAndSearch */
 	public void testDateFacets() throws JsonProcessingException {
 		
 		ObjectNode structuredQuery = getTestJson("queries/blank.json");

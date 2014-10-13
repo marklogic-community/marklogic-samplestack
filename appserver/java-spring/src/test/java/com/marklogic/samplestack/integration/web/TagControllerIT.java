@@ -15,8 +15,6 @@
 */
 package com.marklogic.samplestack.integration.web;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -25,14 +23,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.TagControllerTestImpl;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 /**
  * Tests the service that returns candidate tags given a
@@ -40,39 +35,46 @@ import com.marklogic.samplestack.testing.TagControllerTestImpl;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = { Application.class })
+@SpringApplicationConfiguration(classes = { Application.class, TestDataManager.class })
 @Category(IntegrationTests.class)
 public class TagControllerIT extends TagControllerTestImpl {
-
+	
 	@Autowired
 	private Clients clients;
 	
-	@Before
-	public void loadTags() {
-		JsonNode tagsJson = getTestJson("questions/tags.json");
-
-		JSONDocumentManager docMgr = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR)
-				.newJSONDocumentManager();
-		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
-		docMgr.write("/tags2.json", new JacksonHandle(tagsJson));
-		docMgr.write("/tags3.json", new JacksonHandle(tagsJson));
-	}
-
 	@Test
-	@Ignore
 	public void testTagsAnonymousOK() throws Exception {
 		super.testTagsAnonymousOK();
 	}
 
 	@Test
-	@Ignore
 	public void testTagsNoArgs() throws Exception {
 		super.testTagsNoArgs();
 	}
 
 	@Test
-	@Ignore
 	public void testTagsWithArgument() throws Exception {
 		super.testTagsWithArgument();
 	}
+	
+	@Test
+	public void testBadSort() throws Exception {
+		super.testBadSort();
+	}
+
+	@Test
+    public void testTagsWithPageLength() throws Exception {
+        super.testTagsWithPageLength();
+    }
+
+	@Test
+    public void testStartLimitOrder() throws Exception {
+        super.testStartLimitOrder();
+    }
+
+	@Test
+    public void testSortFrequency() throws Exception {
+        super.testLoggedInSortFrequency();
+    }
+
 }

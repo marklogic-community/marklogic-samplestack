@@ -15,7 +15,6 @@
  */
 package com.marklogic.samplestack.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.ClientRole;
 
@@ -29,9 +28,11 @@ public interface TagsService {
 	 * @param role Role to search with
 	 * @param combinedQuery a JSON node containing the options definition for this query.
 	 * @param start the first index to retrieve.
+	 * @param pageLength TODO
 	 * @return A values response in a JSON structure.
 	 */
-	public ObjectNode getTags(ClientRole role, JsonNode combinedQuery, long start);
+	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery, long start, long pageLength);
+
 	
 
 }

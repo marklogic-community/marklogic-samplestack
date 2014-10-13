@@ -18,8 +18,6 @@ package com.marklogic.samplestack.integration.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -38,38 +36,21 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.testing.IntegrationTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 import com.marklogic.samplestack.testing.Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { DatabaseContext.class })
+@ContextConfiguration(classes = { DatabaseContext.class, TestDataManager.class })
 @Category(IntegrationTests.class)
 public class ContributorServiceIT extends MarkLogicIntegrationIT {
 
 	private final Logger logger = LoggerFactory
 			.getLogger(ContributorServiceIT.class);
-	
-	
-	String id1 = null;
-
-	private Contributor getContributor() {
-		Contributor contributor = new Contributor();
-		contributor.setAboutMe("Some text about me");
-		id1 = UUID.randomUUID().toString();
-		contributor.setId(id1);
-		contributor.setUserName("grechaw@marklogic.com");
-		contributor.setDisplayName("grechaw");
-		contributor.setWebsiteUrl("http://website.com/grechaw");
-		Set<String> votes =  new HashSet<String>();
-		votes.add("/questions/1");
-		votes.add("/answers/123");
-		contributor.setVotes(votes);
-		return contributor;
-	}
 
 	@Test
 	public void testContributorCRUD() throws JsonProcessingException {
+		Contributor c1 = Utils.getBasicUser();
 		
-		Contributor c1 = getContributor();
 		contributorService.store(c1);
 
 		Contributor c2 = contributorService.read(c1.getId());
@@ -79,9 +60,9 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		Utils.compareContributors("Compare simple store and retrieve", c1, c2);
 
 		StringQueryDefinition qdef = new StringQueryDefinitionImpl("contributors");
-		qdef.setCriteria("grechaw@marklogic.com");
+		qdef.setCriteria("cgreer@marklogic.com");
 		Contributor contributor = contributorService.search(qdef, 1).iterator().next();
-		assertEquals("Retrieved one conributor", "grechaw@marklogic.com", contributor.getUserName());
+		assertEquals("Retrieved one conributor", "cgreer@marklogic.com", contributor.getUserName());
 
 		PojoPage<Contributor> contributorPage = contributorRepository.readAll(1);
 		assertEquals("Retrieved all conributors from start should be 3", 3, contributorPage.size());
@@ -98,12 +79,13 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 	
 	@Test(expected=SampleStackDataIntegrityException.class)
 	public void testUserNameCardinality() {
-		Contributor c1 = getContributor();
+		Contributor c1 = Utils.getBasicUser();
 		contributorService.store(c1);
 
 		c1.setId(UUID.randomUUID().toString());
 		contributorService.store(c1);
 		fail("Updated ID of a contributor");
 		
+		contributorService.delete(c1.getId());
 	}
 }

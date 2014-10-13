@@ -17,8 +17,6 @@ package com.marklogic.samplestack.integration.service;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
@@ -31,7 +29,6 @@ import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
-import com.marklogic.samplestack.testing.Utils;
 
 public abstract class MarkLogicIntegrationIT {
 
@@ -50,8 +47,6 @@ public abstract class MarkLogicIntegrationIT {
 	@Autowired
 	protected ObjectMapper mapper;
 
-	protected TestDataBuilder testDataBuilder;
-
 	protected JSONDocumentManager contribManager;
 
 	protected ObjectNode content;
@@ -65,16 +60,4 @@ public abstract class MarkLogicIntegrationIT {
 		}
 	}
 
-	@PostConstruct
-	public void cleanout() {
-		qnaService.deleteAll();
-		contributorRepository.deleteAll();
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryAdmin);
-		testDataBuilder = new TestDataBuilder(clients, qnaService);
-		// the following method is a slow way to make questions
-		// which are cached on the filesystem for testing purposes.
-		// testDataBuilder.generateTestCorpus();
-		testDataBuilder.setupSearch();
-	}
 }

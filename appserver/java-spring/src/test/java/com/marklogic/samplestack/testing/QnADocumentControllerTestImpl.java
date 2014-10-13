@@ -16,15 +16,15 @@
 package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -44,10 +44,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 	private QnADocument answeredQuestion;
 
-	/* (non-Javadoc)
-	 * @see com.marklogic.samplestack.unit.web.QnAControllerTests#testAnonymousCanSearch()
-	 */
-	
 	public void testAnonymousCanSearch() throws UnsupportedEncodingException,
 			Exception {
 		String questionResponse = this.mockMvc
@@ -55,8 +51,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
-		assertTrue("response from mock controller question is search response",
-				questionResponse.contains("\"snippet-format\":\"raw\""));
+		JSONAssert.assertEquals("{snippet-format:\"snippet\"}", questionResponse, false);
 		
 		
 		questionResponse = this.mockMvc
@@ -67,9 +62,8 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
-		assertTrue("response from mock controller question is search response",
-				questionResponse.contains("\"snippet-format\":\"raw\""));
-			
+		JSONAssert.assertEquals("{snippet-format:\"snippet\"}", questionResponse, false);
+
 	}
 	
 
@@ -83,9 +77,8 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
-		assertTrue("response from mock controller question is search response",
-				questionResponse.contains("\"snippet-format\":\"raw\""));
-		
+		JSONAssert.assertEquals("{snippet-format:\"snippet\"}", questionResponse, false);
+
 		
 		questionResponse = this.mockMvc
 				.perform(post("/v1/search")
@@ -97,9 +90,8 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		logger.debug(questionResponse);
-		assertTrue("response from mock controller question is search response",
-				questionResponse.contains("\"snippet-format\":\"raw\""));
-			
+		JSONAssert.assertEquals("{snippet-format:\"snippet\"}", questionResponse, false);
+	
 	}
 
 
@@ -116,7 +108,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		this.mockMvc.perform(
 				post("/v1/questions").with(csrf()).contentType(MediaType.APPLICATION_JSON)
 						.content(mapper.writeValueAsString(qnaDoc.getJson())))
-		// TODO fix for forbidden
 				.andExpect(status().isUnauthorized());
 	}
 
@@ -139,7 +130,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		@SuppressWarnings("unused")
 		QnADocument qnaDoc = new QnADocument(mapper, "I'm a contributor",
 				"I ask questions", "tag1", "tag2");
-		// TODO MS 3 what's a malformed question?
 	}
 
 	/* (non-Javadoc)
@@ -268,7 +258,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
 				.andReturn().getResponse().getContentAsString();
-		// TODO assertion.
 	}
 
 	/* (non-Javadoc)
@@ -396,7 +385,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	 */
 	
 	public void testAnonymousAccessToAccepted() throws Exception {
-		qnaService.deleteAll();
 		login("joeUser@marklogic.com", "joesPassword");
 		askQuestion();
 		answerQuestion();
@@ -421,7 +409,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.getContentAsString();
 		JsonNode results = mapper.readValue(searchAnon, JsonNode.class);
 
-		assertEquals("No results for anonymous. ", 0, results.get("results")
+		assertEquals("Only stock acceped question for anonymous. ", 2, results.get("results")
 				.size());
 
 		login("joeUser@marklogic.com", "joesPassword");
@@ -446,9 +434,8 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.getContentAsString();
 		results = mapper.readValue(searchAnon, JsonNode.class);
 
-		assertEquals("One results for anonymous. ", 1, results.get("results")
+		assertEquals("One more result for anonymous. ", 3, results.get("results")
 				.size());
-
 	}
 
 }

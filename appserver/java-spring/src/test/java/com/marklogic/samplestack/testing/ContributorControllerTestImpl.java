@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Locale;
@@ -40,12 +41,23 @@ public class ContributorControllerTestImpl extends ControllerTests {
 	private Logger logger = LoggerFactory
 			.getLogger(ContributorControllerTestImpl.class);
 
+	
 	/**
 	 * tests /v1/contributors POST /v1/contributors GET /docs GET
 	 */
 	public void testContributorCRUD() throws Exception {
-		login("joeUser@marklogic.com", "joesPassword");
+
 		Contributor basicUser = Utils.getBasicUser();
+		login("maryAdmin@marklogic.com", "marysPassword");
+		
+		this.mockMvc.perform(
+				delete("/v1/contributors/" + basicUser.getId())
+				.session((MockHttpSession) session)
+				.locale(Locale.ENGLISH))
+				.andExpect(status().isOk()).andReturn().getResponse();
+		logout();
+	
+		login("joeUser@marklogic.com", "joesPassword");
 		this.mockMvc.perform(
 				post("/v1/contributors")
 				.with(csrf())
@@ -66,7 +78,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 								.locale(Locale.ENGLISH)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content(mapper.writeValueAsString(basicUser)))
-				//.andExpect(status().isCreated())
+				.andExpect(status().isCreated())
 				.andReturn().getResponse();
 		String returnedString = response
 				.getContentAsString();
@@ -108,8 +120,13 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		assertEquals("Id name matches when get By ID", getById.getId(),
 				returnedUser.getId());
-	}
-	
-	
-
+		
+		login("maryAdmin@marklogic.com", "marysPassword");
+		
+		this.mockMvc.perform(
+				delete("/v1/contributors/" + returnedUser.getId())
+				.session((MockHttpSession) session)
+				.locale(Locale.ENGLISH))
+				.andExpect(status().isOk()).andReturn().getResponse();
+		}
 }

@@ -22,7 +22,7 @@ This README covers the following topics:
 ## Prerequisites
 To configure and use this application, you need the following software:
 * Java JDK 1.7 or 1.8
-* MarkLogic 8 Nightly (10/12) (see instructions [below](#getting-started))
+* MarkLogic 8 Nightly (10/23) (see instructions [below](#getting-started))
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
 * A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp). For details, see [Global Utilities](browser/README.md#global-utilities) in the [browser README](browser/README.md).
 
@@ -36,7 +36,7 @@ The setup procedure may install additional software, such as Gradle and Angular.
 
 This README is for a development branch that does not work with any released version of MarkLogic
 
-Use MarkLogic nightly from 10/12.  Trunk may work, but use at your own risk.
+Use MarkLogic nightly from 10/23.  Trunk may work, but use at your own risk.
 Java Client API needs snapshot on or after 10/10/2014.  This should be installed 
 automatically but may require gradle or maven cache cleaning.
 

@@ -16,13 +16,9 @@
 package com.marklogic.samplestack.database;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -37,25 +33,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.client.FailedRequestException;
-import com.marklogic.client.ForbiddenUserException;
-import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.impl.DatabaseContext;
 import com.marklogic.samplestack.impl.MarkLogicQnAService;
-import com.marklogic.samplestack.integration.service.TestDataBuilder;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 /**
  * Tests the functionality of the search services installed on the server.
  * Depends on database/options/questions.json Depends on security setup
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseContext.class)
+@ContextConfiguration(classes = {DatabaseContext.class, TestDataManager.class})
 @Category(DatabaseExtensionTests.class)
 public class DatabaseQnADocumentSearchIT {
 
@@ -67,24 +59,9 @@ public class DatabaseQnADocumentSearchIT {
 
 	@Autowired
 	private Clients clients;
-	
+
 	@Autowired
 	private MarkLogicQnAService qnaService;
-
-	private TestDataBuilder dataBuilder;
-	
-	@PostConstruct
-	public void setup() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
-		dataBuilder = new TestDataBuilder(clients, null);
-		dataBuilder.setupSearch();
-	}
-	
-	@PreDestroy
-	public void teardown() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
-		dataBuilder.teardownSearch();
-	}
-	
-	
 
 	@Test
 	/**
@@ -117,9 +94,8 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
 		queryNode.put("qtext", "");
-		ObjectNode results = qnaService
-				.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1,
-						false);
+		ObjectNode results = qnaService.rawSearch(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, false);
 		assertTrue("Need data to test searches", results.size() > 0);
 	}
 
@@ -133,92 +109,22 @@ public class DatabaseQnADocumentSearchIT {
 		assertEquals("Guest sees only approved docs", results.get("results")
 				.size(), 2);
 	}
+
 	@Test
 	public void authenticatedSearchSeesUnresolvedQuestions() {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
 		queryNode.put("qtext", "");
-		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				query, 1, false);
+		ObjectNode results = qnaService.rawSearch(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, false);
 		assertEquals("Logged-in user sees all docs", results.get("results")
-				.size(), 10);
-
+				.size(), 11);
 	}
 
 	@Test
 	@Ignore
 	public void testResponsePayloadFacets() {
 
-	}
-
-	@Test
-	public void testTagSearch() throws JsonProcessingException {
-		ObjectNode query;
-		ObjectNode results;
-		try {
-			query = (ObjectNode) mapper
-					.readValue("{\"query\":{\"qtext\":\"tag:monotouch\"}}",
-							JsonNode.class);
-			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, false);
-
-			logger.debug("Query Results:" + mapper.writeValueAsString(results));
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
-		assertNotNull("JSON has facet results", results.get("facets")
-				.get("tag"));
-	}
-
-
-	@Test
-	public void testTagValues() throws JsonProcessingException {
-		//TODO make POJO for values?
-		ObjectNode topNode = mapper.createObjectNode();
-		ObjectNode combinedQuery = topNode.putObject("search");
-		ObjectNode queryNode = combinedQuery.putObject("query");
-		ObjectNode optionsNode = combinedQuery.putObject("options");
-		ArrayNode valuesNode = optionsNode.putArray("values");
-		ObjectNode thisValuesDef = valuesNode.addObject();
-		thisValuesDef.put("name", "tags");
-		ObjectNode rangeNode = thisValuesDef.putObject("range");
-		rangeNode.put("type",  "xs:string");
-		rangeNode.put("json-property",  "tags");
-		thisValuesDef.put("values-option", "limit=100");
-		queryNode.put("qtext", "");
-		
-		ObjectNode results;
-		logger.debug(mapper.writeValueAsString(topNode));
-// TODO bring back
-// try {
-//			results = operations.tagValues(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-//					topNode, 1);
-//
-//		logger.debug("Values Results:" + mapper.writeValueAsString(results));
-//		} catch (IOException e) {
-//			throw new SamplestackIOException(e);
-//		}
-		
-	}
-
-	@Test
-	public void testStructuredTagSearch() {
-		ObjectNode query;
-		ObjectNode results = null;
-		try {
-			query = (ObjectNode) mapper
-					.readValue(
-							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"monotouch\"}}}",
-							JsonNode.class);
-			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, false);
-
-			logger.debug("Query Results:" + mapper.writeValueAsString(results));
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
-		assertNotNull("JSON has facet results", results.get("facets")
-				.get("tag"));
 	}
 
 	@Test
@@ -292,7 +198,7 @@ public class DatabaseQnADocumentSearchIT {
 	public void make105Requests() throws JsonProcessingException {
 		for (int i = 0; i < 105; i++) {
 			logger.debug("Running many queries... " + i);
-			testTagSearch();
+			testActivitySearch();
 		}
 	}
 

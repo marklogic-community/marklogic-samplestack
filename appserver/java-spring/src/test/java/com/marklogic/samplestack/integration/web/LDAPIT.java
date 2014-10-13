@@ -39,6 +39,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.testing.IntegrationTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 /**
  * This class is just an experiment to prove out LDAP configuration.
@@ -48,7 +49,7 @@ import com.marklogic.samplestack.testing.IntegrationTests;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = { Application.class })
+@SpringApplicationConfiguration(classes = { Application.class, TestDataManager.class })
 @Category(IntegrationTests.class)
 public class LDAPIT {
 

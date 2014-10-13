@@ -15,7 +15,6 @@
 */
 package com.marklogic.samplestack.unit.web;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -37,20 +36,40 @@ import com.marklogic.samplestack.testing.UnitTests;
 public class TagControllerTest extends TagControllerTestImpl {
 
 	@Test
-	@Ignore
 	public void testTagsAnonymousOK() throws Exception {
 		super.testTagsAnonymousOK();
 	}
 	
 	@Test
-	@Ignore
 	public void testTagsNoArgs() throws Exception {
 		super.testTagsNoArgs();
 	}
 	
 	@Test
-	@Ignore
 	public void testTagsWithArgument() throws Exception {
 		super.testTagsWithArgument();
 	}
+
+	@Test
+	public void testBadSort() throws Exception {
+		super.testBadSort();
+	}
+	
+	
+	@Test
+    public void testTagsWithPageLength() throws Exception {
+        super.testTagsWithPageLength();
+    }
+
+	@Test
+    public void testStartLimitOrder() throws Exception {
+        super.testStartLimitOrder();
+    }
+
+	@Test
+    public void testSortFrequency() throws Exception {
+        super.testLoggedInSortFrequency();
+    }
+
+
 }

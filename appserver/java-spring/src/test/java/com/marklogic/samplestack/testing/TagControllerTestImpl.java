@@ -15,7 +15,7 @@
  */
 package com.marklogic.samplestack.testing;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,13 +24,15 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * Shared implementation for TagsController unit and integration tests.
  */
 public class TagControllerTestImpl extends ControllerTests {
 
+
+	
 	public void testTagsAnonymousOK() throws Exception {
 		this.mockMvc.perform(
 				post("/v1/tags").contentType(MediaType.APPLICATION_JSON)
@@ -42,25 +44,47 @@ public class TagControllerTestImpl extends ControllerTests {
 	public void testTagsNoArgs() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		MvcResult result = this.mockMvc
-				.perform(post("/v1/tags")
-				.session((MockHttpSession) session)
-				.accept(MediaType.APPLICATION_JSON))
+				.perform(
+						post("/v1/tags").session((MockHttpSession) session)
+								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
-		JSONAssert.assertEquals("{values-response:\"chuck\"}", result
+		JSONAssert.assertEquals("{values-response:{name:\"tags\"}}", result
 				.getResponse().getContentAsString(), false);
 	}
 
 	public void testTagsWithArgument() throws Exception {
+		login("joeUser@marklogic.com", "joesPassword");
+		MvcResult result = this.mockMvc
+				.perform(
+						post("/v1/tags").session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{\"qtext\":\"tag:ada\"}")
+								.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		String responseString = result
+				.getResponse().getContentAsString();
+		JSONAssert.assertEquals("{values-response:{name:\"tags\"}}", responseString, false);
+		logger.debug(responseString);
+		ObjectNode results = mapper.readValue(responseString, ObjectNode.class);
+		assertEquals("Size of page length", 1, results.get("values-response").get("distinct-value").size());
+
+	}
+	
+	public void testTagsWithPageLength() throws Exception {
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags")
 								.contentType(MediaType.APPLICATION_JSON)
-								.content("{\"qtext\":\"be\"}}")
+								.content("{\"pageLength\":1}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
-		logger.debug(result.getResponse().getContentAsString());
-		JSONAssert.assertEquals("{values-response:\"chuck\"}", result
-				.getResponse().getContentAsString(), false);
+
+		String responseString = result
+				.getResponse().getContentAsString();
+		JSONAssert.assertEquals("{values-response:{name:\"tags\"}}", responseString, false);
+
+		ObjectNode results = mapper.readValue(responseString, ObjectNode.class);
+		assertEquals("Size of page length", 1, results.get("values-response").get("distinct-value").size());
 
 	}
 
@@ -69,29 +93,44 @@ public class TagControllerTestImpl extends ControllerTests {
 				.perform(
 						post("/v1/tags")
 								.contentType(MediaType.APPLICATION_JSON)
-								.content("{\"qtext\":\"be\"}}")
+								.content("{\"start\":3,"
+										+ "\"sort\":\"item\"}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
-		JSONAssert.assertEquals("{values-response:\"chuck\"}", result
-				.getResponse().getContentAsString(), false);
+		String responseString = result
+				.getResponse().getContentAsString();
+		JSONAssert.assertEquals("{values-response:{name:\"tags\"}}", responseString, false);
+	
 	}
 
-	public void testBadSort() throws Exception {
-		try {
-			MvcResult result = this.mockMvc
-					.perform(
+	
+	public void testLoggedInSortFrequency() throws Exception {
+		login("joeUser@marklogic.com", "joesPassword");
+		
+		MvcResult result = this.mockMvc
+				.perform(
+						post("/v1/tags").session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{\"start\":1,"
+										+ "\"sort\":\"frequency\","
+										+ "\"pageLength\":5}")
+								.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"ada\",frequency: 2 }, { _value: \"javascript\", frequency: 2 }, { _value: \"python\", frequency: 2 }, { _value: \"blob\", frequency: 1 }, { _value: \"clojure\", frequency: 1 } ], name: \"tags\", type: \"xs:string\" } }"
+					, result.getResponse().getContentAsString(), false);
+	}
 
-							post("/v1/tags")
-									.contentType(MediaType.APPLICATION_JSON)
-									.content("{\"sort\":\"ddd\"}")
-									.accept(MediaType.APPLICATION_JSON))
-					.andExpect(status().isOk()).andReturn();
-			fail("Should have thrown sort exception");
-			JSONAssert.assertEquals("{values-response:\"chuck\"}", result
-					.getResponse().getContentAsString(), false);
-		} catch (SamplestackUnsupportedException e) {
-			// pass
-		}
+	
+	public void testBadSort() throws Exception {
+		@SuppressWarnings("unused")
+		MvcResult result = this.mockMvc
+				.perform(
+
+						post("/v1/tags")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{\"sort\":\"bug\"}")
+								.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isBadRequest()).andReturn();
 	}
 
 }

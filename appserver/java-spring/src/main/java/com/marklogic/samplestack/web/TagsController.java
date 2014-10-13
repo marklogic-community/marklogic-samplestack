@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.exception.SamplestackUnsupportedException;
 import com.marklogic.samplestack.service.TagsService;
@@ -52,20 +53,25 @@ public class TagsController {
 	 */
 	@RequestMapping(value = "v1/tags", method = RequestMethod.POST)
 	public @ResponseBody
-	ObjectNode tags(@RequestBody ObjectNode structuredQuery) {
+	ObjectNode tags(@RequestBody(required=false) ObjectNode structuredQuery) {
+		
+		if (structuredQuery == null) {
+			structuredQuery = mapper.createObjectNode();
+		}
 		JsonNode postedStartNode = structuredQuery.get("start");
 		JsonNode postedPageLength = structuredQuery.get("pageLength");
 		JsonNode postedSort = structuredQuery.get("sort");
 		JsonNode qtextNode = structuredQuery.get("qtext");
+
 		long start = 1;
-		long pageLength = 10;
+		long pageLength = SamplestackConstants.RESULTS_PAGE_LENGTH;
 		String sortBy = "item";
 		if (postedStartNode != null) {
 			start = postedStartNode.asLong();
 			structuredQuery.remove("start");
 		}
 		if (postedPageLength != null) {
-			pageLength = postedStartNode.asLong();
+			pageLength = postedPageLength.asLong();
 			structuredQuery.remove("pageLength");
 		}
 		if (postedSort != null) {
@@ -81,11 +87,12 @@ public class TagsController {
 				throw new SamplestackUnsupportedException("Sort must be item or frequency");
 			}
 		}
-		if (qtextNode != null) {
-			structuredQuery.put("qtext", qtextNode.asText() + "*");
-		}
 		ObjectNode docNode = mapper.createObjectNode();
 		ObjectNode searchNode = docNode.putObject("search");
+		if (qtextNode != null) {
+			searchNode.put("qtext", qtextNode);
+			structuredQuery.remove("qtext");
+		}
 		searchNode.setAll(structuredQuery);
 		ObjectNode optionsNode = searchNode.putObject("options");
 		ObjectNode valuesNode = optionsNode.putObject("values");
@@ -94,14 +101,14 @@ public class TagsController {
 		rangeNode.put("json-property", "tags");
 		valuesNode.put("name", "tags");
 		valuesNode.put("values-option", sortBy);
-		optionsNode.put("page-length", pageLength);
-		return tagsService.getTags(ClientRole.securityContextRole(), docNode, start);
+
+		return tagsService.getTags(ClientRole.securityContextRole(), docNode, start, pageLength);
 	}
 	
 	@RequestMapping(value = "v1/tags/{tag}", method = RequestMethod.POST)
 	public @ResponseBody
 	ObjectNode relatedTags(@RequestBody ObjectNode structuredQuery) {
-		return tagsService.getTags(ClientRole.securityContextRole(), structuredQuery, 1);
-		//FIXME this is a stub.
+
+		return tagsService.getTags(ClientRole.securityContextRole(), structuredQuery, 1, 1);
 	}
 }

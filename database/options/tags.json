@@ -1,0 +1,41 @@
+{
+    "options": {
+        "constraint": [
+            {
+                "name": "tag",
+                "word": {
+                    "collation": "http://marklogic.com/collation/",
+                    "json-property": "tags",
+                    "term-option": [
+                        "wildcarded",
+                        "case-insensitive"
+                    ]
+                }
+            }
+        ],
+        "debug": true,
+        "return-qtext": true,
+        "term": {
+            "empty": {
+                "apply": "all-results"
+            }
+        },
+        "transform-results": {
+            "apply": "empty-snippet"
+        },
+        "values": [
+            {
+                "name": "tags",
+                "range": {
+                    "json-property": "tags",
+                    "type": "xs:string"
+                },
+                "values-option": [
+                    "frequency-order",
+                    "descending",
+                    "limit=5"
+                ]
+            }
+        ]
+    }
+}
