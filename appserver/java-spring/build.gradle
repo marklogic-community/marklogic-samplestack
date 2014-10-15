@@ -1,7 +1,7 @@
 /* spring boot build dependency */
 buildscript {
 	ext {
-		springBootVersion = '1.1.4.RELEASE'
+		springBootVersion = '1.1.8.RELEASE'
 	}
     repositories {
         mavenCentral()
@@ -121,17 +121,15 @@ repositories {
 }
 
 dependencies {
-    // compile("org.springframework.boot:spring-boot-starter-integration:${springBootVersion}")
-    // compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
-    compile "org.codehaus.groovy:groovy-all:2.3.6"
+    compile "org.codehaus.groovy:groovy-all:2.3.7"
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
-    compile("org.springframework.security:spring-security-ldap:4.0.0.M1")
-    compile("org.springframework.security:spring-security-web:4.0.0.M1")
-    compile("org.springframework.security:spring-security-test:4.0.0.M1")
+    compile("org.springframework.security:spring-security-ldap:4.0.0.M2")
+    compile("org.springframework.security:spring-security-web:4.0.0.M2")
+    compile("org.springframework.security:spring-security-test:4.0.0.M2")
     compile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
@@ -140,7 +138,7 @@ dependencies {
         exclude(group: 'org.slf4j')
         exclude(group: 'ch.qos.logback')
     }
-    testCompile('com.jayway.jsonpath:json-path:0.9.1') {
+    testCompile('com.jayway.jsonpath:json-path:1.1.0') {
         exclude(group: 'org.slf4j')
     }
     testCompile('org.skyscreamer:jsonassert:1.2.3')
