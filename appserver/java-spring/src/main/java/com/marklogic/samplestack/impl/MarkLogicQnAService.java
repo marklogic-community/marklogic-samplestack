@@ -22,6 +22,7 @@ import static com.marklogic.samplestack.SamplestackConstants.SEARCH_RESPONSE_TRA
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -40,6 +41,8 @@ import com.marklogic.client.document.DocumentMetadataPatchBuilder.Call;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
+import com.marklogic.client.document.DocumentRecord;
+import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.JacksonHandle;
@@ -312,9 +315,9 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 				logger.debug("Got date range to query: " + dateRange[0].toString() + " to " + dateRange[1].toString());
 			}
 		}
-		JacksonHandle handle = new JacksonHandle();
 		QueryManager queryManager = clients.get(role).newQueryManager();
-
+		JSONDocumentManager docMgr = clients.get(role).newJSONDocumentManager();
+		
 		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
 				new JacksonHandle(docNode), QUESTIONS_OPTIONS);
 		ServerTransform responseTransform = new ServerTransform(SEARCH_RESPONSE_TRANSFORM);
@@ -322,8 +325,63 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		qdef.setResponseTransform(responseTransform);
 		queryManager.setView(QueryView.ALL);
 
-		handle = queryManager.search(qdef, handle, start);
-		return (ObjectNode) handle.get();
+		JacksonHandle responseHandle = new JacksonHandle();
+		DocumentPage docPage = docMgr.search(qdef, start, responseHandle);
+		
+		ObjectNode responseNode = (ObjectNode) responseHandle.get();
+		ArrayNode results = (ArrayNode) responseNode.findPath("results");
+		
+		int objectIndex = 0;
+		ObjectNode reputations = (ObjectNode) responseNode.findPath("reputations");
+
+		while (docPage.hasNext()) {
+			// the matching document, as returned by extract-document-data specifiation
+			ObjectNode documentResult = (ObjectNode) docPage.nextContent(new JacksonHandle()).get();
+			
+			// each owner in the doc needs a reputation from the reputation map
+			// and for the snippet to be embedded
+			for (JsonNode ownerNode : documentResult.findValues("owner")) {
+				ObjectNode owner = (ObjectNode) ownerNode;
+				if (reputations.has(owner.get("id").asText())) {
+					owner.put("reputation", reputations.get(owner.get("id").asText()).asText());
+				}
+				else {
+					owner.put("reputation", 0);
+				}
+			}
+			
+			ObjectNode thisResult = (ObjectNode) results.get(objectIndex);
+			
+			// TODO this all should be extractable server-side, but
+			// I ran into issues with extract-document-data (10/15/2014)
+			ObjectNode newContent = thisResult.putObject("content");
+			newContent.put("accepted", documentResult.get("accepted").asBoolean());
+			newContent.put("creationDate", documentResult.get("creationDate").asText());
+			newContent.put("voteCount", documentResult.get("voteCount").asLong());
+			ArrayNode snippetNode = newContent.putArray("snippets");
+			logger.debug(""+results.size());
+			logger.debug(""+objectIndex);
+			logger.debug(""+results.get(objectIndex));
+			snippetNode.add(thisResult.get("matches"));
+			ArrayNode tagsNode = newContent.putArray("tags");
+			tagsNode.addAll((ArrayNode) documentResult.get("tags"));
+			newContent.put("lastActivityDate", documentResult.get("lastActivityDate").asText());
+			newContent.put("id", documentResult.get("id").asText());
+			newContent.put("originalId", documentResult.get("originalId").asText());
+			newContent.put("answerCount", documentResult.get("answers").size());
+			newContent.put("title", documentResult.get("title").asText());
+			newContent.put("owner", documentResult.get("owner"));
+			
+			// remove unused keys
+			thisResult.remove("matches");
+			thisResult.remove("metadata");
+			
+			objectIndex++;
+		}
+		
+		responseNode.remove("reputations");
+		
+		return (ObjectNode) responseNode;
 	}
 
 	@Override

@@ -83,8 +83,11 @@
                 "apply": "all-results"
             }
         },
-        "transform-results": {
-            "apply": "raw"
+        "extract-document-data":{
+            "selected":"all"
+        },
+        "extract-metadata": {
+            "json-property":"owner"
         },
         "values":[
             {
