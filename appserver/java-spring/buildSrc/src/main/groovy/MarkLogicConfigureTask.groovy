@@ -106,9 +106,15 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
             client.getEncoder().putAt("application/javascript", client.getEncoder().getAt("text/plain"))
             client.getEncoder().putAt("application/vnd.marklogic-javascript", client.getEncoder().getAt("text/plain"))
+            client.getParser().putAt("application/vnd.marklogic-javascript", client.getParser().getAt("text/plain"))
+            client.getParser().putAt("*/*", client.getParser().getAt("application/json"))
             client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
             def params = [:]
-            params.contentType = "application/vnd.marklogic-javascript"
+            if (transformFileName.endsWith("sjs")) {
+                params.contentType = "application/vnd.marklogic-javascript";
+            } else {
+                params.contentType = "application/xquery"
+            }
             params.body = transform.text
             put(client, params)
         }
@@ -167,5 +173,6 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         logger.info( "Configuring Properties")
         put(client,params)
     }
+
 }
 

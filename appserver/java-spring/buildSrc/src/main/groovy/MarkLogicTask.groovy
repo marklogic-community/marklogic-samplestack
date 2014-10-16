@@ -52,7 +52,7 @@ public class MarkLogicTask extends DefaultTask {
         { 
           if (ex.response) 
           {
-             logger.warn("" + ex.response.data) 
+             logger.warn("" + ex.response.data.text) 
           }
           else 
           {
@@ -78,4 +78,16 @@ public class MarkLogicTask extends DefaultTask {
         }
     }
 
+	protected void delay() {
+        RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8001/admin/v1/timestamp")
+        def params = [:]
+        client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
+        try {
+			Thread.sleep(1000)
+            client.get(params)
+        } catch (ex) {
+			logger.warn("Waiting for server restart...");
+            delay();
+		}
+	}
 }
