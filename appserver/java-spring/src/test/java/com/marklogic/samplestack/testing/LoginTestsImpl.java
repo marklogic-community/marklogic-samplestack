@@ -44,7 +44,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		// no username/password match
 		mockMvc.perform(
-				post("/login")
+				post("/v1/login")
 				.with(csrf())
 				.param("username", "nobody").param("password",
 						"nopassword"))
@@ -53,7 +53,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		// bad credentials, existing user
 		mockMvc.perform(
-				post("/login")
+				post("/v1/login")
 				.with(csrf())
 				.param("username", "joeUser@marklogic.com")
 						.param("password", "notJoesPassword"))
@@ -62,7 +62,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		String errorString = mockMvc
 				.perform(
-						post("/login")
+						post("/v1/login")
 						.with(csrf())
 						.param("username",
 								"joeUser@marklogic.com").param("password",
@@ -92,14 +92,14 @@ public class LoginTestsImpl extends ControllerTests {
 		assertNotNull(session);
 
 		mockMvc.perform(
-				get("/questions").session((MockHttpSession) session).locale(
+				get("/v1/questions").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 		
 		
 		logout();
 		mockMvc.perform(
-				get("/").session((MockHttpSession) session).locale(
+				post("/v1/contributors").session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isUnauthorized());
 		
@@ -111,7 +111,7 @@ public class LoginTestsImpl extends ControllerTests {
 		assertNotNull(session);
 
 		String errorString = mockMvc
-				.perform(post("/contributors/34")
+				.perform(post("/v1/contributors/34")
 						.with(csrf().asHeader())
 						.session(
 								(MockHttpSession) session).locale(

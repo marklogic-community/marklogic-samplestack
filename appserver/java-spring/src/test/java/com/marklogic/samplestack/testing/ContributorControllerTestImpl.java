@@ -41,13 +41,13 @@ public class ContributorControllerTestImpl extends ControllerTests {
 			.getLogger(ContributorControllerTestImpl.class);
 
 	/**
-	 * tests /contributors POST /contributors GET /docs GET
+	 * tests /v1/contributors POST /v1/contributors GET /docs GET
 	 */
 	public void testContributorCRUD() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		Contributor basicUser = Utils.getBasicUser();
 		this.mockMvc.perform(
-				post("/contributors")
+				post("/v1/contributors")
 				.with(csrf())
 				.session((MockHttpSession) session)
 						.locale(Locale.ENGLISH)
@@ -60,7 +60,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		
 		MockHttpServletResponse response = this.mockMvc
 				.perform(
-						post("/contributors")
+						post("/v1/contributors")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.locale(Locale.ENGLISH)
@@ -77,7 +77,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		String contributorsList = this.mockMvc
 				.perform(
-						get("/contributors").session(
+						get("/v1/contributors").session(
 								(MockHttpSession) session)).andReturn()
 				.getResponse().getContentAsString();
 
@@ -87,7 +87,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		Contributor getById = mapper.readValue(
 				this.mockMvc
 						.perform(
-								get("/contributors/" + returnedUser.getId())
+								get("/v1/contributors/" + returnedUser.getId())
 										.session((MockHttpSession) session)
 										.locale(Locale.ENGLISH))
 						.andExpect(status().isOk()).andReturn().getResponse()
@@ -100,7 +100,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		getById = mapper.readValue(
 				this.mockMvc
 						.perform(
-								get("/contributors/" + returnedUser.getId())
+								get("/v1/contributors/" + returnedUser.getId())
 										.session((MockHttpSession) session)
 										.locale(Locale.ENGLISH))
 						.andExpect(status().isOk()).andReturn().getResponse()

@@ -21,10 +21,10 @@ import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 
 /**
- * Defines methods for interacting with the database of User objects.
- * TODO will be replaced by direct use of the Pojo Facade, new for MarkLogic 8.
+ * Defines methods for interacting with the corpus of Contributor objects.
+ * This interface hides and decorates methods from the POJORepository.
  */
-public interface ContributorAddOnService {
+public interface ContributorService {
 
 	/**
 	 * Get a specific user by UserName

@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 
 /**
  * Provides HTTP access to contributor objects. Contributors are the
@@ -46,7 +46,7 @@ public class ContributorsController {
 	static Random random = new Random();
 
 	@Autowired
-	private ContributorAddOnService service;
+	private ContributorService service;
 
 	@Autowired
 	private PojoRepository<Contributor, String> repository;
@@ -56,7 +56,7 @@ public class ContributorsController {
 	 * @param q An optional query string to filter contributors.
 	 * @return A List of contributors, serialized as the response body.
 	 */
-	@RequestMapping(value = "contributors", method = RequestMethod.GET)
+	@RequestMapping(value = "v1/contributors", method = RequestMethod.GET)
 	public @ResponseBody
 	PojoPage<Contributor> listContributors(@RequestParam(required = false) String q) {
 		if (q == null) {
@@ -71,7 +71,7 @@ public class ContributorsController {
 	 * @param id The id of the contributor to fetch
 	 * @return The JSON serialization of a contributor in the response body.
 	 */
-	@RequestMapping(value = "contributors/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "v1/contributors/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	Contributor get(@PathVariable("id") String id) {
 		return repository.read(id);
@@ -82,7 +82,7 @@ public class ContributorsController {
 	 * @param contributor The request body, marshalled into a Contributor object.
 	 * @return The newly persisted Contributor, with automated data added.
 	 */
-	@RequestMapping(value = "contributors", method = RequestMethod.POST)
+	@RequestMapping(value = "v1/contributors", method = RequestMethod.POST)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -98,7 +98,7 @@ public class ContributorsController {
 	 * @param contributor The new data for this contributor object.
 	 * @return The modified contributor.
 	 */
-	@RequestMapping(value = "contributors/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "v1/contributors/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	Contributor replaceContributor(@PathVariable("id") String id,
@@ -111,7 +111,7 @@ public class ContributorsController {
 	 * Deletes a contributor by ID.
 	 * @param id the id of the contributor to delete.
 	 */
-	@RequestMapping(value = "contributors/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "v1/contributors/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	void removeContributor(@PathVariable("id") String id) {

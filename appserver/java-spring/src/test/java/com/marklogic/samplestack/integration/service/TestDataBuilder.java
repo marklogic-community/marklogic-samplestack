@@ -16,7 +16,7 @@ import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.service.QnAService;
 import com.marklogic.samplestack.testing.Utils;
 
@@ -34,11 +34,11 @@ public class TestDataBuilder {
 
 	private QnAService qnaService;
 
-	private MarkLogicOperations operations;
+	private Clients clients;
 
-	public TestDataBuilder(MarkLogicOperations operations, QnAService qnaService) {
+	public TestDataBuilder(Clients clients, QnAService qnaService) {
 		super();
-		this.operations = operations;
+		this.clients = clients;
 		this.qnaService = qnaService;
 		joesQuestionIds = new ArrayList<String>();
 		joesAnswerIds = new ArrayList<String>();
@@ -50,8 +50,7 @@ public class TestDataBuilder {
 			throws ResourceNotFoundException, ForbiddenUserException,
 			FailedRequestException, IOException {
 		ClassPathResource resource = new ClassPathResource(path);
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		JSONDocumentManager docMgr = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).newJSONDocumentManager();
 
 		DocumentMetadataHandle metadataHandle = new DocumentMetadataHandle();
 
@@ -85,8 +84,7 @@ public class TestDataBuilder {
 	public void teardownSearch() throws ResourceNotFoundException,
 			ForbiddenUserException, FailedRequestException, IOException {
 		try {
-			JSONDocumentManager docMgr = operations
-					.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+			JSONDocumentManager docMgr = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).newJSONDocumentManager();
 			docMgr.delete("/questions/20864442.json");
 			docMgr.delete("/questions/20864445.json");
 			docMgr.delete("/questions/20864449.json");

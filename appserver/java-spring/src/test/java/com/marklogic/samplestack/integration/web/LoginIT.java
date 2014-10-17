@@ -26,7 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.LoginTestsImpl;
 import com.marklogic.samplestack.testing.UnitTests;
 import com.marklogic.samplestack.testing.Utils;
@@ -39,7 +39,7 @@ import com.marklogic.samplestack.testing.Utils;
 public class LoginIT extends LoginTestsImpl {
 
 	@Autowired
-	private ContributorAddOnService contributorService;
+	private ContributorService contributorService;
 	
 	@Before
 	public void setupJoe() {

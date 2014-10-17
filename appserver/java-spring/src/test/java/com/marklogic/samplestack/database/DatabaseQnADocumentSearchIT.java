@@ -42,12 +42,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.FailedRequestException;
 import com.marklogic.client.ForbiddenUserException;
 import com.marklogic.client.ResourceNotFoundException;
-import com.marklogic.client.query.QueryManager.QueryView;
 import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.impl.Clients;
 import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.impl.MarkLogicQnAService;
 import com.marklogic.samplestack.integration.service.TestDataBuilder;
-import com.marklogic.samplestack.service.MarkLogicOperations;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 
 /**
@@ -66,13 +66,16 @@ public class DatabaseQnADocumentSearchIT {
 	private ObjectMapper mapper;
 
 	@Autowired
-	private MarkLogicOperations operations;
+	private Clients clients;
+	
+	@Autowired
+	private MarkLogicQnAService qnaService;
 
 	private TestDataBuilder dataBuilder;
 	
 	@PostConstruct
 	public void setup() throws ResourceNotFoundException, ForbiddenUserException, FailedRequestException, IOException {
-		dataBuilder = new TestDataBuilder(operations, null);
+		dataBuilder = new TestDataBuilder(clients, null);
 		dataBuilder.setupSearch();
 	}
 	
@@ -114,9 +117,9 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
 		queryNode.put("qtext", "");
-		ObjectNode results = operations
-				.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1,
-						QueryView.RESULTS);
+		ObjectNode results = qnaService
+				.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1,
+						false);
 		assertTrue("Need data to test searches", results.size() > 0);
 	}
 
@@ -125,8 +128,8 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
 		queryNode.put("qtext", "");
-		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_GUEST,
-				query, 1, QueryView.RESULTS);
+		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_GUEST,
+				query, 1, false);
 		assertEquals("Guest sees only approved docs", results.get("results")
 				.size(), 2);
 	}
@@ -135,8 +138,8 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
 		queryNode.put("qtext", "");
-		ObjectNode results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				query, 1, QueryView.RESULTS);
+		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+				query, 1, false);
 		assertEquals("Logged-in user sees all docs", results.get("results")
 				.size(), 10);
 
@@ -150,14 +153,14 @@ public class DatabaseQnADocumentSearchIT {
 
 	@Test
 	public void testTagSearch() throws JsonProcessingException {
-		JsonNode query;
+		ObjectNode query;
 		ObjectNode results;
 		try {
-			query = mapper
+			query = (ObjectNode) mapper
 					.readValue("{\"query\":{\"qtext\":\"tag:monotouch\"}}",
 							JsonNode.class);
-			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, QueryView.FACETS);
+			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, false);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 		} catch (IOException e) {
@@ -166,8 +169,8 @@ public class DatabaseQnADocumentSearchIT {
 		assertNotNull("JSON has facet results", results.get("facets")
 				.get("tag"));
 	}
-	
-	
+
+
 	@Test
 	public void testTagValues() throws JsonProcessingException {
 		//TODO make POJO for values?
@@ -186,28 +189,29 @@ public class DatabaseQnADocumentSearchIT {
 		
 		ObjectNode results;
 		logger.debug(mapper.writeValueAsString(topNode));
-		try {
-			results = operations.tagValues(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					topNode, 1);
-
-			logger.debug("Values Results:" + mapper.writeValueAsString(results));
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
+// TODO bring back
+// try {
+//			results = operations.tagValues(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+//					topNode, 1);
+//
+//		logger.debug("Values Results:" + mapper.writeValueAsString(results));
+//		} catch (IOException e) {
+//			throw new SamplestackIOException(e);
+//		}
 		
 	}
 
 	@Test
 	public void testStructuredTagSearch() {
-		JsonNode query;
+		ObjectNode query;
 		ObjectNode results = null;
 		try {
-			query = mapper
+			query = (ObjectNode) mapper
 					.readValue(
 							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"monotouch\"}}}",
 							JsonNode.class);
-			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, QueryView.FACETS);
+			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, false);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 		} catch (IOException e) {
@@ -219,15 +223,15 @@ public class DatabaseQnADocumentSearchIT {
 
 	@Test
 	public void testAcceptedSearch() {
-		JsonNode query;
+		ObjectNode query;
 		ObjectNode results = null;
 		try {
-			query = mapper
+			query = (ObjectNode) mapper
 					.readValue(
 							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
 							JsonNode.class);
-			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, QueryView.ALL);
+			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, false);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
@@ -242,16 +246,16 @@ public class DatabaseQnADocumentSearchIT {
 
 	@Test
 	public void testActivitySearch() {
-		JsonNode query;
+		ObjectNode query;
 		ObjectNode results = null;
 		try {
-			query = mapper.readValue("{\"query\":"
+			query = (ObjectNode) mapper.readValue("{\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
 					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
 					+ "\"range-operator\":\"GT\"}}}", JsonNode.class);
-			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, QueryView.ALL);
+			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
@@ -263,13 +267,13 @@ public class DatabaseQnADocumentSearchIT {
 		assertEquals("JSON has 0 result", 11, results.get("total").asInt());
 
 		try {
-			query = mapper.readValue("{\"query\":"
+			query = (ObjectNode) mapper.readValue("{\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
 					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
 					+ "\"range-operator\":\"LT\"}}}", JsonNode.class);
-			results = operations.qnaSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, QueryView.ALL);
+			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, true);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
