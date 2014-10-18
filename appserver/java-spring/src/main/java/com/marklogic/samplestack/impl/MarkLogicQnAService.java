@@ -359,9 +359,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 			newContent.put("creationDate", documentResult.get("creationDate").asText());
 			newContent.put("voteCount", documentResult.get("voteCount").asLong());
 			ArrayNode snippetNode = newContent.putArray("snippets");
-			logger.debug(""+results.size());
-			logger.debug(""+objectIndex);
-			logger.debug(""+results.get(objectIndex));
 			snippetNode.add(thisResult.get("matches"));
 			ArrayNode tagsNode = newContent.putArray("tags");
 			tagsNode.addAll((ArrayNode) documentResult.get("tags"));

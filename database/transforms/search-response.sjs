@@ -11,7 +11,6 @@ function joinReputations(ids) {
                       cts.jsonPropertyValueQuery("id", ids) ]));
     for (var result of results) {
         var nextObject = result.toObject();
-        for (var k in nextObject) { xdmp.log(k) };
         var ownerObject = nextObject["com.marklogic.samplestack.domain.Contributor"]
         var ownerId = ownerObject.id;
         var ownerReputation = ownerObject.reputation;
