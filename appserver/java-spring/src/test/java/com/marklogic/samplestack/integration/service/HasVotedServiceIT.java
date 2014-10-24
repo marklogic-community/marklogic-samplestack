@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.dbclient.DatabaseContext;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.HasVotedService;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.TestDataManager;

@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import java.util.HashMap;
 
@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.security.ClientRole;
 
 @SuppressWarnings("serial")
 public class Clients extends HashMap<ClientRole, DatabaseClient> {

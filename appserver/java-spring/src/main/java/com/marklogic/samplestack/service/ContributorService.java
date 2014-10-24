@@ -74,4 +74,6 @@ public interface ContributorService {
 	 * @return
 	 */
 	public PojoPage<Contributor> search(QueryDefinition qdef, long start);
+
+	public PojoPage<Contributor> readAll(int i);
 }

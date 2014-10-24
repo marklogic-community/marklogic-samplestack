@@ -20,7 +20,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.HasVotedService;
 
 @Component

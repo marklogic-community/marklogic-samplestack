@@ -39,7 +39,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
 import com.marklogic.samplestack.testing.TestDataManager;
@@ -158,5 +158,4 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 		super.testAnonymousAccessToAccepted();
 	}
 
-	
 }

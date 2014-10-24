@@ -26,7 +26,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marklogic.samplestack.impl.CustomObjectMapper;
+import com.marklogic.samplestack.dbclient.CustomObjectMapper;
 
 @Configuration
 @ComponentScan(basePackages = {"com.marklogic.samplestack.web", "com.marklogic.samplestack.mock"})

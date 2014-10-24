@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.RawCombinedQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
 
 /**

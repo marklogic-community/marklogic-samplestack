@@ -78,4 +78,9 @@ public class MockContributorAddOnService implements ContributorService {
 		return repo.read(id);
 	}
 
+	@Override
+	public PojoPage<Contributor> readAll(int i) {
+		return repo.readAll(i);
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,9 +12,8 @@ import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.client.query.ValuesResults;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.HasVotedService;
 
@@ -24,6 +23,8 @@ public class MarkLogicHasVotedService extends MarkLogicBaseService implements Ha
 	@Autowired
 	private ContributorService contributorService;
 	
+	
+	// uses native Java API method
 	public ValuesResults idValues(ClientRole role, String postId) {
 		QueryManager queryManager = queryManager(role);
 		ValuesDefinition valdef = queryManager.newValuesDefinition("ids", "hasVoted");

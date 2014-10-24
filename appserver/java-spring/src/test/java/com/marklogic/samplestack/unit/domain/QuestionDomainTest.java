@@ -10,10 +10,10 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
+import com.marklogic.samplestack.dbclient.CustomObjectMapper;
 import com.marklogic.samplestack.domain.Answer;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.InitialQuestion;
-import com.marklogic.samplestack.impl.CustomObjectMapper;
 import com.marklogic.samplestack.testing.UnitTests;
 import com.marklogic.samplestack.testing.Utils;
 

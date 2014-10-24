@@ -2,7 +2,7 @@ package com.marklogic.samplestack.service;
 
 import java.util.Set;
 
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.security.ClientRole;
 
 /**
  * Service to access the voting record

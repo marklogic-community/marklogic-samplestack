@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackages = { "com.marklogic.samplestack.web",
-		"com.marklogic.samplestack.impl", "com.marklogic.samplestack.security" })
+		"com.marklogic.samplestack.dbclient", "com.marklogic.samplestack.security" })
 @EnableAutoConfiguration
 public class Application {
 

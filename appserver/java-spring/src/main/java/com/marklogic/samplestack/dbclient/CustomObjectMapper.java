@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import static com.marklogic.samplestack.SamplestackConstants.ISO_8601_FORMAT;
 

@@ -16,7 +16,7 @@
 package com.marklogic.samplestack.service;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.security.ClientRole;
 
 /**
  * Defines the TagsService, which returns suggested tags based on substrings.

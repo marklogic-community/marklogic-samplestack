@@ -26,9 +26,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.integration.service.MarkLogicIntegrationIT;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 
 /**

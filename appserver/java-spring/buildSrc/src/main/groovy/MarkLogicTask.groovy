@@ -23,26 +23,26 @@ public class MarkLogicTask extends DefaultTask {
         	Authentication.DIGEST)
         docMgr = client.newJSONDocumentManager()
     }
-    
+
 	/* returns a client that can use port 8002 to nanage MarkLogic */
 	protected manageClient(String url) {
 		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/manage/v2/" + url)
 		client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password	
 		return client;
 	}
-	
+
 	/* returns a client that can bootstrap and teardown REST APIs */
 	protected bootstrapClient() {
 		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":8002/v1/rest-apis/" + config.marklogic.rest.name)
 		client.auth.basic config.marklogic.admin.user, config.marklogic.admin.password
 		return client;
 	}
-	
-	
+
+
     protected storeJson(uri, handle) {
         docMgr.write(uri, handle);
     }
-    
+
 
     protected put(client, params) {
         try {

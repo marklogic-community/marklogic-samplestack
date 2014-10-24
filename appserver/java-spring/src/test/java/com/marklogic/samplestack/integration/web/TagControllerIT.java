@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.impl.Clients;
+import com.marklogic.samplestack.dbclient.Clients;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.TagControllerTestImpl;
 import com.marklogic.samplestack.testing.TestDataManager;

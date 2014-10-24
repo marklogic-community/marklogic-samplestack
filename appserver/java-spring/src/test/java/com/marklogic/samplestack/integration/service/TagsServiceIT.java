@@ -15,8 +15,6 @@
 */
 package com.marklogic.samplestack.integration.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 
 import org.json.JSONException;
@@ -34,9 +32,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.TestDataManager;

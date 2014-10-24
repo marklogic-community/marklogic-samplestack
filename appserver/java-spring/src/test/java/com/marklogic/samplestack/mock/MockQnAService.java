@@ -18,10 +18,10 @@ package com.marklogic.samplestack.mock;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component

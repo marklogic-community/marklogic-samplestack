@@ -8,8 +8,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marklogic.samplestack.impl.CustomObjectMapper;
-import com.marklogic.samplestack.impl.DateFacetBuilder;
+import com.marklogic.samplestack.dbclient.CustomObjectMapper;
+import com.marklogic.samplestack.dbclient.DateFacetBuilder;
 import com.marklogic.samplestack.testing.UnitTests;
 
 @Category(UnitTests.class)

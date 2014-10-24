@@ -15,7 +15,6 @@ import com.marklogic.client.io.DocumentMetadataHandle.Capability
 public class MarkLogicSlurpTask extends MarkLogicTask {
 
     String seedDirectory = "database/seed-data"
-    
 
 	private writerClient() {
 		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
@@ -23,7 +22,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
 		client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
 		return client
 	}
-	
+
     void putRdf(client, uri, rdftriples) {
         def params = [:]
         params.path = "/v1/graphs"

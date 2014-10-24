@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
 import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
@@ -49,7 +50,7 @@ public class ExceptionAdvice {
 	 * @return A JSON message body and 404 response code.
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(SamplestackNotFoundException.class)
+	@ExceptionHandler({SamplestackNotFoundException.class, ResourceNotFoundException.class})
 	public @ResponseBody JsonNode handleNotFound(Exception ex) {
 		return errors.makeJsonResponse(404, ex.getMessage());
 	}

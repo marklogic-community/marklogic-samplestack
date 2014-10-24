@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import static com.marklogic.samplestack.SamplestackConstants.CONTRIBUTORS_OPTIONS;
 
@@ -28,9 +28,9 @@ import com.marklogic.client.pojo.PojoQueryBuilder;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 
 /**
@@ -111,5 +111,10 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 			repository.write(contributor, transaction);
 		}
 
+	}
+
+	@Override
+	public PojoPage<Contributor> readAll(int i) {
+		return repository.readAll(i);
 	}
 }

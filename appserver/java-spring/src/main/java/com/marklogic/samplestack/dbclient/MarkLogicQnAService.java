@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
@@ -22,7 +22,6 @@ import static com.marklogic.samplestack.SamplestackConstants.SEARCH_RESPONSE_TRA
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -41,7 +40,6 @@ import com.marklogic.client.document.DocumentMetadataPatchBuilder.Call;
 import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
-import com.marklogic.client.document.DocumentRecord;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
@@ -57,7 +55,6 @@ import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.Answer;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -65,6 +62,7 @@ import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
@@ -377,7 +375,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		}
 		
 		responseNode.remove("reputations");
-		
+
 		return (ObjectNode) responseNode;
 	}
 

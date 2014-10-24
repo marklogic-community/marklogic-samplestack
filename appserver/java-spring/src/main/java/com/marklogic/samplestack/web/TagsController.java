@@ -28,8 +28,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.SamplestackConstants;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
 
 /**

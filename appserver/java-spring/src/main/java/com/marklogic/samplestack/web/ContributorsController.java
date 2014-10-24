@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.marklogic.client.pojo.PojoPage;
-import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.ContributorService;
 
@@ -48,8 +47,6 @@ public class ContributorsController {
 	@Autowired
 	private ContributorService service;
 
-	@Autowired
-	private PojoRepository<Contributor, String> repository;
 
 	/**
 	 * Lists contributors, based on an optional query string.
@@ -60,7 +57,7 @@ public class ContributorsController {
 	public @ResponseBody
 	PojoPage<Contributor> listContributors(@RequestParam(required = false) String q) {
 		if (q == null) {
-			return repository.readAll(0);
+			return service.readAll(0);
 		} else {
 			return service.search(q);
 		}
@@ -74,7 +71,7 @@ public class ContributorsController {
 	@RequestMapping(value = "v1/contributors/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	Contributor get(@PathVariable("id") String id) {
-		return repository.read(id);
+		return service.read(id);
 	}
 
 	/**
@@ -115,6 +112,6 @@ public class ContributorsController {
 	public @ResponseBody
 	@PreAuthorize("hasRole('ROLE_ADMINS')")
 	void removeContributor(@PathVariable("id") String id) {
-		repository.delete(id);
+		service.delete(id);
 	}
 }

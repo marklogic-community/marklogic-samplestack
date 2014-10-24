@@ -25,7 +25,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.marklogic.samplestack.mock.MockApplication;
 import com.marklogic.samplestack.testing.HasVotedControllerTestImpl;
 import com.marklogic.samplestack.testing.IntegrationTests;
-import com.marklogic.samplestack.testing.TestDataManager;
 
 /**
  * Tests the service that returns candidate tags given a

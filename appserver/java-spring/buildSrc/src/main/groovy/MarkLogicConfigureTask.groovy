@@ -30,8 +30,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     def restProperties = database + sep + "rest-properties.json"
     def file = null
 
-    
-    
+
     @TaskAction
     void configureREST(IncrementalTaskInputs inputs) {
         logger.info(inputs.incremental ? "CHANGED inputs considered out of date" : "ALL inputs considered out of date")

@@ -1,4 +1,4 @@
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import org.joda.time.DateTime;
 
