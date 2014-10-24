@@ -77,4 +77,23 @@ public class TagControllerIT extends TagControllerTestImpl {
         super.testLoggedInSortFrequency();
     }
 
+	/* bled over branches.
+	@Test
+    public void testRelatedTags() throws Exception {
+        MvcResult result = super.testRelatedTagsNoArgs();
+        JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"blob\",frequency: 1 }] }}"
+				, result.getResponse().getContentAsString(), false);
+
+		result = super.testRelatedTagsStartPageLength();
+
+		logger.debug(result.getResponse().getContentAsString());
+		 JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"blob\",frequency: 1 }] }}"
+					, result.getResponse().getContentAsString(), false);
+
+		result = super.testRelatedTagsQuery();
+
+		result = super.testRelatedTagsQText();
+
+    }
+    */
 }

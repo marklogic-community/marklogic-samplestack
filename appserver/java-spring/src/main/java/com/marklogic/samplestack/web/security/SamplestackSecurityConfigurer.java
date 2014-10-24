@@ -2,6 +2,7 @@ package com.marklogic.samplestack.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -54,6 +55,25 @@ public class SamplestackSecurityConfigurer {
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 				.accessDeniedHandler(samplestackAccessDeniedHandler);
 
+	}
+
+
+	public void ldapConfiguation(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
+		authManagerBuilder.ldapAuthentication()
+
+		.userDnPatterns("uid={0},ou=people", "uid={0},ou=apps")
+				.groupSearchBase("ou=groups").contextSource()
+				.ldif("classpath:samplestack-ds.ldif")
+				.root("dc=samplestack,dc=org");
+
+	}
+
+
+	public void inMemoryConfiguration(
+			AuthenticationManagerBuilder authManagerBuilder) throws Exception {
+		 authManagerBuilder.inMemoryAuthentication()
+         .withUser("joeUser@marklogic.com").password("joesPassword").roles("CONTRIBUTORS").and()
+         .withUser("maryAdmin@marklogic.com").password("marysPassword").roles("CONTRIBUTORS", "ADMINS");
 	}
 
 }

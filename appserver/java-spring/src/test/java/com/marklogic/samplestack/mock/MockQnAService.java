@@ -17,6 +17,7 @@ package com.marklogic.samplestack.mock;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -92,7 +93,7 @@ public class MockQnAService  extends MockServiceBase implements QnAService {
 
 	@Override
 	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
-			long start, boolean includeDates) {
+			long start, ArrayNode qtxt, boolean includeDates) {
 		return rawSearch(role, structuredQuery, start);
 	}
 

@@ -15,6 +15,7 @@
  */
 package com.marklogic.samplestack.service;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -50,13 +51,15 @@ public interface QnAService {
 	 *            A JSON structured query payload, as a JSONNode.
 	 * @param start
 	 *            Index of the first result in the result set.
+	 * @param qtext 
+     *            0 or more Qtext to be anded with structured Query.
 	 * @param includeDates
 	 *            Include facet for date values
 	 * @return A QuestionResults object containing results/snippets for the
 	 *         search.
 	 */
 	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
-			long start, boolean includeDates);
+			long start, ArrayNode qtext, boolean includeDates);
 	
 	/**
 	 * Send a [JSON] raw structured query to the server, using the options
