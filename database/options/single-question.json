@@ -1,0 +1,18 @@
+{
+    "options": {
+        "constraint": [
+            {
+                "name": "id",
+                "range": {
+                    "facet": "false",
+                    "json-property": "id",
+                    "type": "xs:string"
+                }
+            }
+        ],
+        "debug": true,
+        "extract-document-data": {
+            "selected": "all"
+        }
+    }
+}

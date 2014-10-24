@@ -43,10 +43,6 @@ http://root.marklogic.com/nightly/default.xqy?branch=HEAD
 Java Client API needs snapshot available on commit [481c2b045ad5bc6f0549ad4e60e44b7cec5232a6](https://github.com/marklogic/java-client-api/commit/481c2b045ad5bc6f0549ad4e60e44b7cec5232a6) from 11/5/2014.  This should be installed
 automatically but may require gradle or maven cache cleaning.
 
-This build requires seed data available internally.  The current seed data version is 1.3:
-
-https://wiki.marklogic.com/pages/viewpageattachments.action?pageId=31359376&highlight=seed-data1.3.tgz
-
 _**If** you are using OSX and have access to the nightly builds site,_ an MLVM script is available to fully configure the Java Middle Tier, including the download/installation of the latest nightly, dowload/loading of seed data and initialization and starup of of the middle-tier:
 
 https://github.com/marklogic/marklogic-samplestack/blob/develop/appserver/java-spring/cleanstart.sh
@@ -82,12 +78,6 @@ cd appserver/java-spring
 ./gradlew appserver
 ```
 
-If the command fails such that you need to run it again, run the following command first to reset the database state:
-
-```
-./gradlew dbteardown
-```
-
 This command will not return. When you see output of the following form, the middle tier is running, and you can proceed with the browser tier setup:
 ```
 Started Application in X seconds...
@@ -102,7 +92,7 @@ Successfully completing this step does the following:
 
 The middle tier App Server runs on port 8090 by default. Visit http://localhost:8001 if you need to administer the database.
 
-*For details, see the [README in the appserver/java-spring directory](appserver/java-spring/README.md)*
+*For more detail, see the [README in the appserver/java-spring directory](appserver/java-spring/README.md)*
 
 ### Setting Up the Browser Tier
 Use the following procedure to install required software and bootstrap the Samplestack browser tier. You should already have the middle and database tiers running.

@@ -32,11 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
+import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
@@ -76,7 +78,7 @@ public class QnADocumentController {
 		ObjectNode structuredQuery = mapper.createObjectNode();
 		ObjectNode qtext = structuredQuery.putObject("query");
 		qtext.put("qtext",q);
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, true);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, null, true);
 	}
 
 	/**
@@ -272,13 +274,23 @@ public class QnADocumentController {
 	JsonNode search(@RequestBody ObjectNode structuredQuery,
 			@RequestParam(defaultValue = "1", required = false) long start) {
 
+		ArrayNode qtext = mapper.createArrayNode();
 		JsonNode postedStartNode = structuredQuery.get("start");
 		if (postedStartNode != null) {
 			start = postedStartNode.asLong();
 			structuredQuery.remove("start");
 		}
+		JsonNode postedQtextNode = structuredQuery.get("qtext");
+		if (postedQtextNode != null) {
+			if (postedQtextNode.isTextual()) {
+				qtext.add(postedQtextNode);  // just one qtext
+			} else if (postedQtextNode.isArray()) {
+				qtext.addAll((ArrayNode) postedQtextNode);
+			}
+			structuredQuery.remove("qtext");
+		}
 		// TODO review for presence/absense of date facet as performance question.
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, true);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, qtext, true);
 	}
 
 }

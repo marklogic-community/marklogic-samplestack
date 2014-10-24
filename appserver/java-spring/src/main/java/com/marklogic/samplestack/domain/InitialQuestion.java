@@ -27,47 +27,30 @@ import javax.validation.constraints.NotNull;
  */
 public class InitialQuestion {
 	
+	private Boolean accepted;
+	private String acceptedAnswerId;
+	private long answerCount;
 	private Answer[] answers;
 	private Comment[] comments;
 	private Date creationDate;
 	private String id;
-	private String acceptedAnswerId;
-	private Boolean accepted;
-	public Boolean getAccepted() {
-		return accepted;
-	}
-	public void setAccepted(Boolean accepted) {
-		this.accepted = accepted;
-	}
-	public String getAcceptedAnswerId() {
-		return acceptedAnswerId;
-	}
-	public void setAcceptedAnswerId(String acceptedAnswerId) {
-		this.acceptedAnswerId = acceptedAnswerId;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	private long voteCount;
+	/** The total of the up and down votes on this question (without answers) */
 	private long itemTally;
-	
+	/** The last time this question was updated */
 	private Date lastActivityDate;
+	/** A few data fields having to do with the owner of this question */
 	private SparseContributor owner;
-	
 	/** A string array of tags associated with this question */
 	private String[] tags;
 	@NotNull
 	/** The markdown text of the question */
 	private String text;
-	
-	
 	@NotNull
 	/** The title of the question */
 	private String title;
+
+	/** The total number of votes on this question-and-answer document */
+	private long voteCount;
 	public InitialQuestion() {
 		this.tags = new String[] {};
 		this.comments = new Comment[] {};
@@ -75,8 +58,17 @@ public class InitialQuestion {
 		this.voteCount = 0L;
 		this.itemTally = 0L;
 		this.accepted = false;
+		this.answerCount = 0L;
 	}
-	
+	public Boolean getAccepted() {
+		return accepted;
+	}
+	public String getAcceptedAnswerId() {
+		return acceptedAnswerId;
+	}
+	public long getAnswerCount() {
+		return answerCount;
+	}
 	public Answer[] getAnswers() {
 		return answers;
 	}
@@ -86,8 +78,8 @@ public class InitialQuestion {
 	public Date getCreationDate() {
 		return creationDate;
 	}
-	public long getVoteCount() {
-		return voteCount;
+	public String getId() {
+		return id;
 	}
 	public long getItemTally() {
 		return itemTally;
@@ -107,6 +99,18 @@ public class InitialQuestion {
 	public String getTitle() {
 		return title;
 	}
+	public long getVoteCount() {
+		return voteCount;
+	}
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
+	public void setAcceptedAnswerId(String acceptedAnswerId) {
+		this.acceptedAnswerId = acceptedAnswerId;
+	}
+	public void setAnswerCount(long answerCount) {
+		this.answerCount = answerCount;
+	}
 	public void setAnswers(Answer[] answers) {
 		this.answers = answers;
 	}
@@ -116,12 +120,13 @@ public class InitialQuestion {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	public void setVoteCount(long voteCount) {
-		this.voteCount = voteCount;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public void setItemTally(long itemTally) {
 		this.itemTally = itemTally;
 	}
+	
 	public void setLastActivityDate(Date lastActivityDate) {
 		this.lastActivityDate = lastActivityDate;
 	}
@@ -129,21 +134,19 @@ public class InitialQuestion {
 	public void setOwner(SparseContributor owner) {
 		this.owner = owner;
 	}
-	
 	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
-
 	public void setText(String text) {
 		this.text = text;
 	}
-	
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+	public void setVoteCount(long voteCount) {
+		this.voteCount = voteCount;
+	}
 	public void updateLastActivityDate() {
 		this.lastActivityDate = new Date();
 	}
-	
 }

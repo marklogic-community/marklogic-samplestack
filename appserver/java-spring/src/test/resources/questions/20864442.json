@@ -20,5 +20,6 @@
     ],
     "text": "\n\nI have a client who has a web hosting setup with os commerce 2.2. They have a custom field populated for a field per product. This would be a charge that is unique per product. A core charge.\n\nThey are using authorize.net for billing.\n\nI would like to add this charge to the final payment processing. Where does this occur?\n\nin includes/modules/payment.php? checkout_process.php? or authorizenet_cc_aim.php in the payment include directory?\n\nWhat should I change? I can get the values based on a product and its quantity.... can add it to order totals table.....",
     "title": "OS Commerce 2.2 RC2.2 authorize.net programming",
-    "voteCount": 0
+    "voteCount": 0,
+    "answerCount":0
 }

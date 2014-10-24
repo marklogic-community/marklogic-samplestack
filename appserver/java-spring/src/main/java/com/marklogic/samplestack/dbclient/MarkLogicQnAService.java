@@ -18,6 +18,7 @@ package com.marklogic.samplestack.dbclient;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
 import static com.marklogic.samplestack.SamplestackConstants.SEARCH_RESPONSE_TRANSFORM;
+import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_OPTIONS;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +74,7 @@ import com.marklogic.samplestack.service.QnAService;
  */
 public class MarkLogicQnAService extends MarkLogicBaseService implements QnAService  {
 
+
 	@Autowired
 	private ContributorService contributorService;
 
@@ -109,7 +111,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 	public QnADocument findOne(ClientRole role, String queryString, long start) {
 		QueryManager queryManager = queryManager(role);
 		QueryDefinition stringQuery = queryManager.newStringDefinition(
-				QUESTIONS_OPTIONS).withCriteria(queryString);
+				SINGLE_QUESTION_OPTIONS).withCriteria(queryString);
 
 		stringQuery.setDirectory(QUESTIONS_DIRECTORY);
 		DocumentPage page = jsonDocumentManager(role).search(stringQuery, start);
@@ -136,6 +138,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		question.setOwner(user.asSparseContributor());
 		question.setComments(new Comment[0]);
 		question.setAnswers(new Answer[0]);
+		question.setAnswerCount(0);
 
 		JsonNode jsonNode = mapper.convertValue(question, JsonNode.class);
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
@@ -177,6 +180,8 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 					Position.LAST_CHILD, mapper.writeValueAsString(answer));
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
+			Call call = patchBuilder.call().add(1);
+			patchBuilder.replaceValue("/answerCount", call);
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
@@ -248,7 +253,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 				toRaiseReputation.setReputation(toRaiseReputation
 						.getReputation() + 1);
 				contributorService.store(toRaiseReputation, transaction);
-
 			}
 		}
 
@@ -294,11 +298,15 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 	
 	@Override
 	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
-			long start, boolean includeDateFacet) {
+			long start, ArrayNode qtext, boolean includeDateFacet) {
 		ObjectNode docNode = mapper.createObjectNode();
 		ObjectNode searchNode = docNode.putObject("search");
 		if (structuredQuery != null) {
 			searchNode.setAll(structuredQuery);
+		}
+		if (qtext != null) {
+			ArrayNode qtextNode = docNode.putArray("qtext");
+			qtextNode.addAll(qtext);
 		}
 		if (includeDateFacet) {
 			ObjectNode options = searchNode.putObject("options");
@@ -334,49 +342,45 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		JsonNode reputations = responseNode.findPath("reputations");
 
 		while (docPage.hasNext()) {
-			// the matching document, as returned by extract-document-data specifiation
-			ObjectNode documentResult = (ObjectNode) docPage.nextContent(new JacksonHandle()).get();
+			// the matching document, as returned by extract-document-data specification
+			ObjectNode documentResultObject = (ObjectNode) docPage.nextContent(new JacksonHandle()).get();
 
-			// each owner in the doc needs a reputation from the reputation map
-			// and for the snippet to be embedded
-			for (JsonNode ownerNode : documentResult.findValues("owner")) {
-				ObjectNode owner = (ObjectNode) ownerNode;
-				if (reputations.isObject() && reputations.has(owner.get("id").asText())) {
-					owner.put("reputation", reputations.get(owner.get("id").asText()).asText());
-				}
-				else {
-					owner.put("reputation", 0);
-				}
-			}
-
-			ObjectNode thisResult = (ObjectNode) results.get(objectIndex);
+			ObjectNode searchResponseResultNode = (ObjectNode) results.get(objectIndex);
 
 			// TODO this all should be extractable server-side, but
 			// I ran into issues with extract-document-data (10/15/2014)
-			ObjectNode newContent = thisResult.putObject("content");
-			newContent.put("accepted", documentResult.get("accepted").asBoolean());
-			newContent.put("creationDate", documentResult.get("creationDate").asText());
-			newContent.put("voteCount", documentResult.get("voteCount").asLong());
+			ObjectNode newContent = searchResponseResultNode.putObject("content");
+			newContent.put("accepted", documentResultObject.get("accepted").asBoolean());
+			newContent.put("creationDate", documentResultObject.get("creationDate").asText());
+			newContent.put("voteCount", documentResultObject.get("voteCount").asLong());
+			newContent.put("answerCount", documentResultObject.get("answerCount").asLong());
 			ArrayNode snippetNode = newContent.putArray("snippets");
-			snippetNode.add(thisResult.get("matches"));
+			snippetNode.addAll((ArrayNode) searchResponseResultNode.get("matches"));
 			ArrayNode tagsNode = newContent.putArray("tags");
-			tagsNode.addAll((ArrayNode) documentResult.get("tags"));
-			newContent.put("lastActivityDate", documentResult.get("lastActivityDate").asText());
-			newContent.put("id", documentResult.get("id").asText());
-			if (documentResult.get("originalId") != null) {
-				newContent.put("originalId", documentResult.get("originalId").asText());
+			tagsNode.addAll((ArrayNode) documentResultObject.get("tags"));
+			newContent.put("lastActivityDate", documentResultObject.get("lastActivityDate").asText());
+			newContent.put("id", documentResultObject.get("id").asText());
+			if (documentResultObject.get("originalId") != null) {
+				newContent.put("originalId", documentResultObject.get("originalId").asText());
 			}
-			newContent.put("answerCount", documentResult.get("answers").size());
-			newContent.put("title", documentResult.get("title").asText());
-			newContent.put("owner", documentResult.get("owner"));
+			//newContent.put("answerCount", documentResult.get("answers").size());
+			newContent.put("title", documentResultObject.get("title").asText());
 			
+			try {
+				logger.debug(mapper.writeValueAsString(documentResultObject.get("owner")));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			newContent.put("owner", documentResultObject.get("owner"));
+
 			// remove unused keys
-			thisResult.remove("matches");
-			thisResult.remove("metadata");
-			
+			searchResponseResultNode.remove("matches");
+			searchResponseResultNode.remove("metadata");
+
 			objectIndex++;
 		}
-		
+
 		responseNode.remove("reputations");
 
 		return (ObjectNode) responseNode;
@@ -386,7 +390,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 	// TODO date facet is default ON now. open issue is to control state from
 	// browser.
 	public ObjectNode rawSearch(ClientRole role, ObjectNode query, long start) {
-		return rawSearch(role, query, start, false);
+		return rawSearch(role, query, start, null, false);
 	}
 
 	@Override
