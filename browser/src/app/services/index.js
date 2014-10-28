@@ -1,3 +1,4 @@
 define([
-  './appRouting'
+  './appRouting',
+  './initialize'
 ], function () {});

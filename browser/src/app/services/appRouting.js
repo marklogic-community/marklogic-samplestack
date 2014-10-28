@@ -84,11 +84,25 @@ define(['app/module'], function (module) {
        */
 
       this.$get = [
-        '$rootScope', '$state', '$stateParams', '$location', '$window',
-        function ($rootScope, $state, $stateParams, $location, $window) {
+        '$rootScope',
+        '$state',
+        '$stateParams',
+        '$location',
+        '$window',
+        'initialize',
+        function (
+          $rootScope, $state, $stateParams, $location, $window, initialize
+        ) {
 
           $rootScope.$on('$locationChangeSuccess',function () {
             $window.scrollTo(0, 0);
+          });
+
+          $rootScope.setLoading = function (isLoading) {
+            $rootScope.loading = isLoading;
+          };
+          $rootScope.$on('$stateChangeSuccess', function () {
+            $rootScope.clearLocalError();
           });
 
           return {

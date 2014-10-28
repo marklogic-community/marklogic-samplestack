@@ -20,6 +20,7 @@
   <!--
   An honest effort to maintain consistency across less-than modern
   browsers.  (In the not too distant future this will be an es6 shim.)
+  <script src="/deps/angular/angular<%=options.min%>.js"></script>
   -->
   <script src="/deps/modernizr/modernizr.js"></script>
   <script src="/deps/es5-shim/es5-shim.js"></script>
@@ -79,7 +80,8 @@ app = 'application.js';
 require([app], function (app) {
   var htmlEl = angular.element(window.document.childNodes[1]);
 
-  app.run(['appRouting', function (appRouting) {}]);
+  app.run(['initialize', function (initialize) {}]);
+  // htmlEl.attr('ng-app', 'app');
 
   angular.bootstrap(
     htmlEl,

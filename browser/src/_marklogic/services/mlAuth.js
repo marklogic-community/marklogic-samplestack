@@ -105,7 +105,9 @@ define(['_marklogic/module'], function (module) {
               try {
                 sessionId = $cookieStore.get('sessionId');
               }
-              catch (err) { $rootScope.log(err); }
+              catch (err) {
+                $rootScope.log(err);
+              }
 
               if (sessionId) {
 
@@ -118,7 +120,9 @@ define(['_marklogic/module'], function (module) {
                     try {
                       $cookieStore.put('sessionId', sess.id);
                     }
-                    catch (err) { $rootScope.log(err); }
+                    catch (err) {
+                      $rootScope.log(err);
+                    }
 
                     mlStore.session = sess;
                     deferred.resolve(sess);
