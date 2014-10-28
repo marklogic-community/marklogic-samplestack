@@ -36,7 +36,11 @@ The setup procedure may install additional software, such as Gradle and Angular.
 
 This README is for a development branch that does not work with any released version of MarkLogic
 
-Use MarkLogic nightly from 10/23.  Trunk may work, but use at your own risk.
+Use MarkLogic nightly dated 10/24.  
+
+RPM link: https://root.marklogic.com/nightly/builds/linux64/rh6-intel64-80-test-1.marklogic.com/HEAD/pkgs.20141024/MarkLogic-8.0-20141024.x86_64.rpm
+
+Trunk does NOT work for this PR.
 Java Client API needs snapshot on or after 10/10/2014.  This should be installed 
 automatically but may require gradle or maven cache cleaning.
 

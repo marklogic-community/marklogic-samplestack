@@ -19,6 +19,7 @@ public
 .classpath
 .project
 .settings
+.springbeans
 *.iml
 *.ipr
 bin

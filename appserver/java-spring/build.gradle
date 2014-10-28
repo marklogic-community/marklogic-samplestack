@@ -85,6 +85,8 @@ assemble.dependsOn(dbInit, dbConfigure, test)
  */
 task dbLoad(type: MarkLogicSlurpTask)
 dbLoad.mustRunAfter(assemble)
+/* never skip dbload if requested */
+dbLoad.outputs.upToDateWhen { false }
 
 /*
  * CLEAR
