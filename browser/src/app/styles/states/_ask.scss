@@ -17,10 +17,11 @@
     > *:last-child {
       margin-bottom: 0;
     }
-    input {
+    .ss-ask-title input {
       width: 500px;
     }
     .ss-markdown-editor {
+      padding-top: 10px;
       li {
         cursor: pointer;
       }
@@ -36,19 +37,19 @@
         }
       }
       textarea {
-        height:174px;
+        height: 174px;
+        width: 780px;
+        resize: vertical;
       }
       .divider {
         margin:0 6px;
         color:#D3D3D3;
       }
-      .tab-content {
-        height: 250px;
-        padding:10px 16px;
-        border:1px solid #ddd;
-        border-top:0;
-        border-radius: 0 0 4px 4px;
-      }
+    }
+    tags-input {
+      display: inline-block;
+      width: 600px;
+      vertical-align: middle;
     }
   }
 }

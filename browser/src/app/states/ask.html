@@ -1,17 +1,30 @@
-<!-- @todo move Bootstrap form classes (.form-inline, .form-control etc.) into sass without losing styles -->
+<!-- @todo move Bootstrap form classes (.form-inline, .form-control etc.)
+into sass without losing styles -->
 <section class="ss-ask">
   <header>
     <h2>Ask a Question</h2>
   </header>
-  <form class="form-inline ss-ui-incomplete">
+  <p
+    class="has-error"
+    ng-if="error"
+  >
+    {{localError}}
+  </p>
+  <form class="form-inline">
     <div class="ss-ask-title">
-      <label>Title</label> <input type="text" class="form-control" />
+      <label>Title</label>
+      <input type="text" ng-model="qnaDoc.title" class="form-control" />
     </div>
-    <div ss-markdown-editor content="question"></div>
-    <!-- todo https://github.com/TimSchlechter/bootstrap-tagsinput -->
-    <div class="ss-ask-tags ss-ui-incomplete">
-      <label>Tags</label> <input disabled type="text" data-role="tagsinput" class="form-control" />
+    <div ss-markdown-editor content="qnaDoc.text"></div>
+    <div class="ss-ask-tags ss-incomplete">
+      <label>Tags</label>
+      <tags-input ng-model="tagsInput"></tags-input> (tags input in progress)
     </div>
-    <button disabled class="ss-ui-incomplete" ng-click="post()">Post Your Question</button>
+    <button
+      ng-disabled="qnaDoc.$ml.invalid"
+      ng-click="save()"
+    >
+      Post Your Question
+    </button>
   </form>
 </section>

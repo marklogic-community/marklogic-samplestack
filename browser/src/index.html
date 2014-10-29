@@ -14,16 +14,17 @@
 
   <title ng-bind="pageTitle + ' - samplestack'">samplestack</title>
 
-  <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
-  <link rel="stylesheet" type="text/css" href="/deps/highlightjs/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="/app/styles/style<%=options.min%>.css">
+  <link rel="stylesheet" type="text/css" href="/deps/highlightjs/styles/github<%=options.min%>.css">
+  <link rel="stylesheet" type="text/css" href="/deps/ng-tags-input/ng-tags-input<%=options.min%>.css">
 
   <!--
   An honest effort to maintain consistency across less-than modern
   browsers.  (In the not too distant future this will be an es6 shim.)
   <script src="/deps/angular/angular<%=options.min%>.js"></script>
   -->
-  <script src="/deps/modernizr/modernizr.js"></script>
-  <script src="/deps/es5-shim/es5-shim.js"></script>
+  <script src="/deps/modernizr/modernizr<%=options.min%>.js"></script>
+  <script src="/deps/es5-shim/es5-shim<%=options.min%>.js"></script>
 
   <!--
   Downloading and running the rest of the app is delayed in order to
