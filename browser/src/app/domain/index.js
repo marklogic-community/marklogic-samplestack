@@ -3,5 +3,8 @@ define([
   './ssQnaDoc',
   './ssSearch',
   './ssSession',
-  './ssVote'
+  './ssVote',
+  './ssAnswer',
+  './ssComment',
+  './ssHasVoted'
 ], function () {});

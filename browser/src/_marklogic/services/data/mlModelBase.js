@@ -94,8 +94,6 @@ define(['_marklogic/module'], function (module) {
     function (
       $http, $q, $parse, $injector, mlSchema, mlUtil, mlWaiter
     ) {
-      var self = this;
-      this.baseUrl = '/v1';
 
       /**
        * @ngdoc property
@@ -106,26 +104,30 @@ define(['_marklogic/module'], function (module) {
        * derivation is defined. The default implementation is:
        *
        * ```javascript
-       * this.preconstruct(spec);
+       * this.preconstruct(spec, parent);
        * Object.defineProperty(this, '$ml', {
-       *   value: {}
+       *   value: { parent: parent }
        * });
-       * this.assignData(spec || {});
-       * this.postconstruct(spec);
+       * this.assignData(spec || {}, parent);
+       * this.postconstruct(spec, parent);
        * ```
        */
-      var MlModel = function (spec) {
-        this.preconstruct(spec);
+      var MlModel = function (spec, parent) {
+        this.preconstruct(spec, parent);
         Object.defineProperty(this, '$ml', {
-          value: {}
+          value: { parent: parent }
         });
-        this.assignData(spec || {});
-        this.postconstruct(spec);
+        this.assignData(spec || {}, parent);
+        this.postconstruct(spec, parent);
       };
 
-      MlModel.prototype.preconstruct = function (spec) {
+      MlModel.prototype.preconstruct = function (spec, parent) {
       };
-      MlModel.prototype.postconstruct = function (spec) {
+      MlModel.prototype.postconstruct = function (spec, parent) {
+      };
+
+      MlModel.prototype.getBaseUrl = function () {
+        return '/v1'; // TODO should come from config setting
       };
 
       MlModel.prototype.attachScope = function (scope, as) {
@@ -176,6 +178,13 @@ define(['_marklogic/module'], function (module) {
         }
       };
 
+      /**
+       * @ngdoc method
+       * @name MlModel#prototype.assignData
+       * @description Assigns properties to model object. First deletes any
+       * existing properties.
+       * @param {object} data Data to merge.
+       */
       MlModel.prototype.assignData = function (data) {
         angular.forEach(this, function (val, key) {
           delete this[key];
@@ -183,24 +192,33 @@ define(['_marklogic/module'], function (module) {
         this.mergeData(data);
       };
 
+      /**
+       * @ngdoc method
+       * @name MlModel#prototype.mergeData
+       * @description Merges new data into model object properties. Any
+       * existing data is retained.
+       * @param {object} data Data to merge.
+       */
       MlModel.prototype.mergeData = function (data) {
         mlUtil.merge(this, data);
-        this.testValidity();
+        this.testValidity(); // Based on schema, sets $ml validity flags
       };
 
-      MlModel.prototype.onHttpResponse = function (data, httpMethod) {
+      MlModel.prototype.onHttpResponse = function (
+        data, httpMethod, additionalPromises
+      ) {
         switch (httpMethod) {
           case 'PUT':
-            this.onResponsePUT(data);
+            this.onResponsePUT(data, additionalPromises);
             break;
           case 'DELETE':
-            this.onResponseDELETE(data);
+            this.onResponseDELETE(data, additionalPromises);
             break;
           case 'POST':
-            this.onResponsePOST(data);
+            this.onResponsePOST(data, additionalPromises);
             break;
           case 'GET':
-            this.onResponseGET(data);
+            this.onResponseGET(data, additionalPromises);
             break;
           default:
             throw new Error(
@@ -222,6 +240,13 @@ define(['_marklogic/module'], function (module) {
         return '/' + this.id;
       };
 
+      /**
+       * @ngdoc method
+       * @name MlModel#prototype.getHttpUrl
+       * @description Returns URL string for accessing REST endpoint based
+       * on HTTP method.
+       * @param {string} httpMethod HTTP method.
+       */
       MlModel.prototype.getHttpUrl = function (httpMethod) {
         switch (httpMethod) {
           case 'PUT':
@@ -254,6 +279,13 @@ define(['_marklogic/module'], function (module) {
         return undefined;
       };
 
+      /**
+       * @ngdoc method
+       * @name MlModel#prototype.getHttpData
+       * @description Returns data payload to be set to REST endpoint based
+       * on HTTP method.
+       * @param {string} httpMethod HTTP method.
+       */
       MlModel.prototype.getHttpData = function (httpMethod) {
         switch (httpMethod) {
           case 'PUT':
@@ -357,37 +389,46 @@ define(['_marklogic/module'], function (module) {
         throw new Error('not implemented');  // override this to use it
       };
 
-      var http = function (instance, httpMethod) {
-        var httpConfig = instance.getHttpConfig(httpMethod);
+      MlModel.prototype.http = function (httpMethod, promises) {
+        var self = this;
+        if (!promises) {
+          promises = [];
+        }
+        var httpConfig = this.getHttpConfig(httpMethod);
         httpConfig.timeout = 10000;
-        var waiter = mlWaiter.waitOn(instance);
-        httpConfig.url = self.baseUrl + httpConfig.url;
-        $http(httpConfig).then(
-          function (response) {
-            instance.onHttpResponse(response.data, httpMethod);
+        var waiter = mlWaiter.waitOn(this);
+        httpConfig.url = this.getBaseUrl() + httpConfig.url;
+        promises.unshift($http(httpConfig));
+        $q.all(promises).then(
+          function (responses) {
+            self.onHttpResponse(
+              responses[0].data,
+              httpMethod,
+              responses.slice(1)
+            );
             waiter.resolve();
           },
           function (err) {
             waiter.reject(err);
           }
         );
-        return instance;
+        return this;
       };
 
       MlModel.prototype.post = function () {
-        return http(this, 'POST');
+        return this.http('POST');
       };
 
       MlModel.prototype.put = function () {
-        return http(this, 'PUT');
+        return this.http('PUT');
       };
 
       MlModel.prototype.getOne = function () {
-        return http(this, 'GET');
+        return this.http('GET');
       };
 
       MlModel.prototype.del = function () {
-        return http(this, 'DELETE');
+        return this.http('DELETE');
       };
 
       MlModel.prototype.getService = function () {
@@ -432,11 +473,11 @@ define(['_marklogic/module'], function (module) {
          *
          * The default implementation calls the `object` constructor.
          */
-        svcImplementation.create = function (spec) {
-          return new svcImplementation[name](spec);
+        svcImplementation.create = function (spec, parent) {
+          return new svcImplementation[name](spec, parent);
         };
 
-        var ensureInstance = function (spec) {
+        svcImplementation.ensureInstance = function (spec) {
           if (typeof spec !== 'object') {
             spec = constructor.prototype.specFromArguments
                 .apply(null, arguments);
@@ -469,7 +510,7 @@ define(['_marklogic/module'], function (module) {
          * containing an `id` property, to specify what data to fetch.
          */
         svcImplementation.getOne = function (spec) {
-          return ensureInstance(spec).getOne();
+          return svcImplementation.ensureInstance(spec).getOne();
         };
 
         /**
@@ -497,7 +538,7 @@ define(['_marklogic/module'], function (module) {
          * used to create a new instance prior to posting.
          */
         svcImplementation.post = function (spec) {
-          return ensureInstance(spec).post();
+          return svcImplementation.ensureInstance(spec).post();
         };
 
         /**
@@ -526,7 +567,7 @@ define(['_marklogic/module'], function (module) {
          */
         svcImplementation.del = function (spec) {
           var deferred = $q.defer();
-          var instance = ensureInstance(spec);
+          var instance = svcImplementation.ensureInstance(spec);
           instance.del().$ml.waiting.then(
             deferred.resolve, deferred.reject
           );

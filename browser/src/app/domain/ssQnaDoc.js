@@ -12,9 +12,15 @@ define(['app/module'], function (module) {
 
   module.factory('ssQnaDoc', [
 
-    '$q', 'mlModelBase', 'mlSchema', 'mlUtil',
+    '$q',
+    'mlModelBase',
+    'mlSchema',
+    'mlUtil',
+    'ssAnswer',
+    'ssComment',
+    'ssHasVoted',
     function (
-      $q, mlModelBase, mlSchema, mlUtil
+      $q, mlModelBase, mlSchema, mlUtil, ssAnswer, ssComment, ssHasVoted
     ) {
       /**
        * @ngdoc type
@@ -40,12 +46,96 @@ define(['app/module'], function (module) {
       SsQnaDocObject.prototype.$mlSpec = {
         schema: mlSchema.addSchema({
           id: 'http://marklogic.com/samplestack#qnaDoc',
-          required: ['id'],
+          required: ['title'],
           properties: {
             id: { type: 'string', minLength: 36, maxLength: 36 },
+            title: { type: 'string', minLength: 1 },
+            text: { type: 'string' },
+            tags: {
+              type: 'array',
+              items: { type: 'string' }
+            }
+            // build this out
           }
         })
       };
+
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.mergeData
+       * @description Sets hasVoted data on $ml, sets up answer and
+       * comment model objects on data, then merges data.
+       * @param {object} data Data to merge.
+       */
+      SsQnaDocObject.prototype.mergeData = function (data) {
+        if (data.hasVoted) {
+          this.$ml.hasVotedObject = data.hasVoted;
+          delete data.hasVoted;
+        }
+
+        // Replace answers with ssAnswer objects
+        var self = this;
+        angular.forEach(data.answers, function (answer, index) {
+          data.answers[index] = ssAnswer.create(answer, self);
+        });
+        // Add empty ssAnswer object for posting new answer
+        data.answers = data.answers || [];
+        data.answers[data.answers.length] = ssAnswer.create({}, this);
+
+        // Replace comments with ssComment objects
+        angular.forEach(data.comments, function (comment, index) {
+          data.comments[index] = ssComment.create(comment, self);
+        });
+        // Add empty ssComment object for posting new comment
+        data.comments = data.comments || [];
+        data.comments[data.comments.length] = ssComment.create({}, this);
+
+        mlUtil.merge(this, data);
+        this.testValidity();
+      };
+
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.addAnswer
+       * @description Adds new ssAnswer object to end of answers array
+       * @param {object} data Answer data.
+       * @param {object} parent Answer parent.
+       */
+      SsQnaDocObject.prototype.addAnswer = function (data, parent) {
+        this.answers = this.answers || []; // Ensure an answers array exists
+        this.answers[this.answers.length] = ssAnswer.create(data, parent);
+      };
+
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.addComment
+       * @description Adds new ssComment object to end of comments array
+       * @param {object} data Comment data.
+       * @param {object} parent Comment parent.
+       */
+      SsQnaDocObject.prototype.addComment = function (data, parent) {
+        this.comments = this.comments || []; // Ensure an comments array exists
+        this.comments[this.comments.length] = ssComment.create(data, parent);
+      };
+
+      // SsQnaDocObject.prototype.postconstruct = function (spec, parent) {
+      //   if (parent && parent.hasVotedOn(this.id)) {
+      //     this.$ml.hasVoted = true;
+      //   }
+      // };
+      //
+
+      // TODO when hasVoted endpoint is working
+      // SsQnaDocObject.prototype.hasVotedOn = function (id) {
+      //   return this.$ml.hasVotedObject.votes[id];
+      // };
+
+      // TODO when hasVoted endpoint is working
+      // Object.defineProperty(SsQnaDocObject.prototype, 'hasVoted', {
+      //   get: function () {
+      //     return this.hasVotedOn(this.id);
+      //   }
+      // });
 
       /**
        * @ngdoc method
@@ -72,8 +162,14 @@ define(['app/module'], function (module) {
        * inconsistencies in the domain schema which are being addressed.
        * </p>
        */
-      SsQnaDocObject.prototype.onResponseGET = function (data) {
+      SsQnaDocObject.prototype.onResponseGET = function (
+        data, additionalPromises
+      ) {
         var self = this;
+
+        if (additionalPromises && additionalPromises.length) {
+          this.hasVoted = additionalPromises[0];
+        }
 
         mlModelBase.object.prototype.onResponseGET.call(this, data);
         var docScore = this.itemTally || 0;
@@ -98,6 +194,19 @@ define(['app/module'], function (module) {
           )[0];
           this.answers.unshift(acceptedAnswer);
         }
+
+      };
+
+      SsQnaDocObject.prototype.getOne = function (contributorId) {
+        var additionalPromises = contributorId ?
+            [
+              ssHasVoted.getOne({
+                contributorId: contributorId,
+                questionId: this.id
+              })
+            ] :
+            [];
+        return this.http('GET', additionalPromises);
       };
 
       /**
@@ -205,7 +314,13 @@ define(['app/module'], function (module) {
         }
       };
 
-      return mlModelBase.extend('SsQnaDocObject', SsQnaDocObject);
+      var svc = mlModelBase.extend('SsQnaDocObject', SsQnaDocObject);
+
+      svc.getOne = function (spec, contributorId) {
+        return svc.ensureInstance(spec).getOne(contributorId);
+      };
+
+      return svc;
     }
   ]);
 });
