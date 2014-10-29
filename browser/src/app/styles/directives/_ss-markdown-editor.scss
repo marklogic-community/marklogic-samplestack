@@ -1,0 +1,19 @@
+.ss-tab-content {
+  height: 250px;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid white;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+}
+
+.ss-tab-active {
+  font-weight: bold;
+}
+
+.markdown-editor, .ss-markdown-editor-preview {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: -3px;
+  min-height: 100px;
+}

@@ -1,13 +1,6 @@
 define([
   'app/module'
 ], function (module) {
-  var generateWizToolbarBtnHTML = function (command) {
-    var html =
-      '<wiz-toolbar-button command="' + command + '">' +
-        '<img src="/app/images/ss-markdown-editor/md-' + command + '.png" />' +
-        '</wiz-toolbar-button>';
-    return html;
-  };
 
   /**
    * @ngdoc directive
@@ -26,39 +19,12 @@ define([
   module.directive('ssMarkdownEditor', [function () {
     return {
       restrict: 'A',
-      template: '<div class="ss-markdown-editor">' +
-            '<tabset>' +
-              '<tab>' +
-                '<tab-heading>' +
-                  'edit' +
-                '</tab-heading>' +
-                '<wiz-markdown-editor content="content">' +
-                    generateWizToolbarBtnHTML('bold') +
-                    generateWizToolbarBtnHTML('italic') +
-                    generateWizToolbarBtnHTML('heading') +
-                    '<span class="divider">|</span>' +
-                    generateWizToolbarBtnHTML('code') +
-                    generateWizToolbarBtnHTML('ollist') +
-                    generateWizToolbarBtnHTML('ullist') +
-                    generateWizToolbarBtnHTML('link') +
-                    generateWizToolbarBtnHTML('img') +
-                    generateWizToolbarBtnHTML('hr') +
-                    '<span class="divider">|</span>' +
-                    generateWizToolbarBtnHTML('undo') +
-                    generateWizToolbarBtnHTML('redo') +
-                '</wiz-markdown-editor>' +
-              '</tab>' +
-              '<tab>' +
-                '<tab-heading>' +
-                  'preview' +
-                '</tab-heading>' +
-                '<div class="ss-markdown-editor-preview" ' +
-                    'ss-markdown="content"></div>' +
-              '</tab>' +
-            '</tabset>' +
-          '</div>',
+      templateUrl: '/app/directives/ssMarkdownEditor.html',
       scope: {
         content: '=content'
+      },
+      link: function (scope, el, attr) {
+        scope.selTab = 'edit';
       }
     };
   }]);
