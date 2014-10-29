@@ -40,12 +40,32 @@
       <ss-qna-doc-metadata doc="doc" doc-type="question"></ss-qna-doc-metadata>
       <div class="ss-comments">
         <div ng-repeat="comment in doc.comments">
-          <div class="ss-comment">
+          <!-- ng-if to avoid displaying empty comment -->
+          <div class="ss-comment" ng-if="comment.owner">
             {{comment.text}}
-            <ss-qna-doc-metadata doc="comment" doc-type="comment"></ss-qna-doc-metadata>
+            <ss-qna-doc-metadata doc="comment" doc-type="comment">
+            </ss-qna-doc-metadata>
           </div>
         </div>
-        <span class="ss-add-comment ss-ui-todo">add comment</div>
+        <div class="ss-add-comment">
+          <div
+            ng-show="!showQuestionComment"
+            ng-click="showQuestionComment=true"
+          >
+            add comment
+          </div>
+          <div ng-show="showQuestionComment">
+            <!-- final empty comment used for new comment -->
+            <textarea
+              ng-model="doc.comments[doc.comments.length - 1].text"
+            ></textarea>
+            <button
+              ng-click="saveQuestionComment(doc.comments[doc.comments.length - 1])"
+            >
+              Add Comment
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -57,7 +77,7 @@
     </header>
 
     <div ng-repeat="answer in doc.answers">
-      <section class="ss-answer-section">
+      <section class="ss-answer-section" ng-if="answer.owner">
         <div class="ss-vote">
           <div
             ng-if="canVoteAnswer(answer)"
@@ -85,12 +105,33 @@
           <ss-qna-doc-metadata doc="answer" doc-type="answer"></ss-qna-doc-metadata>
           <div class="ss-comments">
             <div ng-repeat="comment in answer.comments">
-              <div class="ss-comment">
+              <!-- ng-if to avoid displaying empty comment -->
+              <div class="ss-comment" ng-if="comment.creationDate">
                 {{comment.text}}
                 <ss-qna-doc-metadata doc="comment" doc-type="comment"></ss-qna-doc-metadata>
               </div>
             </div>
-            <span class="ss-add-comment ss-ui-todo">add comment</div>
+            <div class="ss-add-comment">
+              <div
+                ng-show="!showAnswerComment[$index]"
+                ng-click="showAnswerComment[$index]=true"
+              >
+                add comment
+              </div>
+              <div ng-show="showAnswerComment[$index]">
+                <!-- final empty comment used for new comment -->
+                <textarea
+                  ng-model="answer.comments[answer.comments.length - 1].text"
+                ></textarea>
+                <button
+                  ng-click="saveAnswerComment(
+                    answer.comments[answer.comments.length - 1]
+                  )"
+                >
+                  Add Comment
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <br/>
@@ -102,11 +143,14 @@
       <header>
         <h3>Your Answer</h3>
       </header>
-      <form>
-        <div class="ml-edit-tools">Editing Tools</div>
-        <textarea></textarea>
-        <button disabled class="ss-ui-incomplete">Post Your Answer</button>
-      </form>
+      <!-- final empty answer used for new answer -->
+      <div
+        ss-markdown-editor
+        content="doc.answers[doc.answers.length - 1].text"
+      ></div>
+      <button ng-click="saveAnswer(doc.answers[doc.answers.length - 1])">
+        Post Your Answer
+      </button>
     </section>
 
   </section>

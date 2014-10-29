@@ -109,9 +109,19 @@
 }
 
 .ss-add-comment {
-  display: inline-block;
-  margin-left: 2px;
-  margin-top: 8px;
+
+  div:first-child {
+    margin: 8px 0 8px 2px;
+    cursor: pointer;
+  }
+
+  textarea {
+    display: block;
+    width: 600px;
+    height: 60px;
+    margin: 8px 0 8px 2px;
+  }
+
 }
 
 .ss-answer-section {

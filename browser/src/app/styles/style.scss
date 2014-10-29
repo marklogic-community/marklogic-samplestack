@@ -43,11 +43,6 @@
   text-align: center;
 }
 
-.ss-answer-form,
-.ss-answer-form textarea {
-  @extend .ss-ui-incomplete;
-}
-
 .has-error {
   border: 1px solid #f00;
   padding: 5px;
