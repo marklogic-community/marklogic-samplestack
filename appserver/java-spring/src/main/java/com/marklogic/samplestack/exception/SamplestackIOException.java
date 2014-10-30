@@ -27,5 +27,8 @@ public class SamplestackIOException extends SamplestackException {
 		super(e);
 	}
 
+	public SamplestackIOException(String message, Exception e) {
+		super(message, e);
+	}
 	
 }

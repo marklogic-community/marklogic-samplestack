@@ -17,11 +17,18 @@ package com.marklogic.samplestack.dbclient;
 
 import static com.marklogic.samplestack.SamplestackConstants.CONTRIBUTORS_OPTIONS;
 
+import java.io.IOException;
+
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoQueryBuilder;
@@ -30,20 +37,26 @@ import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
+import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 
 /**
- * This class exposes those methods of the POJORepository interface
- * actually implemented in Samplestack.
+ * This class exposes those methods of the POJORepository interface actually
+ * implemented in Samplestack.
+ * 
  * @see com.marklogic.samplestack.service.ContributorService
  */
 @Component
-public class MarkLogicContributorService extends MarkLogicBaseService implements ContributorService {
+public class MarkLogicContributorService extends MarkLogicBaseService implements
+		ContributorService {
+
+	private static Contributor joeUser;
+	private static Contributor maryAdmin;
 
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicContributorService.class);
-	
+
 	@Autowired
 	private PojoRepository<Contributor, String> repository;
 
@@ -59,14 +72,57 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 		return repository.search(query, start);
 	}
 
+	/**
+	 * Samplestack needs to have the two users from LDAP loaded at all times.
+	 * This is accomplished as part of the application container startup.
+	 */
+	@PostConstruct
+	public void storeJoeAndMary() {
+		try {
+			// leave them alone if already in db.
+			Contributor storedMary = this
+					.read("9611450-0663-45a5-8a08-f1c71320475e");
+			Contributor storedJoe = this
+					.read("cf99542d-f024-4478-a6dc-7e723a51b040");
+
+			if (storedJoe == null) {
+				ClassPathResource joeResource = new ClassPathResource(
+						"contributor/joeUser.json");
+				joeUser = mapper.readValue(joeResource.getInputStream(),
+						Contributor.class);
+				this.store(joeUser);
+			} else {
+				logger.info("joeUser already in the database");
+			}
+
+			if (storedMary == null) {
+				ClassPathResource maryResource = new ClassPathResource(
+						"contributor/maryAdmin.json");
+				maryAdmin = mapper.readValue(maryResource.getInputStream(),
+						Contributor.class);
+				this.store(maryAdmin);
+			} else {
+				logger.info("maryAdmin already in the database");
+			}
+		} catch (JsonParseException e) {
+			throw new SamplestackIOException(
+					"Setup of Joe/Mary Failed.  Check/clean/clear db", e);
+		} catch (JsonMappingException e) {
+			throw new SamplestackIOException(
+					"Setup of Joe/Mary Failed.  Check/clean/clear db", e);
+		} catch (IOException e) {
+			throw new SamplestackIOException(
+					"Setup of Joe/Mary Failed.  Check/clean/clear db", e);
+		}
+	}
+
 	@Override
 	public Contributor getByUserName(String userName) {
 		@SuppressWarnings("rawtypes")
 		PojoQueryBuilder qb = repository.getQueryBuilder();
 		QueryDefinition qdef = qb.value("userName", userName);
 
-		PojoPage<Contributor> page = repository.search(qdef,
-				1);
+		PojoPage<Contributor> page = repository.search(qdef, 1);
 		if (page.getTotalSize() == 1) {
 			return page.iterator().next();
 		} else if (page.size() > 1) {
@@ -79,8 +135,9 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 
 	@Override
 	public PojoPage<Contributor> search(String queryString) {
-		StringQueryDefinition qdef = queryManager(ClientRole.SAMPLESTACK_CONTRIBUTOR)
-				.newStringDefinition(CONTRIBUTORS_OPTIONS);
+		StringQueryDefinition qdef = queryManager(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR).newStringDefinition(
+				CONTRIBUTORS_OPTIONS);
 		qdef.setCriteria(queryString);
 		return this.search(qdef, 1);
 	}
@@ -89,7 +146,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 	public void store(Contributor contributor) {
 		store(contributor, null);
 	}
-	
+
 	@Override
 	public void store(Contributor contributor, Transaction transaction) {
 		logger.debug("Storing contributor id " + contributor.getId());
