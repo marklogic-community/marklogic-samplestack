@@ -43,7 +43,6 @@
     "gulp-load-plugins": "^0.5.3",
     "gulp-mocha-phantomjs": "stu-salsbury/gulp-mocha-phantomjs#emit-end",
     "gulp-plumber": "^0.6.4",
-    "gulp-ruby-sass": "^0.7.1",
     "gulp-sass": "^0.7.3",
     "gulp-tap": "^0.1.1",
     "gulp-template": "^1.0.0",
