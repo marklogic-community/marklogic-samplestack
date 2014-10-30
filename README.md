@@ -10,7 +10,7 @@ The project includes the following major components:
 * Web/browser front end based on Angular.js
 * Middle appserver tier implemented in Java/Spring
 * Database tier hosted on MarkLogic
-* Gradle framework to drive build and configuration of the appserver and database tiersÂ
+* Gradle framework to drive build and configuration of the appserver and database tiers
 * Unit tests
 
 This README covers the following topics:
@@ -22,7 +22,7 @@ This README covers the following topics:
 ## Prerequisites
 To configure and use this application, you need the following software:
 * Java JDK 1.7 or 1.8
-* MarkLogic 8 Nightly (10/23) (see instructions [below](#getting-started))
+* MarkLogic 8.0 Nightly from 10/24/2014 (see instructions [below](#getting-started))
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
 * A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp). For details, see [Global Utilities](browser/README.md#global-utilities) in the [browser README](browser/README.md).
 
@@ -32,7 +32,7 @@ The setup procedure may install additional software, such as Gradle and Angular.
 
 ## Getting Started
 
-*note for development branch work:* 
+*note for development branch work:*
 
 This README is for a development branch that does not work with any released version of MarkLogic
 
@@ -41,12 +41,12 @@ Use MarkLogic nightly dated 10/24.
 RPM link: https://root.marklogic.com/nightly/builds/linux64/rh6-intel64-80-test-1.marklogic.com/HEAD/pkgs.20141024/MarkLogic-8.0-20141024.x86_64.rpm
 
 Trunk does NOT work for this PR.
-Java Client API needs snapshot on or after 10/10/2014.  This should be installed 
+Java Client API needs snapshot on or after 10/10/2014.  This should be installed
 automatically but may require gradle or maven cache cleaning.
 
 This build requires seed data available internally.  The current seed data version is 1.2
 
-*end note* 
+*end note*
 
 
 Follow this procedure to set up Samplestack in your environment.
