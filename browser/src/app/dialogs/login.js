@@ -59,7 +59,9 @@ define(['app/module'], function (module) {
       };
 
       var onAuthFailure = function (reason) {
-        $scope.error = 'Login Failed: ' + reason.statusText;
+        $scope.error = 'Login Failed: ' + reason;
+        ssSession.create( { username: $scope.session.username })
+            .attachScope($scope, 'session');
       };
 
       /**

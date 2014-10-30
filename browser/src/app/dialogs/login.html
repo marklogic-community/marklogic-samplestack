@@ -11,7 +11,7 @@
     >
       <p
         class="has-error"
-        ng-if="error"
+        ng-if="error && !(session.password && session.password.length)"
       >
         {{error}}
       </p>

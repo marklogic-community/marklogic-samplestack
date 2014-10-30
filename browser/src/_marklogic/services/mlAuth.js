@@ -117,16 +117,23 @@ define(['_marklogic/module'], function (module) {
                   // should be exempt from it -- we'd prefer to drop the
                   // session silently
                   function () {
-                    try {
-                      $cookieStore.put('sessionId', sess.id);
+                    if (sess.$ml.invalid) {
+                      delete mlStore.session;
+                      deferred.resolve();
+                      onSessionChange();
                     }
-                    catch (err) {
-                      $rootScope.log(err);
-                    }
+                    else {
+                      try {
+                        $cookieStore.put('sessionId', sess.id);
+                        mlStore.session = sess;
+                      }
+                      catch (err) {
+                        $rootScope.log(err);
+                      }
 
-                    mlStore.session = sess;
-                    deferred.resolve(sess);
-                    onSessionChange();
+                      deferred.resolve(sess);
+                      onSessionChange();
+                    }
                   },
                   function () {
                     // don't really care -- we just don't have a session
@@ -166,15 +173,24 @@ define(['_marklogic/module'], function (module) {
             var sess = sessionModel.post(session);
             sess.$ml.waiting.then(
               function () {
-                mlStore.session = sess;
-                try {
-                  $cookieStore.put('sessionId', sess.id);
+                if (sess.$ml.invalid) {
+                  deferred.reject(new Error(
+                    'Invalid session data:\n' + JSON.stringify(sess)
+                  ));
                 }
-                catch (err) { $rootScope.log(err); }
-                deferred.resolve(sess);
-                onSessionChange();
+                else {
+                  try {
+                    $cookieStore.put('sessionId', sess.id);
+                    mlStore.session = sess;
+                  }
+                  catch (err) { $rootScope.log(err); }
+                  deferred.resolve(sess);
+                  onSessionChange();
+                }
               },
-              deferred.reject
+              function (reason) {
+                deferred.reject(new Error(reason.statusText));
+              }
             );
             return deferred.promise;
           };
