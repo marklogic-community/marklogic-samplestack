@@ -44,7 +44,9 @@ Trunk does NOT work for this PR.
 Java Client API needs snapshot on or after 10/10/2014.  This should be installed
 automatically but may require gradle or maven cache cleaning.
 
-This build requires seed data available internally.  The current seed data version is 1.3
+This build requires seed data available internally.  The current seed data version is 1.3:
+
+https://wiki.marklogic.com/pages/viewpageattachments.action?pageId=31359376&highlight=seed-data1.3.tgz
 
 *end note*
 
