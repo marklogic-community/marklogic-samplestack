@@ -44,7 +44,7 @@ Trunk does NOT work for this PR.
 Java Client API needs snapshot on or after 10/10/2014.  This should be installed 
 automatically but may require gradle or maven cache cleaning.
 
-This build requires seed data available internally.  The current seed data version is 1.2
+This build requires seed data available internally.  The current seed data version is 1.3
 
 *end note* 
 
