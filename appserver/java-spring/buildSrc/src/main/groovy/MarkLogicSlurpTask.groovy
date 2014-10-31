@@ -58,7 +58,7 @@ include '**/*.nt'}
                     writeSet = docMgr.newWriteSet()
                 }
                 def bh = new BytesHandle(it.text.getBytes("UTF-8")).withFormat(Format.JSON)
-                if (it.text.contains("acceptedAnswerId\":\"")) {
+                if (it.text.contains("accepted\":true")) {
                     writeSet.add(docUri, acceptedPermissionMetadata, bh)
                 } else if (it.text.contains("domain.Contributor")) {
                     writeSet.add(docUri, pojoCollectionMetadata, bh)
