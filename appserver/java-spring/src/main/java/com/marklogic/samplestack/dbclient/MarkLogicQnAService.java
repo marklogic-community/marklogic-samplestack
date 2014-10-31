@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
+import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
+import static com.marklogic.samplestack.SamplestackConstants.SEARCH_RESPONSE_TRANSFORM;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,23 +32,29 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.MarkLogicIOException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentMetadataPatchBuilder.Call;
+import com.marklogic.client.document.DocumentPage;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.DocumentPatchBuilder.Position;
 import com.marklogic.client.document.JSONDocumentManager;
+import com.marklogic.client.document.ServerTransform;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.io.ValuesHandle;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
+import com.marklogic.client.query.QueryDefinition;
+import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.QueryManager.QueryView;
+import com.marklogic.client.query.RawCombinedQueryDefinition;
+import com.marklogic.client.query.RawQueryDefinition;
+import com.marklogic.client.query.ValuesDefinition;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
 import com.marklogic.samplestack.domain.Answer;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -54,30 +62,20 @@ import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.ContributorAddOnService;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.marklogic.samplestack.security.ClientRole;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component
 /**
  * Implementation of the QnAService interface.
  */
-public class QnAServiceImpl implements QnAService {
+public class MarkLogicQnAService extends MarkLogicBaseService implements QnAService  {
 
 	@Autowired
-	protected MarkLogicOperations operations;
+	private ContributorService contributorService;
 
-	protected JSONDocumentManager jsonDocumentManager(ClientRole role) {
-		return operations.newJSONDocumentManager(role);
-	};
-
-	@Autowired
-	protected ObjectMapper mapper;
-
-	@Autowired
-	private ContributorAddOnService contributorService;
-
-	private final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(MarkLogicQnAService.class);
 
 	private static String idFromUri(String uri) {
 		return uri.replace("/questions/", "").replace(".json", "");
@@ -92,14 +90,35 @@ public class QnAServiceImpl implements QnAService {
 		return QUESTIONS_DIRECTORY + UUID.randomUUID() + ".json";
 
 	}
+	
+
+	
+	/**
+	 * Start a transaction
+	 * @param role Role to search with
+	 * @return A transaction to use in subsequent calls to MarkLogic 
+	 */
+	private Transaction startTransaction(ClientRole role) {
+		return clients.get(role).openTransaction();
+	}
+
+	
 
 	@Override
-	public QnADocument findOne(ClientRole role, String stringQuery, long start) {
-		ObjectNode node = operations.findOneQuestion(role, stringQuery, start);
-		if (node != null) {
-			QnADocument newDocument = new QnADocument(node);
+	public QnADocument findOne(ClientRole role, String queryString, long start) {
+		QueryManager queryManager = queryManager(role);
+		QueryDefinition stringQuery = queryManager.newStringDefinition(
+				QUESTIONS_OPTIONS).withCriteria(queryString);
+
+		stringQuery.setDirectory(QUESTIONS_DIRECTORY);
+		DocumentPage page = jsonDocumentManager(role).search(stringQuery, start);
+		if (page.hasNext()) {
+			JacksonHandle handle = new JacksonHandle();
+			handle = page.nextContent(handle);
+			QnADocument newDocument = new QnADocument((ObjectNode) handle.get());
 			return newDocument;
-		} else {
+		}
+		else {
 			return null;
 		}
 	}
@@ -112,13 +131,14 @@ public class QnAServiceImpl implements QnAService {
 		Date now = new Date();
 		question.setCreationDate(now);
 		question.updateLastActivityDate();
+		question.setAcceptedAnswerId(null);
 		question.setOwner(user.asSparseContributor());
 
 		JsonNode jsonNode = mapper.convertValue(question, JsonNode.class);
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
 				documentUri, new JacksonHandle(jsonNode));
 
-		return new QnADocument((ObjectNode) operations.getJsonDocument(
+		return new QnADocument((ObjectNode) getJsonDocument(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, documentUri));
 	}
 
@@ -150,7 +170,7 @@ public class QnAServiceImpl implements QnAService {
 		answer.setOwner(owner);
 
 		try {
-			patchBuilder.insertFragment("/node()/node('answers')",
+			patchBuilder.insertFragment("/node('answers')",
 					Position.LAST_CHILD, mapper.writeValueAsString(answer));
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
@@ -172,8 +192,6 @@ public class QnAServiceImpl implements QnAService {
 	 * Involves updating /acceptedAnswerId and the accepted flag of given answer.
 	 */
 	public QnADocument accept(String answerId) {
-		// TODO optimize - remove this database call (or use for etag)
-		// perhaps v document uri values call...
 		QnADocument qnaDocument = getByPostId(answerId);
 
 		String qnaDocumentId = qnaDocument.getId();
@@ -186,29 +204,19 @@ public class QnAServiceImpl implements QnAService {
 		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
-		ObjectNode acceptNode = mapper.createObjectNode();
-		acceptNode.put("acceptedAnswerId", answerId);
-		ObjectNode acceptFlagNode = mapper.createObjectNode();
-		acceptFlagNode.put("accepted", true);
-
-		Transaction transaction = operations
-				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		Transaction transaction = startTransaction(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
 		try {
-			patchBuilder.replaceInsertFragment("acceptedAnswerId", "/node()",
-					Position.LAST_CHILD, mapper.writeValueAsString(acceptNode));
+			patchBuilder.replaceValue("/acceptedAnswerId", answerId);
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
-			patchBuilder.replaceInsertFragment("accepted", "/node()",
-					Position.LAST_CHILD, acceptFlagNode);
+			patchBuilder.replaceValue("/accepted", true);
 			patchBuilder.addPermission("samplestack-guest", Capability.READ);
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
 					documentUri, patch, transaction);
 		} catch (MarkLogicIOException e) {
-			throw new SamplestackIOException(e);
-		} catch (JsonProcessingException e) {
 			throw new SamplestackIOException(e);
 		}
 
@@ -248,10 +256,9 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	// TODO implement cache
 	public QnADocument get(ClientRole role, String id) {
 		logger.debug(id);
-		JsonNode json = operations.getJsonDocument(role, uriFromId(id));
+		JsonNode json = getJsonDocument(role, uriFromId(id));
 		QnADocument question = new QnADocument((ObjectNode) json);
 		return question;
 	}
@@ -260,6 +267,28 @@ public class QnAServiceImpl implements QnAService {
 		return findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:" + answerId, 1);
 	}
 
+	private DateTime[] getDateRanges(ClientRole role, ObjectNode structuredQuery) {
+		DateTime[] dates = new DateTime[2];
+		QueryManager queryManager = clients.get(role).newQueryManager();
+		ValuesDefinition valdef = queryManager.newValuesDefinition("lastActivityDate");
+		valdef.setAggregate("min", "max");
+		valdef.setView("aggregate");
+		JacksonHandle handle = new JacksonHandle();
+		handle.set(structuredQuery);
+		RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle, QUESTIONS_OPTIONS);
+		valdef.setQueryDefinition(qdef);
+		ValuesHandle responseHandle = queryManager.values(valdef, new ValuesHandle());
+		String minDate = responseHandle.getAggregates()[0].getValue();
+		String maxDate = responseHandle.getAggregates()[1].getValue();
+		if (!minDate.equals("")) {
+			dates[0] = new DateTime(minDate);
+		}
+		if (!maxDate.equals("")) {
+			dates[1] = new DateTime(maxDate);
+		}
+		return dates;
+	}
+	
 	@Override
 	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
 			long start, boolean includeDateFacet) {
@@ -272,7 +301,7 @@ public class QnAServiceImpl implements QnAService {
 			ObjectNode options = searchNode.putObject("options");
 			options.put("page-length", SamplestackConstants.RESULTS_PAGE_LENGTH);
 
-			DateTime[] dateRange = operations.getDateRanges(role,
+			DateTime[] dateRange = getDateRanges(role,
 					structuredQuery);
 			logger.debug("Got ranges for buckets: " + dateRange.toString());
 
@@ -281,7 +310,73 @@ public class QnAServiceImpl implements QnAService {
 				logger.debug("Got date range to query: " + dateRange[0].toString() + " to " + dateRange[1].toString());
 			}
 		}
-		return operations.qnaSearch(role, docNode, start, QueryView.ALL);
+		QueryManager queryManager = clients.get(role).newQueryManager();
+		JSONDocumentManager docMgr = clients.get(role).newJSONDocumentManager();
+		
+		RawQueryDefinition qdef = queryManager.newRawStructuredQueryDefinition(
+				new JacksonHandle(docNode), QUESTIONS_OPTIONS);
+		ServerTransform responseTransform = new ServerTransform(SEARCH_RESPONSE_TRANSFORM);
+		qdef.setDirectory(QUESTIONS_DIRECTORY);
+		qdef.setResponseTransform(responseTransform);
+		queryManager.setView(QueryView.ALL);
+
+		JacksonHandle responseHandle = new JacksonHandle();
+		docMgr.setSearchView(QueryView.ALL);
+		DocumentPage docPage = docMgr.search(qdef, start, responseHandle);
+		
+		ObjectNode responseNode = (ObjectNode) responseHandle.get();
+		ArrayNode results = (ArrayNode) responseNode.findPath("results");
+		
+		int objectIndex = 0;
+		JsonNode reputations = responseNode.findPath("reputations");
+		
+		while (docPage.hasNext()) {
+			// the matching document, as returned by extract-document-data specifiation
+			ObjectNode documentResult = (ObjectNode) docPage.nextContent(new JacksonHandle()).get();
+			
+			// each owner in the doc needs a reputation from the reputation map
+			// and for the snippet to be embedded
+			for (JsonNode ownerNode : documentResult.findValues("owner")) {
+				ObjectNode owner = (ObjectNode) ownerNode;
+				if (reputations.isObject() && reputations.has(owner.get("id").asText())) {
+					owner.put("reputation", reputations.get(owner.get("id").asText()).asText());
+				}
+				else {
+					owner.put("reputation", 0);
+				}
+			}
+			
+			ObjectNode thisResult = (ObjectNode) results.get(objectIndex);
+			
+			// TODO this all should be extractable server-side, but
+			// I ran into issues with extract-document-data (10/15/2014)
+			ObjectNode newContent = thisResult.putObject("content");
+			newContent.put("accepted", documentResult.get("accepted").asBoolean());
+			newContent.put("creationDate", documentResult.get("creationDate").asText());
+			newContent.put("voteCount", documentResult.get("voteCount").asLong());
+			ArrayNode snippetNode = newContent.putArray("snippets");
+			snippetNode.add(thisResult.get("matches"));
+			ArrayNode tagsNode = newContent.putArray("tags");
+			tagsNode.addAll((ArrayNode) documentResult.get("tags"));
+			newContent.put("lastActivityDate", documentResult.get("lastActivityDate").asText());
+			newContent.put("id", documentResult.get("id").asText());
+			if (documentResult.get("originalId") != null) {
+				newContent.put("originalId", documentResult.get("originalId").asText());
+			}
+			newContent.put("answerCount", documentResult.get("answers").size());
+			newContent.put("title", documentResult.get("title").asText());
+			newContent.put("owner", documentResult.get("owner"));
+			
+			// remove unused keys
+			thisResult.remove("matches");
+			thisResult.remove("metadata");
+			
+			objectIndex++;
+		}
+		
+		responseNode.remove("reputations");
+
+		return (ObjectNode) responseNode;
 	}
 
 	@Override
@@ -306,8 +401,7 @@ public class QnAServiceImpl implements QnAService {
 		String qnaDocumentId = qnaDocument.getId();
 		String documentUri = uriFromId(qnaDocumentId);
 
-		Transaction transaction = operations
-				.start(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		Transaction transaction = startTransaction(ClientRole.SAMPLESTACK_CONTRIBUTOR);
 
 		try {
 			logger.debug("Voting on " + postId + " at documentURI"
@@ -317,10 +411,14 @@ public class QnAServiceImpl implements QnAService {
 
 			try {
 				Call call = patchBuilder.call().add(delta);
-				patchBuilder.replaceApply("/node()/voteCount", call);
+				patchBuilder.replaceApply("/voteCount", call);
 
-				patchBuilder.replaceApply("//object-node()[id=\"" + postId
+				if (postId.equals(qnaDocumentId)) {
+					patchBuilder.replaceApply("/itemTally", call);
+				} else {
+					patchBuilder.replaceApply("/answers[id=\"" + postId
 						+ "\"]/itemTally", call);
+				}
 				DocumentPatchHandle patch = patchBuilder.build();
 
 				logger.debug(patch.toString());
@@ -374,9 +472,15 @@ public class QnAServiceImpl implements QnAService {
 				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
 		try {
-			patchBuilder.insertFragment("//object-node()[id=\"" + postId
-					+ "\"]/array-node('comments')", Position.LAST_CHILD,
+			if (postId.equals(qnaDocumentId)) {
+				patchBuilder.insertFragment("/array-node('comments')", Position.LAST_CHILD, 
 					mapper.writeValueAsString(comment));
+			}
+			else {
+				patchBuilder.insertFragment("/answers[id=\"" + postId
+						+ "\"]/array-node('comments')", Position.LAST_CHILD,
+						mapper.writeValueAsString(comment));
+			}
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
 
@@ -395,7 +499,7 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public void deleteAll() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+		deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				QUESTIONS_DIRECTORY);
 	}
 

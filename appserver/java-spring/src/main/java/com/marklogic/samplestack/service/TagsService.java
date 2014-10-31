@@ -15,7 +15,8 @@
  */
 package com.marklogic.samplestack.service;
 
-import com.marklogic.samplestack.domain.ClientRole;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.security.ClientRole;
 
 /**
  * Defines the TagsService, which returns suggested tags based on substrings.
@@ -23,24 +24,15 @@ import com.marklogic.samplestack.domain.ClientRole;
 public interface TagsService {
 
 	/**
-	 * Gets a list of tags with no supplied pattern. This list will start at the
-	 * beginning of the alphabet.
-	 * 
-	 * @param role
-	 *            the caller's role.
-	 * @return An array of tags.
+	 * Wraps a call to REST API /v1/values to get back tag values and frequencies
+	 * @param role Role to search with
+	 * @param combinedQuery a JSON node containing the options definition for this query.
+	 * @param start the first index to retrieve.
+	 * @param pageLength TODO
+	 * @return A values response in a JSON structure.
 	 */
-	public String[] suggestTags(ClientRole role);
+	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery, long start, long pageLength);
 
-	/**
-	 * Gets a list of tags based on a suggestion pattern.
-	 * 
-	 * @param role
-	 *            the caller's role.
-	 * @param pattern
-	 *            A substring pattern that will be matched for candidate tags.
-	 * @return An array of tags containing the supplied pattern.
-	 */
-	public String[] suggestTags(ClientRole role, String pattern);
+	
 
 }

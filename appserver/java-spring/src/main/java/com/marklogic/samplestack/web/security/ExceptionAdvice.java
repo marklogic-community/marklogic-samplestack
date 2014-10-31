@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.exception.SamplestackNotFoundException;
+import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
 import com.marklogic.samplestack.web.JsonHttpResponse;
 
 @ControllerAdvice
@@ -48,7 +50,7 @@ public class ExceptionAdvice {
 	 * @return A JSON message body and 404 response code.
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(SamplestackNotFoundException.class)
+	@ExceptionHandler({SamplestackNotFoundException.class, ResourceNotFoundException.class})
 	public @ResponseBody JsonNode handleNotFound(Exception ex) {
 		return errors.makeJsonResponse(404, ex.getMessage());
 	}
@@ -73,9 +75,8 @@ public class ExceptionAdvice {
 	 *            Exception that triggers a 400.
 	 * @return A JSON message body and 400 response code.
 	 */
-
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(SamplestackIOException.class)
+	@ExceptionHandler({SamplestackIOException.class, SamplestackInvalidParameterException.class})
 	public @ResponseBody JsonNode handleIOException(Exception ex) {
 		return errors.makeJsonResponse(400, ex.getMessage());
 	}

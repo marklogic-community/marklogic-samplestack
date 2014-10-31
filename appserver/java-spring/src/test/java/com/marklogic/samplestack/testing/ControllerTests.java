@@ -96,7 +96,7 @@ public class ControllerTests {
 
 		MvcResult result = mockMvc
 				.perform(
-						post("/login")
+						post("/v1/login")
 						//.with(csrf().asHeader())
 						.param("username", username)
 						.param("password", password))
@@ -109,7 +109,7 @@ public class ControllerTests {
 	}
 
 	protected void logout() throws Exception {
-		this.session = this.mockMvc.perform(get("/logout"))
+		this.session = this.mockMvc.perform(get("/v1/logout"))
 				.andExpect(status().isOk())
 				.andReturn()
 				.getRequest().getSession();
@@ -128,7 +128,7 @@ public class ControllerTests {
 			// send a contributor to the questions endpoint
 			String askedQuestion = this.mockMvc
 					.perform(
-							post("/questions").with(csrf())
+							post("/v1/questions").with(csrf())
 									.session((MockHttpSession) session)
 									.contentType(MediaType.APPLICATION_JSON)
 									.content(payload))

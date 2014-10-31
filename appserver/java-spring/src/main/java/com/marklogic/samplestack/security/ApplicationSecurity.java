@@ -61,25 +61,33 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	 * Standard practice in Spring Security is to provide
 	 * this implementation method for building security.  This method
 	 * configures the endpoints' security characteristics.
-	 * @param http  Security object projided by the framework.
+	 * @param http  Security object provided by the framework.
 	 */
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**", "/contributors/**").permitAll()
+				.antMatchers(HttpMethod.GET,
+						"/v1/session",
+						"/v1/questions/**",
+						"/v1/contributors/**",
+                        "/v1/hasVoted",
+						"/**"
+						).permitAll()
 			.and()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/search").permitAll()
+				.antMatchers(HttpMethod.POST, "/v1/search", "/v1/tags/**").permitAll()
 			.and()
-				.authorizeRequests().antMatchers("/questions/**", "/contributors/**")
+				.authorizeRequests().antMatchers("/v1/questions/**", "/v1/contributors/**")
 				.authenticated()
 			.and()
 				.authorizeRequests().anyRequest().denyAll();
 		http.formLogin()
-		        .failureHandler(failureHandler)
+				.loginProcessingUrl("/v1/login")
+				.failureHandler(failureHandler)
 				.successHandler(successHandler)
 				.permitAll().and()
 			.logout()
+				.logoutUrl("/v1/logout")
 				.logoutSuccessHandler(logoutSuccessHandler)
 				.permitAll();
 		http.csrf().disable();

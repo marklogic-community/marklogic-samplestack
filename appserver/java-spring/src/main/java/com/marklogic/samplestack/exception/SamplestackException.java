@@ -30,5 +30,9 @@ public class SamplestackException extends RuntimeException {
 	public SamplestackException(String message) {
 		super(message);
 	}
+	
+	public SamplestackException(String message, Exception e) {
+		super(message, e);
+	}
 
 }

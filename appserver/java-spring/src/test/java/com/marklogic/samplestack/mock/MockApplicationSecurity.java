@@ -58,21 +58,30 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/session", "/questions/**", "/tags/**", "/contributors/**").permitAll()
-			.and()
-			.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/search").permitAll()
-			.and()
-				.authorizeRequests().antMatchers("/questions/**", "/contributors/**")
-				.authenticated()
-			.and()
-				.authorizeRequests().anyRequest().denyAll();
+		.authorizeRequests()
+			.antMatchers(HttpMethod.GET, 
+				"/v1/session", 
+				"/v1/questions/**", 
+				"/v1/tags/**", 
+				"/v1/contributors/**",
+				"/v1/hasVoted",
+                "/**").permitAll()
+				.and()
+		.authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/v1/search", "/v1/tags/**").permitAll()
+		.and()
+		.authorizeRequests().antMatchers("/v1/questions/**", 
+				"/v1/contributors/**")
+			.authenticated()
+		.and()
+		.authorizeRequests().anyRequest().denyAll();
 		http.formLogin()
+                .loginProcessingUrl("/v1/login")
 		        .failureHandler(failureHandler)
 				.successHandler(successHandler)
 				.permitAll().and()
 			.logout()
+                .logoutUrl("/v1/logout")
 				.logoutSuccessHandler(logoutSuccessHandler)
 				.permitAll();
 		http.csrf().disable();

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,13 +23,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marklogic.client.DatabaseClient;
-import com.marklogic.client.DatabaseClientFactory;
-import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.client.pojo.PojoRepository;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.marklogic.samplestack.security.ClientRole;
 
 /**
  * Contains the IoC wiring for the part of Samplestack that interacts with MarkLogic.
@@ -39,21 +35,19 @@ import com.marklogic.samplestack.service.MarkLogicOperations;
 @PropertySource("classpath:gradle.properties")
 public class DatabaseContext {
 
-
+	@Autowired
+	/** Spring provides this object at startup, for access to environment configuration
+	 */
+	private Environment env;
+	
 	@Bean
 	/**
-	 * Initializes the connector to MarkLogic, 
-	 * which pools two DatabaseClient instances for the two security roles in Samplestack.
-	 * @return A MarkLogicOperations bean for the Spring IoC container
+	 * Makes a HashMap of Client objects available to the application.
+	 * @return A Clients class, which extends HashMap<ClientRole, DatabaseClient>;
 	 */
-	public MarkLogicOperations markLogicOperations() {
-		MarkLogicClient c = new MarkLogicClient();
-		DatabaseClient writerClient = databaseClient(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		c.putClient(ClientRole.SAMPLESTACK_CONTRIBUTOR, writerClient);
-		DatabaseClient guestClient = databaseClient(ClientRole.SAMPLESTACK_GUEST);
-		c.putClient(ClientRole.SAMPLESTACK_GUEST, guestClient);
-		
-		return c;
+	public Clients clients() {
+		Clients clients = new Clients(env);
+		return clients;
 	}
 	
 	@Bean
@@ -64,29 +58,9 @@ public class DatabaseContext {
 	 * @return A PojoRepository object to manage Contributors.
 	 */
 	public PojoRepository<Contributor, String> repository() {
-		return markLogicOperations().getContributors();
+		return clients().get(ClientRole.SAMPLESTACK_CONTRIBUTOR)
+				.newPojoRepository(Contributor.class, String.class);
 	}
-	
-	/**
-	 * Constructs a Java Client API database Client, of which
-	 * this application uses two long-lived instances.
-	 * @param role The security role for whom whom to construct a connection
-	 * @return A DatabaseClient for accessing MarkLogic 
-	 */
-	private DatabaseClient databaseClient(ClientRole role) {
-		String host = env.getProperty("marklogic.rest.host");
-		Integer port = Integer.parseInt(env.getProperty("marklogic.rest.port"));
-		String username = env.getProperty(role.getUserParam());
-		String password = env.getProperty(role.getPasswordParam());
-		return DatabaseClientFactory.newClient(host, port, username, password,
-				Authentication.DIGEST);
-	}
-	
-	@Autowired
-	/**
-	 * Provided by Spring at startup, for accessing environment-specific variables.
-	 */
-	private Environment env;
 	
 	@Bean
 	/**

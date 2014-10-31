@@ -23,14 +23,14 @@ import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.Utils;
 
 @Component
 /**
  * A mock version of Contributor Service which provides fast, simple, wrong answers to unit tests.
  */
-public class MockContributorAddOnService implements ContributorAddOnService {
+public class MockContributorAddOnService implements ContributorService {
 
 
 	@Autowired
@@ -76,6 +76,11 @@ public class MockContributorAddOnService implements ContributorAddOnService {
 	@Override
 	public Contributor read(String id) {
 		return repo.read(id);
+	}
+
+	@Override
+	public PojoPage<Contributor> readAll(int i) {
+		return repo.readAll(i);
 	}
 
 }

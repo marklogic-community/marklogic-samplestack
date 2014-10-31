@@ -1,0 +1,32 @@
+{
+    "values-response": {
+        "distinct-value": [
+            {
+                "_value": "ada",
+                "frequency": 2
+            },
+            {
+                "_value": "blob",
+                "frequency": 1
+            },
+            {
+                "_value": "clojure",
+                "frequency": 1
+            },
+            {
+                "_value": "javascript",
+                "frequency": 2
+            },
+            {
+                "_value": "python",
+                "frequency": 2
+            }
+        ],
+        "metrics": {
+            "total-time": "PT0.045446S",
+            "values-resolution-time": "PT0.000419S"
+        },
+        "name": "tags",
+        "type": "xs:string"
+    }
+}

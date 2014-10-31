@@ -23,9 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.integration.service.MarkLogicIntegrationIT;
-import com.marklogic.samplestack.service.ContributorAddOnService;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 
 /**
@@ -41,7 +41,7 @@ import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 public class DatabaseTransformsIT extends MarkLogicIntegrationIT {
 
 	@Autowired
-	private ContributorAddOnService contributorService;
+	private ContributorService contributorService;
 
 	//private static String TEST_URI = "/questions/transform-doc.json";
 	

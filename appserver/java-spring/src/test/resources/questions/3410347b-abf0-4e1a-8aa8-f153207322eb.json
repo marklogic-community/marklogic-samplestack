@@ -13,6 +13,8 @@
             "text": "My third answer to a question"
         }
     ],
+    "accepted": false,
+    "acceptedAnswerId": null,
     "comments": [],
     "creationDate": "2014-10-01T08:59:09.216",
     "id": "3410347b-abf0-4e1a-8aa8-f153207322eb",

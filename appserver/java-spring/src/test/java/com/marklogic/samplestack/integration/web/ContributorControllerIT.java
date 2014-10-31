@@ -25,10 +25,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.testing.ContributorControllerTestImpl;
 import com.marklogic.samplestack.testing.IntegrationTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = { Application.class })
+@SpringApplicationConfiguration(classes = { Application.class, TestDataManager.class })
 @Category(IntegrationTests.class)
 public class ContributorControllerIT extends ContributorControllerTestImpl {
 

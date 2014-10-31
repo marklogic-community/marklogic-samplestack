@@ -15,11 +15,7 @@
  */
 package com.marklogic.samplestack.integration.service;
 
-import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY;
-
 import java.io.IOException;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -28,21 +24,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.pojo.PojoRepository;
-import com.marklogic.samplestack.domain.ClientRole;
+import com.marklogic.samplestack.dbclient.Clients;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SamplestackIOException;
-import com.marklogic.samplestack.service.ContributorAddOnService;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
-import com.marklogic.samplestack.testing.Utils;
 
 public abstract class MarkLogicIntegrationIT {
 
 	@Autowired
-	protected MarkLogicOperations operations;
+	protected Clients clients;
 
 	@Autowired
-	protected ContributorAddOnService contributorService;
+	protected ContributorService contributorService;
 
 	@Autowired
 	protected PojoRepository<Contributor, String> contributorRepository;
@@ -52,8 +46,6 @@ public abstract class MarkLogicIntegrationIT {
 
 	@Autowired
 	protected ObjectMapper mapper;
-
-	protected TestDataBuilder testDataBuilder;
 
 	protected JSONDocumentManager contribManager;
 
@@ -68,17 +60,4 @@ public abstract class MarkLogicIntegrationIT {
 		}
 	}
 
-	@PostConstruct
-	public void cleanout() {
-		operations.deleteDirectory(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				QUESTIONS_DIRECTORY);
-		contributorRepository.deleteAll();
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryAdmin);
-		testDataBuilder = new TestDataBuilder(operations, qnaService);
-		// the following method is a slow way to make questions
-		// which are cached on the filesystem for testing purposes.
-		// testDataBuilder.generateTestCorpus();
-		testDataBuilder.setupSearch();
-	}
 }

@@ -15,57 +15,22 @@
 */
 package com.marklogic.samplestack.mock;
 
-import java.io.IOException;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.marklogic.samplestack.domain.ClientRole;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.QnAService;
 
 @Component
 /**
  * A mock version of a QnAService that provides fast and faked data for unit tests.
  */
-public class MockQnAService implements QnAService {
+public class MockQnAService  extends MockServiceBase implements QnAService {
 
-	private QnADocument asked;
-	private QnADocument answered;
-	private ObjectNode emptySearchResults;
 	
-	@Autowired
-	private ObjectMapper mapper;
-
-	protected JsonNode getTestJson(String testPath) {
-		ClassPathResource r = new ClassPathResource(testPath);
-		try {
-			return mapper.readValue(r.getInputStream(), JsonNode.class);
-		} catch (IOException e) {
-			throw new SamplestackIOException(e);
-		}
-	}
-
-	public MockQnAService() { }
-	
-	@PostConstruct
-	public void setupDocuments() {
-		
-		asked = new QnADocument((ObjectNode) getTestJson("questions/20864442.json"));
-		answered = new QnADocument((ObjectNode) getTestJson("questions/8450f8a4-2782-4c8a-9fd9-b83bcacc5018.json"));
-		emptySearchResults = (ObjectNode) getTestJson("searchresults/mocksearchempty.json");
-		// searchResults = (ObjectNode) getTestJson("searchresults/mocksearch.json");
-		
-	}
 	
 	@Override
 	public QnADocument findOne(ClientRole role, String question,

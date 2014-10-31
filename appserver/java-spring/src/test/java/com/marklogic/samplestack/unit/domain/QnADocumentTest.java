@@ -26,8 +26,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.dbclient.CustomObjectMapper;
 import com.marklogic.samplestack.domain.QnADocument;
-import com.marklogic.samplestack.impl.CustomObjectMapper;
 import com.marklogic.samplestack.testing.UnitTests;
 
 @Category(UnitTests.class)

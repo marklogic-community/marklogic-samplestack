@@ -49,4 +49,27 @@ public class TagControllerTest extends TagControllerTestImpl {
 	public void testTagsWithArgument() throws Exception {
 		super.testTagsWithArgument();
 	}
+
+	@Test
+	public void testBadSort() throws Exception {
+		super.testBadSort();
+	}
+	
+	
+	@Test
+    public void testTagsWithPageLength() throws Exception {
+        super.testTagsWithPageLength();
+    }
+
+	@Test
+    public void testStartLimitOrder() throws Exception {
+        super.testStartLimitOrder();
+    }
+
+	@Test
+    public void testSortFrequency() throws Exception {
+        super.testLoggedInSortFrequency();
+    }
+
+
 }

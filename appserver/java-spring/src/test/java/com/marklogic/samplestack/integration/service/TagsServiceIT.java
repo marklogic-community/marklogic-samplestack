@@ -15,79 +15,104 @@
 */
 package com.marklogic.samplestack.integration.service;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
 
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.impl.DatabaseContext;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.dbclient.DatabaseContext;
+import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
 import com.marklogic.samplestack.testing.IntegrationTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { DatabaseContext.class })
+@ContextConfiguration(classes = { DatabaseContext.class , TestDataManager.class})
 @Category(IntegrationTests.class)
 public class TagsServiceIT extends MarkLogicIntegrationIT {
 
+	private final Logger logger = LoggerFactory
+			.getLogger(TagsServiceIT.class);
+	
 	@Autowired
 	TagsService tagsService;
 
-	@Autowired
-	MarkLogicOperations operations;
-
 	@Test
-	public void testTagSuggestion() {
-		JsonNode tagsJson = getTestJson("questions/tags.json");
+	public void testTagSearch() throws JsonProcessingException, JSONException {
 
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
+		ObjectNode topNode = mapper.createObjectNode();
+		ObjectNode combinedQueryNode = topNode.putObject("search");
+		combinedQueryNode.put("qtext", "tag:ada");
+		
+		ObjectNode results;
+		logger.debug("Query: " + mapper.writeValueAsString(topNode));
+		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					topNode, 1, 1);
+		logger.debug("Result: " + mapper.writeValueAsString(results));
+		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"}]}}", mapper.writeValueAsString(results), false);
 
-		String[] suggestions = tagsService
-				.suggestTags(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		assertTrue("Need suggestions to test", suggestions.length > 0);
+	}
+	
+	@Test
+	public void testTagTwoSearch() throws JsonProcessingException, JSONException {
 
-		suggestions = tagsService.suggestTags(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, "ab");
-		assertTrue("Need suggestions to test", suggestions.length > 0);
 
-		assertAllContain(suggestions, "ab");
-
-		docMgr.delete("/tags.json");
+		ObjectNode topNode = mapper.createObjectNode();
+		ObjectNode combinedQueryNode = topNode.putObject("search");
+		ArrayNode qtextNode = combinedQueryNode.putArray("qtext");
+		qtextNode.add("tag:ada");
+		qtextNode.add("\"word abyss\"");
+		
+		ObjectNode results;
+		logger.debug("Query: " + mapper.writeValueAsString(topNode));
+		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					topNode, 1, 1);
+		logger.debug("Result: " + mapper.writeValueAsString(results));
+		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"}]}}", mapper.writeValueAsString(results), false);
 
 	}
 
 	@Test
-	public void testAllTags() {
-		JsonNode tagsJson = getTestJson("questions/tags.json");
-
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
-
-		String[] suggestions = tagsService
-				.suggestTags(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		assertTrue("Need suggestions to test", suggestions.length > 1);
-
-
-		docMgr.delete("/tags.json");
+	public void testAllTagValues() throws JsonProcessingException, JSONException {
+		
+		ObjectNode results;
+		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					null, 1, 5);
+		logger.debug("Result: " + mapper.writeValueAsString(results));
+		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"},{frequency:2,_value:\"javascript\"},{frequency:2,_value:\"python\"},{frequency:1,_value:\"blob\"},{frequency:1,_value:\"clojure\"}]}}", mapper.writeValueAsString(results), false);
 
 	}
 
-	private void assertAllContain(String[] suggestions, String pattern) {
-		for (String suggestion : suggestions) {
-			assertTrue("Suggestion contains candidate",
-					suggestion.contains(pattern));
+	@Test
+	public void testStructuredTagSearch() throws JsonProcessingException, JSONException {
+		ObjectNode query;
+		ObjectNode results = null;
+		try {
+			query = (ObjectNode) mapper
+					.readValue(
+							"{\"search\":{\"query\":{\"word-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"cloj*\"}}}}",
+							JsonNode.class);
+			results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
+					query, 1, 1);
+
+			logger.debug("Query Results:" + mapper.writeValueAsString(results));
+		} catch (IOException e) {
+			throw new SamplestackIOException(e);
 		}
+		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:1,_value:\"clojure\"}]}}", mapper.writeValueAsString(results), false);
 
 	}
 

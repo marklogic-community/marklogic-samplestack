@@ -26,9 +26,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.impl.DatabaseContext;
+import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.integration.service.MarkLogicIntegrationIT;
+import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 
 /**
@@ -49,16 +49,15 @@ public class DocumentSecurityIT extends MarkLogicIntegrationIT {
 		//setup
 		content = mapper.createObjectNode();
 		content.put("body", "content");
-		contribManager = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
+		contribManager = clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).newJSONDocumentManager();
 		contribManager.write(TEST_URI, new JacksonHandle(content));
 		// verify no read with GUEST
 
 		try {
 			@SuppressWarnings("unused")
-			JacksonHandle invisibleDoc = operations.newJSONDocumentManager(
-					ClientRole.SAMPLESTACK_GUEST).read(TEST_URI,
-					new JacksonHandle());
+			JacksonHandle invisibleDoc = clients.get(ClientRole.SAMPLESTACK_GUEST)
+				.newJSONDocumentManager()
+				.read(TEST_URI, new JacksonHandle());
 			fail("Guest could see invisible documwent");
 		} catch (ResourceNotFoundException e) {
 			// pass

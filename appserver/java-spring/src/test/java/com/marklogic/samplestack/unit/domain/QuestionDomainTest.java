@@ -1,33 +1,26 @@
 package com.marklogic.samplestack.unit.domain;
 
-import static com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
-
 import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
+import com.marklogic.samplestack.dbclient.CustomObjectMapper;
 import com.marklogic.samplestack.domain.Answer;
 import com.marklogic.samplestack.domain.Comment;
 import com.marklogic.samplestack.domain.InitialQuestion;
-import com.marklogic.samplestack.impl.CustomObjectMapper;
 import com.marklogic.samplestack.testing.UnitTests;
 import com.marklogic.samplestack.testing.Utils;
 
 @Category(UnitTests.class)
 public class QuestionDomainTest {
 
-	private CustomObjectMapper mapper;
-	
-	@Before
-	public void setUp() {
-		mapper = new CustomObjectMapper();
-	}
+	private CustomObjectMapper mapper = new CustomObjectMapper();
 	
 	@Test
 	public void testInitialQuestion() throws JsonProcessingException, JSONException {
@@ -37,10 +30,10 @@ public class QuestionDomainTest {
 		initialQuestion.setTitle("title");
 		initialQuestion.setTags(new String[] {"tag1", "tag2"});
 		initialQuestion.setOwner(Utils.joeUser.asSparseContributor());
-		String expected ="{answers:[],comments:[],creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
+		String expected ="{answers:[],comments:[],acceptedAnswerId:null,accepted:false,creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
 		
-		JSONAssert.assertEquals(mapper.writeValueAsString(initialQuestion),
-				expected, false);
+		JSONAssert.assertEquals(expected, mapper.writeValueAsString(initialQuestion),
+				false);
 	}
 
 

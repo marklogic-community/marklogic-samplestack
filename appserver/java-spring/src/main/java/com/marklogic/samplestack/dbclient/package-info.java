@@ -17,4 +17,4 @@
  * Contains implementations/Spring framework components that implement
  * the interfaces in com.marklogic.samplestack.service
  */
-package com.marklogic.samplestack.impl;
+package com.marklogic.samplestack.dbclient;

@@ -13,6 +13,8 @@
             "text": "My second answer to a question"
         }
     ],
+    "accepted": false,
+    "acceptedAnswerId": null,
     "comments": [
         {
             "creationDate": "2014-10-01T08:59:12.230",

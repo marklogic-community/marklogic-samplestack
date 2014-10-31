@@ -15,7 +15,6 @@
 */
 package com.marklogic.samplestack.integration.web;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -24,14 +23,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.marklogic.client.document.JSONDocumentManager;
-import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.samplestack.Application;
-import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.service.MarkLogicOperations;
+import com.marklogic.samplestack.dbclient.Clients;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.TagControllerTestImpl;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 /**
  * Tests the service that returns candidate tags given a
@@ -39,23 +35,13 @@ import com.marklogic.samplestack.testing.TagControllerTestImpl;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = { Application.class })
+@SpringApplicationConfiguration(classes = { Application.class, TestDataManager.class })
 @Category(IntegrationTests.class)
 public class TagControllerIT extends TagControllerTestImpl {
-
-	@Autowired
-	MarkLogicOperations operations;
 	
-	@Before
-	public void loadTags() {
-		JsonNode tagsJson = getTestJson("questions/tags.json");
-
-		JSONDocumentManager docMgr = operations
-				.newJSONDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR);
-		docMgr.write("/tags.json", new JacksonHandle(tagsJson));
-
-	}
-
+	@Autowired
+	private Clients clients;
+	
 	@Test
 	public void testTagsAnonymousOK() throws Exception {
 		super.testTagsAnonymousOK();
@@ -70,4 +56,25 @@ public class TagControllerIT extends TagControllerTestImpl {
 	public void testTagsWithArgument() throws Exception {
 		super.testTagsWithArgument();
 	}
+	
+	@Test
+	public void testBadSort() throws Exception {
+		super.testBadSort();
+	}
+
+	@Test
+    public void testTagsWithPageLength() throws Exception {
+        super.testTagsWithPageLength();
+    }
+
+	@Test
+    public void testStartLimitOrder() throws Exception {
+        super.testStartLimitOrder();
+    }
+
+	@Test
+    public void testSortFrequency() throws Exception {
+        super.testLoggedInSortFrequency();
+    }
+
 }

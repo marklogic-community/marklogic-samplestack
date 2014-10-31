@@ -1,0 +1,32 @@
+{
+  "options":{
+    "debug":true,
+    "return-qtext":true,
+    "return-query":true,
+    "return-facets":true,
+    "term":{
+      "empty":{
+        "apply":"all-results"
+      }
+    },
+    "constraint":[
+      {
+        "name":"id",
+        "range":{
+          "type":"xs:string",
+          "facet":"false",
+          "json-property":"id"
+        }
+      }
+    ],
+    "values":[
+      {
+        "name":"ids",
+        "range":{
+          "type":"xs:string",
+          "json-property":"id"
+        }
+      }
+    ]
+  }
+}

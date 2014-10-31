@@ -12,34 +12,31 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package com.marklogic.samplestack.impl;
+*/
+package com.marklogic.samplestack.mock;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
 
-import com.marklogic.samplestack.domain.ClientRole;
-import com.marklogic.samplestack.service.MarkLogicOperations;
-import com.marklogic.samplestack.service.TagsService;
+import com.marklogic.samplestack.security.ClientRole;
+import com.marklogic.samplestack.service.HasVotedService;
 
-/**
- * Implementation of TagsService
- */
 @Component
-public class TagsServiceImpl implements TagsService {
-
-	@Autowired
-	MarkLogicOperations operations;
-	
-	@Override
-	public String[] suggestTags(ClientRole role) {
-		return suggestTags(role, "");
-	}
+/**
+ * A mocked implementation of HasVotedService for unit testing.
+ */
+public class MockHasVotedService implements HasVotedService {
 
 	@Override
-	public String[] suggestTags(ClientRole role, String pattern) {
-		String suggestPattern = "*" + pattern;
-		return operations.suggestTags(role, suggestPattern);
+	public Set<String> hasVoted(ClientRole role, String contributorId,
+			String postId) {
+		Set<String> returnValue = new HashSet<String>();
+		returnValue.add("1");
+		returnValue.add("2");
+		return returnValue;
 	}
+
 
 }

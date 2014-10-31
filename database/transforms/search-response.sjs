@@ -3,57 +3,37 @@
 /* given an iterator of ids, get the reputations of these
  * and return a mapping of ids to reputations
  */
-function joinReputations(input, ids) {
+function joinReputations(ids) {
     var reputationMap = {};
     var results = cts.search(
                     cts.andQuery( [
                       cts.collectionQuery("com.marklogic.samplestack.domain.Contributor"),
                       cts.jsonPropertyValueQuery("id", ids) ]));
-    while(true) {
-        var nextResult = results.next();
-        if (nextResult.done) break;
-        var nextObject = nextResult.value;
-        var ownerId = nextObject.id;
-        var ownerReputation = nextObject.reputation;
+    for (var result of results) {
+        var nextObject = result.toObject();
+        var ownerObject = nextObject["com.marklogic.samplestack.domain.Contributor"]
+        var ownerId = ownerObject.id;
+        var ownerReputation = ownerObject.reputation;
         reputationMap[ownerId] = ownerReputation;
     } 
+    xdmp.log(reputationMap);
     return reputationMap;
 }
 
+/* this function requires bulk input */
 function searchTransform(context, params, input) {
-    var inputObject = input.toObject();
-    var reputations = joinReputations(input, input.xpath(".//content/owner/id"))
-    var outputObject = {};
-    outputObject.results = []
-    for (key in inputObject) {
-        if (key == "facets") {
-            outputObject[key] = inputObject[key];
-        }
-        else if (key == "results") {
-            var results = inputObject.results;
-            for (var i=0; i<results.length; i++) {
-                var r = {};
-                var inComing = results[i].content;
-                r.accepted =  inComing.accepted;
-                r.creationDate = inComing.creationDate;
-                r.voteCount = inComing.voteCount;
-                r.snippet = "SNIPPET GOES HERE";
-                r.owner = inComing.owner; 
-                r.owner.reputation = reputations[r.owner.id]
-                if (r.owner.reputation == null) r.owner.reputation = "NO REP";
-                r.tags = inComing.tags;
-                r.lastActivityDate = inComing.lastActivityDate;
-                r.id = inComing.id;
-                r.originalId = inComing.originalId;
-                r.answerCount = inComing.answers.length;
-                r.title = inComing.title;
-                outputObject.results.push({"content":r});
-            }
-        } else {
-            outputObject[key] = inputObject[key];
-        }
+    var outputObject = input.toObject();
+    var ownerIds = input.xpath(".//metadata/owner/id")
+    if (ownerIds.count > 0) {
+        xdmp.log("Getting reputation map");
+        var reputations = joinReputations(ownerIds);
+        outputObject.reputations = reputations;
+        return outputObject;
+    } else {
+        /* don't transform document objects */
+        xdmp.log("Object Transform");
+        return input
     }
-    return outputObject;
 };
 
 exports.transform = searchTransform;
