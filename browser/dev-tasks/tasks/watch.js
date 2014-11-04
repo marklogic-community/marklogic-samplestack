@@ -54,13 +54,15 @@ function lrSetup (port, glob, name, fileRelativizer, cb) {
   var tinylr = require('tiny-lr-fork');
   var lrServer = new tinylr.Server();
   lrServer.listen(port, function () {
-    var watcher = $.watch({
-      glob: glob, // path.join(h.targets.build, '**/*'),
-      name: name, // 'reload-watch',
-      emitOnGlob: false,
-      emit: 'one',
-      silent: true
-    })
+    var watcher = $.watch(
+      glob,
+      {
+        name: name, // 'reload-watch',
+        emitOnGlob: false,
+        emit: 'one',
+        silent: true
+      }
+    )
     .on('data', function (file) {
       file.base = path.resolve('./build');
       lrServer.changed({
@@ -111,54 +113,57 @@ var watchTaskFunc = function (cb) {
   );
 
 
-  var watcher = $.watch({
-    glob: [
+  var watcher = $.watch(
+    [
       path.join(ctx.paths.srcDir, '**/*'),
       path.join(ctx.paths.unitSrcDir, '**/*')
     ],
-    name: 'watch',
-    emitOnGlob: false,
-    emit: 'one',
-    silent: true
-  }, function (file, gulpWatchCb) {
-    file.pipe($.util.buffer(function (err, files) {
-      var relpath = path.relative(
-        path.join(__dirname, '../src'), files[0].path
-      );
-      $.util.log('[' + chalk.cyan('watch') + '] ' +
-          chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
-
-      if (!(files[0].event === 'changed' || files[0].event === 'added')) {
-        refireWatchTask();
-      }
-      else if (ctx.rebuildOnNext) {
+    {
+      name: 'watch',
+      emitOnGlob: false,
+      emit: 'one',
+      silent: true
+    },
+    function (file, gulpWatchCb) {
+      file.pipe($.util.buffer(function (err, files) {
+        var relpath = path.relative(
+          path.join(__dirname, '../src'), files[0].path
+        );
         $.util.log('[' + chalk.cyan('watch') + '] ' +
-            chalk.yellow(
-              'some changes not written on previous change -- rebuilding'
-            ));
-        refireWatchTask();
-      }
-      else {
-        files = readArray(files);
+            chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
 
-        var out = runBuild(files).pipe(
-          $.util.buffer(function (err, files) {
-            if(!ctx.rebuildOnNext && !ctx.hadErrors) {
-              runUnit({ reporter: 'dot' }, function () {
-                lrChanger(['/coverage', '/coverage/show']);
+        if (!(files[0].event === 'changed' || files[0].event === 'added')) {
+          refireWatchTask();
+        }
+        else if (ctx.rebuildOnNext) {
+          $.util.log('[' + chalk.cyan('watch') + '] ' +
+              chalk.yellow(
+                'some changes not written on previous change -- rebuilding'
+              ));
+          refireWatchTask();
+        }
+        else {
+          files = readArray(files);
+
+          var out = runBuild(files).pipe(
+            $.util.buffer(function (err, files) {
+              if(!ctx.rebuildOnNext && !ctx.hadErrors) {
+                runUnit({ reporter: 'dot' }, function () {
+                  lrChanger(['/coverage', '/coverage/show']);
+                  gulpWatchCb();
+                  writeWatchMenu();
+                });
+              }
+              else {
                 gulpWatchCb();
                 writeWatchMenu();
-              });
-            }
-            else {
-              gulpWatchCb();
-              writeWatchMenu();
-            }
-          })
-        );
-      }
-    }));
-  });
+              }
+            })
+          );
+        }
+      }));
+    }
+  );
   watcher.on('error', function (e) {
     console.log('watcher error: ' + e.toString());
   });
@@ -167,7 +172,7 @@ var watchTaskFunc = function (cb) {
 
   lrSetup(
       ctx.options.liveReloadPorts.webApp,
-    path.join(ctx.paths.targets.build, '**/*'),
+    [ path.join(ctx.paths.targets.build, '**/*') ],
     'reload-build-watch',
     function (file) {
       file.base = path.resolve('./build');
@@ -199,13 +204,13 @@ var refireWatchFunc = function () {
 };
 
 var setProcessWatch = function () {
-  var watcher = $.watch({
-    glob: [
-      path.join(ctx.paths.rootDir, 'dev-tasks/build/**/*'),
-      path.join(ctx.paths.rootDir, 'dev-tasks/tasks/**/*'),
-      path.join(ctx.paths.rootDir, 'dev-tasks/unit/**/*'),
-      path.join(ctx.paths.rootDir, 'dev-tasks/*')
-    ],
+  var watcher = $.watch([
+    path.join(ctx.paths.rootDir, 'dev-tasks/build/**/*'),
+    path.join(ctx.paths.rootDir, 'dev-tasks/tasks/**/*'),
+    path.join(ctx.paths.rootDir, 'dev-tasks/unit/**/*'),
+    path.join(ctx.paths.rootDir, 'dev-tasks/*')
+  ],
+  {
     name: 'processWatch',
     emitOnGlob: false,
     emit: 'one',
