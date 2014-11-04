@@ -17,7 +17,7 @@ package com.marklogic.samplestack.service;
 
 import com.marklogic.client.Transaction;
 import com.marklogic.client.pojo.PojoPage;
-import com.marklogic.client.query.QueryDefinition;
+import com.marklogic.client.pojo.PojoQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 
 /**
@@ -73,7 +73,7 @@ public interface ContributorService {
 	 * @param start the first object to retrieve
 	 * @return
 	 */
-	public PojoPage<Contributor> search(QueryDefinition qdef, long start);
+	public PojoPage<Contributor> search(PojoQueryDefinition qdef, long start);
 
 	public PojoPage<Contributor> readAll(int i);
 }

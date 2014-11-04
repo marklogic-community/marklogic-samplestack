@@ -11,6 +11,7 @@ import com.marklogic.client.Transaction;
 import com.marklogic.client.io.marker.SearchReadHandle;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoQueryBuilder;
+import com.marklogic.client.pojo.PojoQueryDefinition;
 import com.marklogic.client.pojo.PojoRepository;
 import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
@@ -107,21 +108,21 @@ public class MockPojoRepositoryImpl implements
 		return readAll(0L);
 	}
 
-	public PojoPage<Contributor> search(QueryDefinition query, long start) {
+	public PojoPage<Contributor> search(PojoQueryDefinition query, long start) {
 		return readAll(0L);
 	}
 
-	public PojoPage<Contributor> search(QueryDefinition query, long start,
+	public PojoPage<Contributor> search(PojoQueryDefinition query, long start,
 			Transaction transaction) {
 		return readAll(0L);
 	}
 
-	public PojoPage<Contributor> search(QueryDefinition query, long start,
+	public PojoPage<Contributor> search(PojoQueryDefinition query, long start,
 			SearchReadHandle searchHandle) {
 		return readAll(0L);
 	}
 
-	public PojoPage<Contributor> search(QueryDefinition query, long start,
+	public PojoPage<Contributor> search(PojoQueryDefinition query, long start,
 			SearchReadHandle searchHandle, Transaction transaction) {
 		return readAll(0L);
 	}
@@ -234,5 +235,10 @@ public class MockPojoRepositoryImpl implements
 		
 	}
 
+	@Override
+	public long count(PojoQueryDefinition query) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

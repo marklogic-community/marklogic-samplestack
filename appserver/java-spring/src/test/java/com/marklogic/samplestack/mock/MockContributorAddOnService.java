@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 
 import com.marklogic.client.Transaction;
 import com.marklogic.client.pojo.PojoPage;
+import com.marklogic.client.pojo.PojoQueryDefinition;
 import com.marklogic.client.pojo.PojoRepository;
-import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.testing.Utils;
@@ -54,7 +54,7 @@ public class MockContributorAddOnService implements ContributorService {
 	}
 	
 	@Override
-	public PojoPage<Contributor> search(QueryDefinition q, long start) {
+	public PojoPage<Contributor> search(PojoQueryDefinition q, long start) {
 		return repo.readAll(0L);
 	}
 

@@ -32,8 +32,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoQueryBuilder;
+import com.marklogic.client.pojo.PojoQueryDefinition;
 import com.marklogic.client.pojo.PojoRepository;
-import com.marklogic.client.query.QueryDefinition;
 import com.marklogic.client.query.StringQueryDefinition;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
@@ -68,7 +68,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 		return repository.read(id);
 	}
 
-	public PojoPage<Contributor> search(QueryDefinition query, long start) {
+	public PojoPage<Contributor> search(PojoQueryDefinition query, long start) {
 		return repository.search(query, start);
 	}
 
@@ -120,7 +120,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 	public Contributor getByUserName(String userName) {
 		@SuppressWarnings("rawtypes")
 		PojoQueryBuilder qb = repository.getQueryBuilder();
-		QueryDefinition qdef = qb.value("userName", userName);
+		PojoQueryDefinition qdef = qb.value("userName", userName);
 
 		PojoPage<Contributor> page = repository.search(qdef, 1);
 		if (page.getTotalSize() == 1) {
