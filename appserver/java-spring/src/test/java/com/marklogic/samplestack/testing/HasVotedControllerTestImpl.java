@@ -10,20 +10,20 @@ public class HasVotedControllerTestImpl extends ControllerTests {
 	
 	public void testHasVoted() throws Exception {
 		
-		this.mockMvc.perform(get("/hasVoted"))
+		this.mockMvc.perform(get("/v1/hasVoted"))
 				.andExpect(status().isBadRequest());
 		
-		this.mockMvc.perform(get("/hasVoted")
+		this.mockMvc.perform(get("/v1/hasVoted")
 				.param("contributorId", "1"))
 				.andExpect(status().isBadRequest());
 		
-		this.mockMvc.perform(get("/hasVoted")
+		this.mockMvc.perform(get("/v1/hasVoted")
 				.param("contributorId", "1")
 				.param("questionId", "1"))
 				.andExpect(status().isOk());
 		
 		login("joeUser@marklogic.com", "joesPassword");
-		this.mockMvc.perform(get("/hasVoted")
+		this.mockMvc.perform(get("/v1/hasVoted")
 				.param("contributorId", "1")
 				.param("questionId", "1")
 				.session((MockHttpSession) session))

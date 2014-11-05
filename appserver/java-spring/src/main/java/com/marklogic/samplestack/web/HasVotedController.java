@@ -46,7 +46,7 @@ public class HasVotedController {
 	 * @param q A query pattern
 	 * @return A list of tags as Strings.
 	 */
-	@RequestMapping(value = "hasVoted", method = RequestMethod.GET)
+	@RequestMapping(value = "/v1/hasVoted", method = RequestMethod.GET)
 	public @ResponseBody
 	Set<String> hasVoted(@RequestParam(required = true) String contributorId,
 			@RequestParam(required = true) String questionId) {
