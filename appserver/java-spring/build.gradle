@@ -147,9 +147,10 @@ bootRun.shouldRunAfter(dbLoad)
 /* The code repositories to consult for dependencies */
 repositories {
     mavenCentral()
+    mavenLocal()
     maven { url "http://repo.spring.io/snapshot" }
     maven { url "http://repo.spring.io/milestone" }
-    maven { url "https://raw.github.com/marklogic/java-client-api/mvn-repo" }
+    //maven { url "https://raw.github.com/marklogic/java-client-api/mvn-repo" }
 }
 
 dependencies {
