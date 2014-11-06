@@ -61,9 +61,10 @@ public interface ContributorService {
 	public void delete(String... id);
 
 	/**
-	 * Wraps PojoRepository.read
-	 * @param id
-	 * @return
+	 * Wraps PojoRepository.read.
+	 * Unlike PojoRepository.read, this method returns null for no result.
+	 * @param id The contributor's id.
+	 * @return the Contributor or null
 	 */
 	public Contributor read(String id);
 

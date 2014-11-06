@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoQueryBuilder;
@@ -65,7 +66,11 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 	}
 
 	public Contributor read(String id) {
-		return repository.read(id);
+		try {
+			return repository.read(id);
+		} catch (ResourceNotFoundException ex) {
+			return null;
+		}
 	}
 
 	public PojoPage<Contributor> search(PojoQueryDefinition query, long start) {

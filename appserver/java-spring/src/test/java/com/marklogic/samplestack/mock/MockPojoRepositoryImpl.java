@@ -217,28 +217,50 @@ public class MockPojoRepositoryImpl implements
 
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
 		@Override
 		public Contributor next() {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 	}
 
 	@Override
-	public void defineIdProperty(String fieldName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public long count(PojoQueryDefinition query) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean exists(String id, Transaction transaction) {
+		return false;
+	}
+
+	@Override
+	public long count(Transaction transaction) {
+		return 0;
+	}
+
+	@Override
+	public long count(String[] collections, Transaction transaction) {
+		return 0;
+	}
+
+	@Override
+	public long count(PojoQueryDefinition query, Transaction transaction) {
+		return 0;
+	}
+
+	@Override
+	public void delete(String[] ids, Transaction transaction) {
+		// noop
+	}
+
+	@Override
+	public void deleteAll(Transaction transaction) {
+		// noop
 	}
 
 }
