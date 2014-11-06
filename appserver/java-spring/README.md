@@ -34,9 +34,9 @@ during the install and setup process.
 * `./gradlew dbConfigureAll`   dbConfigureClean then runs dbConfigure.  Uploads all config files to MarkLogic.
  
 * `./gradlew bootRun`       This command runs the middle tier and MarkLogic services.  This project also contains a built version of the front-end angular application.  If you want to use and exercise the front-end independently, see the sibling project in /browser for instructions on running the browser application
-* `./gradlew dbFetch`  TODO Fetches seed data from a remote location to the build directory.
-* `./gradlew dbExtract`  TODO Fetches seed data from a remote location to the build directory.
-* `./gradlew dbLoad` TODO Runs dbFetch, dbExtract by default as dependencies to loading seed data.
+* `./gradlew seedDataFetch`  Fetches seed data from a remote location to the build directory.
+* `./gradlew seedDataExtract`  Extracts the fetched seed data tgz to within the directory.
+* `./gradlew dbLoad` Runs seedDataFetch, seedDataExtract as dependencies (unless up-to-date) to load seed data.
 * `./gradlew dbClear`  Deletes all data from the database.
  
 * ./gradlew eclipse  is one way to set up this project for use in eclipse.  [wiki link]

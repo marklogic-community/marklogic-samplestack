@@ -14,12 +14,13 @@ import com.marklogic.client.io.DocumentMetadataHandle.Capability
 
 public class MarkLogicSlurpTask extends MarkLogicTask {
 
-    String seedDirectory = "database/seed-data"
+    File seedDirectory 
 
 	private writerClient() {
 		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
 		client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
 		client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
+		client.getParser().putAt("application/n-triples", client.getParser().getAt("text/plain"))
 		return client
 	}
 
@@ -35,7 +36,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
     @TaskAction
     void load() {
 		RESTClient client = writerClient()
-        def jsonFiles = project.fileTree(dir: "../../" + seedDirectory).matching { include '**/*.json' 
+        def jsonFiles = project.fileTree(seedDirectory).matching { include '**/*.json' 
 include '**/*.nt'}
         def BATCH_SIZE = 300
         def numWritten = 0
@@ -43,7 +44,7 @@ include '**/*.nt'}
         def acceptedPermissionMetadata = new DocumentMetadataHandle().withPermission("samplestack-guest", Capability.READ)
         def pojoCollectionMetadata = new DocumentMetadataHandle().withCollections("com.marklogic.samplestack.domain.Contributor")
         jsonFiles.each { 
-            def pattern = Pattern.compile(".*" + "seed-data")
+            def pattern = Pattern.compile(".*" + seedDirectory.name)
             def docUri = it.path.replaceAll(pattern, "").replaceAll("\\\\", "/")
             if (it.path.contains("dbpedia")) {
                 logger.info("PUT RDF data to graph " + docUri)

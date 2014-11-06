@@ -24,3 +24,4 @@ public
 *.ipr
 bin
 src/main/resources/test-server.ldif~
+creds
