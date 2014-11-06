@@ -41,7 +41,6 @@ task appserver <<
  * and install security objects.
  */
 task dbInit(type: MarkLogicInitTask)
-
 dbInit.roles = file("../../database/security/roles")
 dbInit.users = file("../../database/security/users")
 
@@ -60,12 +59,12 @@ task dbTeardown(type: MarkLogicTeardownTask)
 task dbConfigure(type: MarkLogicConfigureTask)
 
 task dbConfigureClean << {
-    delete("$buildDir/database")
+    delete("${buildDir}/database")
 }
 
 
 dbConfigure.inputDir = file('../../database')
-dbConfigure.outputDir = file("$buildDir/database")
+dbConfigure.outputDir = file("${buildDir}/database")
 dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
 dbConfigure.shouldRunAfter dbInit
 dbConfigure.shouldRunAfter dbConfigureClean
@@ -80,11 +79,41 @@ dbConfigureAll.dependsOn dbConfigure
  */
 assemble.dependsOn(dbInit, dbConfigure, test)
 
+/**
+ * FETCH SEED DATA
+ */
+task seedDataFetch(type: MarkLogicFetchTask) {
+    url = "http://developer.marklogic.com/media/gh/seed-data1.3.tgz"
+    destFile = file("${buildDir}/seed.tgz")
+    outputs.file destFile
+ // url "file:///home/cgreer/third_party/seed-1.4.dev.tgz"
+}
+seedDataFetch.dependsOn(processResources)
+
+task seedDataExtract {
+    ext.destDir = file("${buildDir}/seed-data")
+    ext.srcFile = file("${buildDir}/seed.tgz")
+    inputs.file srcFile
+    outputs.dir destDir
+    doLast {
+        destDir.mkdirs()
+        copy {
+            from tarTree(resources.gzip(srcFile))
+                into destDir
+        }
+    }
+}
+seedDataExtract.dependsOn(seedDataFetch)
+
 /*
  * LOAD
  */
-task dbLoad(type: MarkLogicSlurpTask)
+task dbLoad(type: MarkLogicSlurpTask) {
+    seedDirectory = file("${buildDir}/seed-data")  
+    inputs.dir seedDirectory
+}
 dbLoad.mustRunAfter(assemble)
+dbLoad.dependsOn(seedDataExtract)
 /* never skip dbload if requested */
 dbLoad.outputs.upToDateWhen { false }
 
