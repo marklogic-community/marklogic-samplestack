@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Ignore;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
@@ -107,7 +108,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	
 	}
 
-	
+	@Ignore
 	public void testLoggedInSortFrequency() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		
