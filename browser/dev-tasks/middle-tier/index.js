@@ -13,14 +13,17 @@ var shell = require('shelljs');
 
 var childProcess = require('child_process');
 var chalk = require('chalk');
+
+var linesToHold = [];
+var errsToHold = [];
+
 var shellCmd = function (cwd, command, signal, errorsOk, cb) {
   // duck typing arity
   if (!cb) {
     cb = signal;
     signal = null;
   }
-
-  process.stdout.write(chalk.green('\n' + command));
+  linesToHold.push(chalk.green(command));
   var backupWd = process.cwd();
   process.chdir(cwd);
   var child = shell.exec(command, { async: true, silent: true });
@@ -44,10 +47,20 @@ var shellCmd = function (cwd, command, signal, errorsOk, cb) {
   var outBuff = '';
   var signaled = false;
   var goodOutput = function (data) {
-    if (!signaled) {
-      // process.stdout.write(data);
+    if (ctx.built && ctx.seleniumStarted || linesToHold) {
+      linesToHold.forEach(function (line) {
+        process.stdout.write('\n' + line);
+      });
+      linesToHold = [];
       process.stdout.write('.');
     }
+    else {
+      if (!linesToHold.length) {
+        linesToHold.push('');
+      }
+      linesToHold[linesToHold.length - 1] += '.';
+    }
+
     var message = '';
     outBuff += data;
     if (outBuff.indexOf('\n') > -1) {
@@ -57,9 +70,9 @@ var shellCmd = function (cwd, command, signal, errorsOk, cb) {
         signaled = true;
         return cb(null, child);
       }
-      else {
-        process.stdout.write(data);
-      }
+      // else {
+      //   process.stdout.write(data);
+      // }
     }
   };
   child.stdout.on('data', goodOutput);
@@ -70,7 +83,7 @@ var shellCmd = function (cwd, command, signal, errorsOk, cb) {
         goodOutput(data);
       }
       else {
-        process.stderr.write(chalk.red('\n' + data.trim()));
+        linesToHold.push(chalk.red(data.trim()));
       }
     }
   });
@@ -93,29 +106,35 @@ var setup = function (platform, cb) {
 
   var async = require('async');
   if (platform === 'java') {
-    console.log(chalk.magenta('reseting database, starting app server'));
+    $.util.log(chalk.magenta('reseting database, starting app server'));
     var pwd = shell.pwd();
     var dirForMiddle = path.join(
       ctx.paths.projectRoot, 'appserver/java-spring'
     );
 
     async.series([
+      // shellCmd.bind(null, dirForMiddle, 'mlvm stop', null, true),
+      // shellCmd.bind(null, dirForMiddle, 'mlvm start', null, true),
       shellCmd.bind(null, dirForMiddle, './gradlew dbTeardown', null, true),
-      shellCmd.bind(null, dirForMiddle, './gradlew dbConfigureClean'),
-      shellCmd.bind(null, dirForMiddle, './gradlew dbInit'),
-      shellCmd.bind(null, dirForMiddle, './gradlew dbLoad'),
+      shellCmd.bind(
+        null, dirForMiddle, './gradlew dbConfigureClean', null, true
+      ),
+      shellCmd.bind(null, dirForMiddle, './gradlew clean', null, true),
+      shellCmd.bind(null, dirForMiddle, './gradlew dbinit', null, true),
+      shellCmd.bind(null, dirForMiddle, './gradlew dbconfigure', null, true),
+      shellCmd.bind(null, dirForMiddle, './gradlew test', null, true),
+      shellCmd.bind(null, dirForMiddle, './gradlew dbload', null, true),
       shellCmd.bind(
         null,
         dirForMiddle,
         './gradlew bootrun',
-        'marklogic.samplestack.Application - Started Application'
+        'Started Application in ',
+        false
       ),
     ], function (err, results) {
-      console.log(' ');
-      shell.cd(pwd);
 
       pokeServer(function () {
-        console.log(chalk.magenta('preparations complete'));
+        $.util.log(chalk.magenta('preparations complete'));
         cb(err, results[results.length - 1]);
 
       });

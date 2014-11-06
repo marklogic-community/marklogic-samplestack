@@ -9,6 +9,7 @@ var chalk = require('chalk');
 var ctx = require('../context');
 
 var helper = require('../helper');
+var $ = helper.$;
 
 var winExt = /^win/.test(process.platform) ? '.cmd' : '';
 var async = require('async');
@@ -168,7 +169,7 @@ var sauceProcess;
 
 var seleniumStart = function (cb) {
   if (args.selenium === 'external') {
-    console.log('using external Selenium server');
+    $.util.log('using external Selenium server');
     return cb();
   }
   if (args.sauceBrowser) {
@@ -181,7 +182,8 @@ var seleniumStart = function (cb) {
         console.error(err.message);
         return;
       }
-      console.log('Sauce Connect ready');
+      process.stdout.write('\n');
+      $.util.log('Sauce Connect ready');
 
       process.on('exit', function () {
         sauceConnectProcess.close();
@@ -197,12 +199,6 @@ var seleniumStart = function (cb) {
     ], cb);
   }
 };
-
-// myTasks.push({
-//   name: 'selenium-stop',
-//   deps: ['selenium-present'],
-//   func: selServerStop
-// });
 
 var ptorConfig = {
   stackTrace: false,
@@ -280,7 +276,13 @@ var hookStdOut = function (callback) {
 
 myTasks.push({
   name: 'selenium-start',
-  func: seleniumStart
+  func: function (cb) {
+    ctx.seleniumStarted = false;
+    seleniumStart (function () {
+      ctx.seleniumStarted = true;
+      cb();
+    });
+  }
 });
 
 var serverProcess;
@@ -313,12 +315,13 @@ var testOne = function (browserName, fullConfig, metadata, cb) {
   var writeStream;
   var stdOutUnhook;
 
-  console.log('begin ' + browserName);
+  $.util.log('begin ' + chalk.magenta(browserName));
 
   var toFilePath;
   if (args.toFile) {
 
     toFilePath = toFilePrep(browserName, args.reporter);
+    console.log(toFilePath);
     writeStream = fs.createWriteStream(
       toFilePath, {flags: 'w'}
     );
@@ -356,14 +359,14 @@ var testOne = function (browserName, fullConfig, metadata, cb) {
               fs.writeFileSync(toFilePath, converted);
             }
             catch (err) {
-              console.log('could not parse JSON for ' + toFilePath);
+              $.util.log(chalk.red('could not parse JSON for ' + toFilePath));
               try {
                 fs.unlinkSync(toFilePath);
               } catch (err) {}
             }
           }
         }
-        console.log('finished ' + browserName);
+        $.util.log(chalk.green('finished ' + browserName));
         cb();
         // process.exit();
       },
@@ -377,11 +380,11 @@ var testOne = function (browserName, fullConfig, metadata, cb) {
           // TODO: should something different happen?
           fs.unlinkSync(toFilePath);
         }
-        console.log(
+        $.util.log(chalk.red(
           'for ' + browserName +
           ', protractor runner failed with exit code ' +
           exitCode
-        );
+        ));
         cb(exitCode);
       }
     );
@@ -397,7 +400,7 @@ myTasks.push({
   // deps: ['build', 'selenium-start'],
   deps: ['build', 'selenium-start', 'middle-tier'],
   func: function (cb) {
-    console.log('starting web server');
+    $.util.log(chalk.green('starting web server'));
     ctx.startServer(
       ctx.paths.buildDir,
       ctx.options.envs.e2e.addresses.webApp.port
@@ -443,13 +446,15 @@ myTasks.push({
 
     async.series(todo, function (err, result) {
       if (err) {
-        console.log('protractor runner failed with exit code ' + err);
+        $.util.log(chalk.red(
+          'protractor runner failed with exit code ' + err
+        ));
         quitEverything();
         cb();
       }
       else {
-        console.log('complete. metadata:\n');
-        console.log(JSON.stringify(metadata));
+        $.util.log('complete!. metadata:\n');
+        process.stdout.write(JSON.stringify(metadata, null, ' '));
         quitEverything();
         cb();
 
