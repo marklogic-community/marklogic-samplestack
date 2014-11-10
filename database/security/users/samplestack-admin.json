@@ -1,5 +1,5 @@
 {
-  "name": "samplestack-admin",
+  "user-name": "samplestack-admin",
   "password": "samplestack-admin-password",
   "description": "user that can administer REST server",
   "role": [
