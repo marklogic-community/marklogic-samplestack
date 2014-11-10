@@ -36,7 +36,8 @@
         "userName": "maryAdmin@marklogic.com"
     },
     "tags": [
-        "python"
+        "python",
+        "test-data-tag"
     ],
     "text": "I, Mary, had a question about the word balsamic and the number 1",
     "title": "Mary's Question Number 1",

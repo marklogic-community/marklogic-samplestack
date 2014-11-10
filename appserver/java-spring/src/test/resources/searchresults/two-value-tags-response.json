@@ -6,18 +6,6 @@
                 "frequency": 2
             },
             {
-                "_value": "javascript",
-                "frequency": 2
-            },
-            {
-                "_value": "python",
-                "frequency": 2
-            },
-            {
-                "_value": "blob",
-                "frequency": 1
-            },
-            {
                 "_value": "test-data-tag",
                 "frequency": 11
             }

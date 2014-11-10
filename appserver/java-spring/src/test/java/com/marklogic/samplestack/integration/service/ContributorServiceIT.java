@@ -65,18 +65,15 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		assertEquals("Retrieved one conributor", "cgreer@marklogic.com", contributor.getUserName());
 
 		PojoPage<Contributor> contributorPage = contributorRepository.readAll(1);
-		assertEquals("Retrieved all conributors from start should be 3", 3, contributorPage.size());
+		String firstId = contributorPage.next().getId();
+		String secondId = contributorPage.next().getId();
 		contributorPage = contributorRepository.readAll(2);
-		assertEquals("Retrieved all contributors from start=2 should be 1", 2, contributorPage.size());
+		assertEquals("First contributor for start=2 should be same as second contributor for start=1", secondId, contributorPage.next().getId());
 
-		
 		contributorRepository.delete(c1.getId());
 
-		contributorPage = contributorRepository.readAll(1);
-		assertEquals("Retrieved two conributors after delete", 2, contributorPage.size());
-		
 	}
-	
+
 	@Test(expected=SampleStackDataIntegrityException.class)
 	public void testUserNameCardinality() {
 		Contributor c1 = Utils.getBasicUser();

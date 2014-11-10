@@ -11,7 +11,8 @@
         "userName": "joeUser@marklogic.com"
     },
     "tags": [
-        "ada"
+        "ada",
+        "test-data-tag"
     ],
     "accepted": false,
     "acceptedAnswerId": null,

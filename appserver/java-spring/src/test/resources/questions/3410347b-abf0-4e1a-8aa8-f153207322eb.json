@@ -26,7 +26,8 @@
         "userName": "maryAdmin@marklogic.com"
     },
     "tags": [
-        "javascript"
+        "javascript",
+        "test-data-tag"
     ],
     "text": "I, Mary, had a question about the word chocolate and the number 2",
     "title": "Mary's Question Number 2",

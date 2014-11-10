@@ -15,6 +15,8 @@
 */
 package com.marklogic.samplestack.mock;
 
+import static org.junit.Assert.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -34,36 +36,46 @@ public class MockTagsService extends MockServiceBase implements TagsService {
 
 	ObjectNode expectedTags;
 	ObjectNode oneItemTags;
+	ObjectNode twoItemTags;
 	ObjectNode itemOrderTags;
 
-	
+
 	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery,
 			long start, long pageLength) {
-		
+
 		try {
 			logger.debug(mapper.writeValueAsString(combinedQuery));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		if (expectedTags == null) {
 			expectedTags = (ObjectNode) getTestJson("searchresults/tags-response.json");
 		}
 		if (oneItemTags == null) {
 			oneItemTags = (ObjectNode) getTestJson("searchresults/one-value-tags-response.json");
 		}
+		if (twoItemTags == null) {
+			twoItemTags = (ObjectNode) getTestJson("searchresults/two-value-tags-response.json");
+		}
 		if (itemOrderTags == null) {
 			itemOrderTags = (ObjectNode) getTestJson("searchresults/item-order-tags-response.json");
 		}
-		
+
 		ObjectNode options = (ObjectNode) combinedQuery.get("search").get("options");
+		String combinedQueryString = null;
+		try {
+			combinedQueryString = mapper.writeValueAsString(combinedQuery);
+		} catch (JsonProcessingException e) {
+			fail("JsonProcessingException while parsing combined Query (in MockTagsService)");
+		}
 		/* mock a page length of one */
 		if (pageLength == 1) return oneItemTags;
-		/* mock a query that returns one value */
+		/* mock a query that returns two values */
 		if (combinedQuery.get("search").get("qtext") != null) {
-			if (combinedQuery.get("search").get("qtext").asText().equals("tag:ada")) {
-			return oneItemTags;
+			if (combinedQueryString.contains("tag:ada")) {
+			return twoItemTags;
 		}
 		}
 		else if (options.get("values").get("values-option") != null) {

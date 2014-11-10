@@ -34,7 +34,8 @@
         "userName": "maryAdmin@marklogic.com"
     },
     "tags": [
-        "ada"
+        "ada",
+        "test-data-tag"
     ],
     "text": "I, Mary, had a question about the word abyss and the number 0",
     "title": "Mary's Question Number 0",

@@ -108,12 +108,6 @@ task props(type: Copy) {
 appserver.dependsOn(clean, assemble, dbLoad, bootRun)
 bootRun.shouldRunAfter(dbLoad)
 
-
-//TODO load a bigger dataset from remote server
-task loadRemote(type: MarkLogicSlurpTask) {
-  // url  = "http://developer.marklogic.com/moredata.tgz"
-}
-
 /* The code repositories to consult for dependencies */
 repositories {
     mavenCentral()

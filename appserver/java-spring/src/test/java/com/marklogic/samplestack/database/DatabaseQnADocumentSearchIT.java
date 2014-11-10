@@ -103,7 +103,7 @@ public class DatabaseQnADocumentSearchIT {
 	public void guestSearchSeesOnlyResolvedQuestions() {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
-		queryNode.put("qtext", "");
+		queryNode.put("qtext", "tag:test-data-tag");
 		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_GUEST,
 				query, 1, false);
 		assertEquals("Guest sees only approved docs", results.get("results")
@@ -114,7 +114,7 @@ public class DatabaseQnADocumentSearchIT {
 	public void authenticatedSearchSeesUnresolvedQuestions() {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
-		queryNode.put("qtext", "");
+		queryNode.put("qtext", "tag:test-data-tag");
 		ObjectNode results = qnaService.rawSearch(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, false);
 		assertEquals("Logged-in user sees all docs", results.get("results")
@@ -134,7 +134,7 @@ public class DatabaseQnADocumentSearchIT {
 		try {
 			query = (ObjectNode) mapper
 					.readValue(
-							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
+							"{\"qtext\":\"tag:test-data-tag\",\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
 							JsonNode.class);
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, false);
@@ -155,7 +155,8 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query;
 		ObjectNode results = null;
 		try {
-			query = (ObjectNode) mapper.readValue("{\"query\":"
+			query = (ObjectNode) mapper.readValue("{\"qtext\":\"tag:test-data-tag\", "
+					+ "\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
 					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
