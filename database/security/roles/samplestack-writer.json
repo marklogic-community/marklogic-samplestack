@@ -1,5 +1,5 @@
 {
-  "name": "samplestack-writer",
+  "role-name": "samplestack-writer",
   "description": "role for contributing to samplestack corpus",
   "role": [
       "rest-writer", "samplestack-guest"

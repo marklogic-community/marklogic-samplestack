@@ -1,6 +1,6 @@
 {
   "triple-index":true,
-  "name":"samplestack",
+  "database-name":"samplestack",
   "element-word-lexicon":[
     {
       "collation":"http://marklogic.com/collation/",
