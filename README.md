@@ -22,7 +22,7 @@ This README covers the following topics:
 ## Prerequisites
 To configure and use this application, you need the following software:
 * Java JDK 1.7 or 1.8
-* MarkLogic 8.0 Nightly from 11/4/2014 (see instructions [below](#getting-started))
+* MarkLogic 8.0 Nightly from 11/7/2014 (see instructions [below](#getting-started))
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
 * A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp). For details, see [Global Utilities](browser/README.md#global-utilities) in the [browser README](browser/README.md).
 
@@ -36,12 +36,12 @@ The setup procedure may install additional software, such as Gradle and Angular.
 
 This README is for a development branch that does not work with any released version of MarkLogic
 
-Use MarkLogic nightly dated 10/24.  
+Use MarkLogic nightly dated 11/7.  
 
-RPM link: https://root.marklogic.com/nightly/builds/linux64/rh6-intel64-80-test-1.marklogic.com/HEAD/pkgs.20141024/MarkLogic-8.0-20141024.x86_64.rpm
+RPM link: https://root.marklogic.com/nightly/builds/linux64/rh6-intel64-80-test-1.marklogic.com/HEAD/pkgs.20141107/MarkLogic-8.0-20141107.x86_64.rpm
 
 Trunk does NOT work for this PR.
-Java Client API needs snapshot on or after 10/10/2014.  This should be installed
+Java Client API needs snapshot available on commit [481c2b045ad5bc6f0549ad4e60e44b7cec5232a6](https://github.com/marklogic/java-client-api/commit/481c2b045ad5bc6f0549ad4e60e44b7cec5232a6) from 11/5/2014.  This should be installed
 automatically but may require gradle or maven cache cleaning.
 
 This build requires seed data available internally.  The current seed data version is 1.3:
