@@ -30,7 +30,11 @@ public class MarkLogicInitTask extends MarkLogicTask {
             delay()
         }
         catch (ex) { 
-            if ( ex.response.status == 401 )
+            if ( ex.response.status == 403 ) {
+                logger.warn("Unauthorized.  Check your installation, try to start with a fresh one.")
+                throw new StopActionException(ex)
+            }
+            else if ( ex.response.status == 401 )
                 logger.warn("Server already secured.  Initialization skipped.")
             else if ( ex.response.status == 500 )
                 logger.warn("Server already initialized.  Initialization skipped")
@@ -50,7 +54,11 @@ public class MarkLogicInitTask extends MarkLogicTask {
             delay()
         }
         catch (ex) { 
-            if ( ex.response.status == 401 )
+            if ( ex.response.status == 403 ) {
+                logger.warn("Unauthorized.  Check your installation, try to start with a fresh one.")
+                throw new StopActionException(ex)
+            }
+            else if ( ex.response.status == 401 )
                 logger.warn("Server already secured.  Initialization skipped")
             else 
                 logger.warn("Got " + ex.response.status)
@@ -69,8 +77,12 @@ public class MarkLogicInitTask extends MarkLogicTask {
             client.post(params)
         } catch (ex) {
           if (ex.response) 
-            { 
-                logger.warn("" + ex.response.data)
+            {
+                try { 
+                    logger.warn("" + ex.response.data)
+                } catch (ex2) {
+                    logger.warn("Error parsing JSON response: " + ex.response)
+                } 
             }
           else 
             { 
@@ -89,7 +101,8 @@ public class MarkLogicInitTask extends MarkLogicTask {
 
     void createUsers() {
         logger.warn("Creating users and roles...")
-        roles.listFiles().each { createRole(it) }
+        roles.listFiles().findAll { it.name.contains("guest") }.each { createRole(it) }
+        roles.listFiles().findAll { it.name.contains("writer") }.each { createRole(it) }
         users.listFiles().each { createUser(it) }
     }
 
