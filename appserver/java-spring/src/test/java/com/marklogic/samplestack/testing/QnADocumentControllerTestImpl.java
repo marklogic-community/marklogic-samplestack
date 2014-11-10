@@ -396,7 +396,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		logout();
 
-		JsonNode blankQuery = getTestJson("queries/blank.json");
+		JsonNode testTagDataQuery = getTestJson("queries/test-tag-data-query.json");
 
 		logout();
 
@@ -404,7 +404,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.perform(
 						post("/v1/search").with(csrf()).session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(mapper.writeValueAsString(blankQuery)))
+								.content(mapper.writeValueAsString(testTagDataQuery)))
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		JsonNode results = mapper.readValue(searchAnon, JsonNode.class);
@@ -429,7 +429,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.perform(
 						post("/v1/search").with(csrf()).session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
-								.content(mapper.writeValueAsString(blankQuery)))
+								.content(mapper.writeValueAsString(testTagDataQuery)))
 				.andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 		results = mapper.readValue(searchAnon, JsonNode.class);

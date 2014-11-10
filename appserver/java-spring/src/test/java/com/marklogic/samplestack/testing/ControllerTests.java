@@ -121,7 +121,7 @@ public class ControllerTests {
 
 			QnADocument qnaDoc = new QnADocument(mapper,
 					"Mary's Question Number 0", "I ask questions", "tag1",
-					"tag2");
+					"tag2", "test-data-tag");
 
 			String payload = mapper.writeValueAsString(qnaDoc.getJson());
 

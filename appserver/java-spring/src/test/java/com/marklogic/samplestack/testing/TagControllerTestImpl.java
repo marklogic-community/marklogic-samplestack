@@ -52,13 +52,17 @@ public class TagControllerTestImpl extends ControllerTests {
 				.getResponse().getContentAsString(), false);
 	}
 
+	/**
+	 * This test includes the tag test-tag-data in order to
+	 * isolate test data from seed data.
+	 */
 	public void testTagsWithArgument() throws Exception {
 		login("joeUser@marklogic.com", "joesPassword");
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags").session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
-								.content("{\"qtext\":\"tag:ada\"}")
+								.content("{\"qtext\":[\"tag:ada\", \"tag:test-data-tag\"]}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 		String responseString = result
@@ -66,7 +70,7 @@ public class TagControllerTestImpl extends ControllerTests {
 		JSONAssert.assertEquals("{values-response:{name:\"tags\"}}", responseString, false);
 		logger.debug(responseString);
 		ObjectNode results = mapper.readValue(responseString, ObjectNode.class);
-		assertEquals("Size of page length", 1, results.get("values-response").get("distinct-value").size());
+		assertEquals("Size of page length", 2, results.get("values-response").get("distinct-value").size());
 
 	}
 	
@@ -113,10 +117,11 @@ public class TagControllerTestImpl extends ControllerTests {
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"start\":1,"
 										+ "\"sort\":\"frequency\","
-										+ "\"pageLength\":5}")
+										+ "\"pageLength\":5,"
+										+ "\"qtext\":\"tag:test-data-tag\"}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
-		JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"ada\",frequency: 2 }, { _value: \"javascript\", frequency: 2 }, { _value: \"python\", frequency: 2 }, { _value: \"blob\", frequency: 1 }, { _value: \"clojure\", frequency: 1 } ], name: \"tags\", type: \"xs:string\" } }"
+		JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"test-data-tag\",frequency: 11 },{_value: \"ada\",frequency: 2 }, { _value: \"javascript\", frequency: 2 }, { _value: \"python\", frequency: 2 }, { _value: \"blob\", frequency: 1 } ], name: \"tags\", type: \"xs:string\" } }"
 					, result.getResponse().getContentAsString(), false);
 	}
 

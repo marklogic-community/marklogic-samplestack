@@ -15,6 +15,8 @@
 */
 package com.marklogic.samplestack.integration.service;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
 import org.json.JSONException;
@@ -75,7 +77,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 		ArrayNode qtextNode = combinedQueryNode.putArray("qtext");
 		qtextNode.add("tag:ada");
 		qtextNode.add("\"word abyss\"");
-		
+
 		ObjectNode results;
 		logger.debug("Query: " + mapper.writeValueAsString(topNode));
 		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
@@ -87,13 +89,16 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 
 	@Test
 	public void testAllTagValues() throws JsonProcessingException, JSONException {
-		
+
 		ObjectNode results;
 		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					null, 1, 5);
 		logger.debug("Result: " + mapper.writeValueAsString(results));
-		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"},{frequency:2,_value:\"javascript\"},{frequency:2,_value:\"python\"},{frequency:1,_value:\"blob\"},{frequency:1,_value:\"clojure\"}]}}", mapper.writeValueAsString(results), false);
+		assertEquals("Size of results for all tags: ", results.get("values-response").get("distinct-value").size(), 5L);
 
+		// former test assertion before tag isolation introduced.
+		// Still passes if seed data not loaded.
+		// JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"},{frequency:2,_value:\"javascript\"},{frequency:2,_value:\"python\"},{frequency:1,_value:\"blob\"},{frequency:11,_value:\"test-data-tag\"}]}}", mapper.writeValueAsString(results), false);
 	}
 
 	@Test
@@ -103,7 +108,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 		try {
 			query = (ObjectNode) mapper
 					.readValue(
-							"{\"search\":{\"query\":{\"word-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"cloj*\"}}}}",
+							"{\"search\":{\"qtext\":\"tag:test-data-tag\",\"query\":{\"word-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"cloj*\"}}}}",
 							JsonNode.class);
 			results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, 1);

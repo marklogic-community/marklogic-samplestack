@@ -11,7 +11,8 @@
         "userName": "joeUser@marklogic.com"
     },
     "tags": [
-        "javascript"
+        "javascript",
+        "test-data-tag"
     ],
     "accepted": false,
     "acceptedAnswerId": null,
