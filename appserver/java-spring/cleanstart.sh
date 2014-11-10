@@ -1,5 +1,14 @@
 #!/bin/bash
 
+function successOrExit {
+    "$@"
+    local status=$?
+    if [ $status -ne 0 ]; then
+        echo "$1 exited with error: $status"
+        exit $status
+    fi
+}
+
 day=$(date +"%Y%m%d")
 test $1 && day=$1
 ver="8.0-$day"
@@ -19,10 +28,10 @@ done
 OSTYPE=`uname`
 if [[ "$OSTYPE" == "Darwin" ]]; then
   echo "********* OS is OSX"
-  fname="$ver.x86_64.dmg"
+  fname="MarkLogic-$ver-x86_64.dmg"
   url="http://root.marklogic.com/nightly/builds/macosx-64/osx-intel64-80-build.marklogic.com/HEAD/pkgs.$day/MarkLogic-8.0-$day-x86_64.dmg"
 else
-  fname="$ver.x86_64.rpm"
+  fname="MarkLogic-$ver.x86_64.rpm"
   url="http://root.marklogic.com/nightly/builds/linux64/rh6-intel64-80-test-1.marklogic.com/HEAD/pkgs.$day/MarkLogic-8.0-$day.x86_64.rpm"
 fi
 if [[ $install == 1 ]]; then
@@ -35,9 +44,11 @@ if [[ $install == 1 ]]; then
 
   status=$(curl -k --anyauth -u $user:$pass --head --write-out %{http_code} --silent --output /dev/null $url)
   if [[ $status = 200 ]]; then
-    curl -k --anyauth -u $user:$pass -o ./$fname $url
+    successOrExit curl -k --anyauth -u $user:$pass -o ./$fname $url
     mlvm stop
-    mlvm install $fname $ver
+    fname=$(pwd)/$fname
+    successOrExit mlvm install $fname # $ver
+    successOrExit mlvm use $ver
     rm -rf ./$fname
     echo "********* MarkLogic nightly $ver installed to mlvm"
   else
@@ -48,7 +59,7 @@ fi
 
 echo "********* Cleaning Up Gradle environment"
 rm -rf ./.gradle/2.1/taskArtifacts/*
-./gradlew --stop
+successOrExit ./gradlew --stop
 rm -rf ./.gradle/2.1/taskArtifacts/*
 
 echo "********* Downloading/Unpacking Seed Data"
@@ -68,14 +79,14 @@ else
   echo "*****************************************************"
 fi
 
-mlvm use $ver
-./gradlew dbteardown
-mlvm stop
-mlvm start
-./gradlew dbConfigureClean
-./gradlew clean
-./gradlew dbinit
-./gradlew dbconfigure
+successOrExit mlvm use $ver
+# ./gradlew dbteardown
+# mlvm stop
+# mlvm start
+successOrExit ./gradlew dbConfigureClean
+successOrExit ./gradlew clean
+successOrExit ./gradlew dbinit
+successOrExit ./gradlew dbconfigure
 ./gradlew test
-./gradlew dbload
+successOrExit ./gradlew dbload
 ./gradlew bootrun
