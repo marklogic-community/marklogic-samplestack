@@ -83,7 +83,7 @@ successOrExit mlvm use $ver
 # ./gradlew dbteardown
 # mlvm stop
 # mlvm start
-successOrExit ./gradlew dbConfigureClean
+# successOrExit ./gradlew dbConfigureClean
 successOrExit ./gradlew clean
 successOrExit ./gradlew dbinit
 successOrExit ./gradlew dbconfigure
