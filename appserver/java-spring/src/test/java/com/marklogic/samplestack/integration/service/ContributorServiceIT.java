@@ -65,6 +65,7 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		assertEquals("Retrieved one conributor", "cgreer@marklogic.com", contributor.getUserName());
 
 		PojoPage<Contributor> contributorPage = contributorRepository.readAll(1);
+		@SuppressWarnings("unused")
 		String firstId = contributorPage.next().getId();
 		String secondId = contributorPage.next().getId();
 		contributorPage = contributorRepository.readAll(2);

@@ -18,6 +18,7 @@ package com.marklogic.samplestack.testing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
@@ -96,7 +97,7 @@ public class ControllerTests {
 
 		MvcResult result = mockMvc
 				.perform(
-						post("/v1/login")
+						post("/v1/session")
 						//.with(csrf().asHeader())
 						.param("username", username)
 						.param("password", password))
@@ -109,7 +110,7 @@ public class ControllerTests {
 	}
 
 	protected void logout() throws Exception {
-		this.session = this.mockMvc.perform(get("/v1/logout"))
+		this.session = this.mockMvc.perform(delete("/v1/session"))
 				.andExpect(status().isOk())
 				.andReturn()
 				.getRequest().getSession();
