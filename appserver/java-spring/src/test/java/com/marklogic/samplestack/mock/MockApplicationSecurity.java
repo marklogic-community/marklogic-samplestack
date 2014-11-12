@@ -16,19 +16,14 @@
 package com.marklogic.samplestack.mock;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHandler;
+import com.marklogic.samplestack.web.security.SamplestackSecurityConfigurer;
 
 
 @EnableWebSecurity
@@ -41,53 +36,11 @@ import com.marklogic.samplestack.web.security.SamplestackAuthenticationSuccessHa
 public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private SamplestackAuthenticationSuccessHandler successHandler;
-
-	@Autowired
-	private AuthenticationFailureHandler failureHandler;
-
-	@Autowired
-	private AuthenticationEntryPoint entryPoint;
-	
-	@Autowired
-	private AccessDeniedHandler samplestackAccessDeniedHandler;
-	
-	@Autowired
-	private LogoutSuccessHandler logoutSuccessHandler;
-	
+	private SamplestackSecurityConfigurer configurer;
+		
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.authorizeRequests()
-			.antMatchers(HttpMethod.GET, 
-				"/v1/session", 
-				"/v1/questions/**", 
-				"/v1/tags/**", 
-				"/v1/contributors/**",
-				"/v1/hasVoted",
-                "/**").permitAll()
-				.and()
-		.authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/v1/search", "/v1/tags/**").permitAll()
-		.and()
-		.authorizeRequests().antMatchers("/v1/questions/**", 
-				"/v1/contributors/**")
-			.authenticated()
-		.and()
-		.authorizeRequests().anyRequest().denyAll();
-		http.formLogin()
-                .loginProcessingUrl("/v1/login")
-		        .failureHandler(failureHandler)
-				.successHandler(successHandler)
-				.permitAll().and()
-			.logout()
-                .logoutUrl("/v1/logout")
-				.logoutSuccessHandler(logoutSuccessHandler)
-				.permitAll();
-		http.csrf().disable();
-		http.exceptionHandling().authenticationEntryPoint(entryPoint)
-		.accessDeniedHandler(samplestackAccessDeniedHandler);
-		
+		configurer.configure(http);
 	}
 
 

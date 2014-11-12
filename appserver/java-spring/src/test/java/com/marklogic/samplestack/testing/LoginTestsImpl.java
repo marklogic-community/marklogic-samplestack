@@ -44,7 +44,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		// no username/password match
 		mockMvc.perform(
-				post("/v1/login")
+				post("/v1/session")
 				.with(csrf())
 				.param("username", "nobody").param("password",
 						"nopassword"))
@@ -53,7 +53,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		// bad credentials, existing user
 		mockMvc.perform(
-				post("/v1/login")
+				post("/v1/session")
 				.with(csrf())
 				.param("username", "joeUser@marklogic.com")
 						.param("password", "notJoesPassword"))
@@ -62,7 +62,7 @@ public class LoginTestsImpl extends ControllerTests {
 
 		String errorString = mockMvc
 				.perform(
-						post("/v1/login")
+						post("/v1/session")
 						.with(csrf())
 						.param("username",
 								"joeUser@marklogic.com").param("password",
