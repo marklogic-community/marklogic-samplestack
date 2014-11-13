@@ -63,7 +63,10 @@ define(['_marklogic/module'], function (module) {
         })
       };
 
-      //
+      MlSessionObject.prototype.getHttpUrl = function (httpMethod) {
+        return '/' + this.getResourceName(httpMethod);
+      };
+
       MlSessionObject.prototype.onResponsePOST = function (data) {
         delete this.password;
         this.assignData(data); // drops password

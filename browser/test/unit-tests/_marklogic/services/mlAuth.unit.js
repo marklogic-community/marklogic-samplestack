@@ -113,7 +113,7 @@ define(['testHelper'], function (helper) {
           doAuthenticate(function (session) {
             mlStore.session = null;
 
-            $httpBackend.expectGET(/\/v1\/session\/.+$/)
+            $httpBackend.expectGET(/\/v1\/session/)
                 .respond(userTemplate);
             mlAuth.restoreSession().then(
               function (session) {
@@ -132,7 +132,7 @@ define(['testHelper'], function (helper) {
           doAuthenticate(function (session) {
             mlStore.session = null;
 
-            $httpBackend.expectGET(/\/v1\/session\/.+$/)
+            $httpBackend.expectGET(/\/v1\/session/)
                 .respond(401);
             mlAuth.restoreSession().then(
               function (session) {
@@ -168,7 +168,7 @@ define(['testHelper'], function (helper) {
 
         it('should enable logout', function (done) {
           doAuthenticate(function (session) {
-            $httpBackend.expectDELETE(/\/v1\/session\/.+/).respond(200);
+            $httpBackend.expectDELETE(/\/v1\/session/).respond(200);
             mlAuth.logout().then(
               function () {
                 testSessionBadness();

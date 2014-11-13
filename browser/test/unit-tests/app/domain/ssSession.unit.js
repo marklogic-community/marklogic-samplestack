@@ -1,4 +1,4 @@
-define(['testHelper'], function (helper) {
+define(['testHelper', 'mocks/index'], function (helper, mocks) {
 
   return function () {
     describe('ssSession', function () {
@@ -21,19 +21,37 @@ define(['testHelper'], function (helper) {
         password: 'password'
       };
 
-      var validUser = {
-        'websiteUrl':'http://website.com/grechaw',
-        'reputation':0,
-        'displayName':'joeUser',
-        'aboutMe':'Some text about a basic user',
+      var validUser;
+/* jshint ignore:start */
+      validUser = {
         'id':'cf99542d-f024-4478-a6dc-7e723a51b040',
-        'location':null,
         'username':'joeUser@marklogic.com',
-        'votes':[],
         'role':[
           'SAMPLESTACK_CONTRIBUTOR'
-        ]
+        ],
+        userInfo: {
+          'aboutMe':'Twitter: [@joeuser](http://twitter.com/joeuser)\nDisclaimer: This is not me.  JoeUser _doesn\'t exist_!\n',
+          'displayName':'joeUser',
+          'id':'cf99542d-f024-4478-a6dc-7e723a51b040',
+          'originalId':null,
+          'location':'San Francisco',
+          'reputation':0,
+          'userName':'joeUser@marklogic.com',
+          'votes':[
+            '5dce8909-0972-4289-93cd-f2e8790a17fb',
+            '8450f8a4-2782-4c8a-9fd9-b83bcacc5018',
+            '3410347b-abf0-4e1a-8aa8-f153207322eb'
+          ],
+          'websiteUrl':'http://website.com/joeuser',
+          'role':[
+            'SAMPLESTACK_CONTRIBUTOR'
+          ]
+
+        }
+
+
       };
+/* jshint ignore:end */
 
       it('should validate a valid instance pre-login', function () {
         var session = ssSession.create(validCreds);
@@ -51,7 +69,7 @@ define(['testHelper'], function (helper) {
 
         // helper.setExpectCsrf($httpBackend);
         $httpBackend.expectPOST(
-          '/v1/login',
+          '/v1/session',
           function (body) {
             return body ===
                 'username=' + encodeURI(uname) + '&' +
@@ -62,7 +80,7 @@ define(['testHelper'], function (helper) {
                 'application/x-www-form-urlencoded';
             return encoded;
           }
-        ).respond(validUser);
+        ).respond(mocks.contributor);
 
         var sess = ssSession.create({
           username: uname,

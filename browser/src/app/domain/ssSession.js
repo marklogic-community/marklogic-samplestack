@@ -36,46 +36,6 @@ define(['app/module'], function (module) {
           userInfo: { $ref: 'http://marklogic.com/samplestack#contributor'}
         }
       });
-      SsSessionObject.prototype.getResourceName = function (httpMethod) {
-        switch (httpMethod) {
-          case 'POST':
-            return 'login';
-          case 'GET':
-            return 'contributors';
-          case 'DELETE':
-            return 'logout';
-          default:
-            throw new Error({
-              message: 'ssSearch does not implement ' + httpMethod,
-              cause: 'getResourceName'
-            });
-        }
-      };
-
-      SsSessionObject.prototype.getEndpointIdentifier = function (httpMethod) {
-        if (httpMethod === 'DELETE') {
-          return '';
-        }
-        else {
-          return '/' + this.id;
-        }
-      };
-
-      SsSessionObject.prototype.getResourceId = function (httpMethod) {
-        switch (httpMethod) {
-          case 'POST':
-            return 'login';
-          case 'GET':
-            return 'contributors';
-          case 'DELETE':
-            return 'logout';
-          default:
-            throw new Error({
-              message: 'ssSession does not implement ' + httpMethod,
-              cause: 'getResourceId'
-            });
-        }
-      };
 
       SsSessionObject.prototype.getHttpHeaders = function (httpMethod) {
         if (httpMethod === 'POST') {
@@ -93,23 +53,17 @@ define(['app/module'], function (module) {
             'password=' + encodeURI(this.password);
       };
 
-      SsSessionObject.prototype.getHttpMethodOverride = function (httpMethod) {
-        if (httpMethod === 'DELETE') {
-          return 'GET';
-        }
-        else {
-          return httpMethod;
-        }
-      };
-
-      SsSessionObject.prototype.onResponsePOST = function (data) {
-        delete this.password;
-        this.id = data.id;
-        this.role = data.role;
-        this.userInfo = ssContributor.create(data);
-      };
-      SsSessionObject.prototype.onResponseGET =
-          SsSessionObject.prototype.onResponsePOST;
+      SsSessionObject.prototype.onResponsePOST =
+          SsSessionObject.prototype.onResponseGET = function (data) {
+            delete this.password;
+            data = {
+              id: data.id,
+              username: data.userName,
+              role: data.role,
+              userInfo: data
+            };
+            this.assignData(data);
+          };
 
       return mlModelBase.extend('SsSessionObject', SsSessionObject);
     }

@@ -1,5 +1,5 @@
 define([
-  'testHelper'
+  'testHelper', 'mocks/index'
 ], function (helper, mocks) {
 
   return function () {
@@ -94,7 +94,7 @@ define([
           scope.session.password = 'password';
 
           // helper.setExpectCsrf($httpBackend);
-          $httpBackend.expectPOST('/v1/login').respond(validUser);
+          $httpBackend.expectPOST('/v1/session').respond(mocks.contributor);
 
           scope.authenticate();
           $httpBackend.flush();
@@ -107,7 +107,7 @@ define([
           scope.session.password = 'password';
 
           // helper.setExpectCsrf($httpBackend);
-          $httpBackend.expectPOST('/v1/login').respond(401);
+          $httpBackend.expectPOST('/v1/session').respond(401);
 
           scope.authenticate();
           $httpBackend.flush();

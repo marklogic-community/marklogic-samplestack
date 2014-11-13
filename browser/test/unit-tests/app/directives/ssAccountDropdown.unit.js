@@ -92,7 +92,7 @@ define([
         'should be able to invoke a logout',
         function () {
           $cookieStore.put('sessionId', 'test');
-          $httpBackend.expectGET('/v1/logout').respond(200);
+          $httpBackend.expectDELETE('/v1/session').respond(200);
           scope.logout();
           scope.$apply();
           $httpBackend.flush();
@@ -108,7 +108,7 @@ define([
             message.should.be.ok;
           });
           $cookieStore.put('sessionId', 'test');
-          $httpBackend.expectGET('/v1/logout').respond(500);
+          $httpBackend.expectDELETE('/v1/session').respond(500);
           scope.logout();
           scope.$apply();
           $httpBackend.flush();
