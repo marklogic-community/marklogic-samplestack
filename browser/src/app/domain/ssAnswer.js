@@ -37,12 +37,22 @@ define(['app/module'], function (module) {
         mlModelBase.object.prototype
       );
 
-      // TODO when hasVoted endpoint is working
-      // Object.defineProperty(SsAnswerObject.prototype, 'hasVoted', {
-      //   get: function () {
-      //     return this.parent.hasVotedOn(this.id);
-      //   }
-      // });
+      // Define hasVotedOn property as the return value of the parent
+      // document's hasVoted method.
+      Object.defineProperty(SsAnswerObject.prototype, 'hasVotedOn', {
+        get: function () {
+          return this.$ml.parent.hasVoted(this.id);
+        }
+      });
+
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.setVoted
+       * @description Sets answer as having been voted on.
+       */
+      SsAnswerObject.prototype.setVoted = function () {
+        this.$ml.parent.setVoted(this.id);
+      };
 
       SsAnswerObject.prototype.$mlSpec = {
         schema: mlSchema.addSchema({

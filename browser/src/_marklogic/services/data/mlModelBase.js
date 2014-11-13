@@ -205,20 +205,20 @@ define(['_marklogic/module'], function (module) {
       };
 
       MlModel.prototype.onHttpResponse = function (
-        data, httpMethod, additionalPromises
+        data, httpMethod, additionalResolves
       ) {
         switch (httpMethod) {
           case 'PUT':
-            this.onResponsePUT(data, additionalPromises);
+            this.onResponsePUT(data, additionalResolves);
             break;
           case 'DELETE':
-            this.onResponseDELETE(data, additionalPromises);
+            this.onResponseDELETE(data, additionalResolves);
             break;
           case 'POST':
-            this.onResponsePOST(data, additionalPromises);
+            this.onResponsePOST(data, additionalResolves);
             break;
           case 'GET':
-            this.onResponseGET(data, additionalPromises);
+            this.onResponseGET(data, additionalResolves);
             break;
           default:
             throw new Error(
@@ -400,16 +400,16 @@ define(['_marklogic/module'], function (module) {
         httpConfig.url = this.getBaseUrl() + httpConfig.url;
         promises.unshift($http(httpConfig));
         $q.all(promises).then(
-          function (responses) {
+          function (results) {
             self.onHttpResponse(
-              responses[0].data,
+              results[0].data,
               httpMethod,
-              responses.slice(1)
+              results.slice(1)
             );
             waiter.resolve();
           },
-          function (err) {
-            waiter.reject(err);
+          function (results) {
+            waiter.reject(results);
           }
         );
         return this;

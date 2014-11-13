@@ -17,6 +17,17 @@
     width: 58px;
   }
 
+  .ss-checked-empty {
+    background-image: url('/app/images/checkmark_empty.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50px;
+    margin-top: 5px;
+    position: relative;
+    width: 58px;
+    cursor: pointer;
+  }
+
   .ss-metadata {
     border-bottom: 1px solid #000;
   }
@@ -24,8 +35,7 @@
 
 .ss-qnadoc
 .ss-vote {
-  // background-color: #eee;
-  @extend .ss-ui-incomplete;
+  background-color: #efefef;
   border: solid 1px #ccc;
   float: left;
   height: 76px;

@@ -109,7 +109,7 @@ define(['_marklogic/module'], function (module) {
           mySignal.promise.then(
             function () {
               delete objectInstance.$ml.waiting;
-              myDeferred.resolve();
+              myDeferred.resolve(objectInstance);
             },
             function (reason) {
               objectInstance.$ml.error = reason;

@@ -118,24 +118,39 @@ define(['app/module'], function (module) {
         this.comments[this.comments.length] = ssComment.create(data, parent);
       };
 
-      // SsQnaDocObject.prototype.postconstruct = function (spec, parent) {
-      //   if (parent && parent.hasVotedOn(this.id)) {
-      //     this.$ml.hasVoted = true;
-      //   }
-      // };
-      //
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.hasVoted
+       * @description Returns whether current user has voted on this document.
+       * @returns {boolean} true or false
+       */
+      SsQnaDocObject.prototype.hasVoted = function (id) {
+        if (this.$ml.hasVoted && this.$ml.hasVoted.voteIds) {
+          return this.$ml.hasVoted.voteIds[id];
+        }
+        else {
+          return false;
+        }
+      };
 
-      // TODO when hasVoted endpoint is working
-      // SsQnaDocObject.prototype.hasVotedOn = function (id) {
-      //   return this.$ml.hasVotedObject.votes[id];
-      // };
+      // Define hasVotedOn property as the return value of the hasVoted method.
+      Object.defineProperty(SsQnaDocObject.prototype, 'hasVotedOn', {
+        get: function () {
+          return this.hasVoted(this.id);
+        }
+      });
 
-      // TODO when hasVoted endpoint is working
-      // Object.defineProperty(SsQnaDocObject.prototype, 'hasVoted', {
-      //   get: function () {
-      //     return this.hasVotedOn(this.id);
-      //   }
-      // });
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.setVoted
+       * @description Sets Qna Doc as having been voted on.
+       * @param {string} id Optional ID to set. If empty, uses this.id.
+       */
+      SsQnaDocObject.prototype.setVoted = function (id) {
+        if (this.$ml.hasVoted && this.$ml.hasVoted.voteIds) {
+          this.$ml.hasVoted.voteIds[id ? id : this.id] = true;
+        }
+      };
 
       /**
        * @ngdoc method
@@ -168,7 +183,7 @@ define(['app/module'], function (module) {
         var self = this;
 
         if (additionalPromises && additionalPromises.length) {
-          this.hasVoted = additionalPromises[0];
+          this.$ml.hasVoted = additionalPromises[0];
         }
 
         mlModelBase.object.prototype.onResponseGET.call(this, data);
@@ -197,13 +212,23 @@ define(['app/module'], function (module) {
 
       };
 
+      SsQnaDocObject.prototype.onResponsePOST = function (
+        data, additionalResolves
+      ) {
+        if (additionalResolves && additionalResolves.length) {
+          this.$ml.hasVoted = additionalResolves[0];
+        }
+
+        mlModelBase.object.prototype.onResponsePOST.call(this, data);
+      };
+
       SsQnaDocObject.prototype.getOne = function (contributorId) {
         var additionalPromises = contributorId ?
             [
               ssHasVoted.getOne({
                 contributorId: contributorId,
                 questionId: this.id
-              })
+              }).$ml.waiting
             ] :
             [];
         return this.http('GET', additionalPromises);

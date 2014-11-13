@@ -4,14 +4,14 @@ define([
   'json!./searchResponse.json',
   'json!./searchResult.json',
   'json!./ssSearchInstance.json',
-  'json!./hasVotes.json'
+  'json!./hasVoted.json'
 ], function (
   contributor,
   question,
   searchResponse,
   searchResult,
   ssSearchInstance,
-  hasVotes
+  hasVoted
 ) {
   return {
     searchResult: searchResult,
@@ -19,6 +19,6 @@ define([
     contributor: contributor,
     ssSearchInstance: ssSearchInstance,
     question: question,
-    hasVotes: hasVotes
+    hasVoted: hasVoted
   };
 });

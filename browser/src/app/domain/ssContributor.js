@@ -129,43 +129,6 @@ define(['app/module'], function (module) {
         this.assignData(data);
       };
 
-      /**
-       * @ngdoc method
-       * @name SsContributorObject#prototype.hasVotesOnQuestion
-       * @param {object} qnaDoc The {@link SsQnaDocObject} instance about
-       * which to
-       * determine voting.
-       * @description Override. Whether or not the contributor has
-       * voted on the given question.
-       */
-      SsContributorObject.prototype.hasVotedOnQuestion = function (qnaDoc) {
-        return parseVote(qnaDoc.id, this.votes, true);
-      };
-
-      /**
-       * @ngdoc method
-       * @name SsContributorObject#prototype.hasVotedOnAnswer
-       * @param {object} qnaDoc The {@link SsQnaDocObject} instance about
-       * which to
-       * determine voting.
-       * @param {object} answer The {@link SsQnaDocObject} `answer` about
-       * which to
-       * determine voting.
-       * @description Override. Whether or not the contributor has
-       * voted on the given answer.
-       */
-      SsContributorObject.prototype.hasVotedOnAnswer = function (
-        qnaDoc,
-        answer
-      ) {
-        return parseVote(
-          qnaDoc.id + answer.id,
-          this.votes,
-          true
-        );
-      };
-
-
       SsContributorObject.prototype.$mlSpec = {
         schema: mlSchema.addSchema({
           id: 'http://marklogic.com/samplestack#contributor',

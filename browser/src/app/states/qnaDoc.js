@@ -8,13 +8,17 @@ define(['app/module'], function (module) {
     'ssQnaDoc',
     'ssAnswer',
     'ssComment',
+    'ssVote',
+    'ssAcceptedAnswer',
     function (
       $scope,
       marked,
       appRouting,
       ssQnaDoc,
       ssAnswer,
-      ssComment
+      ssComment,
+      ssVote,
+      ssAcceptedAnswer
     ) {
 
       $scope.setLoading(true);
@@ -31,18 +35,41 @@ define(['app/module'], function (module) {
           function () {
             $scope.doc = doc;
             $scope.setLoading(false);
+
+           /**
+            * @ngdoc method
+            * @name $scope.canVoteQuestion
+            * @description Returns whether current user can vote on
+            * the question associated with the QnaDoc.
+            * @returns {boolean} true or false
+            */
             $scope.canVoteQuestion = function () {
               if (!$scope.store.session) {
                 return false;
               }
-              return $scope.doc.hasVoted !== true;
+              return !$scope.doc.hasVotedOn;
             };
 
+           /**
+            * @ngdoc method
+            * @name $scope.canVoteAnswer
+            * @description Returns whether current user can vote on
+            * an answer associated with the QnaDoc.
+            * @param {ssAnswer} answer The ssAnswer object.
+            * @returns {boolean} true or false
+            */
             $scope.canVoteAnswer = function (answer) {
               if (!$scope.store.session) {
                 return false;
               }
-              return answer.hasVoted !== true;
+              return !answer.hasVotedOn;
+            };
+
+            $scope.canAcceptAnswer = function (answer) {
+              if (!$scope.store.session) {
+                return false;
+              }
+              return $scope.store.session.id === $scope.doc.owner.id;
             };
 
             $scope.showQuestionComment = false;
@@ -137,6 +164,45 @@ define(['app/module'], function (module) {
             if (error.status === 401) {
               $scope.setLocalError(
                 'User does not have permission to post comments'
+              );
+            }
+            else {
+              throw new Error('Error occurred: ' + JSON.stringify(error));
+            }
+          });
+        }
+      };
+
+      $scope.vote = function (val, item) {
+        var vote = ssVote.create({upDown: val}, item);
+        if (vote.$ml.valid) {
+          vote.post().$ml.waiting.then(function () {
+            // Do nothing more on success
+          },
+          function (error) {
+            if (error.status === 400) {
+              $scope.setLocalError(
+                error.data.message
+              );
+            }
+            else {
+              throw new Error('Error occurred: ' + JSON.stringify(error));
+            }
+          });
+        }
+      };
+
+      $scope.accept = function (answer) {
+        window.console.log('Accept: ' + answer.id);
+        var acceptedAnswer = ssAcceptedAnswer.create({}, answer);
+        if (acceptedAnswer.$ml.valid) {
+          acceptedAnswer.post().$ml.waiting.then(function () {
+            // Do nothing more on success
+          },
+          function (error) {
+            if (error.status === 400) {
+              $scope.setLocalError(
+                error.data.message
               );
             }
             else {

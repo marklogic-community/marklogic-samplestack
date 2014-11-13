@@ -26,7 +26,7 @@ define([
       };
 
       it(
-        'on GET, ssHasVotes should have a voteIds object property',
+        'on GET, ssHasVotes should have voteIds with ID keys and true vals',
         function (done) {
           var url = '/v1/hasVoted?' +
                     'contributorId=' + contributorId +
@@ -35,7 +35,11 @@ define([
           var hasVoted = ssHasVoted.create(spec);
           hasVoted.getOne().$ml.waiting.then(
             function (data) {
-              expect(hasVoted.voteIds).to.be.object;
+              var convHasVotes = {};
+              angular.forEach(validHasVotes, function (value, index) {
+                convHasVotes[value] = true;
+              });
+              expect(hasVoted.voteIds).to.deep.equal(convHasVotes);
               done();
             }
           );
