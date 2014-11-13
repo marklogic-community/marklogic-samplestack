@@ -265,10 +265,11 @@ self = module.exports = {
     }
 
     var argsArray = process.argv.slice(2).concat('--as-child');
-
+    argsArray.unshift('node_modules/gulp/bin/gulp.js');
+    console.log(argsArray);
     console.log('SPAWN GULP');
     gulpChild = childProcess.spawn(
-      'gulp',
+      'node',
       argsArray,
       { stdio: 'inherit' }
     );
