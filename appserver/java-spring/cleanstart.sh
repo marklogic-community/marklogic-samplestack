@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# runs command from parameters and exits with the eoror code of the command
+# if it fails
 function successOrExit {
     "$@"
     local status=$?
@@ -9,36 +11,44 @@ function successOrExit {
     fi
 }
 
+OSTYPE=`uname`
+if [[ "$OSTYPE" == "Darwin" ]]; then
+else
+  echo "!********* This script only runs on OSX"
+  exit 1
+fi
+
+# find today
 day=$(date +"%Y%m%d")
+# if the user passed a day string as a param then use it instead
 test $1 && day=$1
+# make a version number out of the date
 ver="8.0-$day"
 
 echo "********* Will be using MarkLogic nightly $ver"
 
+# find installed versions of MarkLogic
 mlvmVers=($(mlvm list))
+# assume we'll have to install
 install=1
 for i in "${mlvmVers[@]}"
 do
   if [[ "$i" == "$ver" ]]; then
+    # we found that we've already installed the version we want
     echo "********* Existing MLVM installation of $ver found; skipping download/install"
+    # therefore we use it rather than downloading/installing a new build
     install=0
   fi
 done
 
-OSTYPE=`uname`
-if [[ "$OSTYPE" == "Darwin" ]]; then
-  echo "********* OS is OSX"
-  fname="MarkLogic-$ver-x86_64.dmg"
-  url="http://root.marklogic.com/nightly/builds/macosx-64/osx-intel64-80-build.marklogic.com/HEAD/pkgs.$day/MarkLogic-8.0-$day-x86_64.dmg"
-else
-  fname="MarkLogic-$ver.x86_64.rpm"
-  url="http://root.marklogic.com/nightly/builds/linux64/rh6-intel64-80-test-1.marklogic.com/HEAD/pkgs.$day/MarkLogic-8.0-$day.x86_64.rpm"
-fi
+# fetch/install ML nightly
 if [[ $install == 1 ]]; then
+  fname="MarkLogic-$ver-x86_64.dmg"
+  url="http://root.marklogic.com/nightly/builds/macosx-64/osx-intel64-80-build.marklogic.com/HEAD/pkgs.$day/$fname"
   echo "********* Downloading MarkLogic nightly $ver"
 
   echo "********* Enter user for root.marklogic.com"
-  read -s user
+  read user
   echo "********* Enter password for $user on root.marklogic.com"
   read -s pass
 
@@ -49,7 +59,7 @@ if [[ $install == 1 ]]; then
     fname=$(pwd)/$fname
     successOrExit mlvm install $fname # $ver
     successOrExit mlvm use $ver
-    rm -rf ./$fname
+    successOrExit rm -rf $fname
     echo "********* MarkLogic nightly $ver installed to mlvm"
   else
     echo "CANNOT DOWNLOAD: status = $status for date $day (URL=\"$url\")"
@@ -58,35 +68,33 @@ if [[ $install == 1 ]]; then
 fi
 
 echo "********* Cleaning Up Gradle environment"
+# get rid of cruft
 rm -rf ./.gradle/2.1/taskArtifacts/*
+# stop gradle daemons if any are running
 successOrExit ./gradlew --stop
+# get rid of cruft (again) -- belt and suspenders
 rm -rf ./.gradle/2.1/taskArtifacts/*
 
 echo "********* Downloading/Unpacking Seed Data"
+# wipe out seed data
 rm -rf ../../database/seed-data
+# fetch compressed
 curl -k -L -o seed.tgz http://developer.marklogic.com/media/gh/seed-data1.3.tgz -o seed.tgz
+# unpack
 tar -zxf seed.tgz -C ../..
+# remove compressed file
 rm -rf seed.tgz
 
+#stop ml if running
 mlvm stop
-if [[ "$OSTYPE" == "Darwin" ]]; then
-  echo "********* Reinitializing MarkLogic Installation"
-  rm -rf ~/Library/Application\ Support/MarkLogic/Data
-else
-  echo "*****************************************************"
-  echo "I don't know where linux ML stores data directory!!!!"
-  echo "Thus, not wiping out existing ML data"
-  echo "*****************************************************"
-fi
-
+# use the correct version and start the server
 successOrExit mlvm use $ver
-# ./gradlew dbteardown
-# mlvm stop
-# mlvm start
-# successOrExit ./gradlew dbConfigureClean
+
+# "normal" gradle steps to make it run
+successOrExit ./gradlew dbteardown
 successOrExit ./gradlew clean
 successOrExit ./gradlew dbinit
 successOrExit ./gradlew dbconfigure
-./gradlew test
+./gradlew test # failure is an option
 successOrExit ./gradlew dbload
-./gradlew bootrun
+./gradlew bootrun # we don't wait for completion, "this is the end"
