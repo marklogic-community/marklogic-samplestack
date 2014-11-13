@@ -27,6 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.marklogic.samplestack.domain.Contributor;
+import com.marklogic.samplestack.security.ClientRole;
+import com.marklogic.samplestack.service.ContributorService;
 
 /**
  * Controller to provide initial session information to the browser,
@@ -38,6 +44,12 @@ public class SessionController {
 	@Autowired
 	private JsonHttpResponse errors;
 
+	@Autowired 
+	private ObjectMapper mapper;
+
+	@Autowired 
+	private ContributorService contributorService;
+
 	/**
 	 * Exposes endpoint that returns CSRF token information and a session for use in login.
 	 * @param request The Http Request.
@@ -45,17 +57,39 @@ public class SessionController {
 	 * @return A JsonNode with bare-bones acknowledgement.
 	 */
 	@RequestMapping(value = "v1/session", method = RequestMethod.GET)
-	public @ResponseBody JsonNode hello(HttpServletRequest request,
+	public @ResponseBody JsonNode getSession(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+		// not logged in
+		if (ClientRole.securityContextRole() == ClientRole.SAMPLESTACK_GUEST)  {
+			CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
 
-		String headerName = csrfToken.getHeaderName();
-		String token = csrfToken.getToken();
-		HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(
-				response);
+			if (csrfToken == null) {
+				return errors.makeJsonResponse(400, "Getting unauthenticated session requires _csrf attribute");
+			}
+			else {
+				String headerName = csrfToken.getHeaderName();
+				String token = csrfToken.getToken();
+				HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(
+						response);
 
-		responseWrapper.addHeader(headerName, token);
-		return errors.makeJsonResponse(200, "New Session");
+				responseWrapper.addHeader(headerName, token);
+				return errors.makeJsonResponse(200, "New Session");
+			}
+		}
+		else {
+			ObjectNode userNode;
+			String userName = ClientRole.securityContextUserName();
+			Contributor contributor = contributorService.getByUserName(userName);
+			if (contributor != null) {
+				userNode = mapper.convertValue(contributor, ObjectNode.class);
+			} else {
+				userNode = mapper.createObjectNode();
+				userNode.put("userName", userName);
+			}
+			ArrayNode roleNode = userNode.putArray("role");
+			roleNode.add(ClientRole.securityContextRole().toString());
+			return userNode;
+		}
 	}
 }

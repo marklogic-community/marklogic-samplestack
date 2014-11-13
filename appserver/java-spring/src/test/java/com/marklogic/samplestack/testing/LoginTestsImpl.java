@@ -27,6 +27,7 @@ import java.util.Locale;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -82,13 +83,24 @@ public class LoginTestsImpl extends ControllerTests {
 	public void loginNormalFlow() throws Exception {
 
 		JsonNode loginNode = login("joeUser@marklogic.com", "joesPassword");
-		
+
 		String userRole = loginNode.get("role").get(0).asText();
 		assertEquals("joe's role is CONTRIBUTOR", "SAMPLESTACK_CONTRIBUTOR", userRole);
 
 		String description = loginNode.get("displayName").asText();
 		assertEquals("got joe's profile iformation from database", description, Utils.joeUser.getDisplayName());
-		
+
+		MvcResult result = 
+				mockMvc.perform(
+						get("/v1/session").session((MockHttpSession) session))
+						//.with(csrf().asHeader())
+						.andExpect(status().isOk()).andReturn();
+
+		String stringResult = result.getResponse().getContentAsString();
+		JsonNode sessionNode = mapper.readValue(stringResult, JsonNode.class);;
+		logger.debug("SESSINO NODE: " + stringResult);
+		assertEquals(loginNode.get("id"), sessionNode.get("id"));
+	
 		assertNotNull(session);
 
 		mockMvc.perform(

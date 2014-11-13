@@ -329,11 +329,11 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		
 		int objectIndex = 0;
 		JsonNode reputations = responseNode.findPath("reputations");
-		
+
 		while (docPage.hasNext()) {
 			// the matching document, as returned by extract-document-data specifiation
 			ObjectNode documentResult = (ObjectNode) docPage.nextContent(new JacksonHandle()).get();
-			
+
 			// each owner in the doc needs a reputation from the reputation map
 			// and for the snippet to be embedded
 			for (JsonNode ownerNode : documentResult.findValues("owner")) {
@@ -345,9 +345,9 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 					owner.put("reputation", 0);
 				}
 			}
-			
+
 			ObjectNode thisResult = (ObjectNode) results.get(objectIndex);
-			
+
 			// TODO this all should be extractable server-side, but
 			// I ran into issues with extract-document-data (10/15/2014)
 			ObjectNode newContent = thisResult.putObject("content");

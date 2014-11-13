@@ -81,9 +81,9 @@ public class SamplestackAuthenticationSuccessHandler extends
 				response);
 		Writer writer = responseWrapper.getWriter();
 		String userName = ClientRole.securityContextUserName();
-		
+
 		ObjectNode userNode;
-		
+
 		Contributor contributor = contributorService.getByUserName(userName);
 		if (contributor != null) {
 			userNode = mapper.convertValue(contributor, ObjectNode.class);
