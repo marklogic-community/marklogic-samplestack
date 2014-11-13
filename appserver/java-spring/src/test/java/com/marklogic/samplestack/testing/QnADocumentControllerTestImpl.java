@@ -438,4 +438,17 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.size());
 	}
 
+
+	public void badUrlCommentThrows404() throws Exception {
+		login("joeUser@marklogic.com", "joesPassword");
+		this.mockMvc
+				.perform(
+						post("/v1/questions/soqnotaquestion22138139/answers/soa22141114/comments")
+								.with(csrf())
+								.session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{\"text\":\"no comment.\"}"))
+				.andExpect(status().isNotFound());
+	}
+
 }
