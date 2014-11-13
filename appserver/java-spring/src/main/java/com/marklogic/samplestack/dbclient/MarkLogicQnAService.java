@@ -134,6 +134,8 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 		question.updateLastActivityDate();
 		question.setAcceptedAnswerId(null);
 		question.setOwner(user.asSparseContributor());
+		question.setComments(new Comment[0]);
+		question.setAnswers(new Answer[0]);
 
 		JsonNode jsonNode = mapper.convertValue(question, JsonNode.class);
 		jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).write(
