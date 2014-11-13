@@ -120,6 +120,7 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 	@Test
 	public void commentOnAnswer() throws Exception {
 		super.commentOnAnswer();
+		super.badUrlCommentThrows404();
 	}
 
 	@Override

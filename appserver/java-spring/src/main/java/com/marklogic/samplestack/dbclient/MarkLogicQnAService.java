@@ -62,6 +62,7 @@ import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.domain.SparseContributor;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackIOException;
+import com.marklogic.samplestack.exception.SamplestackNotFoundException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
@@ -460,6 +461,9 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements QnAServ
 
 		// TODO speed up with values call
 		QnADocument qnaDocument = getByPostId(postId);
+		if (qnaDocument == null) {
+			throw new SamplestackNotFoundException();
+		}
 		String qnaDocumentId = qnaDocument.getId();
 		String documentUri = uriFromId(qnaDocumentId);
 
