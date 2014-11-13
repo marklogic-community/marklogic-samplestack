@@ -40,31 +40,49 @@ var targets =  {
 var self;
 var gulpChild;
 
+var closeServer = function (server, cb) {
+  try {
+    server.close(function () {
+      cb();
+    });
+  }
+  catch (err) {
+    cb();
+  }
+};
+
 process.on('SIGINT', function () {
   if (self.isChildProcess()) {
     // as a child process, this is a real worker, so close the servers and
     // get out
-    self.closeActiveServers();
-    setTimeout(function () {
+    self.closeActiveServers(function () {
       process.exit(0);
-    }, 10);
+    });
   }
   else {
     console.log('\n\nExiting...');
     // as the parent process, a SIGINT means close both the child and the self
     if (gulpChild) {
-      gulpChild.kill('SIGINT');
+      // this message will eventually get things cleaned up and then exit
+      gulpChild.on('exit', function () {
+        process.exit(0);
+      });
     }
-    process.exit(0);
+    else {
+      // no chid process means we weren't really doing anything anyway
+      process.exit(0);
+    }
   }
 });
 
 self = module.exports = {
   errorHandler: function (err) {
+    console.log(err.stack);
     // console.log('errorHandler');
     self.hadErrors = true;
     $.util.log(
-      $.util.colors.red('Error:\n\n') + err.toString().trim() + '\n'
+      $.util.colors.red('Error:\n\n') + err.toString().trim() + '\n' +
+      err.stack + '\n'
     );
     if (self.watchTaskCalled && !self.rebuildOnNext) {
       $.util.log('[' + chalk.cyan('watch') + '] ' +
@@ -111,17 +129,17 @@ self = module.exports = {
     }
   },
 
-  closeActiveServers: function () {
-    var serverKey;
-    for (serverKey in activeServers) {
-      var server = activeServers[serverKey];
-      try {
-        server.close();
-      } catch (err) {
-        console.log('while closing ' + serverKey + ':\n' + err.toString());
-      }
-      delete activeServers[serverKey];
-    }
+  closeActiveServers: function (cb) {
+    var async = require('async');
+    async.parallel(
+      // make an array of functions that are bound to close each
+      // server in activeServers (and thus attempt close them all in parallel)
+      _.map(activeServers, function (server) {
+        return closeServer.bind(null, server);
+      }),
+      // when all have called back, call back the caller
+      cb
+    );
   },
 
   setActiveServer: function (key, server) {
@@ -248,6 +266,7 @@ self = module.exports = {
 
     var argsArray = process.argv.slice(2).concat('--as-child');
 
+    console.log('SPAWN GULP');
     gulpChild = childProcess.spawn(
       'gulp',
       argsArray,

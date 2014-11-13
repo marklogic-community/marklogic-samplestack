@@ -37,15 +37,41 @@ var defaults = {
     e2eLcov: 'browser/reports/e2e'
   },
 
+  // TODO: set ML account and read credentials from secure env vars
+  sauceCredentials: {
+    user: 'stu-salsbury',
+    accessKey: '094e6e3e-d1a8-4db9-a222-462d5b5b685c'
+  },
+
+  // TODO: fix broken browsers
+  //
+  // from Gaurav, these are what we *want* to test on
+  // app osxchrome 37
+  // app osx FF32
+  // Win 7 Chrome 37
+  // Win 7 FF 32
+  // Win 7 IE9
+
+
 /* jshint ignore:start */
   sauceBrowsers: {
+    'win7-chrome-37': { platform: 'Windows 7', browserName: 'chrome', version: '37', deviceName: '' },
+    'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
+    'win7-ie-9': { platform: 'Windows 7', browserName: 'internet explorer', version: '9', deviceName: '' },
+    'linux-chrome-37': { platform: 'Linux', browserName: 'chrome', version: '37', deviceName: '' },
+    'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.9-chrome-37': { platform: 'OS X 10.9', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' }
+  },
+
+  sauceBrowsersOther: {
     'win7-chrome-33': { platform: 'Windows 7', browserName: 'chrome', version: '33', deviceName: '' },
     'win7-chrome-38': { platform: 'Windows 7', browserName: 'chrome', version: '38', deviceName: '' },
     'win7-firefox-22': { platform: 'Windows 7', browserName: 'firefox', version: '22', deviceName: '' },
     'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
-    // 'win7-ie-9': { platform: 'Windows 7', browserName: 'internet explorer', version: '9', deviceName: '' },
-    // 'win7-ie-10': { platform: 'Windows 7', browserName: 'internet explorer', version: '10', deviceName: '' },
-    'win7-ie-11': { platform: 'Windows 7', browserName: 'internet explorer', version: '11', deviceName: '' },
+    'win7-ie-9': { platform: 'Windows 7', browserName: 'internet explorer', version: '9', deviceName: '' },
+    'win7-ie-10': { platform: 'Windows 7', browserName: 'internet explorer', version: '10', deviceName: '' },
+    // 'win7-ie-11': { platform: 'Windows 7', browserName: 'internet explorer', version: '11', deviceName: '' },
     // 'win7-opera-11': { platform: 'Windows 7', browserName: 'opera', version: '11', deviceName: '' },
     // 'win7-opera-12': { platform: 'Windows 7', browserName: 'opera', version: '12', deviceName: '' },
     // 'win8-ie-10': { platform: 'Windows 8', browserName: 'internet explorer', version: '10', deviceName: '' },
@@ -65,6 +91,8 @@ var defaults = {
     'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' },
     // 'osx10.9-safari-7': { platform: 'OS X 10.9', browserName: 'safari', version: '7', deviceName: '' },
   },
+
+  // TODO: verify this list
   supportedBrowsers: [
     'linux-chrome-33',
     'linux-firefox-22',
