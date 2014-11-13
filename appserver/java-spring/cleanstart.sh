@@ -12,11 +12,12 @@ function successOrExit {
 }
 
 OSTYPE=`uname`
-if [[ "$OSTYPE" == "Darwin" ]]; then
-else
+if [[ "$OSTYPE" -ne "Darwin" ]]; then
   echo "!********* This script only runs on OSX"
   exit 1
 fi
+
+command -v mlvm >/dev/null 2>&1 || { echo >&2 "!********* This script requires mlvm"; exit 1; }
 
 # find today
 day=$(date +"%Y%m%d")
