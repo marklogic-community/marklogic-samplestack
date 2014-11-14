@@ -197,9 +197,10 @@ var refireWatchFunc = function () {
         chalk.yellow(
           'restarting watch'
         ));
-    ctx.closeActiveServers();
+    ctx.closeActiveServers(function () {
+      watchTaskFunc();
+    });
     ctx.rebuildOnNext = true;
-    watchTaskFunc();
   }
 };
 
