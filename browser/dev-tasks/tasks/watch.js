@@ -60,7 +60,7 @@ function lrSetup (port, glob, name, fileRelativizer, cb) {
         name: name, // 'reload-watch',
         emitOnGlob: false,
         emit: 'one',
-        silent: true
+        verbose: false
       }
     )
     .on('data', function (file) {
@@ -122,7 +122,7 @@ var watchTaskFunc = function (cb) {
       name: 'watch',
       emitOnGlob: false,
       emit: 'one',
-      silent: true
+      verbose: false
     },
     function (file, gulpWatchCb) {
       file.pipe($.util.buffer(function (err, files) {
@@ -214,7 +214,7 @@ var setProcessWatch = function () {
     name: 'processWatch',
     emitOnGlob: false,
     emit: 'one',
-    silent: true
+    verbose: false
   }, function (file, gulpWatchCb) {
     console.log(
       chalk.yellow('saw change to project structure... restarting gulp')
