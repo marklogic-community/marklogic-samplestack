@@ -88,19 +88,16 @@ define(['app/module'], function (module) {
         '$state',
         '$stateParams',
         '$location',
-        '$window',
         'initialize',
         function (
-          $rootScope, $state, $stateParams, $location, $window, initialize
+          $rootScope, $state, $stateParams, $location,initialize
         ) {
 
-          $rootScope.$on('$locationChangeSuccess',function () {
-            $window.scrollTo(0, 0);
-          });
-
-          $rootScope.setLoading = function (isLoading) {
-            $rootScope.loading = isLoading;
-          };
+          // this was rescrolling the window. Not clear why we were doing this
+          // but we certainly don't want to do it each and every time.
+          // $rootScope.$on('$locationChangeSuccess',function () {
+          //   $window.scrollTo(0, 0);
+          // });
           $rootScope.$on('$stateChangeSuccess', function () {
             $rootScope.clearLocalError();
           });

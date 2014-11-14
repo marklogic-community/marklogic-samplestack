@@ -12,10 +12,12 @@ define(['app/module'], function (module) {
   module.factory('initialize', [
     '$rootScope',
     '$log',
+    '$window',
     'marked',
     function (
       $rootScope,
       $log,
+      $window,
       marked
     ) {
       $rootScope.log = function () {
@@ -33,6 +35,10 @@ define(['app/module'], function (module) {
       };
       $rootScope.clearLocalError = function () {
         $rootScope.localError = null;
+      };
+
+      $rootScope.setLoading = function (isLoading) {
+        $rootScope.loading = isLoading;
       };
       return {};
     }
