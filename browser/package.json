@@ -62,7 +62,7 @@
     "mocha-sauce": "0.0.3",
     "open": "^0.0.5",
     "phantomjs": "^1.9.12",
-    "protractor": "angular/protractor#master",
+    "protractor": "^1.4.0",
     "q": "^1.0.1",
     "request": "^2.47.0",
     "sauce-connect-launcher": "^0.8.1",
