@@ -27,7 +27,7 @@ var defaults = {
   // port on which to listen for/serve the messages
   liveReloadPorts: {
     webApp: 35730,
-    unitCoverage: 357301
+    unitCoverage: 35731
   },
 
   // not yet usec
