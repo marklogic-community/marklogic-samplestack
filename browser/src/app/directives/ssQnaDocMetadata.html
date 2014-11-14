@@ -20,7 +20,12 @@
       target="_blank"
     >{{soUserName()}}</a>
     <span ng-if="noValidUser()">SEED</span>
-    [{{doc.owner.reputation || 'SEED' }}]
+    [<span
+      ng-if="validReputation()"
+    >{{doc.owner.reputation}}</span><span
+      ng-if="!validReputation()"
+      class="ss-incomplete"
+    >unimplemented</span>]
   </div>
 </div>
 <span ng-if="docType == 'comment'">

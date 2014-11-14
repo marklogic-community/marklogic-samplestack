@@ -2,17 +2,25 @@
 
   <header>
     <button type="button" ng-click="cancel()">&times;</button>
-    <h4>Locally-created account details</h4>
+    <h4>Samplestack account details</h4>
   </header>
 
   <div ng-if="contributor">
     <div>
-      <label>Display Name:&nbsp;</label>
+      <label>Display name:&nbsp;</label>
       <span class="ss-contributor-display-name"
       >{{contributor.displayName}}</span>
     </div>
-    <div><label>Account Type:&nbsp;</label>Contributor</div>
-    <div><label>Date Created:&nbsp;</label>(we don't have this data)</div>
+    <div>
+        <label>Votes cast:</label>
+        <span class="ss-contributor-votes-cast"
+        >{{contributor.votes.length}}</span>
+      </div>
+      <div>
+        <label>Reputation:</label>
+        <span class="ss-contributor-reputation"
+        >{{contributor.reputation}}</span>
+      </div>
   </div>
 
   <div ng-if="!contributor">

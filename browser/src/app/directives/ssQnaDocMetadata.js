@@ -81,6 +81,13 @@ define(['app/module'], function (module) {
                 }
               };
 
+              // Is reputation valid?
+              scope.validReputation = function () {
+                var valid = scope.doc.owner.reputation !== undefined
+                            && scope.doc.owner.reputation >= 0;
+                return valid;
+              };
+
               scope.goTag = function (tag) {
                 appRouting.go(
                   'root.layout.explore.results',

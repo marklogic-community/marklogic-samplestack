@@ -1,24 +1,24 @@
 <span class="ss-account-dropdown dropdown">
-  <a href="" class="dropdown-toggle ss-user-info-display-name"
-  >
-    {{store.session.userInfo.displayName}}
-    [{{store.session.userInfo.reputation}}]
-  </a>
+  <a href="" class="dropdown-toggle ss-user-info-display-name-reputation"
+  >{{store.session.userInfo.displayName}}
+    [{{store.session.userInfo.reputation}}]</a>
   <ul class="dropdown-menu ss-account-dropdown">
     <li>
       <div class="">
-        <strong>About Me:</strong>
-        <span class="ss-user-info-about-me"
-        >{{store.session.userInfo.aboutMe}}</span>
+        <strong>Display name:</strong>
+        <span class="ss-user-info-display-name"
+        >{{store.session.userInfo.displayName}}</span>
       </div>
       <div>
-        <strong>Website:</strong>
-        <a
-          class="ss-user-info-website-url"
-          href="{{store.session.websiteUrl}}"
-          target="_blank"
-        >{{store.session.userInfo.websiteUrl}}</a>
-      </dii>
+        <strong>Votes cast:</strong>
+        <span class="ss-user-info-votes-cast"
+        >{{store.session.userInfo.votes.length}}</span>
+      </div>
+      <div>
+        <strong>Reputation:</strong>
+        <span class="ss-user-info-reputation"
+        >{{store.session.userInfo.reputation}}</span>
+      </div>
       <div>
         <button ng-click="logout()">
           Logout

@@ -77,14 +77,14 @@ define([
           };
           scope.$apply();
           angular.element(
-            el[0].querySelector('.ss-user-info-about-me')
-          ).text().should.equal(validUser.aboutMe);
-          angular.element(
             el[0].querySelector('.ss-user-info-display-name')
-          ).text().should.contain(validUser.displayName);
+          ).text().should.equal(validUser.displayName);
           angular.element(
-            el[0].querySelector('.ss-user-info-website-url')
-          ).text().should.equal(validUser.websiteUrl);
+            el[0].querySelector('.ss-user-info-votes-cast')
+          ).text().should.contain(validUser.votes.length);
+          angular.element(
+            el[0].querySelector('.ss-user-info-reputation')
+          ).text().should.equal(String(validUser.reputation));
         }
       );
 
