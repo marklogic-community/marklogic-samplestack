@@ -44,13 +44,14 @@ var noLogTask = function (logArgs) {
  * that the next version of gulp will have a cleaner way to manage logging.
  */
 console.log = function () {
-  if (noLogTask(arguments)) {
+  var args = Array.prototype.slice.call(arguments);
+  if (noLogTask(args)) {
     return;
   }
-  if (arguments[1] && arguments[1].match(/Using gulpfile/)) {
+  if (args[1] && args[1].match(/Using gulpfile/)) {
     return;
   }
-  consoleLogOrig.apply(console, arguments);
+  consoleLogOrig.apply(console, args);
 };
 
 // loop the tasks and assign them into the gulp process

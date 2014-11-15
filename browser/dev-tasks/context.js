@@ -39,6 +39,7 @@ var targets =  {
 
 var self;
 var gulpChild;
+var closing = false;
 
 var closeServer = function (server, cb) {
   var closed = false;
@@ -136,35 +137,42 @@ self = module.exports = {
     }
   },
 
+  closeServer: closeServer,
+
   closeActiveServers: function (callback) {
-    var async = require('async');
-    async.parallel(
-      // make an array of functions that are bound to close each
-      // server in activeServers (and thus attempt close them all in parallel)
-      _.map(activeServers, function (server, key) {
-        return function (cb) {
-          $.util.log(chalk.green('shutting down ' + key));
-          var closed = false;
-          setTimeout(function () {
-            if (!closed) {
-              $.util.log(chalk.yellow(
-                'No exit event from ' + key + '. Proceeding with exit...'
-              ));
-              cb();
-            }
-          }, 10000);
-          closeServer(server, function (err) {
-            cb(err);
-            closed = true;
-          });
-        };
-      }),
-      // when all have called back, call back the caller
-      function () {
-        activeServers = null;
-        callback();
-      }
-    );
+    if (!closing) {
+      closing = true;
+
+      var async = require('async');
+      async.parallel(
+        // make an array of functions that are bound to close each
+        // server in activeServers (and thus attempt close them all in parallel)
+        _.map(activeServers, function (server, key) {
+          return function (cb) {
+            $.util.log(chalk.green('shutting down ' + key));
+            var closed = false;
+            setTimeout(function () {
+              if (!closed) {
+                $.util.log(chalk.yellow(
+                  'No exit event from ' + key + '. Proceeding with exit...'
+                ));
+                cb();
+              }
+            }, 10000);
+            closeServer(server, function (err) {
+              cb(err);
+              closed = true;
+            });
+          };
+        }),
+        // when all have called back, call back the caller
+        function () {
+          activeServers = null;
+          closing = false;
+          callback();
+        }
+      );
+    }
   },
 
   setActiveServer: function (key, server) {
@@ -272,7 +280,7 @@ self = module.exports = {
       var httpServer = require('http').createServer(app);
       httpServer.listen(port,'0.0.0.0');
 
-      self.setActiveServer(port, httpServer);
+      self.setActiveServer('istanbul', httpServer);
     }
   },
 
