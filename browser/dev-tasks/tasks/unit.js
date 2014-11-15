@@ -8,6 +8,8 @@ var chalk = require('chalk');
 
 var mochaReporter = 'dot';
 
+process.env['NO_DEPRECATION'] = 'express';
+
 module.exports = [{
   name: 'unit',
   deps: ['build'],
