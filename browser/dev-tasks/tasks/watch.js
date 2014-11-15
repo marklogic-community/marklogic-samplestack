@@ -45,9 +45,8 @@ function writeWatchMenu () {
 }
 
 function refireWatchTask (servers) {
-  ctx.closeActiveServers();
   ctx.rebuildOnNext = false;
-  gulp.start('watch');
+  ctx.closeActiveServers(gulp.start.bind(null, 'watch'));
 }
 
 function lrSetup (port, glob, name, fileRelativizer, cb) {
@@ -189,20 +188,20 @@ var watchTaskFunc = function (cb) {
   );
 
 };
-
-var refireWatchFunc = function () {
-  if (ctx.amWatching) {
-    ctx.amWatching = false;
-    $.util.log('[' + chalk.cyan('watch') + '] ' +
-        chalk.yellow(
-          'restarting watch'
-        ));
-    ctx.closeActiveServers(function () {
-      watchTaskFunc();
-    });
-    ctx.rebuildOnNext = true;
-  }
-};
+//
+// var refireWatchFunc = function (cb) {
+//   if (ctx.amWatching) {
+//     ctx.amWatching = false;
+//     $.util.log('[' + chalk.cyan('watch') + '] ' +
+//         chalk.yellow(
+//           'restarting watch'
+//         ));
+//     ctx.closeActiveServers(function () {
+//       ctx.rebuildOnNext = true;
+//       watchTaskFunc(cb);
+//     });
+//   }
+// };
 
 var setProcessWatch = function () {
   var watcher = $.watch([
@@ -220,15 +219,16 @@ var setProcessWatch = function () {
     console.log(
       chalk.yellow('saw change to project structure... restarting gulp')
     );
-    ctx.closeActiveServers();
     gulpWatchCb();
+    // ctx.closeActiveServers(function () {
     ctx.restartChild();
+    // });
   });
+  ctx.setActiveServer('processWatcher', watcher);
   watcher.on('error', function (e) {
     console.log('watcher error: ' + e.toString());
   });
 
-  ctx.setActiveServer('processWatcher', watcher);
 
 };
 

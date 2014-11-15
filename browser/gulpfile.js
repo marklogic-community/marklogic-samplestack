@@ -59,7 +59,7 @@ for (taskName in tasks) {
   gulp.task(taskName, tasks[taskName].deps, tasks[taskName].func);
 }
 
-if (!ctx.isChildProcess()) {
+if (!ctx.parentPid()) {
   gulp.seq = [];
   gulp._resetAllTasks();
   gulp.reset();

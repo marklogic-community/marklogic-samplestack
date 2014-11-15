@@ -59,7 +59,7 @@ var closeServer = function (server, cb) {
 };
 
 process.on('SIGINT', function () {
-  if (self.isChildProcess()) {
+  if (self.parentPid()) {
     // as a child process, this is a real worker, so close the servers and
     // get out
     self.closeActiveServers(function () {
@@ -67,13 +67,13 @@ process.on('SIGINT', function () {
     });
   }
   else {
-    console.log('\n\nExiting...');
     // as the parent process, a SIGINT means close both the child and the self
     if (gulpChild) {
       // this message will eventually get things cleaned up and then exit
       gulpChild.on('exit', function () {
         process.exit(0);
       });
+      gulpChild.kill('SIGINT');
     }
     else {
       // no chid process means we weren't really doing anything anyway
@@ -109,7 +109,7 @@ self = module.exports = {
     reportsDir: reportsDir,
 
     src: 'src',
-    unit: 'test/unit-tests',
+    unit: path.normalize('test/unit-tests'),
     builds: 'builds',
     buildsRoot: path.join(rootDir, 'builds'),
     buildDir: path.join(rootDir, targets.build),
@@ -136,7 +136,7 @@ self = module.exports = {
     }
   },
 
-  closeActiveServers: function (cb) {
+  closeActiveServers: function (callback) {
     var async = require('async');
     async.parallel(
       // make an array of functions that are bound to close each
@@ -160,7 +160,10 @@ self = module.exports = {
         };
       }),
       // when all have called back, call back the caller
-      cb
+      function () {
+        activeServers = null;
+        callback();
+      }
     );
   },
 
@@ -277,21 +280,40 @@ self = module.exports = {
     return argv._[0] || 'default';
   },
 
-  isChildProcess: function () {
-    return argv.asChild;
+  parentPid: function () {
+    return argv.parentPid;
   },
 
-  restartChild: function () {
-    if (gulpChild) {
-      gulpChild.kill('SIGINT');
-    }
 
-    var argsArray = process.argv.slice(2).concat('--as-child');
-    argsArray.unshift('node_modules/gulp/bin/gulp.js');
-    gulpChild = childProcess.spawn(
-      'node',
-      argsArray,
-      { stdio: 'inherit' }
-    );
+  restartChild: function () {
+    var start = function () {
+      var argsArray = process.argv.slice(2);
+      gulpChild = childProcess.fork(
+        path.resolve(
+          __dirname, '../node_modules/gulp/bin/gulp.js'
+        ),
+        argsArray.concat('--parent-pid=' + process.pid),
+        { cwd: process.cwd() }
+      );
+
+      gulpChild.on('message', function (m) {
+        if (m.restartChild) {
+          self.restartChild();
+        }
+      });
+    };
+
+    if (self.parentPid()) {
+      process.send( {'restartChild': true });
+    }
+    else {
+      if (gulpChild) {
+        gulpChild.on('exit', start);
+        gulpChild.kill('SIGINT');
+      }
+      else {
+        start();
+      }
+    }
   }
 };

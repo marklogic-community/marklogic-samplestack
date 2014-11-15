@@ -21,9 +21,11 @@ module.exports = [{
       // test harness automation
       runUnit({ reporter: mochaReporter }, function () {
         if (!ctx.watchTaskCalled) {
-          ctx.closeActiveServers();
+          ctx.closeActiveServers(cb);
         }
-        cb();
+        else {
+          cb();
+        }
       });
     }
   }
