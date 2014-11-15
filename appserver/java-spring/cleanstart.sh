@@ -88,12 +88,18 @@ rm -rf ./.gradle/2.1/taskArtifacts/*
 #
 #stop ml if running
 mlvm stop
+
+echo "********* Reinitializing MarkLogic Installation"
+rm -rf ~/Library/Application\ Support/MarkLogic/Data
+
 # use the correct version and start the server
 successOrExit mlvm use $ver
 
 # "normal" gradle steps to make it run
-successOrExit ./gradlew dbteardown
+# successOrExit ./gradlew dbteardown
 successOrExit ./gradlew clean
+successOrExit ./gradlew seedDataFetch
+successOrExit ./gradlew seedDataExtract
 successOrExit ./gradlew dbinit
 successOrExit ./gradlew dbconfigure
 ./gradlew test # failure is an option
