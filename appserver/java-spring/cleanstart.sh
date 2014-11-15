@@ -76,16 +76,16 @@ successOrExit ./gradlew --stop
 # get rid of cruft (again) -- belt and suspenders
 rm -rf ./.gradle/2.1/taskArtifacts/*
 
-echo "********* Downloading/Unpacking Seed Data"
-# wipe out seed data
-rm -rf ../../database/seed-data
-# fetch compressed
-curl -k -L -o seed.tgz http://developer.marklogic.com/media/gh/seed-data1.3.tgz -o seed.tgz
-# unpack
-tar -zxf seed.tgz -C ../..
-# remove compressed file
-rm -rf seed.tgz
-
+# echo "********* Downloading/Unpacking Seed Data"
+# # wipe out seed data
+# rm -rf ../../database/seed-data
+# # fetch compressed
+# curl -k -L -o seed.tgz http://developer.marklogic.com/media/gh/seed-data1.3.tgz -o seed.tgz
+# # unpack
+# tar -zxf seed.tgz -C ../..
+# # remove compressed file
+# rm -rf seed.tgz
+#
 #stop ml if running
 mlvm stop
 # use the correct version and start the server
