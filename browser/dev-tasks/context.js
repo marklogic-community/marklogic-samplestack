@@ -280,7 +280,7 @@ self = module.exports = {
       var httpServer = require('http').createServer(app);
       httpServer.listen(port,'0.0.0.0');
 
-      self.setActiveServer('istanbul', httpServer);
+      self.setActiveServer(port, httpServer);
     }
   },
 
