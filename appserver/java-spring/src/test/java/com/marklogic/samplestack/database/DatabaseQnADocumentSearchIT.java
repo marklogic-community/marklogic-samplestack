@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.eclipse.jetty.util.log.Log;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -40,6 +39,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.dbclient.Clients;
 import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.dbclient.MarkLogicQnAService;
+import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
@@ -123,8 +123,15 @@ public class DatabaseQnADocumentSearchIT {
 		queryNode.put("qtext", "tag:test-data-tag");
 		ObjectNode results = qnaService.rawSearch(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, null, false);
-		assertEquals("Logged-in user sees all docs", results.get("results")
-				.size(), 11);
+		assertEquals("Logged-in user sees all docs in page", results.get("results")
+				.size(), 10);
+	}
+
+	@Test
+	public void testSingleGetTransform() throws JsonProcessingException {
+		QnADocument doc = qnaService.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, "01600486-60ea-4557-bcfc-9c10b06fb8cd");
+		logger.debug("Transformed doc: " + mapper.writeValueAsString(doc.getJson()));
+		assertEquals("Reuptation must be there on a get doc", 0, doc.getJson().get("owner").get("reputation").asLong());
 	}
 
 	@SuppressWarnings("unused")

@@ -16,6 +16,7 @@
 package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -144,15 +146,17 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		assertEquals("question returned contains original question",
 				"Mary's Question Number 0",
 				askedQuestion.getJson().get("title").asText());
-		
-		this.mockMvc
+
+		MvcResult result = this.mockMvc
 		.perform(
 				get("/v1/questions/" + askedQuestion.getId())
 						.with(csrf())
 						.session((MockHttpSession) session))
-						.andExpect(status().isOk()).andReturn().getResponse()
-						.getContentAsString();	
-		
+						.andExpect(status().isOk()).andReturn();	
+
+		JsonNode questionNode = mapper.readValue(result.getResponse().getContentAsString(), JsonNode.class);
+		logger.debug(mapper.writeValueAsString(questionNode));
+		assertNotNull("Missing Reputation on single question response", questionNode.get("owner").get("reputation"));
 	}
 
 	/* (non-Javadoc)
