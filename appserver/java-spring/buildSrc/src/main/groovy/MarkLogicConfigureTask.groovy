@@ -110,7 +110,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
             def params = [:]
             if (transformFileName.endsWith("sjs")) {
-                params.contentType = "application/vnd.marklogic-javascript";
+                params.contentType = "application/javascript";
             } else {
                 params.contentType = "application/xquery"
             }
@@ -131,7 +131,11 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
         def params = [:]
-        params.contentType = "application/xquery"
+        if (extensionFileName.endsWith("sjs")) {
+            params.contentType = "application/vnd.marklogic-javascript";
+        } else {
+            params.contentType = "application/xquery"
+        }
         params.body = extension.text
         put(client,params)
     }

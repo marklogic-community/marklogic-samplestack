@@ -117,7 +117,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		// first step -- send question to the server, get back results
 		// TODO expand this first step.
 		service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
-
+		
 	
 		newQuestion = Utils.newQuestion();
 		

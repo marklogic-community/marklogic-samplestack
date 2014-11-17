@@ -10,7 +10,8 @@
     "owner": {
         "displayName": "ioudas",
         "id": "169797",
-        "userName": "joeUser@marklogic.com"
+        "userName": "joeUser@marklogic.com",
+        "reputation":0
     },
     "tags": [
         "php",

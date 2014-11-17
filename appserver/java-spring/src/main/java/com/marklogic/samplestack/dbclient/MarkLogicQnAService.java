@@ -263,9 +263,18 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 	}
 
 	@Override
+	/** This method gets a document for deliver
+	 * to the REST endpoint.  
+	 * Since it needs users' reputation as part of the 
+	 * payload it invokes s transform to add it.
+	 */
 	public QnADocument get(ClientRole role, String id) {
-		logger.debug(id);
-		JsonNode json = getJsonDocument(role, uriFromId(id));
+		logger.debug("Fetching document with ID " + id);
+		ServerTransform transform = new ServerTransform("single-question");
+		JacksonHandle handle = new JacksonHandle();
+		JacksonHandle jacksonHandle = clients.get(role).newJSONDocumentManager()
+				.read(uriFromId(id), null, handle, transform);
+		JsonNode json = jacksonHandle.get();
 		QnADocument question = new QnADocument((ObjectNode) json);
 		return question;
 	}
@@ -344,6 +353,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 
 		JacksonHandle responseHandle = new JacksonHandle();
 		docMgr.setSearchView(QueryView.ALL);
+		docMgr.setPageLength(SamplestackConstants.RESULTS_PAGE_LENGTH);
 
 		DocumentPage docPage = null;
 		try {
