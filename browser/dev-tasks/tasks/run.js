@@ -25,13 +25,14 @@ module.exports = [{
   name: 'run',
   deps: ['build', 'unit'],
   func: function (cb) {
+    var adds = ctx.options.addresses;
 
     // TODO: these should be started where needed, not by this task
-    // startServer(h.targets.build, 3000);
-    // startServer(h.targets.unit, 3001);
-    // startIstanbulServer(h.targets.unit, 3004);
+    ctx.startServer(ctx.paths.targets.build, adds.webApp.port);
+    ctx.startServer(ctx.paths.targets.unit, adds.unitRunner.port);
+    ctx.startIstanbulServer(ctx.paths.targets.unit, adds.unitCoverage.port);
 
-    cb();
+    // cb();
     writeRunMenu();
   }
 }];
