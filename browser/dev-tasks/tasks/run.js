@@ -10,7 +10,7 @@ var writeRunMenu = function () {
   // TODO: parameterize addresses
   message = '\n\n' + ten +
       '--> ' + chalk.magenta('BUILD server') + ' : ' +
-      chalk.bold.blue(ctx.options.addresses.appServer.href) +
+      chalk.bold.blue(ctx.options.addresses.webApp.href) +
       '\n' + ten +
       '--> ' + chalk.magenta('UNIT TESTS') + '   : ' +
       chalk.bold.blue(ctx.options.addresses.unitRunner.href) +
