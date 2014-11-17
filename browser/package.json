@@ -60,6 +60,7 @@
     "mkdirp": "^0.5.0",
     "mocha-phantomjs": "^3.5.1",
     "mocha-sauce": "0.0.3",
+    "node-sass": "1.0.3",
     "open": "^0.0.5",
     "phantomjs": "1.9.11",
     "protractor": "^1.4.0",
