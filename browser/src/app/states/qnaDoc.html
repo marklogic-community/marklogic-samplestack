@@ -6,11 +6,10 @@
 
   <header class="ss-question-title">
     <h3>Q: {{ doc.title }}</h3>
-    <div class="ss-so-link">
-      <a href="http://stackoverflow.com/questions/{{doc.originalId}}" target="_blank">
-        [stackoverflow link]
+      <!-- link out to SO for docs with originalId -->
+      <a ng-if="doc.originalId" href="http://stackoverflow.com/questions/{{doc.originalId}}" target="_blank">
+        <div class="ss-so-link"></div>
       </a>
-    </div>
   </header>
 
   <section class="ss-question">
