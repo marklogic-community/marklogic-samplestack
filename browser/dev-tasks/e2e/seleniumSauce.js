@@ -9,12 +9,19 @@ var sauceProcess;
 
 var sauceStart = function (args, cb) {
   ctx.seleniumStarted = false;
+
+  if (
+    !ctx.options.sauceCredentials.user ||
+        !ctx.options.sauceCredentials.accessKey
+  ) {
+    return cb(new Error('Missing SauceLabs credentials'));
+  }
+
   sauceConnectLauncher({
     username: ctx.options.sauceCredentials.user,
-    //'stu-salsbury',
-    accessKey: ctx.options.sauceCredentials.accessKey,
+    accessKey: ctx.options.sauceCredentials.accessKey
   }, function (err, sauceConnectProcess) {
-    if (err) { return cb(err); }
+    if (err) { return cb(new Error(err)); }
     sauceProcess = sauceConnectProcess;
     process.stdout.write('\n');
 

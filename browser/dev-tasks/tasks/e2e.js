@@ -70,12 +70,12 @@ var middleTierStart = function (cb) {
 
 
 myTasks.push({
-  name: 'selenium',
+  name: 'selenium-start',
   func: seleniumStart
 });
 
 myTasks.push({
-  name: 'middle-tier',
+  name: 'middle-tier-start',
   func: middleTierStart
 });
 
@@ -87,7 +87,7 @@ var protractorRun = function (cb) {
 
 myTasks.push({
   name: 'e2e',
-  deps: ['build', 'selenium', 'middle-tier'],
+  deps: ['build', 'selenium-start', 'middle-tier-start'],
   func: function (cb) {
     try {
       ctx.startServer(

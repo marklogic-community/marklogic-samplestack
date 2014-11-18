@@ -38,15 +38,20 @@ var ptorConfig = {
 var go = function (args, cb) {
   if (args.sauce) {
     var multiCapabilities;
-    if (args.sauce === 'brief') {
+    if (args.sauce === true || args.sauce === 'supported') {
       multiCapabilities = _.values(
         _.pick(ctx.options.sauceBrowsers, function (cap, key) {
-          return ctx.options.briefSauceBrowers[key] !== undefined;
+          return ctx.options.supportedBrowsers.indexOf(key) >= 0;
         })
       );
     }
     else {
-      multiCapabilities = _.values(ctx.options.sauceBrowsers);
+      if (args.sauce === 'all') {
+        multiCapabilities = _.values(ctx.options.sauceBrowsers);
+      }
+      else {
+        multiCapabilities = ctx.options.sauceBrowsers[args.sauce];
+      }
     }
     _.each(multiCapabilities, function (cap) {
       cap['idle-timeout'] = 360;
@@ -64,6 +69,7 @@ var go = function (args, cb) {
       'ie': 'internet explorer',
       'chrome': 'chrome',
       'ff': 'firefox',
+      'phantomjs': 'phantomjs',
     };
     ptorConfig.capabilities.browserName = browsers[args.browser];
     ptorConfig.seleniumAddress = ctx.getActiveServer('selenium').url.href;
@@ -75,10 +81,11 @@ var go = function (args, cb) {
     ptorConfig.cucumberOpts.format = 'json';
   }
 
-  var ptorString = JSON.stringify(ptorConfig);
+  var ptorString = JSON.stringify(ptorConfig, null, ' ');
   ptorString = 'exports.config = ' + ptorString + ';\n';
   var confPath = path.join(__dirname, 'protractor.conf');
   fs.writeFileSync(confPath, ptorString);
+
 
   var ptorPath = path.resolve(__dirname, '../../node_modules/protractor' +
       '/bin/protractor');
@@ -88,62 +95,6 @@ var go = function (args, cb) {
   cucumberParser.handle(args, ptorConfig, ptorProc, cb);
 };
 
-    //
-    //
-    //
-    //
-    //
-    //
-    // console.log('ok so far');
-    //
-    // // $.util.log('begin ' + chalk.magenta(browserName));
-    //
-    // if (args.toFile) {
-    //   var toFilePath;
-    //
-    //   toFilePath =  path.resolve(
-    //     ctx.paths.reportsDir,
-    //     'e2e/',
-    //     args.middleTier,
-    //     'testy'
-    //   );
-    //   switch (args.reporter) {
-    //     case 'xunit':
-    //       toFilePath += '.xml';
-    //       break;
-    //     case 'json':
-    //       toFilePath += '.json';
-    //       break;
-    //     default:
-    //       toFilePath += '.log';
-    //       break;
-    //   }
-    //   require('mkdirp').sync(path.dirname(toFilePath));
-    //
-    //   ptorConfig.resultJsonOutputFile = toFilePath;
-    // }
-    // try {
-    //   console.log(JSON.stringify(ptorConfig));
-    //   runner.run().then(
-    //     function complete (exitCode) {
-    //       $.util.log(chalk.green('finished'));
-    //       cb();
-    //       process.exit();
-    //     },
-    //     function failed (exitCode) {
-    //       $.util.log(chalk.red(
-    //         'protractor runner failed with exit code ' +
-    //         exitCode
-    //       ));
-    //       cb(exitCode);
-    //     }
-    //   );
-    // }
-    // catch (err) {
-    //   cb(err);
-    // }
-    //
-    //
 module.exports = {
   go: go
 };
