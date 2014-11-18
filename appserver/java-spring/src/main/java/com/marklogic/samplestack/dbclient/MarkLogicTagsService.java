@@ -48,6 +48,7 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements TagsSe
 			valdef.setQueryDefinition(qdef);
 		}
 		queryManager.setPageLength(pageLength);
+		valdef.setAggregate("count");
 		JacksonHandle responseHandle = queryManager.values(valdef, new JacksonHandle(), start);
 		return (ObjectNode) responseHandle.get();
 	}

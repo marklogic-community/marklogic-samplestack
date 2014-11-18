@@ -117,7 +117,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		// first step -- send question to the server, get back results
 		// TODO expand this first step.
 		service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
-
+		
 	
 		newQuestion = Utils.newQuestion();
 		
@@ -389,7 +389,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		
 		ObjectNode structuredQuery = getTestJson("queries/blank.json");
 		// test view-all
-		ObjectNode jsonResults = service.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1, true);
+		ObjectNode jsonResults = service.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1, null, true);
 		logger.info(mapper.writeValueAsString(jsonResults));
 		assertTrue("Blank query got back results", jsonResults.get("results")
 				.size() > 0);

@@ -1,5 +1,6 @@
 {
     "options": {
+        "additional-query": "<directory-query xmlns='http://marklogic.com/cts'><uri>/questions/</uri></directory-query>",
         "constraint": [
             {
                 "name": "userName",
@@ -49,6 +50,13 @@
                 "json-property": "title"
             }
         },
+        "extract-document-data": {
+            "extract-path": [
+                "/array-node('answers')",
+                "/array-node('comments')"
+            ],
+            "selected": "exclude"
+        },
         "operator": {
             "name": "sort",
             "state": [
@@ -83,21 +91,14 @@
                 "apply": "all-results"
             }
         },
-        "extract-document-data":{
-            "selected":"all"
-        },
-        "extract-metadata": {
-            "json-property":"owner"
-        },
-        "values":[
+        "values": [
             {
-                "name":"lastActivityDate",
-                "range":{
-                    "type":"xs:dateTime",
-                    "json-property":"lastActivityDate"
+                "name": "lastActivityDate",
+                "range": {
+                    "json-property": "lastActivityDate",
+                    "type": "xs:dateTime"
                 }
             }
-        ],
-        "additional-query" : "<directory-query xmlns='http://marklogic.com/cts'><uri>/questions/</uri></directory-query>"
+        ]
     }
 }

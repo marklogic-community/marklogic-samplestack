@@ -91,10 +91,10 @@ assemble.dependsOn(dbInit, dbConfigure, test)
  * FETCH SEED DATA
  */
 task seedDataFetch(type: MarkLogicFetchTask) {
-    url = "http://developer.marklogic.com/media/gh/seed-data1.3.tgz"
+    // url = "http://developer.marklogic.com/media/gh/seed-data1.3.tgz"
+    url = "file:///home/cgreer/third_party/seed-data1.4.tgz"
     destFile = file("${buildDir}/seed.tgz")
     outputs.file destFile
- // url "file:///home/cgreer/third_party/seed-1.4.dev.tgz"
 }
 seedDataFetch.dependsOn(processResources)
 

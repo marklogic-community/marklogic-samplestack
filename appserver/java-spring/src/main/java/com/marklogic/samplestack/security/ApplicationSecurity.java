@@ -61,14 +61,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	 */
 	protected void configure(AuthenticationManagerBuilder authManagerBuilder)
 			throws Exception {
-
-		authManagerBuilder.ldapAuthentication()
-
-		.userDnPatterns("uid={0},ou=people", "uid={0},ou=apps")
-				.groupSearchBase("ou=groups").contextSource()
-				.ldif("classpath:samplestack-ds.ldif")
-				.root("dc=samplestack,dc=org");
-
+		configurer.ldapConfiguation(authManagerBuilder);
 	}
 
 }

@@ -26,6 +26,7 @@
         "values": [
             {
                 "name": "tags",
+                "aggregate":{"apply":"count"},
                 "range": {
                     "json-property": "tags",
                     "type": "xs:string"
