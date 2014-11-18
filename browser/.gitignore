@@ -1,7 +1,7 @@
 .sass-cache
 bower_components
 builds/*
+credentials.js
 !builds/README.md
 node_modules
 npm-debug.log
-.credentials.js
