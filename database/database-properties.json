@@ -20,30 +20,6 @@
     {
       "collation":"http://marklogic.com/collation/",
       "invalid-values":"reject",
-      "localname":"postId",
-      "namespace-uri":"",
-      "range-value-positions":false,
-      "scalar-type":"string"
-    },
-    {
-      "collation":"http://marklogic.com/collation/",
-      "invalid-values":"reject",
-      "localname":"parentId",
-      "namespace-uri":"",
-      "range-value-positions":false,
-      "scalar-type":"string"
-    },
-    {
-      "collation":"http://marklogic.com/collation/",
-      "invalid-values":"reject",
-      "localname":"creationYearMonth",
-      "namespace-uri":"",
-      "range-value-positions":false,
-      "scalar-type":"string"
-    },
-    {
-      "collation":"http://marklogic.com/collation/",
-      "invalid-values":"reject",
       "localname":"lastActivityDate",
       "namespace-uri":"",
       "range-value-positions":false,
@@ -69,6 +45,22 @@
       "collation":"http://marklogic.com/collation/",
       "invalid-values":"reject",
       "localname":"voteCount",
+      "namespace-uri":"",
+      "range-value-positions":false,
+      "scalar-type":"long"
+    },
+    {
+      "collation":"http://marklogic.com/collation/",
+      "invalid-values":"reject",
+      "localname":"answerCount",
+      "namespace-uri":"",
+      "range-value-positions":false,
+      "scalar-type":"long"
+    },
+    {
+      "collation":"",
+      "invalid-values":"reject",
+      "localname":"reputation",
       "namespace-uri":"",
       "range-value-positions":false,
       "scalar-type":"long"

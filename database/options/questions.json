@@ -31,6 +31,22 @@
                 }
             },
             {
+                "name": "votes",
+                "range": {
+                    "facet": "false",
+                    "json-property": "voteCount",
+                    "type": "xs:long"
+                }
+            },
+            {
+                "name": "answers",
+                "range": {
+                    "facet": "false",
+                    "json-property": "answerCount",
+                    "type": "xs:long"
+                }
+            },
+            {
                 "name": "tag",
                 "range": {
                     "facet": "true",
