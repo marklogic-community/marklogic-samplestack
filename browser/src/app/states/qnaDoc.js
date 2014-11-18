@@ -69,11 +69,30 @@ define(['app/module'], function (module) {
               ($scope.store.session.userInfo.id !== answer.owner.id);
             };
 
+           /**
+            * @ngdoc method
+            * @name $scope.canAcceptAnswer
+            * @description Returns whether current user can accept
+            * an answer associated with the QnaDoc.
+            * @param {ssAnswer} answer The ssAnswer object.
+            * @returns {boolean} true or false
+            */
             $scope.canAcceptAnswer = function (answer) {
               if (!$scope.store.session) {
                 return false;
               }
               return $scope.store.session.id === $scope.doc.owner.id;
+            };
+
+           /**
+            * @ngdoc method
+            * @name $scope.canAnswer
+            * @description Returns whether current user can submit
+            * an answer to the QnaDoc.
+            * @returns {boolean} true or false
+            */
+            $scope.canAnswer = function (answer) {
+              return $scope.store.session;
             };
 
             $scope.showQuestionComment = false;

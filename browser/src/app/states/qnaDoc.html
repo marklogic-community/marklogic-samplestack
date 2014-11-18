@@ -155,14 +155,19 @@
       <header>
         <h3>Your Answer</h3>
       </header>
+      <div ng-if="!canAnswer()">
+        You must log in to submit an answer to this question.
+      </div>
       <!-- final empty answer used for new answer -->
-      <div
-        ss-markdown-editor
-        content="doc.answers[doc.answers.length - 1].text"
-      ></div>
-      <button ng-click="saveAnswer(doc.answers[doc.answers.length - 1])">
-        Post Your Answer
-      </button>
+      <div ng-if="canAnswer()">
+        <div
+          ss-markdown-editor
+          content="doc.answers[doc.answers.length - 1].text"
+        ></div>
+        <button ng-click="saveAnswer(doc.answers[doc.answers.length - 1])">
+          Post Your Answer
+        </button>
+      </div>
     </section>
 
   </section>
