@@ -193,7 +193,7 @@ define(['app/module'], function (module) {
       };
 
       $scope.accept = function (answer) {
-        window.console.log('Accept: ' + answer.id);
+        // window.console.log('Accept: ' + answer.id);
         var acceptedAnswer = ssAcceptedAnswer.create({}, answer);
         if (acceptedAnswer.$ml.valid) {
           acceptedAnswer.post().$ml.waiting.then(function () {
