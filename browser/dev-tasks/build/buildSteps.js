@@ -106,7 +106,7 @@ module.exports = {
       .pipe(helper.fs.src, path.join(srcDir, '**/*.scss'))
       .pipe($.sass, sassParams)
       .pipe($.tap, function (file) {
-        file.base = file.base.replace(/\/src/, '');
+        file.base = file.base.replace(/[\/\\]src/, '');
       });
 
     return stream.pipe($.if('**/*.scss', sassPipe()));

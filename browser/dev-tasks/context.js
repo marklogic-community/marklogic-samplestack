@@ -32,9 +32,9 @@ var projectRoot = path.resolve(__dirname, '../..');
 var reportsDir = path.resolve(projectRoot, 'reports');
 
 var targets =  {
-  build: 'builds/built',
-  unit: 'builds/unit-tester',
-  dist: 'builds/dist'
+  build: path.normalize('builds/built'),
+  unit: path.normalize('builds/unit-tester'),
+  dist: path.normalize('builds/dist')
 };
 
 var self;
@@ -187,7 +187,7 @@ self = module.exports = {
   },
 
 
-  startServer: function (path, port, html5) {
+  startServer: function (filePath, port, html5) {
     if (!self.getActiveServer(port)) {
       var connect = require('connect');
       var serveStatic = require('serve-static');
@@ -216,7 +216,7 @@ self = module.exports = {
       }
 
       var listener = server
-        .use(serveStatic(path, {redirect: false}))
+        .use(serveStatic(path.normalize(filePath), {redirect: false}))
         .listen(port, '0.0.0.0');
 
       listener.on('error', function (err) {

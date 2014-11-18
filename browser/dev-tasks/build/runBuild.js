@@ -58,7 +58,7 @@ module.exports = function (stream) {
   var srcStream = doClone.cloned;
   srcStream = srcStream.pipe($.tap(
     function (file) {
-      file.path = file.path.replace(/src\//, '');
+      file.path = file.path.replace(/src[\/\\]/, '');
     }
   ));
   srcStream = srcStream.pipe(rebaser(ctx.paths.buildDir));
@@ -68,8 +68,8 @@ module.exports = function (stream) {
   var unitStream = stream;
   unitStream = unitStream.pipe($.tap(
     function (file) {
-      file.path = file.path.replace(/src\//, '');
-      file.path = file.path.replace(/unit\//, '');
+      file.path = file.path.replace(/src[\/\\]/, '');
+      file.path = file.path.replace(/unit[\/\\]/, '');
     }
   ));
   unitStream = unitStream.pipe(rebaser(ctx.paths.unitDir));
