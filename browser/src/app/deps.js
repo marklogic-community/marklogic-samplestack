@@ -56,6 +56,7 @@ define(
     'ui-router',
     'state-helper',
     'ui-bootstrap',
+    'highcharts',
     'highcharts-ng',
     'angular-marked',
     'angular-sanitize',

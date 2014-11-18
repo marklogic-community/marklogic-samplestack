@@ -1,4 +1,4 @@
-define(['app/module', 'highcharts'], function (module, Highcharts) {
+define(['app/module'], function (module) {
 
   /* jshint ignore:start */
 
