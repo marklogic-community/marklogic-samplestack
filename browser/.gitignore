@@ -4,3 +4,4 @@ builds/*
 !builds/README.md
 node_modules
 npm-debug.log
+.credentials.js
