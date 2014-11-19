@@ -49,7 +49,6 @@ as document-node() {
                       then map:put($object, "owner", $owner-with-reputation)
                       else map:put($object, "owner", 
                       map:new((
-                          map:entry("NEW", "NEW"),
                           map:entry("id", ($root/owner/id, "N/A")[1] ), 
                           map:entry("originalId", $root/owner/originalId ),
                           map:entry("reputation", ($root/owner/reputation, 0)[1] ),
