@@ -32,7 +32,8 @@ The following instructions should allow you:
 * build it and run its unit tests;
 * visit the application in the browser;
 * (re)run the unit tests in the browser;
-* review the code-coverage report for the unit tests.
+* review the code-coverage report for the unit tests;
+* execute and report on end-to-end tests of the 3-tiered application
 
 ### One-Time Prerequisites Setup
 
@@ -114,6 +115,41 @@ marklogic-samplestack/browser> gulp watch
 In many cases, watch mode also causes a browser tab/window that is on app, the coverage report or the online documentation to be updated automatically via "Live Reload".  Not all browsers will support this.
 
 MacOS users, please see the note below about your watched files limit. If you don't follow the instructions it presents, you may get errors when you enter watch mode.
+
+## End-To-End Testing
+
+End-to-end testing involves building the entire application (database, middle-tier and browser application), putting it in run-mode, and executing tests specifically designed to evaluate the functionality as a whole.
+
+There are many moving parts to end-to-end testing of a three-tiered application. If any one of them, including the test environment(s) themselves isn't working perfectly, it will be apparent from the end-to-end testing (subject, of course, to specific tests being written to test features).
+
+Such tests are set up by automating the process of getting things running, then (again, automatically) launching a browser (or browsers) and "pretending" to be
+a human being using the application.
+
+Selenium a server that is used to drive browsers, and web driver is a protocol that is used by Selenium to do that. End-to-end tests make requests to selenium in order to execute specific operations in the browser and to find out what is displayed at any given time.
+
+"OpenSauce" is a service that is made available for free by SauceLabs for open source software testing using *their* farm of machines with browsers and selenium instances, accessible in the cloud.
+
+Samplestack is configured to either run Selenium locally or to access SauceLabs.
+
+`gulp e2e` is the command that is used to execute end-to-end tests.  There are several flags which control how the tests are executed.
+
+* `--browser=[ie | ff | chrome | phantomjs]`: e.g. `browser=ie`. Used to specify a browser to launch **locally** along with an automatically launched local Selenium server. You must have Java installed to run Selenium. The default value is `chrome`.
+* `--sauce[={platorm-key} | =all | =supported(s)]`: specifies a specifc platform or set of platforms on which to execute tests remotely using SauceLabs. To run these tests, you must supply credentials. See `browser/credentials.js` for information on configuring Sauce credentials. The list of browser/operating system combinations that will be run if you specify "all" or "supported" is listed in `browser/options.js`. Any of the browsers configured to be runnable in that file may also be specified individually by key, e.g. `--sauce=win7-ie-10`. If both the `--browser` and `--sauce` flags are set, the task will fail. If `--sauce` is specified with no platform, then it is equivalent to `--sauce=supported`.
+* `--middle-tier=[java | external]`. If `java` is specified, then the middle tier automation code will be controlled by the task, such that a clean install of the Java middle-tier and database configuration will be performed and the middle tier will be started.  On the contrary, if `external` is specified, then the task will assume that a middle tier server and database have already been configured and launched and are listening on port 8090. The default is `external`.
+
+A couple of examples:
+
+```bash
+gulp e2e # or gulp e2e --middle-tier=external --browser=chrome
+```
+
+Runs the tests against locally installed Chrome with automatically configured local Selenium server, assuming the middle-tier has been launched in a separate process, and prints the results to the console.
+
+```bash
+gulp e2e --middle-tier=java --sauce
+```
+
+This is **almost** the command that will be used by MarkLogic's nigthly regression system. It configures the MarkLogic server, launches the middle tier and executes the test suite against the list of supported browsers. It does not yet write to files and thus is not consumable by the test harness.
 
 ## npm install Errors
 
