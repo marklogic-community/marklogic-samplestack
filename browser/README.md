@@ -47,14 +47,20 @@ Use npm, which should be installed with node.js, to install them:
 (from-anywhere)> npm install -g gulp
 ```
 
+##### Note on Elevated Privileges
+
 **If you see errors** running either of the *install* commands above, you may
-need escalated privileges. Many installations of node are configured such that installation of global components requires admin privileges.  If you receive permissions based errors running these commands, please either use an elevated command prompt in Windows or prefix the commands with `sudo` on \*nix-based operating systems (including Mac OSX).
+need escalated privileges. Many installations of node are configured such that installation of global components requires admin privileges.  If you receive permissions-based errors running these commands, please use elevated privileges to run them.  
+
+*In \*nix-based operating systems* (including Mac OSX), this can be accomplished by prefixing the commands with `sudo`.
+
+In Windows, one way to do this is to launch a `Command Prompt` with elevated privileges by right-clicking it from the Start Menu as selecting `"Run as Administrator"` and then executing the commands.
 
 ### Installing the Webapp
 
 The first time you want to run the webapp, please follow these directions.  Also repea them any time you pull down an updated version of Samplestack from Github, as the dependencies which these steps install may have changed.
 
-We are installing various node.js utilities that are used in the build, and we are installing various browser libraries that are used by the webapp itself.  These command *should not* require elevated privileges.
+We are installing various node.js utilities that are used in the build, and we are installing various browser libraries that are used by the webapp itself.  These command *should not* require elevated privileges. *Unless you **really know** why you're doing so*, **do not** use `sudo` or an elevated shell to execute them.
 
 *From the marklogic-samplestack directory:*
 
@@ -66,19 +72,17 @@ marklogic-samplestack/browser> bower install
 
 **If you get this far without errors, your Samplestack browser installation is complete.**
 
-If npm install gives you errors, you may have a version of npm which was not reliable.  Try updating npm before rerunning the above install commands
-
-> ```
-> from-anywhere> npm update -g npm
-> ```
+If npm install gives you errors, see [npm install errors](#npm-install-errors) below.
 
 On Mac OSX, if you get errors coming from the ~/.npm directory, please do the
 following:
 
 ```
-rm -rf ~/.npm
+sudo chown -R $(whoami) ~/.npm
+npm cache clean
 mkdir ~/.npm
 ```
+to seize ownership of that directory and clean the cache,
 and then re-run `npm install`.
 
 ## Build, Unit Test, Run
@@ -93,7 +97,7 @@ From here, you are presented with a menu that points to three web servers, in or
 
 * **BUILD server: http://localhost:3000**: This is the built application. Unlike the other services presented in the list, this one, the app itself, depends on the middle-tier application to be fully functional. See the [main Samplestack README](../README.md) for notes on using the application.
 * **UNIT TESTS: http://localhost:3001/unit-runner.html**: While the unit tests are executed *during* the build, they are not individually reported. This link allows you to re-run them in a web browser at any time, to see the individual test results, and even to expand each line item to see the code that comprsises each test.
-* **COVERAGE: http://localhost:3002/coverage**: This is a report of the code coverage of unit test.  You can drill down into each part of the webapp by clicking on the rows of the report. As you drill down into individual files, you will see line-by-line color coding that represents how/if a given line or branch of the code has been executed by the unit tests.  **This is also a very handy way to browse the code itself.**
+* **COVERAGE: http://localhost:3002/coverage**: This is a report of the code coverage of unit tests.  You can drill down into each part of the webapp by clicking on the rows of the report. As you drill down into individual files, you will see line-by-line color coding that represents how/if a given line or branch of the code has been executed by the unit tests.  **This is also a very handy way to browse the code itself.**
 
 Once you have the webapp running, please see the instructions in the [main README](../README.md) for login credentials and other end-user usage notes.
 
@@ -111,7 +115,15 @@ In many cases, watch mode also causes a browser tab/window that is on app, the c
 
 MacOS users, please see the note below about your watched files limit. If you don't follow the instructions it presents, you may get errors when you enter watch mode.
 
-## Important: Temporary OSX Workaround for Watch Mode
+## npm install Errors
+
+If `npm install` has errors, the first thing to try is to simply re-run it. There are known issues with npm which may require one re-run. If the second run also fails, you may have a version of npm which was not reliable.  Try updating npm before rerunning the above install commands.
+
+> ```
+> from-anywhere> npm update -g npm
+> ```
+
+## Temporary OSX Workaround for Watch Mode
 
 In general your "watch" process is faster if you raise the limit of the number
 of open files for your process or the system.  However, in normal cases, there
