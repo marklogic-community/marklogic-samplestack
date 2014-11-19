@@ -3,6 +3,42 @@
         "additional-query": "<directory-query xmlns='http://marklogic.com/cts'><uri>/questions/</uri></directory-query>",
         "constraint": [
             {
+                "name": "askedBy",
+                "range": {
+                    "facet": "false",
+                    "path-index": {
+                        "text": "/owner/displayName"
+                    },
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "answeredBy",
+                "range": {
+                    "facet": "false",
+                    "path-index": {
+                        "text": "/answers/owner/displayName"
+                    },
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "commentedBy",
+                "range": {
+                    "facet": "false",
+                    "path-index": {
+                        "text": "//comments/owner/displayName"
+                    },
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "user",
+                "value": {
+                    "json-property": "displayName"
+                }
+            },
+            {
                 "name": "userName",
                 "value": {
                     "json-property": "userName"
