@@ -5,6 +5,16 @@ var ctx = require('../context');
 
 var winExt = /^win/.test(process.platform) ? '.cmd' : '';
 
+var getLastJar = function (dir) {
+  var g = require('globule');
+
+  var paths = g.find(path.join(dir, '*.jar'));
+  if (paths.count < 1) {
+    throw new Error('cannot find Selenium .jar file in ' + dir);
+  }
+  return paths.sort()[paths.length - 1];
+};
+
 
 var server;
 
@@ -25,10 +35,7 @@ var getServer = function (cb) {
 
     var onPresent = function () {
       var ptorDir = path.join(ctx.paths.rootDir, 'node_modules/protractor');
-      var protractorPkg = require(path.join(ptorDir, 'package.json'));
-      var seleniumVersion = protractorPkg.webdriverVersions.selenium;
-      var jarFile = 'selenium-server-standalone-' + seleniumVersion + '.jar';
-      var seleniumJar = path.join(ptorDir, 'selenium', jarFile);
+      var seleniumJar = getLastJar(path.join(ptorDir, 'selenium'));
       var SeleniumServer = require('selenium-webdriver/remote').SeleniumServer;
 
       var args = [];
@@ -51,6 +58,7 @@ var getServer = function (cb) {
         args: args
       });
       cb(null);
+
     };
 
     var wdManager = path.join(
@@ -74,7 +82,7 @@ var getServer = function (cb) {
 };
 
 var close;
-var start = function (cb) {
+var start = function (args, cb) {
   ctx.seleniumStarted = false;
   getServer(function (err) {
     if (err) { return cb(err); }
@@ -85,7 +93,7 @@ var start = function (cb) {
       function started (url) {
         ctx.seleniumStarted = true;
         ctx.setActiveServer('selenium', {
-          url: url.parse(url),
+          url: url,
           close: function (cb) {
             server.on('exit', function () {
               cb();
