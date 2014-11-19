@@ -75,9 +75,6 @@ public class TestDataManager {
 
 	@PostConstruct
 	public void setupSearchData() {
-		contributorService.store(Utils.joeUser);
-		contributorService.store(Utils.maryAdmin);
-		
 		try {
 			loadJson("questions/20864442.json", false);
 			loadJson("questions/20864445.json", true);
@@ -139,8 +136,6 @@ public class TestDataManager {
 			throw new SamplestackIOException(e);
 		}
 
-		contributorService.delete(Utils.joeUser.getId());
-		contributorService.delete(Utils.maryAdmin.getId());	
 		Contributor toDelete = contributorService.getByUserName("grechaw@marklogic.com");
 		if (toDelete != null) {
 			contributorService.delete(toDelete.getId());
