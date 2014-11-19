@@ -1,4 +1,4 @@
-define(['app/module','mocks/index'], function (module,mocksIndex) {
+define(['app/module'], function (module) {
 
   /**
    * @ngdoc state
