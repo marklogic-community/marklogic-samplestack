@@ -62,7 +62,7 @@ function searchTransform(context, params, input) {
                 if (source == "answer") {
                     match.id = "answerid";
                 } else {
-                    match.id = fn.doc(match.uri).id
+                    match.id = fn.doc(match.uri).root.id
                 }
                 match.path = null;
             }
