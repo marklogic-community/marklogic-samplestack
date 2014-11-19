@@ -181,7 +181,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
 			Call call = patchBuilder.call().add(1);
-			patchBuilder.replaceValue("/answerCount", call);
+			patchBuilder.replaceApply("/answerCount", call);
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
