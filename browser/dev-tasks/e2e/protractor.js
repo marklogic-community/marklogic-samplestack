@@ -74,11 +74,11 @@ var go = function (args, cb) {
     ptorConfig.capabilities.browserName = browsers[args.browser];
     ptorConfig.seleniumAddress = ctx.getActiveServer('selenium').url.href;
   }
-  if (args.reporter === 'pretty') {
-    ptorConfig.cucumberOpts.format = 'pretty';
+  if (args.reporter === 'xunit') {
+    ptorConfig.cucumberOpts.format = 'json';
   }
   else {
-    ptorConfig.cucumberOpts.format = 'json';
+    ptorConfig.cucumberOpts.format = args.reporter;
   }
 
   var ptorString = JSON.stringify(ptorConfig, null, ' ');
