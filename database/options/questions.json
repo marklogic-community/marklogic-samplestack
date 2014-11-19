@@ -84,7 +84,7 @@
                     }
                 },
                 {
-                    "name": "score",
+                    "name": "votes",
                     "sort-order": {
                         "direction": "descending",
                         "json-property": "voteCount"
