@@ -13,11 +13,11 @@ var myTasks = [];
 var args = {
   reporter: 'pretty',
   selenium: 'local',
-  // sauce: false,
+  sauce: false,
   toFile: false,
   middleTier: 'external', // or 'java' or 'node',
-  browser: 'phantomjs', // or 'chrome' or 'firefox' or 'internet explorer'
-  os: undefined
+  browser: 'chrome'
+      // or 'chrome' or 'ff' or 'ie' or 'phantomjs'
 };
 
 _.merge(args, require('yargs').argv);
