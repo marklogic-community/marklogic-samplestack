@@ -45,6 +45,12 @@ define(['app/module'], function (module) {
               scope.$emit('criteriaChange');
             };
 
+            scope.incrementPage = function (increment) {
+              if (scope.search.incrementPage(increment)) {
+                scope.$emit('criteriaChange');
+              }
+            };
+
           });
         }
       };
