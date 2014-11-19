@@ -427,15 +427,8 @@ define(['_marklogic/module'], function (module) {
             var q = { 'constraint-name': constraint.constraintName };
             mySynt[queryType] = q;
 
-            if (constraint.operator) {
-              if (constraint.constraintType === 'range') {
-                q['range-operator'] = constraint.operator;
-              }
-              if (constraint.constraintType === 'value') {
-                q['operator'] = constraint.operator;
-              }
-            }
-
+            // ML bug requires that the value key appear prior to the
+            // constraint-type key
             if (constraint.type === 'text') {
               q.text = constraint.value;
             }
@@ -448,6 +441,16 @@ define(['_marklogic/module'], function (module) {
             }
             if (constraint.type === 'boolean') {
               q.boolean = constraint.value;
+            }
+
+
+            if (constraint.operator) {
+              if (constraint.constraintType === 'range') {
+                q['range-operator'] = constraint.operator;
+              }
+              if (constraint.constraintType === 'value') {
+                q['operator'] = constraint.operator;
+              }
             }
 
             synt.push(mySynt);
