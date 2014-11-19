@@ -47,18 +47,25 @@ during the install and setup process.
 * `./gradlew dbTest` This command runs the unit tests for server extensions.
 * `./gradlew integrationTest` This command runs the tests that exercise the whole middle and database tier apparatus.
 
-
 *To use with Eclipse*
 
 See project wiki https://github.com/marklogic/marklogic-samplestack/wiki/Getting-Started-in-Eclipse
 
 ### Endpoints
 
-By default the middle-tier appserver will be running on port 8090
+Having run either the bootRun or appserver tasks, the shell blocks.
+The middle-tier appserver will be running on port 8090
+
+You can use the browser application at
+http://localhost:8090.  The two valid users are
+joeUser@marklogic.com/joesPassword and
+maryAdmin@marklogic.com/marysPassword
+
+Here are the endpoints supported by the middle tier appserver:
 
 * GET /v1/session
-* POST /v1/login
-* GET /v1/logout
+* POST /v1/session
+* DELETE /v1/session
 * GET /v1/questions  Get a paginated list of questions (snippet form)
 * GET /v1/questions?q=term&start=20
 * GET /v1/hasVoted?postId=id&contributorId=id
@@ -72,8 +79,8 @@ By default the middle-tier appserver will be running on port 8090
 * POST /v1/questions/{id}/answers/{id}/upvotes
 * POST /v1/questions/{id}/answers/{id}/downvotes
 * POST /v1/questions/{id}/answers/{id}/accept
-* POST /v1/tags   with MarkLogic structured query
-* POST /v1/tags/{name}   related tags
+* POST /v1/tags   with MarkLogic structured query (Not tested for EA-3)
+* POST /v1/tags/{name}   related tags             (Not tested for EA-3)
 * GET /v1/contributors paginated list of contributors
 * POST /v1/contributors Create a user  (admin role only)
 * GET/PUT/DELETE /v1/contributors/{id} Get, update, remove Users
