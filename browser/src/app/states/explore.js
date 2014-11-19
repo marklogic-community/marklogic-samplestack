@@ -133,6 +133,9 @@ define(['app/module'], function (module) {
 
       $scope.runSearch = function () {
         $scope.searching = true;
+        if ($scope.search.results) {
+          $scope.search.results.total = null;
+        }
 
         $scope.applyScopeToSearch();
 
