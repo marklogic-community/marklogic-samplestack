@@ -12,9 +12,16 @@ define(['app/module'], function (module) {
 
   module.factory('ssAnswer', [
 
-    '$q', 'mlModelBase', 'mlSchema', 'mlUtil', 'ssComment',
+    '$q',
+    'mlModelBase',
+    'mlSchema',
+    'mlUtil',
+    'ssComment',
+    'ssVote',
+    'ssAcceptedAnswer',
     function (
-      $q, mlModelBase, mlSchema, mlUtil, ssComment
+      $q, mlModelBase, mlSchema, mlUtil, ssComment,
+      ssVote, ssAcceptedAnswer
     ) {
       /**
        * @ngdoc type
@@ -47,7 +54,44 @@ define(['app/module'], function (module) {
 
       /**
        * @ngdoc method
-       * @name SsQnaDocObject#prototype.setVoted
+       * @name SsAnswerObject#prototype.vote
+       * @description Executes an upvote or downvote on answer.
+       * @param {number} val 1 or -1.
+       * @param {object} userInfo userInfo from session.
+       */
+      SsAnswerObject.prototype.vote = function (val, userInfo) {
+        var vote = ssVote.create({upDown: val}, this);
+        var self = this;
+        if (vote.$ml.valid) {
+          vote.post().$ml.waiting.then(function () {
+            userInfo.votes.push(self.id);
+          },
+          function (error) {
+            throw new Error('Error occurred: ' + JSON.stringify(error));
+          });
+        }
+      };
+
+      /**
+       * @ngdoc method
+       * @name SsAnswerObject#prototype.accept
+       * @description Accepts the answer.
+       */
+      SsAnswerObject.prototype.accept = function () {
+        var acceptedAnswer = ssAcceptedAnswer.create({}, this);
+        if (acceptedAnswer.$ml.valid) {
+          acceptedAnswer.post().$ml.waiting.then(function () {
+            // Do nothing more on success
+          },
+          function (error) {
+            throw new Error('Error occurred: ' + JSON.stringify(error));
+          });
+        }
+      };
+
+      /**
+       * @ngdoc method
+       * @name SsAnswerObject#prototype.setVoted
        * @description Sets answer as having been voted on.
        */
       SsAnswerObject.prototype.setVoted = function () {

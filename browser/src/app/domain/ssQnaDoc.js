@@ -19,8 +19,10 @@ define(['app/module'], function (module) {
     'ssAnswer',
     'ssComment',
     'ssHasVoted',
+    'ssVote',
     function (
-      $q, mlModelBase, mlSchema, mlUtil, ssAnswer, ssComment, ssHasVoted
+      $q, mlModelBase, mlSchema, mlUtil,
+      ssAnswer, ssComment, ssHasVoted, ssVote
     ) {
       /**
        * @ngdoc type
@@ -139,6 +141,26 @@ define(['app/module'], function (module) {
           return this.hasVoted(this.id);
         }
       });
+
+      /**
+       * @ngdoc method
+       * @name SsQnaDocObject#prototype.vote
+       * @description Executes an upvote or downvote on answer.
+       * @param {number} val 1 or -1.
+       * @param {object} userInfo userInfo from session.
+       */
+      SsQnaDocObject.prototype.vote = function (val, userInfo) {
+        var vote = ssVote.create({upDown: val}, this);
+        var self = this;
+        if (vote.$ml.valid) {
+          vote.post().$ml.waiting.then(function () {
+            userInfo.votes.push(self.id);
+          },
+          function (error) {
+            throw new Error('Error occurred: ' + JSON.stringify(error));
+          });
+        }
+      };
 
       /**
        * @ngdoc method

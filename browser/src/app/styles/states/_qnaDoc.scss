@@ -35,7 +35,7 @@
 
 .ss-qnadoc
 .ss-vote {
-  background-color: #efefef;
+  background-color: #f0f0f0;
   border: solid 1px #ccc;
   float: left;
   height: 76px;
@@ -69,8 +69,12 @@
   margin-bottom: 4px;
 }
 
-.ss-up-enabled {
+.ss-up-cast {
   background-image: url('/app/images/up-blue.png');
+}
+
+.ss-up-enabled {
+  background-image: url('/app/images/up-dkgray.png');
   cursor: pointer;
 }
 
@@ -78,8 +82,12 @@
   background-image: url('/app/images/up-gray.png');
 }
 
-.ss-down-enabled {
+.ss-down-cast {
   background-image: url('/app/images/down-blue.png');
+}
+
+.ss-down-enabled {
+  background-image: url('/app/images/down-dkgray.png');
   cursor: pointer;
 }
 
