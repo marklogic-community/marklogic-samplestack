@@ -81,7 +81,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 		try {
 			// leave them alone if already in db.
 			Contributor storedMary = this
-					.read("9611450-0663-45a5-8a08-f1c71320475e");
+					.read("9611450a-0663-45a5-8a08-f1c71320475e");
 			Contributor storedJoe = this
 					.read("cf99542d-f024-4478-a6dc-7e723a51b040");
 

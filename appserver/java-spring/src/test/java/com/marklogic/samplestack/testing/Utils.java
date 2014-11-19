@@ -26,8 +26,8 @@ import com.marklogic.samplestack.domain.InitialQuestion;
 public class Utils {
 	
 	public static String basicUserUUID = "779b383c-dbf3-4008-b9d8-64f0491f1d4a";
-	public static String JoesUUID = "cf99542d-f024-4478-a6dc-7e723a51b040";
-	public static String MarysUUID = "9611450-0663-45a5-8a08-f1c71320475e";
+	public static String JoesUUID =      "cf99542d-f024-4478-a6dc-7e723a51b040";
+	public static String MarysUUID =     "9611450a-0663-45a5-8a08-f1c71320475e";
 
 	public static Contributor getBasicUser() {
 		Contributor contributor = new Contributor();
