@@ -658,7 +658,10 @@ define(['_marklogic/module'], function (module) {
         var params = {};
         var self = this;
         if (stateParams.page) {
-          var page = parseInt(stateParams.page.trim());
+          var page = stateParams.page;
+          if (Number(page) !== page) {
+            page = parseInt(stateParams.page.trim());
+          }
           if (!isNaN(page)) {
             this.setCurrentPage(page);
           }
