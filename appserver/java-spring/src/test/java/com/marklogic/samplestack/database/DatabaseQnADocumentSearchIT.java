@@ -134,6 +134,17 @@ public class DatabaseQnADocumentSearchIT {
 		logger.debug("Transformed doc: " + mapper.writeValueAsString(doc.getJson()));
 		assertNotNull("Reuptation must be there on a get doc", doc.getJson().get("owner").get("reputation").asLong());
 	}
+	
+	@Test
+	public void testConfiguredStringSearches() throws JsonProcessingException {
+		ArrayNode qtexts = mapper.createArrayNode();
+		qtexts.add("answeredBy:x");
+		qtexts.add("commentedBy:y");
+		qtexts.add("askedBy:z");
+		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, null, 1, qtexts, false);
+		String resultsString =  mapper.writeValueAsString(results);
+		assertTrue(resultsString.contains("path-range-query"));  // if turn off search debug this will fail.
+	}
 
 	@SuppressWarnings("unused")
 	@Test
