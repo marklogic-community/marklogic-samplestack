@@ -60,6 +60,15 @@ public class DateFacetBuilder {
 		this.constraintNode.put("name", name);
 		return this;
 	}
+	
+
+	/**
+	 * This attribute produces invalid options markup.  It is removed from the payload and used in search response decoration.
+	 */
+	private DateFacetBuilder period(String period) {
+		this.facetNode.put("period", period);
+		return this;
+	}
 
 	private DateFacetBuilder bucket(DateTime ge, DateTime lt) {
 		ObjectNode thisBucket = this.bucketNode.addObject();
@@ -75,6 +84,7 @@ public class DateFacetBuilder {
 		fb.name("date");
 		long interval = max.getMillis() - min.getMillis();
 		if (interval / BucketInterval.BY_DAY.bucketDuration() < 40) {
+			fb.period("DAY");
 			DateTime bucketStart = min.minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusDays(1);
@@ -83,6 +93,7 @@ public class DateFacetBuilder {
 			}
 		}
 		else if (interval / BucketInterval.BY_WEEK.bucketDuration() < 40) {
+			fb.period("WEEK");
 			DateTime bucketStart = min.minusDays(min.getDayOfWeek()).minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusWeeks(1);
@@ -90,6 +101,7 @@ public class DateFacetBuilder {
 				bucketStart = bucketStart.plusWeeks(1);
 			}
 		} else {
+			fb.period("MONTH");
 			DateTime bucketStart = min.minusDays(min.getDayOfMonth()).minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusMonths(1);
@@ -97,8 +109,7 @@ public class DateFacetBuilder {
 				bucketStart = bucketStart.plusMonths(1);
 			}
 		}
-		
-		
 		return fb.facetNode;
 	}
+
 }
