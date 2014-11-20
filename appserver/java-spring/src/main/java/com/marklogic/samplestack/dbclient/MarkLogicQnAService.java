@@ -547,9 +547,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 						+ "\"]/array-node('comments')", Position.LAST_CHILD,
 						mapper.writeValueAsString(comment));
 			}
-			patchBuilder.replaceValue("/lastActivityDate",
-					ISO8601Formatter.format(new Date()));
-
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
