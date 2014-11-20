@@ -325,6 +325,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			ArrayNode qtextNode = searchNode.putArray("qtext");
 			qtextNode.addAll(qtext);
 		}
+		String period = "";
 		if (includeDateFacet) {
 			ObjectNode options = searchNode.putObject("options");
 			options.put("page-length", SamplestackConstants.RESULTS_PAGE_LENGTH);
@@ -333,8 +334,10 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			logger.debug("Got ranges for buckets: " + dateRange.toString());
 
 			if (dateRange[0] != null && dateRange[1] != null) {
-				options.setAll(DateFacetBuilder.dateFacet(dateRange[0],
-						dateRange[1]));
+				ObjectNode facetDescriptor = DateFacetBuilder.dateFacet(dateRange[0],dateRange[1]);
+				period = facetDescriptor.get("period").asText();
+				facetDescriptor.remove("period");
+				options.setAll(facetDescriptor);
 				logger.debug("Got date range to query: "
 						+ dateRange[0].toString() + " to "
 						+ dateRange[1].toString());
@@ -420,8 +423,21 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			objectIndex++;
 		}
 
-		responseNode.remove("reputations");
-
+		// find the date facet and decorate with period
+		ObjectNode facetsNode = (ObjectNode) responseNode.get("facets");
+		try { 
+			((ObjectNode) facetsNode.get("date")).put("period", period);
+		} catch (Exception e) {
+			// do nothing with facets if we couldn't add the period.
+			logger.debug("Unable to decorate facet payload with Period " + period);
+			e.printStackTrace();  //TODO remove
+		}
+		try {
+			logger.debug(mapper.writeValueAsString(responseNode.get("facets")));
+		} catch (JsonProcessingException e) {
+			logger.debug("JSONERROR");
+		}
+		responseNode.put("facets",  facetsNode);
 		return (ObjectNode) responseNode;
 	}
 

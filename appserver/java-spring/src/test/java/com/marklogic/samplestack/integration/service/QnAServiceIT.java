@@ -399,5 +399,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				jsonResults.get("facets").get("date"));
 		assertNotNull("Blank query got back tag facet",
 				jsonResults.get("facets").get("tag"));
+		assertNotNull("Blank query got back tag facet period",
+				jsonResults.get("facets").get("date").get("period"));
 	}
 }

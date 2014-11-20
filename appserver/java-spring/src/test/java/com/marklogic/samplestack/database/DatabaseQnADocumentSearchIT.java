@@ -20,8 +20,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 
+import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -102,6 +104,16 @@ public class DatabaseQnADocumentSearchIT {
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, null, false);
 		assertTrue("Need data to test searches", results.size() > 0);
 		
+		ArrayNode resultsArray = (ArrayNode) results.get("results");
+		String lastActivityDate = null;
+		for (int i=0; i < resultsArray.size();i++) {
+			String newLastActivityDate = resultsArray.get(i).get("content").get("lastActivityDate").asText();
+			if (lastActivityDate == null) {
+				// skip first
+			} else {
+				assertTrue()
+			}
+		}
 		//TODO more assertions
 		logger.debug(results.asText());
 	}
@@ -230,10 +242,12 @@ public class DatabaseQnADocumentSearchIT {
 		try {
 			query = (ObjectNode) mapper
 					.readValue(
-							"{\"qtext\":\"tag:test-data-tag\",\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
+							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
 							JsonNode.class);
+			ArrayNode qtext = mapper.createArrayNode();
+			qtext.add("tag:test-data-tag");
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, null, false);
+					query, 1, qtext, false);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
