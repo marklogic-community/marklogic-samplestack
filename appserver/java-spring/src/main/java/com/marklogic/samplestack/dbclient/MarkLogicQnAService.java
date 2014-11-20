@@ -322,7 +322,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			searchNode.setAll(structuredQuery);
 		}
 		if (qtext != null) {
-			ArrayNode qtextNode = docNode.putArray("qtext");
+			ArrayNode qtextNode = searchNode.putArray("qtext");
 			qtextNode.addAll(qtext);
 		}
 		if (includeDateFacet) {
