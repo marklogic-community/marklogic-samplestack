@@ -36,7 +36,7 @@ define(['app/module'], function (module) {
               },
               {
                 label: 'votes',
-                value: ['score']
+                value: ['votes']
               }
             ];
 
