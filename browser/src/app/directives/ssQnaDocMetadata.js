@@ -52,7 +52,7 @@ define(['app/module'], function (module) {
               scope.soOwnerId = function () {
                 return scope.isLocalOwner() ?
                     null :
-                    $parse('doc.owner.id')(scope);
+                    scope.doc.owner.originalId;
               };
               // Return document's Stackoverflow display name
               scope.soUserName = function () {

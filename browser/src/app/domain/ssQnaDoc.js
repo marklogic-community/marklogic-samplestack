@@ -184,6 +184,25 @@ define(['app/module'], function (module) {
         return 'questions';
       };
 
+      SsQnaDocObject.prototype.sort = function () {
+        var self = this;
+        var acceptedAnswerIndex;
+        angular.forEach(this.answers, function (answer, index) {
+          if (answer.id === self.acceptedAnswerId) {
+            acceptedAnswerIndex = index;
+          }
+        });
+
+        if (acceptedAnswerIndex >= 0) {
+          var acceptedAnswer = this.answers.splice(
+            acceptedAnswerIndex,
+            1
+          )[0];
+          this.answers.unshift(acceptedAnswer);
+        }
+
+      };
+
       /**
        * @ngdoc method
        * @name SsQnaDocObject#prototype.onResponseGET
@@ -209,28 +228,7 @@ define(['app/module'], function (module) {
         }
 
         mlModelBase.object.prototype.onResponseGET.call(this, data);
-        var docScore = this.itemTally || 0;
-        var acceptedAnswerIndex;
-        angular.forEach(this.answers, function (answer, index) {
-          if (answer.id === self.acceptedAnswerId) {
-            acceptedAnswerIndex = index;
-          }
-          docScore += answer.itemTally || 0;
-          angular.forEach(answer.comments, function (comment) {
-            comment.owner = comment.commenter;
-            delete comment.commenter;
-          });
-        });
-
-        this.docScore = docScore;
-
-        if (acceptedAnswerIndex >= 0) {
-          var acceptedAnswer = this.answers.splice(
-            acceptedAnswerIndex,
-            1
-          )[0];
-          this.answers.unshift(acceptedAnswer);
-        }
+        this.sort();
 
       };
 
@@ -242,6 +240,7 @@ define(['app/module'], function (module) {
         }
 
         mlModelBase.object.prototype.onResponsePOST.call(this, data);
+        this.sort();
       };
 
       SsQnaDocObject.prototype.getOne = function (contributorId) {
