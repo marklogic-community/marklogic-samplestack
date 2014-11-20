@@ -366,6 +366,12 @@ define(['_marklogic/module'], function (module) {
         this.results = data;
         var facets = this.results.facets;
         angular.forEach(facets, function (facet, facetName) {
+          if (!facet || !facet.facetValues) {
+            // server may not return a facet object with facetValues
+            facet = {
+              facetValues: []
+            };
+          }
           var facetSpec = self.facets && self.facets[facetName];
           if (facetSpec && facetSpec.valuesType === 'object') {
             var keyed = {};
