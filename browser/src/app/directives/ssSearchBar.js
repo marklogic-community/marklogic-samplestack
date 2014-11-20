@@ -20,7 +20,7 @@ define(['app/module'], function (module) {
       templateUrl: '/app/directives/ssSearchBar.html',
       link: function (scope) {
         scope.setQueryText = function () {
-          scope.$emit('criteriaChange');
+          scope.$emit('setQueryText', { queryText: scope.searchbarText });
         };
         scope.showTips = false;
       }

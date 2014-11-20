@@ -31,6 +31,16 @@ define(['app/module'], function (module) {
         contributorDialog(args.contributorId);
       });
 
+      // convert spaces to dashes and encode dashes so that
+      // we will tend to have a prettier url
+      $scope.dasherize = function (str) {
+        return str && str.length ?
+          str.trim()
+            .replace(/-/g, '%2D')
+            .replace(/ /g, '-') :
+          null;
+      };
+
     }
 
   ]);

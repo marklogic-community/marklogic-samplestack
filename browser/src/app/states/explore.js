@@ -36,15 +36,7 @@ define(['app/module'], function (module) {
         setWatches();
       };
 
-      // convert spaces to dashes and encode dashes so that
-      // we will tend to have a prettier url
-      var dasherize = function (str) {
-        return str && str.length ?
-          str.trim()
-            .replace(/-/g, '%2D')
-            .replace(/ /g, '-') :
-          null;
-      };
+
 
       var setWatches = function () {
         var onChange = function (newVal, oldVal) {
@@ -102,10 +94,12 @@ define(['app/module'], function (module) {
         $scope.applyScopeToSearch();
         var newStateParams = $scope.search.getStateParams();
         if (newStateParams.q) {
-          newStateParams.q = dasherize(newStateParams.q);
+          newStateParams.q = $scope.dasherize(newStateParams.q);
         }
         appRouting.updateQueryParams(newStateParams);
       };
+
+      $scope.$on('setQueryText', $scope.onCriteriaChange);
 
       // whenever criteria changes, go to the state that represents the
       // criteria's results

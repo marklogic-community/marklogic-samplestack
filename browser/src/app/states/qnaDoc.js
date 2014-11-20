@@ -36,65 +36,6 @@ define(['app/module'], function (module) {
             $scope.doc = doc;
             $scope.setLoading(false);
 
-           /**
-            * @ngdoc method
-            * @name $scope.canVoteQuestion
-            * @description Returns whether current user can vote on
-            * the question associated with the QnaDoc.
-            * @returns {boolean} true or false
-            */
-            $scope.canVoteQuestion = function () {
-              if (!$scope.store.session) {
-                return false;
-              }
-              // Don't allow double voting or voting on own question
-              return !$scope.doc.hasVotedOn &&
-              ($scope.store.session.userInfo.id !== $scope.doc.owner.id);
-            };
-
-           /**
-            * @ngdoc method
-            * @name $scope.canVoteAnswer
-            * @description Returns whether current user can vote on
-            * an answer associated with the QnaDoc.
-            * @param {ssAnswer} answer The ssAnswer object.
-            * @returns {boolean} true or false
-            */
-            $scope.canVoteAnswer = function (answer) {
-              if (!$scope.store.session) {
-                return false;
-              }
-              // Don't allow double voting or voting on own answer
-              return !answer.hasVotedOn &&
-              ($scope.store.session.userInfo.id !== answer.owner.id);
-            };
-
-           /**
-            * @ngdoc method
-            * @name $scope.canAcceptAnswer
-            * @description Returns whether current user can accept
-            * an answer associated with the QnaDoc.
-            * @param {ssAnswer} answer The ssAnswer object.
-            * @returns {boolean} true or false
-            */
-            $scope.canAcceptAnswer = function (answer) {
-              if (!$scope.store.session) {
-                return false;
-              }
-              return $scope.store.session.id === $scope.doc.owner.id;
-            };
-
-           /**
-            * @ngdoc method
-            * @name $scope.canAnswer
-            * @description Returns whether current user can submit
-            * an answer to the QnaDoc.
-            * @returns {boolean} true or false
-            */
-            $scope.canAnswer = function (answer) {
-              return $scope.store.session;
-            };
-
             $scope.showQuestionComment = false;
             $scope.showAnswerComment = [];
             angular.forEach($scope.doc.answers, function (answer, index) {
@@ -114,6 +55,71 @@ define(['app/module'], function (module) {
           }
         );
 
+      };
+
+      $scope.$on('setQueryText', function (evt, arg) {
+        appRouting.go('root.layout.explore.results', {
+          q: $scope.dasherize(arg.queryText)
+        });
+      });
+
+     /**
+      * @ngdoc method
+      * @name $scope.canVoteQuestion
+      * @description Returns whether current user can vote on
+      * the question associated with the QnaDoc.
+      * @returns {boolean} true or false
+      */
+      $scope.canVoteQuestion = function () {
+        if (!$scope.store.session) {
+          return false;
+        }
+        // Don't allow double voting or voting on own question
+        return !$scope.doc.hasVotedOn &&
+        ($scope.store.session.userInfo.id !== $scope.doc.owner.id);
+      };
+
+     /**
+      * @ngdoc method
+      * @name $scope.canVoteAnswer
+      * @description Returns whether current user can vote on
+      * an answer associated with the QnaDoc.
+      * @param {ssAnswer} answer The ssAnswer object.
+      * @returns {boolean} true or false
+      */
+      $scope.canVoteAnswer = function (answer) {
+        if (!$scope.store.session) {
+          return false;
+        }
+        // Don't allow double voting or voting on own answer
+        return !answer.hasVotedOn &&
+        ($scope.store.session.userInfo.id !== answer.owner.id);
+      };
+
+     /**
+      * @ngdoc method
+      * @name $scope.canAcceptAnswer
+      * @description Returns whether current user can accept
+      * an answer associated with the QnaDoc.
+      * @param {ssAnswer} answer The ssAnswer object.
+      * @returns {boolean} true or false
+      */
+      $scope.canAcceptAnswer = function (answer) {
+        if (!$scope.store.session) {
+          return false;
+        }
+        return $scope.store.session.id === $scope.doc.owner.id;
+      };
+
+     /**
+      * @ngdoc method
+      * @name $scope.canAnswer
+      * @description Returns whether current user can submit
+      * an answer to the QnaDoc.
+      * @returns {boolean} true or false
+      */
+      $scope.canAnswer = function (answer) {
+        return $scope.store.session;
       };
 
       $scope.answersCountLabel = function () {
