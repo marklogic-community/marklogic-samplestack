@@ -20,9 +20,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Iterator;
 
+import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -99,23 +99,24 @@ public class DatabaseQnADocumentSearchIT {
 	public void defaultSearchOrdersByActivityDescending() {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
-		queryNode.put("qtext", "");
+		ArrayNode qtext = mapper.createArrayNode();
+		qtext.add("sort:active");  // the controller tier adds this if no query specified
 		ObjectNode results = qnaService.rawSearch(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, null, false);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, qtext, false);
 		assertTrue("Need data to test searches", results.size() > 0);
-		
+
 		ArrayNode resultsArray = (ArrayNode) results.get("results");
-		String lastActivityDate = null;
+		DateTime lastActivityDate = null;
 		for (int i=0; i < resultsArray.size();i++) {
-			String newLastActivityDate = resultsArray.get(i).get("content").get("lastActivityDate").asText();
+			String nextLastActivityDateString = resultsArray.get(i).get("content").get("lastActivityDate").asText();
+			DateTime nextLastActivityDate = ISODateTimeFormat.dateTime().parseDateTime(nextLastActivityDateString + "Z");
 			if (lastActivityDate == null) {
 				// skip first
 			} else {
-				assertTrue()
+			   assertTrue("Date sort out of order", lastActivityDate.isAfter(nextLastActivityDate));
 			}
+			lastActivityDate = nextLastActivityDate;
 		}
-		//TODO more assertions
-		logger.debug(results.asText());
 	}
 
 	@Test
