@@ -88,6 +88,7 @@ var start = function (args, cb) {
   );
 
   async.series([
+    shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbTeardown', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbConfigure', null),

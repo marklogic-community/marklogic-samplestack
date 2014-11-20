@@ -96,6 +96,7 @@ mlvm stop
 successOrExit mlvm use $ver
 
 # "normal" gradle steps to make it run
+successOrExit ./gradlew dbinit
 successOrExit ./gradlew dbteardown --stacktrace
 successOrExit ./gradlew clean
 successOrExit ./gradlew seedDataFetch
