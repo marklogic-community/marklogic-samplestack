@@ -18,6 +18,7 @@ A [Node.js](http://nodejs.org/) version of Samplestack that uses gulp automation
 This README covers the following topics:
 * [Getting Started](#getting-started)
 * [Additional Information](#additional-information)
+* [Contributing](#contributing)
 * [License](#license)
 
 ## Getting Started
@@ -77,6 +78,9 @@ Accepted Answers Reputation | Transactional model, data integrity
 
 Coming soon: Related tags — demonstration of semantics with the use of RDF triples and SPARQL.
 
+## Contributing
+
+Please see our [contributing guidelines](./CONTRIBUTING.md).
 
 ## License
 
