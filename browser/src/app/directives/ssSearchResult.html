@@ -2,7 +2,7 @@
   <div class="ss-score">
     <label>votes</label>
     <span
-      ng-bind-template="{{::item.content.voteCount >= 0 ? item.content.voteCount : 'SEED'}}"
+      ng-bind-template="{{::item.content.voteCount ? item.content.voteCount : '0' }}"
     ></span>
   </div>
   <div class="ss-divider">&nbsp;</div>
