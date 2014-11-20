@@ -1,4 +1,4 @@
-# Contributing to Roxy
+# Contributing to Samplestack
 
 Samplestack welcomes new contributors. This document will guide you through the 
 process.
