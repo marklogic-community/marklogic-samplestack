@@ -3,6 +3,7 @@ define(['app/module'], function (module) {
   module.controller('qnaDocCtlr', [
 
     '$scope',
+    '$timeout',
     'marked',
     'appRouting',
     'ssQnaDoc',
@@ -12,6 +13,7 @@ define(['app/module'], function (module) {
     'ssAcceptedAnswer',
     function (
       $scope,
+      $timeout,
       marked,
       appRouting,
       ssQnaDoc,
@@ -35,6 +37,16 @@ define(['app/module'], function (module) {
           function () {
             $scope.doc = doc;
             $scope.setLoading(false);
+
+            if (appRouting.params['content-id']) {
+              $timeout(function () {
+                appRouting.scroll(
+                  angular.element(document.getElementById(
+                    'ss-content-id-' + appRouting.params['content-id']
+                  ))
+                );
+              });
+            }
 
             $scope.showQuestionComment = false;
             $scope.showAnswerComment = [];

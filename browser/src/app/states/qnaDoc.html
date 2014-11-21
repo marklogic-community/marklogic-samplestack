@@ -5,7 +5,7 @@
 <div ng-if="!doc || doc.$ml.waiting" class="spinner">
 </div>
 <div ng-if="doc && !doc.$ml.waiting">
-  <section class="ss-qnadoc">
+  <section class="ss-qnadoc" id="ss-content-id-{{doc.id}}">
 
     <header class="ss-question-title">
       <h3>Q: {{ doc.title }}</h3>
@@ -15,7 +15,7 @@
         </a>
     </header>
 
-    <section class="ss-question" id="{{doc.id}}">
+    <section class="ss-question">
       <!-- start voting container for question -->
       <div class="ss-vote">
         <div
@@ -81,9 +81,9 @@
         <h3>{{answersCountLabel()}}</h3>
       </header>
 
-      <div ng-repeat="answer in doc.answers" id="{{answer.id}}">
+      <div ng-repeat="answer in doc.answers" >
         <!-- ng-if to avoid displaying empty answer -->
-        <section class="ss-answer-section" ng-if="answer.owner">
+        <section class="ss-answer-section" ng-if="answer.owner" id="ss-content-id-{{answer.id}}">
           <!-- voting container for answer -->
           <div ng-if="!answer || answer.$ml.waiting" class="spinner">
           </div>

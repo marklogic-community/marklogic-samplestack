@@ -59,7 +59,7 @@ define(
       },
       {
         name: 'root.layout.qnaDoc',
-        url: '/doc/:id?q',
+        url: '/doc/:id?q&content-id',
         controller: 'qnaDocCtlr',
         templateUrl: '/app/states/qnaDoc.html'
       },

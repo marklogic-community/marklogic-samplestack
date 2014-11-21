@@ -88,9 +88,10 @@ define(['app/module'], function (module) {
         '$state',
         '$stateParams',
         '$location',
+        '$uiViewScroll',
         'initialize',
         function (
-          $rootScope, $state, $stateParams, $location,initialize
+          $rootScope, $state, $stateParams, $location, $uiViewScroll, initialize
         ) {
 
           // this was rescrolling the window. Not clear why we were doing this
@@ -106,6 +107,8 @@ define(['app/module'], function (module) {
             params: $stateParams,
 
             go: $state.go,
+
+            scroll: $uiViewScroll,
 
             updateQueryParams: function (params) {
               $location.search(params);
