@@ -41,37 +41,14 @@ define(['app/module'], function (module) {
                   }
                 );
               };
-              // Check if document owner is from Samplestack
-              scope.isLocalOwner = function () {
-                var n = scope.doc.owner ?
-                    scope.doc.owner.displayName :
-                    '';
-                return n === 'joeUser' || n === 'maryAdmin';
-              };
-              // Return document's Stackoverflow owner ID
-              scope.soOwnerId = function () {
-                return scope.isLocalOwner() ?
-                    null :
-                    scope.doc.owner.originalId;
-              };
-              // Return document's Stackoverflow display name
-              scope.soUserName = function () {
-                return scope.soOwnerId() ?
-                    scope.doc.owner.displayName :
-                    null;
-              };
-              // Return link to Stackoverflow user page
+
               scope.soUserLink = function () {
-                return scope.soOwnerId() && scope.doc.owner.originalId ?
+                return scope.doc.owner.originalId ?
                     'http://stackoverflow.com/users/' +
                     scope.doc.owner.originalId :
                     null;
               };
-              // Is document user valid?
-              scope.noValidUser = function () {
-                var noneValid = !scope.soOwnerId() && !scope.isLocalOwner();
-                return noneValid;
-              };
+
               scope.formatDate = function (str) {
                 if (str && str.length) {
                   var date = mlUtil.moment(str);
@@ -79,13 +56,6 @@ define(['app/module'], function (module) {
                       ' at ' + date.format('h:mm');
 
                 }
-              };
-
-              // Is reputation valid?
-              scope.validReputation = function () {
-                var valid = scope.doc.owner.reputation !== undefined
-                            && scope.doc.owner.reputation >= 0;
-                return valid;
               };
 
               scope.goTag = function (tag) {

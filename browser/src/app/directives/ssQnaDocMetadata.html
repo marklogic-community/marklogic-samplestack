@@ -11,33 +11,37 @@
     <span ng-if="docType == 'question'">asked</span>
     <span ng-if="docType == 'answer'">answered</span>
     {{ formatDate(doc.creationDate) }} by
-    <a ng-if="isLocalOwner()"
+    <a ng-if="doc.owner.originalId === undefined"
       href=""
       ng-click="showContributor()"
     >{{doc.owner.displayName}}</a>
-    <a ng-if="soOwnerId()"
+    <a ng-if="!(doc.owner.originalId === undefined)"
       href="{{soUserLink()}}"
       target="_blank"
-    >{{soUserName()}}</a>
-    <span ng-if="noValidUser()">SEED</span>
+    >{{doc.owner.displayName}}</a>
     [<span
-      ng-if="validReputation()"
+      ng-if="doc.owner.reputation >= 0"
     >{{doc.owner.reputation}}</span><span
-      ng-if="!validReputation()"
+      ng-if="doc.owner.reputation === undefined"
       class="ss-incomplete"
     >unimplemented</span>]
   </div>
 </div>
 <span ng-if="docType == 'comment'">
   &mdash;
-  <a ng-if="isLocalOwner()"
+  <a ng-if="doc.owner.originalId === undefined"
       href=""
       ng-click="showContributor()"
     >{{doc.owner.displayName}}</a>
-    <a ng-if="soOwnerId()"
+  <a ng-if="!(doc.owner.originalId === undefined)"
       href="{{soUserLink()}}"
       target="_blank"
-    >{{soUserName()}}</a>
-  [{{doc.owner.reputation || 'SEED' }}]
+    >{{doc.owner.displayName}}</a>
+  [<span
+    ng-if="doc.owner.reputation >= 0"
+  >{{doc.owner.reputation}}</span><span
+    ng-if="doc.owner.reputation === undefined"
+    class="ss-incomplete"
+  >unimplemented</span>]
   {{formatDate(doc.creationDate)}}
 </span>
