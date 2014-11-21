@@ -11,35 +11,23 @@
 
 <div class="ss-search-tips-panel" ng-show="showTips">
   <dl>
-    <dt>foo</dt>
-      <dd>[necks]</dd>
-    <dt>bar</dt>
-      <dd>"toes knees"</dd>
-    <dt>baz</dt>
-      <dd>sticks:1234<br />boots:pants (yours)</dd>
+    <dt>tags</dt>
+      <dd>tag:tag1<br />tag:tag1 OR tag:tag2</dd>
+    <dt>strings</dt>
+      <dd>aString<br />string1 AND string2<br />"a specific phrase"</dd>
+    <dt>wildcard string</dt>
+      <dd>aString*</dd>
   </dl>
   <dl>
-    <dt>foo</dt>
-      <dd>plates<br />belljars:99 (99+)</dd>
-    <dt>bar</dt>
-      <dd>flauberts</dd>
-    <dt>baz</dt>
-      <dd>beaks:"apples oranges"<br />title:apples</dd>
+    <dt>user name</dt>
+      <dd>user:joeUser@foo.com [for any submission]<br />askedBy:joeUser@foo.com<br />answeredBy:joeUser@foo.com<br />commentedBy:joeUser@foo.com</dd>
+    <dt>votes</dt>
+      <dd>votes:0<br />votes GT 100 [more than 100 votes]</dd>
   </dl>
   <dl>
-    <dt>foo</dt>
-      <dd>[necks]</dd>
-    <dt>bar</dt>
-      <dd>"toes knees"</dd>
-    <dt>baz</dt>
-      <dd>sticks:1234<br />boots:pants (yours)</dd>
-  </dl>
-  <dl>
-    <dt>foo</dt>
-      <dd>plates<br />belljars:99 (99+)</dd>
-    <dt>bar</dt>
-      <dd>flauberts</dd>
-    <dt>baz</dt>
-      <dd>beaks:"apples oranges"<br />title:apples</dd>
+    <dt>status<br />(of question)</dt>
+      <dd>resolved:false<br />answers LE 2 [2 or fewer answers]</dd>
+    <dt>operators</dt>
+      <dd>AND [implicit for adjacent terms]<br />OR<br />NOT<br />( ) [grouping]</dd>
   </dl>
 </div>
