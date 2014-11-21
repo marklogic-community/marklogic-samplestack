@@ -24,6 +24,14 @@ during the install and setup process.
 
 * `./gradlew appserver`    Runs assemble, dbLoad, and bootrun.  This single command builds the Java application, configures the MarkLogic instance, loads some sample data, and starts the application.  When it stops logging messages, the application is ready to visit at http://localhost:8090   From here you can [ exercise the application ] and [ browse MarkLogic ]  (TODO update with links to app docs and qconsole)
 
+*If you're stuck...*
+
+Its possible that you will need to clean your environment, especially if you're following Samplestack development as it happens.  This series of commands should ensure that you are running the freshest code and that MarkLogic is ready to be initialized.
+
+`./gradlew --stop`     (if you've been using the gradle daemon.)
+`./gradlew clean`
+`./gradlew dbteardown`
+
 *gradle tasks used in Samplestack development*
 
 * `./gradlew assemble`   This command bootstraps the middle tier, runs tests, and builds the Java project.  When it is done you have verified the unit tests and built samplestack.
