@@ -135,7 +135,7 @@ define(['app/module'], function (module) {
           required: ['id', 'reputation'],
           properties: {
             websiteUrl: { type:['string', 'null' ] },
-            reputation: { type: ['integer'], minimum: 0 },
+            reputation: { type: ['integer'] },
             aboutMe: { type: [ 'string', 'null'], maxLength:255 },
             // stronger requirements on id (length s/b uuid)
             id: { type: 'string', minLength: 36, maxLength: 36 },

@@ -20,7 +20,7 @@
       target="_blank"
     >{{doc.owner.displayName}}</a>
     [<span
-      ng-if="doc.owner.reputation >= 0"
+      ng-if="doc.owner.reputation !== undefined"
     >{{doc.owner.reputation}}</span><span
       ng-if="doc.owner.reputation === undefined"
       class="ss-incomplete"
@@ -38,7 +38,7 @@
       target="_blank"
     >{{doc.owner.displayName}}</a>
   [<span
-    ng-if="doc.owner.reputation >= 0"
+    ng-if="doc.owner.reputation !== undefined"
   >{{doc.owner.reputation}}</span><span
     ng-if="doc.owner.reputation === undefined"
     class="ss-incomplete"
