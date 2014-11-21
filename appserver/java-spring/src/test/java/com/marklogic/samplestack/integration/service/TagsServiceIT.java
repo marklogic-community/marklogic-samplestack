@@ -57,8 +57,9 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 
 		ObjectNode topNode = mapper.createObjectNode();
 		ObjectNode combinedQueryNode = topNode.putObject("search");
-		combinedQueryNode.put("qtext", "tag:ada");
-		
+		ArrayNode qtextNode = combinedQueryNode.putArray("qtext");
+		qtextNode.add("tag:test-data-tag tag:ada");
+
 		ObjectNode results;
 		logger.debug("Query: " + mapper.writeValueAsString(topNode));
 		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
@@ -75,6 +76,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 		ObjectNode topNode = mapper.createObjectNode();
 		ObjectNode combinedQueryNode = topNode.putObject("search");
 		ArrayNode qtextNode = combinedQueryNode.putArray("qtext");
+		qtextNode.add("tag:test-data-tag");
 		qtextNode.add("tag:ada");
 		qtextNode.add("\"word abyss\"");
 

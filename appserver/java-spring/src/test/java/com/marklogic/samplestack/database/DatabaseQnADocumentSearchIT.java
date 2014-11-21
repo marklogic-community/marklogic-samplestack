@@ -100,7 +100,7 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query = mapper.createObjectNode();
 		ObjectNode queryNode = query.putObject("query");
 		ArrayNode qtext = mapper.createArrayNode();
-		qtext.add("sort:active");  // the controller tier adds this if no query specified
+		qtext.add("tag:test-data-tag sort:active");  // the controller tier adds this if no query specified
 		ObjectNode results = qnaService.rawSearch(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, qtext, false);
 		assertTrue("Need data to test searches", results.size() > 0);
