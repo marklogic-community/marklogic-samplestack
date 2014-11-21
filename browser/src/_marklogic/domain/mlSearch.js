@@ -672,6 +672,9 @@ define(['_marklogic/module'], function (module) {
             this.setCurrentPage(page);
           }
         }
+        else {
+          this.setCurrentPage(1);
+        }
         this.criteria.q = stateParams.q ? stateParams.q.trim() : null;
         if (stateParams.sort && stateParams.sort.length) {
           this.criteria.sort = [ stateParams.sort.trim() ];
