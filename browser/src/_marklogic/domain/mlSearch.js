@@ -741,7 +741,9 @@ define(['_marklogic/module'], function (module) {
       };
 
       MlSearchObject.prototype.pageOutOfBounds = function () {
-        return this.criteria.start > this.results.total;
+        if (this.results.total > 0) {
+          return this.criteria.start > this.results.total;
+        }
       };
 
       MlSearchObject.prototype.setPageInBounds = function () {
