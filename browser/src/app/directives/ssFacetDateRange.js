@@ -364,9 +364,11 @@ define(['app/module'], function (module) {
               });
 
               scope.chart.target.yAxis.max = maxCount;
-              scope.chart.target.options.plotOptions.column
-                  .pointWidth =
-                      scope.chart.target.chartWidth / newData.length - 8;
+              // using this math is presumptuous as to how many bars we are
+              // trying to render -- "lies, da*n lies and statistics"
+              // scope.chart.target.options.plotOptions.column
+              //     .pointWidth =
+              //         scope.chart.target.chartWidth / newData.length - 8;
               scope.highchartsConfig.series = [ { data: newData }];
 
               var dateToPickerStart = function (val) {
@@ -397,13 +399,13 @@ define(['app/module'], function (module) {
                 ).format('MM/DD/YYYY');
               }
 
-              scope.pickerDateStart = dateToPickerStart(
-                scope.constraints.dateStart.value
-              );
+              scope.pickerDateStart = mlUtil.moment(
+                dateToPickerStart(scope.constraints.dateStart.value)
+              ).format('MM/DD/YYYY');
 
-              scope.pickerDateEnd = dateToPickerEnd(
-                scope.constraints.dateEnd.value
-              );
+              scope.pickerDateEnd = mlUtil.moment(
+                dateToPickerEnd(scope.constraints.dateEnd.value)
+              ).format('MM/DD/YYYY');
 
             });
 
