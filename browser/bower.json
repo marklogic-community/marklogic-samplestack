@@ -20,7 +20,7 @@
     "angular-marked": "0.0.12",
     "ngMarkdown": "GrumpyWizards/ngMarkdown#c396e44b64d9e67f4dbc5626e2a645d36e87ed01",
     "marked": "0.3.2",
-    "angular-ui-router": "stu-salsbury/ui-router#0.2.10-SNAPSHOT",
+    "angular-ui-router": "0.2.13",
     "highcharts-ng": "0.0.6",
     "highcharts": "4.0.3",
     "jquery": "2.1.1",
