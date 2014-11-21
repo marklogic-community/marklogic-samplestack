@@ -15,7 +15,7 @@
         </a>
     </header>
 
-    <section class="ss-question">
+    <section class="ss-question" id="{{doc.id}}">
       <!-- start voting container for question -->
       <div class="ss-vote">
         <div
@@ -81,7 +81,7 @@
         <h3>{{answersCountLabel()}}</h3>
       </header>
 
-      <div ng-repeat="answer in doc.answers">
+      <div ng-repeat="answer in doc.answers" id="{{answer.id}}">
         <!-- ng-if to avoid displaying empty answer -->
         <section class="ss-answer-section" ng-if="answer.owner">
           <!-- voting container for answer -->

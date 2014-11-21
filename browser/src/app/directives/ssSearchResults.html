@@ -1,15 +1,27 @@
 <header>
-  <h2 ng-if="search.results.total > 0"
-  > Browsing
-    <span
-      class="ss-search-results-count"
-      ng-bind-template="{{search.results.total | number:0}}"
-    ></span>
-    Questions
-  </h2>
-  <h2 ng-if="search.results.total == 0">
-    No Results
-  </h2>
+  <div ng-if="search.results.total > 0">
+    <h2 ng-if="searchMode()"
+    > Search Results:
+      <span
+        class="ss-search-results-count"
+        ng-bind-template="{{search.results.total | number:0}}"
+      ></span>
+      Questions
+    </h2>
+    <h2 ng-if="!searchMode()"
+    > Browsing
+      <span
+        class="ss-search-results-count"
+        ng-bind-template="{{search.results.total | number:0}}"
+      ></span>
+      Questions
+    </h2>
+  </div>
+  <div ng-if="search.results.total == 0">
+    <h2>
+      No Results
+    </h2>
+  </div>
   <ul class="ss-sort">
     <li
       ng-repeat="sort in sorts"

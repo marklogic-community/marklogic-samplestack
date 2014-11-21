@@ -52,6 +52,10 @@ define(['app/module'], function (module) {
             };
 
           });
+
+          scope.searchMode = function () {
+            return scope.search.criteria.q;
+          };
         }
       };
     }

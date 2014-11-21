@@ -22,7 +22,21 @@
   >
   </a>
 </div>
-<p
-  ng-bind-template="{{ ::item.content.snippet }}"
-></p>
+<p>
+  <span ng-if="searchMode()" ng-repeat="snippet in item.content.snippets">
+    <span ng-if="displaySnippet(snippet.source)">
+    <!-- TODO link to page anchor for question or answer -->
+    <a
+      ui-sref=
+        "root.layout.qnaDoc({ id: item.content.id, q: search.criteria.q })"
+      class="ss-prefix"
+    >{{getPrefix(snippet.source)}}</a>
+    <span ng-repeat="match in snippet['match-text'] track by $index"
+    ><span ng-if="match.highlight" class="ss-highlight"
+    >{{match.highlight}}</span><span ng-if="!match.highlight"
+      >{{match}}</span
+    ></span>{{$last ? '' : ' ... '}}
+    </span>
+  </span>
+</p>
 <ss-qna-doc-metadata doc="item.content" doc-type="question"></ss-qna-doc-metadata>
