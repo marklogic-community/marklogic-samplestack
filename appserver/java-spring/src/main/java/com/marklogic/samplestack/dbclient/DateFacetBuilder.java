@@ -82,6 +82,7 @@ public class DateFacetBuilder {
 	public static ObjectNode dateFacet(DateTime min, DateTime max) {
 		DateFacetBuilder fb = new DateFacetBuilder(new CustomObjectMapper());
 		fb.name("date");
+		/*
 		long interval = max.getMillis() - min.getMillis();
 		if (interval / BucketInterval.BY_DAY.bucketDuration() < 40) {
 			fb.period("DAY");
@@ -101,14 +102,16 @@ public class DateFacetBuilder {
 				bucketStart = bucketStart.plusWeeks(1);
 			}
 		} else {
+		*/
+		// for EA-3 we are only doing by month
 			fb.period("MONTH");
-			DateTime bucketStart = min.minusDays(min.getDayOfMonth()).minus(min.getMillisOfDay());
+			DateTime bucketStart = min.minusDays(min.getDayOfMonth() - 1).minus(min.getMillisOfDay());
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusMonths(1);
 				fb.bucket(bucketStart, bucketEnd);
 				bucketStart = bucketStart.plusMonths(1);
 			}
-		}
+		// }
 		return fb.facetNode;
 	}
 

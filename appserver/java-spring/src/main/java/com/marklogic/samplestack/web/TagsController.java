@@ -90,7 +90,7 @@ public class TagsController {
 		ObjectNode docNode = mapper.createObjectNode();
 		ObjectNode searchNode = docNode.putObject("search");
 		if (qtextNode != null) {
-			searchNode.put("qtext", qtextNode);
+			searchNode.set("qtext", qtextNode);
 			structuredQuery.remove("qtext");
 		}
 		searchNode.setAll(structuredQuery);
