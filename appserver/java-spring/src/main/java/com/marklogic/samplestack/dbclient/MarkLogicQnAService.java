@@ -368,7 +368,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		ArrayNode results = (ArrayNode) responseNode.findPath("results");
 
 		int objectIndex = 0;
-		JsonNode reputations = responseNode.findPath("reputations");
 
 		while (docPage.hasNext()) {
 			// the matching document, as returned by extract-document-data
@@ -406,15 +405,8 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			// newContent.put("answerCount",
 			// documentResult.get("answers").size());
 			newContent.put("title", documentResultObject.get("title").asText());
-
-			try {
-				logger.debug(mapper.writeValueAsString(documentResultObject
-						.get("owner")));
-			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			newContent.put("owner", documentResultObject.get("owner"));
+			
+			newContent.set("owner", documentResultObject.get("owner"));
 
 			// remove unused keys
 			searchResponseResultNode.remove("matches");
@@ -437,7 +429,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		} catch (JsonProcessingException e) {
 			logger.debug("JSONERROR");
 		}
-		responseNode.put("facets",  facetsNode);
+		responseNode.set("facets",  facetsNode);
 		return (ObjectNode) responseNode;
 	}
 
