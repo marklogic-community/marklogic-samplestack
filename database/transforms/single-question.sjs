@@ -4,6 +4,13 @@
  * and return a mapping of ids to reputations
  */
 function joinReputation(owner) {
+    if (owner == undefined) {
+        return { "id":"unknown", 
+             "displayName":"unknown", 
+             "userName":"unknown",
+             "reputation":0
+           };
+    }
     var results = cts.search(
                     cts.andQuery( [
                       cts.collectionQuery("com.marklogic.samplestack.domain.Contributor"),
