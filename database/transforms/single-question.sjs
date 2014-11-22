@@ -22,9 +22,21 @@ function joinReputation(owner) {
 }
 
 
-/* this function requires bulk input */
+/* this will be non-performant but we can optimize */
 function searchTransform(context, params, input) {
     var outputObject = input.toObject();
+    var comments = outputObject.comments;
+    for (var i = 0; i < comments.length; i++) {
+        comments[i].owner = joinReputation(comments[i].owner);
+    }
+    
+    var answers = outputObject.answers;
+    for (var i = 0; i < answers.length; i++) {
+        answers[i].owner = joinReputation(answers[i].owner);
+        for (var j = 0; j < comments.length; j++) {
+            comments[j].owner = joinReputation(comments[j].owner);
+        }
+    }
     outputObject.owner = joinReputation(outputObject.owner)
     return outputObject;
 };
