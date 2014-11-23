@@ -36,6 +36,12 @@ var ptorConfig = {
 
 
 var go = function (args, cb) {
+  if (args.tags) {
+    ptorConfig.cucumberOpts.tags = [];
+    args.tags.split(',').forEach(function (tag) {
+      ptorConfig.cucumberOpts.tags.push('@' + tag);
+    });
+  }
   if (args.sauce) {
     var multiCapabilities;
     if (args.sauce === true || args.sauce === 'supported') {
@@ -50,7 +56,7 @@ var go = function (args, cb) {
         multiCapabilities = _.values(ctx.options.sauceBrowsers);
       }
       else {
-        multiCapabilities = ctx.options.sauceBrowsers[args.sauce];
+        multiCapabilities = [ctx.options.sauceBrowsers[args.sauce]];
       }
     }
     _.each(multiCapabilities, function (cap) {

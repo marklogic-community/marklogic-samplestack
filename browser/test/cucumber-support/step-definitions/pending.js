@@ -24,4 +24,16 @@ module.exports = function () {
     // Write code here that turns the phrase above into concrete actions
     callback.pending();
   });
+
+  this.Then(
+    /text criteria is empty/,
+    function (next) {
+      next.pending();
+    }
+  );
+
+  this.Then(/qna\-documents\-list is displayed/, function(callback) {
+    callback.pending();
+  });
+
 };

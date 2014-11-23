@@ -10,12 +10,13 @@
     <div
     >
       <p
-        class="has-error"
+        class="has-error login-failed"
         ng-if="error && !(session.password && session.password.length)"
       >
         {{error}}
       </p>
       <p
+        class="login-rules"
         ng-class="{ 'has-error': session.$ml.invalid }"
       >
         Username and Password must each be at least 5 characters.
@@ -23,9 +24,10 @@
       <div class="ss-login-userid">
         <label>User ID</label>
         <input type="text"
+          class="ss-input-username"
           form-control
           ng-model="session.username"
-        />
+        ></input>
       </div>
       <div
         class="ss-login-password"
@@ -34,15 +36,16 @@
       <div >
         <label>Password</label>
         <input type="password"
+          class="ss-input-password"
           form-control
           ng-model="session.password"
-        />
+        ></input>
       </div>
     </div>
 
     <footer>
-      <button type="button" ng-click="cancel()">Cancel</button>
-      <button type="submit" ng-disabled="session.$ml.invalid">Log In</button>
+      <button class="ss-button-cancel" type="button" ng-click="cancel()">Cancel</button>
+      <button class="ss-button-submit" type="submit" ng-disabled="session.$ml.invalid">Log In</button>
     </footer>
 
   </form>

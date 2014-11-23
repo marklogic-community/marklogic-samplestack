@@ -1,24 +1,17 @@
 module.exports = function () {
   this.World = World;
 
-  this.Given(
-    /"(.*)" is on the "(.*)" page/,
-    function (role, pageName, next) {
-      this.go(this.pages[pageName]).then(next);
-    }
-  );
-
   this.When(
-    /visit the landing page/,
-    function (next) {
-      this.go(this.pages.explore).then(next);
+    /visit the "(.*)" page/,
+    function (name, next) {
+      this.go(this.pages[name]).then(next);
     }
   );
 
   this.Then(
     /the page title is "(.*)"/,
     function (title, next) {
-      expect(this.pageTitle)
+      expect(this.currentPage.pageTitle)
         .to.eventually.equal(title)
         .and.notify(next);
     }
