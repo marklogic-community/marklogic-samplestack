@@ -13,7 +13,8 @@ var ctx = require('../context');
 
 module.exports = function (opts, cb) {
   var finalize = function () {
-    ctx.closeServer(ctx.getActiveServer('istanbul'), cb);
+    cb();
+    // ctx.closeActiveServer(ctx.options.addresses.unitCoverage.port, cb);
   };
   ctx.startIstanbulServer(
     ctx.paths.targets.unit,

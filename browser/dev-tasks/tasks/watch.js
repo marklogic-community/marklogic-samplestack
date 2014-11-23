@@ -50,6 +50,15 @@ function refireWatchTask (servers) {
 }
 
 function lrSetup (port, glob, name, fileRelativizer, cb) {
+  if (ctx.getActiveServer(port)) {
+    if (cb) {
+      return cb();
+    }
+    else {
+      return;
+    }
+  }
+
   var tinylr = require('tiny-lr-fork');
   var lrServer = new tinylr.Server();
   lrServer.listen(port, function () {
@@ -85,32 +94,40 @@ function lrSetup (port, glob, name, fileRelativizer, cb) {
 }
 
 function lrManualSetup (port, cb) {
-  var tinylr = require('tiny-lr-fork');
-  var lrServer = new tinylr.Server();
+  if (!ctx.getActiveServer(port)) {
+    var tinylr = require('tiny-lr-fork');
+    var lrServer = new tinylr.Server();
 
-  lrServer.listen(port, function () {
-    var changer = function (files) {
-      lrServer.changed({ body: { files: files } });
-    };
-    ctx.setActiveServer(port, lrServer);
-    cb(changer);
-  });
+    lrServer.listen(port, function () {
+      var changer = function (files) {
+        lrServer.changed({ body: { files: files } });
+      };
+      ctx.setActiveServer(port, lrServer);
+      cb(changer);
+    });
+  }
+  else {
+    cb();
+  }
 }
 
 var watchTaskFunc = function (cb) {
-  ctx.startServer(ctx.paths.targets.build, addresses.webApp.port);
-  ctx.startServer(ctx.paths.targets.unit, addresses.unitRunner.port);
-  ctx.startIstanbulServer(ctx.paths.targets.unit, addresses.unitCoverage.port);
-  ctx.amWatching = true;
-
   var lrChanger;
-  lrManualSetup(
-    ctx.options.liveReloadPorts.unitCoverage,
-    function (changer) {
-      lrChanger = changer;
-    }
-  );
+  if (!ctx.amWatching) {
+    ctx.startServer(ctx.paths.targets.build, addresses.webApp.port);
+    ctx.startServer(ctx.paths.targets.unit, addresses.unitRunner.port);
+    ctx.startIstanbulServer(
+      ctx.paths.targets.unit, addresses.unitCoverage.port
+    );
+    ctx.amWatching = true;
 
+    lrManualSetup(
+      ctx.options.liveReloadPorts.unitCoverage,
+      function (changer) {
+        lrChanger = changer;
+      }
+    );
+  }
 
   var watcher = $.watch(
     [

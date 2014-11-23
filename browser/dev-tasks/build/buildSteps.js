@@ -29,27 +29,24 @@ module.exports = {
   // see gulp-jshint and gulp-jscs
   linters: function (stream) {
     // do not lint browserified files
-    stream = stream.pipe($.if(
-      [ctx.paths.srcPattern + '.js', '!**/*.browserify.*'],
-      lazypipe()
-        .pipe($.jshint, path.join(ctx.paths.srcDir, '.jshintrc'))
-        .pipe($.jshint.reporter, 'jshint-stylish')
-        .pipe($.jshint.reporter, 'fail')
-        .pipe($.jscs, path.join(ctx.paths.rootDir, '.jscsrc'))()
-        .on('error', ctx.errorHandler)
 
-    ));
-    stream.on('error', ctx.errorHandler);
-    stream = stream.pipe($.if(
-      [ctx.paths.unitPattern + '.js', '!**/*.browserify.*'],
-      lazypipe()
-        .pipe($.jshint, path.join(ctx.paths.unitSrcDir, '.jshintrc'))
-        .pipe($.jshint.reporter, 'jshint-stylish')
-        .pipe($.jshint.reporter, 'fail')
-        .pipe($.jscs, path.join(ctx.paths.rootDir, '.jscsrc'))()
-        .on('error', ctx.errorHandler)
-    ));
-    stream.on('error', ctx.errorHandler);
+    var filt1 = $.filter(['src/**/*.js', '!**/*.browserify.*']);
+    stream = stream
+    .pipe(filt1)
+    .pipe($.jshint(path.join(ctx.paths.srcDir, '.jshintrc')))
+    .pipe($.jshint.reporter('jshint-stylish'))
+    // .pipe($.jshint.reporter('fail'))
+    .pipe($.jscs(path.join(ctx.paths.rootDir, '.jscsrc')));
+    stream = stream.pipe(filt1.restore());
+
+    var filt2 = $.filter(['test/unit-tests/**/*.js', '!**/*.browserify.*']);
+    stream = stream
+    .pipe(filt2)
+    .pipe($.jshint(path.join(ctx.paths.unitSrcDir, '.jshintrc')))
+    .pipe($.jshint.reporter('jshint-stylish'))
+    // .pipe($.jshint.reporter('fail'))
+    .pipe($.jscs(path.join(ctx.paths.rootDir, '.jscsrc')));
+    stream = stream.pipe(filt2.restore());
     return stream;
   },
 

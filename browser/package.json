@@ -37,6 +37,7 @@
     "gulp-debug": "^1.0.1",
     "gulp-embedlr": "^0.5.2",
     "gulp-filelog": "^0.4.1",
+    "gulp-filter": "^1.0.2",
     "gulp-if": "^1.2.5",
     "gulp-jscs": "^1.2.1",
     "gulp-jshint": "^1.9.0",

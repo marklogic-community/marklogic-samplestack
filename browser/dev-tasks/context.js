@@ -50,9 +50,9 @@ var closeServer = function (server, cb) {
     }
   };
   try {
-    server.close(onClosed);
     server.on('end', onClosed);
     server.on('close', onClosed);
+    server.close(onClosed);
   }
   catch (err) {
     onClosed();
@@ -122,22 +122,17 @@ self = module.exports = {
     srcPattern: path.join(rootDir, 'src/**/*')
   },
 
-  streamErrorHandler: function (err) {
-    hadErrors = true;
-    $.util.log(
-      $.util.colors.red('[ERROR]:\n\n') +
-      err.toString().trim() + '\n'
-    );
-    if (watchTaskCalled && !rebuildOnNext) {
-      $.util.log('[' + chalk.cyan('watch') + '] ' +
-          chalk.yellow(
-            'a full rebuild will be scheduled on next change'
-          ));
-      rebuildOnNext = true;
+  closeServer: closeServer,
+
+  closeActiveServer: function (key, cb) {
+    var server = activeServers && activeServers[key.toString()];
+    if (server) {
+      closeServer(server, function () {
+        delete activeServers[key.toString];
+        cb();
+      });
     }
   },
-
-  closeServer: closeServer,
 
   closeActiveServers: function (callback) {
     if (!closing) {
@@ -158,7 +153,7 @@ self = module.exports = {
                 ));
                 cb();
               }
-            }, 10000);
+            }, 1000);
             closeServer(server, function (err) {
               cb(err);
               closed = true;
@@ -222,9 +217,12 @@ self = module.exports = {
       listener.on('error', function (err) {
         console.log(err);
       });
-      self.setActiveServer(port, listener);
+      self.setActiveServer(port, server);
 
       return server;
+    }
+    else {
+      return self.getActiveServer(port);
     }
   },
 
