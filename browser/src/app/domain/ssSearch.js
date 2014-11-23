@@ -210,7 +210,6 @@ define(['app/module'], function (module) {
         if (data.facets.dates && data.facets.dates.facetValues) {
           data.facets.dates.facetValues.forEach(function (val) {
             var incoming = mlUtil.moment(val.name);
-            incoming.month(incoming.month() + 1);
             val.name = val.value = incoming.format('YYYYMM');
           });
         }
