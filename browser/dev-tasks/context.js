@@ -119,20 +119,16 @@ process.on('SIGINT', function () {
 
 self = module.exports = {
   errorHandler: function (err) {
-    console.log(err.stack);
-    // console.log('errorHandler');
     self.hadErrors = true;
+    var errString = err.toString().trim();
+    var preMessage = chalk.stripColor(errString).indexOf('Error') === 0 ?
+    '' :
+    $.util.colors.red('Error: ');
     $.util.log(
-      $.util.colors.red('Error:\n\n') + err.toString().trim() + '\n' +
-      err.stack + '\n'
+      preMessage + err.toString().trim() +
+      (err.stack ? '\n' + err.stack + '\n' : '\n')
     );
-    if (self.watchTaskCalled && !self.rebuildOnNext) {
-      $.util.log('[' + chalk.cyan('watch') + '] ' +
-          chalk.yellow(
-            'a full rebuild will be scheduled on next change'
-          ));
-      self.rebuildOnNext = true;
-    }
+    self.rebuildOnNext = true;
   },
 
   options: options,
@@ -187,13 +183,25 @@ self = module.exports = {
                 $.util.log(chalk.yellow(
                   'No exit event from ' + key + '. Proceeding with exit...'
                 ));
-                cb();
+                try {
+                  cb();
+                }
+                catch (err) { console.log(err); }
               }
             }, 1000);
-            closeServer(server, function (err) {
-              cb(err);
-              closed = true;
-            });
+            closeServer(
+              server,
+              function (err) {
+                if (err && err.toString().indexOf('isRunning')) {
+                  cb();
+                  closed = true;
+                }
+                else {
+                  cb(err);
+                  closed = true;
+                }
+              }
+            );
           };
         }),
         // when all have called back, call back the caller

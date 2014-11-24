@@ -46,7 +46,7 @@ function writeWatchMenu () {
 
 function refireWatchTask (servers) {
   ctx.rebuildOnNext = false;
-  ctx.closeActiveServers(gulp.start.bind(null, 'watch'));
+  ctx.closeActiveServers(gulp.start.bind(gulp, 'watch'));
 }
 
 function lrSetup (port, glob, name, fileRelativizer, cb) {
@@ -187,23 +187,31 @@ var watchTaskFunc = function (cb) {
 
   ctx.setActiveServer('watcher', watcher);
 
-  lrSetup(
-      ctx.options.liveReloadPorts.webApp,
-    [ path.join(ctx.paths.targets.build, '**/*') ],
-    'reload-build-watch',
-    function (file) {
-      file.base = path.resolve('./build');
-      return file.relative;
-    },
-    function () {
-      writeWatchMenu();
-      if (cb) {
-        // if we restarted this function then no cb is available or
-        // necessary
-        cb();
+  if (!ctx.getActiveServer('reload-build-watch')) {
+    lrSetup(
+        ctx.options.liveReloadPorts.webApp,
+      [ path.join(ctx.paths.targets.build, '**/*') ],
+      'reload-build-watch',
+      function (file) {
+        file.base = path.resolve('./build');
+        return file.relative;
+      },
+      function () {
+        writeWatchMenu();
+        if (cb) {
+          // if we restarted this function then no cb is available or
+          // necessary
+          cb();
+        }
       }
+    );
+  }
+  else {
+    writeWatchMenu();
+    if (cb) {
+      cb();
     }
-  );
+  }
 
 };
 //
