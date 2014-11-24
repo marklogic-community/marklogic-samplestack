@@ -6610,7 +6610,7 @@ ul.ss-tags li {
 /* line 50, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
 .ss-search-tips-panel {
   width: 100%;
-  height: 160px;
+  height: 150px;
   background-color: #f9f9f9;
   padding: 10px; }
   /* line 56, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
@@ -6625,8 +6625,9 @@ ul.ss-tags li {
     width: 30%;
     margin-bottom: 6px;
     color: #999;
-    font-weight: normal; }
-  /* line 72, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    font-weight: normal;
+    clear: both; }
+  /* line 73, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dd {
     width: 70%;
     margin-bottom: 6px; }
