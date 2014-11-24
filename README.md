@@ -22,7 +22,7 @@ This README covers the following topics:
 ## Prerequisites
 To configure and use this application, you need the following software:
 * Java JDK 1.7 or 1.8
-* Latest MarkLogic 8.0 Nightly Build (see instructions [below](#getting-started))
+* MarLogic 8.0 Early Acceess Release 3 (EA3) (see instructions [below](#getting-started))
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
 * A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp). For details, see [Global Utilities](browser/README.md#global-utilities) in the [browser README](browser/README.md).
 
@@ -32,29 +32,9 @@ The setup procedure may install additional software, such as Gradle and Angular.
 
 ## Getting Started
 
-*note for development branch work:*
-
-This README is for a development branch that does not work with any released version of MarkLogic
-
-Use Latest MarkLogic nightly for your platform:
-
-http://root.marklogic.com/nightly/default.xqy?branch=HEAD
-
-Java Client API needs snapshot available on commit [481c2b045ad5bc6f0549ad4e60e44b7cec5232a6](https://github.com/marklogic/java-client-api/commit/481c2b045ad5bc6f0549ad4e60e44b7cec5232a6) from 11/5/2014.  This should be installed
-automatically but may require gradle or maven cache cleaning.
-
-_**If** you are using OSX and have access to the nightly builds site,_ an MLVM script is available to fully configure the Java Middle Tier, including the download/installation of the latest nightly, dowload/loading of seed data and initialization and starup of of the middle-tier:
-
-https://github.com/marklogic/marklogic-samplestack/blob/develop/appserver/java-spring/cleanstart.sh
-
-If you are not using OSX, the script may be helpful in understanding the steps, should you wish to examine it and/or adapt it for your platform.
-
-*end note*
-
-
 Follow this procedure to set up Samplestack in your environment.
 
-1. Install MarkLogic 8 Early Access. See http://ea.marklogic.com/download.
+1. Install MarkLogic 8 Early Access 3 (EA3). See http://ea.marklogic.com/download.
 
 2. Start MarkLogic. For details, see the [MarkLogic Installation Guide](http://docs.marklogic.com/guide/installation/procedures#id_92457).
 
