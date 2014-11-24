@@ -139,9 +139,13 @@
         "return-qtext": true,
         "return-query": true,
         "term": {
-            "empty": {
-                "apply": "all-results"
-            }
+            "empty": { "apply": "all-results" }
+        },
+        "transform-results":{
+            "apply":"snippet",
+            "max-snippet-chars":200,
+            "max-matches":4,
+            "preferred-elements":["text","title"]
         },
         "values": [
             {
