@@ -13,7 +13,7 @@ define(['app/module', 'app/components'], function (module) {
   /* jshint ignore:start */
   buildOptions = {
     enableCsrf: false,
-    html5Mode: true
+    html5Mode: false
   };
   /* jshint ignore:end */
   /* jscs:enable */

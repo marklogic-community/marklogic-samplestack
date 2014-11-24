@@ -13,16 +13,11 @@
 # exclude .gradle working directory
 .gradle
 
-build/*
-!build/resources
-build/resources/*
-!build/resources/main
-build/resources/main/*
-!build/resources/main/public
+build
 
 buildSrc/build
-static
-# public
+# static
+public
 .classpath
 .project
 .settings

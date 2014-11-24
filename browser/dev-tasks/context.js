@@ -51,11 +51,11 @@ var deployBuilt = function () {
     __dirname, '../builds/built'
   );
   var dest = path.resolve(
-    __dirname, '../../appserver/java-spring/build/resources/main/public'
+    __dirname, '../../appserver/java-spring/static'
   );
 
-  var isntIndex = function (path) {
-    return path.indexOf('index.html') < 0;
+  var isntSpecial = function (path) {
+    return path.indexOf('index.html') < 0 && path.indexOf('application.js') < 0;
   };
 
   del(path.join(dest, '**/*'), { force: true }, function (err) {
@@ -63,12 +63,18 @@ var deployBuilt = function () {
       console.log(err);
     }
     ncp(
-      src, dest, { clobber: true, filter: isntIndex }, function () {
+      src, dest, { clobber: true, filter: isntSpecial }, function () {
         var index = fs.readFileSync(
           path.join(src, 'index.html'), { encoding: 'utf8' }
         );
         index = index.replace(/<script.*livereload.*script>/, '');
         fs.writeFileSync(path.join(dest, 'index.html'), index);
+
+        var appjs = fs.readFileSync(
+          path.join(src, 'application.js'), { encoding: 'utf8' }
+        );
+        appjs = appjs.replace('html5Mode: true', 'html5Mode: false');
+        fs.writeFileSync(path.join(dest, 'application.js'), appjs);
       }
     );
   });
