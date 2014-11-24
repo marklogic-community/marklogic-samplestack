@@ -112,13 +112,12 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		QnADocument acceptedQuestion;
 
 		// check for existing answers with a naive question
-		String question = "How do I get to know MarkLogic quickly?";
+		String question = "How do I get to know MarkLogic quickly";
 
 		// first step -- send question to the server, get back results
 		// TODO expand this first step.
 		service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
-		
-	
+
 		newQuestion = Utils.newQuestion();
 		
 		// ask a question.
