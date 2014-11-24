@@ -6424,72 +6424,71 @@ ul.ss-tags li {
 
 /* line 110, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-question-title {
-  height: 60px; }
+  height: 40px; }
   /* line 113, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
-  .ss-question-title h3 {
-    float: left; }
-  /* line 117, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-question-title .ss-so-link {
     background-image: url('/app/images/original.png');
     background-position: center;
     height: 24px;
     width: 24px;
     float: right;
-    margin-top: 12px; }
+    margin-top: 12px;
+    position: relative;
+    top: -45px; }
 
-/* line 130, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 128, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-add-comment div:first-child {
   margin: 8px 0 8px 2px;
   cursor: pointer; }
-/* line 135, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 133, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-add-comment textarea {
   display: block;
   width: 600px;
   height: 60px;
   margin: 8px 0 8px 2px; }
 
-/* line 144, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 142, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-section {
   border-top: 1px solid;
   margin-bottom: 25px;
   padding-top: 15px; }
-  /* line 149, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 147, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answer-section :last-child {
     margin-bottom: 0; }
 
-/* line 155, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 153, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form form > * {
   display: block;
   margin-bottom: 10px; }
-/* line 160, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 158, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form > *:last-child {
   margin-bottom: 0; }
-/* line 164, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 162, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form input {
   width: 500px; }
-/* line 168, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 166, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form textarea {
   height: 200px;
   width: 700px; }
 
-/* line 174, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 172, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answers-header {
   display: inline-block;
   position: relative;
   width: 100%; }
-  /* line 179, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 177, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answers-header h3 {
     float: left;
     position: relative; }
-  /* line 184, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 182, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answers-header ul.ss-sort {
     float: right;
     margin-top: 20px;
     position: relative; }
-  /* line 190, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 188, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answers-header li {
     margin-left: 10px; }
-    /* line 193, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+    /* line 191, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
     .ss-answers-header li .ss-sort-active {
       font-weight: bold; }
 

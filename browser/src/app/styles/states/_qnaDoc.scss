@@ -108,11 +108,7 @@
 }
 
 .ss-question-title {
-  height: 60px;
-
-  h3 {
-    float: left;
-  }
+  height: 40px;
 
   .ss-so-link {
     background-image: url('/app/images/original.png');
@@ -121,6 +117,8 @@
     width: 24px;
     float: right;
     margin-top: 12px;
+    position: relative;
+    top: -45px;
   }
 
 }
