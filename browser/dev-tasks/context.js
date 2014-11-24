@@ -41,6 +41,40 @@ var self;
 var gulpChild;
 var closing = false;
 
+var ncp = require('ncp');
+var del = require('del');
+var fs = require('fs');
+
+var deployBuilt = function () {
+
+  var src = path.resolve(
+    __dirname, '../builds/built'
+  );
+  var dest = path.resolve(
+    __dirname, '../../appserver/java-spring/build/resources/main/public'
+  );
+
+  var isntIndex = function (path) {
+    return path.indexOf('index.html') < 0;
+  };
+
+  del(path.join(dest, '**/*'), { force: true }, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    ncp(
+      src, dest, { clobber: true, filter: isntIndex }, function () {
+        var index = fs.readFileSync(
+          path.join(src, 'index.html'), { encoding: 'utf8' }
+        );
+        index = index.replace(/<script.*livereload.*script>/, '');
+        fs.writeFileSync(path.join(dest, 'index.html'), index);
+      }
+    );
+  });
+
+};
+
 var closeServer = function (server, cb) {
   var closed = false;
   var onClosed = function () {
@@ -121,6 +155,8 @@ self = module.exports = {
     unitPattern: path.join(rootDir, 'unit/**/*'),
     srcPattern: path.join(rootDir, 'src/**/*')
   },
+
+  deployBuilt: deployBuilt,
 
   closeServer: closeServer,
 

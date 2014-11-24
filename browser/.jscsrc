@@ -1,4 +1,5 @@
 {
+  "excludeFiles": ["src/application.js"],
   "disallowMultipleVarDecl": true,
   "requireSpaceBeforeBinaryOperators": [
     "?",

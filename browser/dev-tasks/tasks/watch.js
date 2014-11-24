@@ -174,6 +174,7 @@ var watchTaskFunc = function (cb) {
                 gulpWatchCb();
                 writeWatchMenu();
               }
+              ctx.deployBuilt();
             })
           );
         }

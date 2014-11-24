@@ -10,6 +10,12 @@ module.exports = [{
   name: 'build',
   deps: ['clean', 'bower-files'],
   func: function () {
+    var finalize = function () {
+      ctx.build = true;
+
+      ctx.deployBuilt();
+    };
+
     ctx.built = false;
     var srcs = helper.fs.src([
       path.join(ctx.paths.srcDir, '**/*'),
@@ -17,13 +23,8 @@ module.exports = [{
     ]);
 
     var final = runBuild(srcs);
-    final.on('end', function () {
-      ctx.built = true;
-    });
-    final.on('close', function () {
-      ctx.built = true;
-    });
+    final.on('end', finalize);
+    final.on('close', finalize);
     return final;
-
   }
 }];
