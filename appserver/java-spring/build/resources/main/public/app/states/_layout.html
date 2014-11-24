@@ -1,0 +1,56 @@
+<div>
+  <div ng-if="loading" class="spinner">
+  </div>
+  <div ng-if="globalError.length" marked="globalError" class="has-error"></div>
+
+  <header class="ss-page-header">
+    <!-- @todo move form classes (.form-control, .btn, etc.) into sass without losing styling -->
+    <div class="ss-app-title">
+      <h1>
+        <a href="/">samplestack</a>
+      </h1>
+    </div>
+    <div class="ss-page-header-actions"
+      ng-class="{ loading: loading }"
+    >
+
+      <div class="ss-login">
+        <span ng-if="store.session" ss-account-dropdown></span>
+
+        <a ng-if="!store.session" href="" ng-click="openLogin()">
+          Login
+        </a>
+      </div>
+
+      <button
+        class="ss-ask-button"
+        ng-disabled="!store.session"
+        ng-click="ask()"
+        ng-class="{ disabled: !store.session }"
+      >
+        Ask a Question
+      </button>
+    </div>
+  </header>
+
+  <div class="ss-incomplete-message">
+    <span class="ss-incomplete">(yellow shading indicates incomplete features)</span>
+  </div>
+
+  <div ng-class="{ loading: loading }">
+    <div ng-if="localError" class="has-error">{{localError}}</div>
+    <section class="ss-main">
+      <div ui-view></div>
+    </section>
+
+    <footer class="ss-page-footer">
+      <p>Copyright MarkLogic Corporation 2014</p>
+      <p>Imported question and answer data provided by
+        <a href="http://stackoverflow.com/" target="_blank">Stack Overflow</a>
+        under (<a href="http://creativecommons.org/licenses/by-sa/3.0/"
+        target="_blank">CC BY-SA 3.0</a>)
+      </p>
+    </footer>
+  </div>
+</div>
+</div>

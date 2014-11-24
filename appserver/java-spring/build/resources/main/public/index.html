@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" class="nojs">
+
+<head>
+
+  <!--
+  a message will be delivered that this application requires a script
+  endabled browser or other script-enabled assistive technology
+  -->
+  <base href="/"/>
+  <noscript>This application requires Javascript. Please enable it in your browser.</noscript>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title ng-bind="pageTitle + ' - samplestack'">samplestack</title>
+
+  <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
+  <link rel="stylesheet" type="text/css" href="/deps/highlightjs/styles/github.css">
+  <link rel="stylesheet" type="text/css" href="/deps/ng-tags-input/ng-tags-input.css">
+
+  <!--
+  An honest effort to maintain consistency across less-than modern
+  browsers.  (In the not too distant future this will be an es6 shim.)
+  <script src="/deps/angular/angular.js"></script>
+  -->
+  <script src="/deps/modernizr/modernizr.js"></script>
+  <script src="/deps/es5-shim/es5-shim.js"></script>
+
+  <!--
+  Downloading and running the rest of the app is delayed in order to
+  get the basic layout and spinner displayed quickly.
+  -->
+</head>
+
+<body>
+
+  <!-- TODO: add a spinner -->
+
+  <!--
+  This is the real body of the app.  It is initially hidden until it is
+  bootstrapped.  ng-cloak allows it to be invisible until template code
+  has been compiled by Angular.
+  -->
+  <div class="body ng-cloak" ng-cloak>
+
+    <!--
+    This is the main ui-view, corresponding to the _root state in the
+    ui-router hierarchy.
+    -->
+    <div ui-view></div>
+
+  </div>
+
+
+
+</body>
+
+<script src="/deps/requirejs/require.js"></script>
+
+<script>
+
+/*
+delay the browser seeing this until it's already seen the body so that
+it will render the spinner with minimal interference
+
+TODO: parameterize for dist-style minimized version?
+
+Place the application in run mode and inject service(s) that participate in
+entering running state.
+
+See app/services/appRouting.js
+ */
+
+var app;
+/* jshint ignore:start */
+
+app = 'application.js';
+
+/* jshint ignore:end */
+
+require([app], function (app) {
+  var htmlEl = angular.element(window.document.childNodes[1]);
+
+  app.run(['initialize', function (initialize) {}]);
+  // htmlEl.attr('ng-app', 'app');
+
+  angular.bootstrap(
+    htmlEl,
+    [
+      'app',
+      function() {
+        htmlEl.attr('ng-app', 'app');
+      }
+    ]
+  );
+});
+
+</script>
+
+</html>

@@ -1,0 +1,61 @@
+{
+  "accepted": true,
+  "acceptedAnswerId": "soa20418513",
+  "answers": [
+    {
+      "comments": [
+        {
+          "creationDate": "2013-12-06T07:34:40.473",
+          "id": "soc30495818",
+          "owner": {
+            "displayName": "Squirrl",
+            "id": "sou1179593",
+            "userName": "souser1179593@email.com"
+          },
+          "text": "This is \n\n\tsome comment text in an answer."
+        }
+      ],
+      "creationDate": "2013-12-06T07:34:15.797",
+      "id": "soa20418513",
+      "itemTally": 0,
+      "owner": {
+        "displayName": "Eru Penkman",
+        "id": "sou2377920",
+        "userName": "souser2377920@email.com"
+      },
+      "text": "This is \n\n\tsome answer text."
+    }
+  ],
+  "comments": [
+    {
+      "creationDate": "2013-12-06T07:37:27.850",
+      "id": "soc30495895",
+      "owner": {
+        "displayName": "user2864740",
+        "id": "sou2864740",
+        "userName": "souser2864740@email.com"
+      },
+      "text": "This is \n\n\tsome comment text in a question."
+    }
+  ],
+  "creationDate": "2013-12-06T07:30:24.907",
+  "id": "soq20418458",
+  "itemTally": 0,
+  "lastActivityDate": "2013-12-06T08:25:51.420",
+  "originalId": "20418458",
+  "owner": {
+    "displayName": "Squirrl",
+    "id": "sou1179593",
+    "userName": "souser1179593@email.com"
+  },
+  "tags": [
+    "javascript",
+    "json",
+    "node.js",
+    "express",
+    "stringify"
+  ],
+  "text": "`This is a simple sentence. I don't want anything <form><b>but</b></form> this.`\n\nBut after some client-side html manipulation and...\n\n\tvar newBody = JSON.stringify(req.body);\n\t\n\nfollowed by an update to MongoDb, \n\n\tvar update = { '$set' :{ 'body' : newBody} } \n\t\n\nI have this:\n\n\tbody: '{\"This is a simple sentence. I don\\'t want anything <form><b>but</b></form> this. \":\"\"}' \n\t\n\nAnd when I convert it back to html it has curley braces and quotes, which exacerbate with each update.  I looked [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify), and have tried escape back-slashes, but I can't figure it out.  Thank you.  \n\n\t{\"{\\\"This is a simple sentence. I <form><b>don't</b></form> want this. \\\":\\\"\\\"}\"}\n\t",
+  "title": "How do I JSON.stringify( anObject ) without colons, backslashes, curly braces or quotes?",
+  "voteCount": 0
+}

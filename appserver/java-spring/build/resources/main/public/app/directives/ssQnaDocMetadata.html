@@ -1,0 +1,47 @@
+<div ng-if="docType != 'comment'" class="ss-metadata">
+  <ul class="ss-tags">
+    <li ng-repeat="tag in doc.tags">
+      <a href="" ng-click="goTag(tag)">
+        {{tag}}
+      </a>
+    </li>
+  </ul>
+  <div class="ss-author"
+  >
+    <span ng-if="docType == 'question'">asked</span>
+    <span ng-if="docType == 'answer'">answered</span>
+    {{ formatDate(doc.creationDate) }} by
+    <a ng-if="doc.owner.originalId === undefined"
+      href=""
+      ng-click="showContributor()"
+    >{{doc.owner.displayName}}</a>
+    <a ng-if="!(doc.owner.originalId === undefined)"
+      href="{{soUserLink()}}"
+      target="_blank"
+    >{{doc.owner.displayName}}</a>
+    [<span
+      ng-if="doc.owner.reputation !== undefined"
+    >{{doc.owner.reputation}}</span><span
+      ng-if="doc.owner.reputation === undefined"
+      class="ss-incomplete"
+    >unimplemented</span>]
+  </div>
+</div>
+<span ng-if="docType == 'comment'">
+  &mdash;
+  <a ng-if="doc.owner.originalId === undefined"
+      href=""
+      ng-click="showContributor()"
+    >{{doc.owner.displayName}}</a>
+  <a ng-if="!(doc.owner.originalId === undefined)"
+      href="{{soUserLink()}}"
+      target="_blank"
+    >{{doc.owner.displayName}}</a>
+  [<span
+    ng-if="doc.owner.reputation !== undefined"
+  >{{doc.owner.reputation}}</span><span
+    ng-if="doc.owner.reputation === undefined"
+    class="ss-incomplete"
+  >unimplemented</span>]
+  {{formatDate(doc.creationDate)}}
+</span>

@@ -1,0 +1,67 @@
+<section class="ss-search-bar">
+  <ss-search-bar></ss-search-bar>
+</section>
+
+<section class="ss-explore">
+
+  <div class="ss-filters-results">
+
+    <section class="ss-filters" ng-hide="!search.results">
+      <header>
+        <h2>Filter Results</h2>
+      </header>
+
+    <div
+      class="ss-filters-my-entries"
+      ng-class="{ disabled: !store.session }"
+    >
+      <input
+        type="checkbox"
+        ng-model="showMineOnly"
+        ng-change="onCriteriaChange()"
+        ng-disabled="!store.session"
+      />
+      Show my entries only
+    </div>
+    <div
+      class="ss-filters-resolved"
+      ng-class="{ disabled: !store.session }"
+    >
+      <input
+        ng-model="resolvedOnly"
+        ng-change="onCriteriaChange()"
+        type="checkbox"
+        ng-disabled="!store.session"
+      />
+      Show resolved only
+    </div>
+    <section class="ss-filters-date">
+      <header>
+        <h3>Date</h3>
+        <a href="" class="ss-clear-date" ng-click="clearDatesConstraints()">Clear</a>
+      </header>
+      <ss-facet-date-range
+        constraints="search.criteria.constraints"
+        results="search.results.facets.dates"
+      ></ss-facet-date-range>
+    </section>
+    <section class="ss-filters-tags">
+      <header>
+        <h3>Tags</h3>
+        <a href="" class="ss-clear-tags" ng-click="clearTagsConstraint()">Clear</a>
+      </header>
+      <ss-facet-tags
+        criteria="search.criteria.constraints.tags"
+        results="search.results.facets.tags"
+        totals="{ total: search.results.total, shadow: search.results.shadowTotals.tags }"
+        num-tags="8"
+      ></ss-facet-tags>
+      <div class="ss-open-all-tags" disabled ng-click="angular.noop()"><span class="ss-incomplete">more...</span></div>
+    </section>
+  </section>
+
+  <section class="ss-results">
+    <ui-view></ui-view>
+  </section>
+
+</section>

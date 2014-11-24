@@ -1,0 +1,34 @@
+<section class="ss-dialog ss-dialog-user">
+
+  <header>
+    <button type="button" ng-click="cancel()">&times;</button>
+    <h4>Samplestack account details</h4>
+  </header>
+
+  <div ng-if="contributor">
+    <div>
+      <label>Display name:&nbsp;</label>
+      <span class="ss-contributor-display-name"
+      >{{contributor.displayName}}</span>
+    </div>
+    <div>
+        <label>Votes cast:</label>
+        <span class="ss-contributor-votes-cast"
+        >{{contributor.votes.length}}</span>
+      </div>
+      <div>
+        <label>Reputation:</label>
+        <span class="ss-contributor-reputation"
+        >{{contributor.reputation}}</span>
+      </div>
+  </div>
+
+  <div ng-if="!contributor">
+    <div class="has-error">Contributor data not found.</div>
+  </div>
+
+  <footer>
+    <button ng-click="cancel()">OK</button>
+  </footer>
+
+</section>

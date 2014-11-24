@@ -1,0 +1,634 @@
+{
+  "criteria": {
+    "q": null,
+    "constraints": {
+      "resolved": {
+        "constraintName": "resolved",
+        "constraintType": "value",
+        "type": "boolean",
+        "queryStringName": "resolved",
+        "value": null
+      },
+      "userName": {
+        "constraintName": "userName",
+        "constraintType": "value",
+        "type": "text",
+        "queryStringName": "contributor",
+        "value": null
+      },
+      "tags": {
+        "constraintName": "tag",
+        "constraintType": "range",
+        "type": "enum",
+        "subType": "value",
+        "queryStringName": "tags",
+        "facetValuesType": "object",
+        "values": [
+          "c#"
+        ]
+      },
+      "dateStart": {
+        "constraintName": "lastActivity",
+        "constraintType": "range",
+        "type": "dateTime",
+        "operator": "GE",
+        "queryStringName": "date-ge",
+        "value": "2014-03-05T00:00:00.000Z"
+      },
+      "dateEnd": {
+        "constraintName": "lastActivity",
+        "constraintType": "range",
+        "type": "dateTime",
+        "operator": "LT",
+        "queryStringName": "date-lt",
+        "value": "2014-10-27T00:00:00.000Z"
+      }
+    }
+  },
+  "facets": {
+    "tags": {
+      "valuesType": "object",
+      "shadowConstraints": [
+        "tags"
+      ]
+    },
+    "dates": {
+      "valuesType": "array",
+      "shadowConstraints": [
+        "dateStart",
+        "dateEnd"
+      ]
+    }
+  },
+  "results": {
+    "snippet-format": "raw",
+    "total": 138,
+    "start": 1,
+    "page-length": 10,
+    "facets": {
+      "tags": {
+        "c#": {
+          "name": "c#",
+          "count": 138,
+          "value": "c#",
+          "shadow": {
+            "name": "c#",
+            "count": 138,
+            "value": "c#"
+          }
+        },
+        ".net": {
+          "name": ".net",
+          "count": 35,
+          "value": ".net",
+          "shadow": {
+            "name": ".net",
+            "count": 66,
+            "value": ".net"
+          }
+        },
+        "asp.net": {
+          "name": "asp.net",
+          "count": 17,
+          "value": "asp.net",
+          "shadow": {
+            "name": "asp.net",
+            "count": 48,
+            "value": "asp.net"
+          }
+        },
+        "linq": {
+          "name": "linq",
+          "count": 12,
+          "value": "linq"
+        },
+        "wpf": {
+          "name": "wpf",
+          "count": 10,
+          "value": "wpf"
+        },
+        "winforms": {
+          "name": "winforms",
+          "count": 8,
+          "value": "winforms"
+        },
+        "asp.net-mvc": {
+          "name": "asp.net-mvc",
+          "count": 4,
+          "value": "asp.net-mvc"
+        },
+        "visual-studio-2008": {
+          "name": "visual-studio-2008",
+          "count": 4,
+          "value": "visual-studio-2008"
+        },
+        "xml": {
+          "name": "xml",
+          "count": 4,
+          "value": "xml"
+        },
+        "com": {
+          "name": "com",
+          "count": 3,
+          "value": "com"
+        },
+        "java": {
+          "name": "java",
+          "shadow": {
+            "name": "java",
+            "count": 101,
+            "value": "java"
+          }
+        },
+        "php": {
+          "name": "php",
+          "shadow": {
+            "name": "php",
+            "count": 74,
+            "value": "php"
+          }
+        },
+        "javascript": {
+          "name": "javascript",
+          "shadow": {
+            "name": "javascript",
+            "count": 62,
+            "value": "javascript"
+          }
+        },
+        "jquery": {
+          "name": "jquery",
+          "shadow": {
+            "name": "jquery",
+            "count": 62,
+            "value": "jquery"
+          }
+        },
+        "c++": {
+          "name": "c++",
+          "shadow": {
+            "name": "c++",
+            "count": 61,
+            "value": "c++"
+          }
+        },
+        "iphone": {
+          "name": "iphone",
+          "shadow": {
+            "name": "iphone",
+            "count": 50,
+            "value": "iphone"
+          }
+        },
+        "python": {
+          "name": "python",
+          "shadow": {
+            "name": "python",
+            "count": 47,
+            "value": "python"
+          }
+        }
+      },
+      "dates": [
+        {
+          "name": "201401",
+          "shadow": {
+            "name": "201401",
+            "count": 38,
+            "value": "201401"
+          }
+        },
+        {
+          "name": "201402",
+          "shadow": {
+            "name": "201402",
+            "count": 40,
+            "value": "201402"
+          }
+        },
+        {
+          "name": "201403",
+          "shadow": {
+            "name": "201403",
+            "count": 44,
+            "value": "201403"
+          },
+          "count": 43,
+          "value": "201403"
+        },
+        {
+          "name": "201404",
+          "shadow": {
+            "name": "201404",
+            "count": 45,
+            "value": "201404"
+          },
+          "count": 45,
+          "value": "201404"
+        },
+        {
+          "name": "201405",
+          "shadow": {
+            "name": "201405",
+            "count": 11,
+            "value": "201405"
+          },
+          "count": 11,
+          "value": "201405"
+        },
+        {
+          "name": "201406",
+          "shadow": {
+            "name": "201406",
+            "count": 8,
+            "value": "201406"
+          },
+          "count": 8,
+          "value": "201406"
+        },
+        {
+          "name": "201407",
+          "shadow": {
+            "name": "201407",
+            "count": 3,
+            "value": "201407"
+          },
+          "count": 3,
+          "value": "201407"
+        },
+        {
+          "name": "201408",
+          "shadow": {
+            "name": "201408",
+            "count": 15,
+            "value": "201408"
+          },
+          "count": 15,
+          "value": "201408"
+        },
+        {
+          "name": "201409",
+          "shadow": {
+            "name": "201409",
+            "count": 6,
+            "value": "201409"
+          },
+          "count": 6,
+          "value": "201409"
+        },
+        {
+          "name": "201410",
+          "shadow": {
+            "name": "201410",
+            "count": 8,
+            "value": "201410"
+          },
+          "count": 7,
+          "value": "201410"
+        },
+        {
+          "name": "201411",
+          "shadow": {
+            "name": "201411",
+            "count": 8,
+            "value": "201411"
+          }
+        },
+        {
+          "name": "201412",
+          "shadow": {
+            "name": "201412",
+            "count": 5,
+            "value": "201412"
+          }
+        }
+      ]
+    },
+    "query": {
+      "and-query": [
+        {
+          "json-property-range-query": {
+            "operator": "<",
+            "property": "lastActivityDate",
+            "value": [
+              {
+                "type": "xs:dateTime",
+                "_value": "2014-10-27T00:00:00"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "qtext": null,
+    "report": "(cts:search(fn:collection(), cts:and-query((cts:json-property-range-query(\"tags\", \"=\", \"c#\", (\"collation=http://marklogic.com/collation/\"), 1), cts:json-property-range-query(\"lastActivityDate\", \">=\", xs:dateTime(\"2014-03-05T00:00:00\"), (), 1), cts:json-property-range-query(\"lastActivityDate\", \"<\", xs:dateTime(\"2014-10-27T00:00:00\"), (), 1), cts:directory-query(\"/questions/\", \"infinity\")), ()), (\"unfiltered\",\"faceted\"), 1))[1 to 10]",
+    "metrics": {
+      "query-resolution-time": "PT0.005186S",
+      "facet-resolution-time": "PT0.001869S",
+      "snippet-resolution-time": "PT0.000513S",
+      "total-time": "PT0.034671S"
+    },
+    "items": [
+      {
+        "index": 1,
+        "uri": "/questions/2265320.json",
+        "path": "fn:doc(\"/questions/2265320.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2265320.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2265320",
+          "creationDate": "2014-02-18T02:42:53.230",
+          "body": "\n\nI want to attempt an MVC design for my little app.\n\nI have a normal Csharp class ViewBase which extends UserControl. It's a single .cs file.\n\nI have multiple classes that I want to extend ViewBase. These are actual UserControls so they have a code behind .cs file and a .xaml file.\n\nHowever, CSharp tells me that for these classes, their base class \"differs from declared in other parts\".\n\nIs what I want to do possible at all? What am I doing wrong?\n\nNote that I did not modify my XAML files, so they still use  tags.\n\nHere is the relevant code:\n\n\t// This gives the error in question and ViewBase is underlined\n\t// \"Base class of LoginView differs from declared in other parts\"\n\tpublic partial class LoginView : ViewBase {\n\t    public LoginView(Shell shell, ControllerBase controller) : base(shell, controller) {\n\t        InitializeComponent();\n\t    }\n\t}\n\t\n\t// This one is a single .cs file\n\tpublic abstract class ViewBase : UserControl {\n\t    public Shell Shell { get; set; }\n\t    public ControllerBase Controller { get; set; }\n\t\n\t    protected ViewBase(Shell shell, ControllerBase controller)\n\t    {\n\t        Shell = shell;\n\t        Controller = controller;\n\t    }\n\t}\n\t",
+          "lastActivityDate": "2014-09-30T00:49:57.293",
+          "title": "How can I make a user control extend a class that extends UserControl?",
+          "tags": [
+            "c#",
+            "wpf",
+            "inheritance"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201409",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 2,
+        "uri": "/questions/20887676.json",
+        "path": "fn:doc(\"/questions/20887676.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F20887676.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "20887676",
+          "creationDate": "2014-01-05T08:54:28.797",
+          "body": "\n\nI'm new to threads so it might be an easy one for you, but I've spent some hours trying to figure it out.\n\nLet's say I have a function\n\n\tpublic double Gain(List<int> lRelevantObsIndex, ushort uRelevantAttribute)\n\t\n\nwhich needs some time to finish, but is a read only func.\n\nI have an array of ushort[] values, and I want to get the ushort value that achieves the minimum value of the Gain function.\n\nHere is what I've got so far, but it's not working:\n\n**lRelevantObsIndex** is a read only index.\n\n**lRelevantAttributes** is the list of ushort values.\n\n\t        //Initialize the threads\n\t        double[] aGains = new double[lRelevantAttributes.Count];\n\t        Thread[] aThreads = new Thread[lRelevantAttributes.Count];\n\t        for (int i = 0; i < lRelevantAttributes.Count; i++)\n\t        {\n\t            aThreads[i] = new Thread(() => aGains[i] = Gain(lRelevantObsIndex, lRelevantAttributes[i]));\n\t            aThreads[i].Start();\n\t        }\n\t\n\t        //Join the threads\n\t        for (int i = 0; i < lRelevantAttributes.Count; i++)\n\t            aThreads[i].Join();\n\t\n\t        //The easy part - find the minimum once all threads are done\n\t        ushort uResult = 0;\n\t        double dMinGain = UInt16.MaxValue;\n\t        for (int i = 0; i < lRelevantAttributes.Count; i++)\n\t        {\n\t            if (aGains[i] < dMinGain)\n\t            {\n\t                dMinGain = aGains[i];\n\t                uResult = lRelevantAttributes[i];\n\t            }\n\t        }\n\t\n\t        return uResult;\n\t\n\nI know this is a simple multithreading question - but still need your brains since I'm new to this.",
+          "lastActivityDate": "2014-08-11T05:42:56.226",
+          "title": "Use array of threads",
+          "tags": [
+            "c#",
+            "multithreading"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201408",
+          "itemTally": 0,
+          "owner": {
+            "displayName": "Mockingbird",
+            "id": "2247040"
+          }
+        }
+      },
+      {
+        "index": 3,
+        "uri": "/questions/2643383.json",
+        "path": "fn:doc(\"/questions/2643383.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2643383.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2643383",
+          "creationDate": "2014-04-17T15:26:58.927",
+          "body": "\n\nI want to write a LINQ to Entity query which does order by ascending or descending based on input parameter, Is there any way for that.\nFollowing is the my code. Please suggest.\n\n\t    public List<Hosters_HostingProviderDetail> GetPendingApproval(SortOrder sortOrder)\n\t    {\n\t        List<Hosters_HostingProviderDetail> returnList = new List<Hosters_HostingProviderDetail>();\n\t        int pendingStateId = Convert.ToInt32(State.Pending);\n\t        //If the sort order is ascending\n\t        if (sortOrder == SortOrder.ASC)\n\t        {\n\t            var hosters = from e in context.Hosters_HostingProviderDetail\n\t                          where e.ActiveStatusID == pendingStateId\n\t                          orderby e.HostingProviderName ascending\n\t                          select e;\n\t            returnList = hosters.ToList<Hosters_HostingProviderDetail>();\n\t            return returnList;\n\t        }\n\t        else\n\t        {\n\t            var hosters = from e in context.Hosters_HostingProviderDetail\n\t                          where e.StateID == pendingStateId\n\t                          orderby e.HostingProviderName descending\n\t                          select e;\n\t            returnList = hosters.ToList<Hosters_HostingProviderDetail>();\n\t            return returnList;\n\t        }\n\t    }\n\t",
+          "lastActivityDate": "2014-04-17T15:33:12.900",
+          "title": "Order by descending based on condition",
+          "tags": [
+            "c#",
+            "asp.net",
+            "linq",
+            "linq-to-sql",
+            "linq-to-entities"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201404",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 4,
+        "uri": "/questions/2264109.json",
+        "path": "fn:doc(\"/questions/2264109.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2264109.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2264109",
+          "creationDate": "2014-02-17T21:04:26.903",
+          "body": "\n\nI wrote a custom XML reader because I needed something that would not read ahead from the source stream.  I wanted the ability to have an object read its data from the stream without negatively affecting the stream for the parent object.  That way, the stream can be passed down the object tree.\n\nIt's a minimal implementation, meant only to serve the purpose of the project that uses it (right now).  It works well enough, except for one method -- `ReadString`.  That method is used to read the current element's content as a string, stopping when the end element is reached.  It determines this by counting nesting levels.  Meanwhile, it's reading from the stream, character by character, adding to a StringBuilder for the resulting string.\n\nFor a collection element, this can take a long time.  I'm sure there is much that can be done to better implement this, so this is where my continuing education begins once again.  I could really use some help/guidance.  Some notes about methods it calls:\n\n`Read` - returns the next byte in the stream or -1.\n\n`ReadUntilChar` - calls `Read` until the specified character or -1 is reached, appending to a string with StringBuilder.\n\nWithout further ado, here is my two-legged turtle.  Constants have been replaced with the actual values.\n\n\tpublic string ReadString() {\n\t    int level = 0;\n\t    long originalPosition = m_stream.Position;\n\t    StringBuilder sb = new StringBuilder();\n\t    sbyte read;\n\t    try {\n\t        // We are already within the element that contains the string.\n\t        // Read until we reach an end element when the level == 0.\n\t        // We want to leave the reader positioned at the end element.\n\t        do {\n\t            sb.Append(ReadUntilChar('<'));\n\t            if((read = Read()) == '/') {\n\t                // End element\n\t                if(level == 0) {\n\t                    // End element for the element in context, the string is complete.\n\t                    // Replace the two bytes of the end element read.\n\t                    m_stream.Seek(-2, System.IO.SeekOrigin.Current);\n\t                    break;\n\t                } else {\n\t                    // End element for a child element.\n\t                    // Add the two bytes read to the resulting string and continue.\n\t                    sb.Append('<');\n\t                    sb.Append('/');\n\t                    level--;\n\t                }\n\t            } else {\n\t                // Start element\n\t                level++;\n\t                sb.Append('<');\n\t                sb.Append((char)read);\n\t            }\n\t        } while(read != -1);\n\t\n\t        return sb.ToString().Trim();\n\t    } catch {\n\t        // Return to the original position that we started at.\n\t        m_stream.Seek(originalPosition - m_stream.Position, System.IO.SeekOrigin.Current);\n\t        throw;\n\t    }\n\t}\n\t",
+          "lastActivityDate": "2014-07-27T17:56:37.533",
+          "title": "My custom XML reader is a two-legged turtle. Suggestions?",
+          "tags": [
+            "c#",
+            "xml",
+            "parsing"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201407",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 5,
+        "uri": "/questions/2646229.json",
+        "path": "fn:doc(\"/questions/2646229.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2646229.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2646229",
+          "creationDate": "2014-04-17T22:38:32.650",
+          "body": "\n\nI am working on porting a VB6 application to C# (Winforms 3.5) and while doing so I'm trying to break up the functionality into various classes (ie database class, data validation class, string manipulation class).\n\nRight now when I attempt to run the program in Debug mode the program pauses and then crashes with a **StackOverFlowException**.  VS 2008 suggests a **infinite recursion** cause.\n\nI have been trying to trace what might be causing this recursion and right now my only hypothesis is that class initializations (which I do in the header(?) of each class).\n\nMy thought is this:\n* mainForm initializes classA\n* classA initializes classB\n* classB initializes classA\n* ....\n\nDoes this make sense or should I be looking elsewhere?\n\n**UPDATE1 (a code sample):**\n\n**mainForm**\n\n\tnamespace john\n\t{\n\t    public partial class frmLogin : Form\n\t    {\n\t    stringCustom sc = new sc();\n\t\n\n**stringCustom**\n\n\tnamespace john\n\t{\n\t   class stringCustom\n\t   {\n\t       retrieveValues rv = new retrieveValues();\n\t\n\n**retrieveValues**\n\n\tnamespace john\n\t{\n\t    class retrieveValues\n\t    {\n\t    stringCustom sc = new stringCustom();\n\t",
+          "lastActivityDate": "2014-04-17T23:28:19.950",
+          "title": "C# - Determine if class initializaion causes infinite recursion?",
+          "tags": [
+            "c#",
+            "winforms",
+            ".net-3.5"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201404",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 6,
+        "uri": "/questions/2448274.json",
+        "path": "fn:doc(\"/questions/2448274.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2448274.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2448274",
+          "creationDate": "2014-03-17T23:30:02.280",
+          "body": "\n\nI have quite a few dictionaries where the key is a composite of several different values (mostly strings and integers). Do I implement these keys as classes (and override `GetHashCode()`, `Equals()` etc) or do I use `struct` instead? \n\nReSharper makes it easy to do the overriding, but the code looks horrible. Are there any performance implications of using a struct instead?",
+          "lastActivityDate": "2014-07-04T18:20:12.303",
+          "title": "Composite key in Dictionary; override GetHashCode(), Equals etc or use structs?",
+          "tags": [
+            "c#",
+            ".net",
+            "dictionary",
+            "struct",
+            "value-type"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201407",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 7,
+        "uri": "/questions/2841211.json",
+        "path": "fn:doc(\"/questions/2841211.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2841211.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2841211",
+          "creationDate": "2014-05-18T02:13:39.057",
+          "body": "\n\nI have some problems getting the data that i read from XML split into seperate columns. Any help this new C# coder would get would be appreciated.\n\n\tXDocument xmlDoc = XDocument.Load(\"emails.xml\");            \n\t\n\t        var t = from c in xmlDoc.Descendants(\"dt\")\n\t                select (string)c.Element(\"name\") + (string)c.Element(\"email\");\n\t        foreach (string item in t)\n\t        {                   \n\t               listView.Items.Add(item);\n\t        } \n\t",
+          "lastActivityDate": "2014-05-18T02:35:38.060",
+          "title": "Read from XML > Add to Listview",
+          "tags": [
+            "c#",
+            "linq",
+            "listview"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201405",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 8,
+        "uri": "/questions/2644060.json",
+        "path": "fn:doc(\"/questions/2644060.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2644060.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2644060",
+          "creationDate": "2014-04-17T17:22:04.293",
+          "body": "\n\nI'm trying to add plugins to my game and what I'm trying to implement is this:\n\n* Plugins will be either mine or 3rd party's so I would like a solution where crashing of the plugin would not mean crashing of the main application. \n\n* Methods of plugins are called very often (for example because of drawing of game objects).\n\nWhat I've found so far:\n\n* 1) [http://www.codeproject.com/KB/cs/pluginsincsharp.aspx](http://www.codeproject.com/KB/cs/pluginsincsharp.aspx) - simple concept that seems like it should work nicely. Since plugins are used in my game for every round I would suffice to add the Restart() method and if a plugin is no longer needed Unload() method + GC should take care of that.\n\n* 2) [http://mef.codeplex.com/Wikipage](http://mef.codeplex.com/Wikipage) - Managed Extensibility Framework - my program should work on .NET 3.5 and I don't want to add any other framework separately I want to write my plugin system myself. Therefore this solution is out of question. \n\n* 3) Microsoft provides: [http://msdn.microsoft.com/en-us/library/system.addin.aspx](http://msdn.microsoft.com/en-us/library/system.addin.aspx) but according to a few articles I've read it is very complex.\n\n* 4) Different AppDomains for plugins. According to Marc Gravell ( [http://stackoverflow.com/questions/665668/usage-of-appdomain-in-c](http://stackoverflow.com/questions/665668/usage-of-appdomain-in-c) ) different AppDomains allow isolation. Unloading of plugins would be easy. What would the performance load be? I need to call methods of plugins very often (to draw objects for example).\n\n* Using Application Domains - [http://msdn.microsoft.com/en-us/library/yb506139.aspx](http://msdn.microsoft.com/en-us/library/yb506139.aspx)\n\n* [A few tutorials on java2s.com](http://www.java2s.com/Tutorial/CSharp/0240__Assembly/0020__AppDomain.htm)\n\nCould you please comment on my findings? New approaches are also welcomed! Thanks!",
+          "lastActivityDate": "2014-04-17T21:58:04.670",
+          "title": "How to implement properly plugins in C#?",
+          "tags": [
+            "c#",
+            "plugin-system"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201404",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 9,
+        "uri": "/questions/2449101.json",
+        "path": "fn:doc(\"/questions/2449101.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2449101.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2449101",
+          "creationDate": "2014-03-18T01:25:58.240",
+          "body": "\n\nI am trying to create a test harness for our QA staff to test our \ninternal web services. I would like to create a web app that will \nallow them to enter a uri then submit. The web app will then \ninterrogate the uri to get the appropriate parameters expected and \nreturns with a generated input form. I know, this would be similar to \nSOAPUI and others. However, I feel it would be earier for them to be \nable to just use a form with entry fields and click a button to invoke \nthe service and get the results back for display in the web app. In \naddition, I could create some custom logic that allows them to \ngenerate specific behavior they need.\n\nHas anybody done anything like this? I have searched and have found \nsimilar functionality but nothing close enough to help me. If you need \nmore details please let me know.\n\nAny help would be greatly appreciated.\n\nThanks in advance! \n\nRyan",
+          "lastActivityDate": "2014-03-18T01:40:44.420",
+          "title": "Creating WebService test harness",
+          "tags": [
+            "c#",
+            "asp.net",
+            "wcf"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201403",
+          "itemTally": 0,
+          "owner": null
+        }
+      },
+      {
+        "index": 10,
+        "uri": "/questions/2840913.json",
+        "path": "fn:doc(\"/questions/2840913.json\")",
+        "score": 0,
+        "confidence": 0,
+        "fitness": 0,
+        "href": "/v1/documents?uri=%2Fquestions%2F2840913.json",
+        "mimetype": "application/json",
+        "format": "json",
+        "content": {
+          "id": "2840913",
+          "creationDate": "2014-05-18T00:47:09.963",
+          "body": "\n\nIs that possible to write namespace into some other file commonly.which should be automatically includes my page.\n\nnamespace like:using System;",
+          "lastActivityDate": "2014-05-18T01:24:02.337",
+          "title": "How to avoid repeating namespace in aspx page",
+          "tags": [
+            "c#",
+            ".net",
+            "asp.net",
+            "namespaces"
+          ],
+          "docScore": 0,
+          "comments": [],
+          "answers": [],
+          "creationYearMonth": "201405",
+          "itemTally": 0,
+          "owner": null
+        }
+      }
+    ],
+    "shadowTotals": {
+      "tags": 1088,
+      "dates": 231
+    }
+  }
+}

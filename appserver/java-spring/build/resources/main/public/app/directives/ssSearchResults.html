@@ -1,0 +1,58 @@
+<header>
+  <div ng-if="search.results.total > 0">
+    <h2 ng-if="searchMode()"
+    > Search Results:
+      <span
+        class="ss-search-results-count"
+        ng-bind-template="{{search.results.total | number:0}}"
+      ></span>
+      Questions
+    </h2>
+    <h2 ng-if="!searchMode()"
+    > Browsing
+      <span
+        class="ss-search-results-count"
+        ng-bind-template="{{search.results.total | number:0}}"
+      ></span>
+      Questions
+    </h2>
+  </div>
+  <div ng-if="search.results.total == 0">
+    <h2>
+      No Results
+    </h2>
+  </div>
+  <ul class="ss-sort">
+    <li
+      ng-repeat="sort in sorts"
+      ng-click="setSort(sort.value)"
+      ng-class="{ 'ss-sort-active': search.criteria.sort[0] == sort.value }"
+      ng-bind-template="{{sort.label}}"
+    >
+    </li>
+  </ul>
+</header>
+<div ng-if="search.$ml.waiting" class="spinner"></div>
+<div ng-if="!search.$ml.waiting">
+  <section class="ss-result" ng-repeat="item in search.results.items">
+    <ss-search-result></ss-search-result>
+  </section>
+  <div class="ss-search-results-footer">
+    <div ng-if="search.results.total > 0" class="ss-paging">
+      <button
+        type="button"
+        ng-disabled="!search.hasPrevPage()"
+        ng-click="incrementPage(-1)"
+      >&lt;</button>
+      <span
+        ng-bind-template="{{search.getCurrentPage() }} / {{search.getPageCount() }}"
+      >
+      </span>
+      <button
+        type="button"
+        ng-disabled="!search.hasNextPage()"
+        ng-click="incrementPage(1)"
+      >&gt;</button>
+    </div>
+  </div>
+</div>

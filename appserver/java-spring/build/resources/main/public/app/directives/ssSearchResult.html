@@ -1,0 +1,42 @@
+<div class="ss-votes">
+  <div class="ss-score">
+    <label>votes</label>
+    <span
+      ng-bind-template="{{::item.content.voteCount ? item.content.voteCount : '0' }}"
+    ></span>
+  </div>
+  <div class="ss-divider">&nbsp;</div>
+  <div class="ss-answers">
+    <label>answers</label>
+    <span
+      ng-bind-template="{{::item.content.answerCount}}"
+    >
+    </span>
+    <div class="ss-checked" ng-if="::item.content.accepted">&nbsp;</div>
+  </div>
+</div>
+<div class="ss-result-title">
+  <a
+    ui-sref="root.layout.qnaDoc({ id: item.content.id, q: search.criteria.q })"
+    ng-bind-template="Q: {{::item.content.title}}"
+  >
+  </a>
+</div>
+<p>
+  <span ng-if="searchMode()" ng-repeat="snippet in item.content.snippets">
+    <span ng-if="displaySnippet(snippet.source)">
+    <!-- TODO link to page anchor for question or answer -->
+    <a
+      ui-sref=
+        "root.layout.qnaDoc({ id: item.content.id, 'content-id': snippet.id, q: search.criteria.q })"
+      class="ss-prefix"
+    >{{getPrefix(snippet.source)}}</a>
+    <span ng-repeat="match in snippet['match-text'] track by $index"
+    ><span ng-if="match.highlight" class="ss-highlight"
+    >{{match.highlight}}</span><span ng-if="!match.highlight"
+      >{{match}}</span
+    ></span>{{$last ? '' : ' ... '}}
+    </span>
+  </span>
+</p>
+<ss-qna-doc-metadata doc="item.content" doc-type="question"></ss-qna-doc-metadata>
