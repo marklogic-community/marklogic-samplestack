@@ -59,7 +59,7 @@
                 }
             },
             {
-                "name": "date",
+                "name": "lastActivity",
                 "range": {
                     "facet": "false",
                     "json-property": "lastActivityDate",
