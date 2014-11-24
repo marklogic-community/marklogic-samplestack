@@ -55,7 +55,7 @@ define(['app/module'], function (module) {
               }
             },
             criteria: {
-              sort: ['relevance'],
+              sort: undefined,
               constraints: {
                 resolved: {
                   constraintName: 'resolved',
@@ -181,6 +181,27 @@ define(['app/module'], function (module) {
 
       SsSearchObject.prototype.$mlSpec.serviceName = 'ssSearch';
 
+      SsSearchObject.prototype.getHttpDataPOST = function () {
+        var base = mlSearch.object.prototype
+            .getHttpDataPOST.call(this);
+
+        if (!(this.criteria.sort && this.criteria.sort.length)) {
+          if (this.criteria.q && this.criteria.q.length) {
+            base.query.qtext = [
+              base.query.qtext,
+              'sort:' + 'relevance'
+            ];
+          }
+          if (!this.criteria.q) {
+            base.query.qtext = [
+              base.query.qtext,
+              'sort:' + 'active'
+            ];
+          }
+        }
+
+        return base;
+      };
 
       /**
        * @ngdoc method

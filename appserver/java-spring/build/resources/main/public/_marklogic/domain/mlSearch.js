@@ -679,12 +679,16 @@ define(['_marklogic/module'], function (module) {
         if (stateParams.sort && stateParams.sort.length) {
           this.criteria.sort = [ stateParams.sort.trim() ];
         }
+        else {
+          this.criteria.sort = null;
+        }
         angular.forEach(this.criteria.constraints, function (constraint) {
           mlUtil.merge(params, self.constraintFromStateParam(
             constraint,
             stateParams
           ));
         });
+
 
         mlUtil.merge(this.criteria, { constraints : params} );
         this.testValidity();

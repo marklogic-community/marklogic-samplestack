@@ -26,7 +26,7 @@
     <li
       ng-repeat="sort in sorts"
       ng-click="setSort(sort.value)"
-      ng-class="{ 'ss-sort-active': search.criteria.sort[0] == sort.value }"
+      ng-class="{ 'ss-sort-active': getActiveSort() == sort.value }"
       ng-bind-template="{{sort.label}}"
     >
     </li>

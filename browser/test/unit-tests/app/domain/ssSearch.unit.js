@@ -32,7 +32,7 @@ define([
           '/v1/search',
           {
             query: {
-              qtext: ['', 'sort:relevance'],
+              qtext: ['', 'sort:active'],
               'and-query': {
                 queries: [ {
                   'range-constraint-query': {
@@ -63,7 +63,7 @@ define([
           '/v1/search',
           {
             query: {
-              qtext: ['', 'sort:relevance'],
+              qtext: ['', 'sort:active'],
               'and-query': {
                 queries: [ {
                   'value-constraint-query': {

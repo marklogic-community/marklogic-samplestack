@@ -36,7 +36,15 @@ define(['app/module'], function (module) {
         setWatches();
       };
 
-
+      var sortOverride = function () {
+        if (
+          $scope.search.criteria.sort &&
+          $scope.search.criteria.sort[0] === 'relevance' &&
+          (!($scope.search.criteria.q && $scope.search.criteria.q.length))
+        ) {
+          delete $scope.search.criteria.sort;
+        }
+      };
 
       var setWatches = function () {
         var onChange = function (newVal, oldVal) {
@@ -91,6 +99,7 @@ define(['app/module'], function (module) {
       };
 
       $scope.onCriteriaChange = function () {
+        sortOverride();
         $scope.applyScopeToSearch();
         var newStateParams = $scope.search.getStateParams();
         if (newStateParams.q) {
