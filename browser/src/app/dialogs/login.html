@@ -27,6 +27,8 @@
           class="ss-input-username"
           form-control
           ng-model="session.username"
+          name="{{Math.random()}}"
+          autocomplete="off"
         ></input>
       </div>
       <div
@@ -39,7 +41,9 @@
           class="ss-input-password"
           form-control
           ng-model="session.password"
-        ></input>
+          name="{{Math.random()}}"
+          autocomplete="off"
+          ></input>
       </div>
     </div>
 
