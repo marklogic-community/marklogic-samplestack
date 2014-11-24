@@ -101,5 +101,6 @@
             "scalar-type": "string"
         }
     ],
+    "three-character-searches":true,
     "triple-index": true
 }
