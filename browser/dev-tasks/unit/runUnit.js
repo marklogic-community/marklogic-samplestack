@@ -12,8 +12,13 @@ var ctx = require('../context');
 
 
 module.exports = function (opts, cb) {
+  var done = false;
   var finalize = function () {
-    cb();
+    if (!done) {
+      done = true;
+      cb();
+    }
+    
     // ctx.closeActiveServer(ctx.options.addresses.unitCoverage.port, cb);
   };
   ctx.startIstanbulServer(
@@ -21,7 +26,7 @@ module.exports = function (opts, cb) {
     ctx.options.addresses.unitCoverage.port
   );
   var myOpts = opts || {};
-  myOpts.silent = true;
+  // myOpts.silent = true;
   var stream = $.mochaPhantomjs(myOpts);
   // clear screen
   process.stdout.write('\u001b[2J');
@@ -29,6 +34,7 @@ module.exports = function (opts, cb) {
   process.stdout.write('\u001b[1;3H' + chalk.blue('\nUnit Tests:'));
   stream.on('error', finalize);
   stream.on('end', finalize);
+  stream.on('finish', finalize);
   stream.write({ path: ctx.options.addresses.unitRunnerCoverage.href });
   stream.end();
 };
