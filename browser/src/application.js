@@ -42,6 +42,17 @@ define(['app/module', 'app/components'], function (module) {
             alert += '\n\nCause: ' + cause;
           }
 
+          var trace;
+          try {
+            trace = window.stacktrace({ e: exception });
+            if (trace) {
+              window.console.log(trace);
+              alert += '\n\nStack trace:\n\n<pre>' +
+                  trace.join('\n') + '</pre>\n';
+            }
+          }
+          catch (err) {}
+
           $rootScope.globalError = alert;
           $rootScope.loading = false;
 

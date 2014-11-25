@@ -23,7 +23,8 @@ require.config({
     'highlightjs': 'deps/highlightjs/highlight.pack<%=options.min%>',
     'json': 'deps/requirejs-plugins/src/json<%=options.min%>',
     'text': 'deps/requirejs-plugins/lib/text<%=options.min%>',
-    'ng-tags-input': 'deps/ng-tags-input/ng-tags-input<%=options.min%>'
+    'ng-tags-input': 'deps/ng-tags-input/ng-tags-input<%=options.min%>',
+    'stacktrace-js':'deps/stacktrace-js/dist/stacktrace<%=options.min%>'
     /* jshint ignore: end */
   },
 
@@ -51,8 +52,10 @@ define(
     'lodash',
     'angular',
 
+    'stacktrace-js',
     'marked',
     'highlightjs',
+    'stacktrace-js',
     'ui-router',
     'state-helper',
     'ui-bootstrap',
@@ -65,12 +68,13 @@ define(
 
     '_marklogic/marklogic'
   ],
-  function (lodash, angular, marked, hljs) {
+  function (lodash, angular, stacktrace, marked, hljs) {
 
     // lodash and angular are made global as a convenience.
     window._ = lodash;
     window.angular = angular;
     window.marked = marked;
+    window.stacktrace = stacktrace;
     marked.setOptions({
       gfm: true,
       highlight: function (code) {
