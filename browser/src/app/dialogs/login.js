@@ -73,6 +73,20 @@ define(['app/module'], function (module) {
         $modalInstance.dismiss();
       };
 
+      var randomName = function () {
+        var text = '';
+        var possible = 'abcdefghijklmnopqrstuvwxyz';
+        var i;
+        for (i = 0; i < 8; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        return text;
+      };
+
+      $scope.random1 = randomName();
+      $scope.random2 = randomName();
+      
     }
   ]);
 
