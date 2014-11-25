@@ -17,7 +17,6 @@
       </p>
       <p
         class="login-rules"
-        ng-class="{ 'has-error': session.$ml.invalid }"
       >
         Username and Password must each be at least 5 characters.
       </p>
@@ -27,8 +26,6 @@
           class="ss-input-username"
           form-control
           ng-model="session.username"
-          name="{{random1}}"
-          autocomplete="off"
         ></input>
       </div>
       <div
@@ -41,15 +38,13 @@
           class="ss-input-password"
           form-control
           ng-model="session.password"
-          name="{{random2}}"
-          autocomplete="off"
           ></input>
       </div>
     </div>
 
     <footer>
       <button class="ss-button-cancel" type="button" ng-click="cancel()">Cancel</button>
-      <button class="ss-button-submit" type="submit" ng-disabled="session.$ml.invalid">Log In</button>
+      <button class="ss-button-submit" type="submit">Log In</button>
     </footer>
 
   </form>
