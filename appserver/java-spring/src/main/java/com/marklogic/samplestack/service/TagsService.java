@@ -20,6 +20,7 @@ import com.marklogic.samplestack.security.ClientRole;
 
 /**
  * Defines the TagsService, which returns suggested tags based on substrings.
+ * Not used in EA-3
  */
 public interface TagsService {
 
@@ -32,7 +33,5 @@ public interface TagsService {
 	 * @return A values response in a JSON structure.
 	 */
 	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery, long start, long pageLength);
-
-	
 
 }

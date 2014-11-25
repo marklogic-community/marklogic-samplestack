@@ -31,13 +31,13 @@ import com.marklogic.samplestack.exception.SamplestackNotFoundException;
 import com.marklogic.samplestack.exception.SamplestackSearchException;
 import com.marklogic.samplestack.web.JsonHttpResponse;
 
-@ControllerAdvice
 /**
  * Configures customizations for mapping application
  * exceptions to HTTP responses.
  * Spring automatically weaves this class into the
  * web application.
  */
+@ControllerAdvice
 public class ExceptionAdvice {
 
 	@Autowired

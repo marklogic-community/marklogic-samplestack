@@ -30,12 +30,12 @@ import org.springframework.stereotype.Component;
 
 import com.marklogic.samplestack.web.JsonHttpResponse;
 
-@Component
 /**
  * Class to customize the default Login handling.  Rather than redirection
  * to a login form, Samplestack simply denies access
  * (where authentication is required)
  */
+@Component
 public class SamplestackAuthenticationEntryPoint implements
 		AuthenticationEntryPoint {
 

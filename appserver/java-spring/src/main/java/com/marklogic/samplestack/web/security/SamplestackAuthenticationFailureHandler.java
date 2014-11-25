@@ -31,11 +31,11 @@ import org.springframework.stereotype.Component;
 
 import com.marklogic.samplestack.web.JsonHttpResponse;
 
-@Component
 /**
  * Customization to default Spring Security behavior, which
  * simply provides a 401 response to the client then authenication fails.
  */
+@Component
 public class SamplestackAuthenticationFailureHandler extends
 		SimpleUrlAuthenticationFailureHandler {
 

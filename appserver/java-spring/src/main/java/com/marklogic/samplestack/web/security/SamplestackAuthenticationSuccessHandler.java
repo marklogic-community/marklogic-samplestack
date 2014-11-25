@@ -39,7 +39,6 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 
-@Component
 /**
  * On authentication success, this customization returns a 200 OK
  * with the logged-in contributor's profile information inline.
@@ -47,6 +46,7 @@ import com.marklogic.samplestack.service.ContributorService;
  * See http://www.baeldung.com/2011/10/31/securing-a-restful-web-service-with-spring-security-3-1-part-3/
  * for the inspiration for this method.
  */
+@Component
 public class SamplestackAuthenticationSuccessHandler extends
 		SimpleUrlAuthenticationSuccessHandler {
 

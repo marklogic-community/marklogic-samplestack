@@ -69,10 +69,10 @@ import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
-@Component
 /**
  * Implementation of the QnAService interface.
  */
+@Component
 public class MarkLogicQnAService extends MarkLogicBaseService implements
 		QnAService {
 

@@ -27,6 +27,7 @@ import com.marklogic.samplestack.service.TagsService;
 
 /**
  * Implementation of TagsService
+ * (Not used in EA-3)
  */
 @Component
 public class MarkLogicTagsService extends MarkLogicBaseService implements TagsService {

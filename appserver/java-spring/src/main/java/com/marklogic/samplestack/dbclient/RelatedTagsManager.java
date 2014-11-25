@@ -34,6 +34,7 @@ import com.marklogic.samplestack.security.ClientRole;
 /**
  * Client-side code for using a related-tags extension
  * on the MarkLogic Server.  An extension class must extend ResourceManager.
+ * Nor used in EA-3.
  */
 @Component
 public class RelatedTagsManager extends ResourceManager {

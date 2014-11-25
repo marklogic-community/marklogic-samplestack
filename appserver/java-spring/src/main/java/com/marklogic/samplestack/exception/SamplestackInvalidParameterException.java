@@ -1,5 +1,8 @@
 package com.marklogic.samplestack.exception;
 
+/**
+ * An exception to handle invalid parameters.
+ */
 @SuppressWarnings("serial")
 public class SamplestackInvalidParameterException extends SamplestackException {
 

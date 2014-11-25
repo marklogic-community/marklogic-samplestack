@@ -17,6 +17,10 @@ import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.HasVotedService;
 
+/**
+ * Exposes a method for looking up what items in a question a particular user has voted on.
+ * Demonstrates a MarkLogic lexicon lookup.
+ */
 @Component
 public class MarkLogicHasVotedService extends MarkLogicBaseService implements HasVotedService {
 
@@ -24,7 +28,12 @@ public class MarkLogicHasVotedService extends MarkLogicBaseService implements Ha
 	private ContributorService contributorService;
 	
 	
-	// uses native Java API method
+	/**
+	 * Uses Java API method for finding values from a range index.
+	 * @param role The ClientRole for database connection.
+	 * @param postId The id of the QnADocument
+	 * @return A ValuesResults obejct containing unique id values.
+	 */
 	public ValuesResults idValues(ClientRole role, String postId) {
 		QueryManager queryManager = queryManager(role);
 		ValuesDefinition valdef = queryManager.newValuesDefinition("ids", "hasVoted");
@@ -37,6 +46,14 @@ public class MarkLogicHasVotedService extends MarkLogicBaseService implements Ha
 
 	
 	@Override
+	/**
+	 * Intersects a list of Contributor's votes with
+	 * those of a post.
+	 * @param role The ClientRole for database connection.
+	 * @param contributorId The id of the contributor.
+	 * @param postId The id of the QnADocument.
+	 * @return A ValuesResults obejct containing unique id values.
+	 */
 	public Set<String> hasVoted(ClientRole role, String contributorId, String postId) {
 		Contributor voter = contributorService.read(contributorId);
 		Set<String> voteIds = null;

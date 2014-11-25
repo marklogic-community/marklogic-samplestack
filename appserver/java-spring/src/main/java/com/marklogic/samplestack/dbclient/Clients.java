@@ -9,6 +9,10 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.samplestack.security.ClientRole;
 
+/**
+ * A HashMap of database client connections, with a ClientRole as key.
+ * Enables a pool of clients for use by different security access levels.
+ */
 @SuppressWarnings("serial")
 public class Clients extends HashMap<ClientRole, DatabaseClient> {
 

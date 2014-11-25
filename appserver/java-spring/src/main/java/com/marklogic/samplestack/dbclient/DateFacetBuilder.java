@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  * A builder for date buckets, to make dynamically-generated
  * time-series histograms.
  * 
+ * For EA-3 this DateFacetBuilder is only used to construct facets by Month.
+ * 
  * {constraint:{
  *   name:name,
  *   type:xs:dateTime,

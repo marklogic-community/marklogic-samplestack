@@ -31,12 +31,12 @@ import org.springframework.stereotype.Component;
 
 import com.marklogic.samplestack.web.JsonHttpResponse;
 
-@Component
 /**
  * Custom handler to override default Spring Security login behavior.
  * This handler returns 403 for any resource not allowed by the security
  * configuration.
  */
+@Component
 public class SamplestackAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Autowired

@@ -17,6 +17,5 @@
  * Top-level package for the Java Samplestack 
  * Middle Tier Application Server.
  * Application is the main entry point for the application.
- * @see com.marklogic.samplestack.Application
  */
 package com.marklogic.samplestack;

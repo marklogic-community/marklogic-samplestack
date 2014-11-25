@@ -3,6 +3,11 @@ package com.marklogic.samplestack.domain;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Models an answer to a question.  Used by web tier for validating input.
+ * 
+ * @see com.marklogic.samplestack.domain.QnADocument
+ */
 public class Answer {
 
 	public String id;

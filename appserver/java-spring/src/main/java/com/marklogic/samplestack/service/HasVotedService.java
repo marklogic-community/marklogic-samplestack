@@ -11,7 +11,7 @@ import com.marklogic.samplestack.security.ClientRole;
 public interface HasVotedService {
 
 	/**
-	 * Return the list of questionIds and answerIds on which this
+	 * Returns the list of questionIds and answerIds on which this
 	 * contributor has voted, within one particular postId (question or answer)
 	 * @param role security role for this query
 	 * @param contributorId The contributor's ID

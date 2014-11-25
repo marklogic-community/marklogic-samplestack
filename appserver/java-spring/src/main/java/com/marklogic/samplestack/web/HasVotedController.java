@@ -43,7 +43,8 @@ public class HasVotedController {
 
 	/**
 	 * Exposes the tags endpoint, which provides suggestions based on the request parameter.
-	 * @param q A query pattern
+	 * @param contributorId The id of a contributor
+	 * @param questionId The id of a QnADocument
 	 * @return A list of tags as Strings.
 	 */
 	@RequestMapping(value = "/v1/hasVoted", method = RequestMethod.GET)
