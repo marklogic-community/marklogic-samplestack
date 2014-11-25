@@ -15,6 +15,13 @@ Conversely, *to unit test the webapp*, you need not be running the middle tier -
 
 ## Installing
 
+### Prerequisites
+
+To configure and develop the browser app for Samplestack, you need the following software:
+
+* Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
+* A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp).
+
 Before you begin, please ensure that [node.js](http://nodejs.org/) and [git](http://git-scm.com/) are installed. It is a good idea to update node.js if you have not installed a recent version, but it is believed that any 0.10 or 0.11 version will work.
 
 *Important: you should run all of the commands discussed in this page __in a different terminal window__ from the Java middle-tier.  This allows you to have the middle-tier running simultaneously with the the browser tier.*
@@ -96,11 +103,9 @@ marklogic-samplestack/browser> gulp run
 
 From here, you are presented with a menu that points to three web servers, in order they are:
 
-* **BUILD server: http://localhost:3000**: This is the built application. Unlike the other services presented in the list, this one, the app itself, depends on the middle-tier application to be fully functional. See the [main Samplestack README](../README.md) for notes on using the application.
+* **BUILD server: http://localhost:3000**: This is the built application. Unlike the other services presented in the list, this one, the app itself, depends on the middle-tier application to be fully functional. **Use the login credentials `joeUser@marklogic.com`, password `joesPassword` to view and search content restricted to the Contributor role.**
 * **UNIT TESTS: http://localhost:3001/unit-runner.html**: While the unit tests are executed *during* the build, they are not individually reported. This link allows you to re-run them in a web browser at any time, to see the individual test results, and even to expand each line item to see the code that comprsises each test.
 * **COVERAGE: http://localhost:3002/coverage**: This is a report of the code coverage of unit tests.  You can drill down into each part of the webapp by clicking on the rows of the report. As you drill down into individual files, you will see line-by-line color coding that represents how/if a given line or branch of the code has been executed by the unit tests.  **This is also a very handy way to browse the code itself.**
-
-Once you have the webapp running, please see the instructions in the [main README](../README.md) for login credentials and other end-user usage notes.
 
 ## "Live Coding" via Watch
 
