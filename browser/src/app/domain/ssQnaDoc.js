@@ -186,21 +186,16 @@ define(['app/module'], function (module) {
 
       SsQnaDocObject.prototype.sort = function () {
         var self = this;
-        var acceptedAnswerIndex;
-        angular.forEach(this.answers, function (answer, index) {
-          if (answer.id === self.acceptedAnswerId) {
-            acceptedAnswerIndex = index;
+
+        this.answers.sort(function (answer1, answer2) {
+          if (answer1.id === self.acceptedAnswerId) {
+            return -1;
           }
+          if (answer2.id === self.acceptedAnswerId) {
+            return 1;
+          }
+          return (answer2.itemTally || 0) - (answer1.itemTally || 0);
         });
-
-        if (acceptedAnswerIndex >= 0) {
-          var acceptedAnswer = this.answers.splice(
-            acceptedAnswerIndex,
-            1
-          )[0];
-          this.answers.unshift(acceptedAnswer);
-        }
-
       };
 
       /**
