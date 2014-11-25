@@ -14,8 +14,12 @@ module.exports = {
   sauce: {
     // replace with your sauce username or set 'ML_SS_SAUCEUSER' env. variable
     user: null,
+    // e.g.
+    // user: 'my-sauce-account'
 
     // replace with your sauce username or set 'ML_SS_SAUCETOKEN' env. variable
     accessToken: null
+    // e.g.
+    // accessToken: '05fa46d0-a6df-4a08-a345-c3d3e2f24a61'
   }
 };
