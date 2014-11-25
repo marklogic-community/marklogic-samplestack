@@ -6610,26 +6610,30 @@ ul.ss-tags li {
 /* line 50, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
 .ss-search-tips-panel {
   width: 100%;
-  height: 150px;
+  height: 142px;
   background-color: #f9f9f9;
   padding: 10px; }
   /* line 56, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dl, .ss-search-tips-panel dt, .ss-search-tips-panel dd {
     position: relative;
-    float: left; }
-  /* line 61, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    float: left;
+    font-size: 0.98em; }
+  /* line 62, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dl {
-    width: 33%; }
-  /* line 65, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    width: 32%; }
+  /* line 66, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  .ss-search-tips-panel dl:last-of-type {
+    width: 36%; }
+  /* line 70, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dt {
-    width: 30%;
+    width: 27%;
     margin-bottom: 6px;
     color: #999;
     font-weight: normal;
     clear: both; }
-  /* line 73, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 78, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dd {
-    width: 70%;
+    width: 73%;
     margin-bottom: 6px; }
 
 /* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
