@@ -138,8 +138,8 @@ public class TestDataManager {
 			throw new SamplestackIOException(e);
 		}
 
-		contributorService.delete(Utils.testC1UUID);
-		contributorService.delete(Utils.testA1UUID);
+		//contributorService.delete(Utils.testC1UUID);
+		//contributorService.delete(Utils.testA1UUID);
 		
 		Contributor toDelete = contributorService
 				.getByUserName("grechaw@marklogic.com");

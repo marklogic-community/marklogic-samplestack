@@ -6,9 +6,9 @@
             "id": "6432cc02-2770-4b8d-b5f1-0b632875f86d",
             "itemTally": 0,
             "owner": {
-                "displayName": "joeUser",
-                "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
-                "userName": "joeUser@marklogic.com"
+                "displayName": "testJoeUser",
+                "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
+                "userName": "testJoeUser@marklogic.com"
             },
             "text": "My second answer to a question"
         }
@@ -18,12 +18,12 @@
     "comments": [
         {
             "creationDate": "2014-10-01T08:59:12.230",
+            "text": "This question is insightful.",
             "owner": {
-                "displayName": "joeUser",
-                "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
-                "userName": "joeUser@marklogic.com"
-            },
-            "text": "This question is insightful."
+                "displayName": "testJoeUser",
+                "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
+                "userName": "testJoeUser@marklogic.com"
+            }
         }
     ],
     "creationDate": "2014-10-01T08:59:08.866",
@@ -31,9 +31,9 @@
     "itemTally": 0,
     "lastActivityDate": "2014-10-01T08:59:12.230",
     "owner": {
-        "displayName": "maryUser",
-        "id": "9611450-0663-45a5-8a08-f1c71320475e",
-        "userName": "maryAdmin@marklogic.com"
+        "displayName": "testMaryAdmin",
+        "id": "9611450-0663-45a5-8a08-f1c71320475f",
+        "userName": "testMaryAdmin@marklogic.com"
     },
     "tags": [
         "python",

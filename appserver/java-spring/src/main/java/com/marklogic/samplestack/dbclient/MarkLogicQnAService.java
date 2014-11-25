@@ -224,39 +224,29 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			logger.debug(patch.toString());
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(
 					documentUri, patch, transaction);
+
+			// reputation handling
+			ArrayNode answers = (ArrayNode) qnaDocument.getJson()
+					.get("answers");
+			Iterator<JsonNode> iterator = answers.iterator();
+			while (iterator.hasNext()) {
+				JsonNode answer = iterator.next();
+				String id = answer.get("id").asText();
+				if (!previousAnsweredId.isMissingNode()
+						&& id.equals(previousAnsweredId.asText())) {
+					adjustReputation(answer.get("owner"), -1, transaction);
+				}
+				if (answer.get("id").asText().equals(answerId)) {
+					adjustReputation(answer.get("owner"), 1, transaction);
+				}
+			}
+
+			transaction.commit();
+
 		} catch (MarkLogicIOException e) {
+			if (transaction != null) { transaction.rollback(); };
 			throw new SamplestackIOException(e);
 		}
-
-		// reputation handling
-		ArrayNode answers = (ArrayNode) qnaDocument.getJson().get("answers");
-		Iterator<JsonNode> iterator = answers.iterator();
-		boolean done = false;
-		while (iterator.hasNext() || done) {
-			JsonNode answer = iterator.next();
-			String id = answer.get("id").asText();
-			if (!previousAnsweredId.isMissingNode()
-					&& id.equals(previousAnsweredId.asText())) {
-				String toLowerReputationUserName = answer.get("owner")
-						.get("userName").asText();
-				Contributor toLowerReputation = contributorService
-						.getByUserName(toLowerReputationUserName);
-				toLowerReputation.setReputation(toLowerReputation
-						.getReputation() - 1);
-				contributorService.store(toLowerReputation, transaction);
-			}
-			if (answer.get("id").asText().equals(answerId)) {
-				String toRaiseReputationUserName = answer.get("owner")
-						.get("userName").asText();
-				Contributor toRaiseReputation = contributorService
-						.getByUserName(toRaiseReputationUserName);
-				toRaiseReputation.setReputation(toRaiseReputation
-						.getReputation() + 1);
-				contributorService.store(toRaiseReputation, transaction);
-			}
-		}
-
-		transaction.commit();
 		QnADocument acceptedDocument = getByPostId(answerId);
 
 		return acceptedDocument;
@@ -272,7 +262,8 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		logger.debug("Fetching document with ID " + id);
 		ServerTransform transform = new ServerTransform("single-question");
 		JacksonHandle handle = new JacksonHandle();
-		JacksonHandle jacksonHandle = clients.get(role).newJSONDocumentManager()
+		JacksonHandle jacksonHandle = clients.get(role)
+				.newJSONDocumentManager()
 				.read(uriFromId(id), null, handle, transform);
 		JsonNode json = jacksonHandle.get();
 		QnADocument question = new QnADocument((ObjectNode) json);
@@ -297,8 +288,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		valdef.setQueryDefinition(qdef);
 		ValuesHandle responseHandle = null;
 		try {
-			responseHandle = queryManager.values(valdef,
-					new ValuesHandle());
+			responseHandle = queryManager.values(valdef, new ValuesHandle());
 		} catch (com.marklogic.client.FailedRequestException ex) {
 			throw new SamplestackSearchException(ex);
 		}
@@ -334,7 +324,8 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			logger.debug("Got ranges for buckets: " + dateRange.toString());
 
 			if (dateRange[0] != null && dateRange[1] != null) {
-				ObjectNode facetDescriptor = DateFacetBuilder.dateFacet(dateRange[0],dateRange[1]);
+				ObjectNode facetDescriptor = DateFacetBuilder.dateFacet(
+						dateRange[0], dateRange[1]);
 				period = facetDescriptor.get("period").asText();
 				facetDescriptor.remove("period");
 				options.setAll(facetDescriptor);
@@ -405,7 +396,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			// newContent.put("answerCount",
 			// documentResult.get("answers").size());
 			newContent.put("title", documentResultObject.get("title").asText());
-			
+
 			newContent.set("owner", documentResultObject.get("owner"));
 
 			// remove unused keys
@@ -417,7 +408,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 
 		// find the date facet and decorate with period
 		ObjectNode facetsNode = (ObjectNode) responseNode.get("facets");
-		try { 
+		try {
 			((ObjectNode) facetsNode.get("date")).put("period", period);
 		} catch (Exception e) {
 			// do nothing with facets if we couldn't add the period.
@@ -428,7 +419,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		} catch (JsonProcessingException e) {
 			logger.debug("JSONERROR");
 		}
-		responseNode.set("facets",  facetsNode);
+		responseNode.set("facets", facetsNode);
 		return (ObjectNode) responseNode;
 	}
 
@@ -483,13 +474,43 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 
 			// update the contributor record with vote
 			voter.getVotes().add(postId);
-			voter.setReputation(voter.getReputation() + delta);
 			contributorService.store(voter, transaction);
+
+			if (qnaDocument.getJson().get("id").asText().equals(postId)) {
+				adjustReputation(qnaDocument.getJson().get("owner"), delta, transaction);
+			}
+			else {
+				Iterator<JsonNode> iterator = qnaDocument.getJson().get("answers").iterator();
+				while (iterator.hasNext()) {
+					ObjectNode answer = (ObjectNode) iterator.next();
+					if (answer.get("id").asText().equals(postId)) {
+						adjustReputation(answer.get("owner"), delta, transaction);
+						break;
+					}
+				}
+			}
 
 			transaction.commit();
 		} catch (SampleStackDataIntegrityException ex) {
 			transaction.rollback();
 			throw ex;
+		}
+	}
+
+	private void adjustReputation(JsonNode ownerNode, int delta,
+			Transaction transaction) {
+		if (ownerNode.isObject()) {
+			String toAdjustId = ownerNode.get("id").asText();
+			
+			Contributor toAdjustObject = contributorService
+					.read(toAdjustId, transaction);
+			toAdjustObject
+					.setReputation(toAdjustObject
+							.getReputation() + delta);
+			contributorService
+					.store(toAdjustObject, transaction);
+		} else {
+			logger.warn("Could not adjust repuation of owner, ignoring");
 		}
 	}
 

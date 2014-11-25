@@ -82,4 +82,14 @@ public interface ContributorService {
 	 * @return A Page of Contributor objects.
 	 */
 	public PojoPage<Contributor> readAll(int start);
+
+	/**
+	 * Reads an object by ID within a transaction.
+	 * Ensures that votes and reputation updates can happen
+	 * in the same atomic unit.
+	 * @param toAdjustId id of contributor object to adjust.
+	 * @param transaction the transaction in which to evaluate this read.
+	 * @return A contributor object.
+	 */
+	public Contributor read(String toAdjustId, Transaction transaction);
 }

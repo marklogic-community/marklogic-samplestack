@@ -252,52 +252,54 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		String answerId = answered.getJson().get("answers").get(0).get("id")
 				.asText();
 
-		
 		// vote up
-		int joesReputation = Utils.testC1.getReputation();
-		int marysReputation = Utils.testA1.getReputation();
-		int joesVotes = Utils.testC1.getVotes().size();
+		int testC1Reputation = Utils.testC1.getReputation();
+		int testA1Reputation = Utils.testA1.getReputation();
+		int c1Votes = Utils.testC1.getVotes().size();
 		int marysVotes = Utils.testA1.getVotes().size();
 		
-		// joe votes his own question up, reputation +1 for joe.
-		service.voteUp(Utils.testC1, submitted.getId());
+		// a1 votes c1 question up, reputation +1 for c1.
+		// a1 hasVotedOn submitted.
+		service.voteUp(Utils.testA1, submitted.getId());
+
 		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				submitted.getId());
 		int newScore = votedOn.getJson().get("voteCount").asInt();
-		assertEquals("Vote score should be one higher than before",
-				voteCount + 1, newScore);
-		
+		assertEquals("Vote score should be one higher than before", voteCount + 1, newScore);
+
 		try {
-			service.voteUp(Utils.testC1, submitted.getId());
+			service.voteUp(Utils.testA1, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
 		}
 		try {
-			service.voteDown(Utils.testC1, submitted.getId());
+			service.voteDown(Utils.testA1, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
 		}
 
-		// mary votes her own answer down, her rep should be -1
-		service.voteDown(Utils.testA1, answerId);
+		// c1 votes a1 answer down, her rep should be -1
+		// c1 hasVotedOn answerId
+		service.voteDown(contributorService.getByUserName("testC1@marklogic.com"), answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
 		int newerScore = votedTwiceOn.getJson().get("voteCount").asInt();
 		assertEquals("Vote score should be one higher than before",
 				newScore - 1, newerScore);
 
-		Contributor joesState = contributorRepository.read(Utils.testC1.getId());
-		assertEquals("joe has voted once", joesVotes + 1, joesState.getVotes().size());
-		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
-		assertEquals("joe reputation has gained", joesReputation + 1, joesState.getReputation());
+		Contributor c1State = contributorRepository.read(Utils.testC1.getId());
+		Contributor a1State = contributorRepository.read(Utils.testA1.getId());
 		
-		Contributor marysState = contributorRepository.read(Utils.testA1.getId());
-		assertEquals("mary has voted once", marysVotes + 1, marysState.getVotes().size());
-		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
-		assertEquals("marys reputation has suffered", marysReputation - 1, marysState.getReputation());
+		assertEquals("c1 has voted once", c1Votes + 1, c1State.getVotes().size());
+		assertTrue("a1 voted on this", a1State.hasVotedOn(submitted.getId()));
+		assertEquals("c1 reputation has gained", testC1Reputation + 1, c1State.getReputation());
 		
+		assertEquals("a1 has voted once", marysVotes + 1, a1State.getVotes().size());
+		assertTrue("c1 voted on this", c1State.hasVotedOn(answerId));
+		assertEquals("a1 reputation has suffered", testA1Reputation - 1, a1State.getReputation());
+
 	}
 
 	@Test

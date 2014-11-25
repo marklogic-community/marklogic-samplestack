@@ -37,7 +37,7 @@ public class Utils {
 		contributor.setDisplayName("grechaw");
 		contributor.setWebsiteUrl("http://website.com/grechaw");
 		contributor.setLocation("Barrow");
-		contributor.setReputation(0);
+		contributor.setReputation(10);
 		return contributor;
 	}
 	
@@ -84,6 +84,5 @@ public class Utils {
 		q.setTags(new String[] {"xquery", "javascript", "programming"});
 		return q;
 	}
-	
-	
+
 }

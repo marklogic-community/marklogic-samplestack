@@ -8,9 +8,9 @@
     "itemTally": 0,
     "lastActivityDate": "2014-10-01T08:59:08.779",
     "owner": {
-        "displayName": "joeUser",
-        "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
-        "userName": "joeUser@marklogic.com"
+        "displayName": "testJoeUser",
+        "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
+        "userName": "testJoeUser@marklogic.com"
     },
     "tags": [
         "database",

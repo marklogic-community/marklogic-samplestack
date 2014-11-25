@@ -81,7 +81,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		logger.debug(questionResponse);
 		JSONAssert.assertEquals("{snippet-format:\"snippet\"}", questionResponse, false);
 
-		
 		questionResponse = this.mockMvc
 				.perform(post("/v1/search")
 				.with(csrf())

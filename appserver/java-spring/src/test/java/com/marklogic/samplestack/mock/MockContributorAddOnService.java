@@ -77,6 +77,11 @@ public class MockContributorAddOnService implements ContributorService {
 	public Contributor read(String id) {
 		return repo.read(id);
 	}
+	
+	@Override
+	public Contributor read(String id, Transaction transaction) {
+		return repo.read(id);
+	}
 
 	@Override
 	public PojoPage<Contributor> readAll(int i) {

@@ -75,6 +75,14 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 			return null;
 		}
 	}
+	
+	public Contributor read(String id, Transaction transaction) {
+		try {
+			return repository.read(id, transaction);
+		} catch (ResourceNotFoundException ex) {
+			return null;
+		}
+	}
 
 	public PojoPage<Contributor> search(PojoQueryDefinition query, long start) {
 		return repository.search(query, start);
@@ -124,13 +132,23 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 		}
 	}
 
+
 	@Override
 	public Contributor getByUserName(String userName) {
+		return getByUserName(userName, null);
+	}
+	
+	public Contributor getByUserName(String userName, Transaction transaction) {
 		@SuppressWarnings("rawtypes")
 		PojoQueryBuilder qb = repository.getQueryBuilder();
 		PojoQueryDefinition qdef = qb.value("userName", userName);
 
-		PojoPage<Contributor> page = repository.search(qdef, 1);
+		PojoPage<Contributor> page = null;
+		if (transaction == null) {
+			page = repository.search(qdef, 1);
+		} else {
+			page = repository.search(qdef, 1, transaction);
+		}	
 		if (page.getTotalSize() == 1) {
 			return page.iterator().next();
 		} else if (page.size() > 1) {
@@ -158,7 +176,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 	@Override
 	public void store(Contributor contributor, Transaction transaction) {
 		logger.debug("Storing contributor id " + contributor.getId());
-		Contributor cachedContributor = getByUserName(contributor.getUserName());
+		Contributor cachedContributor = getByUserName(contributor.getUserName(), transaction);
 		if (cachedContributor != null)
 			logger.debug("cached contributor " + cachedContributor.getId());
 		if (contributor != null)
@@ -192,4 +210,5 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 	public PojoPage<Contributor> readAll(int i) {
 		return repository.readAll(i);
 	}
+
 }
