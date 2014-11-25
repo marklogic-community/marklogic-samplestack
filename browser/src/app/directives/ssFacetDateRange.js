@@ -404,14 +404,14 @@ define(['app/module'], function (module) {
                     dateToPickerStart(scope.constraints.dateStart.value)
                   ).format('MM/DD/YYYY') :
                   null;
-
               scope.pickerDateStart = pickerStart;
 
-              var pickerEnd = scope.constraints.dateStart.value ?
+              var pickerEnd = scope.constraints.dateEnd.value ?
                   mlUtil.moment(
-                    dateToPickerEnd(scope.constraints.dateStart.value)
+                    dateToPickerEnd(scope.constraints.dateEnd.value)
                   ).format('MM/DD/YYYY') :
                   null;
+              scope.pickerDateEnd = pickerEnd;
 
             });
 
