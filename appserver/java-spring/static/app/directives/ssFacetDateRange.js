@@ -399,13 +399,19 @@ define(['app/module'], function (module) {
                 ).format('MM/DD/YYYY');
               }
 
-              scope.pickerDateStart = mlUtil.moment(
-                dateToPickerStart(scope.constraints.dateStart.value)
-              ).format('MM/DD/YYYY');
+              var pickerStart = scope.constraints.dateStart.value ?
+                  mlUtil.moment(
+                    dateToPickerStart(scope.constraints.dateStart.value)
+                  ).format('MM/DD/YYYY') :
+                  null;
 
-              scope.pickerDateEnd = mlUtil.moment(
-                dateToPickerEnd(scope.constraints.dateEnd.value)
-              ).format('MM/DD/YYYY');
+              scope.pickerDateStart = pickerStart;
+
+              var pickerEnd = scope.constraints.dateStart.value ?
+                  mlUtil.moment(
+                    dateToPickerEnd(scope.constraints.dateStart.value)
+                  ).format('MM/DD/YYYY') :
+                  null;
 
             });
 
