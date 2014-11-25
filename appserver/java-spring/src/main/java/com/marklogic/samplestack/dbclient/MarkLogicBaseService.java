@@ -11,16 +11,29 @@ import com.marklogic.client.query.DeleteQueryDefinition;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.samplestack.security.ClientRole;
 
+/**
+ * A base class for services that interact with MarkLogic.
+ */
 @Component
 public abstract class MarkLogicBaseService {
 
 	@Autowired
 	protected Clients clients;
 
+	/**
+	 * Gets a new MarkLogic JSONDocumentManager based on a ClientRole.
+	 * @param role The Role to secure the manager.
+	 * @return A JSONDocumentManager
+	 */
 	protected JSONDocumentManager jsonDocumentManager(ClientRole role) {
 		return clients.get(role).newJSONDocumentManager();
 	};
 	
+	/**
+	 * Gets a new MarkLogic QueryManager based on a ClientRole.
+	 * @param role
+	 * @return A QueryManager
+	 */
 	protected QueryManager queryManager(ClientRole role) {
 		return clients.get(role).newQueryManager();
 	}

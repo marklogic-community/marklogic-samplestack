@@ -1,6 +1,6 @@
 # marklogic-samplestack
 
-README for Version 1.0.0-EA3 (In Progress)
+README for Version 1.0.0-ea3
 
 Samplestack is a demo "Question and Answer" web application that shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
@@ -21,14 +21,10 @@ This README covers the following topics:
 
 ## Prerequisites
 To configure and use this application, you need the following software:
-* Java JDK 1.7 or 1.8
 * MarLogic 8.0 Early Acceess Release 3 (EA3) (see instructions [below](#getting-started))
-* Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
-* A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp). For details, see [Global Utilities](browser/README.md#global-utilities) in the [browser README](browser/README.md).
+* git
 
-The setup instructions assume you have the `git`, `javac`, `node`, `bower`, and `gulp` commands on your path.
-
-The setup procedure may install additional software, such as Gradle and Angular.
+Beyond these prerequisites, see the [Java README](appserver/java-spring/README.md) for instructions on setting up the Java middle tier.
 
 ## Getting Started
 
@@ -43,92 +39,12 @@ Follow this procedure to set up Samplestack in your environment.
     ```
     git clone https://github.com/marklogic/marklogic-samplestack
     ```
-4. [Set up the middle and database tiers](#setting-up-the-middle-and-database-tiers).
 
-5. [Set up the browser tier](#setting-up-the-browser-tier).
+4. CHOICES:
+    1. [Set up the Java middle tier and database tiers with gradle](appserver/java-spring/README.md)
+    2. [Set up the Node middle and database tiers with gulp](appserver/node-express/README.md)
+    3. [Set up the browser tier](broser/README.md)
 
-
-### Setting Up the Middle and Database Tiers
-The setup assume you have MarkLogic Server running on your localhost and that your Admin user credentials are admin:admin. To change this, modify `appserver/java-spring/gradle.properties`.
-
-To install required software, configure, and build the Java middle tier and database tier of Samplestack, run the following commands from the root of your cloned repository:
-
-```
-cd appserver/java-spring
-./gradlew appserver
-```
-
-This command will not return. When you see output of the following form, the middle tier is running, and you can proceed with the browser tier setup:
-```
-Started Application in X seconds...
->Building 85% > :bootRun
-```
-
-Successfully completing this step does the following:
-* Bootstraps the middle tier.
-* Builds the Java middle tier components.
-* Loads the database with sample data.
-* Starts up the middle tier and MarkLogic application services.
-
-The middle tier App Server runs on port 8090 by default. Visit http://localhost:8001 if you need to administer the database.
-
-*For more detail, see the [README in the appserver/java-spring directory](appserver/java-spring/README.md)*
-
-### Setting Up the Browser Tier
-Use the following procedure to install required software and bootstrap the Samplestack browser tier. You should already have the middle and database tiers running.
-
-For detailed instructions and troubleshooting, see the [README in the browser directory](browser/README.md).
-
-**NOTE:** If you are on Windows, you must use a Windows command shell, not Cygwin.
-
-**Important**: In order to run the application you must be running *both* the middle-tier **and** the browser webapp.  To do this, **use a separate terminal window for the steps below**.
-
-1. Go to the browser subdirectory of the project:
-
-    ```
-    cd browser
-    ```
-2. Install the browser application.
-
-    ```
-    npm install
-    bower install
-    ```
-3. Run the following command to build the web application, run its unit tests, and bring up the required execution environment:
-
-    ```
-    gulp run
-    ```
-
-When the setup successfully completes, you should see information about the available web servers running the application. The `gulp run` command does not return.
-
-### Running the Application
-Once you have the database, appserver, and browser tiers of the application configured and running, navigate to the following URL in your browser to explore the application:
-
-`http://localhost:3000/`
-
-### Restarting the Two Tiers
-
-* To stop the middle tier App Server, press `Control+C`
-* To restart,
-```
-cd marklogic-samplestack/appserver/java-spring
-./gradlew bootrun
-```
-
-* To stop the browser tier, press `Control+C`
-* To restart,
-```
-cd marklogic-samplestack/browser
-gulp run
-```
-
-### Next Steps
-* Explore the application running at http://localhost:3000.
-  * Use the login credentials `joeUser@marklogic.com`, password `joesPassword` to view and search content restricted to the Contributor role.
-* Explore the README in the database, appserver and browser directories for details on each tier.
-* View the database configuration by visiting http://localhost:8001.
-* Explore the database contents using Query Console. Go to http://localhost:8000/qconsole, select the `samplestack` database, and click Explore.
 
 ## Additional Information
 For more information, see the following:

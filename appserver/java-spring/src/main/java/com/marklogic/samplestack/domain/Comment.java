@@ -2,7 +2,10 @@ package com.marklogic.samplestack.domain;
 
 import java.util.Date;
 
-
+/**
+ * Models a comment added to a question or answer.
+ * @see com.marklogic.samplestack.domain.QnADocument
+ */
 public class Comment {
 
 	private SparseContributor owner;

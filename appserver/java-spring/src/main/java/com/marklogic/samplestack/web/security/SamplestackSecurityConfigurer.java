@@ -12,6 +12,12 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
+/**
+ * Wraps configuration of Spring security in once place.
+ * Wires up the various handlers in this package, and provides
+ * implementations for both the mocked application (see tests)
+ * and an embedded LDAP configuration.
+ */
 @Component
 public class SamplestackSecurityConfigurer {
 

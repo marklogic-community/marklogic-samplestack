@@ -72,9 +72,14 @@ public interface ContributorService {
 	 * Wraps PojoRepository.search
 	 * @param qdef A query definition
 	 * @param start the first object to retrieve
-	 * @return
+	 * @return A page of Contributors
 	 */
 	public PojoPage<Contributor> search(PojoQueryDefinition qdef, long start);
 
-	public PojoPage<Contributor> readAll(int i);
+	/**
+	 * Wraps PojoRepository.readAll()
+	 * @param start The first index of the readAll operation
+	 * @return A Page of Contributor objects.
+	 */
+	public PojoPage<Contributor> readAll(int start);
 }
