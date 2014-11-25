@@ -18,7 +18,7 @@ module.exports = function (opts, cb) {
       done = true;
       cb();
     }
-    
+
     // ctx.closeActiveServer(ctx.options.addresses.unitCoverage.port, cb);
   };
   ctx.startIstanbulServer(

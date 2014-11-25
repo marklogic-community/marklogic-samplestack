@@ -165,16 +165,20 @@ var watchTaskFunc = function (cb) {
             $.util.buffer(function (err, files) {
               if(!ctx.rebuildOnNext && !ctx.hadErrors) {
                 runUnit({ reporter: 'dot' }, function () {
-                  lrChanger(['/coverage', '/coverage/show']);
-                  gulpWatchCb();
-                  writeWatchMenu();
+                  ctx.deployBuilt(function (err) {
+                    lrChanger(['/coverage', '/coverage/show']);
+                    if (err) {
+                      return gulpWatchCb(err);
+                    }
+                    gulpWatchCb();
+                    writeWatchMenu();
+                  });
                 });
               }
               else {
                 gulpWatchCb();
                 writeWatchMenu();
               }
-              ctx.deployBuilt();
             })
           );
         }

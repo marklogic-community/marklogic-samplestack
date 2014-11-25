@@ -22,12 +22,17 @@ module.exports = [{
       // TODO: read alternative reporter(s) from minimist in order to support
       // test harness automation
       runUnit({ reporter: mochaReporter }, function () {
-        if (!ctx.watchTaskCalled) {
-          ctx.closeActiveServers(cb);
-        }
-        else {
-          cb();
-        }
+        ctx.deployBuilt(function (err) {
+          if (err) {
+            return cb(err);
+          }
+          if (!ctx.watchTaskCalled) {
+            ctx.closeActiveServers(cb);
+          }
+          else {
+            cb();
+          }
+        });
       });
     }
   }

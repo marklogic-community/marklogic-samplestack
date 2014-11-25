@@ -45,7 +45,8 @@ var ncp = require('ncp');
 var del = require('del');
 var fs = require('fs');
 
-var deployBuilt = function () {
+var deployBuilt = function (cb) {
+  $.util.log(chalk.green('(deploying static build...)'));
 
   var src = path.resolve(
     __dirname, '../builds/built'
@@ -60,21 +61,34 @@ var deployBuilt = function () {
 
   del(path.join(dest, '**/*'), { force: true }, function (err) {
     if (err) {
-      console.log(err);
+      $.util.log(chalk.red('Error Deploying static build: ' + err));
+      return cb(err);
     }
     ncp(
-      src, dest, { clobber: true, filter: isntSpecial }, function () {
-        var index = fs.readFileSync(
-          path.join(src, 'index.html'), { encoding: 'utf8' }
-        );
-        index = index.replace(/<script.*livereload.*script>/, '');
-        fs.writeFileSync(path.join(dest, 'index.html'), index);
+      src, dest, { clobber: true, filter: isntSpecial }, function (err) {
+        if (err) {
+          $.util.log(chalk.red('Error Deploying static build: ' + err));
+          return cb(err);
+        }
+        try {
+          var index = fs.readFileSync(
+            path.join(src, 'index.html'), { encoding: 'utf8' }
+          );
+          index = index.replace(/<script.*livereload.*script>/, '');
+          fs.writeFileSync(path.join(dest, 'index.html'), index);
 
-        var appjs = fs.readFileSync(
-          path.join(src, 'application.js'), { encoding: 'utf8' }
-        );
-        appjs = appjs.replace('html5Mode: true', 'html5Mode: false');
-        fs.writeFileSync(path.join(dest, 'application.js'), appjs);
+          var appjs = fs.readFileSync(
+            path.join(src, 'application.js'), { encoding: 'utf8' }
+          );
+          appjs = appjs.replace('html5Mode: true', 'html5Mode: false');
+          fs.writeFileSync(path.join(dest, 'application.js'), appjs);
+          $.util.log(chalk.green('(...static build deployed)'));
+        }
+        catch (err) {
+          return cb(err);
+        }
+
+        cb();
       }
     );
   });

@@ -12,8 +12,6 @@ module.exports = [{
   func: function () {
     var finalize = function () {
       ctx.build = true;
-
-      ctx.deployBuilt();
     };
 
     ctx.built = false;
