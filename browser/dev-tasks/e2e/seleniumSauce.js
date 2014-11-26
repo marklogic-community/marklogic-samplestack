@@ -19,7 +19,8 @@ var sauceStart = function (args, cb) {
 
   sauceConnectLauncher({
     username: ctx.options.sauceCredentials.user,
-    accessKey: ctx.options.sauceCredentials.accessKey
+    accessKey: ctx.options.sauceCredentials.accessKey,
+    verbose: true
   }, function (err, sauceConnectProcess) {
     if (err) { return cb(new Error(err)); }
     sauceProcess = sauceConnectProcess;
