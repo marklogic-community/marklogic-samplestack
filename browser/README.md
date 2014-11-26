@@ -156,13 +156,9 @@ gulp e2e --middle-tier=java --sauce
 
 This is **almost** the command that will be used by MarkLogic's nigthly regression system. It configures the MarkLogic server, launches the middle tier and executes the test suite against the list of supported browsers. It does not yet write to files and thus is not consumable by the test harness.
 
-## npm install Errors
+## Node.js/npm Tips and Troubleshooting
 
-If `npm install` has errors, the first thing to try is to simply re-run it. There are known issues with npm which may require one re-run. If the second run also fails, you may have a version of npm which was not reliable.  Try updating npm before rerunning the above install commands.
-
-> ```
-> from-anywhere> npm update -g npm
-> ```
+Please see [Node.js and npm Tips for Samplestack Development](https://github.com/marklogic/marklogic-samplestack/wiki/Node.js-and-npm-Tips-for-Samplestack-Development).
 
 ## Temporary OSX Workaround for Watch Mode
 
