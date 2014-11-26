@@ -45,9 +45,10 @@ Follow this procedure to set up Samplestack in your environment.
 
 ## Additional Information
 For more information, see the following:
-* README for the [database](database/README.md), [appserver](appserver/java-spring/README.md), and [browser](browser/README.md) tier.
+* READMEs for the [database](database/README.md), [Java appserver](appserver/java-spring/README.md), and [Angular.js browser](browser/README.md) tiers.
 * [Samplestack wiki](https://github.com/marklogic/marklogic-samplestack/wiki).
 * [MarkLogic product documentation](http://docs.marklogic.com).
+* MarkLogic [Developer Community](http://developer.marklogic.com/) site with tutorials, blogs, and more.
 
 ## Reference Architecture Introduction
 
