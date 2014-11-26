@@ -35,6 +35,18 @@ define(['app/module'], function (module) {
 
       ssSession.create().attachScope($scope, 'session');
 
+      // some browsers don't raise events when they autocomplete
+      var getFromInputByClass = function (className) {
+        var el = angular.element(
+          document.getElementsByClassName(className).item(0)
+        );
+        return el.val();
+      };
+
+      var credentialsHack = function () {
+        $scope.session.username = getFromInputByClass('ss-input-username');
+        $scope.session.password = getFromInputByClass('ss-input-password');
+      };
 
       /**
        * @ngdoc method
@@ -48,6 +60,7 @@ define(['app/module'], function (module) {
        * property.
        */
       $scope.authenticate = function () {
+        credentialsHack();
         mlAuth.authenticate($scope.session).then(
           onAuthSuccess,
           onAuthFailure
@@ -86,7 +99,7 @@ define(['app/module'], function (module) {
 
       $scope.random1 = randomName();
       $scope.random2 = randomName();
-      
+
     }
   ]);
 
