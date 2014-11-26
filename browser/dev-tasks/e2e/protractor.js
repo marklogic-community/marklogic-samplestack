@@ -96,7 +96,7 @@ var go = function (args, cb) {
   var ptorPath = path.resolve(__dirname, '../../node_modules/protractor' +
       '/bin/protractor');
 
-  var ptorProc = cp.spawn(ptorPath, [confPath], { stdio: 'inherit' });
+  var ptorProc = cp.spawn('node', [ptorPath, confPath], { stdio: 'inherit' });
   var cucumberParser = require('./cucumberParser');
   cucumberParser.handle(args, ptorConfig, ptorProc, cb);
 };

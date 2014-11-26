@@ -3,8 +3,6 @@ var path = require('path');
 
 var ctx = require('../context');
 
-var winExt = /^win/.test(process.platform) ? '.cmd' : '';
-
 var getLastJar = function (dir) {
   var g = require('globule');
 
@@ -63,12 +61,12 @@ var getServer = function (cb) {
 
     var wdManager = path.join(
       ctx.paths.rootDir,
-      'node_modules/protractor/bin/webdriver-manager' + winExt
+      'node_modules/protractor/bin/webdriver-manager'
     );
 
     var proc = childProcess.spawn(
-      wdManager,
-      ['update'],
+      'node',
+      [wdManager, 'update'],
       {
         stdio: 'inherit'
       }
@@ -87,7 +85,7 @@ var start = function (args, cb) {
   getServer(function (err) {
     if (err) { return cb(err); }
 
-    server.start({
+          server.start({
       stdio: 'inherit'
     }).then(
       function started (url) {
