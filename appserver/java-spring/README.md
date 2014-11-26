@@ -14,7 +14,7 @@ available to the Java developer as she iterates through code exploration.
 
 ## Quickstart 
 
-*To build and run in one step:*
+*To build and run:*
 
 Before running anything here, you will need an EA-3 release of MarkLogic.
 Start this quickstart with it installed and running.  By default this process will
@@ -24,7 +24,7 @@ during the install and setup process.
 
 You also need A JDK 1.7 or 1.8
 
-The setup assumes you have MarkLogic Server running on your localhost and that your Admin user credentials are admin:admin. To change this, modify `appserver/java-spring/gradle.properties`.  All further commands assume you have changed to the java-spring directory with `cs appserver/java-spring`
+The setup assumes you have MarkLogic Server running on your localhost and that your Admin user credentials are admin:admin. To change this, modify `appserver/java-spring/gradle.properties`.  All further commands assume you have changed to the java-spring directory with `cd appserver/java-spring`
 
 * `./gradlew appserver`    Runs assemble, dbLoad, and bootrun.  This single command builds the Java application, configures the MarkLogic instance, loads some sample data, and starts the application.  It stops at some point with this output:
 
@@ -34,6 +34,7 @@ Started Application in X seconds...
 ```
 When it stops like this, the app is ready to to visit.  You can 
 [exercise the application](http://localhost:8090) and [browse MarkLogic](http://localhost:8000/qconsole) 
+This application server hosts the middle tier and a built version of an angular.js MVC browser application.  This browser application is runable separately as well; see the [browser readme](../../browser/README.md) for instructions on how to set up and build with Samplestack's browser application.
 
 *If you're stuck...*
 
