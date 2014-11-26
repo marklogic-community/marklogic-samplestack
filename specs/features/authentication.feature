@@ -11,7 +11,5 @@ Feature: Authentication
     When I start to log in
     And I attempt to log in with invalid credentials
     And my login attempt is denied
-    And I attempt to log in with insufficient password length
-    And I am not allowed to submit my credentials
     And I attempt to log in as a Contributor
     Then I am logged in
