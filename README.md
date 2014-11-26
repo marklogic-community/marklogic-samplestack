@@ -22,26 +22,32 @@ This README covers the following topics:
 * [License](#license)
 
 ## Getting Started
-To configure and use this application, you need the following software:
-* MarLogic 8.0 Early Acceess Release 3 (EA3) (see instructions [below](#getting-started))
-* git
 
-Follow this procedure to set up Samplestack in your environment.
+To start, clone this repository. For example, run the following command:  
 
-1. Install MarkLogic 8 Early Access 3 (EA3). See http://ea.marklogic.com/download.
+```
+git clone https://github.com/marklogic/marklogic-samplestack
+```
 
-2. Start MarkLogic. For details, see the [MarkLogic Installation Guide](http://docs.marklogic.com/guide/installation/procedures#id_92457).
+Then, launch each of the tiers to get a feel for Samplestack's 3-tiered architecture (from the bottom-up):
 
-3. Clone this repository. For example, run the following command:  
+1) **Database**
 
-    ```
-    git clone https://github.com/marklogic/marklogic-samplestack
-    ```
+The current version of Samplestack runs on MarLogic 8.0 Early Acceess Release 3 (EA3). Download [MarkLogic server](http://ea.marklogic.com/download). For details, see the [MarkLogic Installation Guide](http://docs.marklogic.com/guide/installation/procedures#id_92457).
 
-4. You can choose to run/examine one of two middle tier application servers.  Each of these will use the same MarkLogic backend configuration and the same MVC browser application.
-    1. [Set up the Java middle tier and database tiers with gradle](appserver/java-spring/README.md)  (Available in EA-3)
-    2. [Set up the Node middle and database tiers with gulp](appserver/node-express/README.md) (Available in future release, under development)
+2) **Middle Tier - Application Server**
 
+You can choose to run/examine one of two middle tier application servers.  Each of these will use the same MarkLogic backend configuration and the same MVC browser application.
+
+* [Set up the Java middle tier and database tiers with gradle](appserver/java-spring/README.md)  (Available now in EA-3)
+* [Set up the Node middle and database tiers with gulp](appserver/node-express/README.md) (Available in future release, under development)
+
+3) **Browser Application**
+
+The browser application is delivered in two forms:
+
+* The Java middle tier hosts a pre-built version; or
+* [Set up the Angular.js/Gulp development environment](browser/README.md) (Available now in EA-3)
 
 ## Additional Information
 For more information, see the following:
