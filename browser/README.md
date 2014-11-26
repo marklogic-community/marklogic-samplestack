@@ -20,7 +20,7 @@ Conversely, *to unit test the webapp*, you need not be running the middle tier -
 To configure and develop the browser app for Samplestack, you need the following software:
 
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
-* A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp).
+* A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp).  *(MarkLogic has tested with bower version 1.3.12.)*
 
 Before you begin, please ensure that [node.js](http://nodejs.org/) and [git](http://git-scm.com/) are installed. It is a good idea to update node.js if you have not installed a recent version, but it is believed that any 0.10 or 0.11 version will work.
 
