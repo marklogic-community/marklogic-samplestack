@@ -38,43 +38,15 @@ World.prototype.go = function (page) {
       self.currentPage = page;
     }
   );
-  //   var setAndReturn = function () {
-  //   this.currentPage = page;
-  // };
-  //
-  // var doGo = function () {
-  //   console.log('gonna doGo');
-  //   return browser.driver.get(page.url).then(function () {
-  //     console.log('did go');
-  //     this.currentPage = page;
-  //   });
-  //
-  // };
-  //
-  // console.log('getCurrentUrl');
-  // try {
-  //   return browser.driver.getCurrentUrl().then(
-  //     function (currentUrl) {
-  //       if (currentUrl === page.url) {
-  //         console.log('current url!!!');
-  //         return setAndReturn();
-  //       }
-  //       else {
-  //         console.log('no current url');
-  //         return browser.wait().then(doGo);
-  //       }
-  //     },
-  //     function () {
-  //       console.log('gonna wait');
-  //       return browser.wait().then(doGo);
-  //     }
-  //   );
-  // }
-  // catch (err) {
-  //   console.log('it has to be one or the other');
-  //   console.log(err);
-  // }
 };
+
+var notifyOk = function (next) {
+  return function () {
+    next();
+  };
+};
+
+World.prototype.notifyOk = notifyOk;
 
 World.prototype.authenticateAs = function (userName, password) {
   var goPage;
