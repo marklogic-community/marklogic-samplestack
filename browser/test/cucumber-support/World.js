@@ -83,7 +83,7 @@ World.prototype.authenticateAs = function (userName, password) {
   }
   return q.when(goPage, function () {
     if (userName) {
-      return self.currentPage.loginIfNececessary(userName, password);
+      return self.currentPage.loginIfNecessary(userName, password);
     }
     else {
       return self.currentPage.logoutIfNecessary();
