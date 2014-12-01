@@ -98,13 +98,25 @@ function PageBase () {
 
   Object.defineProperty(this, 'accountInfoElement', {
     get: function () {
-      return element(by.className('ss-user-info-display-name-reputation'));
+      var locator = by.className('ss-user-info-display-name-reputation');
+      return browser.isElementPresent(locator).then(function (isPresent) {
+        if (isPresent) {
+          return element(locator);
+        }
+        else {
+          return null;
+        }
+      });
     }
   });
 
   Object.defineProperty(this, 'accountInfoLabel', {
     get: function () {
-      return self.accountInfoElement.getText();
+      return self.accountInfoElement.then(
+        function (el) {
+          return el ? el.getText() : null;
+        }
+      );
     }
   });
 
@@ -112,7 +124,7 @@ function PageBase () {
     get: function () {
       return self.accountInfoLabel.then(
         function (label) {
-          return parseInt(label.match(/[^\[]*\[([^\]]*)\]/));
+          return label ? parseInt(label.match(/[^\[]*\[([^\]]*)\]/)) : null;
         }
       );
     }
@@ -122,7 +134,7 @@ function PageBase () {
     get: function () {
       return self.accountInfoLabel.then(
         function (label) {
-          return label.replace(/ \[.*$/, '');
+          return label ? label.replace(/ \[.*$/, '') : null;
         }
       );
     }
