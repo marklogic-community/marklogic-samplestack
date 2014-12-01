@@ -1,17 +1,21 @@
 function AskPage () {
-  AskPage.super_.call(this);
-  this.url = '/ask';
+  var self = this;
+  AskPage.super_.call(self);
+  self.url = '/ask';
 
-  Object.defineProperty(this, 'titleText', {
+  Object.defineProperty(self, 'qnaQuestionTitleElement', {
     get: function () {
-      return q(element(by.model('qnaDoc.title'))
-      .getText());
+      return element(by.model('qnaDoc.title'));
     }
   });
 
+  Object.defineProperty(self, 'qnaQuestionTitle', {
+    get: function () {
+      return self.qnaQuestionTitleElement.getText();
+    }
+  });
 }
 
-var self = AskPage;
-
-self.name = 'ask';
-World.addPage(self);
+var me = AskPage;
+me.pageName = 'ask';
+World.addPage(me);

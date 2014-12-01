@@ -2,9 +2,9 @@ module.exports = function () {
   this.World = World;
 
   this.Then(
-    /title input is "(.*)"/,
+    /question title is "(.*)"/,
     function (title, next) {
-      expect(this.currentPage.titleText)
+      expect(this.currentPage.qnaQuestionTitle)
           .to.eventually.equal(title).and.notify(next);
     }
   );
