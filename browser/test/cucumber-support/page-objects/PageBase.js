@@ -2,7 +2,6 @@ var util = require('util');
 
 function PageBase () {
   var self = this;
-  var returnNull = function () { return null; };
 
   self.getElementIfPresent = function (locator) {
     var el = element(locator);
