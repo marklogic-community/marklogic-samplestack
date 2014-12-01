@@ -26,70 +26,67 @@ function PageBase () {
     }
   });
 
-  Object.defineProperty(this, 'loginElement', {
+  Object.defineProperty(self, 'loginElement', {
     get: function () {
       return element(by.css('.ss-login a'));
     }
   });
 
-  this.loginStart = function () {
-    return self.loginElement.click().then(returnNull);
+  self.loginStart = function () {
+    return self.loginElement.click();
   };
 
-  this.loginCancel = function () {
-    return element(by.css('.ss-dialog-login .ss-button-cancel')).click()
-        .then(returnNull);
+  self.loginCancel = function () {
+    return element(by.css('.ss-dialog-login .ss-button-cancel')).click();
   };
 
-  Object.defineProperty(this, 'loginSubmitButton', {
+  Object.defineProperty(self, 'loginSubmitButton', {
     get: function () {
       return element(by.css('.ss-button-submit'));
     }
   });
 
-  this.loginSubmit = function () {
-    return self.loginSubmitButton.click().then(returnNull);
+  self.loginSubmit = function () {
+    return self.loginSubmitButton.click();
   };
 
-  Object.defineProperty(this, 'loginSubmitEnabled', {
+  Object.defineProperty(self, 'loginSubmitEnabled', {
     get: function () {
       return self.loginSubmitButton.isEnabled();
     }
   });
 
-  Object.defineProperty(this, 'loginUserNameElement', {
+  Object.defineProperty(self, 'loginUserNameElement', {
     get: function () {
       return element(by.className('ss-input-username'));
     }
   });
 
-  Object.defineProperty(this, 'loginPasswordElement', {
+  Object.defineProperty(self, 'loginPasswordElement', {
     get: function () {
       return element(by.className('ss-input-password'));
     }
   });
 
-  this.loginEnterUserName = function (userName) {
+  self.loginEnterUserName = function (userName) {
     return self.loginUserNameElement
       .clear()
-      .sendKeys(userName)
-      .then(returnNull);
+      .sendKeys(userName);
   };
 
-  this.loginEnterPassword = function (password) {
+  self.loginEnterPassword = function (password) {
     return self.loginPasswordElement
     .clear()
-    .sendKeys(password)
-    .then(returnNull);
+    .sendKeys(password);
   };
 
-  Object.defineProperty(this, 'loginFailedMessage', {
+  Object.defineProperty(self, 'loginFailedMessage', {
     get: function () {
       return element(by.css('.ss-dialog-login .login-failed'));
     }
   });
 
-  Object.defineProperty(this, 'loginIsDenied', {
+  Object.defineProperty(self, 'loginIsDenied', {
     get: function () {
       var msg = self.loginFailedMessage;
       return msg.isDisplayed().then(
@@ -105,14 +102,14 @@ function PageBase () {
   });
 
 
-  this.login = function (userName, password) {
+  self.login = function (userName, password) {
     return self.loginStart()
     .then(self.loginEnterUserName.bind(self, userName))
     .then(self.loginEnterPassword.bind(self, password))
     .then(self.loginSubmit);
   };
 
-  Object.defineProperty(this, 'accountInfoElement', {
+  Object.defineProperty(self, 'accountInfoElement', {
     get: function () {
       var locator = by.className('ss-user-info-display-name-reputation');
       return browser.isElementPresent(locator).then(function (isPresent) {
@@ -126,7 +123,7 @@ function PageBase () {
     }
   });
 
-  Object.defineProperty(this, 'accountInfoLabel', {
+  Object.defineProperty(self, 'accountInfoLabel', {
     get: function () {
       return self.accountInfoElement.then(
         function (el) {
@@ -136,7 +133,7 @@ function PageBase () {
     }
   });
 
-  Object.defineProperty(this, 'userReputation', {
+  Object.defineProperty(self, 'userReputation', {
     get: function () {
       return self.accountInfoLabel.then(
         function (label) {
@@ -146,7 +143,7 @@ function PageBase () {
     }
   });
 
-  Object.defineProperty(this, 'userName', {
+  Object.defineProperty(self, 'userName', {
     get: function () {
       return self.accountInfoLabel.then(
         function (label) {
@@ -156,7 +153,7 @@ function PageBase () {
     }
   });
 
-  Object.defineProperty(this, 'isLoggedIn', {
+  Object.defineProperty(self, 'isLoggedIn', {
     get: function () {
       return self.userName.then(
         function () { return true; },
@@ -170,7 +167,7 @@ function PageBase () {
     return self.accountInfoLabel.click().then(returnNull);
   };
 
-  Object.defineProperty(this, 'logoutButton', {
+  Object.defineProperty(self, 'logoutButton', {
     get: function () {
       return element(by.css('.ss-account-dropdown button'));
     }
@@ -181,17 +178,16 @@ function PageBase () {
       .then(returnNull);
   };
 
-  this.loginIfNecessary = function (userName, password) {
-    return this.userName.then(
+  self.loginIfNecessary = function (userName, password) {
+    return self.userName.then(
       function (name) {
         var before = name ? self.logout : null;
-        return q.when(before, self.login.bind(self, userName, password))
-            .then(returnNull);
+        return q.when(before, self.login.bind(self, userName, password));
       }
     );
   };
 
-  this.logoutIfNecessary = function () {
+  self.logoutIfNecessary = function () {
     return self.isLoggedIn.then(
       function (isLoggedIn) {
         if (isLoggedIn) {
