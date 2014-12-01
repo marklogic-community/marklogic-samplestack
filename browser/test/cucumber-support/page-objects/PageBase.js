@@ -4,7 +4,24 @@ function PageBase () {
   var self = this;
   var returnNull = function () { return null; };
 
-  Object.defineProperty(this, 'pageTitle', {
+  self.getElementIfPresent = function (locator) {
+    var el = element(locator);
+    try {
+      return el.then(
+        function (element) {
+          return element;
+        },
+        function (err) {
+          return null;
+        }
+      );
+    }
+    catch (err) {
+      return q(null);
+    }
+  };
+
+  Object.defineProperty(self, 'pageTitle', {
     get: function () {
       return browser.getTitle();
     }
