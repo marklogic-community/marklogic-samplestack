@@ -37,10 +37,7 @@ var ptorConfig = {
 
 var go = function (args, cb) {
   if (args.tags) {
-    ptorConfig.cucumberOpts.tags = [];
-    args.tags.split(',').forEach(function (tag) {
-      ptorConfig.cucumberOpts.tags.push('@' + tag);
-    });
+    ptorConfig.cucumberOpts.tags = [args.tags];
   }
   if (args.sauce) {
     var multiCapabilities;
