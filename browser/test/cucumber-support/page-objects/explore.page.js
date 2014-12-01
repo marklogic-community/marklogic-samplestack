@@ -22,8 +22,7 @@ function ExplorePage () {
 
 }
 
-var self = ExplorePage;
-
-self.name = 'explore';
-self.aliases = ['search', 'default', 'landing'];
-World.addPage(self);
+var me = ExplorePage;
+me.pageName = 'explore';
+me.aliases = ['search', 'default', 'landing'];
+World.addPage(me);

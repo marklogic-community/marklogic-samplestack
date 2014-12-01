@@ -4,6 +4,9 @@ module.exports = function () {
   this.When(
     /visit the "(.*)" page/,
     function (name, next) {
+      if (!this.pages[name]) {
+        throw new Error('undefined page name, "' + name + '"');
+      }
       this.go(this.pages[name]).then(next);
     }
   );

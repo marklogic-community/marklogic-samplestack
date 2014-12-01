@@ -26,7 +26,7 @@ var PageBase = require('./page-objects/PageBase');
 
 World.addPage = function (Page) {
   var page = PageBase.instantiate(Page);
-  pages[Page.name] = page;
+  pages[Page.pageName] = page;
   _.forEach(Page.aliases, function (alias) {
     pages[alias] = page;
   });
