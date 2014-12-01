@@ -7,7 +7,7 @@ module.exports = function () {
       if (!this.pages[name]) {
         throw new Error('undefined page name, "' + name + '"');
       }
-      this.go(this.pages[name]).then(next);
+      this.go(this.pages[name]).then(this.notifyOk(next));
     }
   );
 
