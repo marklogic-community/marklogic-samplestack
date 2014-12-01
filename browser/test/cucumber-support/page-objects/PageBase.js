@@ -111,15 +111,9 @@ function PageBase () {
 
   Object.defineProperty(self, 'accountInfoElement', {
     get: function () {
-      var locator = by.className('ss-user-info-display-name-reputation');
-      return browser.isElementPresent(locator).then(function (isPresent) {
-        if (isPresent) {
-          return element(locator);
-        }
-        else {
-          return null;
-        }
-      });
+      return self.getElementIfPresent(
+        by.className('ss-user-info-display-name-reputation')
+      );
     }
   });
 
@@ -156,15 +150,24 @@ function PageBase () {
   Object.defineProperty(self, 'isLoggedIn', {
     get: function () {
       return self.userName.then(
-        function () { return true; },
+        function (userName) {
+          return !!userName;
+        },
         function () { return false; }
       );
     }
   });
 
 
-  this.accountDropdownOpen = function () {
-    return self.accountInfoLabel.click().then(returnNull);
+  self.accountDropdownOpen = function () {
+    return self.accountInfoElement.then(
+      function (element) {
+        return element.click();
+      },
+      function () {
+        throw new Error('cannot access accountInfoElement');
+      }
+    );
   };
 
   Object.defineProperty(self, 'logoutButton', {
@@ -173,9 +176,18 @@ function PageBase () {
     }
   });
 
-  this.logout = function () {
-    return self.accountDropdownOpen().then(self.logoutButton.click)
-      .then(returnNull);
+  self.logout = function () {
+    return self.accountDropdownOpen().then(
+      function () {
+        return self.logoutButton.click();
+      },
+      function (err) {
+        console.log('in logout, cannot open account dropdown: ' +
+            err.toString()
+        );
+        throw err;
+      }
+    );
   };
 
   self.loginIfNecessary = function (userName, password) {
