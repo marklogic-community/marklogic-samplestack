@@ -5,7 +5,7 @@ Feature: Authentication
   and features.
 
   @auth
-  Scenario: Trying a few times to log in, checking button enablement
+  Scenario: Try to log in, fail, then succeed
     Given I am a visitor
     And I am using the brief seed data
     When I start to log in
