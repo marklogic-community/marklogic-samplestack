@@ -6112,47 +6112,47 @@ button.close, .ss-dialog header button {
     display: none !important; }
  }
 
-/* line 5, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 5, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 html {
   height: 100.1%;
   overflow-y: scroll; }
 
-/* line 10, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 10, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 body {
   color: #333;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857; }
 
-/* line 17, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 17, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 a {
   color: #428bca;
   text-decoration: none; }
 
-/* line 22, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 22, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 h1 {
   font-size: 23px; }
 
-/* line 26, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 26, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 h2 {
   font-size: 20px; }
 
-/* line 30, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 30, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 label {
   font-weight: bold; }
 
-/* line 40, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 40, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 input[type="checkbox"] {
   margin-bottom: 8px;
   margin-top: 8px; }
 
-/* line 46, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 46, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 input[type="text"], textarea {
   -webkit-appearance: textfield;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
 
-/* line 52, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/base */
+/* line 52, /Users/mike/marklogic-samplestack/browser/src/app/styles/base */
 button {
   align-items: flex-start;
   -webkit-appearance: button;
@@ -6176,14 +6176,14 @@ button {
   white-space: nowrap;
   word-spacing: normal; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
 .ss-main {
   max-width: 1200px;
   min-width: 930px;
   padding-left: 20px;
   padding-right: 20px; }
 
-/* line 9, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+/* line 9, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
 .ss-page-header {
   border-bottom: 1px solid #ccc;
   height: 60px;
@@ -6191,38 +6191,38 @@ button {
   max-width: 1200px;
   min-width: 930px;
   padding-left: 20px; }
-  /* line 17, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+  /* line 17, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
   .ss-page-header .ss-app-title {
     float: left;
     position: relative; }
-    /* line 21, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+    /* line 21, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
     .ss-page-header .ss-app-title h1 {
       display: inline-block; }
-  /* line 26, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+  /* line 26, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
   .ss-page-header .ss-page-header-actions {
     height: 55px;
     max-width: 1200px;
     min-width: 930px;
     right: 0;
     text-align: right; }
-    /* line 33, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+    /* line 33, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
     .ss-page-header .ss-page-header-actions .ss-login {
       height: 55px;
       line-height: 55px;
       vertical-align: middle; }
-    /* line 39, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+    /* line 39, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
     .ss-page-header .ss-page-header-actions a {
       display: inline-block;
       vertical-align: middle; }
-    /* line 44, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+    /* line 44, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
     .ss-page-header .ss-page-header-actions > * {
       display: inline-block;
       margin-right: 10px; }
-    /* line 49, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+    /* line 49, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
     .ss-page-header .ss-page-header-actions > *:last-child {
       margin-right: 20px; }
 
-/* line 56, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+/* line 56, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
 .ss-page-footer {
   margin-left: auto;
   margin-right: auto;
@@ -6232,39 +6232,39 @@ button {
   padding: 10px;
   text-align: center; }
 
-/* line 67, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+/* line 67, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
 ul.ss-sort, ul.ss-tags {
   list-style: none;
   margin: 0;
   padding: 0; }
-  /* line 72, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+  /* line 72, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
   ul.ss-sort li, ul.ss-tags li {
     cursor: pointer;
     float: left;
     position: relative; }
-    /* line 77, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+    /* line 77, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
     ul.ss-sort li .ss-sort-active, ul.ss-tags li .ss-sort-active {
       font-weight: bold; }
 
-/* line 83, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/layout */
+/* line 83, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/layout */
 ul.ss-tags li {
   background-color: #eee;
   margin-right: 10px;
   padding: 3px 5px; }
 
-/* line 2, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/explore */
+/* line 2, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/explore */
 .ss-explore {
   display: block;
   max-width: 1200px;
   min-width: 930px;
   position: relative; }
 
-/* line 10, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/explore */
+/* line 10, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/explore */
 .ss-filters-results {
   padding-left: 310px;
   position: relative; }
 
-/* line 15, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/explore */
+/* line 15, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/explore */
 .ss-filters {
   left: 0;
   min-width: 300px;
@@ -6274,60 +6274,60 @@ ul.ss-tags li {
   width: 250px; }
 
 /*** ASK VIEW ***/
-/* line 5, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+/* line 5, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
 .ss-ask {
   padding-left: 65px;
   padding-right: 65px;
   min-width: 930px;
   max-width: 930px; }
-  /* line 13, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+  /* line 13, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
   .ss-ask form > * {
     display: block;
     margin-bottom: 10px; }
-  /* line 17, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+  /* line 17, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
   .ss-ask form > *:last-child {
     margin-bottom: 0; }
-  /* line 20, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+  /* line 20, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
   .ss-ask form .ss-ask-title input {
     width: 500px; }
-  /* line 23, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+  /* line 23, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
   .ss-ask form .ss-markdown-editor {
     padding-top: 10px; }
-    /* line 25, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+    /* line 25, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
     .ss-ask form .ss-markdown-editor li {
       cursor: pointer; }
-    /* line 28, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+    /* line 28, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
     .ss-ask form .ss-markdown-editor img {
       margin: 0 3px;
       cursor: pointer; }
-    /* line 32, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+    /* line 32, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
     .ss-ask form .ss-markdown-editor button {
       margin: 0 6px;
       border: 0px; }
-      /* line 35, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+      /* line 35, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
       .ss-ask form .ss-markdown-editor button:hover {
         background-color: transparent; }
-    /* line 39, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+    /* line 39, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
     .ss-ask form .ss-markdown-editor textarea {
       height: 174px;
       width: 780px;
       resize: vertical; }
-    /* line 44, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+    /* line 44, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
     .ss-ask form .ss-markdown-editor .divider {
       margin: 0 6px;
       color: #D3D3D3; }
-  /* line 49, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/ask */
+  /* line 49, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/ask */
   .ss-ask form tags-input {
     display: inline-block;
     width: 600px;
     vertical-align: middle; }
 
-/* line 5, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 5, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-qnadoc {
   margin-left: 20px;
   max-width: 1200px;
   min-width: 930px; }
-  /* line 10, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 10, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-qnadoc .ss-checked {
     background-image: url('/app/images/checkmark.png');
     background-position: center;
@@ -6336,7 +6336,7 @@ ul.ss-tags li {
     margin-top: 5px;
     position: relative;
     width: 58px; }
-  /* line 20, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 20, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-qnadoc .ss-checked-empty {
     background-image: url('/app/images/checkmark_empty.png');
     background-position: center;
@@ -6346,11 +6346,11 @@ ul.ss-tags li {
     position: relative;
     width: 58px;
     cursor: pointer; }
-  /* line 31, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 31, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-qnadoc .ss-metadata {
     border-bottom: 1px solid #000; }
 
-/* line 37, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 37, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-qnadoc .ss-vote {
   background-color: #f0f0f0;
   border: solid 1px #ccc;
@@ -6360,72 +6360,72 @@ ul.ss-tags li {
   text-align: center;
   width: 60px; }
 
-/* line 47, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 47, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-vote-components {
   position: absolute; }
 
-/* line 51, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 51, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-vote-count {
   display: block;
   font-size: 20px;
   width: 100%; }
 
-/* line 58, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 58, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-up, .ss-down {
   background-position: center;
   height: 18px;
   width: 58px; }
 
-/* line 64, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 64, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-up {
   margin-top: 4px; }
 
-/* line 68, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 68, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-down {
   margin-bottom: 4px; }
 
-/* line 72, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 72, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-up-cast {
   background-image: url('/app/images/up-blue.png'); }
 
-/* line 76, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 76, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-up-enabled {
   background-image: url('/app/images/up-dkgray.png');
   cursor: pointer; }
 
-/* line 81, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 81, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-up-disabled {
   background-image: url('/app/images/up-gray.png'); }
 
-/* line 85, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 85, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-down-cast {
   background-image: url('/app/images/down-blue.png'); }
 
-/* line 89, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 89, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-down-enabled {
   background-image: url('/app/images/down-dkgray.png');
   cursor: pointer; }
 
-/* line 94, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 94, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-down-disabled {
   background-image: url('/app/images/down-gray.png'); }
 
-/* line 98, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 98, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-qnadoc-content {
   overflow: hidden;
   padding-left: 20px;
   position: relative; }
 
-/* line 104, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 104, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-comment {
   border-bottom: solid 1px #aaa;
   font-size: smaller;
   padding: 10px 0; }
 
-/* line 110, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 110, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-question-title {
   height: 40px; }
-  /* line 113, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 113, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-question-title .ss-so-link {
     background-image: url('/app/images/original.png');
     background-position: center;
@@ -6436,186 +6436,187 @@ ul.ss-tags li {
     position: relative;
     top: -45px; }
 
-/* line 128, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 128, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-add-comment div:first-child {
   margin: 8px 0 8px 2px;
   cursor: pointer; }
-/* line 133, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 133, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-add-comment textarea {
   display: block;
   width: 600px;
   height: 60px;
   margin: 8px 0 8px 2px; }
 
-/* line 142, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 142, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-section {
   border-top: 1px solid;
   margin-bottom: 25px;
   padding-top: 15px; }
-  /* line 147, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 147, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answer-section :last-child {
     margin-bottom: 0; }
 
-/* line 153, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 153, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form form > * {
   display: block;
   margin-bottom: 10px; }
-/* line 158, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 158, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form > *:last-child {
   margin-bottom: 0; }
-/* line 162, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 162, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form input {
   width: 500px; }
-/* line 166, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 166, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answer-form textarea {
   height: 200px;
   width: 700px; }
 
-/* line 172, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+/* line 172, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
 .ss-answers-header {
   display: inline-block;
   position: relative;
   width: 100%; }
-  /* line 177, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 177, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answers-header h3 {
     float: left;
     position: relative; }
-  /* line 182, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 182, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answers-header ul.ss-sort {
     float: right;
     margin-top: 20px;
     position: relative; }
-  /* line 188, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+  /* line 188, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
   .ss-answers-header li {
     margin-left: 10px; }
-    /* line 191, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
+    /* line 191, /Users/mike/marklogic-samplestack/browser/src/app/styles/states/qnaDoc */
     .ss-answers-header li .ss-sort-active {
       font-weight: bold; }
 
-/* line 6, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/base */
+/* line 6, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/base */
 .ss-dialog header button {
   margin-top: -10px; }
-/* line 20, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/base */
+/* line 20, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/base */
 .ss-dialog footer {
   clear: both; }
 
-/* line 2, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/login */
+/* line 2, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/login */
 .ss-dialog-login label {
   width: 75px; }
-/* line 6, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/login */
+/* line 6, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/login */
 .ss-dialog-login input {
   width: 300px !important; }
-/* line 10, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/login */
+/* line 10, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/login */
 .ss-dialog-login form > * {
   padding: 15px; }
 
-/* line 2, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+/* line 2, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
 .ss-dialog-all-tags ul {
   list-style: none;
   margin: 0;
   padding: 0; }
-  /* line 7, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+  /* line 7, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
   .ss-dialog-all-tags ul .ss-sort-active {
     font-weight: bold; }
-  /* line 11, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+  /* line 11, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
   .ss-dialog-all-tags ul .ss-sort {
     float: right;
     position: relative; }
-    /* line 15, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+    /* line 15, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
     .ss-dialog-all-tags ul .ss-sort li {
       cursor: pointer;
       margin-left: 10px; }
-/* line 22, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+/* line 22, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
 .ss-dialog-all-tags .ss-column {
   width: 190px; }
-/* line 26, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+/* line 26, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
 .ss-dialog-all-tags .ss-paging {
   clear: both; }
-/* line 30, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+/* line 30, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
 .ss-dialog-all-tags .ss-all-tags-actions {
   display: inline-block;
   padding-right: 20px;
   width: 100%; }
-/* line 37, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+/* line 37, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
 .ss-dialog-all-tags input.ss-typeahead-input {
   font-size: 14px;
   margin-bottom: 5px;
   width: 202px; }
-/* line 43, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
+/* line 43, /Users/mike/marklogic-samplestack/browser/src/app/styles/dialogs/all-tags */
 .ss-dialog-all-tags .ss-divider {
   background-color: #000;
   height: 1px;
   margin: 5px 0;
   width: 205px; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-account-dropdown */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-account-dropdown */
 .ss-account-dropdown ul {
   line-height: 25px; }
 
-/* line 6, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-account-dropdown */
+/* line 6, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-account-dropdown */
 .ss-account-dropdown li {
   padding-left: 10px;
   padding-right: 10px;
   width: 300px; }
 
-/* line 12, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-account-dropdown */
+/* line 12, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-account-dropdown */
 .ss-account-dropdown button {
   margin-bottom: 5px;
   margin-right: 10px;
   margin-top: 5px; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
 .ss-search-bar {
   max-width: 1200px;
   min-width: 930px;
   padding-top: 20px; }
-  /* line 6, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 6, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar form {
     border-collapse: collapse;
     display: table;
     height: 64px;
     margin-left: 20px;
     width: 100%; }
-    /* line 13, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 13, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar form > * {
       display: table-cell;
       vertical-align: top; }
-    /* line 18, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 18, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar form input {
       display: block;
       height: 45px; }
 
-/* line 25, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+/* line 25, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
 .ss-search-bar-tools {
   height: 45px;
   margin: 0;
   padding: 0;
   width: 250px; }
-  /* line 31, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 31, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar-tools button {
     height: 45px;
     margin-left: 30px;
     width: 90px; }
-  /* line 37, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 37, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar-tools .ss-search-tips {
     display: inline-block;
     padding: 5px;
     cursor: pointer; }
-  /* line 43, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 43, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar-tools .ss-search-tips-icon {
     position: relative;
     top: -0.1em;
     font-size: 80%; }
 
-/* line 50, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+/* line 50, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
 .ss-search-tips-panel {
   width: 100%;
   height: 142px;
   background-color: #f9f9f9;
   padding: 10px; }
-  /* line 56, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 56, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dl, .ss-search-tips-panel dt, .ss-search-tips-panel dd {
     position: relative;
+<<<<<<< HEAD
     float: left;
     font-size: 0.98em; }
   /* line 62, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
@@ -6625,37 +6626,48 @@ ul.ss-tags li {
   .ss-search-tips-panel dl:last-of-type {
     width: 36%; }
   /* line 70, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+=======
+    float: left; }
+  /* line 61, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  .ss-search-tips-panel dl {
+    width: 33%; }
+  /* line 65, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+>>>>>>> e2e: tests for ask
   .ss-search-tips-panel dt {
     width: 27%;
     margin-bottom: 6px;
     color: #999;
     font-weight: normal;
     clear: both; }
+<<<<<<< HEAD
   /* line 78, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+=======
+  /* line 73, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+>>>>>>> e2e: tests for ask
   .ss-search-tips-panel dd {
     width: 73%;
     margin-bottom: 6px; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
 .highcharts {
   height: 240px;
   min-width: 286px; }
 
-/* line 8, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+/* line 8, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
 .ss-filters-date header {
   display: inline-block;
   width: 100%; }
-  /* line 12, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+  /* line 12, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
   .ss-filters-date header h3 {
     float: left;
     position: relative; }
-  /* line 17, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+  /* line 17, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
   .ss-filters-date header .ss-clear-date {
     cursor: pointer;
     float: right;
     margin: 21px 30px 0 0;
     position: relative; }
-/* line 25, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+/* line 25, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
 .ss-filters-date input {
   display: inline-block;
   margin: 0 6px;
@@ -6663,84 +6675,84 @@ ul.ss-tags li {
   text-align: center;
   width: 33%; }
 
-/* line 3, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
+/* line 3, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
 .ss-filters-tags header {
   display: inline-block;
   width: 100%; }
-/* line 8, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
+/* line 8, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
 .ss-filters-tags h3 {
   float: left;
   position: relative; }
 
-/* line 14, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
+/* line 14, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
 .ss-clear-tags {
   cursor: pointer;
   float: right;
   margin: 21px 30px 0 0;
   position: relative; }
 
-/* line 24, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
+/* line 24, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
 .ss-facet-tags input.ss-typeahead-input {
   clear: all;
   display: block;
   font-size: 14px;
   margin-bottom: 5px;
   width: 202px; }
-/* line 32, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
+/* line 32, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
 .ss-facet-tags ul {
   list-style: none;
   margin: 0;
   padding: 0; }
 
-/* line 39, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
+/* line 39, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-tags */
 .ss-open-all-tags {
   cursor: pointer;
   margin-top: 3px; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-qna-doc-metadata */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-qna-doc-metadata */
 .ss-metadata {
   min-height: 40px; }
-  /* line 4, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-qna-doc-metadata */
+  /* line 4, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-qna-doc-metadata */
   .ss-metadata > * {
     display: inline-block; }
 
-/* line 9, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-qna-doc-metadata */
+/* line 9, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-qna-doc-metadata */
 .ss-author {
   float: right;
   padding: 5px;
   position: relative; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
 .ss-results {
   margin-left: 20px;
   max-width: 1100;
   padding-left: 0;
   position: relative; }
-  /* line 7, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 7, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-results header {
     display: inline-block;
     height: 62px;
     width: 100%; }
-  /* line 13, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 13, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-results h2 {
     float: left;
     margin: 0;
     padding-top: 13px;
     position: relative;
     vertical-align: middle; }
-  /* line 21, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 21, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-results ul.ss-sort {
     float: right;
     margin-top: 20px;
     position: relative; }
-  /* line 27, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 27, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-results li {
     cursor: pointer;
     margin-left: 10px; }
-  /* line 32, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 32, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-results li.ss-sort-active {
     font-weight: bold; }
-  /* line 36, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 36, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-results .ss-paging {
     margin-right: 20px;
     overflow: hidden;
@@ -6748,24 +6760,24 @@ ul.ss-tags li {
     position: absolute;
     right: 0;
     vertical-align: middle; }
-    /* line 44, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 44, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-results .ss-paging button {
       width: 35px; }
-    /* line 48, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 48, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-results .ss-paging span {
       vertical-align: middle; }
 
-/* line 54, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+/* line 54, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
 .ss-search-results-footer {
   height: 62px;
   position: relative; }
 
-/* line 59, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+/* line 59, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
 .ss-result {
   border-bottom: solid 1px #000;
   padding: 10px;
   padding-left: 80px; }
-  /* line 64, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 64, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-result .ss-votes {
     background-color: #eee;
     border: solid 1px #ccc;
@@ -6773,31 +6785,31 @@ ul.ss-tags li {
     left: 0;
     position: absolute;
     width: 70px; }
-    /* line 73, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 73, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-score, .ss-result .ss-votes .ss-answers {
       padding: 0; }
-      /* line 78, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+      /* line 78, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
       .ss-result .ss-votes .ss-score label, .ss-result .ss-votes .ss-score span, .ss-result .ss-votes .ss-score .ss-divider, .ss-result .ss-votes .ss-answers label, .ss-result .ss-votes .ss-answers span, .ss-result .ss-votes .ss-answers .ss-divider {
         display: block;
         position: absolute;
         text-align: center;
         width: 100%;
         z-index: 20; }
-    /* line 87, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 87, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-score label {
       top: -2px; }
-    /* line 91, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 91, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-score span {
       font-size: 18px;
       top: 14px; }
-    /* line 96, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 96, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-answers label {
       top: 62px; }
-    /* line 100, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 100, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-answers span {
       font-size: 18px;
       top: 43px; }
-    /* line 105, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 105, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-divider {
       background-color: #000;
       height: 1px;
@@ -6805,7 +6817,7 @@ ul.ss-tags li {
       position: absolute;
       top: 40px;
       width: 60px; }
-    /* line 114, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+    /* line 114, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
     .ss-result .ss-votes .ss-checked {
       background-image: url('/app/images/checkmark.png');
       height: 40px;
@@ -6814,25 +6826,25 @@ ul.ss-tags li {
       top: 41px;
       width: 50px;
       z-index: 10; }
-  /* line 126, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 126, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-result .ss-highlight {
     font-weight: bold; }
-  /* line 130, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 130, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-result .ss-prefix {
     color: #428bca; }
-  /* line 134, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+  /* line 134, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
   .ss-result p {
     min-height: 25px; }
 
-/* line 139, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+/* line 139, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
 .ss-result-title {
   font-size: larger; }
 
-/* line 143, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
+/* line 143, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-results */
 .ss-search-result .ss-metadata {
   border-bottom: 0 solid #000; }
 
-/* line 1, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-markdown-editor */
+/* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-markdown-editor */
 .ss-tab-content {
   height: 250px;
   padding: 10px 16px;
@@ -6841,18 +6853,18 @@ ul.ss-tags li {
   border-radius: 4px 4px 0 0;
   cursor: pointer; }
 
-/* line 10, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-markdown-editor */
+/* line 10, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-markdown-editor */
 .ss-tab-active {
   font-weight: bold; }
 
-/* line 14, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-markdown-editor */
+/* line 14, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-markdown-editor */
 .markdown-editor, .ss-markdown-editor-preview {
   border: 1px solid #ddd;
   padding: 10px;
   margin-top: 8px;
   min-height: 100px; }
 
-/* line 6, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 6, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .spinner {
   background-image: url('/app/images/spinner.gif');
   background-position: center;
@@ -6862,65 +6874,64 @@ ul.ss-tags li {
   width: 100vh;
   z-index: 1; }
 
-/* line 17, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 17, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .loading {
   visibility: hidden; }
 
-/* line 21, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 21, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .disabled {
   color: #bbb; }
 
-/* line 25, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 25, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-no-backend {
   background-color: #a52a2a; }
 
-/* line 29, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 29, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-backend-incomplete {
   background-color: #ffd1d1; }
 
-/* line 33, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 33, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-incomplete {
   background-color: #ffd; }
 
-/* line 37, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 37, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-ui-incomplete {
   background-color: #ffd; }
 
-/* line 41, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 41, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-incomplete-message {
   max-width: 1200px;
   text-align: center; }
 
-/* line 46, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 46, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .has-error {
   border: 1px solid #f00;
   padding: 5px; }
 
-/* line 51, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 51, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 p.has-error {
   color: #f00;
   font-weight: bold; }
 
-/* line 56, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 56, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ml-edit-tools {
   background-color: #ddd;
   margin-top: 10px;
   padding: 5px;
   width: 400px; }
 
-/* line 63, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 63, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-divider {
   background-color: #000;
   height: 1px;
   margin: 5px 0;
   width: 205px; }
 
-/* line 70, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 70, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-typeahead-item {
   cursor: pointer; }
 
-/* line 74, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 74, /Users/mike/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-column {
   float: left;
   position: relative; }
-

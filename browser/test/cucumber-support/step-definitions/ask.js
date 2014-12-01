@@ -1,11 +1,85 @@
 module.exports = function () {
   this.World = World;
 
+  // Question title
+  this.When(
+    /type "(.*)" as the question title/,
+    function (title, next) {
+      this.currentPage.enterQnaQuestionTitle(title).then(next);
+    }
+  );
+
   this.Then(
     /question title is "(.*)"/,
     function (title, next) {
       expect(this.currentPage.qnaQuestionTitle)
           .to.eventually.equal(title).and.notify(next);
+    }
+  );
+
+  // Question content
+  this.When(
+    /type "(.*)" as the question content/,
+    function (content, next) {
+      this.currentPage.enterQnaQuestionContent(content).then(next);
+    }
+  );
+
+  this.Then(
+    /question content is "(.*)"/,
+    function (content, next) {
+      expect(this.currentPage.qnaQuestionContent)
+        .to.eventually.equal(content).and.notify(next);
+    }
+  );
+
+  this.Then(
+    /previewed content has "(.*)" formatting/,
+    function (tagName, next) {
+      expect(this.currentPage.qnaQuestionPreviewElement
+        .isElementPresent(by.css(tagName)))
+        .to.eventually.equal(true).and.notify(next);
+    }
+  );
+
+  this.When(
+    /preview the content/,
+    function (next) {
+      this.currentPage.previewQnaQuestionContent().then(next);
+    }
+  );
+
+  this.Then(
+    /previewed content is( not)? displayed/,
+    function (status, next) {
+      expect(this.currentPage.qnaQuestionPreviewElement.isDisplayed())
+        .to.eventually.equal(status ? false : true).notify(next);
+    }
+  );
+
+  // Question tags
+  this.When(
+    /enter "(.*)" as a question tag/,
+    function (tag, next) {
+      this.currentPage.enterQnaQuestionTag(tag).then(next);
+    }
+  );
+
+  this.Then(
+    /question tag is "(.*)"/,
+    function (tag, next) {
+      var tags = [tag];
+      expect(this.currentPage.qnaQuestionTags)
+        .to.eventually.deep.equals(tags).and.notify(next);
+    }
+  );
+
+  // Question submit
+  this.Then(
+    /submit button is( not)? disabled/,
+    function (status, next) {
+      expect(this.currentPage.qnaQuestionSubmitIsDisabled)
+        .to.eventually.equal(status ? null : 'true').notify(next);
     }
   );
 
