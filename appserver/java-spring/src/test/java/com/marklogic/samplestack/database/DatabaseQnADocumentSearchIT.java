@@ -238,13 +238,15 @@ public class DatabaseQnADocumentSearchIT {
 	}
 
 	@Test
+	@Ignore
 	public void testAcceptedSearch() {
+		// unignore when seed data 1.6 is done -- boolean search is illegal with current server trunk.
 		ObjectNode query;
 		ObjectNode results = null;
 		try {
 			query = (ObjectNode) mapper
 					.readValue(
-							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"boolean\":true}}}",
+							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"text\":true}}}",
 							JsonNode.class);
 			ArrayNode qtext = mapper.createArrayNode();
 			qtext.add("tag:test-data-tag");
