@@ -50,20 +50,23 @@ World.prototype.notifyOk = notifyOk;
 
 World.prototype.authenticateAs = function (userName, password) {
   var goPage;
-  if (!self.currentPage) {
+
+  var cp = self.currentPage;
+
+  if (!cp) {
     goPage = self.go(self.pages.default);
   }
   return q.when(
     goPage,
     function () {
+      cp = self.currentPage;
       if (userName) {
-        return self.currentPage.loginIfNecessary(userName, password);
+        return cp.loginIfNecessary(userName, password);
       }
       else {
-        return self.currentPage.logoutIfNecessary()
-            .then(
-              self.currentPage.login.bind(self, userName, password)
-            );
+        return cp.logoutIfNecessary().post(
+          'login', [userName, password]
+        );
       }
     }
   );

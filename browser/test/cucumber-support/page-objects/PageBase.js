@@ -3,10 +3,13 @@ var util = require('util');
 function PageBase () {
   var self = this;
 
+  var returnSelf = self.returnSelf = function () {
+    return self;
+  };
+
   self.getElementIfPresent = function (locator) {
-    var el = element(locator);
     try {
-      return el.then(
+      return element(locator).then(
         function (element) {
           return element;
         },
@@ -33,11 +36,12 @@ function PageBase () {
   });
 
   self.loginStart = function () {
-    return self.loginElement.click();
+    return self.loginElement.click().then(returnSelf);
   };
 
   self.loginCancel = function () {
-    return element(by.css('.ss-dialog-login .ss-button-cancel')).click();
+    return element(by.css('.ss-dialog-login .ss-button-cancel')).click()
+        .then(returnSelf);
   };
 
   Object.defineProperty(self, 'loginSubmitButton', {
@@ -47,7 +51,7 @@ function PageBase () {
   });
 
   self.loginSubmit = function () {
-    return self.loginSubmitButton.click();
+    return self.loginSubmitButton.click().then(returnSelf);
   };
 
   Object.defineProperty(self, 'loginSubmitEnabled', {
@@ -71,13 +75,15 @@ function PageBase () {
   self.loginEnterUserName = function (userName) {
     return self.loginUserNameElement
       .clear()
-      .sendKeys(userName);
+      .sendKeys(userName)
+      .then(returnSelf);
   };
 
   self.loginEnterPassword = function (password) {
     return self.loginPasswordElement
     .clear()
-    .sendKeys(password);
+    .sendKeys(password)
+    .then(returnSelf);
   };
 
   Object.defineProperty(self, 'loginFailedMessage', {
@@ -104,9 +110,9 @@ function PageBase () {
 
   self.login = function (userName, password) {
     return self.loginStart()
-    .then(self.loginEnterUserName.bind(self, userName))
-    .then(self.loginEnterPassword.bind(self, password))
-    .then(self.loginSubmit);
+      .post('loginEnterUserName', [userName])
+      .post('loginEnterPassword', [password])
+      .post('loginSubmit');
   };
 
   Object.defineProperty(self, 'accountInfoElement', {
@@ -160,14 +166,7 @@ function PageBase () {
 
 
   self.accountDropdownOpen = function () {
-    return self.accountInfoElement.then(
-      function (element) {
-        return element.click();
-      },
-      function () {
-        throw new Error('cannot access accountInfoElement');
-      }
-    );
+    return self.accountInfoElement.click().then(returnSelf);
   };
 
   Object.defineProperty(self, 'logoutButton', {
@@ -177,24 +176,15 @@ function PageBase () {
   });
 
   self.logout = function () {
-    return self.accountDropdownOpen().then(
-      function () {
-        return self.logoutButton.click();
-      },
-      function (err) {
-        console.log('in logout, cannot open account dropdown: ' +
-            err.toString()
-        );
-        throw err;
-      }
-    );
+    return self.accountDropdownOpen()
+        .get('logoutButton').click();
   };
 
   self.loginIfNecessary = function (userName, password) {
     return self.userName.then(
       function (name) {
         var before = name ? self.logout : null;
-        return q.when(before, self.login.bind(self, userName, password));
+        return q.when(before, q.invoke('login', userName, password));
       }
     );
   };
