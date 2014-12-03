@@ -31,6 +31,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.marklogic.client.ResourceNotFoundException;
 import com.marklogic.client.Transaction;
+import com.marklogic.client.document.DocumentMetadataPatchBuilder;
+import com.marklogic.client.io.DocumentMetadataHandle.Capability;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.pojo.PojoPage;
 import com.marklogic.client.pojo.PojoQueryBuilder;
 import com.marklogic.client.pojo.PojoQueryDefinition;
@@ -167,10 +170,20 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 					+ contributor.getUserName()
 					+ " collides with pre-existing one");
 		}
+
+		// HACK  -- how to use repository to patch permissions?
+		DocumentMetadataPatchBuilder patchBuilder = jsonDocumentManager(
+				ClientRole.SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
+
+		patchBuilder.addPermission("samplestack-guest", Capability.READ);
+		DocumentPatchHandle patch = patchBuilder.build();
+		String uri = contributor.getClass().getCanonicalName() + "/" + contributor.getId() + ".json";
 		if (transaction == null) {
 			repository.write(contributor);
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(uri, patch);
 		} else {
 			repository.write(contributor, transaction);
+			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(uri, patch, transaction);
 		}
 
 	}
