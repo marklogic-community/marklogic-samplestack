@@ -3,15 +3,15 @@ module.exports = function () {
 
   this.Given(/I am a contributor/, function (next) {
     this.authenticateAs('joeUser@marklogic.com', 'joesPassword')
-      .then(this.notifyOk(next));
+      .then(this.notifyOk(next), next);
   });
 
   this.Given(/I am a visitor/, function (next) {
-    this.authenticateAs().then(this.notifyOk(next));
+    this.authenticateAs().then(this.notifyOk(next), next);
   });
 
   this.When(/start to log in/, function (next) {
-    this.currentPage.loginStart().then(next);
+    this.currentPage.loginStart().then(this.thenOk(next), next);
   });
 
   this.When(/attempt to log in with invalid/, function (next) {
@@ -22,7 +22,7 @@ module.exports = function () {
       cp.loginSubmit.bind(cp)
     ];
 
-    funcs.reduce(q.when, q()).then(this.notifyOk(next));
+    funcs.reduce(q.when, q()).then(this.notifyOk(next), next);
   });
 
   this.When(/login attempt is denied/, function (next) {
@@ -38,7 +38,7 @@ module.exports = function () {
         cp.loginEnterUserName.bind(cp, 'joeUser@marklogic.com'),
         cp.loginEnterPassword.bind(cp, '000')
       ];
-      funcs.reduce(q.when, q()).then(this.notifyOk(next));
+      funcs.reduce(q.when, q()).then(this.notifyOk(next), next);
     }
   );
 
@@ -57,7 +57,7 @@ module.exports = function () {
         cp.loginSubmit.bind(cp)
       ];
 
-      funcs.reduce(q.when, q()).then(this.notifyOk(next));
+      funcs.reduce(q.when, q()).then(this.notifyOk(next), next);
     }
   );
 

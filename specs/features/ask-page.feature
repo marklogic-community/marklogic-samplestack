@@ -20,3 +20,8 @@ Feature: Ask Page
     When I preview the content
     Then the previewed content is displayed
     And the previewed content has "strong" formatting
+
+  @ask
+  Scenario: junk
+    Given I am a contributor
+    When I visit the "ask" page

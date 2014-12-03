@@ -53,14 +53,20 @@ World.prototype.authenticateAs = function (userName, password) {
   if (!self.currentPage) {
     goPage = self.go(self.pages.default);
   }
-  return q.when(goPage, function () {
-    if (userName) {
-      return self.currentPage.loginIfNecessary(userName, password);
+  return q.when(
+    goPage,
+    function () {
+      if (userName) {
+        return self.currentPage.loginIfNecessary(userName, password);
+      }
+      else {
+        return self.currentPage.logoutIfNecessary()
+            .then(
+              self.currentPage.login.bind(self, userName, password)
+            );
+      }
     }
-    else {
-      return self.currentPage.logoutIfNecessary();
-    }
-  });
+  );
 };
 
 var setPrepareStackTrace = function (isOn) {
