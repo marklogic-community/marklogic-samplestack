@@ -48,18 +48,17 @@ public class HasVotedControllerIT extends HasVotedControllerTestImpl {
 	public void testHasVoted() throws Exception {
 		super.testHasVoted();
 	}
-	
-	
+
 	@Autowired
 	private TestDataManager testData;
 	
 	@Test
 	public void verifyIntegrationVoting() throws Exception {
 
-		login("joeUser@marklogic.com", "joesPassword");
+		login("testC1@marklogic.com", "c1");
 		this.mockMvc.perform(get("/v1/hasVoted")
-				.param("contributorId", Utils.joeUser.getId())
-				.param("questionId", testData.marysQuestionIds.get(0))
+				.param("contributorId", Utils.testC1.getId())
+				.param("questionId", testData.testA1QuestionIds.get(0))
 				.session((MockHttpSession) session))
 				.andExpect(status().isOk());
 	}

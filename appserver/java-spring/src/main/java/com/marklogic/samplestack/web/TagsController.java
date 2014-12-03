@@ -101,6 +101,8 @@ public class TagsController {
 		rangeNode.put("json-property", "tags");
 		valuesNode.put("name", "tags");
 		valuesNode.put("values-option", sortBy);
+		//ObjectNode aggregateNode = valuesNode.putObject("aggregate");
+		//aggregateNode.put("apply", "count");
 
 		return tagsService.getTags(ClientRole.securityContextRole(), docNode, start, pageLength);
 	}

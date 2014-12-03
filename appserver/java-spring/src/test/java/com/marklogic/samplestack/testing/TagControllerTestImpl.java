@@ -19,7 +19,6 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Ignore;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
@@ -43,7 +42,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	}
 
 	public void testTagsNoArgs() throws Exception {
-		login("joeUser@marklogic.com", "joesPassword");
+		login("testC1@marklogic.com", "c1");
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags").session((MockHttpSession) session)
@@ -58,7 +57,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	 * isolate test data from seed data.
 	 */
 	public void testTagsWithArgument() throws Exception {
-		login("joeUser@marklogic.com", "joesPassword");
+		login("testC1@marklogic.com", "c1");
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags").session((MockHttpSession) session)
@@ -108,10 +107,9 @@ public class TagControllerTestImpl extends ControllerTests {
 	
 	}
 
-	@Ignore
 	public void testLoggedInSortFrequency() throws Exception {
-		login("joeUser@marklogic.com", "joesPassword");
-		
+		login("testC1@marklogic.com", "c1");
+
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags").session((MockHttpSession) session)

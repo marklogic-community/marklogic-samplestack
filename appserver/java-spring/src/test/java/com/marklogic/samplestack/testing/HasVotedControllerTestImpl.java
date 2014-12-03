@@ -22,7 +22,7 @@ public class HasVotedControllerTestImpl extends ControllerTests {
 				.param("questionId", "1"))
 				.andExpect(status().isOk());
 		
-		login("joeUser@marklogic.com", "joesPassword");
+		login("testC1@marklogic.com", "c1");
 		this.mockMvc.perform(get("/v1/hasVoted")
 				.param("contributorId", "1")
 				.param("questionId", "1")

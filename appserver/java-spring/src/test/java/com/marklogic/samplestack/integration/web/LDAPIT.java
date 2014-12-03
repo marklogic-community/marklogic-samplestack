@@ -60,10 +60,10 @@ public class LDAPIT {
 	final String ldapSearchBase = "dc=samplestack,dc=org";
 
 	//use one of the existing users...
-	final String ldapUsername = "uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org";
-	final String ldapPassword = "marysPassword";
+	final String ldapUsername = "uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org";
+	final String ldapPassword = "a1";
 
-	final String contributor = "Joe User";
+	final String contributorName = "Test User";
 	
 	Hashtable<String, Object> env;
 	LdapContext ctx;
@@ -97,9 +97,9 @@ public class LDAPIT {
 
 	@Test
 	public void testFinds() throws NamingException {
-		SearchResult srLdapUser = findAccountByAccountName(contributor);
-		
-		assertEquals("joeUser@marklogic.com", srLdapUser.getAttributes().get("uid").get());
+		SearchResult srLdapUser = findAccountByAccountName(contributorName);
+
+		assertEquals("testC1@marklogic.com", srLdapUser.getAttributes().get("uid").get());
 
 	}
 

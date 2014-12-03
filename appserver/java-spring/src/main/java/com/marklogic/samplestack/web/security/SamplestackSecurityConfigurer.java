@@ -74,12 +74,4 @@ public class SamplestackSecurityConfigurer {
 
 	}
 
-
-	public void inMemoryConfiguration(
-			AuthenticationManagerBuilder authManagerBuilder) throws Exception {
-		 authManagerBuilder.inMemoryAuthentication()
-         .withUser("joeUser@marklogic.com").password("joesPassword").roles("CONTRIBUTORS").and()
-         .withUser("maryAdmin@marklogic.com").password("marysPassword").roles("CONTRIBUTORS", "ADMINS");
-	}
-
 }

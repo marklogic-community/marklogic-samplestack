@@ -34,10 +34,10 @@ public class HasVotedServiceIT  extends MarkLogicIntegrationIT {
 	@Test
 	public void testHasVoted() {
 
-		Set<String> votedIds = service.hasVoted(ClientRole.SAMPLESTACK_CONTRIBUTOR, Utils.joeUser.getId(), testDataManager.joesAnswerIds.get(0));
+		Set<String> votedIds = service.hasVoted(ClientRole.SAMPLESTACK_CONTRIBUTOR, Utils.testC1.getId(), testDataManager.testC1AnswerIds.get(0));
 		assertEquals("Votes that joe has made on mary's question", 1, votedIds.size());
 		
 		String voteId = votedIds.iterator().next();
-		assertEquals(voteId, testDataManager.marysQuestionIds.get(0));
+		assertEquals(voteId, testDataManager.testA1QuestionIds.get(0));
 	}
 }

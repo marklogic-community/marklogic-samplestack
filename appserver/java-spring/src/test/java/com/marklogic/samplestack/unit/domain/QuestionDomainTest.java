@@ -29,8 +29,8 @@ public class QuestionDomainTest {
 		initialQuestion.setText("text");
 		initialQuestion.setTitle("title");
 		initialQuestion.setTags(new String[] {"tag1", "tag2"});
-		initialQuestion.setOwner(Utils.joeUser.asSparseContributor());
-		String expected ="{answers:[],comments:[],acceptedAnswerId:null,accepted:false,creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
+		initialQuestion.setOwner(Utils.testC1.asSparseContributor());
+		String expected ="{answers:[],comments:[],acceptedAnswerId:null,accepted:false,creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b041\",displayName:\"testC1\",userName:\"testC1@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
 		
 		JSONAssert.assertEquals(expected, mapper.writeValueAsString(initialQuestion),
 				false);
@@ -44,10 +44,10 @@ public class QuestionDomainTest {
 		answer.setText("text");
 		answer.setComments(new ArrayList<Comment>());
 		answer.setItemTally(0);
-		answer.setOwner(Utils.joeUser.asSparseContributor());
+		answer.setOwner(Utils.testC1.asSparseContributor());
 		Date now = new Date();
 		answer.setCreationDate(now);
-		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) + "\",id:\"/answers/134\",text:\"text\",itemTally:0,comments:[],owner:{displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"}}";
+		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) + "\",id:\"/answers/134\",text:\"text\",itemTally:0,comments:[],owner:{displayName:\"testC1\",userName:\"testC1@marklogic.com\"}}";
 		JSONAssert.assertEquals(expected, mapper.writeValueAsString(answer), false);
 	}
 	
@@ -55,10 +55,10 @@ public class QuestionDomainTest {
 	public void testComment() throws JsonProcessingException, JSONException {
 		Comment comment  = new Comment();
 		comment.setText("Comment Text");
-		comment.setOwner(Utils.joeUser.asSparseContributor());
+		comment.setOwner(Utils.testC1.asSparseContributor());
 		Date now = new Date();
 		comment.setCreationDate(now);
-		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) +"\",text:\"Comment Text\",owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b040\",displayName:\"joeUser\",userName:\"joeUser@marklogic.com\"}}";
+		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) +"\",text:\"Comment Text\",owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b041\",displayName:\"testC1\",userName:\"testC1@marklogic.com\"}}";
 		JSONAssert.assertEquals(expected, mapper.writeValueAsString(comment), false);
 	}
 }

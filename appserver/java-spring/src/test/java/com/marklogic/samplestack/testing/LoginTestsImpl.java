@@ -56,7 +56,7 @@ public class LoginTestsImpl extends ControllerTests {
 		mockMvc.perform(
 				post("/v1/session")
 				.with(csrf())
-				.param("username", "joeUser@marklogic.com")
+				.param("username", "testC1@marklogic.com")
 						.param("password", "notJoesPassword"))
 				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
 				.andReturn().getRequest().getSession();
@@ -66,7 +66,7 @@ public class LoginTestsImpl extends ControllerTests {
 						post("/v1/session")
 						.with(csrf())
 						.param("username",
-								"joeUser@marklogic.com").param("password",
+								"testC1@marklogic.com").param("password",
 								"notJoesPassword"))
 				.andExpect(status().is(HttpStatus.UNAUTHORIZED.value()))
 				.andReturn().getResponse().getContentAsString();
@@ -82,13 +82,13 @@ public class LoginTestsImpl extends ControllerTests {
 
 	public void loginNormalFlow() throws Exception {
 
-		JsonNode loginNode = login("joeUser@marklogic.com", "joesPassword");
+		JsonNode loginNode = login("testC1@marklogic.com", "c1");
 
 		String userRole = loginNode.get("role").get(0).asText();
-		assertEquals("joe's role is CONTRIBUTOR", "SAMPLESTACK_CONTRIBUTOR", userRole);
+		assertEquals("test user's role is CONTRIBUTOR", "SAMPLESTACK_CONTRIBUTOR", userRole);
 
 		String description = loginNode.get("displayName").asText();
-		assertEquals("got joe's profile iformation from database", description, Utils.joeUser.getDisplayName());
+		assertEquals("got joe's profile iformation from database", description, Utils.testC1.getDisplayName());
 
 		MvcResult result = 
 				mockMvc.perform(
@@ -118,7 +118,7 @@ public class LoginTestsImpl extends ControllerTests {
 	}
 
 	public void loginForbidden() throws Exception {
-		login("joeUser@marklogic.com", "joesPassword");
+		login("testC1@marklogic.com", "c1");
 
 		assertNotNull(session);
 

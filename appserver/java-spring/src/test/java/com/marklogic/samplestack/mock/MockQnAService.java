@@ -31,8 +31,7 @@ import com.marklogic.samplestack.service.QnAService;
  */
 public class MockQnAService  extends MockServiceBase implements QnAService {
 
-	
-	
+
 	@Override
 	public QnADocument findOne(ClientRole role, String question,
 			long start) {

@@ -8,6 +8,16 @@ objectclass: top
 objectclass: organizationalUnit
 ou: people
 
+dn: uid=testC1@marklogic.com,ou=people,dc=samplestack,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test User
+sn: User
+uid: testC1@marklogic.com
+userPassword: c1
+
 dn: uid=joeUser@marklogic.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
@@ -17,6 +27,16 @@ cn: Joe User
 sn: User
 uid: joeUser@marklogic.com
 userPassword: joesPassword
+
+dn: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Admin
+sn: User
+uid:testA1@marklogic.com
+userPassword: a1
 
 dn: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
 objectclass: top
@@ -33,6 +53,7 @@ objectclass: groupOfNames
 cn: admins
 ou: groups
 uniqueMember: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
 
 dn: cn=contributors,ou=groups,dc=samplestack,dc=org
 objectclass: groupOfNames
@@ -40,4 +61,6 @@ cn: contributors
 ou: groups
 uniqueMember: uid=joeUser@marklogic.com,ou=people,dc=samplestack,dc=org
 uniqueMember: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=testC1@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
 

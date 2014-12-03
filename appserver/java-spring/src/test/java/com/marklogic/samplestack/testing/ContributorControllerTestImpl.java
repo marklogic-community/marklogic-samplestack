@@ -48,7 +48,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 	public void testContributorCRUD() throws Exception {
 
 		Contributor basicUser = Utils.getBasicUser();
-		login("maryAdmin@marklogic.com", "marysPassword");
+		login("testA1@marklogic.com", "a1");
 		
 		this.mockMvc.perform(
 				delete("/v1/contributors/" + basicUser.getId())
@@ -57,7 +57,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 				.andExpect(status().isOk()).andReturn().getResponse();
 		logout();
 	
-		login("joeUser@marklogic.com", "joesPassword");
+		login("testC1@marklogic.com", "c1");
 		this.mockMvc.perform(
 				post("/v1/contributors")
 				.with(csrf())
@@ -68,7 +68,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 				.andExpect(status().isForbidden());
 
 		logger.debug("Basic User:" + mapper.writeValueAsString(basicUser));
-		login("maryAdmin@marklogic.com", "marysPassword");
+		login("testA1@marklogic.com", "a1");
 		
 		MockHttpServletResponse response = this.mockMvc
 				.perform(
@@ -121,7 +121,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		assertEquals("Id name matches when get By ID", getById.getId(),
 				returnedUser.getId());
 		
-		login("maryAdmin@marklogic.com", "marysPassword");
+		login("testA1@marklogic.com", "a1");
 		
 		this.mockMvc.perform(
 				delete("/v1/contributors/" + returnedUser.getId())

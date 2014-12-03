@@ -121,7 +121,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		newQuestion = Utils.newQuestion();
 		
 		// ask a question.
-		submittedQuestionAndAnswer = service.ask(Utils.joeUser,
+		submittedQuestionAndAnswer = service.ask(Utils.testC1,
 				newQuestion);
 
 		assertEquals(newQuestion.getAnswers().length,
@@ -156,11 +156,11 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		JsonNode ownerNode = questionFromSearch.getJson().get("owner");
 		assertEquals("The question has an owner/userName",
-				Utils.joeUser.getUserName(), ownerNode.get("userName").asText());
+				Utils.testC1.getUserName(), ownerNode.get("userName").asText());
 
 		// TODO somehow assert the question I just asked is in this list?
 		// Mary answers the question.
-		answeredQuestion = service.answer(Utils.maryAdmin,
+		answeredQuestion = service.answer(Utils.testA1,
 				submittedQuestionAndAnswer.getId(),
 				"I think your question is very good.");
 
@@ -169,7 +169,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
 		
 		assertEquals("answered question has an answer",
-				Utils.maryAdmin.getUserName(),
+				Utils.testA1.getUserName(),
 				answer.get("owner").get("userName").asText());
 		
 		assertFalse("answer has creationDate", 
@@ -181,7 +181,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		
 		// joe answers the question. add another answer
 		answeredTwiceQuestion = service
-				.answer(Utils.joeUser, answeredQuestion.getId(),
+				.answer(Utils.testC1, answeredQuestion.getId(),
 						"I think the question has merit, but is inherently unanswerable.");
 		assertEquals("twice answered question has two answers", 2,
 				answeredTwiceQuestion.getJson().get("answers").size());
@@ -194,8 +194,8 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		String secondAnswerId = answeredTwiceQuestion.getJson().get("answers")
 				.get(1).get("id").asText();
 
-		Contributor maryUser = contributorService.getByUserName("maryAdmin@marklogic.com");
-		int marysReputation = maryUser.getReputation();
+		Contributor testA1 = contributorService.getByUserName("testA1@marklogic.com");
+		int marysReputation = testA1.getReputation();
 		acceptedQuestion = service.accept(firstAnswerId);
 		
 		assertEquals("Accepted answer id is correct", firstAnswerId,
@@ -204,16 +204,16 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		assertTrue("The question is marked as accepted", acceptedQuestion
 				.getJson().get("accepted").asBoolean());
 		
-		maryUser = contributorService.getByUserName("maryAdmin@marklogic.com");
+		testA1 = contributorService.getByUserName("testA1@marklogic.com");
 		
-		assertEquals("Owner of accepted question got reputation boost", marysReputation + 1, maryUser.getReputation() );
+		assertEquals("Owner of accepted question got reputation boost", marysReputation + 1, testA1.getReputation() );
 		
 		assertFalse("The question has updated lastActivity Date",
 				lastActivityString.equals(acceptedQuestion.getJson().get("lastActivityDate").asText()));
 		lastActivityString = acceptedQuestion.getJson().get("lastActivityDate").asText();
 		
-		Contributor joeUser = contributorService.getByUserName("joeUser@marklogic.com");
-		int joesReputation = joeUser.getReputation();
+		Contributor testC1 = contributorService.getByUserName("testC1@marklogic.com");
+		int joesReputation = testC1.getReputation();
 		
 		// accept another answer
 		acceptedQuestion = service.accept(secondAnswerId);
@@ -222,15 +222,15 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		assertTrue("The question is marked as accepted", acceptedQuestion
 				.getJson().get("accepted").asBoolean());
 		
-		maryUser = contributorService.getByUserName("maryAdmin@marklogic.com");
-		joeUser = contributorService.getByUserName("joeUser@marklogic.com");
+		testA1 = contributorService.getByUserName("testA1@marklogic.com");
+		testC1 = contributorService.getByUserName("testC1@marklogic.com");
 		
 		assertFalse("The question has updated lastActivity Date",
 				lastActivityString.equals(acceptedQuestion.getJson().get("lastActivityDate").asText()));
 		
-		assertEquals("Owner of accepted question got reputation boost", joesReputation + 1, joeUser.getReputation() );
+		assertEquals("Owner of accepted question got reputation boost", joesReputation + 1, testC1.getReputation() );
 
-		assertEquals("Owner of previously accepted question got reputation decrement", marysReputation, maryUser.getReputation() );
+		assertEquals("Owner of previously accepted question got reputation decrement", marysReputation, testA1.getReputation() );
 
 		
 	}
@@ -241,26 +241,26 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		newQuestion.setTitle("How does voting work?");
 		newQuestion.setText("I want lots of up votes on my document");
 		newQuestion.setTags(new String[] {"voting", "votes"});
-		QnADocument submitted = service.ask(Utils.joeUser,
+		QnADocument submitted = service.ask(Utils.testC1,
 				newQuestion);
 
 		int voteCount = submitted.getJson().get("voteCount").asInt();
 
 		QnADocument answered = service
-				.answer(Utils.maryAdmin, submitted.getId(),
+				.answer(Utils.testA1, submitted.getId(),
 						"I think your question is very good.  I want lots of votes too.");
 		String answerId = answered.getJson().get("answers").get(0).get("id")
 				.asText();
 
 		
 		// vote up
-		int joesReputation = Utils.joeUser.getReputation();
-		int marysReputation = Utils.maryAdmin.getReputation();
-		int joesVotes = Utils.joeUser.getVotes().size();
-		int marysVotes = Utils.maryAdmin.getVotes().size();
+		int joesReputation = Utils.testC1.getReputation();
+		int marysReputation = Utils.testA1.getReputation();
+		int joesVotes = Utils.testC1.getVotes().size();
+		int marysVotes = Utils.testA1.getVotes().size();
 		
 		// joe votes his own question up, reputation +1 for joe.
-		service.voteUp(Utils.joeUser, submitted.getId());
+		service.voteUp(Utils.testC1, submitted.getId());
 		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 				submitted.getId());
 		int newScore = votedOn.getJson().get("voteCount").asInt();
@@ -268,32 +268,32 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				voteCount + 1, newScore);
 		
 		try {
-			service.voteUp(Utils.joeUser, submitted.getId());
+			service.voteUp(Utils.testC1, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
 		}
 		try {
-			service.voteDown(Utils.joeUser, submitted.getId());
+			service.voteDown(Utils.testC1, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
 		}
 
 		// mary votes her own answer down, her rep should be -1
-		service.voteDown(Utils.maryAdmin, answerId);
+		service.voteDown(Utils.testA1, answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
 		int newerScore = votedTwiceOn.getJson().get("voteCount").asInt();
 		assertEquals("Vote score should be one higher than before",
 				newScore - 1, newerScore);
 
-		Contributor joesState = contributorRepository.read(Utils.joeUser.getId());
+		Contributor joesState = contributorRepository.read(Utils.testC1.getId());
 		assertEquals("joe has voted once", joesVotes + 1, joesState.getVotes().size());
 		assertTrue("joe voted on this", joesState.hasVotedOn(submitted.getId()));
 		assertEquals("joe reputation has gained", joesReputation + 1, joesState.getReputation());
 		
-		Contributor marysState = contributorRepository.read(Utils.maryAdmin.getId());
+		Contributor marysState = contributorRepository.read(Utils.testA1.getId());
 		assertEquals("mary has voted once", marysVotes + 1, marysState.getVotes().size());
 		assertTrue("mary voted on this", marysState.hasVotedOn(answerId));
 		assertEquals("marys reputation has suffered", marysReputation - 1, marysState.getReputation());
@@ -313,10 +313,10 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		newQuestion.setTitle("How do comments work?");
 		newQuestion.setText("I could go on and on but would rather solicit commentary");
 		newQuestion.setTags(new String[] {"commentary"});
-		QnADocument submitted = service.ask(Utils.joeUser,
+		QnADocument submitted = service.ask(Utils.testC1,
 				newQuestion);
 
-		QnADocument answered = service.answer(Utils.maryAdmin,
+		QnADocument answered = service.answer(Utils.testA1,
 				submitted.getId(), "I think your question is very good.");
 
 		String answerId = answered.getJson().get("answers").get(0).get("id")
@@ -326,13 +326,13 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		String c2 = "Here's TWO comment on your question";
 		String c3 = "Here's ONE comment on your answer";
 
-		service.comment(Utils.joeUser,
+		service.comment(Utils.testC1,
 				submitted.getId(), c1);
-		service.comment(Utils.joeUser,
+		service.comment(Utils.testC1,
 				submitted.getId(), c2);
 
 		QnADocument finalDocument = service.comment(
-				Utils.joeUser, answerId, c3);
+				Utils.testC1, answerId, c3);
 
 		assertEquals("Comment 1", c1, finalDocument.getJson().get("comments")
 				.get(0).get("text").asText());
@@ -349,9 +349,9 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		newQuestion.setTitle("What is my first question?");
 		newQuestion.setText("Its body is suspiciously short, like a unit test's.");
 		newQuestion.setTags(new String[] {"tag1", "tag2"});
-		Contributor joeUser = Utils.joeUser;
+		Contributor testC1 = Utils.testC1;
 
-		QnADocument question2 = service.ask(joeUser, newQuestion);
+		QnADocument question2 = service.ask(testC1, newQuestion);
 
 		logger.debug(mapper.writeValueAsString(question2.getJson()));
 
