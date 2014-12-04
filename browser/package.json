@@ -67,7 +67,7 @@
     "open": "^0.0.5",
     "phantomjs": "1.9.11",
     "protractor": "^1.4.0",
-    "q": "^1.0.1",
+    "q": "^1.1.2",
     "request": "^2.47.0",
     "sauce-connect-launcher": "^0.9.0",
     "selenium-webdriver": "^2.44.0",
