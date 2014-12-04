@@ -3,24 +3,8 @@ var util = require('util');
 function PageBase () {
   var self = this;
 
-  var returnSelf = self.returnSelf = function () {
-    return self;
-  };
-
-  self.getElementIfPresent = function (locator) {
-    try {
-      return element(locator).then(
-        function (element) {
-          return element;
-        },
-        function (err) {
-          return null;
-        }
-      );
-    }
-    catch (err) {
-      return q(null);
-    }
+  var qself = self.qself = function (value) {
+    return q(value).thenResolve(self);
   };
 
   Object.defineProperty(self, 'pageTitle', {
@@ -36,12 +20,13 @@ function PageBase () {
   });
 
   self.loginStart = function () {
-    return self.loginElement.click().then(returnSelf);
+    return qself(self.loginElement.click());
   };
 
   self.loginCancel = function () {
-    return element(by.css('.ss-dialog-login .ss-button-cancel')).click()
-        .then(returnSelf);
+    return qself(
+      element(by.css('.ss-dialog-login .ss-button-cancel')).click()
+    );
   };
 
   Object.defineProperty(self, 'loginSubmitButton', {
@@ -51,7 +36,7 @@ function PageBase () {
   });
 
   self.loginSubmit = function () {
-    return self.loginSubmitButton.click().then(returnSelf);
+    return qself(self.loginSubmitButton.click());
   };
 
   Object.defineProperty(self, 'loginSubmitEnabled', {
@@ -73,17 +58,18 @@ function PageBase () {
   });
 
   self.loginEnterUserName = function (userName) {
-    return self.loginUserNameElement
+    return qself(
+      self.loginUserNameElement
       .clear()
       .sendKeys(userName)
-      .then(returnSelf);
+    );
   };
 
   self.loginEnterPassword = function (password) {
-    return self.loginPasswordElement
-    .clear()
-    .sendKeys(password)
-    .then(returnSelf);
+    return qself(self.loginPasswordElement
+      .clear()
+      .sendKeys(password)
+    );
   };
 
   Object.defineProperty(self, 'loginFailedMessage', {
@@ -109,16 +95,19 @@ function PageBase () {
 
 
   self.login = function (userName, password) {
-    return self.loginStart()
-      .post('loginEnterUserName', [userName])
-      .post('loginEnterPassword', [password])
-      .post('loginSubmit');
+    return q.invoke(self, 'loginStart')
+      .invoke('loginEnterUserName', userName)
+      .invoke('loginEnterPassword', password)
+      .invoke('loginSubmit');
   };
 
   Object.defineProperty(self, 'accountInfoElement', {
     get: function () {
-      return self.getElementIfPresent(
-        by.className('ss-user-info-display-name-reputation')
+      return element(by.className(
+        'ss-user-info-display-name-reputation'
+      )).then(
+        function (el) { return el; },
+        function () { return null; }
       );
     }
   });
@@ -166,7 +155,16 @@ function PageBase () {
 
 
   self.accountDropdownOpen = function () {
-    return self.accountInfoElement.click().then(returnSelf);
+    return q(self.accountInfoElement.then(
+      function (el) {
+        if (el) {
+          return el.click();
+        }
+        else {
+          throw new Error('cannot find accountInfoElement');
+        }
+      }
+    ));
   };
 
   Object.defineProperty(self, 'logoutButton', {
@@ -176,30 +174,31 @@ function PageBase () {
   });
 
   self.logout = function () {
-    return self.accountDropdownOpen()
-        .get('logoutButton').click();
+    return qself(self.accountDropdownOpen().then(function () {
+      return self.logoutButton.click();
+    }));
   };
 
   self.loginIfNecessary = function (userName, password) {
-    return self.userName.then(
+    return qself(self.userName.then(
       function (name) {
         var before = name ? self.logout : null;
         return q.when(before, q.invoke('login', userName, password));
       }
-    );
+    ));
   };
 
   self.logoutIfNecessary = function () {
-    return self.isLoggedIn.then(
+    return qself(self.isLoggedIn.then(
       function (isLoggedIn) {
         if (isLoggedIn) {
           return self.logout();
         }
         else {
-          return;
+          return self;
         }
       }
-    );
+    ));
   };
 }
 

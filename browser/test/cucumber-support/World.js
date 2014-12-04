@@ -33,11 +33,15 @@ World.addPage = function (Page) {
 };
 
 World.prototype.go = function (page) {
-  return ptor.get(page.url).then(
-    function () {
+  if (self.currentPage && self.currentPage === page) {
+    return q(self.currentPage);
+  }
+  else {
+    return ptor.get(page.url).then(function () {
       self.currentPage = page;
-    }
-  );
+      return self.currentPage;
+    });
+  }
 };
 
 var notifyOk = function (next) {
@@ -50,26 +54,18 @@ World.prototype.notifyOk = notifyOk;
 
 World.prototype.authenticateAs = function (userName, password) {
   var goPage;
-
-  var cp = self.currentPage;
-
-  if (!cp) {
+  if (!self.currentPage) {
     goPage = self.go(self.pages.default);
   }
-  return q.when(
-    goPage,
-    function () {
-      cp = self.currentPage;
-      if (userName) {
-        return cp.loginIfNecessary(userName, password);
-      }
-      else {
-        return cp.logoutIfNecessary().post(
-          'login', [userName, password]
-        );
-      }
+
+  return q.when(goPage).then(function () {
+    if (userName) {
+      return self.currentPage.loginIfNecessary(userName, password);
     }
-  );
+    else {
+      return self.currentPage.logoutIfNecessary();
+    }
+  });
 };
 
 var setPrepareStackTrace = function (isOn) {
