@@ -74,10 +74,8 @@ public class TagControllerIT extends TagControllerTestImpl {
     }
 
 	@Test
-	@Ignore
     public void testSortFrequency() throws Exception {
-		// TODO unignore for tags
-        super.testLoggedInSortFrequency();
+		super.testLoggedInSortFrequency();
     }
 
 	/* bled over branches.

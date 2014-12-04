@@ -138,19 +138,9 @@ public class TestDataManager {
 			throw new SamplestackIOException(e);
 		}
 
-		//contributorService.delete(Utils.testC1UUID);
-		//contributorService.delete(Utils.testA1UUID);
-		
-		Contributor toDelete = contributorService
-				.getByUserName("grechaw@marklogic.com");
-		if (toDelete != null) {
-			contributorService.delete(toDelete.getId());
-		}
-
-		toDelete = contributorService.getByUserName("cgreer@marklogic.com");
-		if (toDelete != null) {
-			contributorService.delete(toDelete.getId());
-		}
+		contributorService.delete(Utils.testC1UUID);
+		contributorService.delete(Utils.testA1UUID);
+		contributorService.delete(Utils.basicUserUUID);
 	}
 
 }
