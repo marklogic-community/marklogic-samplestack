@@ -3,7 +3,7 @@ Feature: Ask Page
   Users who visit the "ask-question" page of the application should be able to
   ask a question.
 
-  @ask
+  @broken
   Scenario: A question is entered
     Given I am a contributor # This isn't logging the user in
     When I visit the "ask" page
@@ -21,5 +21,5 @@ Feature: Ask Page
     Then the previewed content is displayed
     And the previewed content has "strong" formatting
     And I submit the question
-    #Then the page title is "doc - samplestack" # Failing due to auth issues above
+    Then the page title is "doc - samplestack" # Failing due to auth issues above
     # TODO check that doc page has submitted content
