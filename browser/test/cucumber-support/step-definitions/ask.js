@@ -83,4 +83,11 @@ module.exports = function () {
     }
   );
 
+  this.Then(
+    /submit the question/,
+    function (next) {
+      this.currentPage.submitQnaQuestion().then(this.notifyOk(next));
+    }
+  );
+
 };

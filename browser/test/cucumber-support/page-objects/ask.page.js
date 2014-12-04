@@ -93,6 +93,10 @@ function AskPage () {
     }
   });
 
+  self.submitQnaQuestion = function () {
+    return self.qnaQuestionSubmitElement.click();
+  };
+
 }
 
 var me = AskPage;

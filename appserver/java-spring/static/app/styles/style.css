@@ -6616,34 +6616,22 @@ ul.ss-tags li {
   /* line 56, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dl, .ss-search-tips-panel dt, .ss-search-tips-panel dd {
     position: relative;
-<<<<<<< HEAD
     float: left;
     font-size: 0.98em; }
-  /* line 62, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 62, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dl {
     width: 32%; }
-  /* line 66, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 66, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dl:last-of-type {
     width: 36%; }
-  /* line 70, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
-=======
-    float: left; }
-  /* line 61, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
-  .ss-search-tips-panel dl {
-    width: 33%; }
-  /* line 65, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
->>>>>>> e2e: tests for ask
+  /* line 70, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dt {
     width: 27%;
     margin-bottom: 6px;
     color: #999;
     font-weight: normal;
     clear: both; }
-<<<<<<< HEAD
-  /* line 78, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
-=======
-  /* line 73, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
->>>>>>> e2e: tests for ask
+  /* line 78, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-tips-panel dd {
     width: 73%;
     margin-bottom: 6px; }
