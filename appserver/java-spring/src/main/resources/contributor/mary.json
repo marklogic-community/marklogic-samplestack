@@ -6,13 +6,11 @@
         "originalId": null,
         "reputation": 100,
         "userName": "mary@marklogic.com",
-        "votes": [
-                "778d0b9c-419f-496a-a300-44815d79708d",
-                "6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300",
-                "594d5815-3d28-40d2-b1b8-6401a79886ad",
-                "6432cc02-2770-4b8d-b5f1-0b632875f86d",
-                "01600486-60ea-4557-bcfc-9c10b06fb8cd"
-            ],
+        "votes": {"778d0b9c-419f-496a-a300-44815d79708d":1,
+                  "6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300":1,
+                  "594d5815-3d28-40d2-b1b8-6401a79886ad":1,
+                  "6432cc02-2770-4b8d-b5f1-0b632875f86d":1,
+                  "01600486-60ea-4557-bcfc-9c10b06fb8cd":1},
         "websiteUrl": "http://website.com/grechaw"
     }
 }

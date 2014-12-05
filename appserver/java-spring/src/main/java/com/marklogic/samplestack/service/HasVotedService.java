@@ -1,6 +1,6 @@
 package com.marklogic.samplestack.service;
 
-import java.util.Set;
+import java.util.Map;
 
 import com.marklogic.samplestack.security.ClientRole;
 
@@ -16,7 +16,7 @@ public interface HasVotedService {
 	 * @param role security role for this query
 	 * @param contributorId The contributor's ID
 	 * @param postId An id within the QnADocument
-	 * @return A Set of postIds in same document as postId.
+	 * @return A Set of Votes for this post, with up/down values.
 	 */
-	public Set<String> hasVoted(ClientRole role, String contributorId, String postId);
+	public Map<String, Integer> hasVoted(ClientRole role, String contributorId, String postId);
 }

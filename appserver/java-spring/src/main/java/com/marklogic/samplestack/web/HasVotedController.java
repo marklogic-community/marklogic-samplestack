@@ -15,7 +15,7 @@
  */
 package com.marklogic.samplestack.web;
 
-import java.util.Set;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class HasVotedController {
 	 */
 	@RequestMapping(value = "/v1/hasVoted", method = RequestMethod.GET)
 	public @ResponseBody
-	Set<String> hasVoted(@RequestParam(required = true) String contributorId,
+	Map<String, Integer> hasVoted(@RequestParam(required = true) String contributorId,
 			@RequestParam(required = true) String questionId) {
 		return hasVotedService.hasVoted(ClientRole.securityContextRole(), contributorId, questionId);
 	}

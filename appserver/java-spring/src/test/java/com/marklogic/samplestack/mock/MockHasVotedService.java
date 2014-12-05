@@ -15,8 +15,8 @@
 */
 package com.marklogic.samplestack.mock;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -30,11 +30,11 @@ import com.marklogic.samplestack.service.HasVotedService;
 public class MockHasVotedService implements HasVotedService {
 
 	@Override
-	public Set<String> hasVoted(ClientRole role, String contributorId,
+	public Map<String, Integer> hasVoted(ClientRole role, String contributorId,
 			String postId) {
-		Set<String> returnValue = new HashSet<String>();
-		returnValue.add("1");
-		returnValue.add("2");
+		Map<String, Integer> returnValue = new HashMap<String, Integer>();
+		returnValue.put("1", -1);
+		returnValue.put("2", 1);
 		return returnValue;
 	}
 
