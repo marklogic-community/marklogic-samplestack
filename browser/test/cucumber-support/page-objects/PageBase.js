@@ -174,9 +174,8 @@ function PageBase () {
   });
 
   self.logout = function () {
-    return qself(self.accountDropdownOpen().then(function () {
-      return self.logoutButton.click();
-    }));
+    return self.accountDropdownOpen()
+        .then(self.logoutButton.click);
   };
 
   self.loginIfNecessary = function (userName, password) {
