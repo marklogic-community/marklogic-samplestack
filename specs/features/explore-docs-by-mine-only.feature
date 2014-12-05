@@ -3,7 +3,7 @@ Feature: Explore Docs By Mine Only
   When searching for documents, a facet filter may be applied to limit results to
   those documents which created by the user.
 
-  @explore-docs-by-mine-only @explore
+  @broken @explore-docs-by-mine-only @explore
   Scenario: As a contributor filtering by mine only, I see the correct results
     Given I am a contributor
     And I am using the brief seed data
