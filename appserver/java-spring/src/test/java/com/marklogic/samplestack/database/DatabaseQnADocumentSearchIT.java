@@ -198,7 +198,7 @@ public class DatabaseQnADocumentSearchIT {
         "lastActivityDate": "2014-10-01T08:59:12.230",
         "owner": {
             "displayName": "maryUser",
-            "id": "9611450-0663-45a5-8a08-f1c71320475e",
+            "id": "9611450a-0663-45a5-8a08-f1c71320475e",
             "reputation": 0,
             "userName": "maryAdmin@marklogic.com"
         },
