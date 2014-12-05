@@ -181,8 +181,17 @@ function PageBase () {
   self.loginIfNecessary = function (userName, password) {
     return qself(self.userName.then(
       function (name) {
-        var before = name ? self.logout : null;
-        return q.when(before, q.invoke('login', userName, password));
+        if (name === userName) {
+          return;
+        }
+        else {
+          var before = [];
+          if (name) {
+            before.push(self.logout());
+          }
+          return q.all(before)
+            .then(q.invoke(self, 'login', userName, password));
+        }
       }
     ));
   };
