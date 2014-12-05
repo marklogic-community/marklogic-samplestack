@@ -93,7 +93,6 @@ function PageBase () {
     }
   });
 
-
   self.login = function (userName, password) {
     return q.invoke(self, 'loginStart')
       .invoke('loginEnterUserName', userName)
@@ -195,6 +194,7 @@ function PageBase () {
       }
     ));
   };
+
 
   self.logoutIfNecessary = function () {
     return qself(self.isLoggedIn.then(
