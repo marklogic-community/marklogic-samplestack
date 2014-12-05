@@ -1,4 +1,4 @@
-Feature: Authentication
+Feature: Login
 
   The application allows both authenticated and unauthenticated access through
   login and logout operations. Authenticated users have access to more content

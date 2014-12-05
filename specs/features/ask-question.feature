@@ -1,11 +1,10 @@
-Feature: Ask Page
+Feature: Ask Question
 
-  Users who visit the "ask-question" page of the application should be able to
-  ask a question.
+  Any Contributor may ask questions with Markdown formatting, associating one or
+  more (existing) "tags" with the question.
 
-  @broken
-  Scenario: A question is entered
-    Given I am a contributor # This isn't logging the user in
+  Scenario: Ask a question with Markdown preview
+    Given I am a contributor
     When I visit the "ask" page
     And I type "" as the question title
     Then the submit button is disabled
@@ -21,5 +20,5 @@ Feature: Ask Page
     Then the previewed content is displayed
     And the previewed content has "strong" formatting
     And I submit the question
-    Then the page title is "doc - samplestack" # Failing due to auth issues above
+    Then the page title is "doc - samplestack"
     # TODO check that doc page has submitted content
