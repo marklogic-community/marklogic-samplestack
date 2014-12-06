@@ -1,9 +1,11 @@
+var users = require('../configuration/users');
+
 module.exports = function () {
   this.World = World;
   var self = this;
 
   this.Given(/I am a contributor/, function (next) {
-    this.authenticateAs('joeUser@marklogic.com', 'joesPassword')
+    this.authenticate()
       .then(this.notifyOk(next), next);
   });
 
@@ -12,8 +14,14 @@ module.exports = function () {
       .then(this.notifyOk(next), next);
   });
 
+  this.Given(/I am "(.*)"/, function (userName, next) {
+    this.authenticateAs(users[userName].userName, users[userName].password)
+      .then(this.notifyOk(next), next);
+  });
+
   this.When(/start to log in/, function (next) {
-    this.currentPage.loginStart().then(this.notifyOk(next), next);
+    this.currentPage.loginStart()
+      .then(this.notifyOk(next), next);
   });
 
   this.When(/attempt to log in with invalid/, function (next) {
@@ -63,5 +71,11 @@ module.exports = function () {
         .and.notify(next);
     }
   );
+
+  this.Then(/my user name is "(.*)"/, function (userName, next) {
+    expect(this.currentPage.loggedInUserName)
+      .to.eventually.equal(userName)
+      .and.notify(next);
+  });
 
 };

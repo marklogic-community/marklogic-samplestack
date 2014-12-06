@@ -1,71 +1,48 @@
+var utilities = require('../utilities');
+
 function ExplorePage () {
-  ExplorePage.super_.call(this);
-  this.url = '/';
+  var self = this;
+  ExplorePage.super_.call(self);
+  self.url = '/';
 
-  require('./search-bar').support(this);
+  require('./directives/searchBar.dctv').support(self);
+  require('./directives/searchResults.dctv').support(self);
+  require('./dialogs/contributor.dlg').support(self);
 
-  Object.defineProperty(this, 'docsCount', {
-    get: function () {
-      return element(by.className('ss-search-results-count'))
-        .getText()
-        .then(function (text) {
-          return parseInt(text.replace(/,/, ''));
-        });
+  self.filters = {
+    clearAll: function () {
+      return self.qself(q.all([
+        self.filters.mineOnly.setValue(false),
+        self.filters.resolvedOnly.setValue(false)
+      ]));
+    },
+    mineOnly: {
+      setValue: function (value) {
+        return self.qself(
+          utilities.setCheckboxValue(getMineOnlyFilterElement(), value)
+        );
+      }
+    },
+    resolvedOnly: {
+      setValue: function (value) {
+        return self.qself(
+          utilities.setCheckboxValue(getResolvedOnlyFilterElement(), value)
+        );
+      }
     }
-  });
-
-  Object.defineProperty(this, 'firstResultTitle', {
-    get: function () {
-      return element.all(by.css('.ss-result-title'))
-        .first()
-        .element(by.css('a'))
-        .getText()
-        .then(function (text) {
-          return text;
-        });
-    }
-  });
-
-  Object.defineProperty(this, 'lastResultTitle', {
-    get: function () {
-      return element.all(by.css('.ss-result-title'))
-        .last()
-        .element(by.css('a'))
-        .getText()
-        .then(function (text) {
-          return text;
-        });
-    }
-  });
-
-  this.addFilter = function (filterModel,value) {
-    var f = element(by.model(filterModel));
-    // date filtering
-    if (value) {
-      if (value.startDate)
-        console.log('add date filter');
-
-      if (value.endDate)
-        console.log('add date filter');
-    }
-    // TODO: Add filter for tags
-    return (f.getAttribute("selected") !== "selected") ?
-                f.then(function() { return f.click(); }) : f.then();
   };
 
-  this.removeFilter = function (filterModel,value) {
-    var f = element(by.model(filterModel));
-    // date filtering
-    if (value) {
-      if (value.startDate)
-        console.log('remove date filter');
 
-      if (value.endDate)
-        console.log('remove date filter');
-    }
-    // TODO: Add filter for tags
-    return (f.getAttribute("selected") === "selected") ?
-                f.then(function() { return f.click(); }) : f.then();
+  /*******************************/
+  /********** PRIVATE ************/
+  /*******************************/
+
+  var getMineOnlyFilterElement = function () {
+    return element(by.model('showMineOnly'));
+  };
+
+  var getResolvedOnlyFilterElement = function () {
+    return element(by.model('resolvedOnly'));
   };
 
 }

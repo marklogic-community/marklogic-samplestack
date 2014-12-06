@@ -1,10 +1,11 @@
+@ask-question
 Feature: Ask Question
 
   Any Contributor may ask questions with Markdown formatting, associating one or
   more (existing) "tags" with the question.
 
   Scenario: Ask a question with Markdown preview
-    Given I am a contributor
+    Given I am "maryAdmin"
     When I visit the "ask" page
     And I type "" as the question title
     Then the submit button is disabled

@@ -1,8 +1,12 @@
+@explore
 Feature: List Docs
 
-  All accepted QnA docs appear on the landing page when not logged in.
+  When no search criteria are specified, the explore page lists documents
+  **only** according to any applied filters. Such a list is not considered
+  a true "search". When listing documents, the results are displayed
+  differently. In particular, snippets are not displayed and the default
+  sort is different.
 
-  @explore
   Scenario: As a visitor I can see **some, but not all** of the docs
     Given I am a visitor
     And I am using the brief seed data

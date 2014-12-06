@@ -12,6 +12,8 @@ var ptor = require('protractor').getInstance();
 
 var util = require('util');
 
+var users = require('./configuration/users');
+
 var pages = {};
 
 var self;
@@ -51,6 +53,28 @@ var notifyOk = function (next) {
 };
 
 World.prototype.notifyOk = notifyOk;
+
+World.prototype.authenticate = function () {
+  var goPage;
+  if (!self.currentPage) {
+    goPage = self.go(self.pages.default);
+  }
+
+  return q.when(goPage)
+    .then(function () {
+      return self.currentPage.isLoggedIn;
+    })
+    .then(function (isLoggedIn) {
+      if (isLoggedIn) {
+        return;
+      }
+      else {
+        return self.currentPage.login(
+          users.joeUser.userName, users.joeUser.password
+        );
+      }
+    });
+};
 
 World.prototype.authenticateAs = function (userName, password) {
   var goPage;
