@@ -63,6 +63,7 @@ include '**/*.nt'}
                 if (it.text.contains("accepted\":true")) {
                     writeSet.add(docUri, acceptedPermissionMetadata, bh)
                 } else if (it.text.contains("domain.Contributor")) {
+                    docUri = docUri.replaceAll("^\\/","")
                     writeSet.add(docUri, pojoCollectionMetadata, bh)
                 } else {
                     writeSet.add(docUri, bh)

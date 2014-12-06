@@ -242,14 +242,13 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			}
 
 			transaction.commit();
+			transaction = null;
+			QnADocument acceptedDocument = getByPostId(answerId);
 
-		} catch (MarkLogicIOException e) {
+			return acceptedDocument;
+		} finally {
 			if (transaction != null) { transaction.rollback(); };
-			throw new SamplestackIOException(e);
 		}
-		QnADocument acceptedDocument = getByPostId(answerId);
-
-		return acceptedDocument;
 	}
 
 	@Override
@@ -491,9 +490,12 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			}
 
 			transaction.commit();
-		} catch (SampleStackDataIntegrityException ex) {
-			transaction.rollback();
-			throw ex;
+			transaction = null;
+		}
+		finally {
+			if (transaction != null) {
+				transaction.rollback();
+			}
 		}
 	}
 
@@ -501,14 +503,15 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			Transaction transaction) {
 		if (ownerNode.isObject()) {
 			String toAdjustId = ownerNode.get("id").asText();
-			
+
 			Contributor toAdjustObject = contributorService
 					.read(toAdjustId, transaction);
-			toAdjustObject
-					.setReputation(toAdjustObject
-							.getReputation() + delta);
+			if (toAdjustObject != null) {
+				toAdjustObject.setReputation(
+						toAdjustObject.getReputation() + delta);
 			contributorService
 					.store(toAdjustObject, transaction);
+			}
 		} else {
 			logger.warn("Could not adjust repuation of owner, ignoring");
 		}
