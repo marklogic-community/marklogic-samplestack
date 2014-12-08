@@ -253,10 +253,13 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				.asText();
 
 		// vote up
-		int testC1Reputation = contributorRepository.read(Utils.testC1.getId()).getReputation();
-		int testA1Reputation = contributorRepository.read(Utils.testA1.getId()).getReputation();
-		int c1Votes = Utils.testC1.getVotes().size();
-		int marysVotes = Utils.testA1.getVotes().size();
+		Contributor preC1, preA1;
+		preC1 = contributorRepository.read(Utils.testC1.getId());
+		preA1 = contributorRepository.read(Utils.testA1.getId());
+		int testC1Reputation = preC1.getReputation();
+		int testA1Reputation = preA1.getReputation();
+		int c1Votes = preC1.getVotes().size();
+		int marysVotes = preA1.getVotes().size();
 		
 		// a1 votes c1 question up, reputation +1 for c1.
 		// a1 hasVotedOn submitted.
