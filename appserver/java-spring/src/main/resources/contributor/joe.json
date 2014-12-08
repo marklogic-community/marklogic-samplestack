@@ -1,11 +1,11 @@
 {
    "aboutMe": "Twitter: [@joeuser](http://twitter.com/joeuser)\nDisclaimer: This is not me.  JoeUser _doesn't exist_!\n",
-   "displayName": "joeUser",
+   "displayName": "JoeUser",
    "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
    "location": "San Francisco",
    "originalId": null,
    "reputation": 50,
-   "userName": "joeUser@marklogic.com",
+   "userName": "joe@marklogic.com",
    "votes": [
                 "5dce8909-0972-4289-93cd-f2e8790a17fb",
                 "8450f8a4-2782-4c8a-9fd9-b83bcacc5018",

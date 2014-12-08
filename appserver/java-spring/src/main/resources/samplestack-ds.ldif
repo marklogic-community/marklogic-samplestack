@@ -18,14 +18,14 @@ sn: User
 uid: testC1@marklogic.com
 userPassword: c1
 
-dn: uid=joeUser@marklogic.com,ou=people,dc=samplestack,dc=org
+dn: uid=joe@marklogic.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Joe User
 sn: User
-uid: joeUser@marklogic.com
+uid: joe@marklogic.com
 userPassword: joesPassword
 
 dn: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
@@ -38,29 +38,29 @@ sn: User
 uid:testA1@marklogic.com
 userPassword: a1
 
-dn: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+dn: uid=mary@marklogic.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Mary Admin
 sn: User
-uid: maryAdmin@marklogic.com
+uid: mary@marklogic.com
 userPassword: marysPassword
 
 dn: cn=admins,ou=groups,dc=samplestack,dc=org
 objectclass: groupOfNames
 cn: admins
 ou: groups
-uniqueMember: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=mary@marklogic.com,ou=people,dc=samplestack,dc=org
 uniqueMember: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
 
 dn: cn=contributors,ou=groups,dc=samplestack,dc=org
 objectclass: groupOfNames
 cn: contributors
 ou: groups
-uniqueMember: uid=joeUser@marklogic.com,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=maryAdmin@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=joe@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=mary@marklogic.com,ou=people,dc=samplestack,dc=org
 uniqueMember: uid=testC1@marklogic.com,ou=people,dc=samplestack,dc=org
 uniqueMember: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
 
