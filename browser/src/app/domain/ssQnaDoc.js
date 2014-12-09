@@ -196,6 +196,16 @@ define(['app/module'], function (module) {
           }
           return (answer2.itemTally || 0) - (answer1.itemTally || 0);
         });
+
+        this.comments.sort(function (comment1, comment2) {
+          return comment1.createDate < comment2.creationDate;
+        });
+
+        this.answers.forEach(function (answer) {
+          answer.comments.sort(function (comment1, comment2) {
+            return comment1.createDate < comment2.creationDate;
+          });
+        });
       };
 
       /**
