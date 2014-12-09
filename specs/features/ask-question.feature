@@ -6,6 +6,7 @@ Feature: Ask Question
 
   Scenario: Ask a question with Markdown preview
     Given I am "maryAdmin"
+    And my user name is "maryAdmin"
     When I visit the "ask" page
     And I type "" as the question title
     Then the submit button is disabled
