@@ -103,6 +103,12 @@ define(['app/module'], function (module) {
             $rootScope.clearLocalError();
           });
 
+          $rootScope.$on('sessionChange', function () {
+            if (!$rootScope.store.session) {
+              $location.url('/');
+            }
+          });
+          
           return {
             params: $stateParams,
 
