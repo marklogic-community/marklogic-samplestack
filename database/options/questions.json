@@ -139,7 +139,9 @@
         "return-qtext": true,
         "return-query": true,
         "term": {
-            "empty": { "apply": "all-results" }
+            "empty": { "apply": "all-results" },
+            "default": {"word":
+                {"field":{"name":"default-samplestack-search"}}}
         },
         "transform-results":{
             "apply":"snippet",
