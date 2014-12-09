@@ -11,11 +11,11 @@
     <span ng-if="docType == 'question'">asked</span>
     <span ng-if="docType == 'answer'">answered</span>
     {{ formatDate(doc.creationDate) }} by
-    <a ng-if="doc.owner.originalId === undefined"
+    <a ng-if="isLocalOwner()"
       href=""
       ng-click="showContributor()"
     >{{doc.owner.displayName}}</a>
-    <a ng-if="!(doc.owner.originalId === undefined)"
+    <a ng-if="!isLocalOwner()"
       href="{{soUserLink()}}"
       target="_blank"
     >{{doc.owner.displayName}}</a>
@@ -29,11 +29,11 @@
 </div>
 <span ng-if="docType == 'comment'">
   &mdash;
-  <a ng-if="doc.owner.originalId === undefined"
+  <a ng-if="isLocalOwner()"
       href=""
       ng-click="showContributor()"
     >{{doc.owner.displayName}}</a>
-  <a ng-if="!(doc.owner.originalId === undefined)"
+  <a ng-if="!isLocalOwner()"
       href="{{soUserLink()}}"
       target="_blank"
     >{{doc.owner.displayName}}</a>

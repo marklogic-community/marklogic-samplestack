@@ -41,6 +41,10 @@ define(['app/module'], function (module) {
                   }
                 );
               };
+              scope.isLocalOwner = function () {
+                return scope.doc.owner.originalId === undefined ||
+                    scope.doc.owner.originalId === null;
+              };
 
               scope.soUserLink = function () {
                 return scope.doc.owner.originalId ?
