@@ -83,14 +83,7 @@ module.exports = function (stream) {
 
   // now that files are rearranged and template parameters have been applied,
   // merge them back together
-  // stream = multistream.obj([unitStream, srcStream]);
   stream = merge(unitStream, srcStream);
-
-  // // set a backstop on the entire stream
-  // stream.on('error', function (err) {
-  //   $.util.log(err);
-  //   $.util.beep();
-  // });
 
   // write out the files excluding deadweight directories
   return stream

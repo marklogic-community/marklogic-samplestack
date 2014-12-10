@@ -87,21 +87,25 @@ module.exports = {
 
     sassParams = {
       includePaths: importDirs,
-      onError: ctx.errorHandler
+      onError: ctx.errorHandler,
+      outputStyle: 'compressed'
     };
 
-    // BELIEVE that WINDOWS no longer bombs on source maps
-    // TODO: verify
-    // if (buildParams.sassCompiler !== 'node-sass-safe' &&
-    //     process.platform !== 'win32'
-    // ) {
-    sassParams.sourceComments = 'map';
-    sassParams.sourceMap = '';
-    // }
+    // sassParams.sourceComments = 'map';
+    // sassParams.sourceMap = '';
 
     sassPipe = lazypipe()
-      .pipe(helper.fs.src, path.join(srcDir, '**/*.scss'))
+      .pipe(
+        helper.fs.src,
+        path.relative(ctx.paths.rootDir, path.join(srcDir, '**/*.scss'))
+      )
+      .pipe($.sourcemaps.init)
       .pipe($.sass, sassParams)
+      .pipe(
+        $.sourcemaps.write,
+        '.',
+        { includeContent: true, sourceRoot: '/' }
+      )
       .pipe($.tap, function (file) {
         file.base = file.base.replace(/[\/\\]src/, '');
       });
