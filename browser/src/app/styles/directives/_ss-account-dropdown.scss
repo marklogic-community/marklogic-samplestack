@@ -1,17 +1,75 @@
-.ss-account-dropdown ul {
-  @extend .pull-right;
-  line-height: 25px;
+.ss-account-dropdown {
+
+  a {
+    color:#fff!important;
+    display: block!important;
+    font-size: 14px;
+  }
+
+  a span.glyphicon {
+    border:1px solid #9b9b9b;
+    padding:1px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius:3px;
+    color:#9b9b9b;
+    margin-right: 8px;
+
+  }
+
+  a span.caret {
+    color:#ccc;
+  }
+
+  .dropdown-menu {
+    width:250px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .ss-account-info {
+    padding:14px 18px 14px 18px;
+  }
+
+  .ss-account-info h4 {
+    padding-bottom: 2px;
+    color:#000;
+  }
+
+  .ss-account-info p {
+    font-size:12px;
+  }
+
+  .ss-account-actions {
+    border-top:1px solid #ddd;
+    padding: 6px 16px 10px;
+    padding-bottom: 6px;
+    text-align: right;
+    margin-bottom: 0!important;
+  }
+
+  .ss-account-actions a.btn-primary {
+    background-color: #428bca;
+    border-color: #357ebd;
+    display: inline-block!important;
+    font-size: 13px;
+    padding: 3px 10px;
+  }
+
+  .ss-account-actions a.btn-primary:hover {
+    background-color: #428bca;
+    border-color: #357ebd;
+  }
+
 }
 
-.ss-account-dropdown li {
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 300px;
+.ss-account-dropdown:hover,
+.ss-account-dropdown.open {
+  background: #333;
 }
 
-.ss-account-dropdown button {
-  @extend .pull-right;
-  margin-bottom: 5px;
-  margin-right: 10px;
-  margin-top: 5px;
+.ss-account-dropdown.open a.dropdown-toggle,
+.ss-account-dropdown a:hover {
+  background: #333!important;
+  color: #fff;
 }

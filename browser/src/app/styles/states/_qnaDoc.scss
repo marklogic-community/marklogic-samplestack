@@ -1,126 +1,205 @@
-// .ss-question,
-// .ss-answer {
-// }
-
 .ss-qnadoc {
-  margin-left: 20px;
-  max-width: $view-max-width;
-  min-width: $view-min-width;
+  margin-top: 20px;
 
-  .ss-checked {
-    background-image: url('/app/images/checkmark.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 50px;
-    margin-top: 5px;
-    position: relative;
-    width: 58px;
+  h1 {
+    font-size: 36px;
+  }
+}
+
+/* voting */
+.ss-vote-wrapper {
+  padding-top:8px;
+}
+
+.ss-vote-module {
+
+  .ss-vote-control {
+    text-align:center;
+    margin:0;
+    padding:0;
   }
 
-  .ss-checked-empty {
-    background-image: url('/app/images/checkmark_empty.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 50px;
-    margin-top: 5px;
-    position: relative;
-    width: 58px;
+  .ss-votes-total {
+    font-size:20px;
+    line-height: 20px;
+    text-align:center;
+    margin:0;
+    padding: 0 0 5px 0;
+    font-weight: 600;
+  }
+
+  .ss-vote-up-off,
+  .ss-vote-down-off,
+  .ss-voted-up,
+  .ss-voted-down,
+  .ss-vote-up,
+  .ss-vote-down {
+    display:inline-block;
+    margin:0;
+    padding:0;
+    font-size: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  .ss-vote-up-off {
+    border-width: 0 16.5px 16px 16.5px;
+    border-color: transparent transparent #CCC transparent;
+    cursor: auto;
+  }
+
+  .ss-vote-down-off {
+    border-width: 16px 16.5px 0 16.5px;
+    border-color: #CCC transparent transparent transparent;
+    cursor: auto;
+  }
+
+  .ss-voted-up {
+    border-width: 0 16.5px 16px 16.5px;
+    border-color: transparent transparent #3abc9a transparent;
+    cursor: auto;
+  }
+
+  .ss-voted-down {
+    border-width: 16px 16.5px 0 16.5px;
+    border-color: #3abc9a transparent transparent transparent;
+    cursor: auto;
+  }
+
+  .ss-vote-up {
+    border-width: 0 16.5px 16px 16.5px;
+    border-color: transparent transparent #428bca transparent;
     cursor: pointer;
   }
 
-  .ss-metadata {
-    border-bottom: 1px solid #000;
+  .ss-vote-down {
+    border-width: 16px 16.5px 0 16.5px;
+    border-color: #428bca transparent transparent transparent;
+    cursor: pointer;
+  }
+
+  .ss-vote-up:hover {
+    border-color: transparent transparent #3071a9 transparent;
+  }
+
+  .ss-vote-down:hover {
+    border-color: #3071a9 transparent transparent transparent;
+  }
+
+  .ss-accept {
+    margin-top:10px;
+  }
+
+  .ss-accept .ss-accepted,
+  .ss-accept .ss-unaccepted {
+    font-size:30px;
+    color:#3abc9a;
+  }
+
+}
+
+/* question */
+.ss-question-module-wrapper,
+.ss-question-module-inner {
+  padding-bottom: 10px;
+}
+
+/* outbound link */
+.ss-question-stackoverflow {
+  float:right;
+
+  a span {
+    top:7px;
   }
 }
 
-.ss-qnadoc
-.ss-vote {
-  background-color: #f0f0f0;
-  border: solid 1px #ccc;
-  float: left;
-  height: 76px;
-  position: relative;
-  text-align: center;
-  width: 60px;
+.ss-qnadoc-header {
+  font-weight:bold;
+  float:left;
+  font-size:15px;
+  padding-top:8px;
 }
 
-.ss-vote-components {
-  position: absolute;
+.ss-answers-header,
+.ss-your-answer-header {
+  border-bottom:1px solid #ddd;
+  padding-bottom: 10px;
 }
 
-.ss-vote-count {
-  display: block;
-  font-size: 20px;
-  width: 100%;
+/* comments */
+.ss-question-module-comment {
+
+  border-top: 1px dotted #ddd;
+  padding-top: 7px;
+  padding-left: 14px;
+  padding-right: 0;
+
+  p {
+    padding-bottom: 3px;
+  }
+
+  textarea {
+    margin-bottom:14px;
+  }
+
+  p, textarea, textarea.form-control {
+    font-size: 12px!important;
+    margin-bottom: 10px;
+  }
+
 }
 
-.ss-up,
-.ss-down {
-  background-position: center;
-  height: 18px;
-  width: 58px;
+/* answers */
+.ss-answer-wrapper {
+
+  padding-top: 14px;
+
+  .ss-answer-vote {
+    padding-top:6px;
+  }
+
+  .ss-answer-inner {
+    padding-top:22px;
+    border-bottom:1px solid #ddd;
+  }
+
+  .ss-answer-comment,
+  .ss-answer-inner,
+  .ss-answer-user-info {
+    padding-bottom: 14px;
+  }
+
+  .ss-answer-comment {
+    border-top:1px dotted #ddd;
+    padding-top: 14px;
+    padding-left: 14px;
+    padding-right: 0;
+  }
+
+  hr {
+    margin: 0;
+  }
+
 }
 
-.ss-up {
-  margin-top: 4px;
+.ss-answer-divider {
+  margin-left: 35px;
+  margin-right: 35px;
+
+  hr {
+    border-color:#ebebeb;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
 }
 
-.ss-down {
-  margin-bottom: 4px;
-}
-
-.ss-up-cast {
-  background-image: url('/app/images/up-blue.png');
-}
-
-.ss-up-enabled {
-  background-image: url('/app/images/up-dkgray.png');
-  cursor: pointer;
-}
-
-.ss-up-disabled {
-  background-image: url('/app/images/up-gray.png');
-}
-
-.ss-down-cast {
-  background-image: url('/app/images/down-blue.png');
-}
-
-.ss-down-enabled {
-  background-image: url('/app/images/down-dkgray.png');
-  cursor: pointer;
-}
-
-.ss-down-disabled {
-  background-image: url('/app/images/down-gray.png');
-}
-
-.ss-qnadoc-content {
-  overflow: hidden;
-  padding-left: 20px;
-  position: relative;
-}
-
+/* comments */
 .ss-comment {
-  border-bottom: solid 1px #aaa;
+  border-bottom: dotted 1px #ddd;
   font-size: smaller;
-  padding: 10px 0;
-}
-
-.ss-question-title {
-  height: 40px;
-
-  .ss-so-link {
-    background-image: url('/app/images/original.png');
-    background-position: center;
-    height: 24px;
-    width: 24px;
-    float: right;
-    margin-top: 12px;
-    position: relative;
-    top: -45px;
-  }
-
+  padding-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .ss-add-comment {
@@ -134,63 +213,7 @@
     display: block;
     width: 600px;
     height: 60px;
-    margin: 8px 0 8px 2px;
-  }
-
-}
-
-.ss-answer-section {
-  border-top: 1px solid;
-  margin-bottom: 25px;
-  padding-top: 15px;
-
-  :last-child {
-    margin-bottom: 0;
-  }
-}
-
-.ss-answer-form {
-  form > * {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  > *:last-child {
-    margin-bottom: 0;
-  }
-
-  input {
-    width: 500px;
-  }
-
-  textarea {
-    height: 200px;
-    width: 700px;
-  }
-}
-
-.ss-answers-header {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-
-  h3 {
-    float: left;
-    position: relative;
-  }
-
-  ul.ss-sort {
-    float: right;
-    margin-top: 20px;
-    position: relative;
-  }
-
-  li {
-    margin-left: 10px;
-
-    .ss-sort-active {
-      font-weight: bold;
-    }
+    margin: 4px 0 8px 2px;
   }
 
 }

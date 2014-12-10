@@ -1,4 +1,101 @@
-<div class="ss-markdown-editor">
+<div class="ss-markdown-wrapper">
+
+  <!-- nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li
+      ng-click="selTab = 'edit'"
+      ng-class="{ 'active': (selTab === 'edit') }">
+      <a
+        href=""
+        role="tab"
+        data-toggle="tab"
+      >Edit</a>
+    </li>
+    <li
+      ng-click="selTab = 'preview'"
+      ng-class="{ 'active': (selTab === 'preview') }"
+    >
+      <a
+        href=""
+        role="tab"
+        data-toggle="tab"
+      >Preview</a>
+    </li>
+  </ul>
+
+  <div class="clearfix">
+
+    <div
+      class="form-group form-group-textarea ss-edit-selected"
+      ng-show="selTab === 'edit'"
+    >
+
+      <wiz-markdown-editor
+        class="ss-markdown-editor"
+        content="content"
+      >
+        <div class="btn-group-wrapper markdown-controls">
+          <div class="btn-group">
+            <wiz-toolbar-button command="bold" class="btn btn-default btn-sm">
+              <i class="icon-bold"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="italic" class="btn btn-default btn-sm">
+              <i class="icon-italic"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="heading" class="btn btn-default btn-sm">
+              <i class="icon-header"></i>
+            </wiz-toolbar-button>
+          </div>
+          <div class="btn-group">
+            <wiz-toolbar-button command="code" class="btn btn-default btn-sm">
+              <i class="icon-code"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="ollist" class="btn btn-default btn-sm">
+              <i class="icon-ordered"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="ullist" class="btn btn-default btn-sm">
+              <i class="icon-list"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="link" class="btn btn-default btn-sm">
+              <i class="icon-link"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="img" class="btn btn-default btn-sm">
+              <i class="icon-image"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="hr" class="btn btn-default btn-sm">
+              <i class="icon-hr"></i>
+            </wiz-toolbar-button>
+          </div>
+          <div class="btn-group">
+            <wiz-toolbar-button command="undo" class="btn btn-default btn-sm">
+              <i class="icon-undo"></i>
+            </wiz-toolbar-button>
+            <wiz-toolbar-button command="redo" class="btn btn-default btn-sm">
+              <i class="icon-redo"></i>
+            </wiz-toolbar-button>
+          </div>
+        </div> <!-- markdown-controls -->
+      </wiz-markdown-editor>
+
+    </div> <!-- form-group -->
+
+    <div
+      class="form-group form-group-textarea ss-preview-selected"
+      ng-show="selTab === 'preview'"
+    >
+
+      <div
+        class="ss-markdown-editor-preview"
+        ss-markdown="content"
+      ></div>
+
+    </div> <!-- form-group -->
+
+  </div> <!-- clearfix -->
+
+</div> <!-- ss-markdown-wrapper -->
+
+<!-- <div class="ss-markdown-editor">
   <div>
     <span class="ss-tab-content" ng-click="selTab = 'edit'">edit</span>
     <span class="ss-tab-content" ng-click="selTab = 'preview'">preview</span>
@@ -42,4 +139,4 @@
   </wiz-markdown-editor>
   <div class="ss-markdown-editor-preview" ss-markdown="content" ng-show="selTab === 'preview'">
   </div>
-</div>
+</div> -->

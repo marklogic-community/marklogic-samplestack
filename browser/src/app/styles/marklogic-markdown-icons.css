@@ -1,0 +1,48 @@
+/*
+ * Created with iconvau.lt
+ */
+
+@font-face {
+  font-family: "marklogic-markdown";
+  src: url("../fonts/marklogic-markdown_f89a5782eb48a847fc89c35f838f20bf.eot");
+  src: url("../fonts/marklogic-markdown_f89a5782eb48a847fc89c35f838f20bf.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/marklogic-markdown_f89a5782eb48a847fc89c35f838f20bf.woff") format("woff"),
+       url("../fonts/marklogic-markdown_f89a5782eb48a847fc89c35f838f20bf.ttf") format("truetype"),
+       url("../fonts/marklogic-markdown_f89a5782eb48a847fc89c35f838f20bf.svg#iconvault") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-hr:before,
+.icon-ordered:before,
+.icon-list:before,
+.icon-code:before,
+.icon-image:before,
+.icon-italic:before,
+.icon-undo:before,
+.icon-redo:before,
+.icon-header:before,
+.icon-bold:before,
+.icon-link:before {
+  font-family: "marklogic-markdown";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  text-decoration: inherit;
+}
+
+.icon-hr:before { content: "\f100"; }
+.icon-ordered:before { content: "\f101"; }
+.icon-list:before { content: "\f102"; }
+.icon-code:before { content: "\f103"; }
+.icon-image:before { content: "\f104"; }
+.icon-italic:before { content: "\f105"; }
+.icon-undo:before { content: "\f106"; }
+.icon-redo:before { content: "\f107"; }
+.icon-header:before { content: "\f108"; }
+.icon-bold:before { content: "\f109"; }
+.icon-link:before { content: "\f10a"; }

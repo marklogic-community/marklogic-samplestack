@@ -69,11 +69,11 @@ module.exports.support = function (obj) {
   };
 
   var getLoginElement = function () {
-    return element(by.css('.ss-login a'));
+    return element(by.css('.ss-login button'));
   };
 
   var getLoginSubmitButton = function () {
-    return element(by.css('.ss-button-submit'));
+    return element(by.css('.ss-dialog-login button[type="submit"]'));
   };
 
   var getLoginUserNameElement = function () {

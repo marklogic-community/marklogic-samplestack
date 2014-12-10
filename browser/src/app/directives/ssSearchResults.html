@@ -1,58 +1,154 @@
-<header>
-  <div ng-if="search.results.total > 0">
-    <h2 ng-if="searchMode()"
-    > Search Results:
-      <span
-        class="ss-search-results-count"
-        ng-bind-template="{{search.results.total | number:0}}"
-      ></span>
-      Questions
-    </h2>
-    <h2 ng-if="!searchMode()"
-    > Browsing
-      <span
-        class="ss-search-results-count"
-        ng-bind-template="{{search.results.total | number:0}}"
-      ></span>
-      Questions
-    </h2>
-  </div>
-  <div ng-if="search.results.total == 0">
-    <h2>
-      No Results
-    </h2>
-  </div>
-  <ul class="ss-sort">
-    <li
-      ng-repeat="sort in sorts"
-      ng-click="setSort(sort.value)"
-      ng-class="{ 'ss-sort-active': getActiveSort() == sort.value }"
-      ng-bind-template="{{sort.label}}"
+<div class="col-md-9 col-md-push-3">
+
+  <header class="row tab-wrapper">
+    <div class="col-md-12" >
+
+      <div ng-if="search.results.total > 0">
+        <!-- results summary in search mode -->
+        <div class="ss-search-results-mode" ng-if="searchMode()">
+          Search Results:
+          <span
+            class="ss-search-results-count"
+            ng-bind-template="{{search.results.total | number:0}}"
+          ></span>
+          Questions
+        </div>
+        <!-- results summary in browse mode -->
+        <div class="ss-search-results-mode" ng-if="!searchMode()">
+          Browsing
+          <span
+            class="ss-search-results-count"
+            ng-bind-template="{{search.results.total | number:0}}"
+          ></span>
+          Questions
+        </div>
+      </div>
+      <!-- no results -->
+      <div ng-if="search.results.total == 0">
+        <div class="ss-search-results-mode">
+          No Results
+        </div>
+      </div>
+
+      <!-- sort tabs -->
+      <ul class="ss-sort nav nav-tabs" role="tablist">
+        <li
+          ng-repeat="sort in sorts"
+          ng-click="sort.active ? setSort(sort.value) : angular.noop()"
+          ng-disabled="!sort.active"
+          ng-class="{
+            'ss-sort-active': sort.active,
+            'ss-sort-inactive': !sort.active
+          }"
+        >
+          <a
+            href=""
+            role="tab"
+            data-toggle="tab"
+            ng-class="{
+              'ss-sort-selected': (
+                sort.value[0] === getSelectedSort()
+              )
+            }"
+          >
+            {{sort.label}}
+          </a>
+        </li>
+      </ul>
+
+    </div> <!-- col-md-12 -->
+  </header> <!-- header tab-wrapper -->
+
+  <div ng-if="search.$ml.waiting" class="spinner"></div>
+
+  <div ng-if="!search.$ml.waiting">
+    <section
+      class="ss-result row clearfix question-row"
+      ng-repeat="item in search.results.items"
     >
-    </li>
-  </ul>
-</header>
-<div ng-if="search.$ml.waiting" class="spinner"></div>
-<div ng-if="!search.$ml.waiting">
-  <section class="ss-result" ng-repeat="item in search.results.items">
-    <ss-search-result></ss-search-result>
-  </section>
-  <div class="ss-search-results-footer">
-    <div ng-if="search.results.total > 0" class="ss-paging">
-      <button
-        type="button"
-        ng-disabled="!search.hasPrevPage()"
-        ng-click="incrementPage(-1)"
-      >&lt;</button>
-      <span
-        ng-bind-template="{{search.getCurrentPage() }} / {{search.getPageCount() }}"
-      >
-      </span>
-      <button
-        type="button"
-        ng-disabled="!search.hasNextPage()"
-        ng-click="incrementPage(1)"
-      >&gt;</button>
-    </div>
+      <ss-search-result></ss-search-result>
+    </section>
+
+    <!-- paging -->
+    <div class="row ss-paging" ng-if="search.results.total > 0">
+      <div class="col-md-11 col-sm-10 col-xs-9">
+        <ul class="pagination">
+          <!-- prev -->
+          <li>
+            <a
+              href=""
+              ng-disabled="!search.hasPrevPage()"
+              ng-click="incrementPage(-1)"
+            >
+              <span class="caret left"></span>
+            </a>
+          </li>
+          <!-- 1 -->
+          <li ng-class="
+            {'active': search.getCurrentPage() === 1}
+          ">
+            <a
+              href=""
+              ng-click="setCurrentPage(1)"
+            >1 <span class="sr-only">(current)</span></a>
+          </li>
+          <!-- ... -->
+          <li>
+            <a
+              href=""
+              ng-click="angular.noop()"
+              ng-if="search.getCurrentPage() > (pad + 2)"
+            >...</a>
+          </li>
+          <!-- (selected - pad) to (selected + pad) -->
+          <li
+            ng-class="
+              {'active': search.getCurrentPage() === $index + search.getCurrentPage() - pad}
+            "
+            ng-if="($index + search.getCurrentPage() - pad) > 1 &&
+                   ($index + search.getCurrentPage() - pad) < search.getPageCount()"
+            ng-repeat="page in search.getNumAsArray((2 * pad) + 1) track by $index"
+          >
+            <a
+              href=""
+              ng-click="setCurrentPage($index + search.getCurrentPage() - pad)"
+            >{{$index + search.getCurrentPage() - pad}}</a>
+          </li>
+          <!-- ... -->
+          <li>
+            <a
+              href=""
+              ng-click="angular.noop()"
+              ng-if="search.getCurrentPage() < (search.getPageCount() - (pad + 1))"
+            >...</a>
+          </li>
+          <!-- pagecount -->
+          <li
+            ng-if="search.getPageCount() > 5"
+            ng-class="
+              {'active': search.getCurrentPage() === search.getPageCount()}
+            "
+          >
+            <a
+              href=""
+              ng-if="search.getPageCount() > 1"
+              ng-click="setCurrentPage(search.getPageCount())"
+            >{{search.getPageCount()}} <span class="sr-only">(current)</span></a>
+          </li>
+          <!-- next -->
+          <li>
+            <a
+              href=""
+              ng-disabled="!search.hasNextPage()"
+              ng-click="incrementPage(1)"
+            >
+              <span class="caret right"></span>
+            </a>
+          </li>
+        </ul> <!-- pagination -->
+      </div>
+    </div> <!-- row ss-paging -->
+
   </div>
-</div>
+
+</div> <!-- col-md-9 col-md-push-3 -->

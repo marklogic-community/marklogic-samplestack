@@ -25,7 +25,28 @@ define(['app/module'], function (module) {
         link: function (scope, element, attrs) {
           scope.$watch('search.results', function () {
 
-            scope.getActiveSort = function () {
+            scope.sorts = [
+              {
+                label: 'Relevance',
+                value: ['relevance'],
+                active: scope.searchMode()
+              },
+              {
+                label: 'Newest',
+                value: ['active'],
+                active: true
+              },
+              {
+                label: 'Votes',
+                value: ['votes'],
+                active: true
+              }
+            ];
+
+            // for pagination
+            scope.pad = 2;
+
+            scope.getSelectedSort = function () {
               if (!scope.search.criteria.sort) {
                 if (scope.search.criteria.q &&
                   scope.search.criteria.q.length
@@ -40,36 +61,21 @@ define(['app/module'], function (module) {
                 return scope.search.criteria.sort[0];
               }
             };
-            //Sort settings
-            scope.sorts = [
-              {
-                label: 'newest',
-                value: ['active']
-              },
-              {
-                label: 'votes',
-                value: ['votes']
-              }
-            ];
-
-            if (scope.search.criteria.q &&
-                scope.search.criteria.q.length
-            ) {
-              scope.sorts.unshift(
-                {
-                  label: 'relevance',
-                  value: ['relevance']
-                }
-              );
-            }
 
             scope.setSort = function (sort) {
               scope.search.criteria.sort = sort;
+              scope.search.criteria.start = 1; // reset paging to beginning
               scope.$emit('criteriaChange');
             };
 
             scope.incrementPage = function (increment) {
               if (scope.search.incrementPage(increment)) {
+                scope.$emit('criteriaChange');
+              }
+            };
+
+            scope.setCurrentPage = function (pageNum) {
+              if (scope.search.setCurrentPage(pageNum)) {
                 scope.$emit('criteriaChange');
               }
             };

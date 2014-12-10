@@ -120,17 +120,22 @@ define(['app/module'], function (module) {
         $scope.runSearch();
       });
 
-      $scope.clearTagsConstraint = function () {
-        var tags = $scope.search.criteria.constraints.tags;
-        if (tags.values && tags.values.length) {
-          tags.values = [];
-          $scope.$emit('criteriaChange');
+      $scope.clearConstraints = function (type) {
+        // can only change showMineOnly and resolvedOnly if logged in
+        if (type === 'all' && $scope.store.session) {
+          $scope.showMineOnly = false;
+          $scope.resolvedOnly = false;
         }
-      };
-
-      $scope.clearDatesConstraints = function () {
-        $scope.search.criteria.constraints.dateStart.value = null;
-        $scope.search.criteria.constraints.dateEnd.value = null;
+        if (type === 'dates' || type === 'all') {
+          $scope.search.criteria.constraints.dateStart.value = null;
+          $scope.search.criteria.constraints.dateEnd.value = null;
+        }
+        if (type === 'tags' || type === 'all') {
+          var tags = $scope.search.criteria.constraints.tags;
+          if (tags.values && tags.values.length) {
+            tags.values = [];
+          }
+        }
         $scope.$emit('criteriaChange');
       };
 

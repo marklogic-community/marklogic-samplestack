@@ -1,51 +1,38 @@
-<section class="ss-dialog ss-dialog-login">
-
-  <form class="form-inline" ng-submit="authenticate()">
-
-    <header>
-      <button type="button" ng-click="cancel()">&times;</button>
-      <h4>Log In</h4>
-    </header>
-
-    <div
+<div class="ss-dialog-login modal-header">
+  <button type="button" class="close"  ng-click="cancel()">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <h4 class="modal-title" id="myModalLabel">Samplestack Log In</h4>
+</div>
+<form ng-submit="authenticate()">
+  <div class="modal-body">
+    <p
+      class="has-error login-failed"
+      ng-if="error && !(session.password && session.password.length)"
     >
-      <p
-        class="has-error login-failed"
-        ng-if="error && !(session.password && session.password.length)"
+      {{error}}
+    </p>
+    <div class="form-group">
+      <label>User ID</label>
+      <input
+        type="email"
+        class="form-control ss-input-username"
+        placeholder="Enter User ID"
+        ng-model="session.username"
       >
-        {{error}}
-      </p>
-      <p
-        class="login-rules"
-      >
-        Username and Password must each be at least 5 characters.
-      </p>
-      <div class="ss-login-userid">
-        <label>User ID</label>
-        <input type="text"
-          class="ss-input-username"
-          form-control
-          ng-model="session.username"
-        ></input>
-      </div>
-      <div
-        class="ss-login-password"
-        ng-class="{ 'has-error': session.errors('password').length > 0 }"
-      >
-      <div >
-        <label>Password</label>
-        <input type="password"
-          class="ss-input-password"
-          form-control
-          ng-model="session.password"
-          ></input>
-      </div>
     </div>
-
-    <footer>
-      <button class="ss-button-cancel" type="button" ng-click="cancel()">Cancel</button>
-      <button class="ss-button-submit" type="submit">Log In</button>
-    </footer>
-
-  </form>
-</section>
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        class="form-control ss-input-password"
+        placeholder="Enter Password"
+        ng-model="session.password"
+      >
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+      Log In
+    </button>
+  </div>
+</form>

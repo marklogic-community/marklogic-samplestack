@@ -119,7 +119,8 @@ define(['app/module'], function (module) {
       return function () {
         return $modal.open({
           templateUrl : '/app/dialogs/login.html',
-          controller : 'loginDialogCtlr'
+          controller : 'loginDialogCtlr',
+          size : 'sm'
         }).result;
       };
     }

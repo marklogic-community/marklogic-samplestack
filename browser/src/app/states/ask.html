@@ -1,6 +1,67 @@
-<!-- @todo move Bootstrap form classes (.form-inline, .form-control etc.)
+<div class="ss-ask row">
+  <div class="ss-ask-wrapper col-md-12">
+    <div class="row">
+      <div class="col-md-10 col-sm-9 col-xs-8 col-xs-offset-1">
+        <div>
+          <h1>Ask a Question</h1>
+        </div>
+        <p class="has-error" ng-if="error">
+          {{localError}}
+        </p>
+
+        <!-- question title -->
+        <div class="form-group ss-title-wrapper">
+          <div class="title-module-input-wrapper clearfix">
+            <div class="title-module-input-clear hide" >
+              <i class="glyphicon glyphicon-remove"></i>
+            </div>
+            <div class="title-module-input">
+              <input
+                class="title-input form-control input-lg"
+                type="text"
+                placeholder="Enter a Title"
+                ng-model="qnaDoc.title"
+              >
+            </div>
+          </div>
+        </div> <!-- form-group -->
+
+        <!-- question content -->
+        <div ss-markdown-editor content="qnaDoc.text"></div>
+
+        <!-- question tags -->
+        <div class="form-group">
+        <tags-input
+          type="text"
+          value=""
+          class="tags"
+          placeholder="Enter Tags"
+          ng-model="tagsInput">
+        </tags-input>
+
+            <!-- <label>Tags</label>
+      <tags-input ng-model="tagsInput"></tags-input>
+      (tags input in progress) -->
+
+      </div> <!-- form-group -->
+
+        <!-- submit button -->
+        <div class="form-group">
+          <button
+            type="button"
+            class="btn btn-primary"
+            ng-disabled="qnaDoc.$ml.invalid"
+            ng-click="save()"
+          >Post Your Question</button>
+        </div> <!-- form-group -->
+      </div> <!-- col-md-10 -->
+    </div>
+  </div><!-- ask-a-question -->
+</div>
+
+  <!-- @todo move Bootstrap form classes (.form-inline, .form-control etc.)
 into sass without losing styles -->
-<section class="ss-ask">
+<!-- <section class="ss-ask">
   <header>
     <h2>Ask a Question</h2>
   </header>
@@ -27,4 +88,4 @@ into sass without losing styles -->
       Post Your Question
     </button>
   </form>
-</section>
+</section> -->

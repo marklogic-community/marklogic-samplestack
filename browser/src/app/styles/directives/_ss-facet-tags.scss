@@ -1,42 +1,60 @@
-.ss-filters-tags {
+ss-facet-tags {
 
-  header {
-    display: inline-block;
+  .tags-module-search-wrapper .tags-module-search {
+    border:1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .tags-module-search-wrapper .tags-module-search-icon {
+    float:left;
+    margin:6px 0px 0px 10px;
+  }
+
+  .tags-module-search-wrapper .tags-module-search-input {
+    float:left;
+    padding-top:1px;
+    width: 80%;
+  }
+
+  .tags-module-search-wrapper .tags-module-search-input input {
+    border: none;
+    box-shadow: inset 0 0px 0px, 0 0 0px;
+    margin-left: 0;
+    margin-top: 1px;
+    margin-bottom: 0px;
     width: 100%;
   }
 
-  h3 {
-    float: left;
-    position: relative;
-  }
-}
-
-.ss-clear-tags {
-  cursor: pointer;
-  float: right;
-  margin: 21px 30px 0 0;
-  position: relative;
-}
-
-
-.ss-facet-tags {
-
-  input.ss-typeahead-input {
-    clear: all;
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-    width: 202px;
+  .tags-module-search-wrapper .glyphicon-search {
+    margin-top:2px;
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .tags-module-search-wrapper .glyphicon-remove {
+    margin-top:8px;
+    margin-right: 12px;
+    color:#ccc;
+    float:right;
   }
-}
 
-.ss-open-all-tags {
-  cursor: pointer;
-  margin-top: 3px;
+  .search-tags {
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .search-tags input {
+    padding-left: 26px!important;
+    background:url('/images/glyphicons_027_search.png') no-repeat 2% 48%;
+    background-size:16px 16px;
+  }
+
+  .unselected-tags {
+    padding: 15px 0 15px 0;
+    padding-bottom: 15px;
+  }
+
+  .selected-tags {
+    padding: 15px 0 15px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
 }

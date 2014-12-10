@@ -2,70 +2,97 @@
   <ss-search-bar></ss-search-bar>
 </section>
 
-<section class="ss-explore">
+<div class="ss-explore container-fluid">
 
-  <div class="ss-filters-results">
+  <div class="row">
 
-    <section class="ss-filters" ng-hide="!search.results">
-      <header>
-        <h2>Filter Results</h2>
-      </header>
+    <section class="ss-results">
+      <ui-view></ui-view>
+    </section>
 
-    <div
-      class="ss-filters-my-entries"
-      ng-class="{ disabled: !store.session }"
-    >
-      <input
-        type="checkbox"
-        ng-model="showMineOnly"
-        ng-change="onCriteriaChange()"
-        ng-disabled="!store.session"
-      />
-      Show my entries only
-    </div>
-    <div
-      class="ss-filters-resolved ss-incomplete"
-      ng-class="{ disabled: !store.session }"
-    >
-      <input
-        ng-model="resolvedOnly"
-        ng-change="onCriteriaChange()"
-        type="checkbox"
-        disabled
-      />
+    <div class="ss-filters col-md-3 col-md-pull-9">
+
+      <div>
+        <div class="list-group">
+
+          <div class="list-group-header">
+            <button
+              class="btn btn-default btn-xs pull-right"
+              ng-click="clearConstraints('all')"
+            >Clear All</button>
+            <h4>Filter Results</h4>
+          </div>
+
+          <!-- top checkboxes -->
+          <div class="list-group-item">
+            <div class="checkbox">
+              <label
+                ng-disabled="!store.session"
+                ng-class="{'ss-disabled': !store.session}"
+              >
+                <input
+                  type="checkbox"
+                  ng-model="showMineOnly"
+                  ng-change="onCriteriaChange()"
+                  ng-disabled="!store.session"
+                /> Show my contributions only</label>
+            </div>
+            <div class="checkbox">
+              <label
+                disabled
+                ng-class="{'ss-disabled': !store.session}"
+              >
+                <!-- resolvedOnly checked when not logged in -->
+                <input
+                  type="checkbox"
+                  ng-model="resolvedOnly"
+                  ng-change="onCriteriaChange()"
+                  disabled
+                  ng-checked="resolvedOnly || !store.session"
+                /> Show resolved only</label>
 <!--
   when this is ready to be re-enabled, this is the logic
-          ng-disabled="!store.session"
+          ng-disabled="!store.session" (for the label and the input)
 -->
-      Show resolved only
-    </div>
-    <section class="ss-filters-date">
-      <header>
-        <h3>Date</h3>
-        <a href="" class="ss-clear-date" ng-click="clearDatesConstraints()">Clear</a>
-      </header>
-      <ss-facet-date-range
-        constraints="search.criteria.constraints"
-        results="search.results.facets.dates"
-      ></ss-facet-date-range>
-    </section>
-    <section class="ss-filters-tags">
-      <header>
-        <h3>Tags</h3>
-        <a href="" class="ss-clear-tags" ng-click="clearTagsConstraint()">Clear</a>
-      </header>
-      <ss-facet-tags
-        criteria="search.criteria.constraints.tags"
-        results="search.results.facets.tags"
-        totals="{ total: search.results.total, shadow: search.results.shadowTotals.tags }"
-        num-tags="8"
-      ></ss-facet-tags>
-      <div class="ss-open-all-tags" disabled ng-click="angular.noop()"><span class="ss-incomplete">more...</span></div>
-    </section>
-  </section>
+            </div>
+          </div>
 
-  <section class="ss-results">
-    <ui-view></ui-view>
-  </section>
+          <!-- date filter -->
+          <div class="list-group-subheader">
+            <button
+              class="btn btn-default btn-xs pull-right"
+              ng-click="clearConstraints('dates')"
+            >Clear Dates</button>
+            <h4>Date</h4>
+          </div>
+          <div class="list-group-section">
+            <ss-facet-date-range
+              constraints="search.criteria.constraints"
+              results="search.results.facets.dates"
+            ></ss-facet-date-range>
+          </div>
 
-</section>
+          <!-- tags filter -->
+          <div class="list-group-subheader">
+            <button
+              class="btn btn-default btn-xs pull-right"
+              ng-click="clearConstraints('tags')"
+              >Clear Tags</button>
+            <h4>Tags</h4>
+          </div>
+          <ss-facet-tags
+            criteria="search.criteria.constraints.tags"
+            results="search.results.facets.tags"
+            totals="{ total: search.results.total, shadow: search.results.shadowTotals.tags }"
+            num-tags="10"
+          ></ss-facet-tags>
+
+          </div> <!-- list-group-section (tags) -->
+
+        </div> <!-- list-group -->
+      </div>
+    </div> <!-- ss-filters -->
+
+  </div> <!-- row -->
+
+</div> <!-- ss-explore -->

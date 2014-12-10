@@ -1,29 +1,28 @@
-<span class="ss-account-dropdown dropdown">
-  <a href="" class="dropdown-toggle ss-user-info-display-name-reputation"
-  >{{store.session.userInfo.displayName}}
-    [{{store.session.userInfo.reputation}}]</a>
-  <ul class="dropdown-menu ss-account-dropdown">
-    <li>
-      <div class="">
-        <strong>Display name:</strong>
-        <span class="ss-user-info-display-name"
-        >{{store.session.userInfo.displayName}}</span>
-      </div>
-      <div>
-        <strong>Votes cast:</strong>
-        <span class="ss-user-info-votes-cast"
-        >{{store.session.userInfo.voteCount}}</span>
-      </div>
-      <div>
-        <strong>Reputation:</strong>
-        <span class="ss-user-info-reputation"
-        >{{store.session.userInfo.reputation}}</span>
-      </div>
-      <div>
-        <button class="ss-logout" ng-click="logout()">
-          Logout
-        </button>
-      </div>
-    </li>
-  </ul>
-</span>
+<!-- user link for opening -->
+<a href="" class="dropdown-toggle" data-toggle="dropdown">
+  <span class="glyphicon glyphicon-user"></span>
+  {{store.session.userInfo.displayName}}
+  [{{store.session.userInfo.reputation}}]
+  <span class="caret"></span>
+</a>
+
+<!-- dropdown container -->
+<div class="dropdown-menu" role="menu">
+  <div class="ss-account-info">
+      <h4 class="ss-account-display-name list-group-item-heading"
+      >{{store.session.userInfo.displayName}}</h4>
+      <p class="ss-account-votes-cast list-group-item-text"
+      ><strong>Votes cast:</strong>
+      {{store.session.userInfo.voteCount}}</p>
+      <p class="ss-account-reputation list-group-item-text"
+      ><strong>Reputation:</strong>
+      {{store.session.userInfo.reputation}}</p>
+  </div>
+  <div class="ss-account-actions">
+    <a
+      class="btn btn-primary btn-xs"
+      href=""
+      ng-click="logout()"
+    >Log Out</a>
+  </div>
+</div>

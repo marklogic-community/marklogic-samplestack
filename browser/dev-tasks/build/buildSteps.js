@@ -87,8 +87,8 @@ module.exports = {
 
     sassParams = {
       includePaths: importDirs,
-      onError: ctx.errorHandler,
-      outputStyle: 'compressed'
+      onError: ctx.errorHandler
+      //, outputStyle: 'compressed'
     };
 
     // sassParams.sourceComments = 'map';

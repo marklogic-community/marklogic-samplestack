@@ -52,19 +52,22 @@ define(['app/module'], function (module) {
         template:
           '<highchart class="highcharts ss-facet-date-range" ' +
           '  config="highchartsConfig"></highchart>' +
-          '<label>From:</label>' +
+          '<div class="input-daterange input-group" id="datepicker">' +
           '<input ng-model=pickerDateStart type="text" ' +
+          '  class="input-sm form-control ng-valid-date" ' +
           '  datepicker-popup="MM/dd/yyyy" ' +
           '  datepicker-options="dateStartOptions" ' +
-          '  ng-change="applyPickerDates()"  ' +
+          '  ng-change="applyPickerDates()" ' +
           '  ng-click="pickerOpen(\'dateStartOpened\')" ' +
           '  is-open="dateStartOpened" ' +
           '  onfocus="this.blur()" ' +
           '  placeholder="{{dateStartPlaceholder}}" ' +
-          '  class="form-control ng-valid-date" ' +
-          '  />' +
-          '<label>To:</label>' +
+          '  name="start" />' +
+
+          '<span class="input-group-addon">to</span>' +
+
           '<input ng-model="pickerDateEnd" type="text" ' +
+          '  class="input-sm form-control ng-valid-date" ' +
           '  datepicker-popup="MM/dd/yyyy" ' +
           '  datepicker-options="dateEndOptions" ' +
           '  ng-change="applyPickerDates()"  ' +
@@ -73,7 +76,8 @@ define(['app/module'], function (module) {
           '  onfocus="this.blur()" ' +
           '  placeholder="{{dateEndPlaceholder}}" ' +
           '  class="form-control ng-valid-date"' +
-          '  />',
+          '  />' +
+          '</div>',
 
         scope: {
           constraints: '=constraints',
@@ -296,7 +300,7 @@ define(['app/module'], function (module) {
                   column: {
                     animation: false,
                     groupPadding: 0,
-                    pointPadding: 0,
+                    pointPadding: 0.2, // adjust for bar spacing
                     borderWidth: 0
                   }
                 }

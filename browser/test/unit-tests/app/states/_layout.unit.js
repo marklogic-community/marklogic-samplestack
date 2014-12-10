@@ -57,7 +57,7 @@ define([
         scope.store = { session: {} };
         var appRoutingGo = sinon.stub(appRouting, 'go');
         angular.element(
-          el[0].querySelector('.ss-ask-button')
+          el[0].querySelector('.ss-ask-button a')
         ).click();
         scope.$apply();
         appRoutingGo.calledOnce.should.be.true;

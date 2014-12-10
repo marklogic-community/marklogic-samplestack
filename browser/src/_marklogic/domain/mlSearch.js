@@ -814,6 +814,12 @@ define(['_marklogic/module'], function (module) {
         return shadowSearches;
       };
 
+      // Generate array that pagination can repeat over
+      // @see http://stackoverflow.com/questions/16824853
+      MlSearchObject.prototype.getNumAsArray = function (num) {
+        return new Array(num);
+      };
+
       /**
        * @ngdoc method
        * @name MlSearchObject#prototype.shadowSearch

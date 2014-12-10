@@ -1,19 +1,66 @@
-.ss-tab-content {
-  height: 250px;
-  padding: 10px 16px;
-  border: 1px solid #ddd;
-  border-bottom: 1px solid white;
-  border-radius: 4px 4px 0 0;
-  cursor: pointer;
-}
+.ss-markdown-wrapper {
 
-.ss-tab-active {
-  font-weight: bold;
-}
+  margin-top: 53px;
 
-.markdown-editor, .ss-markdown-editor-preview {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-top: 8px;
-  min-height: 100px;
+  .nav-tabs {
+    float:right;
+    border-bottom:none;
+    position: relative;
+    top: -40px;
+  }
+
+  .nav-tabs li {
+    /* ensure above toolbar container */
+    z-index: 1000;
+  }
+
+  .markdown-toolbar {
+    position: relative;
+    top: -60px;
+    left: -21px;
+  }
+
+  textarea.markdown-input {
+    width: 100%;
+    position: relative;
+    top: -32px;
+    height: 100px;
+  }
+
+  textarea.markdown-input,
+  .ss-markdown-editor-preview {
+    min-height: 200px;
+    border: 1px solid #ccc;
+  }
+
+  .markdown-controls button {
+    padding:3px 8px!important;
+  }
+
+  .markdown-controls i {
+    font-size:16px!important;
+  }
+
+  .markdown-controls .btn-group-wrapper {
+    padding-bottom: 20px;
+  }
+
+  .markdown-controls .form-group {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
+
+  .markdown-controls .form-submit {
+    padding-bottom: 18px;
+  }
+
+  .ss-edit-selected {
+    /* for adjusting edit markdown container size */
+  }
+
+  .ss-preview-selected {
+    /* for adjusting preview markdown container size */
+  }
+
 }

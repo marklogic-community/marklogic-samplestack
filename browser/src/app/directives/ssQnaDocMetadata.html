@@ -1,49 +1,36 @@
-<div ng-if="docType != 'comment'" class="ss-metadata">
-  <ul class="ss-tags">
-    <li ng-repeat="tag in doc.tags">
-      <a href="" ng-click="goTag(tag)">
-        {{tag}}
-      </a>
-    </li>
-  </ul>
-  <div class="ss-author"
-  >
-    <span ng-if="docType == 'question'">asked</span>
-    <span ng-if="docType == 'answer'">answered</span>
-    {{ formatDate(doc.creationDate) }} by
-    <a ng-if="isLocalOwner()"
-      href=""
-      ng-click="showContributor()"
-    >{{doc.owner.displayName}}</a>
-    <a ng-if="!isLocalOwner()"
-      href="{{soUserLink()}}"
-      target="_blank"
-    >{{doc.owner.displayName}}</a>
-    [<span
-      ng-if="doc.owner.reputation !== undefined"
-      class="ss-reputation"
-    >{{doc.owner.reputation}}</span><span
-      ng-if="doc.owner.reputation === undefined"
-      class="ss-incomplete ss-reputation"
-    >unimplemented</span>]
+<div class="ss-question-metadata clearfix">
+
+  <!-- date/user/reputation -->
+  <div class="ss-question-info">
+    <span class="started">
+      <span ng-if="docType == 'question'">Asked</span
+      ><span ng-if="docType == 'answer'">Answered</span
+      > {{ formatDate(doc.creationDate) }}&nbsp;&nbsp;<a
+        ng-if="doc.owner.originalId === undefined"
+        href=""
+        ng-click="showContributor()"
+      >{{doc.owner.displayName}}</a><a
+        ng-if="!(doc.owner.originalId === undefined)"
+        href="{{soUserLink()}}"
+        target="_blank"
+      >{{doc.owner.displayName}}&nbsp;&nbsp;<span
+        class="glyphicon glyphicon-new-window"
+      ></span></a>&nbsp;&nbsp;[<span
+        ng-if="doc.owner.reputation !== undefined"
+      >{{doc.owner.reputation}}</span><span
+        ng-if="doc.owner.reputation === undefined"
+        class="ss-incomplete"
+      >unimplemented</span>]
+    </span>
   </div>
-</div>
-<span ng-if="docType == 'comment'">
-  &mdash;
-  <a ng-if="isLocalOwner()"
-      href=""
-      ng-click="showContributor()"
-    >{{doc.owner.displayName}}</a>
-  <a ng-if="!isLocalOwner()"
-      href="{{soUserLink()}}"
-      target="_blank"
-    >{{doc.owner.displayName}}</a>
-  [<span
-    class="ss-reputation"
-    ng-if="doc.owner.reputation !== undefined"
-  >{{doc.owner.reputation}}</span><span
-    ng-if="doc.owner.reputation === undefined"
-    class="ss-incomplete ss-reputation"
-  >unimplemented</span>]
-  {{formatDate(doc.creationDate)}}
-</span>
+
+  <!-- question tags -->
+  <div class="ss-question-tags" ng-if="docType != 'comment'">
+      <a href="" ng-click="goTag(tag)" ng-repeat="tag in doc.tags">
+        <span class="label label-default">{{tag}}</span>
+      </a>
+    </span>
+  </div>
+
+</div> <!-- ss-question-metadata -->
+

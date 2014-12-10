@@ -1,56 +1,79 @@
-<div>
-  <div ng-if="loading" class="spinner">
-  </div>
+<header class="ss-page-header navbar-fixed-top">
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+
+        <!-- bootstrap responsive navigation -->
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <!-- samplestack logo -->
+        <a class="ss-app-title navbar-brand" href="/">
+          <img src="app/images/samplestack.svg" border="0">
+        </a>
+
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+
+          <!-- login/account dropdown -->
+          <li class="ss-login" ng-if="!store.session">
+            <button
+              class="btn btn-primary btn-sm"
+              id="nav-log-in"
+              href=""
+              ng-click="openLogin()"
+            >Log In
+            </button>
+          </li>
+
+          <li
+            ss-account-dropdown
+            ng-if="store.session"
+            class="ss-account-dropdown dropdown"
+          ></li>
+
+          <!-- ask button -->
+          <li
+            class="ss-ask-button"
+            ng-class="store.session ? 'active' : 'inactive'"
+          >
+            <a
+              href=""
+              class="navbar-ask-question"
+              ng-click="store.session ? ask() : ''"
+              ng-class="store.session ? 'active' : 'inactive'"
+            >
+              <span class="glyphicon glyphicon-question-sign"></span>
+              Ask A Question
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TODO loading/error message locations -->
+  <div ng-if="loading" class="spinner"></div>
   <div ng-if="globalError.length" marked="globalError" class="has-error"></div>
 
-  <header class="ss-page-header">
-    <!-- @todo move form classes (.form-control, .btn, etc.) into sass without losing styling -->
-    <div class="ss-app-title">
-      <h1>
-        <a href="/">samplestack</a>
-      </h1>
-    </div>
-    <div class="ss-page-header-actions"
-      ng-class="{ loading: loading }"
-    >
+</header>
 
-      <div class="ss-login">
-        <span ng-if="store.session" ss-account-dropdown></span>
 
-        <a ng-if="!store.session" href="" ng-click="openLogin()">
-          Login
-        </a>
-      </div>
+<div ng-class="{ loading: loading }"></div>
+<div ng-if="localError" class="has-error">{{localError}}</div>
 
-      <button
-        class="ss-ask-button"
-        ng-disabled="!store.session"
-        ng-click="ask()"
-        ng-class="{ disabled: !store.session }"
-      >
-        Ask a Question
-      </button>
-    </div>
-  </header>
+<main class="ss-main">
+  <div ui-view></div>
+</main>
 
-  <div class="ss-incomplete-message">
-    <span class="ss-incomplete">(yellow shading indicates incomplete features)</span>
-  </div>
-
-  <div ng-class="{ loading: loading }">
-    <div ng-if="localError" class="has-error">{{localError}}</div>
-    <section class="ss-main">
-      <div ui-view></div>
-    </section>
-
-    <footer class="ss-page-footer">
-      <p>Copyright MarkLogic Corporation 2014</p>
-      <p>Imported question and answer data provided by
-        <a href="http://stackoverflow.com/" target="_blank">Stack Overflow</a>
-        under (<a href="http://creativecommons.org/licenses/by-sa/3.0/"
-        target="_blank">CC BY-SA 3.0</a>)
-      </p>
-    </footer>
-  </div>
-</div>
-</div>
+<footer class="ss-page-footer">
+  <p class="text-center">
+    <a href="insert-url.php">Samplestack 1.0.0-ea2</a>&nbsp;&nbsp;|&nbsp;&nbsp;Copyright &copy; 2014 <a href="insert-url.php">MarkLogic Corporation</a>, licensed under the Apache License, <a href="insert-url.php" >Version 2.0.</a>&nbsp;&nbsp;|&nbsp;&nbsp;Seed content compliments of Stack Overflow under <a href="insert-url.php">cc-by-sa</a>.</p>
+</footer>

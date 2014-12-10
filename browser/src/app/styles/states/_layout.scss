@@ -1,87 +1,142 @@
-.ss-main {
-  max-width: $view-max-width;
-  min-width: $view-min-width;
-  padding-left: 20px;
-  padding-right: 20px;
-
-}
-
 .ss-page-header {
-  border-bottom: 1px solid #ccc;
-  height: 60px;
-  margin-bottom: 10px;
-  max-width: $view-max-width;
-  min-width: $view-min-width;
-  padding-left: 20px;
 
+  .navbar-fixed-top {
+    z-index:300;
+  }
+
+  nav {
+    background:#292929!important;
+    -webkit-border-radius:0px!important;
+    -moz-border-radius:0px!important;
+    border-radius:0px!important;
+    border: 1px none red!important;
+    padding-left:0!important;
+    padding-right:0!important;
+    margin-bottom: 0!important;
+  }
+
+  /** samplestack logo **/
   .ss-app-title {
-    float: left;
-    position: relative;
-
-    h1 {
-      display: inline-block;
-    }
+    color:#fff!important;
+    padding:11px 13px;
   }
 
-  .ss-page-header-actions {
-    height: 55px;
-    max-width: $view-max-width;
-    min-width: $view-min-width;
-    right: 0;
-    text-align: right;
+  .ss-app-title img {
+    width:185px;
+  }
 
-    .ss-login {
-      height: 55px;
-      line-height: 55px;
-      vertical-align: middle;
+  nav ul.nav li button.btn {
+    margin-top: 9px;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+  nav ul.nav li a.inactive {
+    color:#5d5d5d;
+    background: #2d2d2d;
+  }
+
+  nav ul.nav li a.inactive:hover {
+    color:#5d5d5d;
+    background: #2d2d2d;
+  }
+
+  nav ul.nav span.glyphicon {
+    padding:3px;
+    margin-right: 2px;
+  }
+
+  /** login button **/
+  .ss-login {
+    display: block;
+    padding-top:4px;
+  }
+
+  .ss-login button.btn {
+    padding:3px 20px
+  }
+
+  .ss-login a.btn {
+    color:#fff!important;
+    display: block;
+    padding:3px 20px;
+  }
+
+  .ss-login a.btn:hover {
+    background-color: #3071a9;
+    border-color: #285e8e;
+  }
+
+  /** ask question button **/
+  nav ul.nav li.ss-ask-button a.active {
+    color:#fff;
+    background: none;
+  }
+
+  .ss-ask-button a.active:hover {
+    color:#fff;
+    background: #333!important;
+  }
+
+  .ss-ask-button span.glyphicon {
+    color:#3abc9a;
+    font-size: 16px;
+    margin-top: -2px;
+  }
+
+  .ss-ask-button a.inactive span.glyphicon {
+    color:#5D5D5D;
+  }
+
+  .ss-ask-button a.active:hover {
+    color:#fff;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
+
+  @media (max-width: 768px) {
+
+    nav ul.nav li.ss-login {
+      background: none!important;
+      border:1px none red!important;
+      padding: 0;
+      margin: 0;
     }
 
-    a {
-      display: inline-block;
-      vertical-align: middle;
+    nav ul.nav li.ss-ask-button a {
+      background: none!important;
     }
 
-    > * {
-      display: inline-block;
-      margin-right: 10px;
+    nav ul.nav li a.btn {
+      background: none!important;
+      border:1px none red!important;
+      text-align: left;
+      color:#ccc;
+
     }
 
-    > *:last-child {
-      margin-right: 20px;
+    nav ul.nav li a.btn:hover {
+      background: #333!important;
+      border:1px none red!important;
+      text-align: left;
+      color:#ccc;
+    }
+
+    .navbar-default .navbar-collapse,
+    .navbar-default .navbar-form {
+      border-color: #595959;
     }
 
   }
+
 }
 
 .ss-page-footer {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  max-width: $view-max-width;
-  min-width: $view-min-width;
-  padding: 10px;
-  text-align: center;
-}
+  border-top:1px solid #ddd;
+  padding:10px 10px 10px 10px;
 
-ul.ss-sort,
-ul.ss-tags {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    cursor: pointer;
-    float: left;
-    position: relative;
-
-    .ss-sort-active {
-      font-weight: bold;
-    }
+  p {
+    font-size: 10px;
+    color: #666;
   }
-}
-
-ul.ss-tags li {
-  background-color: #eee;
-  margin-right: 10px;
-  padding: 3px 5px;
 }
