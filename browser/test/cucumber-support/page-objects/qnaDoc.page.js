@@ -18,6 +18,23 @@ function QnaDocPage () {
     }));
   };
 
+  Object.defineProperty(self, 'questionVotes', {
+    get: function () {
+      return getQuestionVotesElement.element(by.className('ss-vote-count'))
+        .getText()
+        .then(function (votes) { return parseInt(votes); });
+    }
+  });
+
+  Object.defineProperty(self, 'questionVoteUp', {
+    get: function () {
+      return self.qself(
+        getQuestionVotesElement.element(by.className('ss-up'))
+          .click()
+      );
+    }
+  });
+
   /*******************************/
   /********** PRIVATE ************/
   /*******************************/
@@ -29,6 +46,10 @@ function QnaDocPage () {
     return getQuestionElement().then(function (el) {
       return new Metadata(el, self);
     });
+  };
+
+  var getQuestionVotesElement = function () {
+    return getQuestionElement().element(by.className('ss-vote'));
   };
 
 }

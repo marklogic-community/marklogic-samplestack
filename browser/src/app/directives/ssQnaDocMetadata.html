@@ -21,9 +21,10 @@
     >{{doc.owner.displayName}}</a>
     [<span
       ng-if="doc.owner.reputation !== undefined"
+      class="ss-reputation"
     >{{doc.owner.reputation}}</span><span
       ng-if="doc.owner.reputation === undefined"
-      class="ss-incomplete"
+      class="ss-incomplete ss-reputation"
     >unimplemented</span>]
   </div>
 </div>
@@ -38,10 +39,11 @@
       target="_blank"
     >{{doc.owner.displayName}}</a>
   [<span
+    class="ss-reputation"
     ng-if="doc.owner.reputation !== undefined"
   >{{doc.owner.reputation}}</span><span
     ng-if="doc.owner.reputation === undefined"
-    class="ss-incomplete"
+    class="ss-incomplete ss-reputation"
   >unimplemented</span>]
   {{formatDate(doc.creationDate)}}
 </span>

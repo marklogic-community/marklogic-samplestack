@@ -5,6 +5,13 @@ module.exports.Metadata = function (webElement, page) {
     return page.qself(getAuthorElement().element(by.css('a')).click());
   };
 
+  Object.defineProperty(self, 'reputation', {
+    get: function () {
+      return getReputationElement().getText().then(function (rep) {
+        return parseInt(rep);
+      });
+    }
+  });
 
   /*******************************/
   /********** PRIVATE ************/
@@ -16,6 +23,10 @@ module.exports.Metadata = function (webElement, page) {
 
   var getAuthorElement = function () {
     return getElement().element(by.className('ss-author'));
+  };
+
+  var getReputationElement = function () {
+    return getElement().element(by.className('ss-reputation'));
   };
 
   var getElement = function () {
