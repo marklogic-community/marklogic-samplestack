@@ -52,6 +52,7 @@ define(['testHelper','mocks/index'], function (helper, mocks) {
             scope.$emit('newResults');
             scope.$apply();
             emitSpy = sinon.spy(scope, '$emit');
+            $timeout.flush();
             done();
           }
         );

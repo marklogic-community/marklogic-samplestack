@@ -43,8 +43,8 @@ define(['app/module'], function (module) {
   /* jshint ignore:end */
 
   module.directive('ssFacetDateRange', [
-    'mlUtil',
-    function (mlUtil) {
+    '$timeout', 'mlUtil',
+    function ($timeout, mlUtil) {
 
       return {
         restrict: 'E',
@@ -342,76 +342,85 @@ define(['app/module'], function (module) {
 
           post: function (scope) {
             scope.$on('newResults', function () {
-              // empty the dateDate without losing the array object
-              var newData = [];
-              var maxCount = 0;
 
-              angular.forEach(scope.results, function (item) {
-                // we display the *shadow* counts, not the counts
-                // that result from applying this directive's criteria
-                newData.push({
-                  x: Date.UTC(
-                    item.shadow.name.substring(0,4),
-                    item.shadow.name.substring(4,6) - 1,
-                    1
-                  ),
-                  y: item.shadow.count
+
+              //TODO: this timeout is a cheap hack to alleviate
+              //problems from overlapping searches. The real solution
+              // properly supercede those searches when a new search
+              // gets under way.
+              $timeout(function () {
+
+                // empty the dateDate without losing the array object
+                var newData = [];
+                var maxCount = 0;
+
+                angular.forEach(scope.results, function (item) {
+                  // we display the *shadow* counts, not the counts
+                  // that result from applying this directive's criteria
+                  newData.push({
+                    x: Date.UTC(
+                      item.shadow.name.substring(0,4),
+                      item.shadow.name.substring(4,6) - 1,
+                      1
+                    ),
+                    y: item.shadow.count
+                  });
+
+                  if (item.shadow.count > maxCount) {
+                    maxCount = item.shadow.count;
+                  }
                 });
 
-                if (item.shadow.count > maxCount) {
-                  maxCount = item.shadow.count;
+                scope.chart.target.yAxis.max = maxCount;
+                // using this math is presumptuous as to how many bars we are
+                // trying to render -- "lies, da*n lies and statistics"
+                // scope.chart.target.options.plotOptions.column
+                //     .pointWidth =
+                //         scope.chart.target.chartWidth / newData.length - 8;
+                scope.highchartsConfig.series = [ { data: newData }];
+
+                var dateToPickerStart = function (val) {
+                  return val ?
+                      new Date(mlUtil.stripZone(
+                        mlUtil.moment(val))
+                      ) :
+                    null;
+                };
+
+                var dateToPickerEnd = function (val) {
+                  return val ?
+                      new Date(mlUtil.stripZone(
+                        mlUtil.moment(val).subtract('d', 1)
+                      )) :
+                    null;
+                };
+
+                if (newData.length) {
+                  var date;
+
+                  scope.dateStartPlaceholder = mlUtil.moment(
+                    dateToPickerStart(newData[0].x)
+                  ).format('MM/DD/YYYY');
+
+                  scope.dateEndPlaceholder = mlUtil.moment(
+                    dateToPickerEnd(newData[newData.length - 1].x)
+                  ).format('MM/DD/YYYY');
                 }
-              });
 
-              scope.chart.target.yAxis.max = maxCount;
-              // using this math is presumptuous as to how many bars we are
-              // trying to render -- "lies, da*n lies and statistics"
-              // scope.chart.target.options.plotOptions.column
-              //     .pointWidth =
-              //         scope.chart.target.chartWidth / newData.length - 8;
-              scope.highchartsConfig.series = [ { data: newData }];
+                var pickerStart = scope.constraints.dateStart.value ?
+                    mlUtil.moment(
+                      dateToPickerStart(scope.constraints.dateStart.value)
+                    ).format('MM/DD/YYYY') :
+                    null;
+                scope.pickerDateStart = pickerStart;
 
-              var dateToPickerStart = function (val) {
-                return val ?
-                    new Date(mlUtil.stripZone(
-                      mlUtil.moment(val))
-                    ) :
-                  null;
-              };
-
-              var dateToPickerEnd = function (val) {
-                return val ?
-                    new Date(mlUtil.stripZone(
-                      mlUtil.moment(val).subtract('d', 1)
-                    )) :
-                  null;
-              };
-
-              if (newData.length) {
-                var date;
-
-                scope.dateStartPlaceholder = mlUtil.moment(
-                  dateToPickerStart(newData[0].x)
-                ).format('MM/DD/YYYY');
-
-                scope.dateEndPlaceholder = mlUtil.moment(
-                  dateToPickerEnd(newData[newData.length - 1].x)
-                ).format('MM/DD/YYYY');
-              }
-
-              var pickerStart = scope.constraints.dateStart.value ?
-                  mlUtil.moment(
-                    dateToPickerStart(scope.constraints.dateStart.value)
-                  ).format('MM/DD/YYYY') :
-                  null;
-              scope.pickerDateStart = pickerStart;
-
-              var pickerEnd = scope.constraints.dateEnd.value ?
-                  mlUtil.moment(
-                    dateToPickerEnd(scope.constraints.dateEnd.value)
-                  ).format('MM/DD/YYYY') :
-                  null;
-              scope.pickerDateEnd = pickerEnd;
+                var pickerEnd = scope.constraints.dateEnd.value ?
+                    mlUtil.moment(
+                      dateToPickerEnd(scope.constraints.dateEnd.value)
+                    ).format('MM/DD/YYYY') :
+                    null;
+                scope.pickerDateEnd = pickerEnd;
+              }, 100);
 
             });
 
