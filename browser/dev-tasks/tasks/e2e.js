@@ -16,8 +16,8 @@ var args = {
   sauce: false,
   toFile: false,
   middleTier: 'external', // or 'java' or 'node',
-  browser: 'chrome'
-      // or 'chrome' or 'ff' or 'ie' or 'phantomjs'
+  browser: 'phantomjs'
+      // or 'chrome' or 'firefox' or 'ie' or 'phantomjs'
 };
 
 _.merge(args, require('yargs').argv);

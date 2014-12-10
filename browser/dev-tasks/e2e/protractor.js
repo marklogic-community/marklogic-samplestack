@@ -72,6 +72,7 @@ var go = function (args, cb) {
       'ie': 'internet explorer',
       'chrome': 'chrome',
       'ff': 'firefox',
+      'firefox': 'firefox',
       'phantomjs': 'phantomjs',
     };
     ptorConfig.capabilities.browserName = browsers[args.browser];
