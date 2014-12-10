@@ -1,6 +1,8 @@
 package com.marklogic.samplestack.dbclient;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,22 +56,26 @@ public class MarkLogicHasVotedService extends MarkLogicBaseService implements Ha
 	 * @param postId The id of the QnADocument.
 	 * @return A ValuesResults obejct containing unique id values.
 	 */
-	public Set<String> hasVoted(ClientRole role, String contributorId, String postId) {
+	public Map<String, Integer> hasVoted(ClientRole role, String contributorId, String postId) {
 		Contributor voter = contributorService.read(contributorId);
-		Set<String> voteIds = null;
+		Map<String, Integer> votes = null;
 		if (voter == null) {
-			voteIds = new HashSet<String>();
+			votes = new HashMap<String, Integer>();
 		} else {
-			voteIds = voter.getVotes();
+			votes = voter.getVotes();
 		}
-		
+
+		Set<String> hasNotVotedOn = new HashSet<String>(votes.keySet());
 		ValuesResults postIds = idValues(role, postId);
-		Set<String> postSet = new HashSet<String>();
+		Set<String> idsInPost = new HashSet<String>();
 		for (CountedDistinctValue value : postIds.getValues()) {
-			postSet.add(value.get("xs:string", String.class));
+			String postFragmentId = value.get("xs:string", String.class);
+			hasNotVotedOn.remove(postFragmentId);
 		}
-		postSet.retainAll(voteIds);
-		return postSet;
+		for (String id : hasNotVotedOn) {
+			votes.remove(id);
+		}
+		return votes;
 	}
 
 }

@@ -60,20 +60,20 @@ public class Utils {
 		testC1.setUserName("testC1@marklogic.com");
 
 		testC1.setId(testC1UUID);
-		testC1.getVotes().add("5dce8909-0972-4289-93cd-f2e8790a17fb");
-		testC1.getVotes().add("8450f8a4-2782-4c8a-9fd9-b83bcacc5018");
-		testC1.getVotes().add("3410347b-abf0-4e1a-8aa8-f153207322eb");
+		testC1.getVotes().put("5dce8909-0972-4289-93cd-f2e8790a17fb", 1);
+		testC1.getVotes().put("8450f8a4-2782-4c8a-9fd9-b83bcacc5018", -1);
+		testC1.getVotes().put("3410347b-abf0-4e1a-8aa8-f153207322eb", 1);
 
 		testA1 = Utils.getBasicUser();
 		testA1.setDisplayName("testA1");
 		testA1.setUserName("testA1@marklogic.com");
 		testA1.setId(testA1UUID);
 
-		testA1.getVotes().add("778d0b9c-419f-496a-a300-44815d79708d");
-		testA1.getVotes().add("6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300");
-		testA1.getVotes().add("594d5815-3d28-40d2-b1b8-6401a79886ad");
-		testA1.getVotes().add("6432cc02-2770-4b8d-b5f1-0b632875f86d");
-		testA1.getVotes().add("01600486-60ea-4557-bcfc-9c10b06fb8cd");
+		testA1.getVotes().put("778d0b9c-419f-496a-a300-44815d79708d", -1);
+		testA1.getVotes().put("6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300", 1);
+		testA1.getVotes().put("594d5815-3d28-40d2-b1b8-6401a79886ad", 1);
+		testA1.getVotes().put("6432cc02-2770-4b8d-b5f1-0b632875f86d", 1);
+		testA1.getVotes().put("01600486-60ea-4557-bcfc-9c10b06fb8cd", -1);
 
 	}
 

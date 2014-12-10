@@ -55,8 +55,8 @@ import com.marklogic.samplestack.service.ContributorService;
 public class MarkLogicContributorService extends MarkLogicBaseService implements
 		ContributorService {
 
-	private static Contributor joeUser;
-	private static Contributor maryAdmin;
+	private static Contributor joe;
+	private static Contributor mary;
 
 	private final Logger logger = LoggerFactory
 			.getLogger(MarkLogicContributorService.class);
@@ -103,22 +103,22 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 
 			if (storedJoe == null) {
 				ClassPathResource joeResource = new ClassPathResource(
-						"contributor/joeUser.json");
-				joeUser = mapper.readValue(joeResource.getInputStream(),
+						"contributor/joe.json");
+				joe = mapper.readValue(joeResource.getInputStream(),
 						Contributor.class);
-				this.store(joeUser);
+				this.store(joe);
 			} else {
-				logger.info("joeUser already in the database");
+				logger.info("joe already in the database");
 			}
 
 			if (storedMary == null) {
 				ClassPathResource maryResource = new ClassPathResource(
-						"contributor/maryAdmin.json");
-				maryAdmin = mapper.readValue(maryResource.getInputStream(),
+						"contributor/mary.json");
+				mary = mapper.readValue(maryResource.getInputStream(),
 						Contributor.class);
-				this.store(maryAdmin);
+				this.store(mary);
 			} else {
-				logger.info("maryAdmin already in the database");
+				logger.info("mary already in the database");
 			}
 		} catch (JsonParseException e) {
 			throw new SamplestackIOException(

@@ -7,6 +7,35 @@
             "namespace-uri": ""
         }
     ],
+    "field": [
+        {
+            "field-name": "default-samplestack-search",
+            "field-path": [
+                {
+                    "path": "/title",
+                    "weight": 2
+                },
+                {
+                    "path": "/text",
+                    "weight": 2
+                },
+                {
+                    "path": "/answer/text",
+                    "weight": 1
+                },
+                {
+                    "path": "//comment/text",
+                    "weight": 0.5
+                }
+            ],
+            "tokenizer-overrides": null
+        },
+        {
+            "field-name": "",
+            "include-root": true,
+            "tokenizer-overrides": null
+        }
+    ],
     "forest": [
         "samplestack-1",
         "samplestack-2",

@@ -60,7 +60,7 @@ include '**/*.nt'}
                 }
                 def bh = new BytesHandle(it.text.getBytes("UTF-8")).withFormat(Format.JSON)
 // TODO change for new etl
-                if (it.text.contains("accepted\":true")) {
+                if (it.text.contains("accepted\":\"true\"")) {
                     writeSet.add(docUri, acceptedPermissionMetadata, bh)
                 } else if (it.text.contains("domain.Contributor")) {
                     docUri = docUri.replaceAll("^\\/","")

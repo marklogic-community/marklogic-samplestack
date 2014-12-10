@@ -15,8 +15,8 @@
  */
 package com.marklogic.samplestack.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.marklogic.client.pojo.annotation.Id;
 
@@ -74,7 +74,7 @@ public class Contributor {
 	public String userName;
 
 	/** Set of posts on which this contributor has voted */
-	private Set<String> votes = new HashSet<String>();
+	private Map<String, Integer> votes = new HashMap<String, Integer>();
 
 	/** URL of this contributor's website. */
 	private String websiteUrl;
@@ -117,9 +117,9 @@ public class Contributor {
 		return userName;
 	}
 
-	public Set<String> getVotes() {
+	public Map<String, Integer> getVotes() {
 		if (votes == null) {
-			this.votes = new HashSet<String>();
+			this.votes = new HashMap<String, Integer>();
 		}
 		return votes;
 	}
@@ -132,7 +132,7 @@ public class Contributor {
 		if (this.votes == null) {
 			return false;
 		} else {
-			return this.votes.contains(postId);
+			return this.votes.keySet().contains(postId);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class Contributor {
 		this.userName = userName;
 	}
 
-	public void setVotes(Set<String> votes) {
+	public void setVotes(Map<String, Integer> votes) {
 		this.votes = votes;
 	}
 

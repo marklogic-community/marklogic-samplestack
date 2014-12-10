@@ -472,7 +472,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			}
 
 			// update the contributor record with vote
-			voter.getVotes().add(postId);
+			voter.getVotes().put(postId, delta);
 			contributorService.store(voter, transaction);
 
 			if (qnaDocument.getJson().get("id").asText().equals(postId)) {
