@@ -13,7 +13,6 @@
   "main": null,
   "scripts": {
     "test": "npm test",
-    "preinstall": "node preinstall.js"
   },
   "devDependencies": {
     "async": "^0.9.0",
