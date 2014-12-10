@@ -13,6 +13,7 @@
   "main": null,
   "scripts": {
     "test": "npm test",
+    "postinstall": "node postinstall.js"
   },
   "devDependencies": {
     "async": "^0.9.0",
