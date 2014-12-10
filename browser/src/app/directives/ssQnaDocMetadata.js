@@ -42,12 +42,17 @@ define(['app/module'], function (module) {
                 );
               };
               scope.isLocalOwner = function () {
-                return scope.doc.owner.originalId === undefined ||
-                    scope.doc.owner.originalId === null;
+                if (scope.doc.owner) {
+                  return scope.doc.owner.originalId === undefined ||
+                      scope.doc.owner.originalId === null;
+                }
+                else {
+                  return false;
+                }
               };
 
               scope.soUserLink = function () {
-                return scope.doc.owner.originalId ?
+                return scope.doc.owner && scope.doc.owner.originalId ?
                     'http://stackoverflow.com/users/' +
                     scope.doc.owner.originalId :
                     null;
