@@ -87,6 +87,8 @@ public class SessionController {
 				userNode = mapper.createObjectNode();
 				userNode.put("userName", userName);
 			}
+			userNode.put("voteCount", contributor.getVotes().size());
+			userNode.remove("votes");
 			ArrayNode roleNode = userNode.putArray("role");
 			roleNode.add(ClientRole.securityContextRole().toString());
 			return userNode;
