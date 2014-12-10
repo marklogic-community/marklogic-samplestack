@@ -9,7 +9,7 @@ module.exports = function () {
 
   this.Then(/the contributor votes cast are "(.*)"/, function (votes, next) {
     expect(this.currentPage.contributorVotesCast)
-      .to.eventually.equal(parseInt(votes))
+      .to.eventually.equal(votes)
       .and.notify(next);
   });
 
@@ -17,7 +17,7 @@ module.exports = function () {
     /the contributor reputation is "(.*)"/,
     function (reputation, next) {
       expect(this.currentPage.contributorReputation)
-        .to.eventually.equal(parseInt(reputation))
+        .to.eventually.equal(reputation)
         .and.notify(next);
     }
   );

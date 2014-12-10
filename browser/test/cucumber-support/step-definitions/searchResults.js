@@ -38,7 +38,7 @@ module.exports = function () {
   this.Then(
     /the result "(.*)" is "(.*)"/,
     function (name, value, next) {
-      expect(this.currentPage.focusedResultsItem[name])
+      expect(this.currentPage.focusedItem[name])
           .to.eventually.equal(value).and.notify(next);
     }
   );

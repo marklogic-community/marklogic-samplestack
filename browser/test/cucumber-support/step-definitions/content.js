@@ -6,8 +6,8 @@ module.exports = function () {
     function (next) {
       var notify = this.notifyOk;
 
-      if (this.currentPage.focusedResultsItem) {
-        this.currentPage.focusedResultsItem.metadata.openContributorDialog()
+      if (this.currentPage.focusedItem) {
+        this.currentPage.focusedItem.metadata.openContributorDialog()
           .then(this.notifyOk(next), next);
       }
       else {

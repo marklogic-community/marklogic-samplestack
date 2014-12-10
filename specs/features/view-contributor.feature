@@ -10,26 +10,19 @@ Feature: View Contibutor
   Scenario: View Contributor Mary
     Given I am "maryAdmin"
     And I am using the brief seed data
-    And I visit the "explore" page
-    And I clear all filters
-    And I clear the search text
-    And I filter documents by mine only = "true"
-    And I focus on search result item "0"
+    And I visit the "qnadoc" page with id "5dce8909-0972-4289-93cd-f2e8790a17fc"
+    And I focus on the question
     And I view the content contributor
-    Then the contributor display name is "xyz"
+    Then the contributor display name is "maryAdmin"
     And the contributor votes cast are "5"
     And the contributor reputation is "100"
 
-  @broken
   Scenario: View Contributor Joe
     Given I am "joeUser"
     And I am using the brief seed data
-    And I visit the "explore" page
-    And I clear all filters
-    And I clear the search text
-    And I filter documents by mine only = "true"
-    And I focus on search result item "0"
+    And I visit the "qnadoc" page with id "778d0b9c-419f-496a-a300-44815d79708d"
+    And I focus on the question
     And I view the content contributor
-    Then the contributor display name is "xyz"
-    And the contributor votes cast are "5"
-    And the contributor reputation is "100"
+    Then the contributor display name is "joeUser"
+    And the contributor votes cast are "3"
+    And the contributor reputation is "50"

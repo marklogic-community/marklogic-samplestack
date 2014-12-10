@@ -20,6 +20,6 @@ module.exports.support = function (obj) {
         .getText();
     }
   });
-  
+
 
 };

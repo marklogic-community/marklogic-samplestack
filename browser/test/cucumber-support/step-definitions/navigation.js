@@ -2,7 +2,7 @@ module.exports = function () {
   this.World = World;
 
   this.When(
-    /visit the "(.*)" page/,
+    /visit the "(.*)" page[,]?$/,
     function (name, next) {
       if (!this.pages[name]) {
         throw new Error('undefined page name, "' + name + '"');

@@ -19,7 +19,7 @@ module.exports.Metadata = function (webElement, page) {
   };
 
   var getElement = function () {
-    return webElement.element(by.css('ss-qna-doc-metadata'));
+    return webElement.all(by.css('ss-qna-doc-metadata')).first();
   };
 
 };

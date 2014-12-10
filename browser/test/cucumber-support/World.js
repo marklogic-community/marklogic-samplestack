@@ -46,6 +46,13 @@ World.prototype.go = function (page) {
   }
 };
 
+World.prototype.goWithUrlSuffix = function (page, suffix) {
+  return ptor.get(page.url + suffix).then(function () {
+    self.currentPage = page;
+    return self.currentPage;
+  });
+};
+
 var notifyOk = function (next) {
   return function () {
     next();
