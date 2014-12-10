@@ -53,6 +53,12 @@
                 }
             },
             {
+                "name": "title",
+                "word": {
+                    "json-property": "title"
+                }
+            },
+            {
                 "name": "resolved",
                 "value": {
                     "json-property": "accepted"
