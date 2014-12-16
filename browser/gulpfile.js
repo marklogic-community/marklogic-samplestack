@@ -60,11 +60,11 @@ for (taskName in tasks) {
   gulp.task(taskName, tasks[taskName].deps, tasks[taskName].func);
 }
 
-if (!ctx.parentPid()) {
+if (!ctx.parentPid() && ctx.currentTask === 'watch') {
   gulp.seq = [];
   gulp._resetAllTasks();
   gulp.reset();
-  gulp.task(ctx.currentTask(), function () {
+  gulp.task(ctx.currentTask, function () {
     ctx.restartChild();
   });
 }

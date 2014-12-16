@@ -1,4 +1,4 @@
-var Metadata = require('./QnaDocMetadata.dctv').Metadata;
+var Metadata = require('./qnaDocMetadataConstructor.dctv').Metadata;
 
 module.exports.SearchResult = function (webElement, page) {
   var self = this;

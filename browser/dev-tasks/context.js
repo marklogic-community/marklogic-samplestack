@@ -346,9 +346,7 @@ self = module.exports = {
     }
   },
 
-  currentTask: function () {
-    return argv._[0] || 'default';
-  },
+  currentTask: argv._[0] || 'default',
 
   parentPid: function () {
     return argv.parentPid;

@@ -18,9 +18,18 @@ module.exports = function (opts, cb) {
       done = true;
       cb();
     }
-
     // ctx.closeActiveServer(ctx.options.addresses.unitCoverage.port, cb);
   };
+
+  var errFinalize = function (err) {
+    if (ctx.currentTask === 'unit') {
+      if (!done) {
+        done = true;
+        cb(err);
+      }
+    }
+  };
+
   ctx.startIstanbulServer(
     ctx.paths.targets.unit,
     ctx.options.addresses.unitCoverage.port
@@ -32,7 +41,7 @@ module.exports = function (opts, cb) {
   process.stdout.write('\u001b[2J');
   // set cursor position
   process.stdout.write('\u001b[1;3H' + chalk.blue('\nUnit Tests:'));
-  stream.on('error', finalize);
+  stream.on('error', errFinalize);
   stream.on('end', finalize);
   stream.on('finish', finalize);
   stream.write({ path: ctx.options.addresses.unitRunnerCoverage.href });

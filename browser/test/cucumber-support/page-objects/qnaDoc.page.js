@@ -1,5 +1,5 @@
 var utilities = require('../utilities');
-var Metadata = require('./directives/QnaDocMetadata.dctv').Metadata;
+var Metadata = require('./directives/qnaDocMetadataConstructor.dctv').Metadata;
 
 function QnaDocPage () {
   var self = this;

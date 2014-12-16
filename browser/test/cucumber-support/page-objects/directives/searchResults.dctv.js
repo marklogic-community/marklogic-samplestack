@@ -1,4 +1,4 @@
-var SearchResult = require('./searchResult.dctv').SearchResult;
+var SearchResult = require('./searchResultConstructor.dctv').SearchResult;
 
 module.exports.support = function (obj) {
   /*******************************/

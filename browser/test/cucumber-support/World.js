@@ -8,8 +8,6 @@ var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 global.expect = chai.expect;
 
-var ptor = require('protractor').getInstance();
-
 var util = require('util');
 
 var users = require('./configuration/users');
@@ -39,7 +37,7 @@ World.prototype.go = function (page) {
     return q(self.currentPage);
   }
   else {
-    return ptor.get(page.url).then(function () {
+    return browser.get(page.url).then(function () {
       self.currentPage = page;
       return self.currentPage;
     });
@@ -47,7 +45,7 @@ World.prototype.go = function (page) {
 };
 
 World.prototype.goWithUrlSuffix = function (page, suffix) {
-  return ptor.get(page.url + suffix).then(function () {
+  return browser.get(page.url + suffix).then(function () {
     self.currentPage = page;
     return self.currentPage;
   });
