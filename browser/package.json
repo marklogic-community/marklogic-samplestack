@@ -64,7 +64,7 @@
     "mocha-phantomjs": "^3.5.2",
     "mocha-sauce": "0.0.3",
     "ncp": "^1.0.1",
-    "node-sass": "1.2.3",
+    "node-sass": "1.0.3",
     "open": "^0.0.5",
     "phantomjs": "1.9.12",
     "protractor": "^1.5.0",
