@@ -40,9 +40,9 @@ var defaults = {
   // TODO: set ML account and read credentials from secure env vars
   sauceCredentials: {
     user: require('./credentials').sauce.user ||
-                process.env['ML_SS_SAUCEUSER'],
+                process.env['SAUCE_USERNAME'],
     accessKey: require('./credentials').sauce.accessToken ||
-                process.env['ML_SS_SAUCETOKEN'],
+                process.env['SAUCE_ACCESS_KEY'],
   },
 
 /* jshint ignore:start */

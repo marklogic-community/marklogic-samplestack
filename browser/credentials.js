@@ -13,13 +13,13 @@ module.exports = {
   // open-source licensing model at https://saucelabs.com/opensauce
   sauce: {
     // replace with your sauce username
-    // or set 'ML_SS_SAUCEUSER' env. variable
+    // or set 'SAUCE_USERNAME' env. variable
     // e.g.
     // user: 'my-sauce-account'
     user: null,
 
     // replace with your sauce access token
-    // or set 'ML_SS_SAUCETOKEN' env. variable
+    // or set 'SAUCE_ACCESS_KEY' env. variable
     // e.g.
     // accessToken: '05fa46d0-a6df-4a08-a345-c3d3e2f24a61'
     accessToken: null
