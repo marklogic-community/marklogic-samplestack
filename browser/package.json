@@ -12,8 +12,8 @@
   },
   "main": null,
   "scripts": {
-    "test": "npm test",
-    "postinstall": "node postinstall.js"
+    "test": "gulp unit",
+    "postinstall": "node dev-tasks/postinstall.js"
   },
   "devDependencies": {
     "async": "^0.9.0",
