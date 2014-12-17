@@ -61,13 +61,25 @@ module.exports.support = function (obj) {
   /*******************************/
 
   var getAccountInfoElement = function () {
+    var theEl;
     return element(by.className(
       'ss-user-info-display-name-reputation'
     )).then(
-      function (el) { return el; },
+      // the element is there, maybe or not visisble
+      function (el) {
+        theEl = el;
+        return el.isDisplayed();
+      },
+      // the element isn't present at all
       function () { return null; }
+    ).then(
+      function (presentAndDisplayed) {
+        // return it only if it's visible
+        return presentAndDisplayed ? theEl : null;
+      }
     );
   };
+
   var getAccountInfoLabel = function () {
     return getAccountInfoElement().then(
       function (el) {
