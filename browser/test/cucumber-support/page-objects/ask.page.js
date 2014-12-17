@@ -6,7 +6,7 @@ function AskPage () {
   // Question title
   Object.defineProperty(self, 'qnaQuestionTitleElement', {
     get: function () {
-      return element(by.css('.ss-ask-title input'));
+      return element(by.className('ss-ask-title-input'));
     }
   });
 
