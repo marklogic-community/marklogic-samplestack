@@ -140,49 +140,45 @@ var watchTaskFunc = function (cb) {
       emit: 'one',
       verbose: false
     },
-    function (file, gulpWatchCb) {
-      file.pipe($.util.buffer(function (err, files) {
-        var relpath = path.relative(
-          path.join(__dirname, '../src'), files[0].path
-        );
+    function (file) {
+      var relpath = path.relative(
+        path.resolve(__dirname, '../..'), file.path
+      );
+      $.util.log('[' + chalk.cyan('watch') + '] ' +
+          chalk.bold.blue(relpath) + ' was ' + chalk.magenta(file.event));
+
+      if (!(file.event === 'changed' || file.event === 'added')) {
+        refireWatchTask();
+      }
+      else if (ctx.rebuildOnNext) {
         $.util.log('[' + chalk.cyan('watch') + '] ' +
-            chalk.bold.blue(relpath) + ' was ' + chalk.magenta(files[0].event));
+            chalk.yellow(
+              'some changes not written on previous change -- rebuilding'
+            ));
+        refireWatchTask();
+      }
+      else {
 
-        if (!(files[0].event === 'changed' || files[0].event === 'added')) {
-          refireWatchTask();
-        }
-        else if (ctx.rebuildOnNext) {
-          $.util.log('[' + chalk.cyan('watch') + '] ' +
-              chalk.yellow(
-                'some changes not written on previous change -- rebuilding'
-              ));
-          refireWatchTask();
-        }
-        else {
-          files = readArray(files);
+        var files = readArray([file]);
 
-          var out = runBuild(files).pipe(
-            $.util.buffer(function (err, files) {
-              if(!ctx.rebuildOnNext && !ctx.hadErrors) {
-                runUnit({ reporter: 'dot' }, function () {
-                  ctx.deployBuilt(function (err) {
-                    lrChanger(['/coverage', '/coverage/show']);
-                    if (err) {
-                      return gulpWatchCb(err);
-                    }
-                    gulpWatchCb();
+        var out = runBuild(files).pipe(
+          $.util.buffer(function (err, files) {
+            if(!ctx.rebuildOnNext && !ctx.hadErrors) {
+              runUnit({ reporter: 'dot' }, function () {
+                ctx.deployBuilt(function (err) {
+                  lrChanger(['/coverage', '/coverage/show']);
+                  if (!err) {
                     writeWatchMenu();
-                  });
+                  }
                 });
-              }
-              else {
-                gulpWatchCb();
-                writeWatchMenu();
-              }
-            })
-          );
-        }
-      }));
+              });
+            }
+            else {
+              writeWatchMenu();
+            }
+          })
+        );
+      }
     }
   );
   watcher.on('error', function (e) {
@@ -250,7 +246,6 @@ var setProcessWatch = function () {
     console.log(
       chalk.yellow('saw change to project structure... restarting gulp')
     );
-    gulpWatchCb();
     // ctx.closeActiveServers(function () {
     ctx.restartChild();
     // });
