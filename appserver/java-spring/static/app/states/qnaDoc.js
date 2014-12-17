@@ -86,9 +86,8 @@ define(['app/module'], function (module) {
         if (!$scope.store.session) {
           return false;
         }
-        // Don't allow double voting or voting on own question
-        return !$scope.doc.hasVotedOn &&
-        ($scope.store.session.userInfo.id !== $scope.doc.owner.id);
+        // Don't allow double voting. DO allow voting on own question
+        return !$scope.doc.hasVotedOn;
       };
 
      /**
@@ -103,9 +102,8 @@ define(['app/module'], function (module) {
         if (!$scope.store.session) {
           return false;
         }
-        // Don't allow double voting or voting on own answer
-        return !answer.hasVotedOn &&
-        ($scope.store.session.userInfo.id !== answer.owner.id);
+        // Don't allow double voting. DO allow voting on own answer
+        return !answer.hasVotedOn;
       };
 
      /**
