@@ -24,7 +24,7 @@ define([
         'id':'cf99542d-f024-4478-a6dc-7e723a51b040',
         'location':null,
         'username':'joeUser@marklogic.com',
-        'votes':[],
+        'voteCount':0,
         'role':[
           'SAMPLESTACK_CONTRIBUTOR'
         ],
@@ -81,7 +81,7 @@ define([
           ).text().should.equal(validUser.displayName);
           angular.element(
             el[0].querySelector('.ss-user-info-votes-cast')
-          ).text().should.contain(validUser.votes.length);
+          ).text().should.equal(validUser.voteCount.toString());
           angular.element(
             el[0].querySelector('.ss-user-info-reputation')
           ).text().should.equal(String(validUser.reputation));

@@ -154,7 +154,7 @@ define(['app/module'], function (module) {
         var self = this;
         if (vote.$ml.valid) {
           vote.post().$ml.waiting.then(function () {
-            userInfo.votes.push(self.id);
+            userInfo.voteCount++;
           },
           function (error) {
             throw new Error('Error occurred: ' + JSON.stringify(error));

@@ -140,9 +140,7 @@ define(['app/module'], function (module) {
             // stronger requirements on id (length s/b uuid)
             id: { type: 'string', minLength: 36, maxLength: 36 },
             location: { type: [ 'string', 'null' ]},
-            votes: {
-              type: 'array', items: { type: 'string' }
-            }
+            voteCount: { type: [ 'integer' ] }
           }
         })
       };
