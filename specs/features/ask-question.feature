@@ -5,8 +5,8 @@ Feature: Ask Question
   more (existing) "tags" with the question.
 
   Scenario: Ask a question with Markdown preview
-    Given I am "maryAdmin"
-    And my user name is "maryAdmin"
+    Given I am "Mary"
+    And my user name is "MaryAdmin"
     When I visit the "ask" page
     And I type "" as the question title
     Then the submit button is disabled

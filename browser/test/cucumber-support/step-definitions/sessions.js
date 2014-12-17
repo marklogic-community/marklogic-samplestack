@@ -40,7 +40,7 @@ module.exports = function () {
     /log in with insufficient password length/,
     function (next) {
       return q.invoke(
-        this.currentPage, 'loginEnterUserName', 'joeUser@marklogic.com'
+        this.currentPage, 'loginEnterUserName', 'joe@marklogic.com'
       )
         .invoke('loginEnterPassword', ['000'])
         .then(this.notifyOk(next), next);
@@ -56,7 +56,7 @@ module.exports = function () {
     /log in as a Contributor/,
     function (next) {
       return q.invoke(
-        this.currentPage, 'loginEnterUserName', 'joeUser@marklogic.com'
+        this.currentPage, 'loginEnterUserName', 'joe@marklogic.com'
       )
         .invoke('loginEnterPassword', ['joesPassword'])
         .invoke('loginSubmit')

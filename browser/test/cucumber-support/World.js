@@ -75,7 +75,7 @@ World.prototype.authenticate = function () {
       }
       else {
         return self.currentPage.login(
-          users.joeUser.userName, users.joeUser.password
+          users.Joe.userName, users.Joe.password
         );
       }
     });

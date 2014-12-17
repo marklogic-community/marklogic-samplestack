@@ -5,7 +5,7 @@ Feature: Explore Docs By Mine Only
   those documents which created by the user.
 
   Scenario: As a contributor filtering by mine only, I see the correct results
-    Given I am "joeUser"
+    Given I am "Joe"
     And I am using the brief seed data
     And I visit the "explore" page
     And I clear all filters

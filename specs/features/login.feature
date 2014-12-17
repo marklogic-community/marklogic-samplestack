@@ -15,5 +15,5 @@ Feature: Login
     Then I am logged in
 
   Scenario: Log In as Mary
-    Given I am "maryAdmin"
-    Then my user name is "maryAdmin"
+    Given I am "Mary"
+    Then my user name is "MaryAdmin"

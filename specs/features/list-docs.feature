@@ -1,4 +1,4 @@
-@explore
+@list-docs
 Feature: List Docs
 
   When no search criteria are specified, the explore page lists documents
@@ -11,4 +11,4 @@ Feature: List Docs
     Given I am a visitor
     And I am using the brief seed data
     When I visit the "explore" page
-    Then the docs count is "2131"
+    Then the docs count is "1960"

@@ -1,10 +1,10 @@
 module.exports = {
-  'maryAdmin': {
-    userName: 'maryAdmin@marklogic.com',
+  'Mary': {
+    userName: 'mary@marklogic.com',
     password: 'marysPassword'
   },
-  'joeUser': {
-    userName: 'joeUser@marklogic.com',
+  'Joe': {
+    userName: 'joe@marklogic.com',
     password: 'joesPassword'
   }
 };

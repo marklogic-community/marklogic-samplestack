@@ -6,12 +6,12 @@ Feature: Vote on Question
   gains reputation points. When a downvote is made to a  question, the author
   of the question loses reputation points.
 
-  @broken
+  @broken @363
   Scenario: Mary votes for Joe's question
-    Given I am "maryAdmin"
+    Given I am "Mary"
     And I am using the brief seed data
     When I visit the "qnadoc" page with id "6c90b1cf-2cd8-4a8d-87ae-0c6d5182d301"
     And I focus on the question
     And the content contributor reputation is known as "reputation"
     And I vote it up
-    And the content contributor reputation is greater than "reputation"
+    Then the content contributor reputation is greater than "reputation"
