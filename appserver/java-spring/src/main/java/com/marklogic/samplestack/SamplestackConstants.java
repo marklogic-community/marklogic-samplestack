@@ -40,6 +40,13 @@ public class SamplestackConstants {
 	 */
 	public static final String SEARCH_RESPONSE_TRANSFORM = "search-response-xqy";
 	
+
+	/**
+	 * The single question response page uses these search options:
+	 */
+	public static final String SINGLE_QUESTION_TRANSFORM = "single-question";
+
+	
 	public static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 	
 	/**

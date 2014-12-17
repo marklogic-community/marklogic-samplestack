@@ -19,6 +19,7 @@ import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_DIRECTORY
 import static com.marklogic.samplestack.SamplestackConstants.QUESTIONS_OPTIONS;
 import static com.marklogic.samplestack.SamplestackConstants.SEARCH_RESPONSE_TRANSFORM;
 import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_OPTIONS;
+import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_TRANSFORM;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -114,6 +115,9 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 				SINGLE_QUESTION_OPTIONS).withCriteria(queryString);
 
 		stringQuery.setDirectory(QUESTIONS_DIRECTORY);
+		ServerTransform transform = new ServerTransform(SINGLE_QUESTION_TRANSFORM);
+		stringQuery.setResponseTransform(transform);
+
 		DocumentPage page = jsonDocumentManager(role)
 				.search(stringQuery, start);
 		if (page.hasNext()) {
