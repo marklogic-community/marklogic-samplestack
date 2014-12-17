@@ -24,15 +24,19 @@
       Show my entries only
     </div>
     <div
-      class="ss-filters-resolved"
+      class="ss-filters-resolved ss-incomplete"
       ng-class="{ disabled: !store.session }"
     >
       <input
         ng-model="resolvedOnly"
         ng-change="onCriteriaChange()"
         type="checkbox"
-        ng-disabled="!store.session"
+        disabled
       />
+<!--
+  when this is ready to be re-enabled, this is the logic
+          ng-disabled="!store.session"
+-->
       Show resolved only
     </div>
     <section class="ss-filters-date">
