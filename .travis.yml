@@ -39,5 +39,5 @@ install:
 
 script:
   - gulp unit
-  - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && gulp e2e --middle-tier=java || (exit 0)'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp e2e --sauce --middle-tier=java || (exit 0)'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && gulp e2e --tags="~@broken" --middle-tier=java || (exit 0)'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp e2e --tags="~@broken" --sauce --middle-tier=java || (exit 0)'
