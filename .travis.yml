@@ -1,11 +1,10 @@
 language: java
 
-env:
-  global:
-    - secure: OezPwvsupgkv51+zb/H0KqOdrhb3OIoRJUud+9Qud2jxZNb598M0k1tgz/fvfxrUIU6JqxDxZM7MzP9Hnud6LdCvyotizbJpyNWLGvoWk4DbsEaLQw/ueyZ7Jm9PWFMehQdd1GFovvFzHLHRMHCK8IgLyAHZS3uqI+2kskMc/Uw=
-    - secure: iV4ESGp9Ic4cHZtxjCWLfnz4o1emhfIGxAvEaahYztZcfKbX+WakZzpVhBhfn07G3c4o0uzh7i1hOk1/W2r+MMlsPsxSumfHsW9n6G7qL9d3QLWLkRzyjjCHPqxDggNw+8xdF4pfjCHFzIDhv9HWF+rwYx4X/phORq7sLllnW8E=
-    - secure: "lM8pJfpYmHHMMjqJdSbRIE9jVVcOzvWEf8QZl6la1B1TbPVf61NBreJP+gden/2giMCIap+6sUGooFSyaOc4Plb0D2edmp0PzjH2sZ8VDTjwH+IslOwQdJteo/iEQDnBmG0UFvB+q/eVfCDwdZpfbzn7phrXO9M4t/v62hwYs88="
-    - secure: "J+ITrVSZSZ/3kiZRV/dst1yW5ZqD113XOJeKlhI+9gOimikMf6xyYo3yY38bWAK8k4ZygmGhOynxfEDnjgdTfT4lZnUURZvrc9HP57myA52DZcwgNu5cnZdgQKt6fT1JovxPVaWZUND2ZtP9Y3VUJgNvvYs8iA615GmnooiOnII="
+# for non-pull-requests, aka pushes, requires secure emvironment
+# variables for access to MarkLogic nightlies (when applicable)
+# and for SauceLabs integration. These are configured in
+# travis repository settings so that this file may be
+# used across forks/branches.
 
 before_install:
   - npm -v
@@ -15,20 +14,16 @@ before_install:
   - echo 'America/Los_Angeles' | sudo tee /etc/timezone
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
-  # node-sass will be built manually, need g++4.8
-  # - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  # - sudo apt-get update -qq
-
 install:
-  # node-sass will be built manually, need g++4.8
-  # - sudo apt-get install -qq gcc-4.8 g++-4.8
-  # - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-
-  # install MarkLogic
+  # install/start MarkLogic,
+  # (first downloading, converting to a .deb)
   - ./browser/dev-tasks/e2e/travis-install-ml.sh 20141124
   - sudo /etc/init.d/MarkLogic start
 
   # intall node things and browser app
+  # (gulp e2e commands below invoke the corresponding gradle tasks
+  # to congifure the java middle tier)
+
   - npm cache clean
   - npm install -g npm@2.1.10
   - npm install -g gulp
@@ -39,5 +34,15 @@ install:
 
 script:
   - gulp unit
+  # for pull requests, we can't use sec. env vars, so no access
+  # to nightlies or sauce, run against publicly available ML
+  # and test only with PhnatomJS, staying within Tavis environment
+  #
+  # TODO: until we have made ML 8.0 publically available, we
+  # *do* use credentials to get at the nightly. Thus, travis
+  # tests will, until this is changed, always fail on pull requests
+  #
+  # Also, don't run tests tagged as @broken since we already know about them
+
   - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && gulp e2e --tags="~@broken" --middle-tier=java || (exit 0)'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp e2e --tags="~@broken" --sauce --middle-tier=java || (exit 0)'
