@@ -7002,24 +7002,23 @@ h1 {
 
 /* line 1, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
 .highcharts {
-  height: 240px;
-  /* min-width: 286px; */ }
+  height: 240px; }
 
-/* line 8, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+/* line 7, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
 .ss-filters-date header {
   display: inline-block;
   width: 100%; }
-  /* line 12, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+  /* line 11, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
   .ss-filters-date header h3 {
     float: left;
     position: relative; }
-  /* line 17, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+  /* line 16, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
   .ss-filters-date header .ss-clear-date {
     cursor: pointer;
     float: right;
     margin: 21px 30px 0 0;
     position: relative; }
-/* line 25, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
+/* line 24, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-facet-date-range */
 .ss-filters-date input {
   display: inline-block;
   margin: 0 6px;

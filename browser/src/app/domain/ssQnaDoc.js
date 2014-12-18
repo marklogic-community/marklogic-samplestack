@@ -198,12 +198,12 @@ define(['app/module'], function (module) {
         });
 
         this.comments.sort(function (comment1, comment2) {
-          return comment1.createDate < comment2.creationDate;
+          return comment1.creationDate > comment2.creationDate;
         });
 
         this.answers.forEach(function (answer) {
           answer.comments.sort(function (comment1, comment2) {
-            return comment1.createDate < comment2.creationDate;
+            return comment1.creationDate > comment2.creationDate;
           });
         });
       };
