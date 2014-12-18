@@ -38,7 +38,7 @@ public class SamplestackConstants {
 	/**
 	 * The name of the search transform used for search responses.
 	 */
-	public static final String SEARCH_RESPONSE_TRANSFORM = "search-response-xqy";
+	public static final String SEARCH_RESPONSE_TRANSFORM = "search-response";
 	
 
 	/**
