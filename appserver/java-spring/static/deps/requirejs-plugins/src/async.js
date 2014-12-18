@@ -1,7 +1,7 @@
 /** @license
  * RequireJS plugin for async dependency load like JSONP and Google Maps
  * Author: Miller Medeiros
- * Version: 0.1.2 (2014/02/24)
+ * Version: 0.1.1 (2011/11/17)
  * Released under the MIT license
  */
 define(function(){
@@ -37,7 +37,7 @@ define(function(){
                 //create a global variable that stores onLoad so callback
                 //function can define new module after async load
                 window[id] = onLoad;
-                injectScript(formatUrl(req.toUrl(name), id));
+                injectScript(formatUrl(name, id));
             }
         }
     };

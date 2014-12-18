@@ -3,7 +3,7 @@
  * @author Mark Lagendijk <mark@lagendijk.info>
  * @license MIT
  */
-angular.module('ui.router.stateHelper', [ 'ui.router' ])
+angular.module('ui.router.stateHelper', ['ui.router'])
     .provider('stateHelper', function($stateProvider){
         var self = this;
 
@@ -19,8 +19,8 @@ angular.module('ui.router.stateHelper', [ 'ui.router' ])
          * @param {Array} [state.children] - An optional array of child states.
          * @param {Boolean} keepOriginalNames - An optional flag that prevents conversion of names to dot notation if true.
          */
-        this.state = function(state, keepOriginalNames){
-            if(!keepOriginalNames){
+        this.setNestedState = function(state, keepOriginalNames){
+            if (!keepOriginalNames){
                 fixStateName(state);
             }
             $stateProvider.state(state);
@@ -31,11 +31,7 @@ angular.module('ui.router.stateHelper', [ 'ui.router' ])
                     self.setNestedState(childState, keepOriginalNames);
                 });
             }
-
-            return self;
         };
-
-        this.setNestedState = this.state;
 
         self.$get = angular.noop;
 
@@ -48,4 +44,5 @@ angular.module('ui.router.stateHelper', [ 'ui.router' ])
                 state.name = state.parent.name + '.' + state.name;
             }
         }
-    });
+    })
+;
