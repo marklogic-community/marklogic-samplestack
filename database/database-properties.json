@@ -20,7 +20,7 @@
                     "weight": 2
                 },
                 {
-                    "path": "/answer/text",
+                    "path": "/answers/text",
                     "weight": 1
                 },
                 {
