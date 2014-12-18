@@ -40,8 +40,9 @@ function searchTransform(context, params, input) {
     var answers = outputObject.answers;
     for (var i = 0; i < answers.length; i++) {
         answers[i].owner = joinReputation(answers[i].owner);
-        for (var j = 0; j < comments.length; j++) {
-            comments[j].owner = joinReputation(comments[j].owner);
+        var answerComments = answers[i].comments;
+        for (var j = 0; j < answerComments.length; j++) {
+            answerComments[j].owner = joinReputation(answerComments[j].owner);
         }
     }
     outputObject.owner = joinReputation(outputObject.owner)

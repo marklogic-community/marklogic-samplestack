@@ -153,6 +153,7 @@
             "apply":"snippet",
             "max-snippet-chars":100,
             "max-matches":4,
+            "per-match-tokens":10,
             "preferred-matches":{"json-property":["text","title"]}
         },
         "values": [
