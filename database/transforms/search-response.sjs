@@ -27,7 +27,7 @@ function joinReputations(ownerNodes) {
         } else {
             returnObject.reputation = ownerObject.reputation;
         }
-        if (ownerObject.originalId === undefined) {
+        if (ownerObject.originalId == null) {
             // pass
         } else {
             returnObject.originalId = ownerObject.originalId;
@@ -45,13 +45,13 @@ function searchTransform(context, params, input) {
     var ownerNodes = input.xpath(".//owner");
     if (ownerNodes.count > 0) {
         var joinedOwners = joinReputations(ownerNodes);
-        if (outputObject.owner !== undefined) {
-            outputObject.owner = joinedOwners[outputObject.owner.id];
-        }
-        else {
-            // null user
+        outputObject.owner = joinedOwners[outputObject.owner.id];
+        if (outputObject.owner === undefined) {
             outputObject.owner = {
-                nullowner : "true"
+                id : "unknown",
+                userName : "unknown",
+                displayName : "unknown",
+                reputation : 0
             };
         }
         if (outputObject.answers !== undefined) {
