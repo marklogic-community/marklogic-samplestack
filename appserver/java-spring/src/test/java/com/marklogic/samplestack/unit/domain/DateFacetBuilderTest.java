@@ -49,6 +49,7 @@ public class DateFacetBuilderTest {
 	}
 
 	@Test
+	@Ignore
 	public void testMonthBuilder() throws JsonProcessingException,
 			JSONException {
 		ObjectMapper mapper = new CustomObjectMapper();
