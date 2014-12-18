@@ -42,23 +42,29 @@ function joinReputations(ownerNodes) {
 /* this function requires bulk input */
 function searchTransform(context, params, input) {
     var outputObject = input.toObject();
+    if (outputObject.owner === undefined) {
+        outputObject.owner = {
+            id : "unknown",
+            userName : "unknown",
+            displayName : "unknown",
+            reputation : 0
+        };
+    }
     var ownerNodes = input.xpath(".//owner");
     if (ownerNodes.count > 0) {
         var joinedOwners = joinReputations(ownerNodes);
         outputObject.owner = joinedOwners[outputObject.owner.id];
-        if (outputObject.owner === undefined) {
-            outputObject.owner = {
-                id : "unknown",
-                userName : "unknown",
-                displayName : "unknown",
-                reputation : 0
-            };
-        }
         if (outputObject.answers !== undefined) {
             for (var i=0; i < outputObject.answers.length; i++) {
                 var answer = outputObject.answers[i];
-                if (answer.owner !== undefined) {
-                    answer.owner = joinedOwners[answer.owner.id];
+                answer.owner = joinedOwners[answer.owner.id];
+                if (answer.owner === undefined) {
+                    answer.owner = {
+                        id : "unknown",
+                        userName : "unknown",
+                        displayName : "unknown",
+                        reputation : 0
+                    };
                 }
             }
         }
@@ -71,7 +77,7 @@ function searchTransform(context, params, input) {
         } else {
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
-                var matches = result.matches; // HEAD will need snippets here
+                var matches = result.matches;
                 var uri = result.uri;
                 var sourceDoc = fn.doc(uri).next().value;
                 for (var j = 0; j < matches.length; j++) {
@@ -109,6 +115,7 @@ function searchTransform(context, params, input) {
                     delete match.path;
                 }
             }
+            delete outputObject.owner;  // from spurious cleanup action at start of function.  TODO ensure all data have owner object on root.
             return outputObject;
         }
     }
