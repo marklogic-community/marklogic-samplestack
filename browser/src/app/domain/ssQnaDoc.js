@@ -202,12 +202,24 @@ define(['app/module'], function (module) {
         });
 
         this.comments.sort(function (comment1, comment2) {
-          return comment1.creationDate > comment2.creationDate;
+          // do not sort empty comments, keep those as-is at end of array
+          if (comment1.id === undefined || comment2.id === undefined) {
+            return 0;
+          }
+          else {
+            return comment1.creationDate > comment2.creationDate;
+          }
         });
 
         this.answers.forEach(function (answer) {
           answer.comments.sort(function (comment1, comment2) {
-            return comment1.creationDate > comment2.creationDate;
+            // do not sort empty comments, keep those as-is at end of array
+            if (comment1.id === undefined || comment2.id === undefined) {
+              return 0;
+            }
+            else {
+              return comment1.creationDate > comment2.creationDate;
+            }
           });
         });
       };
