@@ -32,6 +32,7 @@
         ng-model="searchbarText"
         placeholder="Search the Stack!..."
         value=""
+        ng-keyup="$event.keyCode == 13 && setQueryText()"
       >
     </div>
   </div>
