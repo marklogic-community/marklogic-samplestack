@@ -79,6 +79,10 @@
     background: #333!important;
   }
 
+  .ss-ask-button a.inactive:hover {
+    cursor: default;
+  }
+
   .ss-ask-button span.glyphicon {
     color:#3abc9a;
     font-size: 16px;
