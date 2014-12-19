@@ -176,7 +176,6 @@ public class DatabaseQnADocumentSearchIT {
 			JsonNode qnaDoc = i.next();
 			for (int j=0; j < qnaResults.size(); j++) {
 				ObjectNode resultObject = (ObjectNode) qnaResults.get(j).get("content");
-
 				logger.debug("In results at " + j + " and " + mapper.writeValueAsString(resultObject));
 				ObjectNode ownerNode = (ObjectNode) resultObject.get("owner");
 				int reputation = ownerNode.get("reputation").asInt();

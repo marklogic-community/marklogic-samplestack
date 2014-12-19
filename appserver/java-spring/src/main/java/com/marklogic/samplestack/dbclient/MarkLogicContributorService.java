@@ -195,7 +195,7 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 
 		patchBuilder.addPermission("samplestack-guest", Capability.READ);
 		DocumentPatchHandle patch = patchBuilder.build();
-		String uri = contributor.getClass().getCanonicalName() + "/" + contributor.getId() + ".json";
+		String uri = repository.getDocumentUri(contributor);
 		if (transaction == null) {
 			repository.write(contributor);
 			jsonDocumentManager(ClientRole.SAMPLESTACK_CONTRIBUTOR).patch(uri, patch);

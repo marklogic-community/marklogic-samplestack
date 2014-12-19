@@ -9,7 +9,9 @@
     "lastActivityDate": "2014-01-01T00:09:20.590",
     "owner": {
         "displayName": "CodeKing",
-        "id": "3017954"
+        "id": "3017954",
+        "userName":"SuperKind@email.com",
+        "reputation":0
     },
     "tags": [
         "mysql",

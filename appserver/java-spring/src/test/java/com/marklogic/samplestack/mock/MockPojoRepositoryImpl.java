@@ -263,4 +263,9 @@ public class MockPojoRepositoryImpl implements
 		// noop
 	}
 
+	@Override
+	public String getDocumentUri(Contributor pojo) {
+		return "/some-uri.json";
+	}
+
 }
