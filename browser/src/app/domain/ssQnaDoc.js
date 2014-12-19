@@ -188,6 +188,10 @@ define(['app/module'], function (module) {
         var self = this;
 
         this.answers.sort(function (answer1, answer2) {
+          // do not sort empty answers, keep those as-is at end of array
+          if (answer1.id === undefined || answer2.id === undefined) {
+            return 0;
+          }
           if (answer1.id === self.acceptedAnswerId) {
             return -1;
           }
