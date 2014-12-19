@@ -7298,7 +7298,7 @@ ss-qna-doc-metadata .ss-question-info span {
   background-repeat: no-repeat;
   height: 50vh;
   position: absolute;
-  width: 100vh;
+  width: 100%;
   z-index: 1; }
 
 /* line 17, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */

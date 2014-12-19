@@ -1,80 +1,82 @@
-<header class="ss-page-header navbar-fixed-top">
-
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-
-        <!-- bootstrap responsive navigation -->
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-
-        <!-- samplestack logo -->
-        <a class="ss-app-title navbar-brand" href="/">
-          <img src="app/images/samplestack.svg" border="0">
-        </a>
-
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-
-          <!-- login/account dropdown -->
-          <li class="ss-login" ng-if="!store.session">
-            <button
-              class="btn btn-primary btn-sm"
-              id="nav-log-in"
-              href=""
-              ng-click="openLogin()"
-            >Log In
-            </button>
-          </li>
-
-          <li
-            ss-account-dropdown
-            ng-if="store.session"
-            class="ss-account-dropdown dropdown"
-          ></li>
-
-          <!-- ask button -->
-          <li
-            class="ss-ask-button"
-            ng-class="store.session ? 'active' : 'inactive'"
-          >
-            <a
-              href=""
-              class="navbar-ask-question"
-              ng-click="store.session ? ask() : ''"
-              ng-class="store.session ? 'active' : 'inactive'"
-            >
-              <span class="glyphicon glyphicon-question-sign"></span>
-              Ask A Question
-            </a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- TODO loading/error message locations -->
-  <div ng-if="loading" class="spinner"></div>
+<div>
+  <div ng-if="loading" class="spinner">
+  </div>
   <div ng-if="globalError.length" marked="globalError" class="has-error"></div>
 
-</header>
+  <header class="ss-page-header navbar-fixed-top">
 
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
 
-<div ng-class="{ loading: loading }"></div>
-<div ng-if="localError" class="has-error">{{localError}}</div>
+          <!-- bootstrap responsive navigation -->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
 
-<main class="ss-main">
-  <div ui-view></div>
-</main>
+          <!-- samplestack logo -->
+          <a class="ss-app-title navbar-brand" href="/">
+            <img src="app/images/samplestack.svg" border="0">
+          </a>
 
-<footer class="ss-page-footer">
-  <p class="text-center">
-    <a href="insert-url.php">Samplestack 1.0.0-ea3.1</a>&nbsp;&nbsp;|&nbsp;&nbsp;Copyright &copy; 2014 <a href="insert-url.php">MarkLogic Corporation</a>, licensed under the Apache License, <a href="insert-url.php" >Version 2.0.</a>&nbsp;&nbsp;|&nbsp;&nbsp;Seed content compliments of Stack Overflow under <a href="insert-url.php">cc-by-sa</a>.
-  </p>
-</footer>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+
+            <!-- login/account dropdown -->
+            <li class="ss-login" ng-if="!store.session">
+              <button
+                class="ss-login-dialog-open btn btn-primary btn-sm"
+                id="nav-log-in"
+                href=""
+                ng-click="openLogin()"
+              >Log In
+              </button>
+            </li>
+
+            <li
+              ss-account-dropdown
+              ng-if="store.session"
+              class="ss-account-dropdown dropdown"
+            ></li>
+
+            <!-- ask button -->
+            <li
+              class="ss-ask-button"
+              ng-class="store.session ? 'active' : 'inactive'"
+            >
+              <a
+                href=""
+                class="navbar-ask-question"
+                ng-click="store.session ? ask() : ''"
+                ng-class="store.session ? 'active' : 'inactive'"
+              >
+                <span class="glyphicon glyphicon-question-sign"></span>
+                Ask A Question
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <div ng-class="{ loading: loading }">
+    <div ng-if="localError" class="has-error">{{localError}}</div>
+    <section class="ss-main">
+      <div ui-view></div>
+    </section>
+
+    <footer class="ss-page-footer">
+      <p class="text-center">
+        <a href="insert-url.php">Samplestack 1.0.0-ea3.1</a>&nbsp;&nbsp;|&nbsp;&nbsp;Copyright &copy; 2014 <a href="insert-url.php">MarkLogic Corporation</a>, licensed under the Apache License, <a href="insert-url.php" >Version 2.0.</a>&nbsp;&nbsp;|&nbsp;&nbsp;Seed content compliments of Stack Overflow under <a href="insert-url.php">cc-by-sa</a>.
+      </p>
+    </footer>
+  </div>
+
+</div>
