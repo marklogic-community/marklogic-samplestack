@@ -12,7 +12,7 @@
 
  <logger name="org.apache.directory" level="ERROR"/>
  <logger name="com.marklogic.client" level="INFO"/>
- <logger name="com.marklogic.samplestack" level="INFO"/>
+ <logger name="com.marklogic.samplestack" level="DEBUG"/>
 
 
 </configuration>

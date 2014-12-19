@@ -9,7 +9,7 @@ dependencies {
     compile gradleApi()
     compile("org.codehaus.groovy:groovy-all:2.3.7")
     compile("org.codehaus.groovy.modules.http-builder:http-builder:0.7")
-    compile('com.marklogic:client-api-java:3.0.0-EA3') {
+    compile('com.marklogic:client-api-java:3.0-SNAPSHOT') {
         exclude(group: 'org.slf4j')
         exclude(group: 'ch.qos.logback')
     }

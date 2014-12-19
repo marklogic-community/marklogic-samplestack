@@ -166,7 +166,7 @@ dependencies {
     compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
     compile("joda-time:joda-time:2.4")
-    compile(group: 'com.marklogic', name: 'client-api-java', version: '3.0.0-EA3', changing: false) {
+    compile(group: 'com.marklogic', name: 'client-api-java', version: '3.0-SNAPSHOT', changing: true) {
         exclude(group: 'org.slf4j')
         exclude(group: 'ch.qos.logback')
     }

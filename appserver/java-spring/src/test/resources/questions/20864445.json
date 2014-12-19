@@ -14,7 +14,9 @@
     "lastActivityDate": "2014-01-01T00:07:38.573",
     "owner": {
         "displayName": "Joe Bid",
-        "id": "2785133"
+        "id": "2785133",
+        "userName":"joebid@email.com",
+        "reputation":0
     },
     "tags": [
         "graphics",
