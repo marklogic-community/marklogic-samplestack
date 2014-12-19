@@ -3,24 +3,31 @@
   <!-- date/user/reputation -->
   <div class="ss-question-info">
     <span class="started">
-      <span ng-if="docType == 'question'">Asked</span
-      ><span ng-if="docType == 'answer'">Answered</span
-      > {{ formatDate(doc.creationDate) }}&nbsp;&nbsp;<a
-        ng-if="doc.owner.originalId === undefined"
-        href=""
-        ng-click="showContributor()"
-      >{{doc.owner.displayName}}</a><a
-        ng-if="!(doc.owner.originalId === undefined)"
-        href="{{soUserLink()}}"
-        target="_blank"
-      >{{doc.owner.displayName}}&nbsp;&nbsp;<span
-        class="glyphicon glyphicon-new-window"
-      ></span></a>&nbsp;&nbsp;[<span
-        ng-if="doc.owner.reputation !== undefined"
-      >{{doc.owner.reputation}}</span><span
-        ng-if="doc.owner.reputation === undefined"
-        class="ss-incomplete"
-      >unimplemented</span>]
+      <span ng-if="docType == 'question'">Asked</span>
+      <span ng-if="docType == 'answer'">Answered</span>
+      &nbsp;{{ formatDate(doc.creationDate) }}&nbsp;&nbsp;
+
+      <span ng-if="!doc.owner || doc.owner.id == 'unknown'">
+        author unknown
+      </span>
+
+      <span ng-if="doc.owner && doc.owner.id != 'unknown'">
+        <a
+          ng-if="doc.owner.originalId === undefined"
+          href=""
+          ng-click="showContributor()"
+        >{{doc.owner.displayName}}</a>
+        <a
+          ng-if="!(doc.owner.originalId === undefined)"
+          href="{{soUserLink()}}"
+          target="_blank"
+        >{{doc.owner.displayName}}&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span></a>
+        &nbsp;&nbsp;
+        [
+        <span ng-if="doc.owner.reputation !== undefined">{{doc.owner.reputation}}</span>
+        <span ng-if="doc.owner.reputation === undefined">author unknown</span>
+        ]
+      </span>
     </span>
   </div>
 
@@ -33,4 +40,3 @@
   </div>
 
 </div> <!-- ss-question-metadata -->
-
