@@ -23,6 +23,7 @@ define(['app/module'], function (module) {
       ssSearch,
       allTagsDialog
     ) {
+
       // after everything is arranged, this function is called to initialize
       // the state
       var init = function () {
@@ -175,6 +176,7 @@ define(['app/module'], function (module) {
               $scope.searching = false;
               // so the layout can stop showing its spinner
               $scope.setLoading(false);
+
             });
           },
           function (reason) {

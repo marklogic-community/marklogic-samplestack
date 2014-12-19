@@ -17,8 +17,8 @@ before_install:
 install:
   # install/start MarkLogic,
   # (first downloading, converting to a .deb)
-  - ./browser/dev-tasks/e2e/travis-install-ml.sh 20141124
-  - sudo /etc/init.d/MarkLogic start
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then ./browser/dev-tasks/e2e/travis-install-ml.sh 20141124 ; else (exit 0) ; fi'
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then sudo /etc/init.d/MarkLogic start ; else (exit 0) ; fi'
 
   # intall node things and browser app
   # (gulp e2e commands below invoke the corresponding gradle tasks
@@ -44,5 +44,5 @@ script:
   #
   # Also, don't run tests tagged as @broken since we already know about them
 
-  - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && gulp e2e --tags="~@broken" --middle-tier=java || (exit 0)'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && gulp e2e --tags="~@broken" --sauce --middle-tier=java || (exit 0)'
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then gulp e2e --tags="~@broken" --sauce --middle-tier=java ; else (exit 0) ; fi'
+  # - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "false" ] ; then gulp e2e --tags="~@broken" --middle-tier=java ; else (exit 0) ; fi'

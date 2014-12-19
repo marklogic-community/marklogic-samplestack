@@ -9,19 +9,19 @@ Feature: Explore Docs By Text
     And I am using the brief seed data
     When I visit the "explore" page
     And I perform a search for "Math"
-    Then the docs count is "39".
+    Then the docs count is "63".
     When I focus on the "first" search result,
-    Then the result "title" is "Q: Bring canvas element to the front?".
+    Then the result "title" is "Q: Moving an object along a straight line at a constant speed from point A to B"
     When I focus on the "last" search result,
-    Then the result "title" is "Q: JavaScript display duration"
+    Then the result "title" is "Q: Var is undefined"
 
   Scenario: As a contributor searching for "Math", I see the correct results
     Given I am a contributor
     And I am using the brief seed data
     When I visit the "explore" page
     And I perform a search for "Math"
-    Then the docs count is "54".
+    Then the docs count is "85".
     When I focus on the "first" search result,
-    Then the result "title" is "Q: Bring canvas element to the front?".
+    Then the result "title" is "Q: Why would I combine Math.floor with Math.random?"
     When I focus on the "last" search result,
-    Then the result "title" is "Q: getting random element from array returns same element"
+    Then the result "title" is "Q: Value from input in quotes javascript"

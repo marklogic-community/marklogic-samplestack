@@ -52,7 +52,7 @@ define(['app/module'], function (module) {
         template:
           '<highchart class="highcharts ss-facet-date-range" ' +
           '  config="highchartsConfig"></highchart>' +
-          '<div class="input-daterange input-group" id="datepicker">' +
+          '<div class="input-daterange input-group">' +
           '<input ng-model=pickerDateStart type="text" ' +
           '  class="input-sm form-control ng-valid-date" ' +
           '  datepicker-popup="MM/dd/yyyy" ' +

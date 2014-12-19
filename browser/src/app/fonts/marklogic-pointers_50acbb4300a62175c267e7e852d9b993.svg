@@ -10,8 +10,8 @@ Created by FontForge 20110222 at Fri Oct 31 08:18:23 2014
 Created by Ubuntu with FontForge 2.0 (http://fontforge.sf.net)
 </metadata>
 <defs>
-<font id="iconvault" horiz-adv-x="512" >
-  <font-face 
+<font horiz-adv-x="512" >
+  <font-face
     font-family="iconvault"
     font-weight="500"
     font-stretch="normal"
@@ -25,9 +25,9 @@ Created by Ubuntu with FontForge 2.0 (http://fontforge.sf.net)
     unicode-range="U+F100-F101"
   />
     <missing-glyph />
-    <glyph glyph-name="uniF100" unicode="&#xf100;" 
+    <glyph glyph-name="uniF100" unicode="&#xf100;"
 d="M256 48.6396l-204.288 204.288l65.0244 65.5361l139.264 -139.264l139.264 139.264l65.5361 -65.5361z" />
-    <glyph glyph-name="uniF101" unicode="&#xf101;" 
+    <glyph glyph-name="uniF101" unicode="&#xf101;"
 d="M256 346.624l204.8 -204.288l-65.5361 -65.5361l-139.264 139.265l-139.264 -139.265l-65.0244 65.5361z" />
   </font>
 </defs></svg>

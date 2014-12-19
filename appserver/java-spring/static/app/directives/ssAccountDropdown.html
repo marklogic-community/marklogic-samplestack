@@ -1,8 +1,10 @@
 <!-- user link for opening -->
 <a href="" class="dropdown-toggle" data-toggle="dropdown">
   <span class="glyphicon glyphicon-user"></span>
-  {{store.session.userInfo.displayName}}
-  [{{store.session.userInfo.reputation}}]
+  <span class="ss-user-info-display-name-reputation">
+    {{store.session.userInfo.displayName}}
+    [{{store.session.userInfo.reputation}}]
+  </span>
   <span class="caret"></span>
 </a>
 
@@ -20,7 +22,7 @@
   </div>
   <div class="ss-account-actions">
     <a
-      class="btn btn-primary btn-xs"
+      class="ss-logout btn btn-primary btn-xs"
       href=""
       ng-click="logout()"
     >Log Out</a>

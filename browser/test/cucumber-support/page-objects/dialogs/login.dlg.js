@@ -4,7 +4,12 @@ module.exports.support = function (obj) {
   /*******************************/
 
   obj.loginStart = function () {
-    return obj.qself(getLoginElement().click());
+    return obj.qself(
+      getLoginElement()
+      .then(function (el) {
+        return el.click();
+      })
+    );
   };
 
   obj.loginCancel = function () {
@@ -65,15 +70,15 @@ module.exports.support = function (obj) {
   /*******************************/
 
   var getLoginFailedMessage = function () {
-    return element(by.css('.ss-dialog-login .login-failed'));
+    return element(by.className('ss-login-failed'));
   };
 
   var getLoginElement = function () {
-    return element(by.css('.ss-login button'));
+    return element(by.className('ss-login-dialog-open'));
   };
 
   var getLoginSubmitButton = function () {
-    return element(by.css('.ss-dialog-login button[type="submit"]'));
+    return element(by.className('ss-login-submit'));
   };
 
   var getLoginUserNameElement = function () {

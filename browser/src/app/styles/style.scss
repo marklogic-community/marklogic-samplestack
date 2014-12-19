@@ -47,6 +47,13 @@
 .has-error {
   border: 1px solid #f00;
   padding: 5px;
+  font-size: 8pt;
+
+  pre {
+    font-size: 8pt;
+  }
+
+  margin-bottom: -($navbar-height);
 }
 
 p.has-error {

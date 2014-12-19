@@ -3,12 +3,12 @@
     <span aria-hidden="true">&times;</span>
     <span class="sr-only">Close</span>
   </button>
-  <h4 class="modal-title" id="myModalLabel">Samplestack Log In</h4>
+  <h4 class="modal-title">Samplestack Log In</h4>
 </div>
 <form ng-submit="authenticate()">
   <div class="modal-body">
     <p
-      class="has-error login-failed"
+      class="ss-login-failed has-error login-failed"
       ng-if="error && !(session.password && session.password.length)"
     >
       {{error}}
@@ -31,7 +31,7 @@
         ng-model="session.password"
       >
     </div>
-    <button type="submit" class="btn btn-primary btn-block">
+    <button type="submit" class="ss-login-submit btn btn-primary btn-block">
       Log In
     </button>
   </div>

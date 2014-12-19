@@ -37,7 +37,7 @@ function AskPage () {
 
   Object.defineProperty(self, 'qnaQuestionPreviewTab', {
     get: function () {
-      return element(by.cssContainingText('.ss-tab-content', 'preview'));
+      return element(by.className('ss-markdown-editor-preview-tab'));
     }
   });
 

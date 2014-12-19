@@ -16,7 +16,7 @@ var args = {
   sauce: false,
   toFile: false,
   middleTier: 'external', // or 'java' or 'node',
-  browser: 'phantomjs'
+  browser: 'chrome'
       // or 'chrome' or 'firefox' or 'ie' or 'phantomjs'
 };
 

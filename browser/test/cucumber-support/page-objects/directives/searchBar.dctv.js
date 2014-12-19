@@ -46,7 +46,7 @@ module.exports.support = function (obj) {
   };
 
   var getSearchbarSumbmitElement = function () {
-    return element(by.css('.ss-search-submit'));
+    return element(by.className('ss-search-submit'));
   };
 
 };

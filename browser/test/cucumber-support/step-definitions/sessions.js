@@ -25,7 +25,7 @@ module.exports = function () {
   });
 
   this.When(/attempt to log in with invalid/, function (next) {
-    return q.invoke(this.currentPage, 'loginEnterUserName', 'notJoeUser')
+    return q.invoke(this.currentPage, 'loginEnterUserName', 'notJoeUser@example.com')
       .invoke('loginEnterPassword', ['not-his-password'])
       .invoke('loginSubmit')
       .then(this.notifyOk(next), next);
