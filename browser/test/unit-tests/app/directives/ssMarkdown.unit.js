@@ -27,7 +27,7 @@ define(['testHelper'], function (helper) {
       it(
         'should call highlight on code',
           function () {
-            this.timeout(150);
+            this.timeout(300);
             scope.content = '# I Heading\n\n' +
                 '```javascript\nreturn \'I Code\';\n```\n';
             scope.$apply();
