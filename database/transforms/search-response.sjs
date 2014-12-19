@@ -42,14 +42,16 @@ function joinReputations(ownerNodes) {
 /* this function requires bulk input */
 function searchTransform(context, params, input) {
     var outputObject = input.toObject();
+    var unknownOwner =   {
+                        id : "unknown",
+                        userName : "unknown",
+                        displayName : "unknown",
+                        reputation : 0
+                        };
+
     if (outputObject.owner === undefined) {
-        outputObject.owner = {
-            id : "unknown",
-            userName : "unknown",
-            displayName : "unknown",
-            reputation : 0
-        };
-    }
+        outputObject.owner = unknownOwner;
+    };
     var ownerNodes = input.xpath(".//owner");
     if (ownerNodes.count > 0) {
         var joinedOwners = joinReputations(ownerNodes);
@@ -59,14 +61,12 @@ function searchTransform(context, params, input) {
                 var answer = outputObject.answers[i];
                 answer.owner = joinedOwners[answer.owner.id];
                 if (answer.owner === undefined) {
-                    answer.owner = {
-                        id : "unknown",
-                        userName : "unknown",
-                        displayName : "unknown",
-                        reputation : 0
-                    };
+                    answer.owner = unknownOwner;
                 }
             }
+        }
+        if (outputObject.owner === undefined) {
+            outputObject.owner = unknownOwner;
         }
         return outputObject;
     } else {
