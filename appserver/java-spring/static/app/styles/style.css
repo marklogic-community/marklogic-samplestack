@@ -7334,37 +7334,40 @@ ss-qna-doc-metadata .ss-question-info span {
 /* line 47, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
 .has-error {
   border: 1px solid #f00;
-  padding: 5px;
+  padding: 5px; }
+
+/* line 52, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+.ss-global-error {
   font-size: 8pt;
   margin-bottom: -50px; }
-  /* line 52, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
-  .has-error pre {
+  /* line 56, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+  .ss-global-error pre {
     font-size: 8pt; }
 
-/* line 59, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 61, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
 p.has-error {
   color: #f00;
   font-weight: bold; }
 
-/* line 64, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 66, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ml-edit-tools {
   background-color: #ddd;
   margin-top: 10px;
   padding: 5px;
   width: 400px; }
 
-/* line 71, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 73, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-divider {
   background-color: #000;
   height: 1px;
   margin: 5px 0;
   width: 205px; }
 
-/* line 78, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 80, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-typeahead-item {
   cursor: pointer; }
 
-/* line 82, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
+/* line 84, /Users/ssalsbur/Documents/_ws/marklogic-samplestack/browser/src/app/styles/style.scss */
 .ss-column {
   float: left;
   position: relative; }
