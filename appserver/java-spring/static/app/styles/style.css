@@ -6847,7 +6847,7 @@ h1 {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
     border: none;
-    width: 70%;
+    width: 80%;
     float: left; }
   /* line 43, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar .search-inner input[type="text"], .ss-search-bar .search-inner input[type="search"] {
