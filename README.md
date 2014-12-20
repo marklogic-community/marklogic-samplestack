@@ -1,6 +1,6 @@
 # marklogic-samplestack
 
-README for Version 1.0.0-ea3
+README for Version 1.0.0-ea3.1
 
 Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 

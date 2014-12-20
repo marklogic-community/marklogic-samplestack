@@ -2,7 +2,7 @@
 
 ## What is it?
 
-The implementation of samplestack that runs using 
+The implementation of samplestack that runs using
 
 * gradle as build tool
 * Java as middle-tier development language
@@ -12,14 +12,14 @@ The implementation of samplestack that runs using
 This README covers running samplestack quickly, then documents each of the commands
 available to the Java developer as she iterates through code exploration.
 
-## Quickstart 
+## Quickstart
 
 *To build and run:*
 
 Before running anything here, you will need an EA-3 release of MarkLogic.
 Start this quickstart with it installed and running.  By default this process will
-will secure MarkLogic with username admin, password admin.  If you have already secured 
-MarkLogic, you need to update gradle.properties with the admin credentials you used 
+will secure MarkLogic with username admin, password admin.  If you have already secured
+MarkLogic, you need to update gradle.properties with the admin credentials you used
 during the install and setup process.
 
 You also need A JDK 1.7 or 1.8
@@ -32,8 +32,8 @@ The setup assumes you have MarkLogic Server running on your localhost and that y
 Started Application in X seconds...
 >Building 85% > :bootRun
 ```
-When it stops like this, the app is ready to to visit.  You can 
-[exercise the application](http://localhost:8090) and [browse MarkLogic](http://localhost:8000/qconsole) 
+When it stops like this, the app is ready to to visit.  You can
+[exercise the application](http://localhost:8090) and [browse MarkLogic](http://localhost:8000/qconsole)
 This application server hosts the middle tier and a built version of an angular.js MVC browser application.  This browser application is runable separately as well; see the [browser readme](../../browser/README.md) for instructions on how to set up and build with Samplestack's browser application.
 
 *If you're stuck...*
@@ -42,22 +42,22 @@ Its possible that you will need to clean your environment, especially if you're 
 
 `./gradlew --stop`     (if you've been using the gradle daemon.)
 `./gradlew clean`
-`./gradlew dbteardown` 
+`./gradlew dbteardown`
 *gradle tasks used in Samplestack development*
 
 * `./gradlew assemble`   This command bootstraps the middle tier, runs tests, and builds the Java project.  When it is done you have verified the unit tests and built samplestack.
 * `./gradlew tasks`  Lists tasks available to the samplestack project.
- 
+
 * `./gradlew dbConfigure`  Incrementally applies configuration changes in ../../database/* to the MarkLogic instance.
 * `./gradlew dbConfigureClean`   Removes cache info for configuration from build direcotiry (so next dbConfigure will process all files).
 * `./gradlew dbConfigureAll`   dbConfigureClean then runs dbConfigure.  Uploads all config files to MarkLogic.
- 
+
 * `./gradlew bootRun`       This command runs the middle tier and MarkLogic services.  This project also contains a built version of the front-end angular application.  If you want to use and exercise the front-end independently, see the sibling project in /browser for instructions on running the browser application
 * `./gradlew seedDataFetch`  Fetches seed data from a remote location to the build directory.
 * `./gradlew seedDataExtract`  Extracts the fetched seed data tgz to within the directory.
 * `./gradlew dbLoad` Runs seedDataFetch, seedDataExtract as dependencies (unless up-to-date) to load seed data.
 * `./gradlew dbClear`  Deletes all data from the database.
- 
+
 * ./gradlew eclipse  is one way to set up this project for use in eclipse.  [wiki link]
 * `./gradlew javadoc` These docs are built in build/docs/javadoc
 
