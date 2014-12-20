@@ -15,14 +15,25 @@ var users = require('./configuration/users');
 var pages = {};
 
 var self;
+
+var currentPage;
+
 function World (callback) {
   self = this;
   this.pages = pages;
-  this.currentPage = null;
   callback(this);
 }
 
 var PageBase = require('./page-objects/PageBase');
+
+Object.defineProperty(World.prototype, 'currentPage', {
+  get: function () {
+    return currentPage;
+  },
+  set: function (page) {
+    currentPage = page;
+  }
+});
 
 World.addPage = function (Page) {
   var page = PageBase.instantiate(Page);
