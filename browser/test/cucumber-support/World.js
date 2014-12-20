@@ -32,23 +32,18 @@ World.addPage = function (Page) {
   });
 };
 
-World.prototype.go = function (page) {
-  if (self.currentPage && self.currentPage === page) {
-    return q(self.currentPage);
-  }
-  else {
-    return browser.get(page.url).then(function () {
+World.prototype.go = function (page, suffix) {
+  var curPage = self.currentPage;
+  var url = page.url + (suffix ? suffix : '');
+  var promise = curPage ?
+      browser.setLocation(url) :
+      browser.get(url);
+  return promise.then(
+    function () {
       self.currentPage = page;
-      return self.currentPage;
-    });
-  }
-};
-
-World.prototype.goWithUrlSuffix = function (page, suffix) {
-  return browser.get(page.url + suffix).then(function () {
-    self.currentPage = page;
-    return self.currentPage;
-  });
+      return page;
+    }
+  );
 };
 
 var notifyOk = function (next) {

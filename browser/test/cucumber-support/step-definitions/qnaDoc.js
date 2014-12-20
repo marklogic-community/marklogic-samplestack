@@ -4,7 +4,7 @@ module.exports = function () {
   this.When(
     /visit the "qnadoc" page with id "(.*)"/,
     function (qid, next) {
-      this.goWithUrlSuffix(this.pages['qnadoc'], '/' + qid)
+      this.go(this.pages['qnadoc'], '/' + qid)
         .then(this.notifyOk(next), next);
     }
   );
@@ -18,4 +18,3 @@ module.exports = function () {
   );
 
 };
- 
