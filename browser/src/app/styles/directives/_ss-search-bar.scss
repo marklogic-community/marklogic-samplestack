@@ -139,32 +139,36 @@
     -o-box-shadow: inset 0px 0px 10px 0px #000,0px 3px 3px 0px #333;
   }
 
+  /* entire column default */
   .tips-box .col {
     border-right:1px solid #595959;
     border-left:1px solid #000;
+    width: 36%;
   }
-
+  /* label default */
   .tips-box .col label {
     color: #c4c4c4;
     font-weight:normal;
+    width: 31%;
   }
-
+  /* sample default */
   .tips-box .col .sample {
     color: #fff;
     font-weight:normal;
-    width: 64%;
+    width: 69%;
   }
 
-  .tips-box .col label {
-    width: 36%;
-  }
-
-  .tips-box .col {
-    width: 37%;
-  }
-
+  /* entire first column */
   .tips-box .col:first-of-type {
-    width: 26%;
+    width: 28%;
+  }
+  /* first label */
+  .tips-box .col:first-of-type label {
+    width: 39%;
+  }
+  /* first sample */
+  .tips-box .col:first-of-type .sample {
+    width: 61%;
   }
 
   @media (max-width: 768px) {
