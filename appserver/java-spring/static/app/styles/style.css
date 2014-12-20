@@ -6806,7 +6806,13 @@ h1 {
 .ss-search-bar {
   /* search */
   /* search tips button */
-  /* search tips box */ }
+  /* search tips box */
+  /* entire column default */
+  /* label default */
+  /* sample default */
+  /* entire first column */
+  /* first label */
+  /* first sample */ }
   /* line 4, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar .search-wrapper {
     margin-top: 50px;
@@ -6930,35 +6936,37 @@ h1 {
     -webkit-box-shadow: inset 0px 0px 10px 0px #000, 0px 3px 3px -4px #333;
     -moz-box-shadow: inset 0px 0px 10px 0px #000, 0px 3px 3px 0px #333;
     -o-box-shadow: inset 0px 0px 10px 0px #000, 0px 3px 3px 0px #333; }
-  /* line 142, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  /* line 143, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar .tips-box .col {
     border-right: 1px solid #595959;
-    border-left: 1px solid #000; }
-  /* line 147, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    border-left: 1px solid #000;
+    width: 36%; }
+  /* line 149, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar .tips-box .col label {
     color: #c4c4c4;
-    font-weight: normal; }
-  /* line 152, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    font-weight: normal;
+    width: 31%; }
+  /* line 155, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar .tips-box .col .sample {
     color: #fff;
     font-weight: normal;
-    width: 64%; }
-  /* line 158, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
-  .ss-search-bar .tips-box .col label {
-    width: 36%; }
+    width: 69%; }
   /* line 162, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
-  .ss-search-bar .tips-box .col {
-    width: 37%; }
-  /* line 166, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
   .ss-search-bar .tips-box .col:first-of-type {
-    width: 26%; }
+    width: 28%; }
+  /* line 166, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  .ss-search-bar .tips-box .col:first-of-type label {
+    width: 39%; }
+  /* line 170, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+  .ss-search-bar .tips-box .col:first-of-type .sample {
+    width: 61%; }
   @media (max-width: 768px) {
-    /* line 172, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 176, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .search-wrapper {
       padding: 10px 4px;
       margin-top: 50px; }
 
-    /* line 177, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 181, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .search-wrapper .search-inner input {
       width: 73%;
       height: 34px;
@@ -6966,7 +6974,7 @@ h1 {
       font-size: 14px;
       line-height: 1.42857; }
 
-    /* line 185, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 189, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .search-wrapper .search-inner button#search {
       padding: 6px 12px;
       margin-bottom: 0;
@@ -6974,7 +6982,7 @@ h1 {
       font-weight: 400;
       line-height: 1.42857; }
 
-    /* line 193, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 197, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .search-wrapper .search-inner button#tips {
       margin-right: 11px;
       margin-left: 11px;
@@ -6985,7 +6993,7 @@ h1 {
       line-height: 1.42857; }
  }
   @media (max-width: 992px) {
-    /* line 207, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 211, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .tips-box .col {
       border-top: 1px solid #595959;
       border-bottom: 1px solid #000;
@@ -6994,11 +7002,11 @@ h1 {
       padding-bottom: 15px;
       padding-top: 15px; }
 
-    /* line 216, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 220, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .tips-box .col:last-child {
       border-bottom: none; }
 
-    /* line 220, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
+    /* line 224, /Users/mike/marklogic-samplestack/browser/src/app/styles/directives/ss-search-bar */
     .ss-search-bar .tips-box .col:first-child {
       border-top: none; }
  }
