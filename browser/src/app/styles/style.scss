@@ -47,13 +47,15 @@
 .has-error {
   border: 1px solid #f00;
   padding: 5px;
+}
+
+.ss-global-error {
   font-size: 8pt;
+  margin-bottom: -($navbar-height);
 
   pre {
     font-size: 8pt;
   }
-
-  margin-bottom: -($navbar-height);
 }
 
 p.has-error {
