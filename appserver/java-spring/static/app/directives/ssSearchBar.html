@@ -23,8 +23,14 @@
       >
         <span class="glyphicon glyphicon-search"></span><span class="visible-md-inline visible-lg-inline">Search</span>
       </button>
-      <div class="search-clear hide">
-        <span class="glyphicon glyphicon-remove"></span>
+      <div
+        class="search-clear"
+        ng-show="searchbarText"
+      >
+        <span
+          class="glyphicon glyphicon-remove"
+          ng-click="searchbarText = null"
+        ></span>
       </div>
       <input
         class="search-input form-control input-lg"
