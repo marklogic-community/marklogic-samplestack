@@ -2,6 +2,7 @@
 
 > Understanding, Installing, running and developing the browser tier of marklogic-samplestack
 
+
 ## Understanding
 
 The Samplestack web application is built with AngularJS. It is built to run from a static web server and to access the Samplestack middle-tier via AJAX.
