@@ -1,6 +1,7 @@
-<div class="ss-question-metadata clearfix">
+<!-- for questions, answers -->
+<div class="ss-question-metadata clearfix" ng-if="docType != 'comment'">
 
-  <!-- date/user/reputation -->
+  <!-- date+user+reputation -->
   <div class="ss-question-info">
     <span class="started">
       <span ng-if="docType == 'question'">Asked</span>
@@ -29,7 +30,7 @@
   </div>
 
   <!-- question tags -->
-  <div class="ss-question-tags" ng-if="docType != 'comment'">
+  <div class="ss-question-tags">
       <a href="" ng-click="goTag(tag)" ng-repeat="tag in doc.tags">
         <span class="label label-default">{{tag}}</span>
       </a>
@@ -37,3 +38,29 @@
   </div>
 
 </div> <!-- ss-question-metadata -->
+
+<!-- for comments -->
+<span class="ss-question-metadata" ng-if="docType == 'comment'">
+
+  <!-- user+date -->
+  <span class="ss-comment-info started">
+    &mdash;
+    <span ng-if="!doc.owner || doc.owner.id == 'unknown'" class="ss-author">
+      author unknown
+    </span>
+    <span ng-if="doc.owner && doc.owner.id != 'unknown'" class="ss-author">
+      <a
+        ng-if="doc.owner.originalId === undefined"
+        href=""
+        ng-click="showContributor()"
+      >{{doc.owner.displayName}}</a>
+      <a
+        ng-if="!(doc.owner.originalId === undefined)"
+        href="{{soUserLink()}}"
+        target="_blank"
+      >{{doc.owner.displayName}}</a>
+    </span>
+    {{ formatDate(doc.creationDate) }}
+  </span>
+
+</span> <!-- ss-question-metadata -->
