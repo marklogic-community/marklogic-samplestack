@@ -25,7 +25,7 @@ define([
         var self = this;
         var s = ssSearch.create({
           criteria: { constraints: { dateStart: {
-            value: mlUtil.moment('2014-08-01')
+            value: mlUtil.moment('2014-08-01T00:00:00.000-05:00')
           } } }
         });
         $httpBackend.expectPOST(
@@ -37,7 +37,7 @@ define([
                 queries: [ {
                   'range-constraint-query': {
                     'constraint-name': 'lastActivity',
-                    'value': '2014-08-01T00:00:00.000',
+                    'value': mlUtil.moment('2014-08-01T00:00:00.000-05:00'),
                     'range-operator': 'GE'
                   }
                 } ]

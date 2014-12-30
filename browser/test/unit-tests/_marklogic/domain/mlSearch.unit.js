@@ -311,7 +311,7 @@ define([
               'and-query': { queries: [
                 { 'range-constraint-query' : {
                   'constraint-name': 'dummy',
-                  value: '2001-01-01T00:00:00.000'
+                  value: mlUtil.moment('2001-01-01T00:00:00Z')
                 } }
               ] }
             }
@@ -327,7 +327,7 @@ define([
                 constraintType: 'range',
                 queryStringName: 'dummy',
                 type: 'dateTime',
-                value: mlUtil.moment('2001-01-01')
+                value: mlUtil.moment('2001-01-01T00:00:00Z')
               }
             }
           }
@@ -409,13 +409,13 @@ define([
             dummy: {
               queryStringName: 'test-name',
               type: 'dateTime',
-              value: mlUtil.moment('2001-01-01')
+              value: mlUtil.moment('2001-01-01T00:00:00.000Z')
             }
           }
         } });
         s.getStateParams().should.have.property(
           'test-name',
-          mlUtil.moment('2001-01-01').toISOString().replace(/Z.*/, '')
+          mlUtil.moment('2001-01-01T00:00:00.000Z').toISOString()
         );
       });
 
@@ -541,7 +541,7 @@ define([
           a: 'yes',
           b: 'test',
           c: '1,2',
-          d: '2001-01-01',
+          d: mlUtil.moment('2001-01-01T00:00:00.000Z').toISOString(),
           e: '',
           f: '',
           g: '',
@@ -553,7 +553,8 @@ define([
 
         s.criteria.q.should.equal('stuff');
         expect(s.getCurrentPage()).to.equal(2);
-        s.criteria.constraints.should.deep.equal({
+
+        var expectation = {
           a: { type: 'boolean', queryStringName: 'a', value: true },
           b: { type: 'text', queryStringName: 'b', value: 'test' },
           c: {
@@ -565,7 +566,7 @@ define([
           d: {
             type: 'dateTime',
             queryStringName: 'd',
-            value: mlUtil.moment('2001-01-01')
+            value: mlUtil.moment('2001-01-01T00:00:00.000Z')
           },
           e: {
             type: 'enum',
@@ -592,7 +593,9 @@ define([
             queryStringName: 'i',
             value: false
           }
-        });
+        };
+        JSON.stringify(s.criteria.constraints)
+            .should.deep.equal(JSON.stringify(expectation));
       });
 
       it('should throw for unsupported methods', function () {

@@ -385,18 +385,14 @@ define(['app/module'], function (module) {
 
                 var dateToPickerStart = function (val) {
                   return val ?
-                      new Date(mlUtil.stripZone(
-                        mlUtil.moment(val))
-                      ) :
-                    null;
+                      new Date(mlUtil.moment(val)) :
+                      null;
                 };
 
                 var dateToPickerEnd = function (val) {
                   return val ?
-                      new Date(mlUtil.stripZone(
-                        mlUtil.moment(val).subtract('d', 1)
-                      )) :
-                    null;
+                      new Date(mlUtil.moment(val).subtract('d', 1)) :
+                      null;
                 };
 
                 if (newData.length) {
