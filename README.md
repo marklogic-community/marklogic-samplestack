@@ -1,10 +1,10 @@
 # marklogic-samplestack
 
-<img align="right" src="https://api.travis-ci.org/marklogic/marklogic-samplestack.svg?branch=develop"></src>
+<img align="right" src="https://api.travis-ci.org/marklogic/marklogic-samplestack.svg?branch=develop"></img>
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
-## README for Version 1.0.0-ea3.1
+## README for Version 1.0.0
 
 
 This release features a middle tier for the Java Enterprise Developer, implemented using Java, Spring, and Gradle.
@@ -36,7 +36,7 @@ Then, launch each of the tiers to get a feel for Samplestack's 3-tiered architec
 
 1) **Database**
 
-The current version of Samplestack runs on MarLogic 8.0 Early Acceess Release 3 (EA3). Download [MarkLogic server](http://ea.marklogic.com/download). For details, see the [MarkLogic Installation Guide](http://docs.marklogic.com/guide/installation/procedures#id_92457).
+The current version of Samplestack is intended to run with recent (on or after 2014-12-29) MarLogic 8.0 (trunk) nightly builds. See : https://root.marklogic.com/nightly/builds
 
 2) **Middle Tier - Application Server**
 
