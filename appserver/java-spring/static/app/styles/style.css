@@ -5299,23 +5299,8 @@ h1 {
 .highcharts {
   height: 240px; }
 
-.ss-filters-date header {
-  display: inline-block;
-  width: 100%; }
-  .ss-filters-date header h3 {
-    float: left;
-    position: relative; }
-  .ss-filters-date header .ss-clear-date {
-    cursor: pointer;
-    float: right;
-    margin: 21px 30px 0 0;
-    position: relative; }
 .ss-filters-date input {
-  display: inline-block;
-  margin: 0 6px;
-  padding: 1px;
-  text-align: center;
-  width: 33%; }
+  text-align: center; }
 
 ss-facet-tags .tags-module-search-wrapper .tags-module-search {
   border: 1px solid #ccc;

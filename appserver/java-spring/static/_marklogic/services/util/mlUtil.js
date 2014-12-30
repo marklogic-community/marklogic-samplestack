@@ -47,7 +47,24 @@ define([
 
   module.value('mlUtil', {
 
-    moment: moment,
+    moment: moment.utc,
+
+    /**
+     * @ngdoc method
+     * @name mlUtil#stripZone
+     * @param {object} dateish A JavaScript or `moment` date object
+     * @returns {string} an ISO8601 string representing the date, with time
+     * zone
+     * information removed.
+     *
+     * This function will be unnecessary when time zones and date string
+     * handling is fully implemented. For now, it is used to ensure that the
+     * middle tier doesn't get ISO8601 time zone information that it cannot
+     * process.
+     */
+    stripZone: function (dateish) {
+      return dateish.toISOString().replace(/Z.*$/, '');
+    },
 
     /**
      * @ngdoc method
