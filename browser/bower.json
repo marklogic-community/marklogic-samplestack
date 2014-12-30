@@ -31,7 +31,8 @@
     "ngMarkdown": "GrumpyWizards/ngMarkdown#c396e44b64d9e67f4dbc5626e2a645d36e87ed01",
     "requirejs-plugins": "1.0.3",
     "requirejs": "2.1.15",
-    "stacktrace-js": "0.6.4"
+    "stacktrace-js": "0.6.4",
+    "jstzdetect": "~1.0.6"
   },
   "devDependencies": {
     "chai-as-promised": "4.1.1",
@@ -82,6 +83,12 @@
       "main": [
         "highlight.pack.js",
         "styles/github.css"
+      ]
+    },
+    "jstzdetect": {
+      "main": [
+        "jstz.js",
+        "jstz.min.js"
       ]
     },
     "ng-tags-input": {
