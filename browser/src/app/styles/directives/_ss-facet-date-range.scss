@@ -4,28 +4,8 @@
 
 .ss-filters-date {
 
-  header {
-    display: inline-block;
-    width: 100%;
-
-    h3 {
-      float: left;
-      position: relative;
-    }
-
-    .ss-clear-date {
-      cursor: pointer;
-      float: right;
-      margin: 21px 30px 0 0;
-      position: relative;
-    }
-  }
-
   input {
-    display: inline-block;
-    margin: 0 6px;
-    padding: 1px;
     text-align: center;
-    width: 33%;
   }
+
 }
