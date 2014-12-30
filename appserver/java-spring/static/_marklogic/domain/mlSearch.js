@@ -442,8 +442,7 @@ define(['_marklogic/module'], function (module) {
               q.value = constraint.value;
             }
             if (constraint.type === 'dateTime') {
-              q.value = constraint.value.toISOString()
-                  .replace(/Z.*/, '');
+              q.value = constraint.value.toISOString();
             }
             if (constraint.type === 'boolean') {
               q.boolean = constraint.value;
@@ -542,7 +541,7 @@ define(['_marklogic/module'], function (module) {
             // the type conigured on the server while not expsoing the user
             // to times
             param[constraint.queryStringName] =
-                constraint.value.toISOString().replace(/Z.*/, '');
+                constraint.value.toISOString();
           }
         }
         if (constraint.type === 'boolean' ) {
@@ -645,7 +644,9 @@ define(['_marklogic/module'], function (module) {
         }
         if (constraint.type === 'dateTime') {
           if (trimmed && trimmed.length) {
-            constraint.value = mlUtil.moment(trimmed);
+            constraint.value = mlUtil.moment(
+              trimmed, [mlUtil.moment.ISO_8601, 'MM-DD-YYYY']
+            );
           }
           else {
             constraint.value = null;
