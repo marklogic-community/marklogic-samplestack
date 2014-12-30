@@ -40,8 +40,8 @@
 
 .ss-incomplete-message {
   max-width: $view-max-width;
-  text-align: center;
   position: absolute;
+  text-align: center;
 }
 
 .has-error {
@@ -52,6 +52,7 @@
 .ss-global-error {
   font-size: 8pt;
   margin-bottom: -($navbar-height);
+  margin-top: $navbar-height;
 
   pre {
     font-size: 8pt;
