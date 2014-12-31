@@ -14,6 +14,16 @@
     z-index: 1000;
   }
 
+  .nav-tabs li a {
+    border: 1px solid #ddd;
+    color: #79b;
+  }
+
+  .nav-tabs li.active a {
+    color: #333;
+    border-bottom-color: transparent;
+  }
+
   .markdown-toolbar {
     position: relative;
     top: -60px;

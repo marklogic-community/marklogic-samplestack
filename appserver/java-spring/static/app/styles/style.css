@@ -5477,6 +5477,12 @@ ss-qna-doc-metadata .ss-comment-info {
   .ss-markdown-wrapper .nav-tabs li {
     /* ensure above toolbar container */
     z-index: 1000; }
+  .ss-markdown-wrapper .nav-tabs li a {
+    border: 1px solid #ddd;
+    color: #79b; }
+  .ss-markdown-wrapper .nav-tabs li.active a {
+    color: #333;
+    border-bottom-color: transparent; }
   .ss-markdown-wrapper .markdown-toolbar {
     position: relative;
     top: -60px;
