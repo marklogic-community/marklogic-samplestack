@@ -164,17 +164,9 @@
     border-bottom:1px solid #ddd;
   }
 
-  .ss-answer-comment,
   .ss-answer-inner,
   .ss-answer-user-info {
     padding-bottom: 14px;
-  }
-
-  .ss-answer-comment {
-    border-top:1px dotted #ddd;
-    padding-top: 14px;
-    padding-left: 14px;
-    padding-right: 0;
   }
 
   hr {
@@ -210,10 +202,7 @@
   }
 
   textarea {
-    display: block;
-    width: 600px;
-    height: 60px;
-    margin: 4px 0 8px 2px;
+    margin-bottom: 10px;
   }
 
 }
