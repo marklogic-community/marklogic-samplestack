@@ -97,6 +97,7 @@
                     class="btn btn-default btn-xs"
                     ng-show="!showQuestionComment"
                     ng-click="showQuestionComment=true"
+                    ng-disabled="!store.session"
                   >Add a Comment</button>
 
                   <div ng-show="showQuestionComment">
@@ -225,6 +226,7 @@
                       class="btn btn-default btn-xs"
                       ng-show="!showAnswerComment[$index]"
                       ng-click="showAnswerComment[$index]=true"
+                      ng-disabled="!store.session"
                     >Add a Comment</button>
 
                     <div ng-show="showAnswerComment[$index]">
