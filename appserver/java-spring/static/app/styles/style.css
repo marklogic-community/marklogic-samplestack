@@ -4999,13 +4999,8 @@ h1 {
   .ss-answer-wrapper .ss-answer-inner {
     padding-top: 22px;
     border-bottom: 1px solid #ddd; }
-  .ss-answer-wrapper .ss-answer-comment, .ss-answer-wrapper .ss-answer-inner, .ss-answer-wrapper .ss-answer-user-info {
+  .ss-answer-wrapper .ss-answer-inner, .ss-answer-wrapper .ss-answer-user-info {
     padding-bottom: 14px; }
-  .ss-answer-wrapper .ss-answer-comment {
-    border-top: 1px dotted #ddd;
-    padding-top: 14px;
-    padding-left: 14px;
-    padding-right: 0; }
   .ss-answer-wrapper hr {
     margin: 0; }
 
@@ -5028,10 +5023,7 @@ h1 {
   margin: 8px 0 8px 2px;
   cursor: pointer; }
 .ss-add-comment textarea {
-  display: block;
-  width: 600px;
-  height: 60px;
-  margin: 4px 0 8px 2px; }
+  margin-bottom: 10px; }
 
 /* used across different views */
 .form-group-textarea {

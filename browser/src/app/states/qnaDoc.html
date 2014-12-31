@@ -103,12 +103,14 @@
                     <!-- final empty comment used for new comment -->
                     <textarea
                       ng-model="doc.comments[doc.comments.length - 1].text"
+                      placeholder="Enter your comment"
+                      class="form-control"
                     ></textarea>
                     <button
-                      class="btn btn-default btn-xs"
+                      class="btn btn-primary btn-xs"
                       ng-click="saveQuestionComment(doc.comments[doc.comments.length - 1])"
                     >
-                      Submit
+                      Submit Comment
                     </button>
                   </div>
                 </div> <!-- question-module-comment -->
@@ -206,7 +208,7 @@
         </div>
         <div class="row">
           <div class="col-xs-11">
-            <div class="ss-answer-comment">
+            <div class="ss-question-module-comment">
 
                 <div ng-repeat="comment in answer.comments">
                   <!-- ng-if to avoid displaying empty comment -->
@@ -229,14 +231,16 @@
                       <!-- final empty comment used for new comment -->
                       <textarea
                         ng-model="answer.comments[answer.comments.length - 1].text"
+                        placeholder="Enter your comment"
+                        class="form-control"
                       ></textarea>
                       <button
-                        class="btn btn-default btn-xs"
+                        class="btn btn-primary btn-xs"
                         ng-click="saveAnswerComment(
                           answer.comments[answer.comments.length - 1]
                         )"
                       >
-                        Submit
+                        Submit Comment
                       </button>
                     </div>
                   </div> <!-- question-module-comment -->
