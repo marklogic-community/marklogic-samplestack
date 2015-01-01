@@ -366,21 +366,6 @@ define(['app/module'], function (module) {
         return noneValid;
       };
 
-      /**
-       * @ngdoc method
-       * @name SsQnaDocObject#prototype.formatDate
-       * @param {string} str A date string to parse and reformat.
-       * @description Reformats a date for display.
-       */
-      SsQnaDocObject.prototype.formatDate = function (str) {
-        if (str && str.length) {
-          var date = mlUtil.moment(str);
-          return date.format('MMM D, \'YY') +
-              ' at ' + date.format('h:mm');
-
-        }
-      };
-
       var svc = mlModelBase.extend('SsQnaDocObject', SsQnaDocObject);
 
       svc.getOne = function (spec, contributorId) {
