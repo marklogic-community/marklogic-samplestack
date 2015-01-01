@@ -63,7 +63,29 @@ define(['app/module'], function (module) {
                   var date = mlUtil.moment(str);
                   return date.format('MMM D, \'YY') +
                       ' at ' + date.format('h:mm');
+                }
+              };
 
+              // Return human readable time since str date
+              // http://momentjs.com/docs/#/displaying/fromnow/
+              scope.formatDateRelative = function (str) {
+                if (str && str.length) {
+                  var date = mlUtil.moment(str);
+                  return date.fromNow();
+                }
+              };
+
+              // Return days between now and str date
+              scope.daysSince = function (str) {
+                if (str && str.length) {
+                  var date = mlUtil.moment(str);
+                  var now = mlUtil.moment();
+                  // duration() not avail on mlUtil.moment objects (???)
+                  //var days = mlUtil.moment.duration(date.diff(now), 'days');
+                  var days = Math.floor(
+                    (now.unix() - date.unix()) / (24 * 60 * 60)
+                  );
+                  return days;
                 }
               };
 
