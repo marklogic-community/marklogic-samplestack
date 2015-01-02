@@ -29,3 +29,27 @@
     width: 33%;
   }
 }
+
+.input-daterange {
+
+  .dropdown-menu {
+    table {
+       outline:none !important;
+    }
+
+    .btn { border:0px; }
+    .btn:active, .btn:focus { outline:none !important; box-shadow:none; }
+    .btn.active { box-shadow:none; background-color:#ffdb99; border-color:#ffb733; }
+    .btn.active:hover { background-color:darken(#ffdb99,10%); border-color:darken(#ffb733,10%); }
+    .btn.active .text-info { color:#333; }    
+
+    button.btn-info, 
+    button.btn-danger,
+    button.btn-success {
+      border:1px solid #ccc;
+      font-size: 10px;
+      color:#333;
+      background-color: white;
+    }
+  }
+}
