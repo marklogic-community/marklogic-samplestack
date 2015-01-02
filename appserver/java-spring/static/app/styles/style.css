@@ -4993,7 +4993,11 @@ h1 {
 
 /* answers */
 .ss-answer-wrapper {
-  padding-top: 14px; }
+  padding-top: 14px;
+  /* push answer anchors up to account for fixed navbar */ }
+  .ss-answer-wrapper .ss-answer-anchor {
+    position: relative;
+    top: -70px; }
   .ss-answer-wrapper .ss-answer-vote {
     padding-top: 6px; }
   .ss-answer-wrapper .ss-answer-inner {
