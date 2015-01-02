@@ -296,6 +296,7 @@
               type="button"
               class="btn btn-primary"
               ng-click="saveAnswer(doc.answers[doc.answers.length - 1])"
+              ng-disabled="!doc.answers[doc.answers.length - 1].text"
             >Post your answer</button>
           </div>
         </div>
