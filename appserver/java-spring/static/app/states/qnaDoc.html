@@ -110,6 +110,7 @@
                     <button
                       class="btn btn-primary btn-xs"
                       ng-click="saveQuestionComment(doc.comments[doc.comments.length - 1])"
+                      ng-disabled="!doc.comments[doc.comments.length - 1].text"
                     >
                       Submit Comment
                     </button>
@@ -245,6 +246,7 @@
                         ng-click="saveAnswerComment(
                           answer.comments[answer.comments.length - 1]
                         )"
+                        ng-disabled="!answer.comments[answer.comments.length - 1].text"
                       >
                         Submit Comment
                       </button>
