@@ -112,6 +112,7 @@ define(['app/module'], function (module) {
           criteria: {
             required: ['constraints'],
             properties: {
+              timezone: { type: [ 'string', null ] },
               sort: {
                 type: 'array',
                 items: {
@@ -199,6 +200,8 @@ define(['app/module'], function (module) {
             ];
           }
         }
+
+        base.timezone = window.jstz.determine().name();
 
         return base;
       };

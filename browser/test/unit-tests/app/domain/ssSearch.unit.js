@@ -42,7 +42,8 @@ define([
                   }
                 } ]
               }
-            }
+            },
+            timezone: window.jstz.determine().name()
           }
         ).respond(500);
         // keep it from trying to parse the reponse by sending an error,
@@ -72,7 +73,8 @@ define([
                   }
                 } ]
               }
-            }
+            },
+            timezone: window.jstz.determine().name()
           }
         ).respond(500);
         // keep it from trying to parse the reponse by sending an error,
