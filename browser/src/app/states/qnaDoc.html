@@ -137,8 +137,12 @@
   <div
     class="row ss-answer-wrapper"
     ng-repeat="answer in doc.answers"
-    id="ss-content-id-{{answer.id}}"
   >
+
+    <div
+      id="ss-content-id-{{answer.id}}"
+      class="ss-answer-anchor"
+    ></div>
 
     <section ng-if="answer.owner">
 

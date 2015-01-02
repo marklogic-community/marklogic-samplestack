@@ -155,6 +155,12 @@
 
   padding-top: 14px;
 
+  /* push answer anchors up to account for fixed navbar */
+  .ss-answer-anchor {
+    position: relative;
+    top: -1 * ($navbar-height + 20);
+  }
+
   .ss-answer-vote {
     padding-top:6px;
   }
