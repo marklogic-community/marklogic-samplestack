@@ -221,7 +221,10 @@ define(['app/module'], function (module) {
       };
 
       $scope.setPageTitle('doc');
-      $scope.searchbarText = appRouting.params.q ? appRouting.params.q : null;
+
+      // clear searchbar text when a qnaDoc is viewed
+      $scope.searchbarText = null;
+
       init();
 
     }
