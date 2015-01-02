@@ -53,16 +53,15 @@ define(['app/module'], function (module) {
           '<highchart class="highcharts ss-facet-date-range" ' +
           '  config="highchartsConfig"></highchart>' +
           '<div class="input-daterange input-group">' +
-          '<input ng-model=pickerDateStart type="text" ' +
+          '<input ng-model="pickerDateStart" type="text" ' +
           '  class="input-sm form-control ng-valid-date" ' +
           '  datepicker-popup="MM/dd/yyyy" ' +
           '  datepicker-options="dateStartOptions" ' +
           '  ng-change="applyPickerDates()" ' +
           '  ng-click="pickerOpen(\'dateStartOpened\')" ' +
           '  is-open="dateStartOpened" ' +
-          '  onfocus="this.blur()" ' +
           '  placeholder="{{dateStartPlaceholder}}" ' +
-          '  name="start" />' +
+          '  name="start" close-text="Close" />' +
 
           '<span class="input-group-addon">to</span>' +
 
@@ -73,10 +72,9 @@ define(['app/module'], function (module) {
           '  ng-change="applyPickerDates()"  ' +
           '  ng-click="pickerOpen(\'dateEndOpened\')" ' +
           '  is-open="dateEndOpened" ' +
-          '  onfocus="this.blur()" ' +
           '  placeholder="{{dateEndPlaceholder}}" ' +
           '  class="form-control ng-valid-date"' +
-          '  />' +
+          '  close-text="Close" />' +
           '</div>',
 
         scope: {
@@ -315,7 +313,7 @@ define(['app/module'], function (module) {
               formatYear: 'yy',
               startingDay: 1,
               showWeeks: false,
-              showButtonBar: false
+              showButtonBar: false              
             };
 
             scope.pickerOpen = function (scopeVar) {
@@ -325,14 +323,16 @@ define(['app/module'], function (module) {
 
             scope.applyPickerDates = function () {
               var foundChange = false;
-              if (assignIfDifferent(
-                mlUtil.moment(scope.pickerDateStart),
+              var dStart = mlUtil.moment(scope.pickerDateStart);
+              var dEnd = mlUtil.moment(scope.pickerDateEnd).add('d', 1);
+              if (dStart.isValid() && assignIfDifferent(
+                dStart,
                 scope.constraints.dateStart
               )) {
                 foundChange = true;
               }
-              if (assignIfDifferent(
-                mlUtil.moment(scope.pickerDateEnd).add('d', 1),
+              if (dEnd.isValid() && assignIfDifferent(
+                dEnd,
                 scope.constraints.dateEnd
               )) {
                 foundChange = true;
@@ -405,6 +405,10 @@ define(['app/module'], function (module) {
                   scope.dateEndPlaceholder = mlUtil.moment(
                     dateToPickerEnd(newData[newData.length - 1].x)
                   ).format('MM/DD/YYYY');
+                } 
+                else {
+                  scope.dateStartPlaceholder = null;
+                  scope.dateEndPlaceholder = null;
                 }
 
                 var pickerStart = scope.constraints.dateStart.value ?

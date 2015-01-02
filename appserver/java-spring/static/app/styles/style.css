@@ -5297,6 +5297,28 @@ h1 {
 .ss-filters-date input {
   text-align: center; }
 
+.input-daterange .dropdown-menu table {
+  outline: none !important; }
+.input-daterange .dropdown-menu .btn {
+  border: 0px; }
+.input-daterange .dropdown-menu .btn:active, .input-daterange .dropdown-menu .btn:focus {
+  outline: none !important;
+  box-shadow: none; }
+.input-daterange .dropdown-menu .btn.active {
+  box-shadow: none;
+  background-color: #ffdb99;
+  border-color: #ffb733; }
+.input-daterange .dropdown-menu .btn.active:hover {
+  background-color: #ffc966;
+  border-color: orange; }
+.input-daterange .dropdown-menu .btn.active .text-info {
+  color: #333; }
+.input-daterange .dropdown-menu button.btn-info, .input-daterange .dropdown-menu button.btn-danger, .input-daterange .dropdown-menu button.btn-success {
+  border: 1px solid #ccc;
+  font-size: 10px;
+  color: #333;
+  background-color: white; }
+
 ss-facet-tags .tags-module-search-wrapper .tags-module-search {
   border: 1px solid #ccc;
   border-radius: 3px; }
