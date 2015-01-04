@@ -87,12 +87,9 @@ module.exports = {
 
     sassParams = {
       includePaths: importDirs,
-      onError: ctx.errorHandler
-      //, outputStyle: 'compressed'
+      onError: ctx.errorHandler,
+      sourceMap: true
     };
-
-    // sassParams.sourceComments = 'map';
-    // sassParams.sourceMap = '';
 
     sassPipe = lazypipe()
       .pipe(
@@ -110,8 +107,8 @@ module.exports = {
         file.base = file.base.replace(/[\/\\]src/, '');
       });
 
-    return stream.pipe($.if('**/*.scss', sassPipe()));
-
+    var result = stream.pipe($.if('**/*.scss', sassPipe()));
+    return result;
   },
 
   embedLr: function (stream, port) {
