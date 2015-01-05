@@ -16,6 +16,7 @@
 package com.marklogic.samplestack.testing;
 
 import static org.junit.Assert.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,7 +36,8 @@ public class TagControllerTestImpl extends ControllerTests {
 	
 	public void testTagsAnonymousOK() throws Exception {
 		this.mockMvc.perform(
-				post("/v1/tags").contentType(MediaType.APPLICATION_JSON)
+				post("/v1/tags").with(csrf().asHeader())
+				        .contentType(MediaType.APPLICATION_JSON)
 						.content("{\"search\":{\"qtext\":\"true\"}}")
 						.accept(MediaType.APPLICATION_JSON)).andExpect(
 				status().isOk());
@@ -45,7 +47,8 @@ public class TagControllerTestImpl extends ControllerTests {
 		login("testC1@example.com", "c1");
 		MvcResult result = this.mockMvc
 				.perform(
-						post("/v1/tags").session((MockHttpSession) session)
+						post("/v1/tags").with(csrf().asHeader())
+						        .session((MockHttpSession) session)
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 		JSONAssert.assertEquals("{values-response:{name:\"tags\"}}", result
@@ -60,7 +63,8 @@ public class TagControllerTestImpl extends ControllerTests {
 		login("testC1@example.com", "c1");
 		MvcResult result = this.mockMvc
 				.perform(
-						post("/v1/tags").session((MockHttpSession) session)
+						post("/v1/tags").with(csrf().asHeader())
+						        .session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"forTag\":\"ada\",\"qtext\":[\"tag:test-data-tag\"]}}")
 								.accept(MediaType.APPLICATION_JSON))
@@ -77,7 +81,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	public void testTagsWithPageLength() throws Exception {
 		MvcResult result = this.mockMvc
 				.perform(
-						post("/v1/tags")
+						post("/v1/tags").with(csrf().asHeader())
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"pageLength\":1}}")
 								.accept(MediaType.APPLICATION_JSON))
@@ -95,7 +99,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	public void testStartLimitOrder() throws Exception {
 		MvcResult result = this.mockMvc
 				.perform(
-						post("/v1/tags")
+						post("/v1/tags").with(csrf().asHeader())
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"start\":3,"
 										+ "\"sort\":\"name\"}}")
@@ -112,7 +116,8 @@ public class TagControllerTestImpl extends ControllerTests {
 
 		MvcResult result = this.mockMvc
 				.perform(
-						post("/v1/tags").session((MockHttpSession) session)
+						post("/v1/tags").with(csrf().asHeader())
+						        .session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"start\":1,"
 										+ "\"sort\":\"frequency\","
@@ -129,7 +134,7 @@ public class TagControllerTestImpl extends ControllerTests {
 		@SuppressWarnings("unused")
 		MvcResult result = this.mockMvc
 				.perform(
-						post("/v1/tags")
+						post("/v1/tags").with(csrf().asHeader())
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"sort\":\"bug\"}}")
 								.accept(MediaType.APPLICATION_JSON))
