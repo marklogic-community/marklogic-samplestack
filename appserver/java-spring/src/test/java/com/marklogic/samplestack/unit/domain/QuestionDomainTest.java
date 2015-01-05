@@ -30,7 +30,7 @@ public class QuestionDomainTest {
 		initialQuestion.setTitle("title");
 		initialQuestion.setTags(new String[] {"tag1", "tag2"});
 		initialQuestion.setOwner(Utils.testC1.asSparseContributor());
-		String expected ="{answers:[],comments:[],acceptedAnswerId:null,accepted:false,creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b041\",displayName:\"testC1\",userName:\"testC1@marklogic.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
+		String expected ="{answers:[],comments:[],acceptedAnswerId:null,accepted:false,creationDate:null,id:null,voteCount:0,itemTally:0,lastActivityDate:null,owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b041\",displayName:\"testC1\",userName:\"testC1example.com\"},tags:[\"tag1\",\"tag2\"],text:\"text\",title:\"title\"}";
 		
 		JSONAssert.assertEquals(expected, mapper.writeValueAsString(initialQuestion),
 				false);
@@ -47,7 +47,7 @@ public class QuestionDomainTest {
 		answer.setOwner(Utils.testC1.asSparseContributor());
 		Date now = new Date();
 		answer.setCreationDate(now);
-		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) + "\",id:\"/answers/134\",text:\"text\",itemTally:0,comments:[],owner:{displayName:\"testC1\",userName:\"testC1@marklogic.com\"}}";
+		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) + "\",id:\"/answers/134\",text:\"text\",itemTally:0,comments:[],owner:{displayName:\"testC1\",userName:\"testC1example.com\"}}";
 		JSONAssert.assertEquals(expected, mapper.writeValueAsString(answer), false);
 	}
 	
@@ -58,7 +58,7 @@ public class QuestionDomainTest {
 		comment.setOwner(Utils.testC1.asSparseContributor());
 		Date now = new Date();
 		comment.setCreationDate(now);
-		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) +"\",text:\"Comment Text\",owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b041\",displayName:\"testC1\",userName:\"testC1@marklogic.com\"}}";
+		String expected = "{creationDate:\""+ ISO8601Formatter.format(now) +"\",text:\"Comment Text\",owner:{id:\"cf99542d-f024-4478-a6dc-7e723a51b041\",displayName:\"testC1\",userName:\"testC1example.com\"}}";
 		JSONAssert.assertEquals(expected, mapper.writeValueAsString(comment), false);
 	}
 }

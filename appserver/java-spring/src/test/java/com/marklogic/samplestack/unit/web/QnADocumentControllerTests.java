@@ -122,5 +122,11 @@ public class QnADocumentControllerTests extends QnADocumentControllerTestImpl {
 	public void testAnonymousAccessToAccepted() throws Exception {
 		//not a mockable test
 	}
+	
+	@Override
+	@Test
+	public void testIncludeTimezone() throws JsonProcessingException, Exception {
+		super.testIncludeTimezone();
+	}
 
 }

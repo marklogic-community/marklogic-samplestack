@@ -60,9 +60,9 @@ public class ContributorServiceIT extends MarkLogicIntegrationIT {
 		Utils.compareContributors("Compare simple store and retrieve", c1, c2);
 
 		StringQueryDefinition qdef = new StringQueryDefinitionImpl("contributors");
-		qdef.setCriteria("cgreer@marklogic.com");
+		qdef.setCriteria("cgreerexample.com");
 		Contributor contributor = contributorService.search(qdef, 1).iterator().next();
-		assertEquals("Retrieved one conributor", "cgreer@marklogic.com", contributor.getUserName());
+		assertEquals("Retrieved one conributor", "cgreerexample.com", contributor.getUserName());
 
 		PojoPage<Contributor> contributorPage = contributorRepository.readAll(1);
 		@SuppressWarnings("unused")

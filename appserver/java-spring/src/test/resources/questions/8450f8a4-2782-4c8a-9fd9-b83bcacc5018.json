@@ -8,7 +8,7 @@
             "owner": {
                 "displayName": "testC1",
                 "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
-                "userName": "testC1@marklogic.com"
+                "userName": "testC1example.com"
             },
             "text": "My first answer to a question"
         }
@@ -19,7 +19,7 @@
             "owner": {
                 "displayName": "testC1",
                 "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
-                "userName": "testC1@marklogic.com"
+                "userName": "testC1example.com"
             },
             "text": "This question is ludicrous."
         }
@@ -31,7 +31,7 @@
     "owner": {
         "displayName": "testA1",
         "id": "9611450a-0663-45a5-8a08-f1c71320475e",
-        "userName": "testA1@marklogic.com"
+        "userName": "testA1example.com"
     },
     "tags": [
         "ada",

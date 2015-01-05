@@ -194,7 +194,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		String secondAnswerId = answeredTwiceQuestion.getJson().get("answers")
 				.get(1).get("id").asText();
 
-		Contributor testA1 = contributorService.getByUserName("testA1@marklogic.com");
+		Contributor testA1 = contributorService.getByUserName("testA1example.com");
 		int marysReputation = testA1.getReputation();
 		acceptedQuestion = service.accept(firstAnswerId);
 		
@@ -204,7 +204,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		assertTrue("The question is marked as accepted", acceptedQuestion
 				.getJson().get("accepted").asBoolean());
 		
-		testA1 = contributorService.getByUserName("testA1@marklogic.com");
+		testA1 = contributorService.getByUserName("testA1example.com");
 		
 		assertEquals("Owner of accepted question got reputation boost", marysReputation + 1, testA1.getReputation() );
 		
@@ -212,7 +212,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 				lastActivityString.equals(acceptedQuestion.getJson().get("lastActivityDate").asText()));
 		lastActivityString = acceptedQuestion.getJson().get("lastActivityDate").asText();
 		
-		Contributor testC1 = contributorService.getByUserName("testC1@marklogic.com");
+		Contributor testC1 = contributorService.getByUserName("testC1example.com");
 		int joesReputation = testC1.getReputation();
 		
 		// accept another answer
@@ -222,8 +222,8 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		assertTrue("The question is marked as accepted", acceptedQuestion
 				.getJson().get("accepted").asBoolean());
 		
-		testA1 = contributorService.getByUserName("testA1@marklogic.com");
-		testC1 = contributorService.getByUserName("testC1@marklogic.com");
+		testA1 = contributorService.getByUserName("testA1example.com");
+		testC1 = contributorService.getByUserName("testC1example.com");
 		
 		assertFalse("The question has updated lastActivity Date",
 				lastActivityString.equals(acceptedQuestion.getJson().get("lastActivityDate").asText()));
@@ -285,7 +285,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		// c1 votes a1 answer down, her rep should be -1
 		// c1 hasVotedOn answerId
-		service.voteDown(contributorService.getByUserName("testC1@marklogic.com"), answerId);
+		service.voteDown(contributorService.getByUserName("testC1example.com"), answerId);
 		QnADocument votedTwiceOn = service.get(
 				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
 		int newerScore = votedTwiceOn.getJson().get("voteCount").asInt();

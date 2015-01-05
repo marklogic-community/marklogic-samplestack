@@ -56,7 +56,7 @@ public class ContributorTest {
 		assertEquals(Utils.testC1UUID, testC1.getId());
 		assertEquals("Barrow", testC1.getLocation());
 		// assertEquals(0, joe.getReputation());
-		assertEquals("testC1@marklogic.com", testC1.getUserName());
+		assertEquals("testC1example.com", testC1.getUserName());
 		// assertEquals(0, joe.getVotes().size());
 		assertEquals("http://website.com/grechaw", testC1.getWebsiteUrl());
 	}
@@ -65,7 +65,7 @@ public class ContributorTest {
 	public void testSparseContributor() throws JsonProcessingException {
 		SparseContributor sparseJoe = Utils.testC1.asSparseContributor();
 		assertEquals("testC1", sparseJoe.getDisplayName());
-		assertEquals("testC1@marklogic.com", sparseJoe.getUserName());
+		assertEquals("testC1example.com", sparseJoe.getUserName());
 		String sparseToString = mapper.writeValueAsString(sparseJoe);
 		assertFalse("Some text about a basic user", sparseToString.contains("Some text about"));
 	}

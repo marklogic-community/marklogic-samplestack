@@ -55,7 +55,7 @@ public class HasVotedControllerIT extends HasVotedControllerTestImpl {
 	@Test
 	public void verifyIntegrationVoting() throws Exception {
 
-		login("testC1@marklogic.com", "c1");
+		login("testC1example.com", "c1");
 		this.mockMvc.perform(get("/v1/hasVoted")
 				.param("contributorId", Utils.testC1.getId())
 				.param("questionId", testData.testA1QuestionIds.get(0))

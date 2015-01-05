@@ -288,6 +288,11 @@ public class QnADocumentController {
 			}
 			structuredQuery.remove("qtext");
 		}
+		JsonNode postedTimeZone = structuredQuery.get("timezone");
+		if (postedTimeZone != null) {
+			// TODO work with time zone.
+			structuredQuery.remove("timezone");
+		}
 		// TODO review for presence/absense of date facet as performance question.
 		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, qtext, true);
 	}
