@@ -111,7 +111,7 @@ public class LoginTestsImpl extends ControllerTests {
 		
 		logout();
 		mockMvc.perform(
-				post("/v1/contributors").session((MockHttpSession) session).locale(
+				post("/v1/contributors").with(csrf().asHeader()).session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isUnauthorized());
 		
