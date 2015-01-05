@@ -33,7 +33,7 @@ public class Utils {
 		Contributor contributor = new Contributor();
 		contributor.setAboutMe("Some text about a basic user");
 		contributor.setId(basicUserUUID);
-		contributor.setUserName("cgreer@marklogic.com");
+		contributor.setUserName("cgreerexample.com");
 		contributor.setDisplayName("grechaw");
 		contributor.setWebsiteUrl("http://website.com/grechaw");
 		contributor.setLocation("Barrow");
@@ -57,7 +57,7 @@ public class Utils {
 	static {
 		testC1 = Utils.getBasicUser();
 		testC1.setDisplayName("testC1");
-		testC1.setUserName("testC1@marklogic.com");
+		testC1.setUserName("testC1example.com");
 
 		testC1.setId(testC1UUID);
 		testC1.getVotes().put("5dce8909-0972-4289-93cd-f2e8790a17fb", 1);
@@ -66,7 +66,7 @@ public class Utils {
 
 		testA1 = Utils.getBasicUser();
 		testA1.setDisplayName("testA1");
-		testA1.setUserName("testA1@marklogic.com");
+		testA1.setUserName("testA1example.com");
 		testA1.setId(testA1UUID);
 
 		testA1.getVotes().put("778d0b9c-419f-496a-a300-44815d79708d", -1);

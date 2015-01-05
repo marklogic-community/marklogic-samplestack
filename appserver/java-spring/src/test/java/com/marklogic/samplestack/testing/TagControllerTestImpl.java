@@ -42,7 +42,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	}
 
 	public void testTagsNoArgs() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1example.com", "c1");
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags").session((MockHttpSession) session)
@@ -57,7 +57,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	 * isolate test data from seed data.
 	 */
 	public void testTagsWithArgument() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1example.com", "c1");
 		MvcResult result = this.mockMvc
 				.perform(
 						post("/v1/tags").session((MockHttpSession) session)
@@ -108,7 +108,7 @@ public class TagControllerTestImpl extends ControllerTests {
 	}
 
 	public void testLoggedInSortFrequency() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1example.com", "c1");
 
 		MvcResult result = this.mockMvc
 				.perform(
