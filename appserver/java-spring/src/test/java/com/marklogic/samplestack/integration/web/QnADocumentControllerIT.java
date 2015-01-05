@@ -159,4 +159,9 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 		super.testAnonymousAccessToAccepted();
 	}
 
+	@Override
+	@Test
+	public void testIncludeTimezone() throws JsonProcessingException, Exception {
+		super.testIncludeTimezone();
+	}
 }
