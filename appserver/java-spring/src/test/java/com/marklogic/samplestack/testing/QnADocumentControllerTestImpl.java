@@ -29,6 +29,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -92,7 +93,6 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 				.getContentAsString();
 		logger.debug(questionResponse);
 		JSONAssert.assertEquals("{snippet-format:\"snippet\"}", questionResponse, false);
-	
 	}
 
 
@@ -451,6 +451,28 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"text\":\"no comment.\"}"))
 				.andExpect(status().isNotFound());
+	}
+
+
+	/**
+	 * Support for timezone is an extra key from the browser layer.
+	 * @throws Exception 
+	 * @throws JsonProcessingException 
+	 * TODO actually implement
+	 */
+	public void testIncludeTimezone() throws JsonProcessingException, Exception {
+
+		JsonNode testTimezoneQuery = getTestJson("queries/test-timezone-query.json");
+
+		login("testC1@marklogic.com", "c1");
+
+		MockHttpServletResponse result = this.mockMvc
+				.perform(
+						post("/v1/search").with(csrf()).session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content(mapper.writeValueAsString(testTimezoneQuery)))
+				.andExpect(status().isOk()).andReturn().getResponse();
+
 	}
 
 }

@@ -1,0 +1,20 @@
+{
+    "query": {
+        "and-query": {
+            "queries": [
+                {
+                    "range-constraint-query": {
+                        "constraint-name": "tag",
+                        "value": "test-data-tag"
+                    }
+                }
+            ]
+        },
+        "qtext": [
+            "",
+            "sort:active"
+        ]
+    },
+    "start": 1,
+    "timezone": "America/Los_Angeles"
+}
