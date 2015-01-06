@@ -65,17 +65,6 @@ define([
         }
       );
 
-      it(
-        'should be able to add a comment',
-        function () {
-          var qnaDoc = ssQnaDoc.create(validQnaDoc);
-          var answer = ssAnswer.create(validComment, qnaDoc);
-          answer.addComment(validComment, answer);
-          // Comment is added to the end of comments array
-          expect(answer.comments[answer.comments.length - 1].text).
-            to.equal(validComment.text);
-        }
-      );
     });
   };
 

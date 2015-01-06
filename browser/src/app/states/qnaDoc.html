@@ -262,7 +262,7 @@
         </div>
       </div>
 
-      <div class="row" ng-if="$index < (doc.answers.length - 2)">
+      <div class="row">
         <div class="col-xs-12">
           <div class="ss-answer-divider"><hr></div>
         </div>
@@ -286,29 +286,28 @@
       to submit an answer to this question.</p>
     </div> <!-- !canAnswer() -->
 
-    <!-- final empty answer used for new answer -->
-    <div ng-if="canAnswer()">
-      <div class="row clearfix">
-        <div class="col-md-1 col-sm-2 col-xs-3 clearfix">&nbsp;</div>
-          <div class="col-md-10 col-sm-10 col-xs-9 markdown-controls clearfix">
-            <div
-              ss-markdown-editor
-              content="doc.answers[doc.answers.length - 1].text"
-              placeholder="Enter Your Answer"
-            ></div>
+  <!-- final empty answer used for new answer -->
+  <div ng-if="canAnswer()">
+    <div class="row clearfix">
+      <div class="col-md-1 col-sm-2 col-xs-3 clearfix">&nbsp;</div>
+        <div class="col-md-10 col-sm-10 col-xs-9 markdown-controls clearfix">
+          <div
+            ss-markdown-editor
+            content="draftAnswer.text"
+          ></div>
 
-            <div class="form-group">
-              <button
-                type="button"
-                class="btn btn-primary"
-                ng-click="saveAnswer(doc.answers[doc.answers.length - 1])"
-                ng-disabled="!doc.answers[doc.answers.length - 1].text"
-              >Post your answer</button>
-            </div>
+          <div class="form-submit">
+            <button
+              type="button"
+              class="btn btn-primary"
+              ng-click="saveAnswer(draftAnswer)"
+              ng-disabled="draftAnswer.$ml.invalid"
+            >Post your answer</button>
           </div>
         </div>
       </div>
-    </div> <!-- canAnswer() -->
+    </div>
+  </div> <!-- canAnswer() -->
 
   </div><!-- ss-answer-form -->
 

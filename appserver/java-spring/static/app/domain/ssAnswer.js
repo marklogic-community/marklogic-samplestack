@@ -23,9 +23,6 @@ define(['app/module'], function (module) {
       $q, mlModelBase, mlSchema, mlUtil, ssComment,
       ssVote, ssAcceptedAnswer
     ) {
-
-      var self;
-
       /**
        * @ngdoc type
        * @name SsAnswerObject
@@ -41,12 +38,19 @@ define(['app/module'], function (module) {
        * @description Constructor. Uses default implementation.
        */
       var SsAnswerObject = function (spec, parent) {
-        self = this;
         mlModelBase.object.call(this, spec, parent);
       };
       SsAnswerObject.prototype = Object.create(
         mlModelBase.object.prototype
       );
+
+      // Define hasVotedOn property as the return value of the parent
+      // document's hasVoted method.
+      Object.defineProperty(SsAnswerObject.prototype, 'hasVotedOn', {
+        get: function () {
+          return this.$ml.parent.hasVoted(this.id);
+        }
+      });
 
       /**
        * @ngdoc method
@@ -56,7 +60,7 @@ define(['app/module'], function (module) {
        * @param {object} userInfo userInfo from session.
        */
       SsAnswerObject.prototype.vote = function (val, userInfo) {
-        var vote = ssVote.create({upDown: val}, self);
+        var vote = ssVote.create({upDown: val}, this);
         if (vote.$ml.valid) {
           return vote.post().$ml.waiting.then(function () {
             userInfo.voteCount++;
@@ -73,7 +77,7 @@ define(['app/module'], function (module) {
        * @description Accepts the answer.
        */
       SsAnswerObject.prototype.accept = function () {
-        var acceptedAnswer = ssAcceptedAnswer.create({}, self);
+        var acceptedAnswer = ssAcceptedAnswer.create({}, this);
         if (acceptedAnswer.$ml.valid) {
           acceptedAnswer.post().$ml.waiting.then(function () {
             // Do nothing more on success
@@ -90,7 +94,7 @@ define(['app/module'], function (module) {
        * @description Sets answer as having been voted on.
        */
       SsAnswerObject.prototype.setVoted = function () {
-        self.$ml.parent.setVoted(self.id);
+        this.$ml.parent.setVoted(this.id);
       };
 
       SsAnswerObject.prototype.$mlSpec = {
@@ -119,30 +123,17 @@ define(['app/module'], function (module) {
 
         // Replace comments with ssComment objects
         angular.forEach(data.comments, function (comment, index) {
-          data.comments[index] = ssComment.create(comment, self);
+          data.comments[index] = ssComment.create(comment, this);
         });
         // Add empty ssComment object for posting new comment
         data.comments = data.comments || [];
-        data.comments[data.comments.length] = ssComment.create({}, self);
+        data.comments[data.comments.length] = ssComment.create({}, this);
 
-        mlUtil.merge(self, data);
-        self.testValidity();
-      };
+        mlUtil.merge(this, data);
 
-      /**
-       * @ngdoc method
-       * @name SsAnswerObject#prototype.addComment
-       * @description Adds new ssComment object to end of comments array
-       * @param {object} data Comment data.
-       * @param {object} parent Comment parent.
-       */
-      SsAnswerObject.prototype.addComment = function (data, parent) {
-        self.comments = self.comments || []; // Ensure an comments array exists
-        self.comments[self.comments.length] = ssComment.create(data, parent);
-      };
+        this.comments.draft = this.comments.draft || ssComment.create({}, this);
 
-      SsAnswerObject.prototype.preconstruct = function (spec, parent) {
-        // validate that parent is an ssQnaDoc object
+        this.testValidity();
       };
 
       SsAnswerObject.prototype.getResourceName = function (httpMethod) {
@@ -154,15 +145,18 @@ define(['app/module'], function (module) {
        * @name SsAnswerObject#prototype.getHttpUrl
        * @description Returns URL string for accessing REST endpoint based
        * on HTTP method. Overrides mlModelBase method since the referencing
-       * the parent object in the URL is required.
+       * the parent object in the URL is required. Ends up posting to
+       * /v1/questions/{questionid}/answers (given current
+       * parent resource name). This could be genericized as a means to deal
+       * with posting of nested resources generally.
        * @param {string} httpMethod HTTP method.
        */
       SsAnswerObject.prototype.getHttpUrl = function (httpMethod) {
         switch (httpMethod) {
           case 'POST':
-            return '/' + self.$ml.parent.getResourceName(httpMethod) +
-            self.$ml.parent.getEndpointIdentifier(httpMethod) +
-            '/' + self.getResourceName(httpMethod);
+            return '/' + this.$ml.parent.getResourceName(httpMethod) +
+            this.$ml.parent.getEndpointIdentifier(httpMethod) +
+            '/' + this.getResourceName(httpMethod);
           default:
             throw new Error(
               'unsupported http method passed to getEndpoint: ' + httpMethod
@@ -178,7 +172,7 @@ define(['app/module'], function (module) {
        * @param {string} data Response data
        */
       SsAnswerObject.prototype.onResponsePOST = function (data) {
-        self.$ml.parent.onResponsePOST(data);
+        this.$ml.parent.onResponsePOST(data);
       };
 
       return mlModelBase.extend('SsAnswerObject', SsAnswerObject);

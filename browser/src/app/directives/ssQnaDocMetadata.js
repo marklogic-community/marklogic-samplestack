@@ -58,9 +58,8 @@ define(['app/module'], function (module) {
                     null;
               };
 
-              scope.formatDate = function (str) {
-                if (str && str.length) {
-                  var date = mlUtil.moment(str);
+              scope.formatDate = function (date) {
+                if (date) {
                   return date.format('MMM D, \'YY') +
                       ' at ' + date.format('H:mm');
                 }
@@ -68,24 +67,16 @@ define(['app/module'], function (module) {
 
               // Return human readable time since str date
               // http://momentjs.com/docs/#/displaying/fromnow/
-              scope.formatDateRelative = function (str) {
-                if (str && str.length) {
-                  var date = mlUtil.moment(str);
+              scope.formatDateRelative = function (date) {
+                if (date) {
                   return date.fromNow();
                 }
               };
 
               // Return days between now and str date
-              scope.daysSince = function (str) {
-                if (str && str.length) {
-                  var date = mlUtil.moment(str);
-                  var now = mlUtil.moment();
-                  // duration() not avail on mlUtil.moment objects (???)
-                  //var days = mlUtil.moment.duration(date.diff(now), 'days');
-                  var days = Math.floor(
-                    (now.unix() - date.unix()) / (24 * 60 * 60)
-                  );
-                  return days;
+              scope.daysSince = function (date) {
+                if (date) {
+                  return mlUtil.moment().diff(date, 'days');
                 }
               };
 

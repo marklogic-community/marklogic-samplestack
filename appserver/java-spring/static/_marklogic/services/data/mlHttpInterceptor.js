@@ -1,4 +1,4 @@
-define(['_marklogic/module'], function (module) {
+define(['_marklogic/module', 'moment'], function (module, moment) {
 
   /**
    * @ngdoc provider
@@ -163,11 +163,41 @@ define(['_marklogic/module'], function (module) {
     }
   ]);
 
+  var regexIso8601;
+  /* jshint ignore:start */
+  regexIso8601 = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+  /* jshint ignore:end */
+
+  // courtesy
+  var convertDateStringsToDates = function (input) {
+    var key;
+    // Ignore things that aren't objects.
+    if (typeof input === 'object') {
+      /* jshint -W089 */
+      for (key in input) {
+        var value = input[key];
+        var match;
+        // Check for string properties which look like dates.
+        if (typeof value === 'string' && (match = value.match(regexIso8601))) {
+          input[key] = moment(value, moment.ISO_8601);
+        }
+        else {
+          // Recurse into object
+          convertDateStringsToDates(value);
+        }
+      }
+    }
+  };
+
   // add mlHttpInterceptor to interceptors list of $httpProvider
   module.config([
     '$httpProvider',
     function ($httpProvider) {
       $httpProvider.interceptors.push('mlHttpInterceptor');
+      $httpProvider.defaults.transformResponse.push(function (responseData) {
+        convertDateStringsToDates(responseData);
+        return responseData;
+      });
     }
   ]);
 

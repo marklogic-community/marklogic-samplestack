@@ -70,49 +70,23 @@ define(['app/module'], function (module) {
        */
       SsQnaDocObject.prototype.mergeData = function (data) {
         var self = this;
-        // Replace answers with ssAnswer objects
+        data.answers = data.answers || [];
         angular.forEach(data.answers, function (answer, index) {
           data.answers[index] = ssAnswer.create(answer, self);
         });
-        // Add empty ssAnswer object for posting new answer
-        data.answers = data.answers || [];
-        data.answers[data.answers.length] = ssAnswer.create({}, self);
 
-        // Replace comments with ssComment objects
+        data.comments = data.comments || [];
         angular.forEach(data.comments, function (comment, index) {
           data.comments[index] = ssComment.create(comment, self);
         });
-        // Add empty ssComment object for posting new comment
-        data.comments = data.comments || [];
-        data.comments[data.comments.length] = ssComment.create({}, self);
 
-        mlUtil.merge(self, data);
+        mlUtil.merge(this, data);
+
+        this.answers.draft = this.answers.draft || ssAnswer.create({}, this);
+        this.comments.draft = this.comments.draft || ssComment.create({}, this);
         this.testValidity();
       };
 
-      /**
-       * @ngdoc method
-       * @name SsQnaDocObject#prototype.addAnswer
-       * @description Adds new ssAnswer object to end of answers array
-       * @param {object} data Answer data.
-       * @param {object} parent Answer parent.
-       */
-      SsQnaDocObject.prototype.addAnswer = function (data, parent) {
-        this.answers = this.answers || []; // Ensure an answers array exists
-        this.answers[this.answers.length] = ssAnswer.create(data, parent);
-      };
-
-      /**
-       * @ngdoc method
-       * @name SsQnaDocObject#prototype.addComment
-       * @description Adds new ssComment object to end of comments array
-       * @param {object} data Comment data.
-       * @param {object} parent Comment parent.
-       */
-      SsQnaDocObject.prototype.addComment = function (data, parent) {
-        this.comments = this.comments || []; // Ensure an comments array exists
-        this.comments[this.comments.length] = ssComment.create(data, parent);
-      };
 
       /**
        * @ngdoc method
@@ -144,19 +118,23 @@ define(['app/module'], function (module) {
       };
 
       SsQnaDocObject.prototype.sort = function () {
-
-        this.answers.sort(function (answer1, answer2) {
-          // do not sort empty answers, keep those as-is at end of array
-          if (answer1.id === undefined || answer2.id === undefined) {
-            return 0;
-          }
-          if (answer1.id === this.acceptedAnswerId) {
+        var self = this;
+        self.answers.sort(function (answer1, answer2) {
+          if (answer1.id === self.acceptedAnswerId) {
             return -1;
           }
-          if (answer2.id === this.acceptedAnswerId) {
+          if (answer2.id === self.acceptedAnswerId) {
             return 1;
           }
-          return (answer2.itemTally || 0) - (answer1.itemTally || 0);
+          var tallyDiff = (answer2.itemTally || 0) - (answer1.itemTally || 0);
+          if (tallyDiff) {
+            // more votes first
+            return tallyDiff;
+          }
+          else {
+            // chronological
+            return  answer1.creationDate - answer2.creationDate;
+          }
         });
 
         this.comments.sort(function (comment1, comment2) {
@@ -226,6 +204,23 @@ define(['app/module'], function (module) {
         });
 
         this.sort();
+      };
+
+      SsQnaDocObject.prototype.getHttpDataPOST = function () {
+        var base = _.clone(
+          mlModelBase.object.prototype.getHttpDataPOST.call(this)
+        );
+
+        // qnaDoc itself shouldn't go posting draft content -- that is
+        // done from within the nested resources.
+        //
+        // would be nice if lodash had a "deepOmit" function, but faster to
+        // do it manually absent that
+        base.answers && delete base.answers.draft;
+        _.each(base.answers, function (ans) {
+          ans.comments && delete ans.comments.draft;
+        });
+        return base;
       };
 
       SsQnaDocObject.prototype.onResponsePOST = function (

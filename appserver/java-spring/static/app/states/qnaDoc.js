@@ -54,6 +54,8 @@ define(['app/module'], function (module) {
               $scope.showAnswerComment[index] = false;
             });
 
+            $scope.draftAnswer = ssAnswer.create({}, $scope.doc);
+
           },
           function (error) {
             // so the layout can stop showing its spinner
@@ -154,15 +156,8 @@ define(['app/module'], function (module) {
       };
 
       $scope.answersCountLabel = function () {
-        var count = 0;
-        if ($scope.doc  && $scope.doc.answers) {
-          for (var i = 0; i < $scope.doc.answers.length; i++) {
-            // don't count empty answer object used for new answer
-            count += ($scope.doc.answers[i].id) ? 1 : 0;
-          }
-        }
-        var plural = count !== 1;
-        return count + (plural ? ' Answers' : ' Answer');
+        var len = $scope.doc.answers.length;
+        return len + (len === 1 ? ' Answer' : ' Answers');
       };
 
       $scope.marked = function (text) {
@@ -175,20 +170,22 @@ define(['app/module'], function (module) {
 
       $scope.saveAnswer = function (answer) {
         if (answer.$ml.valid) {
-          answer.post().$ml.waiting.then(function () {
-            // Create new empty answer object for answer form
-            $scope.doc.addAnswer({}, $scope.doc);
-          },
-          function (error) {
-            if (error.status === 401) {
-              $scope.setLocalError(
-                'User does not have permission to answer questions'
-              );
+          answer.post().$ml.waiting.then(
+            function () {
+              // Create new empty answer object for answer form
+              $scope.draftAnswer = ssAnswer.create({}, $scope.doc);
+            },
+            function (error) {
+              if (error.status === 401) {
+                $scope.setLocalError(
+                  'User does not have permission to answer questions'
+                );
+              }
+              else {
+                throw new Error('Error occurred: ' + JSON.stringify(error));
+              }
             }
-            else {
-              throw new Error('Error occurred: ' + JSON.stringify(error));
-            }
-          });
+          );
         }
       };
 
@@ -274,4 +271,14 @@ define(['app/module'], function (module) {
 
   ]);
 
+  module.animation('.ss-answer-wrapper', function () {
+    return {
+      move : function (element, done) {
+        window.jQuery('body, html').animate(
+          { scrollTop: element.offset().top },
+          { done: done, duration: 500 }
+        );
+      }
+    };
+  });
 });
