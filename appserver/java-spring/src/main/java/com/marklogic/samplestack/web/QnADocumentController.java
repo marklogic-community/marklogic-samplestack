@@ -74,10 +74,10 @@ public class QnADocumentController {
 		if (q == null) {
 			q = "sort:active";
 		}
-		ObjectNode structuredQuery = mapper.createObjectNode();
-		ObjectNode qtext = structuredQuery.putObject("query");
+		ObjectNode combinedQuery = mapper.createObjectNode();
+		ObjectNode qtext = combinedQuery.putObject("search");
 		qtext.put("qtext",q);
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, null, true);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), combinedQuery, start, true);
 	}
 
 	/**
@@ -264,37 +264,37 @@ public class QnADocumentController {
 	
 	/**
 	 * Exposes an endpoint for searching QnADocuments.
-	 * @param structuredQuery A JSON structured query.
+	 * @param combinedQuery A JSON combined query.
 	 * @param start The index of the first result to return.
 	 * @return A Search Results JSON response.
 	 */
 	@RequestMapping(value = "v1/search", method = RequestMethod.POST)
 	public @ResponseBody
-	JsonNode search(@RequestBody ObjectNode structuredQuery,
+	JsonNode search(@RequestBody ObjectNode combinedQuery,
 			@RequestParam(defaultValue = "1", required = false) long start) {
 
-		ArrayNode qtext = mapper.createArrayNode();
-		JsonNode postedStartNode = structuredQuery.get("start");
+		ObjectNode combinedQueryObject = (ObjectNode) combinedQuery.get("search");
+		JsonNode postedStartNode = combinedQueryObject.get("start");
 		if (postedStartNode != null) {
 			start = postedStartNode.asLong();
-			structuredQuery.remove("start");
+			combinedQueryObject.remove("start");
 		}
-		JsonNode postedQtextNode = structuredQuery.get("qtext");
-		if (postedQtextNode != null) {
-			if (postedQtextNode.isTextual()) {
-				qtext.add(postedQtextNode);  // just one qtext
-			} else if (postedQtextNode.isArray()) {
-				qtext.addAll((ArrayNode) postedQtextNode);
-			}
-			structuredQuery.remove("qtext");
-		}
-		JsonNode postedTimeZone = structuredQuery.get("timezone");
+//		JsonNode postedQtextNode = combinedQuery.get("qtext");
+//		if (postedQtextNode != null) {
+//			if (postedQtextNode.isTextual()) {
+//				qtext.add(postedQtextNode);  // just one qtext
+//			} else if (postedQtextNode.isArray()) {
+//				qtext.addAll((ArrayNode) postedQtextNode);
+//			}
+//			combinedQuery.remove("qtext");
+//		}
+		JsonNode postedTimeZone = combinedQueryObject.get("timezone");
 		if (postedTimeZone != null) {
 			// TODO work with time zone.
-			structuredQuery.remove("timezone");
+			combinedQueryObject.remove("timezone");
 		}
 		// TODO review for presence/absense of date facet as performance question.
-		return qnaService.rawSearch(ClientRole.securityContextRole(), structuredQuery, start, qtext, true);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), combinedQuery, start, true);
 	}
 
 }
