@@ -202,7 +202,7 @@ public class DatabaseQnADocumentSearchIT {
             "displayName": "Mary Admin",
             "id": "9611450a-0663-45a5-8a08-f1c71320475e",
             "reputation": 0,
-            "userName": "mary@marklogic.com"
+            "userName": "mary@example.com"
         },
         "snippets": [
             [

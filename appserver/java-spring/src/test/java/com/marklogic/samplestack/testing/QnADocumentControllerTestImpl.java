@@ -71,7 +71,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 
 	public void testLoggedInCanSearch() throws UnsupportedEncodingException, Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 
 		String questionResponse = this.mockMvc
 				.perform(get("/v1/questions")
@@ -118,7 +118,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	public void testAskMalformedQuestions() throws JsonProcessingException,
 			Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 
 		// send a contributor to the questions endpoint
 		this.mockMvc.perform(
@@ -138,7 +138,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	 */
 	
 	public void testAskQuestion() throws JsonProcessingException, Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 
 		askQuestion();
 
@@ -165,7 +165,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	public void commentOnQuestion() throws Exception {
 
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 
 		this.mockMvc
@@ -182,7 +182,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 	private void answerQuestion() throws Exception {
 		if (answeredQuestion == null) {
-			login("testC1@marklogic.com", "c1");
+			login("testC1@example.com", "c1");
 
 			String docId = askedQuestion.getId().replace(".json", "");
 			logger.debug(docId);
@@ -225,7 +225,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	
 	public void commentOnAnswer() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		answerQuestion();
 		String answerId = answeredQuestion.getJson().get("answers").get(0)
@@ -250,7 +250,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	
 	public void voteUpQuestion() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		this.mockMvc
 				.perform(
@@ -268,7 +268,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	
 	public void voteDownQuestion() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		this.mockMvc
 				.perform(
@@ -286,7 +286,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	
 	public void voteUpAnswer() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		answerQuestion();
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
@@ -308,7 +308,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	
 	public void voteDownAnswer() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		answerQuestion();
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
@@ -334,7 +334,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	
 	
 	public void testAcceptAnswer() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		answerQuestion();
 
@@ -343,10 +343,10 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
 		String firstAnswerId = answer.get("id").asText();
 
-		login("testA1@marklogic.com", "a1");
+		login("testA1@example.com", "a1");
 		failAcceptQuestion(docId, firstAnswerId);
 
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		QnADocument acceptedQuestion = succeedAcceptQuestion(docId,
 				firstAnswerId);
 
@@ -387,7 +387,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	 */
 	
 	public void testAnonymousAccessToAccepted() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		askQuestion();
 		answerQuestion();
 
@@ -414,7 +414,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 		assertEquals("Only stock acceped question for anonymous. ", 2, results.get("results")
 				.size());
 
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 
 		this.mockMvc
 				.perform(
@@ -442,7 +442,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 
 	public void badUrlCommentThrows404() throws Exception {
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 		this.mockMvc
 				.perform(
 						post("/v1/questions/soqnotaquestion22138139/answers/soa22141114/comments")
@@ -464,7 +464,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		JsonNode testTimezoneQuery = getTestJson("queries/test-timezone-query.json");
 
-		login("testC1@marklogic.com", "c1");
+		login("testC1@example.com", "c1");
 
 		MockHttpServletResponse result = this.mockMvc
 				.perform(

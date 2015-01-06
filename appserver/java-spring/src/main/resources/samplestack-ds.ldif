@@ -8,59 +8,59 @@ objectclass: top
 objectclass: organizationalUnit
 ou: people
 
-dn: uid=testC1@marklogic.com,ou=people,dc=samplestack,dc=org
+dn: uid=testC1@example.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Test User
 sn: User
-uid: testC1@marklogic.com
+uid: testC1@example.com
 userPassword: c1
 
-dn: uid=joe@marklogic.com,ou=people,dc=samplestack,dc=org
+dn: uid=joe@example.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Joe User
 sn: User
-uid: joe@marklogic.com
+uid: joe@example.com
 userPassword: joesPassword
 
-dn: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
+dn: uid=testA1@example.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Test Admin
 sn: User
-uid:testA1@marklogic.com
+uid:testA1@example.com
 userPassword: a1
 
-dn: uid=mary@marklogic.com,ou=people,dc=samplestack,dc=org
+dn: uid=mary@example.com,ou=people,dc=samplestack,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Mary Admin
 sn: User
-uid: mary@marklogic.com
+uid: mary@example.com
 userPassword: marysPassword
 
 dn: cn=admins,ou=groups,dc=samplestack,dc=org
 objectclass: groupOfNames
 cn: admins
 ou: groups
-uniqueMember: uid=mary@marklogic.com,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=mary@example.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=testA1@example.com,ou=people,dc=samplestack,dc=org
 
 dn: cn=contributors,ou=groups,dc=samplestack,dc=org
 objectclass: groupOfNames
 cn: contributors
 ou: groups
-uniqueMember: uid=joe@marklogic.com,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=mary@marklogic.com,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=testC1@marklogic.com,ou=people,dc=samplestack,dc=org
-uniqueMember: uid=testA1@marklogic.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=joe@example.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=mary@example.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=testC1@example.com,ou=people,dc=samplestack,dc=org
+uniqueMember: uid=testA1@example.com,ou=people,dc=samplestack,dc=org
 

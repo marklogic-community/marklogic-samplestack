@@ -77,8 +77,8 @@ The middle-tier appserver will be running on port 8090
 
 You can use the browser application at
 http://localhost:8090.  The two valid users are
-joe@marklogic.com/joesPassword and
-mary@marklogic.com/marysPassword
+joe@example.com/joesPassword and
+mary@example.com/marysPassword
 
 Here are the endpoints supported by the middle tier appserver:
 
