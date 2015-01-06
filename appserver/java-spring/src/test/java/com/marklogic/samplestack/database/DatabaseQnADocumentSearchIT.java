@@ -99,11 +99,11 @@ public class DatabaseQnADocumentSearchIT {
 	public void defaultSearchOrdersByActivityDescending() {
 		ObjectNode query = mapper.createObjectNode();
 		@SuppressWarnings("unused")
-		ObjectNode queryNode = query.putObject("query");
-		ArrayNode qtext = mapper.createArrayNode();
+		ObjectNode queryNode = query.putObject("search");
+		ArrayNode qtext = queryNode.putArray("qtext");
 		qtext.add("tag:test-data-tag sort:active");  // the controller tier adds this if no query specified
 		ObjectNode results = qnaService.rawSearch(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, qtext, false);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, false);
 		assertTrue("Need data to test searches", results.size() > 0);
 
 		ArrayNode resultsArray = (ArrayNode) results.get("results");
@@ -123,10 +123,10 @@ public class DatabaseQnADocumentSearchIT {
 	@Test
 	public void guestSearchSeesOnlyResolvedQuestions() {
 		ObjectNode query = mapper.createObjectNode();
-		ObjectNode queryNode = query.putObject("query");
+		ObjectNode queryNode = query.putObject("search");
 		queryNode.put("qtext", "tag:test-data-tag");
 		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_GUEST,
-				query, 1, null, false);
+				query, 1, false);
 		assertEquals("Guest sees only approved docs", results.get("results")
 				.size(), 2);
 	}
@@ -134,10 +134,10 @@ public class DatabaseQnADocumentSearchIT {
 	@Test
 	public void authenticatedSearchSeesUnresolvedQuestions() {
 		ObjectNode query = mapper.createObjectNode();
-		ObjectNode queryNode = query.putObject("query");
-		queryNode.put("qtext", "tag:test-data-tag");
+		ObjectNode searchNode = query.putObject("search");
+		searchNode.put("qtext", "tag:test-data-tag");
 		ObjectNode results = qnaService.rawSearch(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, null, false);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, searchNode, 1, false);
 		assertEquals("Logged-in user sees all docs in page", results.get("results")
 				.size(), 10);
 	}
@@ -151,11 +151,14 @@ public class DatabaseQnADocumentSearchIT {
 	
 	@Test
 	public void testConfiguredStringSearches() throws JsonProcessingException {
-		ArrayNode qtexts = mapper.createArrayNode();
+
+		ObjectNode docNode = mapper.createObjectNode();
+		ObjectNode searchNode = docNode.putObject("search");
+		ArrayNode qtexts = searchNode.putArray("qtext");
 		qtexts.add("answeredBy:x");
 		qtexts.add("commentedBy:y");
 		qtexts.add("askedBy:z");
-		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, null, 1, qtexts, false);
+		ObjectNode results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, docNode, 1, false);
 		String resultsString =  mapper.writeValueAsString(results);
 		assertTrue(resultsString.contains("path-range-query"));  // if turn off search debug this will fail.
 	}
@@ -164,10 +167,10 @@ public class DatabaseQnADocumentSearchIT {
 	@Test
 	public void testResponseExtracts() throws JsonProcessingException {
 		ObjectNode query = mapper.createObjectNode();
-		ObjectNode queryNode = query.putObject("query");
+		ObjectNode queryNode = query.putObject("search");
 		queryNode.put("qtext", "tag:test-data-tag");
 		ObjectNode results = qnaService.rawSearch(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, null, false);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, query, 1, false);
 		ArrayNode qnaResults = (ArrayNode) results.get("results");
 		Iterator<JsonNode> i = qnaResults.iterator();
 		assertTrue("Need results to test results.", qnaResults.size() > 0);
@@ -245,12 +248,12 @@ public class DatabaseQnADocumentSearchIT {
 		try {
 			query = (ObjectNode) mapper
 					.readValue(
-							"{\"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"text\":true}}}",
+							"{\"search\":"
+							+ "{\"qtext\":\"tag:test-data-tag\","
+							+ " \"query\":{\"value-constraint-query\":{\"constraint-name\":\"resolved\",\"text\":true}}}}",
 							JsonNode.class);
-			ArrayNode qtext = mapper.createArrayNode();
-			qtext.add("tag:test-data-tag");
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, qtext, false);
+					query, 1, false);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 
@@ -268,12 +271,13 @@ public class DatabaseQnADocumentSearchIT {
 		ObjectNode query;
 		ObjectNode results = null;
 		try {
-			query = (ObjectNode) mapper.readValue("{\"qtext\":\"tag:test-data-tag\", "
+			query = (ObjectNode) mapper.readValue("{\"search\":"
+					+ "{\"qtext\":\"tag:test-data-tag\", "
 					+ "\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
 					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
-					+ "\"range-operator\":\"GT\"}}}", JsonNode.class);
+					+ "\"range-operator\":\"GT\"}}}}", JsonNode.class);
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1);
 
@@ -287,13 +291,14 @@ public class DatabaseQnADocumentSearchIT {
 		assertEquals("JSON has 0 result", 0, results.get("total").asInt());
 
 		try {
-			query = (ObjectNode) mapper.readValue("{\"query\":"
+			query = (ObjectNode) mapper.readValue("{\"search\":"
+					+ "{\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
 					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
-					+ "\"range-operator\":\"LT\"}}}", JsonNode.class);
+					+ "\"range-operator\":\"LT\"}}}}", JsonNode.class);
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					query, 1, null, true);
+					query, 1, true);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 

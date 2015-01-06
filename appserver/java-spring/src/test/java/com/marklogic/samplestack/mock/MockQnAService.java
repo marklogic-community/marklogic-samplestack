@@ -91,9 +91,9 @@ public class MockQnAService  extends MockServiceBase implements QnAService {
 	}
 
 	@Override
-	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
-			long start, ArrayNode qtxt, boolean includeDates) {
-		return rawSearch(role, structuredQuery, start);
+	public ObjectNode rawSearch(ClientRole role, ObjectNode combinedQuery,
+			long start, boolean includeDates) {
+		return rawSearch(role, combinedQuery, start);
 	}
 
 

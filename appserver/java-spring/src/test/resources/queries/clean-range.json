@@ -1,4 +1,5 @@
-{"query":
+{"search": {
+  "query":
     {"range-query":
         {
             "type":"xs:dateTime",
@@ -7,4 +8,5 @@
         	"range-operator":"GE"
     	}
 	}
+  }
 }
