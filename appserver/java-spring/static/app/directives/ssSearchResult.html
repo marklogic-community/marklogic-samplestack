@@ -8,7 +8,10 @@
         ng-bind-template="{{::item.content.voteCount ? item.content.voteCount : '0' }}"
       ></span>
     </div>
-    <div class="ss-votes-answers answered">
+    <div
+      class="ss-votes-answers"
+      ng-class="{ 'answered': item.content.accepted }"
+    >
       <span
         ng-bind-template="{{::item.content.answerCount}}"
       >

@@ -118,7 +118,7 @@ define(['app/module'], function (module) {
         if (!$scope.store.session) {
           return false;
         }
-        return $scope.store.session.id === $scope.doc.owner.id;
+        return $scope.store.session.userInfo.id === $scope.doc.owner.id;
       };
 
      /**
