@@ -29,7 +29,10 @@
   </div> <!-- tags-module-search-wrapper -->
 
   <!-- selected tags -->
-  <div class="selected-tags" >
+  <div
+    class="selected-tags"
+    ng-show="toArray(selTags).length"
+  >
     <div
       class="checkbox"
       ng-repeat="tag in toArray(selTags) | orderBy:sort"
