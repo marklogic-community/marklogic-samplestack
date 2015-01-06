@@ -6,7 +6,7 @@
       <div ng-if="search.results.total > 0">
         <!-- results summary in search mode -->
         <div class="ss-search-results-mode" ng-if="searchMode()">
-          Search Results:
+          Search Results<span ng-if="filterMode()"> (filtered)</span>:
           <span
             class="ss-search-results-count"
             ng-bind-template="{{search.results.total | number:0}}"
@@ -20,7 +20,7 @@
             class="ss-search-results-count"
             ng-bind-template="{{search.results.total | number:0}}"
           ></span>
-          Questions
+          Questions<span ng-if="filterMode()"> (filtered)</span>
         </div>
       </div>
       <!-- no results -->
