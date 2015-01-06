@@ -32,7 +32,7 @@ define([
       //   'aboutMe': 'Some text about a basic user',
       //   'id': 'cf99542d-f024-4478-a6dc-7e723a51b040',
       //   'location': null,
-      //   'userName': 'joeUser@marklogic.com',
+      //   'userName': 'joeUser@example.com',
       //   'votes': [],
       //   'role': ['SAMPLESTACK_CONTRIBUTOR']
       // }, { 'X-CSRF-TOKEN': 'some token' });

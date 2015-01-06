@@ -8,7 +8,7 @@
     "owner": {
         "displayName": "testJoeUser",
         "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
-        "userName": "testJoeUser@marklogic.com"
+        "userName": "testJoeUser@example.com"
     },
     "tags": [
         "ada",
