@@ -4956,6 +4956,8 @@ h1 {
 .ss-vote-module .ss-accept .ss-accepted, .ss-vote-module .ss-accept .ss-unaccepted {
   font-size: 30px;
   color: #3abc9a; }
+.ss-vote-module .ss-accept .ss-unaccepted {
+  cursor: pointer; }
 
 /* question */
 .ss-question-module-wrapper, .ss-question-module-inner {

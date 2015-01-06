@@ -183,7 +183,7 @@
           <!-- accept answer -->
           <div class="ss-accept text-center" >
             <div
-              class="ss-accepted"
+              class="ss-unaccepted"
               ng-if="canAcceptAnswer(answer) &&
                      answer.id != doc.acceptedAnswerId"
               ng-click="accept(answer)"
@@ -191,7 +191,7 @@
               <span class="glyphicon glyphicon-ok-circle"></span>
             </div>
             <div
-              class="ss-unaccepted"
+              class="ss-accepted"
               ng-if="answer.id == doc.acceptedAnswerId"
             >
               <span class="glyphicon glyphicon-ok-sign"></span>
