@@ -39,7 +39,7 @@ public class MockContributorAddOnService implements ContributorService {
 	@Override
 	public Contributor getByUserName(String userName) {
 		// for one real values test in login
-		if (userName.equals("testC1@marklogic.com")) {
+		if (userName.equals("testC1@example.com")) {
 			return Utils.testC1;
 		} else {
 			Contributor newContributor = new Contributor();

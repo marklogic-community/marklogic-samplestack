@@ -117,7 +117,7 @@ public class ControllerTests {
 
 	protected void askQuestion() throws Exception {
 		if (askedQuestion == null) {
-			login("testC1@marklogic.com", "c1");
+			login("testC1@example.com", "c1");
 
 			QnADocument qnaDoc = new QnADocument(mapper,
 					"Mary's Question Number 0", "I ask questions", "tag1",

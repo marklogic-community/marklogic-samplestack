@@ -46,10 +46,10 @@ public class MockApplicationSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder authManagerBuilder)
 			throws Exception {
 		authManagerBuilder.inMemoryAuthentication()
-				.withUser("testC1@marklogic.com")
+				.withUser("testC1@example.com")
 					.password("c1")
 					.roles("CONTRIBUTORS").and()
-				.withUser("testA1@marklogic.com")
+				.withUser("testA1@example.com")
 					.password("a1")
 					.roles("CONTRIBUTORS", "ADMINS");
 	}

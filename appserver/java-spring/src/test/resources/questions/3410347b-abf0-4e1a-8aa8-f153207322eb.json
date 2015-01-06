@@ -8,7 +8,7 @@
             "owner": {
       			  "displayName": "testJoeUser",
      			  "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
-    		 	  "userName": "testJoeUser@marklogic.com"
+    		 	  "userName": "testJoeUser@example.com"
     		},
             "text": "My third answer to a question"
         }
@@ -23,7 +23,7 @@
     "owner": {
         "displayName": "testMaryAdmin",
         "id": "9611450-0663-45a5-8a08-f1c71320475f",
-        "userName": "testMaryAdmin@marklogic.com"
+        "userName": "testMaryAdmin@example.com"
     },
     "tags": [
         "javascript",
