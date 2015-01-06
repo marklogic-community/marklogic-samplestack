@@ -8,7 +8,7 @@
 <form ng-submit="authenticate()">
   <div class="modal-body">
     <p
-      class="ss-login-failed has-error login-failed"
+      class="ss-login-failed alert alert-danger"
       ng-if="error && !(session.password && session.password.length)"
     >
       {{error}}
