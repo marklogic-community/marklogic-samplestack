@@ -22,6 +22,10 @@ define(['app/module'], function (module) {
         scope.setQueryText = function () {
           scope.$emit('setQueryText', { queryText: scope.searchbarText });
         };
+        scope.clearSearch = function () {
+          scope.searchbarText = null;
+          scope.showTips = false;
+        };
         scope.showTips = false;
       }
     };
