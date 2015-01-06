@@ -85,6 +85,15 @@ define(['app/module'], function (module) {
           scope.searchMode = function () {
             return scope.search.criteria.q;
           };
+
+          // returns true if any filters are set
+          scope.filterMode = function () {
+            return scope.search.criteria.constraints.userName.value ||
+              scope.search.criteria.constraints.resolved.value ||
+              scope.search.criteria.constraints.dateStart.value ||
+              scope.search.criteria.constraints.dateEnd.value ||
+              scope.search.criteria.constraints.tags.values;
+          };
         }
       };
     }
