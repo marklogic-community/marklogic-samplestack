@@ -25,6 +25,7 @@ define(['app/module'], function (module) {
         scope.clearSearch = function () {
           scope.searchbarText = null;
           scope.showTips = false;
+          scope.setQueryText(); // reset mode to browse
         };
         scope.showTips = false;
       }
