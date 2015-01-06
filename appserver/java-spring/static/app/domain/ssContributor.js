@@ -45,6 +45,13 @@ define(['app/module'], function (module) {
         mlModelBase.object.prototype
       );
 
+      // Define voteCount property as number of properties in votes object.
+      Object.defineProperty(SsContributorObject.prototype, 'voteCount', {
+        get: function () {
+          return Object.keys(this.votes).length;
+        }
+      });
+
       var parseVote = function (vote, hash, testOnly) {
         var match;
         var question;
