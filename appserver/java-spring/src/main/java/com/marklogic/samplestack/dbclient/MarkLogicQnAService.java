@@ -308,16 +308,18 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 
 	@Override
 	public ObjectNode rawSearch(ClientRole role, ObjectNode structuredQuery,
-			long start, ArrayNode qtext, boolean includeDateFacet) {
+			long start, boolean includeDateFacet) {
 		ObjectNode docNode = mapper.createObjectNode();
 		ObjectNode searchNode = docNode.putObject("search");
 		if (structuredQuery != null) {
-			searchNode.setAll(structuredQuery);
+			if (structuredQuery.get("search") != null) {
+				searchNode.setAll((ObjectNode) structuredQuery.get("search"));
+			}
 		}
-		if (qtext != null) {
-			ArrayNode qtextNode = searchNode.putArray("qtext");
-			qtextNode.addAll(qtext);
-		}
+//		if (qtext != null) {
+//			ArrayNode qtextNode = searchNode.putArray("qtext");
+//			qtextNode.addAll(qtext);
+//		}
 		String period = "";
 		if (includeDateFacet) {
 			ObjectNode options = searchNode.putObject("options");
@@ -430,7 +432,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 	// TODO date facet is default ON now. open issue is to control state from
 	// browser.
 	public ObjectNode rawSearch(ClientRole role, ObjectNode query, long start) {
-		return rawSearch(role, query, start, null, false);
+		return rawSearch(role, query, start, false);
 	}
 
 	@Override

@@ -62,11 +62,11 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 
 	@After
 	public void cleanupEachTest() throws JsonParseException, JsonMappingException, IOException {
-		ObjectNode structuredQuery = mapper.readValue(new ClassPathResource("queries/clean-range.json").getInputStream(), ObjectNode.class);
-		ObjectNode rangeQueryNode = (ObjectNode) structuredQuery.get("query").get("range-query");
+		ObjectNode combinedQuery = mapper.readValue(new ClassPathResource("queries/clean-range.json").getInputStream(), ObjectNode.class);
+		ObjectNode rangeQueryNode = (ObjectNode) combinedQuery.get("search").get("query").get("range-query");
 		rangeQueryNode.put("value", ISO8601Formatter.format(deleteSince));
 
-		ObjectNode joesQuestions = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, structuredQuery, 1);
+		ObjectNode joesQuestions = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR, combinedQuery, 1);
 		List<String> toDelete = joesQuestions.findValuesAsText("id");
 		for (String d : toDelete) {
 			logger.debug("Cleaning up from qnatests " + d);
