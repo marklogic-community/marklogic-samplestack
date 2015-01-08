@@ -313,7 +313,7 @@ define(['app/module'], function (module) {
               formatYear: 'yy',
               startingDay: 1,
               showWeeks: false,
-              showButtonBar: false              
+              showButtonBar: false
             };
 
             scope.pickerOpen = function (scopeVar) {
@@ -362,11 +362,7 @@ define(['app/module'], function (module) {
                   // we display the *shadow* counts, not the counts
                   // that result from applying this directive's criteria
                   newData.push({
-                    x: Date.UTC(
-                      item.shadow.name.substring(0,4),
-                      item.shadow.name.substring(4,6) - 1,
-                      1
-                    ),
+                    x: mlUtil.moment(item.shadow.name, 'YYYYMM').toDate(),
                     y: item.shadow.count
                   });
 
@@ -385,7 +381,7 @@ define(['app/module'], function (module) {
 
                 var dateToPickerStart = function (val) {
                   return val ?
-                      new Date(mlUtil.moment(val)) :
+                      val :
                       null;
                 };
 
@@ -405,7 +401,7 @@ define(['app/module'], function (module) {
                   scope.dateEndPlaceholder = mlUtil.moment(
                     dateToPickerEnd(newData[newData.length - 1].x)
                   ).format('MM/DD/YYYY');
-                } 
+                }
                 else {
                   scope.dateStartPlaceholder = null;
                   scope.dateEndPlaceholder = null;
