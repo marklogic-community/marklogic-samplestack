@@ -134,7 +134,7 @@ define(['app/module'], function (module) {
                   // if there isnn't an actual constraint, we start selecting
                   // at the first point
                   if (!selectionStart) {
-                    selectionStart = allPoints[0].x;
+                    selectionStart = mlUtil.moment(allPoints[0].x);
                   }
 
                   // same principles for the end point as for the start point
@@ -149,7 +149,8 @@ define(['app/module'], function (module) {
                     // for to select to end by adding a month to the date
                     // of the last bar
                     selectionEnd =
-                        allPoints[allPoints.length - 1].x + 1;
+                        mlUtil.moment(allPoints[allPoints.length - 1].x)
+                        .add(1, 'M');
                   }
 
                   // make the selection assignments based on whether a point
@@ -202,9 +203,9 @@ define(['app/module'], function (module) {
                 var newStart;
                 var newEnd;
                 if (event.xAxis) {
-                  newStart = mlUtil.moment(event.xAxis[0].min).startOf('d');
+                  newStart = mlUtil.moment(event.xAxis[0].min).startOf('M');
                   newEnd = mlUtil.moment(event.xAxis[0].max)
-                      .startOf('d').add('d', 1);
+                      .startOf('M').add('M', 1);
                 }
                 else {
                   newStart = mlUtil.moment(event.point.x);
