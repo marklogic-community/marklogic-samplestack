@@ -100,8 +100,6 @@ define(['app/module'], function (module) {
             var chartUpdateSelections = function (event) {
               var i;
 
-              // $timeout(function () {
-
               // do nothing if there isn't date data
               // TODO: show some sort of message instead of a blank chart
 
@@ -146,9 +144,10 @@ define(['app/module'], function (module) {
                   if (isNaN(selectionEnd)) {
                     selectionEnd = null;
                   }
-                  // scope.dateEnd = selectionEnd;
+
                   if (!selectionEnd) {
-                    // for to select to end by adding one to the date
+                    // for to select to end by adding a month to the date
+                    // of the last bar
                     selectionEnd =
                         allPoints[allPoints.length - 1].x + 1;
                   }
@@ -161,17 +160,12 @@ define(['app/module'], function (module) {
                     var isPointIn = pointVal >= selectionStart &&
                         pointVal < selectionEnd;
                     // assign point selected status. second param is whether
-                    // or
-                    // not
-                    // to accumulate the selections (as opposed to allowing
-                    // the
-                    // selection of one point to unselect another)
+                    // or not to accumulate the selections (as opposed to
+                    // allowing the selection of one point to unselect another)
                     allPoints[i].select(isPointIn, true);
                   }
                 }
-
               }
-              // });
               return false; // no more jquery event handling
             };
 
