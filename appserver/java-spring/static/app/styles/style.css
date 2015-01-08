@@ -4737,7 +4737,8 @@ h1 {
 
 .ss-page-footer {
   border-top: 1px solid #ddd;
-  padding: 10px 10px 10px 10px; }
+  padding: 10px 10px 10px 10px;
+  clear: both; }
   .ss-page-footer p {
     font-size: 10px;
     color: #666; }
@@ -4896,7 +4897,8 @@ h1 {
     /* outline: 0; */ }
 
 .ss-qnadoc {
-  margin-top: 20px; }
+  margin-top: 20px;
+  margin-bottom: 20px; }
   .ss-qnadoc h1 {
     font-size: 36px; }
 
