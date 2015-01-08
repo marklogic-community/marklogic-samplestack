@@ -21,10 +21,16 @@ define([
       restrict: 'A',
       templateUrl: '/app/directives/ssMarkdownEditor.html',
       scope: {
-        content: '=content'
+        content: '=content',
+        placeholder: '@placeholder'
       },
       link: function (scope, el, attr) {
         scope.selTab = 'edit';
+        // Display prompt by adding placeholder attribute to markdown textarea
+        if (scope.placeholder) {
+          document.getElementsByClassName("markdown-input")[0]
+            .setAttribute("placeholder", scope.placeholder);
+        }
       }
     };
   }]);
