@@ -1,3 +1,6 @@
+
+
+
 define(['app/module'], function (module) {
 
   /* jshint ignore:start */
@@ -268,6 +271,9 @@ define(['app/module'], function (module) {
                 },
 
                 tooltip: {
+                  backgroundColor:'#191919',
+                  borderColor:'#191919',
+                  style: { color: '#fff' },
                   formatter: function () {
                     /* jshint ignore:start */
                     return '<strong>' +
