@@ -89,10 +89,17 @@ define(['app/module'], function (module) {
                 }
               };
 
+              // tag click sets tags critieria to that tag, clears all else
               scope.goTag = function (tag) {
                 appRouting.go(
                   'root.layout.explore.results',
-                  { tags: tag }
+                  {
+                    'tags': tag,
+                    'resolved': null,
+                    'contributor': null,
+                    'date-ge': null,
+                    'date-lt': null
+                  }
                 );
               };
 
