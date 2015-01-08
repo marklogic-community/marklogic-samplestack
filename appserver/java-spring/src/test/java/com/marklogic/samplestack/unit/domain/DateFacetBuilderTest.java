@@ -21,6 +21,11 @@ public class DateFacetBuilderTest {
 	
 	@Test
 	@Ignore
+	/**
+	 * Not in use for Samplestack 1.0.0
+	 * @throws JsonProcessingException
+	 * @throws JSONException
+	 */
 	public void testDayBuilder() throws JsonProcessingException, JSONException {
 		ObjectMapper mapper = new CustomObjectMapper();
 		DateTime minDate = new DateTime(2013, 1, 31, 0, 0);
@@ -36,6 +41,11 @@ public class DateFacetBuilderTest {
 
 	@Test
 	@Ignore
+	/**
+	 * Not in use for Samplestack 1.0.0
+	 * @throws JsonProcessingException
+	 * @throws JSONException
+	 */
 	public void testWeekBuilder() throws JsonProcessingException, JSONException {
 		ObjectMapper mapper = new CustomObjectMapper();
 		DateTime minDate = new DateTime(2013, 1, 31, 0, 0);
@@ -50,6 +60,8 @@ public class DateFacetBuilderTest {
 
 	@Test
 	@Ignore
+	// TODO reactivate this test, and check on mac, when samplestack
+	// supports timezones appropriately.
 	public void testMonthBuilder() throws JsonProcessingException,
 			JSONException {
 		ObjectMapper mapper = new CustomObjectMapper();
