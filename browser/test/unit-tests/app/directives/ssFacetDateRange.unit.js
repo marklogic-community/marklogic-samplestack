@@ -73,6 +73,24 @@ define(['testHelper','mocks/index'], function (helper, mocks) {
         }
       );
 
+      it(
+        'should represent dates in browser-local timezone on month click',
+        function () {
+          var point = scope.chart.target.series[0].points[2];
+          var event = { point: point };
+          point.firePointEvent('click', event);
+          scope.$apply();
+          var resultDataPoint = ssSearchInstance.results.facets.dates[2].name;
+          var resultStart = mlUtil.moment(resultDataPoint, 'YYYYMM');
+          // starts on beginning of month incl. timezone
+          expect(resultStart.toISOString())
+              .to.equal(scope.constraints.dateStart.value.toISOString());
+          // ends on beginning of next month incl. timezone
+          expect(resultStart.add(1, 'M').toISOString())
+              .to.equal(scope.constraints.dateEnd.value.toISOString());
+        }
+      );
+
     });
 
   };
