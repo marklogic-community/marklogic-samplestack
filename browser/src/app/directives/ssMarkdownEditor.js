@@ -28,8 +28,8 @@ define([
         scope.selTab = 'edit';
         // Display prompt by adding placeholder attribute to markdown textarea
         if (scope.placeholder) {
-          document.getElementsByClassName("markdown-input")[0]
-            .setAttribute("placeholder", scope.placeholder);
+          document.getElementsByClassName('markdown-input')[0]
+            .setAttribute('placeholder', scope.placeholder);
         }
       }
     };
