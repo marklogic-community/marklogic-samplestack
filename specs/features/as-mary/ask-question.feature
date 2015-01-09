@@ -11,12 +11,12 @@ Feature: Ask Question
     And I type "" as the question title
     Then the submit button is disabled
     When I type "foo" as the question title
-    Then the submit button is not disabled
-    When I type "**bar**" as the question content
+    And I type "**bar**" as the question content
     And I enter "baz" as a question tag
     Then the question title is "foo"
     And the question content is "**bar**"
     And the question tag is "baz"
+    And the submit button is not disabled
     And the previewed content is not displayed
     When I preview the content
     Then the previewed content is displayed
