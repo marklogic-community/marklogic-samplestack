@@ -10,7 +10,9 @@
                 "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
                 "userName": "testJoeUser@example.com"
             },
-            "text": "My second answer to a question"
+            "text": "My second answer to a question",
+            "upvotingContributorIds": ["mary"],
+            "downvotingContributorIds": []
         }
     ],
     "accepted": false,
@@ -42,5 +44,7 @@
     "text": "I, Mary, had a question about the word balsamic and the number 1",
     "title": "Mary's Question Number 1",
     "voteCount": 0,
-    "answerCount": 1
+    "answerCount": 1,
+    "upvotingContributorIds": ["joe"],
+    "downvotingContributorIds": []
 }

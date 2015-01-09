@@ -44,6 +44,8 @@ public class MockContributorAddOnService implements ContributorService {
 		} else {
 			Contributor newContributor = new Contributor();
 			newContributor.setUserName(userName);
+			newContributor.setId("whyyoucare");
+			newContributor.setVoteCount(0L);
 			return newContributor;
 		}
 	}

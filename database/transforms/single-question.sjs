@@ -28,17 +28,34 @@ function joinReputation(owner) {
     return owner;
 }
 
+function adjustVotes(voterId, votingArray) {
+    if (votingArray.indexOf(voterId) == -1) {
+        votingArray = [ ];
+    } else {
+        votingArray = [ voterId ];
+    }
+    return votingArray;
+}
 
 /* this will be non-performant but we can optimize */
 function searchTransform(context, params, input) {
+    var voterId = params.voterId;
     var outputObject = input.toObject();
     var comments = outputObject.comments;
+    if (voterId !== undefined) {
+        outputObject.upvotingContributorIds = adjustVotes(voterId, outputObject.upvotingContributorIds);
+        outputObject.downvotingContributorIds = adjustVotes(voterId, outputObject.downvotingContributorIds);
+    }
     for (var i = 0; i < comments.length; i++) {
         comments[i].owner = joinReputation(comments[i].owner);
     }
     
     var answers = outputObject.answers;
     for (var i = 0; i < answers.length; i++) {
+        if (voterId !== undefined) {
+            answers[i].upvotingContributorIds = adjustVotes(voterId, answers[i].upvotingContributorIds);
+            answers[i].downvotingContributorIds = adjustVotes(voterId, answers[i].downvotingContributorIds);
+        }
         answers[i].owner = joinReputation(answers[i].owner);
         var answerComments = answers[i].comments;
         for (var j = 0; j < answerComments.length; j++) {

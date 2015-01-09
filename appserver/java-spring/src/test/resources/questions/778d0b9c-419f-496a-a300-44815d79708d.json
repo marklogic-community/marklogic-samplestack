@@ -19,5 +19,7 @@
     "text": "I had a question about the word chocolate and the number 2",
     "title": "Joe's Question Number 2",
     "voteCount": 1,
-    "answerCount": 0
+    "answerCount": 0,
+    "upvotingContributorIds": ["mary"],
+    "downvotingContributorIds": []
 }

@@ -49,14 +49,14 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		Contributor basicUser = Utils.getBasicUser();
 		login("testA1@example.com", "a1");
-		
+
 		this.mockMvc.perform(
 				delete("/v1/contributors/" + basicUser.getId())
 				.session((MockHttpSession) session)
 				.locale(Locale.ENGLISH))
 				.andExpect(status().isOk()).andReturn().getResponse();
 		logout();
-	
+
 		login("testC1@example.com", "c1");
 		this.mockMvc.perform(
 				post("/v1/contributors")

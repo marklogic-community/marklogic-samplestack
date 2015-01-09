@@ -104,7 +104,8 @@ public class QnADocumentController {
 	@RequestMapping(value = "v1/questions/{id}", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonNode get(@PathVariable(value = "id") String id) {
-		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), id);
+		Contributor contributor = contributorService.getByUserName(ClientRole.securityContextUserName());
+		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), contributor, id);
 		return qnaDoc.getJson();
 	}
 
@@ -134,8 +135,7 @@ public class QnADocumentController {
 	JsonNode answer(@RequestBody JsonNode answer,
 			@PathVariable(value = "id") String id) {
 		String answerId = id;
-		Contributor owner = contributorService.getByUserName(
-				ClientRole.securityContextUserName());
+		Contributor owner = contributorService.getByUserName(ClientRole.securityContextUserName());
 		QnADocument answered = qnaService.answer(owner, answerId, answer.get("text").asText());
 		return answered.getJson();
 	}
@@ -151,10 +151,11 @@ public class QnADocumentController {
 	JsonNode accept(@PathVariable(value = "answerId") String answerIdPart) {
 		String userName = ClientRole.securityContextUserName();
 		String answerId = answerIdPart;
-		QnADocument toAccept = qnaService.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1);
+		Contributor accepter = contributorService.getByUserName(userName);
+		QnADocument toAccept = qnaService.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, "id:"+answerId, 1, null);
 		if (toAccept.getOwnerUserName().equals(userName)) {
-			QnADocument accepted = qnaService.accept(answerId);
-			return accepted.getJson();			
+			QnADocument accepted = qnaService.accept(accepter, answerId);
+			return accepted.getJson();
 		}
 		else {
 			throw new SampleStackDataIntegrityException("Current user does not match owner of question");

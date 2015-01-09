@@ -15,9 +15,6 @@
  */
 package com.marklogic.samplestack.domain;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.marklogic.client.pojo.annotation.Id;
 
 /**
@@ -28,15 +25,12 @@ import com.marklogic.client.pojo.annotation.Id;
  *   {
  *       "id": "1070312",
  *       "originalId":"1070321",
- *       "reputation": "1",
+ *       "reputation": 10,
  *       "displayName": "grechaw",
  *       "aboutMe": "This is my user record",
  *       "websiteUrl": "http://github.com/grechaw",
  *       "location":"Occidental, CA",
- *       "votes": [
- *          {type:"up", postId: "/answers/2422"},
- *          {type:"down", postId: "/questions/3422"}
- *      ]
+ *       "voteCount": 10
  *   }
  * </pre>
  * 
@@ -47,7 +41,7 @@ public class Contributor {
 	private String aboutMe;
 
 	/** The contributor's display name */
-	public String displayName;
+	private String displayName;
 
 	@Id
 	/**
@@ -59,7 +53,7 @@ public class Contributor {
 	 * The id from the original record, if imported from
 	 * another system.
 	 */
-	public String originalId;
+	private String originalId;
 
 	/** The location of the user, as a String */
 	private String location;
@@ -71,11 +65,11 @@ public class Contributor {
 	private int reputation;
 
 	/** The username.  */
-	public String userName;
+	private String userName;
 
-	/** Set of posts on which this contributor has voted */
-	private Map<String, Integer> votes = new HashMap<String, Integer>();
-
+	/** The number of times this contributor has voted (up or down) */
+	private long voteCount;
+	
 	/** URL of this contributor's website. */
 	private String websiteUrl;
 
@@ -117,23 +111,12 @@ public class Contributor {
 		return userName;
 	}
 
-	public Map<String, Integer> getVotes() {
-		if (votes == null) {
-			this.votes = new HashMap<String, Integer>();
-		}
-		return votes;
+	public long getVoteCount() {
+		return voteCount;
 	}
 
 	public String getWebsiteUrl() {
 		return websiteUrl;
-	}
-
-	public boolean hasVotedOn(String postId) {
-		if (this.votes == null) {
-			return false;
-		} else {
-			return this.votes.keySet().contains(postId);
-		}
 	}
 
 	public void setAboutMe(String aboutMe) {
@@ -162,8 +145,8 @@ public class Contributor {
 		this.userName = userName;
 	}
 
-	public void setVotes(Map<String, Integer> votes) {
-		this.votes = votes;
+	public void setVoteCount(long voteCount) {
+		this.voteCount = voteCount;
 	}
 
 

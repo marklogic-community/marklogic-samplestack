@@ -144,7 +144,7 @@ public class DatabaseQnADocumentSearchIT {
 
 	@Test
 	public void testSingleGetTransform() throws JsonProcessingException {
-		QnADocument doc = qnaService.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, "01600486-60ea-4557-bcfc-9c10b06fb8cd");
+		QnADocument doc = qnaService.get(ClientRole.SAMPLESTACK_CONTRIBUTOR, null, "01600486-60ea-4557-bcfc-9c10b06fb8cd");
 		logger.debug("Transformed doc: " + mapper.writeValueAsString(doc.getJson()));
 		assertNotNull("Reuptation must be there on a get doc", doc.getJson().get("owner").get("reputation").asLong());
 	}

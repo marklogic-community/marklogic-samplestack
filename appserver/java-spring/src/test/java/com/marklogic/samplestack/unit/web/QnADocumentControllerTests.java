@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.samplestack.mock.MockApplication;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
@@ -87,27 +88,23 @@ public class QnADocumentControllerTests extends QnADocumentControllerTestImpl {
 		super.commentOnAnswer();
 	}
 
-	@Override
 	@Test
-	public void voteUpQuestion() throws Exception {
+	public void testVoteUpQuestion() throws Exception {
 		super.voteUpQuestion();
 	}
 
-	@Override
 	@Test
-	public void voteDownQuestion() throws Exception {
+	public void testVoteDownQuestion() throws Exception {
 		super.voteDownQuestion();
 	}
 
-	@Override
 	@Test
-	public void voteUpAnswer() throws Exception {
+	public void testVoteUpAnswer() throws Exception {
 		super.voteUpAnswer();
 	}
 
-	@Override
 	@Test
-	public void voteDownAnswer() throws Exception {
+	public void testVoteDownAnswer() throws Exception {
 		super.voteDownAnswer();
 	}
 

@@ -116,7 +116,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		// first step -- send question to the server, get back results
 		// TODO expand this first step.
-		service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
+		service.findOne(ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1, null);
 
 		newQuestion = Utils.newQuestion();
 		
@@ -147,7 +147,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		// search for my original question.
 		questionFromSearch = service.findOne(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1);
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, question, 1, null);
 
 		logger.info(mapper.writeValueAsString(questionFromSearch));
 		assertEquals("Title was set properly on ingested question", newQuestion
@@ -196,7 +196,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 
 		Contributor testA1 = contributorService.getByUserName("testA1@example.com");
 		int marysReputation = testA1.getReputation();
-		acceptedQuestion = service.accept(firstAnswerId);
+		acceptedQuestion = service.accept(null, firstAnswerId);
 		
 		assertEquals("Accepted answer id is correct", firstAnswerId,
 				acceptedQuestion.getJson().get("acceptedAnswerId").asText());
@@ -216,7 +216,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		int joesReputation = testC1.getReputation();
 		
 		// accept another answer
-		acceptedQuestion = service.accept(secondAnswerId);
+		acceptedQuestion = service.accept(null, secondAnswerId);
 		assertEquals("Accepted answer id is correct", secondAnswerId,
 				acceptedQuestion.getJson().get("acceptedAnswerId").asText());
 		assertTrue("The question is marked as accepted", acceptedQuestion
@@ -236,7 +236,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 	}
 
 	@Test
-	public void testVoting() {
+	public void testVoting() throws JsonProcessingException {
 		InitialQuestion newQuestion = new InitialQuestion();
 		newQuestion.setTitle("How does voting work?");
 		newQuestion.setText("I want lots of up votes on my document");
@@ -258,15 +258,16 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		preA1 = contributorRepository.read(Utils.testA1.getId());
 		int testC1Reputation = preC1.getReputation();
 		int testA1Reputation = preA1.getReputation();
-		int c1Votes = preC1.getVotes().size();
-		int marysVotes = preA1.getVotes().size();
+		long c1Votes = preC1.getVoteCount();
+		long a1Votes = preA1.getVoteCount();
 		
+		logger.debug("A1Votes is " + a1Votes);
 		// a1 votes c1 question up, reputation +1 for c1.
 		// a1 hasVotedOn submitted.
 		service.voteUp(Utils.testA1, submitted.getId());
-
+		
 		QnADocument votedOn = service.get(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-				submitted.getId());
+				Utils.testA1, submitted.getId());
 		int newScore = votedOn.getJson().get("voteCount").asInt();
 		assertEquals("Vote score should be one higher than before", voteCount + 1, newScore);
 
@@ -277,7 +278,7 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 			// pass
 		}
 		try {
-			service.voteDown(Utils.testA1, submitted.getId());
+			service.voteUp(Utils.testA1, submitted.getId());
 			fail("Same person cannot vote twice on same post");
 		} catch (Exception e) {
 			// pass
@@ -287,20 +288,22 @@ public class QnAServiceIT extends MarkLogicIntegrationIT {
 		// c1 hasVotedOn answerId
 		service.voteDown(contributorService.getByUserName("testC1@example.com"), answerId);
 		QnADocument votedTwiceOn = service.get(
-				ClientRole.SAMPLESTACK_CONTRIBUTOR, submitted.getId());
+				ClientRole.SAMPLESTACK_CONTRIBUTOR, Utils.testC1, submitted.getId());
 		int newerScore = votedTwiceOn.getJson().get("voteCount").asInt();
 		assertEquals("Vote score should be one higher than before",
 				newScore - 1, newerScore);
 
 		Contributor c1State = contributorRepository.read(Utils.testC1.getId());
 		Contributor a1State = contributorRepository.read(Utils.testA1.getId());
+		logger.debug("PREA1" + mapper.writeValueAsString(preA1));
+		logger.debug("AfterA1" + mapper.writeValueAsString(a1State));
 		
-		assertEquals("c1 has voted once", c1Votes + 1, c1State.getVotes().size());
-		assertTrue("a1 voted on this", a1State.hasVotedOn(submitted.getId()));
+		logger.debug("Before, votecount was " + a1Votes +".  Now its " + a1State.getVoteCount() );
+
+		assertEquals("c1 has voted once", c1Votes + 1, c1State.getVoteCount());
 		assertEquals("c1 reputation has gained", testC1Reputation + 1, c1State.getReputation());
 		
-		assertEquals("a1 has voted once", marysVotes + 1, a1State.getVotes().size());
-		assertTrue("c1 voted on this", c1State.hasVotedOn(answerId));
+		assertEquals("a1 has voted once", a1Votes + 1, a1State.getVoteCount());
 		assertEquals("a1 reputation has suffered", testA1Reputation - 1, a1State.getReputation());
 
 	}

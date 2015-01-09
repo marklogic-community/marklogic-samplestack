@@ -26,7 +26,7 @@
     ],
     "creationDate": "2014-10-01T08:59:08.824",
     "id": "8450f8a4-2782-4c8a-9fd9-b83bcacc5018",
-    "itemTally": 0,
+    "itemTally": 1,
     "lastActivityDate": "2014-10-01T08:59:12.140",
     "owner": {
         "displayName": "testA1",
@@ -39,8 +39,10 @@
     ],
     "text": "I, Mary, had a question about the word abyss and the number 0",
     "title": "Mary's Question Number 0",
-    "voteCount": 0,
+    "voteCount": 1,
     "acceptedAnswerId":"ef376cf4-3a30-44af-b2c5-722e6439723e",
     "accepted":true,
-    "answerCount":1
+    "answerCount":1,
+    "upvotingContributorIds": ["joe"],
+    "downvotingContributorIds": []
 }
