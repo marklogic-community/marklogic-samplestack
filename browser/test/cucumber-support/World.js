@@ -18,6 +18,10 @@ var self;
 
 var currentPage;
 
+browser.getCapabilities().then(function (cap) {
+  browser.caps = cap.caps_;
+});
+
 function World (callback) {
   self = this;
   this.pages = pages;
