@@ -59,8 +59,7 @@ public class DateFacetBuilderTest {
 	}
 
 	@Test
-	@Ignore
-	// TODO reactivate this test, and check on mac, when samplestack
+	// TODO check on mac, when samplestack
 	// supports timezones appropriately.
 	public void testMonthBuilder() throws JsonProcessingException,
 			JSONException {

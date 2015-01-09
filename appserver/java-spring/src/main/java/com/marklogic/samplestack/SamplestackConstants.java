@@ -47,7 +47,7 @@ public class SamplestackConstants {
 	public static final String SINGLE_QUESTION_TRANSFORM = "single-question";
 
 	
-	public static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+	public static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ";
 	
 	/**
 	 * A formatter used to make dateTime strings in JSON serializations

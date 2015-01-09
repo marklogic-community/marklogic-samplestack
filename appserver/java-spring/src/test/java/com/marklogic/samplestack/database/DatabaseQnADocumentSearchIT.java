@@ -110,7 +110,7 @@ public class DatabaseQnADocumentSearchIT {
 		DateTime lastActivityDate = null;
 		for (int i=0; i < resultsArray.size();i++) {
 			String nextLastActivityDateString = resultsArray.get(i).get("content").get("lastActivityDate").asText();
-			DateTime nextLastActivityDate = ISODateTimeFormat.dateTime().parseDateTime(nextLastActivityDateString + "Z");
+			DateTime nextLastActivityDate = ISODateTimeFormat.dateTime().parseDateTime(nextLastActivityDateString);
 			if (lastActivityDate == null) {
 				// skip first
 			} else {

@@ -2,7 +2,7 @@
     "answers": [
         {
             "comments": [],
-            "creationDate": "2014-10-01T08:59:09.264",
+            "creationDate": "2014-10-01T08:59:09.264Z",
             "id": "ef376cf4-3a30-44af-b2c5-722e6439723e",
             "itemTally": 0,
             "owner": {
@@ -15,7 +15,7 @@
     ],
     "comments": [
         {
-            "creationDate": "2014-10-01T08:59:12.138",
+            "creationDate": "2014-10-01T08:59:12.138Z",
             "owner": {
                 "displayName": "testC1",
                 "id": "cf99542d-f024-4478-a6dc-7e723a51b040",
@@ -24,10 +24,10 @@
             "text": "This question is ludicrous."
         }
     ],
-    "creationDate": "2014-10-01T08:59:08.824",
+    "creationDate": "2014-10-01T08:59:08.824Z",
     "id": "8450f8a4-2782-4c8a-9fd9-b83bcacc5018",
     "itemTally": 1,
-    "lastActivityDate": "2014-10-01T08:59:12.140",
+    "lastActivityDate": "2014-10-01T08:59:12.140Z",
     "owner": {
         "displayName": "testA1",
         "id": "9611450a-0663-45a5-8a08-f1c71320475e",

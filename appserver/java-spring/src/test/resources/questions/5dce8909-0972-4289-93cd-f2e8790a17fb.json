@@ -2,7 +2,7 @@
     "answers": [
         {
             "comments": [],
-            "creationDate": "2014-10-01T08:59:09.309",
+            "creationDate": "2014-10-01T08:59:09.309Z",
             "id": "6432cc02-2770-4b8d-b5f1-0b632875f86d",
             "itemTally": 0,
             "owner": {
@@ -19,7 +19,7 @@
     "acceptedAnswerId": null,
     "comments": [
         {
-            "creationDate": "2014-10-01T08:59:12.230",
+            "creationDate": "2014-10-01T08:59:12.230Z",
             "text": "This question is insightful.",
             "owner": {
                 "displayName": "testJoeUser",
@@ -28,10 +28,10 @@
             }
         }
     ],
-    "creationDate": "2014-10-01T08:59:08.866",
+    "creationDate": "2014-10-01T08:59:08.866Z",
     "id": "5dce8909-0972-4289-93cd-f2e8790a17fb",
     "itemTally": 0,
-    "lastActivityDate": "2014-10-01T08:59:12.230",
+    "lastActivityDate": "2014-10-01T08:59:12.230Z",
     "owner": {
         "displayName": "testMaryAdmin",
         "id": "9611450a-0663-45a5-8a08-f1c71320475f",
