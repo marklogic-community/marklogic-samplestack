@@ -249,17 +249,18 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	 */
 	
 	
-	public void voteUpQuestion() throws Exception {
+	public JsonNode voteUpQuestion() throws Exception {
 		login("testC1@example.com", "c1");
 		askQuestion();
-		this.mockMvc
+		MockHttpServletResponse result = this.mockMvc
 				.perform(
 						post("/v1/questions/" + this.askedQuestion.getId() + "/upvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
-				.andReturn().getResponse().getContentAsString();
+				.andReturn().getResponse();
+		return mapper.readValue(result.getContentAsString(), JsonNode.class);
 	}
 
 	/* (non-Javadoc)
@@ -267,39 +268,48 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	 */
 	
 	
-	public void voteDownQuestion() throws Exception {
+	public JsonNode voteDownQuestion() throws Exception {
 		login("testC1@example.com", "c1");
 		askQuestion();
-		this.mockMvc
+		MockHttpServletResponse result = this.mockMvc
 				.perform(
 						post("/v1/questions/" + this.askedQuestion.getId() + "/downvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
-				.andReturn().getResponse().getContentAsString();
+				.andReturn().getResponse();
+		return mapper.readValue(result.getContentAsString(), JsonNode.class);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.marklogic.samplestack.unit.web.QnAControllerTests#voteUpAnswer()
 	 */
-	
-	
-	public void voteUpAnswer() throws Exception {
-		login("testC1@example.com", "c1");
+	public JsonNode voteUpAnswer() throws Exception {
 		askQuestion();
 		answerQuestion();
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
 		String answerId = answer.get("id").asText();
-
-		this.mockMvc
+		MockHttpServletResponse result = this.mockMvc
 				.perform(
 						post("/v1/questions/" + this.askedQuestion.getId() + "/answers/" + answerId + "/upvotes")
 								.with(csrf())
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
-				.andReturn().getResponse().getContentAsString();
+				.andReturn().getResponse();
+		logout();
+		login("testA1@example.com", "a1");
+
+		result = this.mockMvc
+				.perform(
+						post("/v1/questions/" + this.askedQuestion.getId() + "/answers/" + answerId + "/upvotes")
+								.with(csrf())
+								.session((MockHttpSession) session)
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{}")).andExpect(status().isCreated())
+				.andReturn().getResponse();
+		return mapper.readValue(result.getContentAsString(), JsonNode.class);
 	}
 
 	/* (non-Javadoc)
@@ -307,14 +317,14 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 	 */
 	
 	
-	public void voteDownAnswer() throws Exception {
+	public JsonNode voteDownAnswer() throws Exception {
 		login("testC1@example.com", "c1");
 		askQuestion();
 		answerQuestion();
 		JsonNode answer = answeredQuestion.getJson().get("answers").get(0);
 		String answerId = answer.get("id").asText();
 
-		this.mockMvc
+		MockHttpServletResponse result = this.mockMvc
 				.perform(
 						post("/v1/questions/" +
 								this.askedQuestion.getId() + 
@@ -325,7 +335,8 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 								.session((MockHttpSession) session)
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{}")).andExpect(status().isCreated())
-				.andReturn().getResponse().getContentAsString();
+				.andReturn().getResponse();
+		return mapper.readValue(result.getContentAsString(), JsonNode.class);
 	}
 
 	/* (non-Javadoc)

@@ -16,6 +16,8 @@ public class Answer {
 	public List<Comment> comments;
 	public SparseContributor owner;
 	public Date creationDate;
+	private String[] upvotingContributorIds;
+	private String[] downvotingContributorIds;
 	
 	public String getText() {
 		return text;
@@ -52,5 +54,17 @@ public class Answer {
 	}
 	public Date getCreationDate() {
 		return this.creationDate;
+	}
+	public String[] getUpvotingContributorIds() {
+		return upvotingContributorIds;
+	}
+	public void setUpvotingContributorIds(String[] upvotingContributorIds) {
+		this.upvotingContributorIds = upvotingContributorIds;
+	}
+	public String[] getDownvotingContributorIds() {
+		return downvotingContributorIds;
+	}
+	public void setDownvotingContributorIds(String[] downvotingContributorIds) {
+		this.downvotingContributorIds = downvotingContributorIds;
 	}
 }

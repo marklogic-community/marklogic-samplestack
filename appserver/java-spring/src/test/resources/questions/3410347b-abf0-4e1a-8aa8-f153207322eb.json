@@ -4,13 +4,15 @@
             "comments": [],
             "creationDate": "2014-10-01T08:59:09.350",
             "id": "594d5815-3d28-40d2-b1b8-6401a79886ad",
-            "itemTally": 0,
+            "itemTally": 1,
             "owner": {
       			  "displayName": "testJoeUser",
      			  "id": "cf99542d-f024-4478-a6dc-7e723a51b04e",
     		 	  "userName": "testJoeUser@example.com"
     		},
-            "text": "My third answer to a question"
+            "text": "My third answer to a question",
+            "upvotingContributorIds": ["mary"],
+            "downvotingContributorIds": []
         }
     ],
     "accepted": false,
@@ -32,5 +34,7 @@
     "text": "I, Mary, had a question about the word chocolate and the number 2",
     "title": "Mary's Question Number 2",
     "voteCount": -1,
-    "answerCount": 1
+    "answerCount": 1,
+    "upvotingContributorIds": [],
+    "downvotingContributorIds": ["joe"]
 }

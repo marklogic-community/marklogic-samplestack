@@ -22,5 +22,7 @@
     "text": "\n\nI have a table defined with the following migration\n\n\tcreate_table :posts, :force => true do |t|\n\t    t.string :owner_name\n\t    t.string :name\n\t    t.binary :value\n\t    t.timestamps\n\tend\n\t\n\nI'm trying to save some basic data types into the value column, but some data types are generating a \"undefined method 'encoding'\" message.\n\nIntegers, Floats and Symbols values fail.  All that seems to work are string values.  Does anyone know why this is happening?  I thought the point of a blob column was it could be more general.\n\nMy goal is to have a column that can take multiple data types.  Plan B would be to store the datatype name in it's own column and then type cast a string representation back when the data is retrieved, but I'd like to understand why the blog is failing.",
     "title": "Ruby on Rails \"Undefined method 'encoding'\" while saving to a blob / binary column with mysql",
     "voteCount": 0,
-    "answerCount":0
+    "answerCount":0,
+    "upvotingContributorIds": [],
+    "downvotingContributorIds": []
 }

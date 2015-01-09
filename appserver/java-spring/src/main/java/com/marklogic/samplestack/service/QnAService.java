@@ -29,6 +29,8 @@ public interface QnAService {
 
 	/**
 	 * Search for a particular string, as entered in the Samplestack search box.
+	 * With this version, the document's votes will be stripped such that
+	 * they only contain the id that is supplied as the 4th argument.
 	 * 
 	 * @param role
 	 *            ClientRole on whose behalf to execute the search.
@@ -36,10 +38,14 @@ public interface QnAService {
 	 *            The question/terms to search for
 	 * @param start
 	 *            The index of the first result in the result set.
+	 * @param loggedInId
+	 *            The voting results are dependent on the logged-in user Id.
+	 *            If null, then no filtering on upvote/downvote will be done.
 	 * @return A QuestionResults object containing results/snippets for the
 	 *         search.
 	 */
-	public QnADocument findOne(ClientRole role, String queryString, long start);
+	public QnADocument findOne(ClientRole role, String queryString, long start, String loggedInId);
+
 
 	/**
 	 * Send a [JSON] raw structured query to the server, using the options
@@ -127,21 +133,24 @@ public interface QnAService {
 	 * Marks a particular answer as accepted. Note -- requirement that only
 	 * owner may accept an answer is enforced in UI. In the service/data layer
 	 * the author of the question isn't important or recorded.
-	 * 
+	 * @param contributor 
+     *            The contributor who is accepting a question.
 	 * @param postId
 	 *            The identifier of the answer to be accepted.
 	 */
-	public QnADocument accept(String postId);
+	public QnADocument accept(Contributor contributor, String postId);
 
 	/**
 	 * Retrieves a QnADocument by id.
 	 * 
-	 * @param id
-	 *            The id of the QnA document, which is the same as the id of the
-	 *            question.
+	 * @param role
+	 *            ClientRole on whose behalf to execute the search.
+	  * @param contributor
+	 *            The contributor who is getting the question.
+	 * @param id  Any id in the QnA document
 	 * @return The QnADocument identified by id
 	 */
-	public QnADocument get(ClientRole role, String id);
+	public QnADocument get(ClientRole role, Contributor contributor, String id);
 
 	/**
 	 * Removes a QnA document from the database. Not used by the runtime
@@ -169,6 +178,5 @@ public interface QnAService {
 	 * Removes all the QnA documents from the database. Convenient for testing.
 	 */
 	public void deleteAll();
-
 
 }

@@ -16,6 +16,8 @@
 package com.marklogic.samplestack.integration.web;
 
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -36,6 +38,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.SamplestackConstants.ISO8601Formatter;
@@ -43,6 +47,7 @@ import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
 import com.marklogic.samplestack.testing.TestDataManager;
+import com.marklogic.samplestack.testing.Utils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -123,28 +128,40 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 		super.badUrlCommentThrows404();
 	}
 
-	@Override
 	@Test
-	public void voteUpQuestion() throws Exception {
-		super.voteUpQuestion();
+	public void testVoteUpQuestion() throws Exception {
+		JsonNode upvotedDocument = super.voteUpQuestion();
+		ArrayNode questionUpVotes = (ArrayNode) upvotedDocument.get("upvotingContributorIds");
+		assertEquals("When a voter has upvoted, its result should have a record of [only] my upvote.", 1, questionUpVotes.size());
+		assertEquals("The single downvoter is the voter", Utils.testC1.getId(), questionUpVotes.get(0).asText());
 	}
 
-	@Override
 	@Test
-	public void voteDownQuestion() throws Exception {
-		super.voteDownQuestion();
+	public void testVoteDownQuestion() throws Exception {
+		JsonNode downvotedDocument = super.voteDownQuestion();
+		ArrayNode questionDownVotes = (ArrayNode) downvotedDocument.get("downvotingContributorIds");
+		assertEquals("When a voter has downvoted, its result should have a record of [only] my upvote.", 1, questionDownVotes.size());
+		assertEquals("The single downvoter is the voter", Utils.testC1.getId(), questionDownVotes.get(0).asText());
 	}
 
-	@Override
 	@Test
-	public void voteUpAnswer() throws Exception {
-		super.voteUpAnswer();
+	// this test is a little more rigorous than the others -- it actually
+	// verifies that there are two upvotes on the answer before stripping
+	// to just A1.
+	public void testVoteUpAnswer() throws Exception {
+		JsonNode upvotedDocument = super.voteUpAnswer();
+		ArrayNode answerUpVotes = (ArrayNode) upvotedDocument.get("answers").get(0).get("upvotingContributorIds");
+		logger.debug("UPVOTES" + mapper.writeValueAsString(answerUpVotes));
+		assertEquals("When a voter has upvoted, its result should have a record of [only] my upvote.", 1, answerUpVotes.size());
+		assertEquals("The single upvoter is the voter", Utils.testA1.getId(), answerUpVotes.get(0).asText());
 	}
 
-	@Override
 	@Test
-	public void voteDownAnswer() throws Exception {
-		super.voteDownAnswer();
+	public void testVoteDownAnswer() throws Exception {
+		JsonNode downvotedDocument = super.voteDownAnswer();
+		ArrayNode answerDownVotes = (ArrayNode) downvotedDocument.get("answers").get(0).get("downvotingContributorIds");
+		assertEquals("When a voter has downvoted, its result should have a record of [only] my downvote.", 1, answerDownVotes.size());
+		assertEquals("The single downvoter is the voter", Utils.testC1.getId(), answerDownVotes.get(0).asText());
 	}
 
 	@Override

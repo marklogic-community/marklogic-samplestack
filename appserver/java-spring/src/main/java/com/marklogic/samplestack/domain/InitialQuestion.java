@@ -51,6 +51,14 @@ public class InitialQuestion {
 
 	/** The total number of votes on this question-and-answer document */
 	private long voteCount;
+	
+	/** An array of Ids that track who has voted "up" on this question */
+	private String[] upvotingContributorIds;
+	
+	/** An array of Ids that track who have voted "down" on this question */
+	private String[] downvotingContributorIds;
+	
+	
 	public InitialQuestion() {
 		this.tags = new String[] {};
 		this.comments = new Comment[] {};
@@ -59,6 +67,8 @@ public class InitialQuestion {
 		this.itemTally = 0L;
 		this.accepted = false;
 		this.answerCount = 0L;
+		this.setUpvotingContributorIds(new String[] {});
+		this.setDownvotingContributorIds(new String[] {});
 	}
 	public Boolean getAccepted() {
 		return accepted;
@@ -148,5 +158,17 @@ public class InitialQuestion {
 	}
 	public void updateLastActivityDate() {
 		this.lastActivityDate = new Date();
+	}
+	public String[] getUpvotingContributorIds() {
+		return upvotingContributorIds;
+	}
+	public void setUpvotingContributorIds(String[] upvotingContributorIds) {
+		this.upvotingContributorIds = upvotingContributorIds;
+	}
+	public String[] getDownvotingContributorIds() {
+		return downvotingContributorIds;
+	}
+	public void setDownvotingContributorIds(String[] downvotingContributorIds) {
+		this.downvotingContributorIds = downvotingContributorIds;
 	}
 }

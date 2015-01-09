@@ -17,7 +17,6 @@ package com.marklogic.samplestack.mock;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
@@ -34,7 +33,7 @@ public class MockQnAService  extends MockServiceBase implements QnAService {
 
 	@Override
 	public QnADocument findOne(ClientRole role, String question,
-			long start) {
+			long start, String contributorId) {
 		return asked;
 	}
 
@@ -66,12 +65,12 @@ public class MockQnAService  extends MockServiceBase implements QnAService {
 	}
 
 	@Override
-	public QnADocument accept(String postId) {
+	public QnADocument accept(Contributor contributor, String postId) {
 		return answered;
 	}
 
 	@Override
-	public QnADocument get(ClientRole role, String id) {
+	public QnADocument get(ClientRole role, Contributor contributor, String id) {
 		return asked;
 	}
 

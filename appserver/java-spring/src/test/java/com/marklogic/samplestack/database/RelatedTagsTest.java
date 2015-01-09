@@ -38,7 +38,9 @@ import com.marklogic.samplestack.testing.DatabaseExtensionTests;
 @ContextConfiguration(classes = DatabaseContext.class)
 @Category(DatabaseExtensionTests.class)
 /**
- * Tests the semantic extension for related tags. (EA-3 deliverable)
+ * Tests the semantic extension for related tags. 
+ * This feature is expected to be delivered in a
+ * revision of Samplestack after 8.0-1.
  */
 public class RelatedTagsTest {
 
