@@ -60,6 +60,7 @@
             {
                 "name": "resolved",
                 "value": {
+                    "type":"boolean",
                     "json-property": "accepted"
                 }
             },

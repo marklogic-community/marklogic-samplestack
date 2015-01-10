@@ -240,9 +240,7 @@ public class DatabaseQnADocumentSearchIT {
 	}
 
 	@Test
-	@Ignore
 	public void testAcceptedSearch() {
-		// unignore when seed data 1.6 is done -- boolean search is illegal with current server trunk.
 		ObjectNode query;
 		ObjectNode results = null;
 		try {
