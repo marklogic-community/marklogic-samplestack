@@ -11,5 +11,9 @@ public class SamplestackSearchException extends SamplestackException {
 	public SamplestackSearchException(Exception ex) {
 		super(ex);
 	}
+	
+	public SamplestackSearchException(String message) {
+		super(message);
+	}
 
 }
