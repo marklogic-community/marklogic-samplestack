@@ -112,32 +112,36 @@ define(['_marklogic/module'], function (module) {
    *
    * ```json
    * {
-   *   "query":{
+   *
+   *   "search":{
    *     "qtext":"\"red flag\"",
-   *     "and-query":{
-   *       "queries":[
-   *         {
-   *           "value-constraint-query":{
-   *             "constraint-name":"constrName",
-   *             "boolean":true
+   *     "query": {
+   *       "and-query":{
+   *         "queries":[
+   *           {
+   *             "value-constraint-query":{
+   *               "constraint-name":"constrName",
+   *               "boolean":true
+   *             }
+   *           },
+   *           {
+   *             "range-constraint-query":{
+   *               "constraint-name":"facetName",
+   *               "value":"some text"
+   *             }
+   *           },
+   *           {
+   *             "range-constraint-query":{
+   *               "constraint-name":"facetName",
+   *               "value":"some other text"
+   *             }
    *           }
-   *         },
-   *         {
-   *           "range-constraint-query":{
-   *             "constraint-name":"facetName",
-   *             "value":"some text"
-   *           }
-   *         },
-   *         {
-   *           "range-constraint-query":{
-   *             "constraint-name":"facetName",
-   *             "value":"some other text"
-   *           }
-   *         }
-   *       ]
+   *         ]
+   *       }
    *     }
-   *   },
-   *   "start":11
+   *    }
+   *   "start":11,
+   *   "timezone": "America/Los_Angeles"
    * }
    * ```
    *
@@ -162,6 +166,7 @@ define(['_marklogic/module'], function (module) {
               type: 'string'
             }
           },
+          timezone: { type: 'string' },
           start: { type: 'integer', minimum: 0 },
           constraints: {
             patternProperties: {
@@ -479,21 +484,20 @@ define(['_marklogic/module'], function (module) {
         var self = this;
 
         var criteriaToPost = {
-          query: {
-            qtext: myCriteria.q || '',
+          search: {
+            qtext: [myCriteria.q || ''],
           },
         };
 
         if (this.criteria.sort && this.criteria.sort.length) {
-          criteriaToPost.query.qtext = [
-            criteriaToPost.query.qtext,
-            // working around that middle tier doesn't take array
+          criteriaToPost.search.qtext.push(
+            // middle-tier won't take an array, can't sort on two fields
             'sort:' + this.criteria.sort[0]
-          ];
+          );
         }
 
         if (myCriteria.start) {
-          criteriaToPost.start = myCriteria.start;
+          criteriaToPost.search.start = myCriteria.start;
         }
 
         var andQueries = [];
@@ -505,8 +509,8 @@ define(['_marklogic/module'], function (module) {
         });
 
         if (andQueries.length) {
-          criteriaToPost.query['and-query'] = {
-            queries: andQueries
+          criteriaToPost.search.query = {
+            'and-query': { queries: andQueries }
           };
         }
 

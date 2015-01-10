@@ -31,19 +31,21 @@ define([
         $httpBackend.expectPOST(
           '/v1/search',
           {
-            query: {
+            search: {
               qtext: ['', 'sort:active'],
-              'and-query': {
-                queries: [ {
-                  'range-constraint-query': {
-                    'constraint-name': 'lastActivity',
-                    'value': mlUtil.moment('2014-08-01T00:00:00.000-05:00'),
-                    'range-operator': 'GE'
-                  }
-                } ]
-              }
-            },
-            timezone: window.jstz.determine().name()
+              query: {
+                'and-query': {
+                  queries: [ {
+                    'range-constraint-query': {
+                      'constraint-name': 'lastActivity',
+                      'value': mlUtil.moment('2014-08-01T00:00:00.000-05:00'),
+                      'range-operator': 'GE'
+                    }
+                  } ]
+                }
+              },
+              timezone: window.jstz.determine().name()
+            }
           }
         ).respond(500);
         // keep it from trying to parse the reponse by sending an error,
@@ -63,18 +65,20 @@ define([
         $httpBackend.expectPOST(
           '/v1/search',
           {
-            query: {
+            search: {
               qtext: ['', 'sort:active'],
-              'and-query': {
-                queries: [ {
-                  'value-constraint-query': {
-                    'constraint-name': 'resolved',
-                    'boolean': true
-                  }
-                } ]
-              }
-            },
-            timezone: window.jstz.determine().name()
+              query: {
+                'and-query': {
+                  queries: [ {
+                    'value-constraint-query': {
+                      'constraint-name': 'resolved',
+                      'boolean': true
+                    }
+                  } ]
+                }
+              },
+              timezone: window.jstz.determine().name()
+            }
           }
         ).respond(500);
         // keep it from trying to parse the reponse by sending an error,
