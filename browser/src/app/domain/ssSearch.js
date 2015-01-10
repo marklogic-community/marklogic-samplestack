@@ -188,20 +188,18 @@ define(['app/module'], function (module) {
 
         if (!(this.criteria.sort && this.criteria.sort.length)) {
           if (this.criteria.q && this.criteria.q.length) {
-            base.query.qtext = [
-              base.query.qtext,
+            base.search.qtext.push(
               'sort:' + 'relevance'
-            ];
+            );
           }
           if (!this.criteria.q) {
-            base.query.qtext = [
-              base.query.qtext,
+            base.search.qtext.push(
               'sort:' + 'active'
-            ];
+            );
           }
         }
 
-        base.timezone = window.jstz.determine().name();
+        base.search.timezone = window.jstz.determine().name();
 
         return base;
       };

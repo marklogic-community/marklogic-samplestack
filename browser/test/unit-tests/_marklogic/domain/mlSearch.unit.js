@@ -149,8 +149,8 @@ define([
           $httpBackend.expectPOST(
             /\/v1\/search$/,
             {
-              query: {
-                qtext: 'testy'
+              search: {
+                qtext: ['testy']
               }
             }
           ).respond(200, mocks.searchResponse );
@@ -185,14 +185,16 @@ define([
         $httpBackend.expectPOST(
           /\/v1\/search$/,
           {
-            query: {
-              qtext: 'testy',
-              'and-query': { queries: [
-                { 'range-constraint-query' : {
-                  'constraint-name': 'dummy',
-                  text: 'testy'
-                } }
-              ] }
+            search: {
+              qtext: ['testy'],
+              query: {
+                'and-query': { queries: [
+                  { 'range-constraint-query' : {
+                    'constraint-name': 'dummy',
+                    text: 'testy'
+                  } }
+                ] }
+              }
             },
           }
         ).respond(200, mocks.searchResponse );
@@ -230,8 +232,8 @@ define([
           $httpBackend.expectPOST(
             /\/v1\/search$/,
             {
-              query: {
-                qtext: ''
+              search: {
+                qtext: ['']
               }
             }
           ).respond(200, mocks.searchResponse );
@@ -258,18 +260,20 @@ define([
         $httpBackend.expectPOST(
           /\/v1\/search$/,
           {
-            query: {
-              qtext: 'testy',
-              'and-query': { queries: [
-                { 'range-constraint-query' : {
-                  'constraint-name': 'dummy',
-                  text: 'test1'
-                } },
-                { 'range-constraint-query' : {
-                  'constraint-name': 'dummy',
-                  text: 'test2'
-                } },
-              ] }
+            search: {
+              qtext: ['testy'],
+              query: {
+                'and-query': { queries: [
+                  { 'range-constraint-query' : {
+                    'constraint-name': 'dummy',
+                    text: 'test1'
+                  } },
+                  { 'range-constraint-query' : {
+                    'constraint-name': 'dummy',
+                    text: 'test2'
+                  } },
+                ] }
+              }
             }
           }
         ).respond(200, mocks.searchResponse );
@@ -306,14 +310,16 @@ define([
         $httpBackend.expectPOST(
           /\/v1\/search$/,
           {
-            query: {
-              qtext: 'testy',
-              'and-query': { queries: [
-                { 'range-constraint-query' : {
-                  'constraint-name': 'dummy',
-                  value: mlUtil.moment('2001-01-01T00:00:00Z')
-                } }
-              ] }
+            search: {
+              qtext: ['testy'],
+              query: {
+                'and-query': { queries: [
+                  { 'range-constraint-query' : {
+                    'constraint-name': 'dummy',
+                    value: mlUtil.moment('2001-01-01T00:00:00Z')
+                  } }
+                ] }
+              }
             }
           }
         ).respond(200, mocks.searchResponse );
@@ -349,14 +355,16 @@ define([
         $httpBackend.expectPOST(
           /\/v1\/search$/,
           {
-            query: {
-              qtext: 'testy',
-              'and-query': { queries: [
-                { 'range-constraint-query' : {
-                  'constraint-name': 'dummy',
-                  'boolean': true
-                } }
-              ] }
+            search: {
+              qtext: ['testy'],
+              query: {
+                'and-query': { queries: [
+                  { 'range-constraint-query' : {
+                    'constraint-name': 'dummy',
+                    'boolean': true
+                  } }
+                ] }
+              }
             }
           }
         ).respond(200, mocks.searchResponse );
