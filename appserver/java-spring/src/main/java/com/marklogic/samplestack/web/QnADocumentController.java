@@ -38,6 +38,7 @@ import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
+import com.marklogic.samplestack.exception.SamplestackSearchException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
@@ -274,20 +275,14 @@ public class QnADocumentController {
 			@RequestParam(defaultValue = "1", required = false) long start) {
 
 		ObjectNode combinedQueryObject = (ObjectNode) combinedQuery.get("search");
+		if (combinedQueryObject == null) {
+			throw new SamplestackSearchException("A Samplestack search must have payload with root key \"search\"");
+		}
 		JsonNode postedStartNode = combinedQueryObject.get("start");
 		if (postedStartNode != null) {
 			start = postedStartNode.asLong();
 			combinedQueryObject.remove("start");
 		}
-//		JsonNode postedQtextNode = combinedQuery.get("qtext");
-//		if (postedQtextNode != null) {
-//			if (postedQtextNode.isTextual()) {
-//				qtext.add(postedQtextNode);  // just one qtext
-//			} else if (postedQtextNode.isArray()) {
-//				qtext.addAll((ArrayNode) postedQtextNode);
-//			}
-//			combinedQuery.remove("qtext");
-//		}
 		JsonNode postedTimeZone = combinedQueryObject.get("timezone");
 		if (postedTimeZone != null) {
 			// TODO work with time zone.
