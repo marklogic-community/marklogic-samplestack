@@ -1,6 +1,17 @@
 # marklogic-samplestack
 
-<img align="right" src="https://api.travis-ci.org/marklogic/marklogic-samplestack.svg?branch=develop"></img>
+
+<!--
+***********************************************************************
+REMEMBER to change the branch name in this code when preparing releases
+***********************************************************************
+-->
+<div>
+<a target="_blank" href="https://travis-ci.org/marklogic/marklogic-samplestack">
+  <img hspace="15" align="right" src="https://travis-ci.org/marklogic/marklogic-samplestack.svg"></img>
+</a>
+</div>
+<div/>
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
