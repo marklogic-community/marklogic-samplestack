@@ -6,16 +6,14 @@
     <span class="started">
       <span ng-if="docType == 'question'">Asked</span>
       <span ng-if="docType == 'answer'">Answered</span>
-      &nbsp;
       {{ formatDate(doc.creationDate) }}
       <!-- display human readable time since if within a week -->
       <span ng-if="daysSince(doc.creationDate) < 7">
         ({{ formatDateRelative(doc.creationDate) }})
       </span>
-      &nbsp;&nbsp;
-
+      by
       <span ng-if="!doc.owner || doc.owner.id == 'unknown'" class="ss-author">
-        author unknown
+        unknown
       </span>
 
       <span ng-if="doc.owner && doc.owner.id != 'unknown'" class="ss-author">
@@ -29,7 +27,7 @@
           href="{{soUserLink()}}"
           target="_blank"
         >{{doc.owner.displayName}}&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span></a>
-        &nbsp;&nbsp;
+        &nbsp;
         <span ng-if="doc.owner.reputation !== undefined">[<span class="ss-reputation">{{doc.owner.reputation}}</span>]</span>
       </span>
     </span>
