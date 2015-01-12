@@ -1,5 +1,9 @@
-{
-    "query": {
+{"search":{
+   "qtext": [
+            "",
+            "sort:active"
+        ],
+   "query": {
         "and-query": {
             "queries": [
                 {
@@ -9,12 +13,9 @@
                     }
                 }
             ]
-        },
-        "qtext": [
-            "",
-            "sort:active"
-        ]
+        }
     },
     "start": 1,
     "timezone": "America/Los_Angeles"
+  }
 }

@@ -1,5 +1,3 @@
-{"query":
-  {
-  "qtext":"tag:test-data-tag"
-  }
+{"search":
+  {"qtext":"tag:test-data-tag"}
 }
