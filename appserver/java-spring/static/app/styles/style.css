@@ -5032,6 +5032,11 @@ h1 {
 .ss-add-comment textarea {
   margin-bottom: 10px; }
 
+/* answer form */
+.ss-answer-form .ss-answer-message-guest {
+  padding-top: 14px;
+  margin-left: 120px; }
+
 /* used across different views */
 .form-group-textarea {
   -webkit-border-bottom-right-radius: 6px;

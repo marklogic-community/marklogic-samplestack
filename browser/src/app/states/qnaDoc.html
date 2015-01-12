@@ -246,38 +246,44 @@
 
   </div> <!-- ss-answer-wrapper -->
 
-  <div class="row">
-    <div class="col-xs-12 ss-your-answer-header">
-      <div class="ss-qnadoc-header">Your Answer</div>
+  <div class="ss-answer-form">
+
+    <div class="row">
+      <div class="col-xs-12 ss-your-answer-header">
+        <div class="ss-qnadoc-header">Your Answer</div>
+      </div>
     </div>
-  </div>
 
-  <div ng-if="!canAnswer()">
-    You must log in to submit an answer to this question.
-  </div> <!-- !canAnswer() -->
+    <div ng-if="!canAnswer()">
+      <p class="ss-answer-message-guest">You must
+        <a href="" ng-click="openLogin()">log in</a>
+      to submit an answer to this question.</p>
+    </div> <!-- !canAnswer() -->
 
-  <!-- final empty answer used for new answer -->
-  <div ng-if="canAnswer()">
-    <div class="row clearfix">
-      <div class="col-md-1 col-sm-2 col-xs-3 clearfix">&nbsp;</div>
-        <div class="col-md-10 col-sm-10 col-xs-9 markdown-controls clearfix">
-          <div
-            ss-markdown-editor
-            content="doc.answers[doc.answers.length - 1].text"
-            placeholder="Enter Your Answer"
-          ></div>
+    <!-- final empty answer used for new answer -->
+    <div ng-if="canAnswer()">
+      <div class="row clearfix">
+        <div class="col-md-1 col-sm-2 col-xs-3 clearfix">&nbsp;</div>
+          <div class="col-md-10 col-sm-10 col-xs-9 markdown-controls clearfix">
+            <div
+              ss-markdown-editor
+              content="doc.answers[doc.answers.length - 1].text"
+              placeholder="Enter Your Answer"
+            ></div>
 
-          <div class="form-group">
-            <button
-              type="button"
-              class="btn btn-primary"
-              ng-click="saveAnswer(doc.answers[doc.answers.length - 1])"
-              ng-disabled="!doc.answers[doc.answers.length - 1].text"
-            >Post your answer</button>
+            <div class="form-group">
+              <button
+                type="button"
+                class="btn btn-primary"
+                ng-click="saveAnswer(doc.answers[doc.answers.length - 1])"
+                ng-disabled="!doc.answers[doc.answers.length - 1].text"
+              >Post your answer</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div> <!-- canAnswer() -->
+    </div> <!-- canAnswer() -->
+
+  </div><!-- ss-answer-form -->
 
 </div> <!-- ss-qnadoc -->
