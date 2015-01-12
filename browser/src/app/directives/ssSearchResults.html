@@ -70,84 +70,14 @@
     </section>
 
     <!-- paging -->
-    <div class="row ss-paging" ng-if="search.results.total > 0">
-      <div class="col-md-11 col-sm-10 col-xs-9">
-        <ul class="pagination">
-          <!-- prev -->
-          <li>
-            <a
-              href=""
-              ng-disabled="!search.hasPrevPage()"
-              ng-click="incrementPage(-1)"
-            >
-              <span class="caret left"></span>
-            </a>
-          </li>
-          <!-- 1 -->
-          <li ng-class="
-            {'active': search.getCurrentPage() === 1}
-          ">
-            <a
-              href=""
-              ng-click="setCurrentPage(1)"
-            >1 <span class="sr-only">(current)</span></a>
-          </li>
-          <!-- ... -->
-          <li>
-            <a
-              href=""
-              ng-click="angular.noop()"
-              ng-if="search.getCurrentPage() > (pad + 2)"
-            >...</a>
-          </li>
-          <!-- (selected - pad) to (selected + pad) -->
-          <li
-            ng-class="
-              {'active': search.getCurrentPage() === $index + search.getCurrentPage() - pad}
-            "
-            ng-if="($index + search.getCurrentPage() - pad) > 1 &&
-                   ($index + search.getCurrentPage() - pad) < search.getPageCount()"
-            ng-repeat="page in search.getNumAsArray((2 * pad) + 1) track by $index"
-          >
-            <a
-              href=""
-              ng-click="setCurrentPage($index + search.getCurrentPage() - pad)"
-            >{{$index + search.getCurrentPage() - pad}}</a>
-          </li>
-          <!-- ... -->
-          <li>
-            <a
-              href=""
-              ng-click="angular.noop()"
-              ng-if="search.getCurrentPage() < (search.getPageCount() - (pad + 1))"
-            >...</a>
-          </li>
-          <!-- pagecount -->
-          <li
-            ng-if="search.getPageCount() > 5"
-            ng-class="
-              {'active': search.getCurrentPage() === search.getPageCount()}
-            "
-          >
-            <a
-              href=""
-              ng-if="search.getPageCount() > 1"
-              ng-click="setCurrentPage(search.getPageCount())"
-            >{{search.getPageCount()}} <span class="sr-only">(current)</span></a>
-          </li>
-          <!-- next -->
-          <li>
-            <a
-              href=""
-              ng-disabled="!search.hasNextPage()"
-              ng-click="incrementPage(1)"
-            >
-              <span class="caret right"></span>
-            </a>
-          </li>
-        </ul> <!-- pagination -->
-      </div>
-    </div> <!-- row ss-paging -->
+    <pagination
+      total-items="search.$ml.pagingInfo.total"
+      ng-model="currPage"
+      ng-change="updatePage(currPage)"
+      max-size="maxSize"
+      boundary-links="true"
+      rotate="false"
+    ></pagination>
 
   </div>
 
