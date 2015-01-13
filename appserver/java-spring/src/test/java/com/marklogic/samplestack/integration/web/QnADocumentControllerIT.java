@@ -30,8 +30,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -58,8 +56,6 @@ import com.marklogic.samplestack.testing.Utils;
 @SpringApplicationConfiguration(classes = { Application.class, TestDataManager.class })
 @Category(IntegrationTests.class)
 public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
-
-	Logger logger = LoggerFactory.getLogger(QnADocumentControllerIT.class);
 
 	private Date deleteSince = null;
 	

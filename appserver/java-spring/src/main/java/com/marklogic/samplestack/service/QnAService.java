@@ -17,7 +17,6 @@ package com.marklogic.samplestack.service;
 
 import org.joda.time.DateTimeZone;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;

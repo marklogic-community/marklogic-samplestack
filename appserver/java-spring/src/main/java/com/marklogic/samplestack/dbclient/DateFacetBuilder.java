@@ -16,7 +16,6 @@
 package com.marklogic.samplestack.dbclient;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;

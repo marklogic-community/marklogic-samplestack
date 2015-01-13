@@ -99,7 +99,6 @@ public class DatabaseQnADocumentSearchIT {
 	 */
 	public void defaultSearchOrdersByActivityDescending() {
 		ObjectNode query = mapper.createObjectNode();
-		@SuppressWarnings("unused")
 		ObjectNode queryNode = query.putObject("search");
 		ArrayNode qtext = queryNode.putArray("qtext");
 		qtext.add("tag:test-data-tag sort:active");  // the controller tier adds this if no query specified
