@@ -1,0 +1,21 @@
+{"search":{
+   "qtext": [
+            "",
+            "sort:active"
+        ],
+   "query": {
+        "and-query": {
+            "queries": [
+                {
+                    "range-constraint-query": {
+                        "constraint-name": "tag",
+                        "value": "test-data-tag"
+                    }
+                }
+            ]
+        }
+    },
+    "start": 1,
+    "timezone": "Europe/Prague"
+  }
+}

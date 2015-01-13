@@ -15,18 +15,23 @@
 */
 package com.marklogic.samplestack.unit.web;
 
+import static org.junit.Assert.assertEquals;
 import groovy.lang.Category;
 
 import java.io.UnsupportedEncodingException;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.mock.MockApplication;
 import com.marklogic.samplestack.testing.IntegrationTests;
 import com.marklogic.samplestack.testing.QnADocumentControllerTestImpl;
@@ -120,10 +125,9 @@ public class QnADocumentControllerTests extends QnADocumentControllerTestImpl {
 		//not a mockable test
 	}
 	
-	@Override
 	@Test
-	public void testIncludeTimezone() throws JsonProcessingException, Exception {
-		super.testIncludeTimezone();
+	public void testIncludeTimezoneAdjustsDateFacet() throws JsonProcessingException, Exception {
+		super.testIncludeTimezone("queries/test-timezone-query.json");
 	}
 
 }
