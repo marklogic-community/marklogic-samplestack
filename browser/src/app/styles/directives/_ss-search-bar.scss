@@ -139,36 +139,53 @@
     -o-box-shadow: inset 0px 0px 10px 0px #000,0px 3px 3px 0px #333;
   }
 
+  /* entire first column */
+  .tips-box .col:first-of-type {
+    border: 0;
+    width: 27%;
+  }
+  /* first label */
+  .tips-box .col:first-of-type label {
+    width: 45.5%;
+  }
+  /* first sample */
+  .tips-box .col:first-of-type .sample {
+    width: 54.5%;
+  }
+
   /* entire column default */
   .tips-box .col {
+    border-left:1px solid #595959;
     border-right:1px solid #595959;
-    border-left:1px solid #000;
-    width: 36%;
+    /* double-line effect breaks when different heights */
+    /* border-left:1px solid #000; */
+    width: 34%;
   }
   /* label default */
   .tips-box .col label {
     color: #c4c4c4;
     font-weight:normal;
-    width: 31%;
+    width: 25.5%;
   }
   /* sample default */
   .tips-box .col .sample {
     color: #fff;
     font-weight:normal;
-    width: 69%;
+    width: 74.5%;
   }
 
-  /* entire first column */
-  .tips-box .col:first-of-type {
-    width: 28%;
+  /* entire last column */
+  .tips-box .col:last-of-type {
+    border: 0;
+    width: 38%;
   }
-  /* first label */
-  .tips-box .col:first-of-type label {
-    width: 39%;
+  /* last label */
+  .tips-box .col:last-of-type label {
+    width: 33%;
   }
-  /* first sample */
-  .tips-box .col:first-of-type .sample {
-    width: 61%;
+  /* last sample */
+  .tips-box .col:last-of-type .sample {
+    width: 67%;
   }
 
   @media (max-width: 768px) {
