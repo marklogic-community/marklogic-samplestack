@@ -175,7 +175,6 @@ public class MarkLogicContributorService extends MarkLogicBaseService implements
 
 	@Override
 	public void store(Contributor contributor, Transaction transaction) {
-		logger.debug("Storing contributor id " + contributor.getId());
 		Contributor cachedContributor = getByUserName(contributor.getUserName(), transaction);
 		if (cachedContributor != null)
 			logger.debug("cached contributor " + cachedContributor.getId());

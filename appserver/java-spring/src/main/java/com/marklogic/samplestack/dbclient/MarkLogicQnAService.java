@@ -322,7 +322,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			options.put("page-length", SamplestackConstants.RESULTS_PAGE_LENGTH);
 
 			DateTime[] dateRange = getDateRanges(role, structuredQuery, userTimeZone);
-			logger.debug("Got ranges for buckets: " + dateRange.toString());
 
 			if (dateRange[0] != null && dateRange[1] != null) {
 				ObjectNode facetDescriptor = DateFacetBuilder.dateFacet(

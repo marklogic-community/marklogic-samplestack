@@ -26,8 +26,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
@@ -42,8 +40,6 @@ import com.marklogic.samplestack.domain.QnADocument;
  * Share implementation for QnADocumentController unit and integration tests.
  */
 public class QnADocumentControllerTestImpl extends ControllerTests {
-
-	protected Logger logger = LoggerFactory.getLogger(QnADocumentControllerTestImpl.class);
 
 	private QnADocument answeredQuestion;
 

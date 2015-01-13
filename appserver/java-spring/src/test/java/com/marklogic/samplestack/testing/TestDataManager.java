@@ -34,7 +34,6 @@ import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.DocumentMetadataHandle.Capability;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.samplestack.dbclient.Clients;
-import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.exception.SamplestackIOException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
