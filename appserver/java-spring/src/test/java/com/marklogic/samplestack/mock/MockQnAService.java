@@ -15,6 +15,7 @@
 */
 package com.marklogic.samplestack.mock;
 
+import org.joda.time.DateTimeZone;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -91,7 +92,7 @@ public class MockQnAService  extends MockServiceBase implements QnAService {
 
 	@Override
 	public ObjectNode rawSearch(ClientRole role, ObjectNode combinedQuery,
-			long start, boolean includeDates) {
+			long start, DateTimeZone userTimeZone) {
 		return rawSearch(role, combinedQuery, start);
 	}
 

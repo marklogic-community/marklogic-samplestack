@@ -15,6 +15,7 @@
  */
 package com.marklogic.samplestack.web;
 
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.domain.Contributor;
 import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
+import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
 import com.marklogic.samplestack.exception.SamplestackSearchException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
@@ -78,7 +79,7 @@ public class QnADocumentController {
 		ObjectNode combinedQuery = mapper.createObjectNode();
 		ObjectNode qtext = combinedQuery.putObject("search");
 		qtext.put("qtext",q);
-		return qnaService.rawSearch(ClientRole.securityContextRole(), combinedQuery, start, true);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), combinedQuery, start, DateTimeZone.forID("US/Pacific"));
 	}
 
 	/**
@@ -285,12 +286,17 @@ public class QnADocumentController {
 			combinedQueryObject.remove("start");
 		}
 		JsonNode postedTimeZone = combinedQueryObject.get("timezone");
+		DateTimeZone userTimeZone = DateTimeZone.getDefault();
 		if (postedTimeZone != null) {
-			// TODO work with time zone.
+			try {
+				userTimeZone = DateTimeZone.forID(postedTimeZone.asText());
+			} catch (IllegalArgumentException e) {
+				throw new SamplestackInvalidParameterException("Received unrecognized timezone from browser: " + postedTimeZone.asText());
+			}
 			combinedQueryObject.remove("timezone");
 		}
 		// TODO review for presence/absense of date facet as performance question.
-		return qnaService.rawSearch(ClientRole.securityContextRole(), combinedQuery, start, true);
+		return qnaService.rawSearch(ClientRole.securityContextRole(), combinedQuery, start, userTimeZone);
 	}
 
 }

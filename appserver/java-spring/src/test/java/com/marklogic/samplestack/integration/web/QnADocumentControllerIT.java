@@ -23,6 +23,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -176,9 +179,26 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 		super.testAnonymousAccessToAccepted();
 	}
 
-	@Override
 	@Test
-	public void testIncludeTimezone() throws JsonProcessingException, Exception {
-		super.testIncludeTimezone();
+	public void testIncludeTimezoneAdjustsDateFacet() throws JsonProcessingException, Exception {
+		//logger.debug("" + DateTimeZone.getAvailableIDs());
+		MockHttpServletResponse response = super.testIncludeTimezone("queries/test-timezone-query.json");
+		ObjectNode searchResponse = mapper.readValue(response.getContentAsString(), ObjectNode.class);
+		JsonNode dateFacet = searchResponse.get("facets").get("date");
+		logger.debug(mapper.writeValueAsString(dateFacet));
+		DateTime firstValue = DateTime.parse(dateFacet.get("facetValues").get(0).get("value").asText());
+		DateTimeZone timeZone = firstValue.getChronology().getZone();
+		assertEquals("Time zone must match that requested in payload", "-08:00", timeZone.getID());
+		
+		response = super.testIncludeTimezone("queries/test-timezone-query2.json");
+		searchResponse = mapper.readValue(response.getContentAsString(), ObjectNode.class);
+		dateFacet = searchResponse.get("facets").get("date");
+		logger.debug(mapper.writeValueAsString(dateFacet));
+		firstValue = DateTime.parse(dateFacet.get("facetValues").get(0).get("value").asText());
+		timeZone = firstValue.getChronology().getZone();
+		assertEquals("Time zone must match that requested in payload", "+01:00", timeZone.getID());
+		
+		super.testBadTimezone();
+		
 	}
 }

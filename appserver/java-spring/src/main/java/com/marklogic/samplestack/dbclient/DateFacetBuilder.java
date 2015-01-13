@@ -16,6 +16,7 @@
 package com.marklogic.samplestack.dbclient;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -120,9 +121,10 @@ public class DateFacetBuilder {
 			}
 		} else {
 		*/
-		// for EA-3 we are only doing by month
+		// for 8.0-1 we are only doing facets by month
 			fb.period("MONTH");
 			DateTime bucketStart = min.minusDays(min.getDayOfMonth() - 1).minus(min.getMillisOfDay());
+			bucketStart = new DateTime(bucketStart);
 			while (bucketStart.isBefore(max)) {
 				DateTime bucketEnd = bucketStart.plusMonths(1);
 				fb.bucket(bucketStart, bucketEnd);
