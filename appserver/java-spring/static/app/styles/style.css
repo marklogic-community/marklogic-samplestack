@@ -4883,7 +4883,8 @@ h1 {
     width: 4%;
     text-align: right;
     padding: 14px 14px 0px 14px;
-    color: #ccc; }
+    color: #ccc;
+    cursor: pointer; }
   .ss-ask .title-module-input {
     float: left;
     width: 96%;

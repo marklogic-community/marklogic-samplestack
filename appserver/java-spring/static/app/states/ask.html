@@ -12,8 +12,14 @@
         <!-- question title -->
         <div class="form-group ss-title-wrapper">
           <div class="title-module-input-wrapper clearfix">
-            <div class="title-module-input-clear hide" >
-              <i class="glyphicon glyphicon-remove"></i>
+            <div
+              class="title-module-input-clear"
+              ng-show="qnaDoc.title"
+            >
+              <i
+                class="glyphicon glyphicon-remove"
+                ng-click="qnaDoc.title = ''"
+              ></i>
             </div>
             <div class="title-module-input">
               <input
