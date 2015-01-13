@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 MarkLogic Corporation
+ * Copyright 2012-2015 MarkLogic Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -374,7 +374,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 					.get(objectIndex);
 
 			// TODO this all should be extractable server-side, but
-			// I ran into issues with extract-document-data (10/15/2014)
+			// I ran into issues with extract-document-data (10/15/2015)
 			ObjectNode newContent = searchResponseResultNode
 					.putObject("content");
 			newContent.put("accepted", documentResultObject.get("accepted")

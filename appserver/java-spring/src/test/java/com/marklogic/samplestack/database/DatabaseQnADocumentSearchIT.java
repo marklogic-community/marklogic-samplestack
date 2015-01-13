@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 MarkLogic Corporation
+ * Copyright 2012-2015 MarkLogic Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -274,7 +274,7 @@ public class DatabaseQnADocumentSearchIT {
 					+ "\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
-					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
+					+ "\"value\":\"2014-08-09T18:16:56.809Z\", "
 					+ "\"range-operator\":\"GT\"}}}}", JsonNode.class);
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1);
@@ -293,7 +293,7 @@ public class DatabaseQnADocumentSearchIT {
 					+ "{\"query\":"
 					+ "{\"range-constraint-query\":"
 					+ "{\"constraint-name\":\"lastActivity\", "
-					+ "\"value\":\"2015-08-09T18:16:56.809Z\", "
+					+ "\"value\":\"2014-08-09T18:16:56.809Z\", "
 					+ "\"range-operator\":\"LT\"}}}}", JsonNode.class);
 			results = qnaService.rawSearch(ClientRole.SAMPLESTACK_CONTRIBUTOR,
 					query, 1, true);
