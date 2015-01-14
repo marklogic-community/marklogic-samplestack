@@ -2,7 +2,102 @@
     "options": {
         "constraint": [
             {
+                "name": "askedBy",
+                "range": {
+                    "facet": "false",
+                    "path-index": {
+                        "text": "/owner/displayName"
+                    },
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "answeredBy",
+                "range": {
+                    "facet": "false",
+                    "path-index": {
+                        "text": "/answers/owner/displayName"
+                    },
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "commentedBy",
+                "range": {
+                    "facet": "false",
+                    "path-index": {
+                        "text": "//comments/owner/displayName"
+                    },
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "user",
+                "value": {
+                    "json-property": "displayName"
+                }
+            },
+            {
+                "name": "userName",
+                "value": {
+                    "json-property": "userName"
+                }
+            },
+            {
+                "name": "id",
+                "range": {
+                    "facet": "false",
+                    "json-property": "id",
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "title",
+                "word": {
+                    "json-property": "title"
+                }
+            },
+            {
+                "name": "resolved",
+                "value": {
+                    "type":"boolean",
+                    "json-property": "accepted"
+                }
+            },
+            {
+                "name": "lastActivity",
+                "range": {
+                    "facet": "false",
+                    "json-property": "lastActivityDate",
+                    "type": "xs:dateTime"
+                }
+            },
+            {
+                "name": "votes",
+                "range": {
+                    "facet": "false",
+                    "json-property": "voteCount",
+                    "type": "xs:long"
+                }
+            },
+            {
+                "name": "answers",
+                "range": {
+                    "facet": "false",
+                    "json-property": "answerCount",
+                    "type": "xs:long"
+                }
+            },
+            {
                 "name": "tag",
+                "range": {
+                    "facet": "false",
+                    "json-property": "tags",
+                    "type": "xs:string"
+                }
+            },
+            {
+                "name": "tagword",
                 "word": {
                     "collation": "http://marklogic.com/collation/",
                     "json-property": "tags",

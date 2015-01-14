@@ -40,7 +40,7 @@ public class MockTagsService extends MockServiceBase implements TagsService {
 	ObjectNode itemOrderTags;
 
 
-	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery,
+	public ObjectNode getTags(ClientRole role, String forTag, ObjectNode combinedQuery,
 			long start, long pageLength) {
 
 		try {
@@ -64,19 +64,23 @@ public class MockTagsService extends MockServiceBase implements TagsService {
 		}
 
 		ObjectNode options = (ObjectNode) combinedQuery.get("search").get("options");
+		
+		@SuppressWarnings("unused")
 		String combinedQueryString = null;
 		try {
 			combinedQueryString = mapper.writeValueAsString(combinedQuery);
 		} catch (JsonProcessingException e) {
 			fail("JsonProcessingException while parsing combined Query (in MockTagsService)");
 		}
+		
+		//test one is pagelength set?
 		/* mock a page length of one */
 		if (pageLength == 1) return oneItemTags;
+		
+		//test two is forTag equal to ada?
 		/* mock a query that returns two values */
-		if (combinedQuery.get("search").get("qtext") != null) {
-			if (combinedQueryString.contains("tag:ada")) {
-			return twoItemTags;
-		}
+		if (forTag != null && forTag.equals("ada")) {
+			return oneItemTags;
 		}
 		else if (options.get("values").get("values-option") != null) {
 			if (options.get("values").get("values-option").asText().equals("item-order"))  {
