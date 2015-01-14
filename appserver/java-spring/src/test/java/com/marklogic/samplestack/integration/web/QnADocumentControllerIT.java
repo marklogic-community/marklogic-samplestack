@@ -195,6 +195,5 @@ public class QnADocumentControllerIT extends QnADocumentControllerTestImpl {
 		assertEquals("Time zone must match that requested in payload", "+01:00", timeZone.getID());
 		
 		super.testBadTimezone();
-		
 	}
 }

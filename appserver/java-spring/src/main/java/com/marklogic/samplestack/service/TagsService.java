@@ -20,18 +20,25 @@ import com.marklogic.samplestack.security.ClientRole;
 
 /**
  * Defines the TagsService, which returns suggested tags based on substrings.
- * Not used in EA-3
+ * There are two use cases for tag service.  One is the scenario in
+ * which only a subset of values results.  This subset matches the string
+ * pattern for the tags.
+ * <p>
+ * Otherwise, the tag response comes directly from the vall to MarkLogic's
+ *   /v1/values/{name} endpoint.
  */
 public interface TagsService {
 
 	/**
 	 * Wraps a call to REST API /v1/values to get back tag values and frequencies
 	 * @param role Role to search with
+	 * @param tagPattern A pattern to filter the tag result.
 	 * @param combinedQuery a JSON node containing the options definition for this query.
 	 * @param start the first index to retrieve.
-	 * @param pageLength TODO
+	 * @param pageLength The number of tags to return.
+	 * @param 
 	 * @return A values response in a JSON structure.
 	 */
-	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery, long start, long pageLength);
+	public ObjectNode getTags(ClientRole role, String tagPattern, ObjectNode combinedQuery, long start, long pageLength);
 
 }

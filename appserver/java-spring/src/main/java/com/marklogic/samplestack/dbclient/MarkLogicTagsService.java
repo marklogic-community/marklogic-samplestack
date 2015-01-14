@@ -17,6 +17,8 @@ package com.marklogic.samplestack.dbclient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.query.QueryManager;
@@ -26,32 +28,103 @@ import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
 
 /**
- * Implementation of TagsService
- * (Not used in EA-3)
+ * Implementation of TagsService (Not used in EA-3)
  */
 @Component
-public class MarkLogicTagsService extends MarkLogicBaseService implements TagsService {
+public class MarkLogicTagsService extends MarkLogicBaseService implements
+		TagsService {
 
 	/**
-	 * Wraps a call to REST API /v1/values to get back tag values and frequencies
-	 * @param role Role to search with
-	 * @param combinedQuery a JSON node containing the options definition for this query.
-	 * @param start the first index to retrieve.
+	 * Wraps a call to REST API /v1/values to get back tag values and
+	 * frequencies
+	 * 
+	 * @param role
+	 *            Role to search with
+	 * @param forTag
+	 *            The string pattern to filter tag results.
+	 * @param combinedQuery
+	 *            a JSON node containing the options definition for this query.
+	 * @param start
+	 *            the first index to retrieve.
 	 * @return A values response in a JSON structure.
 	 */
-	public ObjectNode getTags(ClientRole role, ObjectNode combinedQuery, long start, long pageLength) {
+	public ObjectNode getTags(ClientRole role, String forTag,
+			ObjectNode combinedQuery, long start, long pageLength) {
 		QueryManager queryManager = clients.get(role).newQueryManager();
-		ValuesDefinition valdef = queryManager.newValuesDefinition("tags", "tags");
+		ValuesDefinition valdef = queryManager.newValuesDefinition("tags",
+				"tags");
+		JacksonHandle handle = new JacksonHandle();
+		if (forTag != null) {
+			String wildcardedTag = "tagword:\"*" + forTag + "*\"";
+
+			if (combinedQuery != null) {
+				// insert forTag as a tag query.
+				JsonNode qtextNode = combinedQuery.get("search").findPath(
+						"qtext");
+				if (qtextNode.isMissingNode()) {
+					((ObjectNode) combinedQuery.get("search")).put("qtext",
+							wildcardedTag);
+				} else if (qtextNode.isArray()) {
+					((ArrayNode) combinedQuery.get("search").get("qtext"))
+							.add(wildcardedTag);
+				} else if (qtextNode.isTextual()) {
+					String existingText = combinedQuery.get("search")
+							.get("qtext").asText();
+					ArrayNode newQtexts = ((ObjectNode) combinedQuery
+							.get("search")).putArray("qtext");
+					newQtexts.add(existingText);
+					newQtexts.add(wildcardedTag);
+				}
+			}
+			/*
+			 * this is a guess -- if I get 10* the pagelength then I can filter
+			 * and hope to get original pageLength from it.
+			 */
+			queryManager.setPageLength(pageLength * 1000);
+		} else {
+			queryManager.setPageLength(pageLength);
+		}
 		if (combinedQuery != null) {
-			JacksonHandle handle = new JacksonHandle();
 			handle.set(combinedQuery);
-			RawCombinedQueryDefinition qdef = queryManager.newRawCombinedQueryDefinition(handle);
+			RawCombinedQueryDefinition qdef = queryManager
+					.newRawCombinedQueryDefinition(handle);
 			valdef.setQueryDefinition(qdef);
 		}
-		queryManager.setPageLength(pageLength);
 		valdef.setAggregate("count");
-		JacksonHandle responseHandle = queryManager.values(valdef, new JacksonHandle(), start);
-		return (ObjectNode) responseHandle.get();
+		JacksonHandle responseHandle = queryManager.values(valdef,
+				new JacksonHandle(), start);
+		ObjectNode responseJson = (ObjectNode) responseHandle.get();
+		if (forTag != null) {
+			responseJson = filterResponseBy(responseJson, forTag, start, pageLength);
+		}
+		return responseJson;
+	}
+
+	private ObjectNode filterResponseBy(ObjectNode responseJson, String forTag,
+			long start, long pageLength) {
+		ObjectNode responseNode = (ObjectNode) responseJson
+				.get("values-response");
+		ArrayNode distinctValues = (ArrayNode) responseNode.get(
+				"distinct-value").deepCopy();
+		responseNode.remove("distinct-value");
+		ArrayNode newValues = responseNode.putArray("distinct-value");
+		int kept = 0;
+		for (int i = 0; i < distinctValues.size() && kept <= pageLength; i++) {
+			ObjectNode value = (ObjectNode) distinctValues.get(i);
+			if (value.get("_value").asText().contains(forTag)) {
+				// is start past yet?
+				if (start > 1) {
+					start--;
+				}
+				else {
+					newValues.add(value);
+					kept++;;
+				}
+			} else {
+				// pass
+			}
+		}
+		return responseJson;
 	}
 
 }
