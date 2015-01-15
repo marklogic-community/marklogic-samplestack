@@ -46,7 +46,7 @@ define([
           'aboutMe':'Some text about a basic user',
           'id':'cf99542d-f024-4478-a6dc-7e723a51b040',
           'location':null,
-          'username':'joeUser@marklogic.com',
+          'username':'joe@example.com',
           'votes':[],
           'role':[
             'SAMPLESTACK_CONTRIBUTOR'
