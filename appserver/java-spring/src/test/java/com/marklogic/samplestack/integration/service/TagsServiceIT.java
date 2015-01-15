@@ -53,7 +53,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 	TagsService tagsService;
 
 	@Test
-	public void testTagSearch() throws JsonProcessingException, JSONException {
+	public void testTagSearchWithForTag() throws JsonProcessingException, JSONException {
 
 		ObjectNode topNode = mapper.createObjectNode();
 		ObjectNode combinedQueryNode = topNode.putObject("search");
@@ -112,7 +112,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 							"{\"search\":{\"qtext\":\"tag:test-data-tag\",\"query\":{\"word-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"cloj*\"}}}}",
 							JsonNode.class);
 			results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					null, query, 1, 1);
+					"clo", query, 1, 1);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 		} catch (IOException e) {

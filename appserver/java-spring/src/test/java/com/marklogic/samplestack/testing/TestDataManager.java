@@ -107,6 +107,8 @@ public class TestDataManager {
 					false);
 			loadJson("questions/6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300.json",
 					true);
+			
+			loadJson("triples/testRdf.json", true);
 
 		} catch (Exception e) {
 			throw new SamplestackIOException(e);
@@ -148,6 +150,7 @@ public class TestDataManager {
 			docMgr.delete("/questions/3410347b-abf0-4e1a-8aa8-f153207322eb.json");
 			docMgr.delete("/questions/5dce8909-0972-4289-93cd-f2e8790a17fb.json");
 			docMgr.delete("/questions/6c90b1cf-2cd8-4a8d-87ae-0c6d5182d300.json");
+			docMgr.delete("/triples/testRdf.json");
 		} catch (Exception e) {
 			throw new SamplestackIOException(e);
 		}

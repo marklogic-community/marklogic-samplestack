@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-package com.marklogic.samplestack.database;
+package com.marklogic.samplestack.integration.service;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -32,38 +29,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.dbclient.RelatedTagsManager;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
+import com.marklogic.samplestack.testing.TestDataManager;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseContext.class)
-@Category(DatabaseExtensionTests.class)
 /**
  * Tests the semantic extension for related tags. 
  * This feature is expected to be delivered in a
  * revision of Samplestack after 8.0-1.
  */
-public class RelatedTagsTest {
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { DatabaseContext.class, TestDataManager.class})
+@Category(DatabaseExtensionTests.class)
+public class RelatedTagsIT {
 
 	private final Logger logger = LoggerFactory
-			.getLogger(RelatedTagsTest.class);
+			.getLogger(RelatedTagsIT.class);
 
-	
+
 	@Autowired
 	RelatedTagsManager manager;
 	
 	@Test
-	@Ignore
 	public void testRelatedTags() {
-		String startTag = "javascript";
+
+		String relatedTagsQueryString = manager.getRelatedTags("tex");
+
+		logger.info("" + relatedTagsQueryString);
+
+		assertEquals("Expected related tags query for 'tex'", "tag:braille OR tag:capitalization OR tag:cleartype OR tag:context OR tag:cutepdf OR tag:directwrite OR tag:freetype OR tag:harfbuzz OR tag:knitr OR tag:latex OR tag:lyx OR tag:mix OR tag:mmix OR tag:metapost OR tag:miktex OR tag:opentype OR tag:pstricks OR tag:pango OR tag:pdftex OR tag:postscript OR tag:sweave OR tag:tex4ht OR tag:termcap OR tag:texinfo OR tag:truetype OR tag:typeface OR tag:typekit OR tag:typesetting OR tag:uniscribe OR tag:web OR tag:xetex",relatedTagsQueryString);
 		
-		List<String> relatedTags = manager.getRelatedTags(startTag);
-		
-		logger.info("" + relatedTags);
-		
-		logger.info("" + manager.getRelatedTags("xquery"));
-		
-		fail("No assertions");
-		
+		relatedTagsQueryString = manager.getRelatedTags("latex");
+
+		assertEquals("Expected related tags query for 'latex'", "tag:context OR tag:knitr OR tag:metapost OR tag:miktex OR tag:pstricks OR tag:pdftex OR tag:sweave OR tag:tex OR tag:texinfo OR tag:xetex", relatedTagsQueryString);
 	}
 }
