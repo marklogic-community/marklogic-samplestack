@@ -126,13 +126,14 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
         def extensionFileName = extension.getPath().replaceAll(~"\\\\","/")
         def extensionName = 
             extensionFileName.replaceAll(~".*\\/","")
-        logger.info( "Saving extension " + extensionFileName)
+        logger.info( "Saving library extension " + extensionFileName)
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/ext/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
+        client.getEncoder().putAt("application/javascript", client.getEncoder().getAt("text/plain"))
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
         def params = [:]
         if (extensionFileName.endsWith("sjs")) {
-            params.contentType = "application/vnd.marklogic-javascript";
+            params.contentType = "application/javascript"
         } else {
             params.contentType = "application/xquery"
         }
@@ -143,13 +144,18 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
     void putServiceExtension(extension) {
         def extensionFileName = extension.getPath().replaceAll(~"\\\\","/")
         def extensionName = 
-            extensionFileName.replaceAll(~".*\\/","")
-        logger.info( "Saving extension " + extensionFileName)
+            extensionFileName.replaceAll(~".*\\/","").replaceAll(~"\\.(sjs|xqy)","")
+        logger.info( "Saving service extension " + extensionFileName)
         RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/resources/" + extensionName)
         client.getEncoder().putAt("application/xquery", client.getEncoder().getAt("text/plain"))
+        client.getEncoder().putAt("application/javascript", client.getEncoder().getAt("text/plain"))
         client.auth.basic config.marklogic.rest.admin.user, config.marklogic.rest.admin.password
         def params = [:]
-        params.contentType = "application/xquery"
+        if (extensionFileName.endsWith("sjs")) {
+            params.contentType = "application/javascript"
+        } else {
+            params.contentType = "application/xquery"
+        }
         params.body = extension.text
         put(client,params)
     }
