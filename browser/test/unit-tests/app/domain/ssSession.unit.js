@@ -25,7 +25,7 @@ define(['testHelper', 'mocks/index'], function (helper, mocks) {
 /* jshint ignore:start */
       validUser = {
         'id':'cf99542d-f024-4478-a6dc-7e723a51b040',
-        'username':'joeUser@marklogic.com',
+        'username':'joe@example.com',
         'role':[
           'SAMPLESTACK_CONTRIBUTOR'
         ],
@@ -36,7 +36,7 @@ define(['testHelper', 'mocks/index'], function (helper, mocks) {
           'originalId':null,
           'location':'San Francisco',
           'reputation':0,
-          'userName':'joeUser@marklogic.com',
+          'userName':'joe@example.com',
           'votes':[
             '5dce8909-0972-4289-93cd-f2e8790a17fb',
             '8450f8a4-2782-4c8a-9fd9-b83bcacc5018',
