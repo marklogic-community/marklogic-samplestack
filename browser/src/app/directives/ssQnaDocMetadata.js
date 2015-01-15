@@ -62,7 +62,7 @@ define(['app/module'], function (module) {
                 if (str && str.length) {
                   var date = mlUtil.moment(str);
                   return date.format('MMM D, \'YY') +
-                      ' at ' + date.format('h:mm');
+                      ' at ' + date.format('H:mm');
                 }
               };
 
