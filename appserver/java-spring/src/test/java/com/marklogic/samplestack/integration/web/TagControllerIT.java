@@ -18,10 +18,12 @@ package com.marklogic.samplestack.integration.web;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.marklogic.samplestack.Application;
 import com.marklogic.samplestack.dbclient.Clients;
@@ -77,23 +79,18 @@ public class TagControllerIT extends TagControllerTestImpl {
 		super.testLoggedInSortFrequency();
     }
 
-	/* bled over branches.
 	@Test
     public void testRelatedTags() throws Exception {
         MvcResult result = super.testRelatedTagsNoArgs();
-        JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"blob\",frequency: 1 }] }}"
+        logger.debug( result.getResponse().getContentAsString());
+        JSONAssert.assertEquals("{values-response:{distinct-value:[{frequency:1,_value:\"ada\"},{frequency:1,_value:\"latex\"},{frequency:1,_value:\"pango\"},{frequency:1,_value:\"test-data-tag\"}] }}"
 				, result.getResponse().getContentAsString(), false);
 
 		result = super.testRelatedTagsStartPageLength();
 
 		logger.debug(result.getResponse().getContentAsString());
-		 JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"blob\",frequency: 1 }] }}"
+		 JSONAssert.assertEquals("{values-response:{distinct-value:[{frequency:1,_value:\"pango\"}] }}"
 					, result.getResponse().getContentAsString(), false);
 
-		result = super.testRelatedTagsQuery();
-
-		result = super.testRelatedTagsQText();
-
-    }
-    */
+	}
 }

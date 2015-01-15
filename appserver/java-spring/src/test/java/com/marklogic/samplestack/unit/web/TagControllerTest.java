@@ -71,5 +71,9 @@ public class TagControllerTest extends TagControllerTestImpl {
         super.testLoggedInSortFrequency();
     }
 
-
+	@Test
+	public void testRelatedTags() throws Exception {
+		super.testRelatedTagsNoArgs();
+		super.testRelatedTagsStartPageLength();
+	}
 }

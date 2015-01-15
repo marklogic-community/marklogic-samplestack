@@ -73,7 +73,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
             else if (changeFile.path.contains("security")) {
                 logger.info("Skipping security configuration" + change.file.name)
             } else {
-                logger.warn("No handler for file " + change.file.path)
+                logger.warn("Looks like " + change.file.path + " is not a MarkLogic configuration file... skipping")
             }
         }
 
