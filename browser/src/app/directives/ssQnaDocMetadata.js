@@ -94,6 +94,7 @@ define(['app/module'], function (module) {
                 appRouting.go(
                   'root.layout.explore.results',
                   {
+                    'q': null,
                     'tags': tag,
                     'resolved': null,
                     'contributor': null,
