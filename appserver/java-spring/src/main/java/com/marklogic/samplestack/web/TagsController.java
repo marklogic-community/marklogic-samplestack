@@ -26,10 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.SamplestackConstants;
 import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
 import com.marklogic.samplestack.security.ClientRole;
+import com.marklogic.samplestack.service.RelatedTagsService;
 import com.marklogic.samplestack.service.TagsService;
 
 /**
@@ -44,6 +46,8 @@ public class TagsController {
 	@Autowired 
 	private ObjectMapper mapper;
 	
+	@Autowired
+	private RelatedTagsService relatedTagsService;
 
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory.getLogger(TagsController.class);
@@ -73,13 +77,24 @@ public class TagsController {
 		if (forTagNode != null) {
 			forTagText = forTagNode.asText();
 		}
-		
-		// TODO for 8.0-2
-//		JsonNode relatedTagNode = searchNode.get("relatedTo");
-//		String relatedToText = null;
-//		if (relatedTagNode != null) {
-//			relatedToText = relatedTagNode.asText();
-//		}
+
+		JsonNode relatedTagNode = searchNode.get("relatedTo");
+		String relatedTagsQtext = "";
+		if (relatedTagNode != null) {
+			String relatedToText = relatedTagNode.asText();
+			relatedTagsQtext = relatedTagsService.getRelatedTags(relatedToText);
+			JsonNode qtextNode = searchNode.findPath("qtext");
+			if (qtextNode.isMissingNode()) {
+				searchNode.put("qtext", relatedTagsQtext);
+			} else if (qtextNode.isArray()) {
+				((ArrayNode) searchNode.get("qtext")).add(relatedTagsQtext);
+			} else if (qtextNode.isTextual()) {
+				String existingText = searchNode.get("qtext").asText();
+				ArrayNode newQtexts = searchNode.putArray("qtext");
+				newQtexts.add(existingText);
+				newQtexts.add(relatedTagsQtext);
+			}
+		}
 		
 		long start = 1;
 		long pageLength = SamplestackConstants.RESULTS_PAGE_LENGTH;

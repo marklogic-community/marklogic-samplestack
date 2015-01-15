@@ -120,7 +120,7 @@ public class TagControllerTestImpl extends ControllerTests {
 										+ "\"qtext\":\"tag:test-data-tag\"}}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
-		JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"test-data-tag\",frequency: 11 },{_value: \"ada\",frequency: 2 }, { _value: \"javascript\", frequency: 2 }, { _value: \"python\", frequency: 2 }, { _value: \"blob\", frequency: 1 } ], name: \"tags\", type: \"xs:string\" } }"
+		JSONAssert.assertEquals("{values-response:{distinct-value:[{_value: \"test-data-tag\",frequency: 11 },{_value: \"ada\",frequency: 2 }, { _value: \"javascript\", frequency: 2 }, { _value: \"python\", frequency: 2 }, { _value: \"tex\", frequency: 2 } ], name: \"tags\", type: \"xs:string\" } }"
 					, result.getResponse().getContentAsString(), false);
 	}
 
@@ -129,12 +129,37 @@ public class TagControllerTestImpl extends ControllerTests {
 		@SuppressWarnings("unused")
 		MvcResult result = this.mockMvc
 				.perform(
-
 						post("/v1/tags")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"sort\":\"bug\"}}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest()).andReturn();
+	}
+
+	public MvcResult testRelatedTagsNoArgs() throws Exception {
+		MvcResult result = this.mockMvc
+				.perform(
+						post("/v1/tags")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{\"search\":{\"relatedTo\":\"tex\","
+										+ "\"qtext\":\"tag:test-data-tag\"}}")
+								.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		return result;
+	}
+
+	public MvcResult testRelatedTagsStartPageLength() throws Exception {
+		MvcResult result = this.mockMvc
+				.perform(
+						post("/v1/tags")
+								.contentType(MediaType.APPLICATION_JSON)
+								.content("{\"search\":{\"relatedTo\":\"tex\","
+										+ "\"pageLength\":1,"
+										+ "\"start\":3,"
+										+ "\"qtext\":\"tag:test-data-tag\"}}")
+								.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		return result;
 	}
 
 }

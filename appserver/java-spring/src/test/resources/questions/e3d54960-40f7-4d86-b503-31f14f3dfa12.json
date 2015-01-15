@@ -11,6 +11,7 @@
         "userName": "testJoeUser@example.com"
     },
     "tags": [
+        "tex",
         "clojure",
         "test-data-tag"
     ],
