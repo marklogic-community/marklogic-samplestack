@@ -9,7 +9,7 @@ Feature: Vote on Question
   Scenario: Mary votes for Joe's question
     Given I am "Mary"
     And I am using the brief seed data
-    When I visit the "qnadoc" page with id "6c90b1cf-2cd8-4a8d-87ae-0c6d5182d301"
+    When I visit the "qnadoc" page with id "e3d54960-40f7-4d86-b503-31f14f3dfa13"
     And I focus on the question
     And the content contributor reputation is known as "reputation"
     And I vote it up
