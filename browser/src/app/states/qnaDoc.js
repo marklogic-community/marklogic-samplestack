@@ -29,7 +29,7 @@ define(['app/module'], function (module) {
         var doc = ssQnaDoc.getOne(
           { id: appRouting.params.id },
           // by passing a contributorId we instigate the getting
-          // and availability of hasVoted properties on the content
+          // and availability of voting properties on the content
           // objects
           $scope.store.session ? $scope.store.session.id : null
         );
@@ -77,33 +77,19 @@ define(['app/module'], function (module) {
 
      /**
       * @ngdoc method
-      * @name $scope.canVoteQuestion
+      * @name $scope.canVoteOn
       * @description Returns whether current user can vote on
-      * the question associated with the QnaDoc.
+      * the object
       * @returns {boolean} true or false
       */
-      $scope.canVoteQuestion = function () {
+      $scope.canVoteOn = function (obj) {
         if (!$scope.store.session) {
           return false;
         }
-        // Don't allow double voting. DO allow voting on own question
-        return !$scope.doc.hasVotedOn;
-      };
-
-     /**
-      * @ngdoc method
-      * @name $scope.canVoteAnswer
-      * @description Returns whether current user can vote on
-      * an answer associated with the QnaDoc.
-      * @param {ssAnswer} answer The ssAnswer object.
-      * @returns {boolean} true or false
-      */
-      $scope.canVoteAnswer = function (answer) {
-        if (!$scope.store.session) {
-          return false;
+        else {
+          return !obj.downvotingContributorIds[$scope.store.session.id] &&
+              !obj.upvotingContributorIds[$scope.store.session.id];
         }
-        // Don't allow double voting. DO allow voting on own answer
-        return !answer.hasVotedOn;
       };
 
      /**
@@ -212,8 +198,30 @@ define(['app/module'], function (module) {
         }
       };
 
+      $scope.updateReputation = function (item) {
+        if (item.owner.id === $scope.store.session.id) {
+          // be careful here -- the existing item is dead, having been
+          // reinstantiated; all we know is that we need to check the current
+          // items for new value
+
+          var objs = $scope.doc.answers.slice(0);
+          objs.unshift($scope.doc);
+          _.forEach(objs, function (obj) {
+            if (obj.owner.id === $scope.store.session.id) {
+              $scope.store.session.userInfo.reputation = obj.owner.reputation;
+              return false;
+            }
+          });
+        }
+      };
+
       $scope.vote = function (val, item) {
-        item.vote(val, $scope.store.session.userInfo);
+        if ($scope.canVoteOn(item)) {
+          item.vote(val, $scope.store.session.userInfo)
+          .then(function () {
+            $scope.updateReputation(item);
+          });
+        }
       };
 
       $scope.accept = function (answer) {

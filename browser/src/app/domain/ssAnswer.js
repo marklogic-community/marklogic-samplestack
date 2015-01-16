@@ -44,14 +44,6 @@ define(['app/module'], function (module) {
         mlModelBase.object.prototype
       );
 
-      // Define hasVotedOn property as the return value of the parent
-      // document's hasVoted method.
-      Object.defineProperty(SsAnswerObject.prototype, 'hasVotedOn', {
-        get: function () {
-          return this.$ml.parent.hasVoted(this.id);
-        }
-      });
-
       /**
        * @ngdoc method
        * @name SsAnswerObject#prototype.vote
@@ -63,7 +55,7 @@ define(['app/module'], function (module) {
         var vote = ssVote.create({upDown: val}, this);
         var self = this;
         if (vote.$ml.valid) {
-          vote.post().$ml.waiting.then(function () {
+          return vote.post().$ml.waiting.then(function () {
             userInfo.voteCount++;
           },
           function (error) {

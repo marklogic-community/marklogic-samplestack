@@ -22,8 +22,6 @@ define([
         text: mocks.question.text
       };
 
-      var validHasVoted = mocks.hasVoted;
-
       it(
         'on POST, Qna doc should receive expected properties',
         function (done) {
@@ -49,10 +47,6 @@ define([
       it(
         'on getOne, Qna doc should receive expected properties',
         function (done) {
-          // GET ssHasVoted (request happens first, so define first)
-          var url = '/v1/hasVoted?contributorId=' + mocks.question.owner.id +
-                '&questionId=' + mocks.question.id;
-          $httpBackend.expectGET(url).respond(200, validHasVoted);
           // GET ssQnaDoc ()
           $httpBackend.expectGET('/v1/questions/' + mocks.question.id)
             .respond(200, mocks.question);
@@ -64,9 +58,6 @@ define([
             function () {
               // Check question ID property
               expect(doc.id).to.equal(mocks.question.id);
-              // Check hasVoted hash
-              var hasVotedID = validHasVoted[0];
-              expect(doc.$ml.hasVoted.voteIds[hasVotedID]).to.equal(true);
               done();
             }
           );

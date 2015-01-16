@@ -6,7 +6,6 @@ Feature: View Contibutor
   dialog displays basic information. If the user is a StackOverflow user, then
   a new window is opened to display that user's StackOverflow profile.
 
-  @broken @374
   Scenario: View Contributor Mary
     Given I am "Mary"
     And I am using the brief seed data
@@ -17,7 +16,6 @@ Feature: View Contibutor
     And the contributor votes cast are "5"
     And the contributor reputation is "100"
 
-  @broken @374
   Scenario: View Contributor Joe
     Given I am "Joe"
     And I am using the brief seed data
