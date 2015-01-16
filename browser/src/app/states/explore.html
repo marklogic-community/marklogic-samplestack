@@ -39,21 +39,17 @@
             </div>
             <div class="checkbox">
               <label
-                disabled
                 ng-class="{'ss-disabled': !store.session}"
+                ng-disabled="!store.session"
               >
                 <!-- resolvedOnly checked when not logged in -->
                 <input
                   type="checkbox"
+                  ng-disabled="!store.session"
                   ng-model="resolvedOnly"
                   ng-change="onCriteriaChange()"
-                  disabled
                   ng-checked="resolvedOnly || !store.session"
                 /> Show resolved only</label>
-<!--
-  when this is ready to be re-enabled, this is the logic
-          ng-disabled="!store.session" (for the label and the input)
--->
             </div>
           </div>
 

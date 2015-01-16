@@ -84,7 +84,7 @@ define([
       //           {
       //             "value-constraint-query":{
       //               "constraint-name":"constrName",
-      //               "boolean":true
+      //               "text":true
       //             }
       //           },
       //           {
@@ -361,7 +361,7 @@ define([
                 'and-query': { queries: [
                   { 'range-constraint-query' : {
                     'constraint-name': 'dummy',
-                    'boolean': true
+                    'text': true
                   } }
                 ] }
               }
