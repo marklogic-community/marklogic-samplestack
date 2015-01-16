@@ -21,5 +21,8 @@ module.exports.support = function (obj) {
     }
   });
 
+  obj.dismiss = function () {
+    return element(by.className('close')).click();
+  };
 
 };
