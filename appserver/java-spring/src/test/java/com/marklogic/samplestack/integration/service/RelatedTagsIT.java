@@ -17,6 +17,7 @@ package com.marklogic.samplestack.integration.service;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -50,6 +51,7 @@ public class RelatedTagsIT {
 	RelatedTagsManager manager;
 	
 	@Test
+	@Ignore
 	public void testRelatedTags() {
 
 		String relatedTagsQueryString = manager.getRelatedTags("tex");
