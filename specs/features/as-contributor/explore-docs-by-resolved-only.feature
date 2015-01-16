@@ -4,7 +4,6 @@ Feature: Explore Docs By Resolved Only
   When searching for documents, a facet filter may be applied to limit results to
   those documents which are only resolved.
 
-  @broken @352
   Scenario: As a contributor filtering by resolved only, I see the correct results
     Given I am a contributor
     And I am using the brief seed data

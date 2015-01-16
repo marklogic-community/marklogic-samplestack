@@ -121,8 +121,9 @@ define(['_marklogic/module'], function (module) {
    *           {
    *             "value-constraint-query":{
    *               "constraint-name":"constrName",
-   *               "boolean":true
-   *             }
+   *               "type": "boolean",
+   *               "text":true
+   *              }
    *           },
    *           {
    *             "range-constraint-query":{
@@ -205,7 +206,7 @@ define(['_marklogic/module'], function (module) {
             required: ['type'],
             properties: {
               type: { enum: ['boolean'] },
-              value: { type: ['boolean', 'null' ] }
+              text: { type: ['boolean', 'null' ] }
             }
           }
         ]
@@ -450,7 +451,7 @@ define(['_marklogic/module'], function (module) {
               q.value = constraint.value.toISOString();
             }
             if (constraint.type === 'boolean') {
-              q.boolean = constraint.value;
+              q.text = constraint.value;
             }
 
 

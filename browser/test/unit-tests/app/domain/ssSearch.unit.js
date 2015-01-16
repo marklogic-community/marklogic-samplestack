@@ -72,7 +72,7 @@ define([
                   queries: [ {
                     'value-constraint-query': {
                       'constraint-name': 'resolved',
-                      'boolean': true
+                      'text': true
                     }
                   } ]
                 }
