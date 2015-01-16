@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.marklogic.client.MarkLogicIOException;
@@ -229,7 +230,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			patchBuilder.replaceValue("/acceptedAnswerId", answerId);
 			patchBuilder.replaceValue("/lastActivityDate",
 					ISO8601Formatter.format(new Date()));
-			patchBuilder.replaceValue("/accepted", true);
+			patchBuilder.replaceFragment("/accepted", true);
 			patchBuilder.addPermission("samplestack-guest", Capability.READ);
 			DocumentPatchHandle patch = patchBuilder.build();
 			logger.debug(patch.toString());
