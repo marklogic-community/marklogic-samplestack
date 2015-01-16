@@ -10,6 +10,15 @@ module.exports = function () {
   );
 
   this.When(
+    /visit the "qnadoc" page with id equal to "(.*)"/,
+    function (qid, next) {
+      var self = this;
+      this.go(this.pages['qnadoc'], '/' + self[qid])
+        .then(this.notifyOk(next), next);
+    }
+  );
+
+  this.When(
     /focus on the question/,
     function (next) {
       this.currentPage.focusQuestion()
