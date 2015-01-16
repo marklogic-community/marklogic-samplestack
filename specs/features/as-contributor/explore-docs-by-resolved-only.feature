@@ -10,7 +10,7 @@ Feature: Explore Docs By Resolved Only
     And I visit the "explore" page
     And I clear all filters
     When I filter documents by resolved only = "true"
-    Then the docs count is "2131"
+    Then the docs count is "1903"
     When I focus on the "first" search result
     Then the result "title" is "Q: Mary's Question Number 0"
     When I focus on the "last" search result
