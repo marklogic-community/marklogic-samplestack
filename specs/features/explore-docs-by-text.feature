@@ -9,7 +9,7 @@ Feature: Explore Docs By Text
     And I am using the brief seed data
     When I visit the "explore" page
     And I perform a search for "Math"
-    Then the docs count is "63".
+    Then the docs count is "52".
     When I focus on the "first" search result,
     Then the result "title" is "Q: Moving an object along a straight line at a constant speed from point A to B"
     When I focus on the "last" search result,
@@ -20,7 +20,7 @@ Feature: Explore Docs By Text
     And I am using the brief seed data
     When I visit the "explore" page
     And I perform a search for "Math"
-    Then the docs count is "85".
+    Then the docs count is "71".
     When I focus on the "first" search result,
     Then the result "title" is "Q: Why would I combine Math.floor with Math.random?"
     When I focus on the "last" search result,

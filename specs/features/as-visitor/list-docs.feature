@@ -11,4 +11,4 @@ Feature: List Docs
     Given I am a visitor
     And I am using the brief seed data
     When I visit the "explore" page
-    Then the docs count is "1960"
+    Then the docs count is "1903"
