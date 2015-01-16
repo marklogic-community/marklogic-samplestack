@@ -13,6 +13,6 @@ Feature: Explore Docs By Mine Only
     When I filter documents by mine only = "true"
     Then the docs count is "2"
     When I focus on the "first" search result,
-    Then the result "title" is "Q: Mary's Question Number 1"
+    Then the result "title" is "Q: Mary's Question Number 2"
     When I focus on the "last" search result,
-    Then the result "title" is "Q: Joe's Question Number 0"
+    Then the result "title" is "Q: Joe's Question Number 4"
