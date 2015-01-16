@@ -5185,7 +5185,7 @@ h1 {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
     border: none;
-    width: 80%;
+    width: 75%;
     float: left; }
   .ss-search-bar .search-inner input[type="text"], .ss-search-bar .search-inner input[type="search"] {
     box-shadow: inset 0 0px 0px, 0 0 0px; }
@@ -5282,10 +5282,9 @@ h1 {
       padding: 10px 4px;
       margin-top: 50px; }
     .ss-search-bar .search-wrapper .search-inner input {
-      width: 73%;
+      width: 70%;
       height: 34px;
       padding: 6px 12px;
-      font-size: 14px;
       line-height: 1.42857; }
     .ss-search-bar .search-wrapper .search-inner button#search {
       padding: 6px 12px;
