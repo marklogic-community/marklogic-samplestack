@@ -68,14 +68,12 @@ define(['app/module'], function (module) {
               scope.$emit('criteriaChange');
             };
 
-            scope.incrementPage = function (increment) {
-              if (scope.search.incrementPage(increment)) {
-                scope.$emit('criteriaChange');
-              }
-            };
-
-            scope.setCurrentPage = function (pageNum) {
-              if (scope.search.setCurrentPage(pageNum)) {
+            // paging
+            scope.maxSize = 5;
+            scope.currPage = scope.search.getCurrentPage(); // initial
+            scope.updatePage = function (currPage) {
+              scope.currPage = currPage;
+              if (scope.search.setCurrentPage(scope.currPage)) {
                 scope.$emit('criteriaChange');
               }
             };
