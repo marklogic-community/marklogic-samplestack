@@ -10,14 +10,14 @@ module.exports.support = function (obj) {
   Object.defineProperty(obj, 'contributorVotesCast', {
     get: function () {
       return element(by.className('ss-contributor-votes-cast'))
-        .getText();
+        .getText().then(function (txt) { return parseInt(txt); });
     }
   });
 
   Object.defineProperty(obj, 'contributorReputation', {
     get: function () {
       return element(by.className('ss-contributor-reputation'))
-        .getText();
+        .getText().then(function (txt) { return parseInt(txt); });
     }
   });
 

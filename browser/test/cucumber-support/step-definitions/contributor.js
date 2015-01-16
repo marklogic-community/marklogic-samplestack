@@ -7,17 +7,17 @@ module.exports = function () {
       .and.notify(next);
   });
 
-  this.Then(/the contributor votes cast are "(.*)"/, function (votes, next) {
+  this.Then(/the contributor votes cast are greater than "(.*)"/, function (votes, next) {
     expect(this.currentPage.contributorVotesCast)
-      .to.eventually.equal(votes)
+      .to.eventually.be.greaterThan(votes)
       .and.notify(next);
   });
 
   this.Then(
-    /the contributor reputation is "(.*)"/,
+    /the contributor reputation is greater than "(.*)"/,
     function (reputation, next) {
       expect(this.currentPage.contributorReputation)
-        .to.eventually.equal(reputation)
+        .to.eventually.be.greaterThan(reputation)
         .and.notify(next);
     }
   );
