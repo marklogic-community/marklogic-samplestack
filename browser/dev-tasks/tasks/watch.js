@@ -166,7 +166,13 @@ var watchTaskFunc = function (cb) {
             if(!ctx.rebuildOnNext && !ctx.hadErrors) {
               runUnit({ reporter: 'dot' }, function () {
                 ctx.deployBuilt(function (err) {
-                  lrChanger(['/coverage', '/coverage/show']);
+                  try {
+                    // sometimes this isn't working due to task restarts?
+                    // don't crash
+                    lrChanger(['/coverage', '/coverage/show']);
+                  }
+                  catch (err) {}
+                  
                   if (!err) {
                     writeWatchMenu();
                   }
