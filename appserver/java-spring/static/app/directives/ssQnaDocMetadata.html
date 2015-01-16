@@ -62,7 +62,7 @@
         ng-if="!(doc.owner.originalId === undefined)"
         href="{{soUserLink()}}"
         target="_blank"
-      >{{doc.owner.displayName}}</a>
+      >{{doc.owner.displayName}}&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span>&nbsp;</a>
     </span>
     {{ formatDate(doc.creationDate) }}
     <!-- display human readable time since if within a week -->
