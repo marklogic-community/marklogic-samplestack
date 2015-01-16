@@ -6,13 +6,15 @@ Feature: Explore Docs By Mine Only
 
   Scenario: As a contributor filtering by mine only, I see the correct results
     Given I am "Joe"
-    And I am using the brief seed data
+    When I visit the "ask" page
+    And I type "mine only test" as the question title
+    And I type "**test**" as the question content
+    And I enter "e2eTests" as a question tag
+    And I submit the question
     And I visit the "explore" page
     And I clear all filters
     And I clear the search text
     When I filter documents by mine only = "true"
-    Then the docs count is "2"
+    Then the docs count is greater than "1"
     When I focus on the "first" search result,
-    Then the result "title" is "Q: Mary's Question Number 2"
-    When I focus on the "last" search result,
-    Then the result "title" is "Q: Joe's Question Number 4"
+    Then the result "title" is "Q: mine only test"

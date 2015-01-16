@@ -9,6 +9,14 @@ module.exports = function () {
     }
   );
 
+  this.Then(
+    /docs count is greater than "(.*)"/,
+    function (count, next) {
+      expect(this.currentPage.resultsCount)
+          .to.eventually.be.greaterThan(parseInt(count)).and.notify(next);
+    }
+  );
+
   this.When(
     /focus on the "(.*)" search result/,
     function (positional, next) {
