@@ -22,7 +22,7 @@ module.exports = function () {
     }
   );
 
-  this.Then(/dismiss dialog/, function (next) {
+  this.Then(/dismiss the dialog/, function (next) {
     this.currentPage.dismiss().then(this.notifyOk(next), next);
   });
 
