@@ -47,7 +47,7 @@ define(['app/module'], function (module) {
 
   /* jshint ignore:end */
 
-  module.directive('ssFacetTags', function () {
+  module.directive('ssFacetTags', ['allTagsDialog', function (allTagsDialog) {
     return {
       restrict: 'E',
       templateUrl: '/app/directives/ssFacetTags.html',
@@ -157,7 +157,22 @@ define(['app/module'], function (module) {
         scope.unselTags = {};
         scope.$on('newResults', resetSelections);
 
+        scope.showAllTagsDialog = function () {
+          // open dialog, promise returned
+          var modalInstance = allTagsDialog(
+            scope.toArray(scope.unselTags),
+            scope.toArray(scope.selTags)
+          );
+          // called on dialog submit, promise fulfilled
+          modalInstance.then(function (obj) {
+            scope.unselTags = obj.unselTags;
+            scope.selTags = obj.selTags;
+          });
+        };
+
       }
+
     };
-  });
+  }]);
+
 });
