@@ -9,7 +9,8 @@
     "expect": false,
     "World": false,
     "q": false,
-    "_": false
+    "_": false,
+    "protractor": false
   },
   "esnext": false,
   "expr": true,
