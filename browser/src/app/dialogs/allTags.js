@@ -54,22 +54,26 @@ define(['app/module'], function (module) {
       for (var i = 0; i < numCols; i++) {
         $scope.arrCols.push(i);
       }
-      $scope.tagsPerCol = 2;
+      $scope.tagsPerCol = 6;
 
       // Paging settings
-      $scope.currentPage = 0;
+      $scope.currentPage = 1; // initial
+      $scope.maxSize = 5;
       $scope.pageSize = numCols * $scope.tagsPerCol;
       $scope.totalPages = Math.ceil($scope.tags.length / $scope.pageSize);
+      $scope.updatePage = function (currentPage) {
+        $scope.currentPage = currentPage;
+      };
 
       // Sort settings
       $scope.sorts = [
         {
-          label: 'count',
-          value: ['-count', 'name']
+          label: 'Name',
+          value: ['name']
         },
         {
-          label: 'name',
-          value: ['name']
+          label: 'Count',
+          value: ['-count', 'name']
         }
       ];
       $scope.selectedSort = $scope.sorts[1]; // Default sort
@@ -118,7 +122,7 @@ define(['app/module'], function (module) {
 
       $scope.setSort = function () {
         $scope.selectedSort = this.sort;
-        $scope.currentPage = 0; // TODO not working, paging stays same???
+        $scope.currentPage = 1;
       };
 
       /**
