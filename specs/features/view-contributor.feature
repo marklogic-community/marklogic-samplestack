@@ -15,7 +15,7 @@ Feature: View Contibutor
     Then the contributor display name is "MaryAdmin"
     And the contributor votes cast are greater than "4"
     And the contributor reputation is greater than "99"
-    And dismiss dialog
+    And dismiss the dialog
 
   Scenario: View Contributor Joe
     Given I am "Joe"
@@ -26,4 +26,4 @@ Feature: View Contibutor
     Then the contributor display name is "JoeUser"
     And the contributor votes cast are greater than "2"
     And the contributor reputation is greater than "49"
-    And dismiss dialog
+    And dismiss the dialog
