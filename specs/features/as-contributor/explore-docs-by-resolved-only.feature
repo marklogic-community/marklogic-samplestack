@@ -14,4 +14,4 @@ Feature: Explore Docs By Resolved Only
     When I focus on the "first" search result
     Then the result "title" is "Q: Mary's Question Number 0"
     When I focus on the "last" search result
-    Then the result "title" is "Q: JQuery function returning before $.each complete"
+    Then the result "title" is "Q: Show modal if page refreshed, but not if a link is followed"

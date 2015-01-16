@@ -13,7 +13,7 @@ Feature: Explore Docs By Text
     When I focus on the "first" search result,
     Then the result "title" is "Q: Get element -moz-transform:rotate value in jQuery"
     When I focus on the "last" search result,
-    Then the result "title" is "Q: Var is undefined"
+    Then the result "title" is "Q: Nested For loop for initializing array of arrays for Javascript"
 
   Scenario: As a contributor searching for "Math", I see the correct results
     Given I am a contributor
@@ -24,4 +24,4 @@ Feature: Explore Docs By Text
     When I focus on the "first" search result,
     Then the result "title" is "Q: getting random element from array returns same element"
     When I focus on the "last" search result,
-    Then the result "title" is "Q: Value from input in quotes javascript"
+    Then the result "title" is "Q: Length of Number in JavaScript"
