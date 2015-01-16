@@ -11,7 +11,7 @@ Feature: Explore Docs By Text
     And I perform a search for "Math"
     Then the docs count is "52".
     When I focus on the "first" search result,
-    Then the result "title" is "Q: Moving an object along a straight line at a constant speed from point A to B"
+    Then the result "title" is "Q: Get element -moz-transform:rotate value in jQuery"
     When I focus on the "last" search result,
     Then the result "title" is "Q: Var is undefined"
 
@@ -22,6 +22,6 @@ Feature: Explore Docs By Text
     And I perform a search for "Math"
     Then the docs count is "71".
     When I focus on the "first" search result,
-    Then the result "title" is "Q: Why would I combine Math.floor with Math.random?"
+    Then the result "title" is "Q: getting random element from array returns same element"
     When I focus on the "last" search result,
     Then the result "title" is "Q: Value from input in quotes javascript"
