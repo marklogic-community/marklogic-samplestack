@@ -9,11 +9,11 @@
   <div class="row">
 
     <!--- voting -->
-    <div class="ss-vote-wrapper col-md-1 col-sm-2 col-xs-3">
+    <div class="ss-question-votes ss-vote-wrapper col-md-1 col-sm-2 col-xs-3">
 
       <div class="ss-vote-module">
         <div
-          class="ss-vote-control"
+          class="ss-vote-control ss-vote-control-up"
           ng-click="vote(1, doc)"
           ng-disabled="!canVoteOn(doc)"
         >
@@ -23,7 +23,7 @@
           <span>{{doc.itemTally}}</span>
         </div>
         <div
-          class="ss-vote-control"
+          class="ss-vote-control ss-vote-control-down"
           ng-disabled="!canVoteOn(doc)"
           ng-click="vote(-1, doc)"
         >
@@ -139,7 +139,7 @@
       <div class="col-md-1 col-sm-2 col-xs-3 ss-answer-vote">
         <div class="ss-vote-module">
           <div
-            class="ss-vote-control"
+            class="ss-vote-control ss-vote-control-up"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(1, answer)"
           >
@@ -149,7 +149,7 @@
             <span>{{ answer.itemTally }}</span>
           </div>
           <div
-            class="ss-vote-control"
+            class="ss-vote-control ss-vote-control-down"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(-1, answer)"
           >

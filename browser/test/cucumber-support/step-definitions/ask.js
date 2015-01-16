@@ -98,4 +98,14 @@ module.exports = function () {
     }
   );
 
+  this.Given(
+    /the question id is known as "(.*)"/,
+    function (qid, next) {
+      var self = this;
+      browser.getCurrentUrl().then(function (url) {
+        self[qid] = url.substring(url.lastIndexOf('/') + 1);
+        next();
+      });
+    }
+  );
 };

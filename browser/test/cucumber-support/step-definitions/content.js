@@ -23,7 +23,7 @@ module.exports = function () {
   this.When(
     /I vote it up/,
     function (next) {
-      next();
+      this.currentPage.questionVoteUp().then(this.notifyOk(next), next);
     }
   );
 
