@@ -13,8 +13,9 @@ Feature: View Contibutor
     And I focus on the question
     And I view the content contributor
     Then the contributor display name is "MaryAdmin"
-    And the contributor votes cast are "5"
-    And the contributor reputation is "100"
+    And the contributor votes cast are greater than "4"
+    And the contributor reputation is greater than "99"
+    And dismiss dialog
 
   Scenario: View Contributor Joe
     Given I am "Joe"
@@ -23,5 +24,6 @@ Feature: View Contibutor
     And I focus on the question
     And I view the content contributor
     Then the contributor display name is "JoeUser"
-    And the contributor votes cast are "3"
-    And the contributor reputation is "50"
+    And the contributor votes cast are greater than "2"
+    And the contributor reputation is greater than "49"
+    And dismiss dialog
