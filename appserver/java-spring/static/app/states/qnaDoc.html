@@ -14,32 +14,20 @@
       <div class="ss-vote-module">
         <div
           class="ss-vote-control"
-          ng-if="canVoteQuestion() && !doc.hasVotedOn"
           ng-click="vote(1, doc)"
+          ng-disabled="!canVoteOn(doc)"
         >
-          <span class="ss-vote-up"></span>
-        </div>
-        <div
-          class="ss-vote-control"
-          ng-if="!canVoteQuestion() || doc.hasVotedOn"
-        >
-          <span class="ss-vote-up-off"></span>
+          <span ng-class="canVoteOn(doc) ? 'ss-vote-up' : 'ss-vote-up-off'"></span>
         </div>
         <div class="ss-votes-total">
           <span>{{doc.itemTally}}</span>
         </div>
         <div
           class="ss-vote-control"
-          ng-if="canVoteQuestion() && !doc.hasVotedOn"
+          ng-disabled="!canVoteOn(doc)"
           ng-click="vote(-1, doc)"
         >
-          <span class="ss-vote-down"></span>
-        </div>
-        <div
-          class="ss-vote-control"
-          ng-if="!canVoteQuestion() || doc.hasVotedOn"
-        >
-          <span class="ss-vote-down-off"></span>
+          <span ng-class="canVoteOn(doc) ? 'ss-vote-down' : 'ss-vote-down-off'"></span>
         </div>
       </div> <!-- vote-module -->
 
@@ -152,32 +140,20 @@
         <div class="ss-vote-module">
           <div
             class="ss-vote-control"
-            ng-if="canVoteAnswer(answer) && !answer.hasVotedOn"
+            ng-disabled="!canVoteOn(answer)"
             ng-click="vote(1, answer)"
           >
-            <span class="ss-vote-up"></span>
-          </div>
-          <div
-            class="ss-vote-control"
-            ng-if="!canVoteAnswer(answer) || answer.hasVotedOn"
-          >
-            <span class="ss-vote-up-off"></span>
+            <span ng-class="canVoteOn(answer) ? 'ss-vote-up': 'ss-vote-up-off'"></span>
           </div>
           <div class="ss-votes-total">
             <span>{{ answer.itemTally }}</span>
           </div>
           <div
             class="ss-vote-control"
-            ng-if="canVoteAnswer(answer) && !answer.hasVotedOn"
+            ng-disabled="!canVoteOn(answer)"
             ng-click="vote(-1, answer)"
           >
-            <span class="ss-vote-down"></span>
-          </div>
-          <div
-            class="ss-vote-control"
-            ng-if="!canVoteAnswer(answer) || answer.hasVotedOn"
-          >
-            <span class="ss-vote-down-off"></span>
+            <span ng-class="canVoteOn(answer) ? 'ss-vote-down' : 'ss-vote-down-off'"></span>
           </div>
 
           <!-- accept answer -->

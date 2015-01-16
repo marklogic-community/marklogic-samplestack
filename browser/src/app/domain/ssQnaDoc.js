@@ -18,11 +18,10 @@ define(['app/module'], function (module) {
     'mlUtil',
     'ssAnswer',
     'ssComment',
-    'ssHasVoted',
     'ssVote',
     function (
       $q, mlModelBase, mlSchema, mlUtil,
-      ssAnswer, ssComment, ssHasVoted, ssVote
+      ssAnswer, ssComment, ssVote
     ) {
       /**
        * @ngdoc type
@@ -65,16 +64,11 @@ define(['app/module'], function (module) {
       /**
        * @ngdoc method
        * @name SsQnaDocObject#prototype.mergeData
-       * @description Sets hasVoted data on $ml, sets up answer and
+       * @description Sets up answer and
        * comment model objects on data, then merges data.
        * @param {object} data Data to merge.
        */
       SsQnaDocObject.prototype.mergeData = function (data) {
-        if (data.hasVoted) {
-          this.$ml.hasVotedObject = data.hasVoted;
-          delete data.hasVoted;
-        }
-
         // Replace answers with ssAnswer objects
         var self = this;
         angular.forEach(data.answers, function (answer, index) {
@@ -122,28 +116,6 @@ define(['app/module'], function (module) {
 
       /**
        * @ngdoc method
-       * @name SsQnaDocObject#prototype.hasVoted
-       * @description Returns whether current user has voted on this document.
-       * @returns {boolean} true or false
-       */
-      SsQnaDocObject.prototype.hasVoted = function (id) {
-        if (this.$ml.hasVoted && this.$ml.hasVoted.voteIds) {
-          return this.$ml.hasVoted.voteIds[id];
-        }
-        else {
-          return false;
-        }
-      };
-
-      // Define hasVotedOn property as the return value of the hasVoted method.
-      Object.defineProperty(SsQnaDocObject.prototype, 'hasVotedOn', {
-        get: function () {
-          return this.hasVoted(this.id);
-        }
-      });
-
-      /**
-       * @ngdoc method
        * @name SsQnaDocObject#prototype.vote
        * @description Executes an upvote or downvote on answer.
        * @param {number} val 1 or -1.
@@ -153,24 +125,12 @@ define(['app/module'], function (module) {
         var vote = ssVote.create({upDown: val}, this);
         var self = this;
         if (vote.$ml.valid) {
-          vote.post().$ml.waiting.then(function () {
+          return vote.post().$ml.waiting.then(function () {
             userInfo.voteCount++;
           },
           function (error) {
             throw new Error('Error occurred: ' + JSON.stringify(error));
           });
-        }
-      };
-
-      /**
-       * @ngdoc method
-       * @name SsQnaDocObject#prototype.setVoted
-       * @description Sets Qna Doc as having been voted on.
-       * @param {string} id Optional ID to set. If empty, uses this.id.
-       */
-      SsQnaDocObject.prototype.setVoted = function (id) {
-        if (this.$ml.hasVoted && this.$ml.hasVoted.voteIds) {
-          this.$ml.hasVoted.voteIds[id ? id : this.id] = true;
         }
       };
 
@@ -224,6 +184,24 @@ define(['app/module'], function (module) {
         });
       };
 
+      var patchVotes = function (obj) {
+        obj.downvotingContributorIds = _.transform(
+          obj.downvotingContributorIds,
+          function (result, val) {
+            result[val] = true;
+          },
+          {}
+        );
+
+        obj.upvotingContributorIds = _.transform(
+          obj.upvotingContributorIds,
+          function (result, val) {
+            result[val] = true;
+          },
+          {}
+        );
+      };
+
       /**
        * @ngdoc method
        * @name SsQnaDocObject#prototype.onResponseGET
@@ -242,61 +220,28 @@ define(['app/module'], function (module) {
       SsQnaDocObject.prototype.onResponseGET = function (
         data, additionalPromises
       ) {
-        var self = this;
-
-        if (additionalPromises && additionalPromises.length) {
-          this.$ml.hasVoted = additionalPromises[0];
-        }
-
         mlModelBase.object.prototype.onResponseGET.call(this, data);
-        this.sort();
 
+        patchVotes(this);
+        angular.forEach(this.answers, function (answer) {
+          patchVotes(answer);
+        });
+
+        this.sort();
       };
 
       SsQnaDocObject.prototype.onResponsePOST = function (
         data, additionalResolves
       ) {
-        if (additionalResolves && additionalResolves.length) {
-          this.$ml.hasVoted = additionalResolves[0];
-        }
 
         mlModelBase.object.prototype.onResponsePOST.call(this, data);
+
+        patchVotes(this);
+        angular.forEach(this.answers, function (answer) {
+          patchVotes(answer);
+        });
+
         this.sort();
-      };
-
-      SsQnaDocObject.prototype.getOne = function (contributorId) {
-        var additionalPromises = contributorId ?
-            [
-              ssHasVoted.getOne({
-                contributorId: contributorId,
-                questionId: this.id
-              }).$ml.waiting
-            ] :
-            [];
-        return this.http('GET', additionalPromises);
-      };
-
-      /**
-       * @ngdoc method
-       * @name SsQnaDocObject#prototype.isLocalOwner
-       * @param {object} obj A question, answer or comment object (i.e.
-       * something that has an `owner` property.
-       * @returns {boolean} `true` if the owner is "locally created",
-       * `false` if the owner is from Stack Overflow.
-       * if the data Data from the server.
-       * @description Whether or not a content object is owned by a local or
-       * StackOverflow user.
-       *
-       * <p style="color: red">
-       * TODO this method uses an ugly hack and will be rewritten once
-       * better data are availale from the server.
-       * </p>
-       */
-      SsQnaDocObject.prototype.isLocalOwner = function (obj) {
-        var n = obj.owner ?
-            obj.owner.displayName :
-            '';
-        return n === 'joeUser' || n === 'maryAdmin';
       };
 
       /**
