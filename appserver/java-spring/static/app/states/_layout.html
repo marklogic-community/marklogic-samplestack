@@ -20,7 +20,10 @@
 
           <!-- samplestack logo -->
           <a class="ss-app-title navbar-brand" href="/">
-            <img src="app/images/samplestack.svg" border="0">
+            <img src="app/images/samplestack.svg"
+              border="0"
+              tooltip-placement="bottom"
+              tooltip="Return to home page" >
           </a>
 
         </div>
@@ -39,14 +42,19 @@
 
             <li
               ss-account-dropdown
+              dropdown
               ng-if="store.session"
               class="ss-account-dropdown dropdown"
+              tooltip-placement="bottom"
+              tooltip="View account information or log out"
             ></li>
 
             <!-- ask button -->
             <li
               class="ss-ask-button"
               ng-class="store.session ? 'active' : 'inactive'"
+              tooltip-placement="bottom"
+              tooltip="{{store.session ? '': 'You must be logged in to ask a question' }}"
             >
               <a
                 href=""

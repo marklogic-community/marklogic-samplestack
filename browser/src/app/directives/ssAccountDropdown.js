@@ -40,6 +40,7 @@ define([
          * @ngdoc method
          * @name ssAccountDropdown#logout
          */
+        scope.open = false;
 
         scope.logout = function () {
           // On logout, dispatch event to mlAuth.js

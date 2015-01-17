@@ -29,16 +29,20 @@ define(['app/module'], function (module) {
               {
                 label: 'Relevance',
                 value: ['relevance'],
+                tooltip: 'Sort results by relevance (most relevant first)',
+                tooltipDisabled:'Must perform a search to sort by relevance',
                 active: scope.searchMode()
               },
               {
                 label: 'Newest',
                 value: ['active'],
+                tooltip: 'Sort results by time (most recent first)',
                 active: true
               },
               {
                 label: 'Votes',
                 value: ['votes'],
+                tooltip: 'Sort results by votes (highest total first)',
                 active: true
               }
             ];

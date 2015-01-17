@@ -9,7 +9,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "0.11.0",
+    "angular-bootstrap": "0.12.0",
     "angular-cookies": "1.3.8",
     "angular-marked": "0.0.12",
     "angular-mocks": "1.3.8",

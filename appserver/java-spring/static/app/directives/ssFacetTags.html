@@ -16,6 +16,8 @@
           placeholder="Search Tags"
           autocomplete="off"
           ng-model="selected"
+          tooltip-placement="right"
+          tooltip="Search all available tags"
           typeahead="
             tag.count as tag.name+' ('+tag.count+')'
             for tag in toArray(unselTags).concat(toArray(selTags)) | filter:$viewValue | orderBy:sort
@@ -37,7 +39,10 @@
       class="checkbox"
       ng-repeat="tag in toArray(selTags) | orderBy:sort"
     >
-      <label>
+      <label
+          tooltip-placement="right"
+          tooltip="Constrain results to selected tag"
+      >
         <input
           type="checkbox"
           checked="true"
@@ -57,7 +62,10 @@
                  orderBy:sort |
                  limitTo:tagLimit"
     >
-      <label>
+      <label
+          tooltip-placement="right"
+          tooltip="Show tags related to this tag"
+      >
         <input
           type="checkbox"
           ng-click="selectTag(tag)"
@@ -70,6 +78,10 @@
   </div>
 
   <!-- more tags button -->
-  <button class="button-more-tags btn btn-default btn-block btn-sm" data-toggle="modal" data-target="#tagsModal" >More Tags</button>
+  <button class="button-more-tags btn btn-default btn-block btn-sm"
+    tooltip-placement="right"
+    tooltip="View all available tags"
+    data-toggle="modal"
+    data-target="#tagsModal" >More Tags</button>
 
 </div>
