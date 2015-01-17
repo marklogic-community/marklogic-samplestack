@@ -9,7 +9,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "0.12.0",
+    "angular-bootstrap": "clockworked247/bootstrap-bower#43c2759a3127a7b75732728e8d027ca348d06af2",
     "angular-cookies": "1.3.8",
     "angular-marked": "0.0.12",
     "angular-mocks": "1.3.8",
