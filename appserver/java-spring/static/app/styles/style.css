@@ -4651,6 +4651,9 @@ h1 {
   font-size: 12px;
   color: #428bca; }
 
+.tooltip-inner {
+  min-width: 100px; }
+
 .ss-page-header {
   /** samplestack logo **/
   /** login button **/

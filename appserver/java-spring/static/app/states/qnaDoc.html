@@ -14,6 +14,8 @@
       <div class="ss-vote-module">
         <div
           class="ss-vote-control ss-vote-control-up"
+          tooltip-placement="right"
+          tooltip="{{ canVoteOn(doc) ? 'Vote this up' : 'You must be logged in to vote' }}"
           ng-click="vote(1, doc)"
           ng-disabled="!canVoteOn(doc)"
         >
@@ -24,6 +26,8 @@
         </div>
         <div
           class="ss-vote-control ss-vote-control-down"
+          tooltip-placement="right"
+          tooltip="{{ canVoteOn(doc) ? 'Vote this down' : 'You must be logged in to vote' }}"
           ng-disabled="!canVoteOn(doc)"
           ng-click="vote(-1, doc)"
         >
@@ -42,10 +46,8 @@
             <a
               href="http://stackoverflow.com/questions/{{doc.originalId}}"
               target="_blank"
-              data-toggle="tooltip"
-              data-placement="left"
-              title=""
-              data-original-title="View on Stackoverflow"
+              tooltip-placement="left"
+              tooltip="View this question on Stack Overflow (in a separate window)"
               ng-if="doc.originalId"
             >
               <span class="glyphicon glyphicon-new-window"></span>
@@ -140,6 +142,8 @@
         <div class="ss-vote-module">
           <div
             class="ss-vote-control ss-vote-control-up"
+            tooltip-placement="right"
+            tooltip="{{ canVoteOn(answer) ? 'Vote this up' : 'You must be logged in to vote' }}"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(1, answer)"
           >
@@ -150,6 +154,8 @@
           </div>
           <div
             class="ss-vote-control ss-vote-control-down"
+            tooltip-placement="right"
+            tooltip="{{ canVoteOn(answer) ? 'Vote this down' : 'You must be logged in to vote' }}"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(-1, answer)"
           >

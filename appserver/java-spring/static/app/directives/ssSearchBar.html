@@ -5,6 +5,8 @@
     <button
       type="button"
       class="search-tips btn btn-primary btn-lg"
+      tooltip-placement="bottom"
+      tooltip="View tips for constructing advanced search expressions"
       ng-click="showTips=!showTips"
     >
       <i class="icon-pointer-down" ng-if="!showTips"></i>
@@ -37,6 +39,8 @@
         type="search"
         ng-model="searchbarText"
         placeholder="Search the Stack!..."
+        tooltip-placement="bottom"
+        tooltip="Enter search terms and advanced search expressions. (See Search Tips for help.)"
         value=""
         ng-keyup="$event.keyCode == 13 && setQueryText()"
       >
