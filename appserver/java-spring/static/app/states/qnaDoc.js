@@ -80,8 +80,7 @@ define(['app/module'], function (module) {
      /**
       * @ngdoc method
       * @name $scope.canVoteOn
-      * @description Returns whether current user can vote on
-      * the object
+      * @description Returns whether current user can vote on the object
       * @returns {boolean} true or false
       */
       $scope.canVoteOn = function (obj) {
@@ -90,7 +89,41 @@ define(['app/module'], function (module) {
         }
         else {
           return !obj.downvotingContributorIds[$scope.store.session.id] &&
-              !obj.upvotingContributorIds[$scope.store.session.id];
+            !obj.upvotingContributorIds[$scope.store.session.id];
+        }
+      };
+
+     /**
+      * @ngdoc method
+      * @name $scope.hasVotedUp
+      * @description Returns whether current user has upvoted the object
+      * @returns {boolean} true or false
+      */
+      $scope.hasVotedUp = function (obj) {
+        // guests cannot vote
+        if (!$scope.store.session) {
+          return false;
+        }
+        // check for upvote
+        else {
+          return obj.upvotingContributorIds[$scope.store.session.id];
+        }
+      };
+
+     /**
+      * @ngdoc method
+      * @name $scope.hasVotedDown
+      * @description Returns whether current user has downvoted the object
+      * @returns {boolean} true or false
+      */
+      $scope.hasVotedDown = function (obj) {
+        // guests cannot vote
+        if (!$scope.store.session) {
+          return false;
+        }
+        // check for downvote
+        else {
+          return obj.downvotingContributorIds[$scope.store.session.id];
         }
       };
 
