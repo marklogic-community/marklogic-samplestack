@@ -19,7 +19,12 @@
           ng-click="vote(1, doc)"
           ng-disabled="!canVoteOn(doc)"
         >
-          <span ng-class="canVoteOn(doc) ? 'ss-vote-up' : 'ss-vote-up-off'"></span>
+          <span ng-class="{
+            'ss-vote-up-off': !canVoteOn(doc) || hasVotedDown(doc),
+            'ss-voted-up': hasVotedUp(doc),
+            'ss-vote-up': canVoteOn(doc) &&
+              !hasVotedDown(doc) && !hasVotedUp(doc)
+          }"></span>
         </div>
         <div class="ss-votes-total">
           <span>{{doc.itemTally}}</span>
@@ -31,7 +36,12 @@
           ng-disabled="!canVoteOn(doc)"
           ng-click="vote(-1, doc)"
         >
-          <span ng-class="canVoteOn(doc) ? 'ss-vote-down' : 'ss-vote-down-off'"></span>
+          <span ng-class="{
+            'ss-vote-down-off': !canVoteOn(doc) || hasVotedDown(doc),
+            'ss-voted-down': hasVotedDown(doc),
+            'ss-vote-down': canVoteOn(doc) &&
+              !hasVotedUp(doc) && !hasVotedDown(doc)
+          }"></span>
         </div>
       </div> <!-- vote-module -->
 
@@ -147,7 +157,12 @@
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(1, answer)"
           >
-            <span ng-class="canVoteOn(answer) ? 'ss-vote-up': 'ss-vote-up-off'"></span>
+            <span ng-class="{
+              'ss-vote-up-off': !canVoteOn(answer) || hasVotedDown(answer),
+              'ss-voted-up': hasVotedUp(answer),
+              'ss-vote-up': canVoteOn(answer) &&
+                !hasVotedDown(answer) && !hasVotedUp(answer)
+            }"></span>
           </div>
           <div class="ss-votes-total">
             <span>{{ answer.itemTally }}</span>
@@ -159,7 +174,12 @@
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(-1, answer)"
           >
-            <span ng-class="canVoteOn(answer) ? 'ss-vote-down' : 'ss-vote-down-off'"></span>
+            <span ng-class="{
+              'ss-vote-down-off': !canVoteOn(answer) || hasVotedDown(answer),
+              'ss-voted-down': hasVotedDown(answer),
+              'ss-vote-down': canVoteOn(answer) &&
+                !hasVotedUp(answer) && !hasVotedDown(answer)
+            }"></span>
           </div>
 
           <!-- accept answer -->
