@@ -68,6 +68,7 @@ function lrSetup (port, glob, name, fileRelativizer, cb) {
         name: name, // 'reload-watch',
         emitOnGlob: false,
         emit: 'one',
+        debounceDelay: 250,
         verbose: false
       }
     )
@@ -172,7 +173,7 @@ var watchTaskFunc = function (cb) {
                     lrChanger(['/coverage', '/coverage/show']);
                   }
                   catch (err) {}
-                  
+
                   if (!err) {
                     writeWatchMenu();
                   }
@@ -220,20 +221,6 @@ var watchTaskFunc = function (cb) {
   }
 
 };
-//
-// var refireWatchFunc = function (cb) {
-//   if (ctx.amWatching) {
-//     ctx.amWatching = false;
-//     $.util.log('[' + chalk.cyan('watch') + '] ' +
-//         chalk.yellow(
-//           'restarting watch'
-//         ));
-//     ctx.closeActiveServers(function () {
-//       ctx.rebuildOnNext = true;
-//       watchTaskFunc(cb);
-//     });
-//   }
-// };
 
 var setProcessWatch = function () {
   var watcher = $.watch([
@@ -247,6 +234,7 @@ var setProcessWatch = function () {
     name: 'processWatch',
     emitOnGlob: false,
     emit: 'one',
+    debounceDelay: 250,
     verbose: false
   }, function (file, gulpWatchCb) {
     console.log(
