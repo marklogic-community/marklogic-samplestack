@@ -34,16 +34,6 @@ version = samplestackVersion
 sourceCompatibility = samplestackSourceCompatibility
 
 /*
- * appserver
- * assembles the project, loads sample data and starts the appserver on port 8090
- */
-task appserver <<
-{
-   println "Bootstrapping, seeding and starting Samplestack appserver"
-}
-
-
-/*
  * INIT
  * Run this task to initialize a fresh MarkLogic server
  * and install security objects.
@@ -91,7 +81,7 @@ assemble.dependsOn(dbInit, dbConfigure, test)
  * FETCH SEED DATA
  */
 task seedDataFetch(type: MarkLogicFetchTask) {
-    url = "http://developer.marklogic.com/media/gh/seed-data1.7.tgz"
+    url = "http://developer.marklogic.com/media/gh/seed-data1.8.1.tgz"
     destFile = file("${buildDir}/seed.tgz")
     outputs.file destFile
 }
@@ -130,7 +120,7 @@ dbLoad.outputs.upToDateWhen { false }
 task dbClear(type: MarkLogicClearTask)
 
 
-/* use same properties for gradle and runtime */
+/* use same properties for gradle and Java runtime */
 task props(type: Copy) {
     from('.') {
         include 'gradle.properties'
@@ -138,9 +128,14 @@ task props(type: Copy) {
     into 'src/main/resources'
 }
 
-/**
- * appserver dependency
+/*
+ * appserver
+ * assembles the project, loads sample data and starts the appserver on port 8090
  */
+task appserver <<
+{
+   println "Bootstrapping, seeding and starting Samplestack appserver"
+}
 appserver.dependsOn(clean, assemble, dbLoad, bootRun)
 bootRun.shouldRunAfter(dbLoad)
 
