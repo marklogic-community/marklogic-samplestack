@@ -90,14 +90,19 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 					.newRawCombinedQueryDefinition(handle);
 			valdef.setQueryDefinition(qdef);
 		}
-		valdef.setAggregate("count");
-		JacksonHandle responseHandle = queryManager.values(valdef,
-				new JacksonHandle(), start);
-		ObjectNode responseJson = (ObjectNode) responseHandle.get();
+		JacksonHandle responseHandle;
+		ObjectNode responseJson;
+		// semantics is different for forTags and others
 		if (forTag != null) {
-			responseJson = filterResponseBy(responseJson, forTag, start, pageLength);
+			responseHandle = queryManager
+					.values(valdef, new JacksonHandle(), 1);
+			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, start, pageLength);
+		} else {
+			valdef.setAggregate("count");
+			responseHandle = queryManager.values(valdef, new JacksonHandle(),
+					start);
+			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, 1, pageLength);
 		}
-		return responseJson;
 	}
 
 	private ObjectNode filterResponseBy(ObjectNode responseJson, String forTag,
@@ -105,20 +110,23 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 		ObjectNode responseNode = (ObjectNode) responseJson
 				.get("values-response");
 		ArrayNode distinctValues = (ArrayNode) responseNode.get(
-				"distinct-value").deepCopy();
+				"distinct-value");
+		if (distinctValues == null) {
+			return responseJson;
+		} else {
+			distinctValues = distinctValues.deepCopy();
+		}
 		responseNode.remove("distinct-value");
 		ArrayNode newValues = responseNode.putArray("distinct-value");
 		int kept = 0;
-		for (int i = 0; i < distinctValues.size() && kept <= pageLength; i++) {
+		for (int i = 0; i < distinctValues.size() && kept < pageLength; i++) {
 			ObjectNode value = (ObjectNode) distinctValues.get(i);
-			if (value.get("_value").asText().contains(forTag)) {
-				// is start past yet?
+			if (forTag == null || value.get("_value").asText().contains(forTag)) {
 				if (start > 1) {
 					start--;
-				}
-				else {
+				} else {
 					newValues.add(value);
-					kept++;;
+					kept++;
 				}
 			} else {
 				// pass
