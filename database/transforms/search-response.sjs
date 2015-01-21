@@ -82,12 +82,22 @@ function searchTransform(context, params, input) {
                 var sourceDoc = fn.doc(uri).next().value;
                 for (var j = 0; j < matches.length; j++) {
                     var match = matches[j];
-                    var source = "question";
+                    var source = "";
                     if (match.path.indexOf("answers") > -1) {
                         source = "answer";                
                     }
                     else if (match.path.indexOf("tags") > -1) {
                         source = "tags";
+                    }
+                    else if (match.path.indexOf('text("text")') > -1) {
+                        source = "question";
+                    }
+                    else if (match.path.indexOf('text("title")') > -1) {
+                        source = "question";
+                    }
+                    else {
+                        match = null;
+                        continue;
                     }
                     match.source = source;
                     if (source == "answer") {
@@ -106,11 +116,13 @@ function searchTransform(context, params, input) {
                         } else {
                             match.id = "error - unknown";
                         }
-                    } else {
-                        var root = sourceDoc.toObject();
-                        if (root.id !== undefined) {
-                            match.id = root.id;
+                    } else if (source == "question") {
+                        var id = sourceDoc.root.id;
+                        if (id !== undefined) {
+                            match.id = id;
                         }
+                    } else {
+                        match.id = "";
                     }
                     delete match.path;
                 }
