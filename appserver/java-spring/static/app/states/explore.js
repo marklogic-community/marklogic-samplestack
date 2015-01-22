@@ -16,12 +16,16 @@ define(['app/module'], function (module) {
     'appRouting',
     'ssSearch',
     'allTagsDialog',
+    'ssTagsSearch',
+    'mlUtil',
     function (
       $scope,
       $timeout,
       appRouting,
       ssSearch,
-      allTagsDialog
+      allTagsDialog,
+      ssTagsSearch,
+      mlUtil
     ) {
 
       // after everything is arranged, this function is called to initialize
@@ -192,6 +196,29 @@ define(['app/module'], function (module) {
           }
         );
 
+      };
+
+      $scope.typeaheadSearch = function (searchForName) {
+        var tagsSearch = ssTagsSearch.create({
+          criteria: mlUtil.merge(
+            _.clone($scope.search.criteria),
+            {
+              tagsQuery: {
+                start: 1,
+                pageLength: 10,
+                forTag: searchForName,
+                sort: 'name'
+              }
+            }
+          )
+        });
+
+        $scope.typeaheadPromise = tagsSearch.post().$ml.waiting;
+
+        return $scope.typeaheadPromise.then(function () {
+          delete $scope.typeaheadPromise;
+          return tagsSearch.results.items;
+        });
       };
 
       init();
