@@ -91,14 +91,13 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 			valdef.setQueryDefinition(qdef);
 		}
 		JacksonHandle responseHandle;
-		ObjectNode responseJson;
+		valdef.setAggregate("count");
 		// semantics is different for forTags and others
 		if (forTag != null) {
 			responseHandle = queryManager
 					.values(valdef, new JacksonHandle(), 1);
 			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, start, pageLength);
 		} else {
-			valdef.setAggregate("count");
 			responseHandle = queryManager.values(valdef, new JacksonHandle(),
 					start);
 			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, 1, pageLength);
