@@ -20,9 +20,9 @@
           tooltip="Search all available tags"
           typeahead="
             tag.count as tag.name+' ('+tag.count+')'
-            for tag in tagsTypeaheadSearch($viewValue) | filter:$viewValue | orderBy:sort
+            for tag in typeaheadSearch($viewValue) | filter:$viewValue | orderBy:sort
           "
-          typeahead-loading="tagsTypeaheadPromise"
+          typeahead-loading="typeaheadLoading"
           typeahead-on-select="
             selectTagTypeahead($item, $model, $label)
           "

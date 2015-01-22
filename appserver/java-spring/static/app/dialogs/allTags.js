@@ -129,7 +129,7 @@ define(['app/module'], function (module) {
         }
       };
 
-      $scope.tagsTypeaheadSearch = function (searchForName) {
+      $scope.typeaheadSearch = function (searchForName) {
         var tagsSearch = ssTagsSearch.create({
           criteria: mlUtil.merge(
             _.clone(criteria),
@@ -144,10 +144,10 @@ define(['app/module'], function (module) {
           )
         });
 
-        $scope.tagsTypeaheadPromise = tagsSearch.post().$ml.waiting;
+        $scope.typeaheadPromise = tagsSearch.post().$ml.waiting;
 
-        return $scope.tagsTypeaheadPromise.then(function () {
-          delete $scope.tagsTypeaheadPromise;
+        return $scope.typeaheadPromise.then(function () {
+          delete $scope.typeaheadPromise;
           return tagsSearch.results.items;
         });
       };
