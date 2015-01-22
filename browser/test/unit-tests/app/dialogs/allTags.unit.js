@@ -25,7 +25,7 @@ define([
 
         });
 
-        it('can be displayed', function () {
+        xit('can be displayed', function () {
           $httpBackend.expectGET('/app/dialogs/allTags.html')
               .respond(200);
           var dialog = allTagsDialog([], []);
@@ -34,7 +34,7 @@ define([
         });
       });
 
-      describe('allTagsDialogCtlr', function () {
+      xdescribe('allTagsDialogCtlr', function () {
         var ctlr;
         var el;
         var scope;

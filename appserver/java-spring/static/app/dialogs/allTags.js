@@ -29,23 +29,26 @@ define(['app/module'], function (module) {
 
     '$scope',
     '$modalInstance',
-    'allTagsStartFromFilter',
-    'unselTags',
-    'selTags',
+    'ssTagsSearch',
+    'searchObject',
+    'mlUtil',
     function (
       $scope,
       $modalInstance,
-      allTagsStartFromFilter,
-      unselTags,
-      selTags
+      ssTagsSearch,
+      searchObject,
+      mlUtil
     ) {
 
       // Tag settings
       /**
        */
-      $scope.unselTags = unselTags;
-      $scope.selTags = selTags;
-      $scope.tags = unselTags.concat(selTags);
+      // get a fresh copy so we don't mess with main search while we're in
+      // the dialog
+      var criteria = angular.copy(searchObject.criteria);
+      criteria.constraints.tags.values = criteria.constraints.tags.values || [];
+      $scope.selTags = criteria.constraints.tags.values;
+
       $scope.selected = ''; // For typeahead
 
       // Layout settings
@@ -57,48 +60,44 @@ define(['app/module'], function (module) {
       $scope.tagsPerCol = 6;
 
       // Paging settings
+      $scope.tagsCount = 0;
       $scope.currentPage = 1; // initial
       $scope.maxSize = 5;
       $scope.pageSize = numCols * $scope.tagsPerCol;
-      $scope.totalPages = Math.ceil($scope.tags.length / $scope.pageSize);
       $scope.updatePage = function (currentPage) {
         $scope.currentPage = currentPage;
+        search();
       };
 
       // Sort settings
       $scope.sorts = [
         {
           label: 'Name',
-          value: ['name']
+          value: 'name'
         },
         {
           label: 'Count',
-          value: ['-count', 'name']
+          value: 'frequency'
         }
       ];
       $scope.selectedSort = $scope.sorts[1]; // Default sort
 
       /**
        * @ngdoc method
-       * @name allTagsDialogCtlr#$scope.clicked
+       * @name allTagsDialogCtlr#$scope.onTagClick
        * @description
        * Handle a click event for a tag checkbox
-       * @param  {object} tag the clicked element
+       * @param  {string} tagName the clicked tag name
        */
-      $scope.clicked = function (tag) {
-        // Selection
-        var index;
-        if ($scope.unselTags.indexOf(tag) > -1) {
-          $scope.selTags.push(tag);
-          index = $scope.unselTags.indexOf(tag);
-          $scope.unselTags.splice(index, 1);
+      $scope.onTagClick = function (tagName) {
+        var selectedAsIndex = $scope.selTags.indexOf(tagName);
+        if (selectedAsIndex >= 0) {
+          $scope.selTags.splice(selectedAsIndex, 1);
         }
-        // Deselection
         else {
-          $scope.unselTags.push(tag);
-          index = $scope.selTags.indexOf(tag);
-          $scope.selTags.splice(index, 1);
+          $scope.selTags.push(tagName);
         }
+        search();
       };
 
       /**
@@ -110,10 +109,7 @@ define(['app/module'], function (module) {
        */
 
       $scope.submit = function () {
-        $modalInstance.close({
-          unselTags: $scope.unselTags,
-          selTags: $scope.selTags
-        });
+        $modalInstance.close($scope.selTags);
       };
 
       $scope.cancel = function () {
@@ -122,30 +118,79 @@ define(['app/module'], function (module) {
 
       $scope.setSort = function () {
         $scope.selectedSort = this.sort;
-        $scope.currentPage = 1;
+        search();
       };
 
-      /**
-       * Handle typeahead selection.
-       * @param {object} $item selected item
-       * @param {*} $model selected value
-       * @param {string} $label selected label
-       */
-
-      $scope.onMenuSelect = function ($item, $model, $label) {
-        // Add to selected (if not there already)
-        if ($scope.selTags.indexOf($item) === -1) {
-          $scope.selTags.push($item);
+      $scope.selectTagTypeahead = function ($item, $model, $label) {
+        $scope.selected = ''; // Clear typeahead menu
+        if ($scope.selTags.indexOf($item.name) === -1) {
+          $scope.selTags.push($item.name);
+          search();
         }
-        // Remove from unselected
-        var index = $scope.unselTags.indexOf($item);
-        if (index > -1) {
-          $scope.unselTags.splice(index, 1);
-        }
-        $scope.selected = ''; // TODO not working, typeahead doesn't clear???
       };
+
+      $scope.tagsTypeaheadSearch = function (searchForName) {
+        var tagsSearch = ssTagsSearch.create({
+          criteria: mlUtil.merge(
+            _.clone(criteria),
+            {
+              tagsQuery: {
+                start: 1,
+                pageLength: 10,
+                forTag: searchForName,
+                sort: 'name'
+              }
+            }
+          )
+        });
+
+        $scope.tagsTypeaheadPromise = tagsSearch.post().$ml.waiting;
+
+        return $scope.tagsTypeaheadPromise.then(function () {
+          delete $scope.tagsTypeaheadPromise;
+          return tagsSearch.results.items;
+        });
+      };
+
+      var search = function () {
+        var tagsSearch = ssTagsSearch.create({
+          criteria: mlUtil.merge(
+            _.clone(criteria),
+            {
+              tagsQuery: {
+                start: 1 + ($scope.currentPage - 1) * $scope.pageSize,
+                pageLength: $scope.pageSize,
+                sort: $scope.selectedSort.value
+              }
+            }
+          )
+        });
+
+        tagsSearch.post().$ml.waiting.then(function () {
+          $scope.tagsCount = tagsSearch.results.count;
+          $scope.totalPages = Math.ceil(
+            tagsSearch.results.count / $scope.pageSize
+          );
+          $scope.pagedTagsByColumn = [];
+          while (
+            tagsSearch.results.items.length &&
+            $scope.pagedTagsByColumn.length < numCols
+          ) {
+            $scope.pagedTagsByColumn.push(
+              tagsSearch.results.items.splice(0, $scope.tagsPerCol)
+            );
+          }
+        });
+
+
+      };
+
+
+      // kick the search
+      search();
 
     }
+
   ]);
 
   /**
@@ -171,42 +216,16 @@ define(['app/module'], function (module) {
   module.factory('allTagsDialog', [
     '$modal',
     function ($modal) {
-      return function (unselTags, selTags) {
+      return function (searchObject) {
         return $modal.open({
           templateUrl : '/app/dialogs/allTags.html',
           controller : 'allTagsDialogCtlr',
-          // Data to pass into controller
           resolve: {
-            unselTags: function () {
-              return unselTags;
-            },
-            selTags: function () {
-              return selTags;
-            }
+            searchObject: function () { return searchObject; }
           }
         }).result;
       };
     }
   ]);
-
-  /**
-  * @ngdoc filter
-  * @name allTagsStartFrom
-  * @kind function
-  * @description
-  * Returns the starting element for columnar display of tags. See
-  * {@link allTagsDialog}.
-  * @param {Array.<object>} tags set of tags
-  * @param {integer} startIndex starting index based on current page
-  * @param {integer} colOffset offset based on the column index
-  * @returns {object} The starting tag for the column
-  */
-
-  module.filter('allTagsStartFrom', function () {
-    return function (tags, startIndex, colOffset) {
-      var index = startIndex + colOffset;
-      return tags.slice(index);
-    };
-  });
 
 });

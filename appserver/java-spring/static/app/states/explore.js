@@ -115,6 +115,21 @@ define(['app/module'], function (module) {
 
       $scope.$on('setQueryText', $scope.onCriteriaChange);
 
+      $scope.$on('browseTags', function () {
+        // open dialog, promise returned
+        var modalInstance = allTagsDialog($scope.search);
+        // called on dialog submit, promise fulfilled
+        modalInstance.then(
+          function (newTags) {
+            $scope.search.criteria.constraints.tags.values = newTags;
+            $scope.onCriteriaChange();
+          },
+          function () {
+            // cancelled
+          }
+        );
+      });
+
       // whenever criteria changes, go to the state that represents the
       // criteria's results
       $scope.$on('criteriaChange', $scope.onCriteriaChange);
@@ -198,7 +213,7 @@ define(['app/module'], function (module) {
 
       };
 
-      $scope.typeaheadSearch = function (searchForName) {
+      $scope.tagsTypeaheadSearch = function (searchForName) {
         var tagsSearch = ssTagsSearch.create({
           criteria: mlUtil.merge(
             _.clone($scope.search.criteria),
@@ -213,10 +228,10 @@ define(['app/module'], function (module) {
           )
         });
 
-        $scope.typeaheadPromise = tagsSearch.post().$ml.waiting;
+        $scope.tagsTypeaheadPromise = tagsSearch.post().$ml.waiting;
 
-        return $scope.typeaheadPromise.then(function () {
-          delete $scope.typeaheadPromise;
+        return $scope.tagsTypeaheadPromise.then(function () {
+          delete $scope.tagsTypeaheadPromise;
           return tagsSearch.results.items;
         });
       };

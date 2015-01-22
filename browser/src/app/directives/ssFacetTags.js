@@ -56,7 +56,8 @@ define(['app/module'], function (module) {
         results: '=',        // Tags in the results
         totals: '=',         // Object with total data
         tagLimit: '=numTags', // Num tags to show in unsel list
-        typeaheadSearch: '=' // function to execute typeahead searches
+        tagsTypeaheadSearch: '=', // function to execute typeahead searches
+        tagsTypeaheadPromise: '='
       },
       link: function (scope, element, attrs) {
         element.addClass('ss-facet-tags');
@@ -161,16 +162,7 @@ define(['app/module'], function (module) {
         scope.$on('newResults', resetSelections);
 
         scope.showAllTagsDialog = function () {
-          // open dialog, promise returned
-          var modalInstance = allTagsDialog(
-            scope.toArray(scope.unselTags),
-            scope.toArray(scope.selTags)
-          );
-          // called on dialog submit, promise fulfilled
-          modalInstance.then(function (obj) {
-            scope.unselTags = obj.unselTags;
-            scope.selTags = obj.selTags;
-          });
+          scope.$emit('browseTags');
         };
 
       }

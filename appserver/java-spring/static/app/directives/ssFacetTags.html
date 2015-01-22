@@ -20,8 +20,9 @@
           tooltip="Search all available tags"
           typeahead="
             tag.count as tag.name+' ('+tag.count+')'
-            for tag in typeaheadSearch($viewValue) | filter:$viewValue | orderBy:sort
+            for tag in tagsTypeaheadSearch($viewValue) | filter:$viewValue | orderBy:sort
           "
+          typeahead-loading="tagsTypeaheadPromise"
           typeahead-on-select="
             selectTagTypeahead($item, $model, $label)
           "
@@ -83,7 +84,7 @@
     tooltip="View all available tags"
     data-toggle="modal"
     data-target="#tagsModal"
-    ng-click="showAllTagsDialog(unselTags, selTags)"
+    ng-click="showAllTagsDialog()"
   >More Tags</button>
 
 </div>
