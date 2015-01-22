@@ -35,10 +35,11 @@
             autocomplete="off"
             typeahead="
                 tag.count as tag.name+' ('+tag.count+')'
-                for tag in tagsTypeaheadSearch($viewValue) |
+                for tag in typeaheadSearch($viewValue) |
                 filter: $viewValue |
                 orderBy: selectedSort.value
             "
+            typeahead-loading="typeaheadPromise"
             typeahead-on-select="selectTagTypeahead($item, $model, $label)"
           />
         </div>

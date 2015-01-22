@@ -56,8 +56,8 @@ define(['app/module'], function (module) {
         results: '=',        // Tags in the results
         totals: '=',         // Object with total data
         tagLimit: '=numTags', // Num tags to show in unsel list
-        tagsTypeaheadSearch: '=', // function to execute typeahead searches
-        tagsTypeaheadPromise: '='
+        typeaheadSearch: '=', // function to execute typeahead searches
+        typeaheadLoading: '='
       },
       link: function (scope, element, attrs) {
         element.addClass('ss-facet-tags');
