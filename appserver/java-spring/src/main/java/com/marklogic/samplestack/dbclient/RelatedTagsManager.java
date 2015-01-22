@@ -31,8 +31,15 @@ import com.marklogic.samplestack.service.RelatedTagsService;
 
 
 /**
- * Client-side code for using a related-tags extension
- * on the MarkLogic Server.  An extension class must extend ResourceManager.
+ * Implementation of the RelatedTags service.  
+ * This class is an example of client-side support for a MarkLogic REST API
+ * Service extension.  The extension name is "relatedTags" and it's implemented 
+ * in JavaScript. 
+ * <p/>
+ * See <a href="http://google.com">http://docs.marklogic.com/guide/rest-dev/extensions</a>
+ * See <a href="http://google.com">http://docs.marklogic.com/guide/java/resourceservices</a>
+ * <p/>
+ * The extension code is at /database/services/relatedTags.sjs
  */
 @Component
 public class RelatedTagsManager extends ResourceManager implements RelatedTagsService {
@@ -40,7 +47,7 @@ public class RelatedTagsManager extends ResourceManager implements RelatedTagsSe
 	@Autowired
 	private Clients clients;
 	
-	public static final String name = "relatedTags";
+	public static final String EXTENSION_NAME = "relatedTags";
 
 	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory
@@ -52,7 +59,7 @@ public class RelatedTagsManager extends ResourceManager implements RelatedTagsSe
 	 * @return A list of tags related to the input.
 	 */
 	public String getRelatedTags(String tag) {
-		clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).init(name,  this);  // is this expensive?
+		clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).init(EXTENSION_NAME,  this);  // is this expensive?
 		RequestParameters params = new RequestParameters();
 		params.add("tag", tag);
 		String[] mimetypes = new String[] { "application/json" };
