@@ -25,40 +25,43 @@
   .ss-submit {
     float: right;
   }
-}
 
-  #tagsModal .modal-browser {
+  ul.dropdown-menu {
+    left: 24px!important;
+  }
+
+  .modal-browser {
     padding:10px 10px 0 10px;
     border-bottom: 1px solid #ddd;
   }
 
-  #tagsModal .modal-browser ul.nav-tabs {
+  .modal-browser ul.nav-tabs {
     border-bottom: none;
   }
 
-  #tagsModal .modal-browser ul.nav-tabs li {
+  .modal-browser ul.nav-tabs li {
     float: right;
   }
 
-  #tagsModal .modal-browser ul.nav-tabs li a {
+  .modal-browser ul.nav-tabs li a {
     padding: 6px 14px;
   }
 
-  #tagsModal .modal-body table tr td.checkbox {
+  .modal-body table tr td.checkbox {
     position: static;
     display: table-cell;
     padding: 5px;
     font-size: 12px;
   }
 
-  #tagsModal .modal-body table tr td.checkbox input {
+  .modal-body table tr td.checkbox input {
     top: 0px;
     margin-right: 5px;
     position: relative;
   }
 
 
-  #tagsModal #searchTags {
+  #searchTags {
     height: 26px;
     float:left;
     width:50%;
@@ -69,45 +72,45 @@
     background-repeat:no-repeat;
   }
 
-  #tagsModal .modal-footer {
+  .modal-footer {
     text-align: left;
   }
 
-  #tagsModal .modal-footer ul.pagination {
+  .modal-footer ul.pagination {
     margin: 0;
   }
 
-  #tagsModal .modal-footer ul.pagination li a {
+  .modal-footer ul.pagination li a {
     padding: 4px 8px;
   }
 
-  #tagsModal input[type="checkbox"] {
+  input[type="checkbox"] {
     margin-top: 1px;
   }
 
-  #tagsModal .tags-modal-search-wrapper {
+  .tags-modal-search-wrapper {
      float:left;
      width: 60%;
      margin-left: 5px;
   }
 
-  #tagsModal .tags-modal-search-wrapper .tags-modal-search {
+  .tags-modal-search-wrapper .tags-modal-search {
     border:1px solid #ccc;
     border-radius: 3px;
   }
 
-  #tagsModal .tags-modal-search-wrapper .tags-modal-search-icon {
+  .tags-modal-search-wrapper .tags-modal-search-icon {
     float:left;
     margin:3px 0px 0px 6px;
   }
 
-  #tagsModal .tags-modal-search-wrapper .tags-modal-search-input {
+  .tags-modal-search-wrapper .tags-modal-search-input {
     float:left;
     padding-top:1px;
     width: 80%;
   }
 
-  #tagsModal .tags-modal-search-wrapper .tags-modal-search-input input {
+  .tags-modal-search-wrapper .tags-modal-search-input input {
     border: none;
     box-shadow: inset 0 0px 0px, 0 0 0px;
     /* border: 1px solid red!important; */
@@ -121,13 +124,15 @@
     line-height: 1;
   }
 
-  #tagsModal .tags-modal-search-wrapper .glyphicon-search {
+  .tags-modal-search-wrapper .glyphicon-search {
     margin-top:2px;
   }
 
-  #tagsModal .tags-modal-search-wrapper .glyphicon-remove {
+  .tags-modal-search-wrapper .glyphicon-remove {
     margin-top:6px;
     margin-right: 12px;
     color:#ccc;
     float:right;
   }
+
+}
