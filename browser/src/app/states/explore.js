@@ -140,6 +140,8 @@ define(['app/module'], function (module) {
         $scope.$emit('criteriaChange');
       };
 
+      var activeSearches = [];
+
       $scope.runSearch = function () {
         $scope.searching = true;
         if ($scope.search.results) {
@@ -148,46 +150,45 @@ define(['app/module'], function (module) {
 
         $scope.applyScopeToSearch();
 
-        $scope.search.shadowSearch().then(
+        var mySearch = $scope.search.shadowSearch();
+        activeSearches.push(mySearch);
+        mySearch.then(
           function () {
-
-            // if the search params specify an out-of-bounds page,
-            // change the page spec
-            if ($scope.search.pageOutOfBounds()) {
-              $scope.search.setPageInBounds();
-              $scope.$emit('criteriaChange');
-              return;
-            }
-
-            // until there is snippeting, abbreviate the body
-            $scope.search.results.items.forEach(function (item) {
-              if (item.content.text && item.content.text.length > 400) {
-                item.content.text = item.content.text.substring(0,400) +
-                    '...';
+            if (mySearch === activeSearches.slice().pop()) {
+              activeSearches.pop();
+              // if the search params specify an out-of-bounds page,
+              // change the page spec
+              if ($scope.search.pageOutOfBounds()) {
+                $scope.search.setPageInBounds();
+                $scope.$emit('criteriaChange');
+                return;
               }
-            });
 
-            // notify directives so they don't have to watch
-            // wait for a digestcycle so that we don't show repeaters
-            // while they're repeating
-            $timeout(function () {
-              $scope.$broadcast('newResults');
+              // notify directives so they don't have to watch
+              // wait for a digestcycle so that we don't show repeaters
+              // while they're repeating
+              $timeout(function () {
+                $scope.$broadcast('newResults');
+                // so templates can stop showing spinners
+                $scope.searching = false;
+                // so the layout can stop showing its spinner
+                $scope.setLoading(false);
+
+              });
+            }
+          },
+          function (reason) {
+            if (mySearch === activeSearches.slice().pop()) {
+              activeSearches.pop();
               // so templates can stop showing spinners
               $scope.searching = false;
               // so the layout can stop showing its spinner
               $scope.setLoading(false);
-
-            });
-          },
-          function (reason) {
-            // so templates can stop showing spinners
-            $scope.searching = false;
-            // so the layout can stop showing its spinner
-            $scope.setLoading(false);
-            throw new Error(
-              JSON.stringify(reason),
-              'ssSearch:post'
-            );
+              throw new Error(
+                JSON.stringify(reason),
+                'ssSearch:post'
+              );
+            }
           }
         );
 
