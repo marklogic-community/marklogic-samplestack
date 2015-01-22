@@ -37,6 +37,7 @@ if [[ $status = 200 ]]; then
 
   fname=$(pwd)/$fname
 
+  sudo apt-get update
   sudo apt-get install alien dpkg-dev debhelper build-essential
   sudo alien -d -k $fname
   sudo dpkg -i $fnamedeb
