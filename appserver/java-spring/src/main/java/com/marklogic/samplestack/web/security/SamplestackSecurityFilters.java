@@ -1,18 +1,3 @@
-/*
- * Copyright 2012-2015 MarkLogic Corporation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.marklogic.samplestack.web.security;
 
 import java.io.IOException;
@@ -28,10 +13,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  *  Customization to Spring Security. 
- *  Adds CSRF token as header if it exists, and also CORS headers.
+ *  Adds CSRF token as header if it exists in the current
+ *  request, and also includes CORS headers.
  */
-@Component
-public final class SamplestackSecurityFilters extends OncePerRequestFilter {
+class SamplestackSecurityFilters extends OncePerRequestFilter {
 	@Override
 	/**
 	 * Hooks into Spring Security filter mechanism to manipulate

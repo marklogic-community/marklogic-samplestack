@@ -16,6 +16,7 @@
 package com.marklogic.samplestack.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +25,9 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
@@ -51,10 +55,39 @@ public class SamplestackSecurityConfigurer {
 	@Autowired
 	private AccessDeniedHandler samplestackAccessDeniedHandler;
 	
-
+	@Bean
+	/*
+	 * Creating as a bean rather than @Component prevents
+	 * Spring Boot from auto-configuring this filter,
+	 * which it does wrong.  Auto-configured filters are added
+	 * to the front of the filter chain, whereas this one must
+	 * run after CsrfFilter.
+	 */
+	private SamplestackSecurityFilters samplestackSecurityFilters() {
+		return new SamplestackSecurityFilters();
+	};
+	
+	@Bean
+	private CsrfTokenRepository csrfTokenRepository() {
+		return new HttpSessionCsrfTokenRepository();
+	}
+	
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/v1/session", "/v1/questions/**",
+		// Samplestack has customization needs for csrf protection.
+		// the tokenRepository must be shared between CsrfFilter and
+		// the authentication handler, and we customize which
+		// endpoints require csrf protection.
+		http.csrf()
+			.csrfTokenRepository(csrfTokenRepository())
+			.requireCsrfProtectionMatcher(new CsrfRequestMatcher());
+		http
+		   .addFilterAfter(samplestackSecurityFilters(), CsrfFilter.class)
+		   		.headers()
+		   			.xssProtection()
+		   			.cacheControl();
+		http
+		   .authorizeRequests()
+			    .antMatchers(HttpMethod.GET, "/v1/session", "/v1/questions/**",
 						"/v1/contributors/**", "/v1/hasVoted", "/**")
 				.permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/v1/search", "/v1/tags/**")
@@ -62,6 +95,9 @@ public class SamplestackSecurityConfigurer {
 				.antMatchers("/v1/questions/**", "/v1/contributors/**")
 				.authenticated().and().authorizeRequests().anyRequest()
 				.denyAll();
+		// keep the same session before and after login.
+		http.sessionManagement().sessionFixation().none();
+		// customize Spring boot form login to work with rich client expectations.
 		http.formLogin()
 				.loginProcessingUrl("/v1/session")
 				.failureHandler(failureHandler)
@@ -72,12 +108,9 @@ public class SamplestackSecurityConfigurer {
 				.logoutRequestMatcher(
 						new AntPathRequestMatcher("/v1/session", "DELETE"))
 				.logoutSuccessHandler(logoutSuccessHandler).permitAll();
-		http.csrf().disable();
 		http.exceptionHandling().authenticationEntryPoint(entryPoint)
 				.accessDeniedHandler(samplestackAccessDeniedHandler);
-
 	}
-
 
 	public void ldapConfiguation(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
 		authManagerBuilder.ldapAuthentication()

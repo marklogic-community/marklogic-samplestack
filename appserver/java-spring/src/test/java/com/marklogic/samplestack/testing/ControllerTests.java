@@ -97,7 +97,7 @@ public class ControllerTests {
 		MvcResult result = mockMvc
 				.perform(
 						post("/v1/session")
-						//.with(csrf().asHeader())
+						.with(csrf().asHeader())
 						.param("username", username)
 						.param("password", password))
 				// TODO 'restful' login content(loginBody(username, password)))
@@ -109,7 +109,8 @@ public class ControllerTests {
 	}
 
 	protected void logout() throws Exception {
-		this.session = this.mockMvc.perform(delete("/v1/session"))
+		this.session = this.mockMvc.perform(delete("/v1/session")
+				.with(csrf().asHeader()))
 				.andExpect(status().isOk())
 				.andReturn()
 				.getRequest().getSession();

@@ -26,11 +26,9 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -48,7 +46,7 @@ import com.marklogic.samplestack.service.ContributorService;
  */
 @Component
 public class SamplestackAuthenticationSuccessHandler extends
-		SimpleUrlAuthenticationSuccessHandler {
+		SimpleUrlAuthenticationSuccessHandler  {
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -56,9 +54,9 @@ public class SamplestackAuthenticationSuccessHandler extends
 	@Autowired
 	private ContributorService contributorService;
 	
-
-	private RequestCache requestCache = new HttpSessionRequestCache();
-
+	@Autowired
+	private CsrfTokenRepository csrfTokenRepository;
+	
 	@Override
 	/**
 	 * Override handler that sends 200 OK to client along with JSON
@@ -67,15 +65,6 @@ public class SamplestackAuthenticationSuccessHandler extends
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
 			throws ServletException, IOException {
-		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		String targetUrlParam = getTargetUrlParameter();
-		if (savedRequest != null
-				&& isAlwaysUseDefaultTargetUrl()
-				|| (targetUrlParam != null && StringUtils.hasText(request
-						.getParameter(targetUrlParam)))) {
-			requestCache.removeRequest(request, response);
-		}
-
 		clearAuthenticationAttributes(request);
 		HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(
 				response);
@@ -93,12 +82,16 @@ public class SamplestackAuthenticationSuccessHandler extends
 		}
 		ArrayNode roleNode = userNode.putArray("role");
 		roleNode.add(ClientRole.securityContextRole().toString());
-		
+
+		// put new token information on response.
+		CsrfToken token = csrfTokenRepository.loadToken(request);
+		if (token != null) {
+			response.setHeader("X-CSRF-HEADER", token.getHeaderName());
+			response.setHeader("X-CSRF-PARAM", token.getParameterName());
+			response.setHeader(token.getHeaderName(), token.getToken());
+		}
 		mapper.writeValue(writer, userNode);
 		writer.close();
 	}
 
-	public void setRequestCache(RequestCache requestCache) {
-		this.requestCache = requestCache;
-	}
 }
