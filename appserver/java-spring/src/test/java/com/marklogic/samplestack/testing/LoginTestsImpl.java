@@ -92,8 +92,9 @@ public class LoginTestsImpl extends ControllerTests {
 
 		MvcResult result = 
 				mockMvc.perform(
-						get("/v1/session").session((MockHttpSession) session))
-						//.with(csrf().asHeader())
+						get("/v1/session")
+						.with(csrf().asHeader())
+						.session((MockHttpSession) session))
 						.andExpect(status().isOk()).andReturn();
 
 		String stringResult = result.getResponse().getContentAsString();
@@ -104,7 +105,9 @@ public class LoginTestsImpl extends ControllerTests {
 		assertNotNull(session);
 
 		mockMvc.perform(
-				get("/v1/questions").session((MockHttpSession) session).locale(
+				get("/v1/questions")
+				.with(csrf().asHeader())
+				.session((MockHttpSession) session).locale(
 						Locale.ENGLISH)).andDo(print())
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 		

@@ -90,7 +90,9 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		String contributorsList = this.mockMvc
 				.perform(
-						get("/v1/contributors").session(
+						get("/v1/contributors")
+						.with(csrf().asHeader())
+						.session(
 								(MockHttpSession) session)).andReturn()
 				.getResponse().getContentAsString();
 
@@ -101,8 +103,9 @@ public class ContributorControllerTestImpl extends ControllerTests {
 				this.mockMvc
 						.perform(
 								get("/v1/contributors/" + returnedUser.getId())
-										.session((MockHttpSession) session)
-										.locale(Locale.ENGLISH))
+									.with(csrf().asHeader())
+									.session((MockHttpSession) session)
+									.locale(Locale.ENGLISH))
 						.andExpect(status().isOk()).andReturn().getResponse()
 						.getContentAsString(), Contributor.class);
 
@@ -114,8 +117,9 @@ public class ContributorControllerTestImpl extends ControllerTests {
 				this.mockMvc
 						.perform(
 								get("/v1/contributors/" + returnedUser.getId())
-										.session((MockHttpSession) session)
-										.locale(Locale.ENGLISH))
+									.with(csrf().asHeader())
+									.session((MockHttpSession) session)
+									.locale(Locale.ENGLISH))
 						.andExpect(status().isOk()).andReturn().getResponse()
 						.getContentAsString(), Contributor.class);
 

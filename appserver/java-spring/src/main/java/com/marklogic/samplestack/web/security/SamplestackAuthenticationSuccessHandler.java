@@ -28,6 +28,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.DefaultCsrfToken;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -83,12 +85,16 @@ public class SamplestackAuthenticationSuccessHandler extends
 		ArrayNode roleNode = userNode.putArray("role");
 		roleNode.add(ClientRole.securityContextRole().toString());
 
-		// put new token information on response.
+		// get the new token that auth has created.
 		CsrfToken token = csrfTokenRepository.loadToken(request);
+		// and stuff the existing request's token in there.
+		String requestTokenValue = request.getHeader("X-CSRF-TOKEN");
+		CsrfToken replacementToken = new DefaultCsrfToken(token.getHeaderName(), token.getParameterName(), requestTokenValue);
+		csrfTokenRepository.saveToken(replacementToken, request, response);
 		if (token != null) {
 			response.setHeader("X-CSRF-HEADER", token.getHeaderName());
 			response.setHeader("X-CSRF-PARAM", token.getParameterName());
-			response.setHeader(token.getHeaderName(), token.getToken());
+			response.setHeader(token.getHeaderName(), replacementToken.getToken());
 		}
 		mapper.writeValue(writer, userNode);
 		writer.close();

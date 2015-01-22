@@ -17,6 +17,8 @@ package com.marklogic.samplestack.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,8 +40,12 @@ import org.springframework.stereotype.Component;
  * and an embedded LDAP configuration.
  */
 @Component
+@PropertySource("classpath:gradle.properties")
 public class SamplestackSecurityConfigurer {
 
+	@Autowired
+	private Environment env;
+	
 	@Autowired
 	private AuthenticationSuccessHandler successHandler;
 
@@ -64,7 +70,7 @@ public class SamplestackSecurityConfigurer {
 	 * run after CsrfFilter.
 	 */
 	private SamplestackSecurityFilters samplestackSecurityFilters() {
-		return new SamplestackSecurityFilters();
+		return new SamplestackSecurityFilters(env);
 	};
 	
 	@Bean
