@@ -511,8 +511,8 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 //##
 
 //** Tooltip max width
-$tooltip-max-width:           200px !default;
-$tooltip-min-width:           100px !default;
+$tooltip-max-width:           400px !default;
+$tooltip-min-width:           140px !default;
 //** Tooltip text color
 $tooltip-color:               #fff !default;
 //** Tooltip background color
