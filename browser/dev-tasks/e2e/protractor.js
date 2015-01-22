@@ -9,8 +9,8 @@ var ctx = require('../context');
 
 var ptorConfig = {
   stackTrace: false,
-  getPageTimeout: 720000,
-  allScriptsTimeout: 720000,
+  getPageTimeout: 180000,
+  allScriptsTimeout: 180000,
   baseUrl: ctx.options.envs.e2e.addresses.webApp.href,
   rootElement: 'html',
   chromeOnly: false,
