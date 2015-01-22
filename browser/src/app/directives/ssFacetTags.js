@@ -55,7 +55,8 @@ define(['app/module'], function (module) {
         criteria: '=',       // Tags in the selection criteria
         results: '=',        // Tags in the results
         totals: '=',         // Object with total data
-        tagLimit: '=numTags' // Num tags to show in unsel list
+        tagLimit: '=numTags', // Num tags to show in unsel list
+        typeaheadSearch: '=' // function to execute typeahead searches
       },
       link: function (scope, element, attrs) {
         element.addClass('ss-facet-tags');
@@ -89,6 +90,8 @@ define(['app/module'], function (module) {
               }
             });
           }
+
+          // setup typeahead
         };
 
        /**
