@@ -129,7 +129,8 @@ define(['_marklogic/module'], function (module) {
       };
 
       MlModel.prototype.getBaseUrl = function () {
-        return '/v1'; // TODO should come from config setting
+        // configure in /browser/options.js
+        return '<%= options.addresses.middleTierRestServer.href %>v1';
       };
 
       MlModel.prototype.attachScope = function (scope, as) {

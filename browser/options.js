@@ -4,7 +4,14 @@ var url = require('url');
 
 var defaults = {
 
+
   addresses: {
+    // this configuration makes use of CORS and does not use the node proxy
+    middleTierRestServer: url.parse('http://localhost:8090'),
+
+    // this ccnfig would use the proxy running on the same port as the webapp
+    // middleTierRestServer: url.parse('/'),
+
     // the middle tier
     appServer: url.parse('http://localhost:8090'),
     // for e2e testing
@@ -121,7 +128,11 @@ var defaults = {
 // THESE OVERRIDES are mostly TODO
 var envOverrides = {
   // at this time, doesn't have any overrides for unit testing
-  unit: { },
+  unit: {
+    addresses: {
+      middleTierRestServer: url.parse('/')
+    }
+  },
 
   // NOT yet used
   e2e: {
