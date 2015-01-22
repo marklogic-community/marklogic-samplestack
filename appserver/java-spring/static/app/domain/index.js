@@ -6,5 +6,6 @@ define([
   './ssVote',
   './ssAnswer',
   './ssComment',
-  './ssAcceptedAnswer'
+  './ssAcceptedAnswer',
+  './ssTagsSearch'
 ], function () {});
