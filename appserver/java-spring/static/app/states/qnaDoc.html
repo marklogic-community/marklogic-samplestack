@@ -15,7 +15,7 @@
         <div
           class="ss-vote-control ss-vote-control-up"
           tooltip-placement="right"
-          tooltip="{{ canVoteOn(doc) ? 'Vote this up' : 'You must be logged in to vote' }}"
+          tooltip="{{ tooltipUpFor(doc) }}"
           ng-click="vote(1, doc)"
           ng-disabled="!canVoteOn(doc)"
         >
@@ -32,7 +32,7 @@
         <div
           class="ss-vote-control ss-vote-control-down"
           tooltip-placement="right"
-          tooltip="{{ canVoteOn(doc) ? 'Vote this down' : 'You must be logged in to vote' }}"
+          tooltip="{{ tooltipDownFor(doc) }}"
           ng-disabled="!canVoteOn(doc)"
           ng-click="vote(-1, doc)"
         >
@@ -152,7 +152,7 @@
           <div
             class="ss-vote-control ss-vote-control-up"
             tooltip-placement="right"
-            tooltip="{{ canVoteOn(answer) ? 'Vote this up' : 'You must be logged in to vote' }}"
+            tooltip="{{ tooltipUpFor(answer) }}"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(1, answer)"
           >
@@ -169,7 +169,7 @@
           <div
             class="ss-vote-control ss-vote-control-down"
             tooltip-placement="right"
-            tooltip="{{ canVoteOn(answer) ? 'Vote this down' : 'You must be logged in to vote' }}"
+            tooltip="{{ tooltipDownFor(answer) }}"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(-1, answer)"
           >

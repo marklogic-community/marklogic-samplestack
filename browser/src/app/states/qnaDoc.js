@@ -129,6 +129,34 @@ define(['app/module'], function (module) {
         }
       };
 
+      $scope.tooltipUpFor = function (contentObj) {
+        if ($scope.canVoteOn(contentObj)) {
+          return 'Vote this up';
+        }
+        else {
+          if ($scope.store.session) {
+            return 'You cannot change your vote';
+          }
+          else {
+            return 'You must be logged in to vote';
+          }
+        }
+      };
+
+      $scope.tooltipDownFor = function (contentObj) {
+        if ($scope.canVoteOn(contentObj)) {
+          return 'Vote this down';
+        }
+        else {
+          if ($scope.store.session) {
+            return 'You cannot change your vote';
+          }
+          else {
+            return 'You must be logged in to vote';
+          }
+        }
+      };
+
      /**
       * @ngdoc method
       * @name $scope.canAcceptAnswer
