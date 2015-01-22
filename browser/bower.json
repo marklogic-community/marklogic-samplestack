@@ -32,7 +32,7 @@
     "requirejs-plugins": "1.0.3",
     "requirejs": "2.1.15",
     "stacktrace-js": "0.6.4",
-    "jstzdetect": "~1.0.6"
+    "jstzdetect": "1.0.6"
   },
   "devDependencies": {
     "chai-as-promised": "4.1.1",
