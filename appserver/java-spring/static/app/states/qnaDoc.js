@@ -56,6 +56,8 @@ define(['app/module'], function (module) {
 
           },
           function (error) {
+            // so the layout can stop showing its spinner
+            $scope.setLoading(false);
             if (error.status === 401) {
               $scope.setLocalError('Document Not Found');
             }
