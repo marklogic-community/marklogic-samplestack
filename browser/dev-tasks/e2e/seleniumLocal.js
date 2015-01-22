@@ -83,26 +83,27 @@ var close;
 var start = function (args, cb) {
   ctx.seleniumStarted = false;
   getServer(function (err) {
-    if (err) { return cb(err); }
+    console.log('server got');
+    if (err) {
+      return cb(err);
+    }
 
-          server.start({
+    server.start({
       stdio: 'inherit'
-    }).then(
-      function started (url) {
-        ctx.seleniumStarted = true;
-        ctx.setActiveServer('selenium', {
-          url: url,
-          close: function (cb) {
-            server.on('exit', function () {
-              cb();
-            });
-            server.kill();
-          }
+    });
+
+    var url = server.address();
+    ctx.seleniumStarted = true;
+    ctx.setActiveServer('selenium', {
+      url: url,
+      close: function (cb) {
+        server.on('exit', function () {
+          cb();
         });
-        cb();
-      },
-      cb
-    );
+        server.kill();
+      }
+    });
+    cb();
   });
 };
 
