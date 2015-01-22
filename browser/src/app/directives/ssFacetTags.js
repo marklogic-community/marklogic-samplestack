@@ -69,9 +69,9 @@ define(['app/module'], function (module) {
           // Start by moving all tags in results to unsel array
           scope.unselTags = angular.copy(scope.results);
           angular.forEach(scope.unselTags, function (tag) {
-            // Ensure they all have counts
+            // Don't display tags that have no counts
             if (!tag.count) {
-              tag.count = 0;
+              delete scope.unselTags[tag.name];
             }
           });
           scope.selTags = {};
