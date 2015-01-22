@@ -127,6 +127,7 @@ define(['testHelper'], function (helper) {
           id: '1'
         });
         instance.onHttpResponse({
+          id: '1',
           myProp2: {}
         }, 'GET');
         instance.$ml.valid.should.be.true;

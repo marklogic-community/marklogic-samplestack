@@ -40,7 +40,7 @@ define(['app/module'], function (module) {
       SsCommentObject.prototype.$mlSpec = {
         schema: mlSchema.addSchema({
           id: 'http://marklogic.com/samplestack#comment',
-          //required: ['text'], // this is breaking validation on comment save
+          //required: ['text'], // self is breaking validation on comment save
           properties: {
             id: {
               type: 'string',
@@ -50,10 +50,6 @@ define(['app/module'], function (module) {
             text: { type: 'string' }
           }
         })
-      };
-
-      SsCommentObject.prototype.preconstruct = function (spec, parent) {
-        // validate that parent is an ssQnaDoc object
       };
 
       SsCommentObject.prototype.getResourceName = function (httpMethod) {

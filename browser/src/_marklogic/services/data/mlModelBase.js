@@ -104,15 +104,16 @@ define(['_marklogic/module'], function (module) {
        * derivation is defined. The default implementation is:
        *
        * ```javascript
-       * this.preconstruct(spec, parent);
+       * self.preconstruct(spec, parent);
        * Object.defineProperty(this, '$ml', {
        *   value: { parent: parent }
        * });
-       * this.assignData(spec || {}, parent);
-       * this.postconstruct(spec, parent);
+       * self.assignData(spec || {}, parent);
+       * self.postconstruct(spec, parent);
        * ```
        */
       var MlModel = function (spec, parent) {
+
         this.preconstruct(spec, parent);
         Object.defineProperty(this, '$ml', {
           value: { parent: parent }
@@ -120,6 +121,7 @@ define(['_marklogic/module'], function (module) {
         this.assignData(spec || {}, parent);
         this.postconstruct(spec, parent);
       };
+
 
       MlModel.prototype.preconstruct = function (spec, parent) {
       };
@@ -132,7 +134,7 @@ define(['_marklogic/module'], function (module) {
 
       MlModel.prototype.attachScope = function (scope, as) {
         var self = this;
-        scope[as] = this;
+        scope[as] = self;
         this.$ml.unregisterScopeWatcher = scope.$watch(
           as,
           function () {
@@ -186,10 +188,11 @@ define(['_marklogic/module'], function (module) {
        * @param {object} data Data to merge.
        */
       MlModel.prototype.assignData = function (data) {
-        angular.forEach(this, function (val, key) {
-          delete this[key];
+        var self = this;
+        angular.forEach(self, function (val, key) {
+          delete self[key];
         });
-        this.mergeData(data);
+        self.mergeData(data);
       };
 
       /**
@@ -354,7 +357,6 @@ define(['_marklogic/module'], function (module) {
       };
 
       MlModel.prototype.sortedValidationErrors = function () {
-        var self = this;
         var errors = {};
         // if (this.$ml.validation.errors) {
         angular.forEach(this.$ml.validation.errors, function (error) {
@@ -412,7 +414,7 @@ define(['_marklogic/module'], function (module) {
             waiter.reject(results);
           }
         );
-        return this;
+        return self;
       };
 
       MlModel.prototype.post = function () {
@@ -441,7 +443,6 @@ define(['_marklogic/module'], function (module) {
       svc.object = MlModel;
 
       svc.extend = function (name, constructor, serviceName) {
-
         var protoProp;
         angular.forEach(
           constructor.prototype,
@@ -457,8 +458,6 @@ define(['_marklogic/module'], function (module) {
         );
 
         var svcImplementation = {};
-        svcImplementation[name] = constructor;
-
         svcImplementation.object = constructor;
 
         /**
@@ -474,15 +473,17 @@ define(['_marklogic/module'], function (module) {
          * The default implementation calls the `object` constructor.
          */
         svcImplementation.create = function (spec, parent) {
-          return new svcImplementation[name](spec, parent);
+          var temp = {};
+          temp[name] = svcImplementation.object;
+          return new temp[name](spec, parent);
         };
 
         svcImplementation.ensureInstance = function (spec) {
           if (typeof spec !== 'object') {
-            spec = constructor.prototype.specFromArguments
+            spec = svcImplementation.object.prototype.specFromArguments
                 .apply(null, arguments);
           }
-          return spec instanceof constructor ?
+          return spec instanceof svcImplementation.object ?
               spec :
               svcImplementation.create(spec);
         };

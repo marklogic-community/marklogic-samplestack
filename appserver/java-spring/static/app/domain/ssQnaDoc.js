@@ -69,14 +69,14 @@ define(['app/module'], function (module) {
        * @param {object} data Data to merge.
        */
       SsQnaDocObject.prototype.mergeData = function (data) {
-        // Replace answers with ssAnswer objects
         var self = this;
+        // Replace answers with ssAnswer objects
         angular.forEach(data.answers, function (answer, index) {
           data.answers[index] = ssAnswer.create(answer, self);
         });
         // Add empty ssAnswer object for posting new answer
         data.answers = data.answers || [];
-        data.answers[data.answers.length] = ssAnswer.create({}, this);
+        data.answers[data.answers.length] = ssAnswer.create({}, self);
 
         // Replace comments with ssComment objects
         angular.forEach(data.comments, function (comment, index) {
@@ -84,9 +84,9 @@ define(['app/module'], function (module) {
         });
         // Add empty ssComment object for posting new comment
         data.comments = data.comments || [];
-        data.comments[data.comments.length] = ssComment.create({}, this);
+        data.comments[data.comments.length] = ssComment.create({}, self);
 
-        mlUtil.merge(this, data);
+        mlUtil.merge(self, data);
         this.testValidity();
       };
 
@@ -123,7 +123,6 @@ define(['app/module'], function (module) {
        */
       SsQnaDocObject.prototype.vote = function (val, userInfo) {
         var vote = ssVote.create({upDown: val}, this);
-        var self = this;
         if (vote.$ml.valid) {
           return vote.post().$ml.waiting.then(function () {
             userInfo.voteCount++;
@@ -145,17 +144,16 @@ define(['app/module'], function (module) {
       };
 
       SsQnaDocObject.prototype.sort = function () {
-        var self = this;
 
         this.answers.sort(function (answer1, answer2) {
           // do not sort empty answers, keep those as-is at end of array
           if (answer1.id === undefined || answer2.id === undefined) {
             return 0;
           }
-          if (answer1.id === self.acceptedAnswerId) {
+          if (answer1.id === this.acceptedAnswerId) {
             return -1;
           }
-          if (answer2.id === self.acceptedAnswerId) {
+          if (answer2.id === this.acceptedAnswerId) {
             return 1;
           }
           return (answer2.itemTally || 0) - (answer1.itemTally || 0);
