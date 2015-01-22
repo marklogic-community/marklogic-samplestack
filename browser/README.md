@@ -142,8 +142,11 @@ Samplestack is configured to either run Selenium locally or to access SauceLabs.
 * `--browser=[ie | ff | chrome | phantomjs]`: e.g. `browser=ie`. Used to specify a browser to launch **locally** along with an automatically launched local Selenium server. You must have Java installed to run Selenium. The default value is `chrome`.
 * `--sauce[={platorm-key} | =all | =supported(s)]`: specifies a specifc platform or set of platforms on which to execute tests remotely using SauceLabs. To run these tests, you must supply credentials. See `browser/credentials.js` for information on configuring Sauce credentials. The list of browser/operating system combinations that will be run if you specify "all" or "supported" is listed in `browser/options.js`. Any of the browsers configured to be runnable in that file may also be specified individually by key, e.g. `--sauce=win7-ie-10`. If both the `--browser` and `--sauce` flags are set, the task will fail. If `--sauce` is specified with no platform, then it is equivalent to `--sauce=supported`.
 * `--middle-tier=[java | external]`. If `java` is specified, then the middle tier automation code will be controlled by the task, such that a clean install of the Java middle-tier and database configuration will be performed and the middle tier will be started.  On the contrary, if `external` is specified, then the task will assume that a middle tier server and database have already been configured and launched and are listening on port 8090. The default is `external`.
+* `--broken="<comma-separated-tags>"`. Each tags is of the form `@tagname`. These are
+tags present in the feature files. If specified, only features/scenarios which match this
+specification will be executed. To specify NOT to match a tag, prefix with `~`. See example below regarding skipping tests that are known to be broken.
 
-A couple of examples:
+A few of examples:
 
 ```bash
 gulp e2e # or gulp e2e --middle-tier=external --browser=chrome
@@ -152,10 +155,14 @@ gulp e2e # or gulp e2e --middle-tier=external --browser=chrome
 Runs the tests against locally installed Chrome with automatically configured local Selenium server, assuming the middle-tier has been launched in a separate process, and prints the results to the console.
 
 ```bash
-gulp e2e --middle-tier=java --sauce
+gulp e2e --middle-tier=java --sauce --tags="~@broken"
 ```
 
-This is **almost** the command that will be used by MarkLogic's nigthly regression system. It configures the MarkLogic server, launches the middle tier and executes the test suite against the list of supported browsers. It does not yet write to files and thus is not consumable by the test harness.
+This is **almost** the command that used by MarkLogic's nigthly regression system. It configures the MarkLogic server, launches the middle tier and executes the test suite against the list of supported browsers. It does not yet write to files and thus is not consumable by the test harness.
+
+Note on `~@broken`: always specify this flag unless you are interested in seeing tests run which
+are known to be broken. Such tests are also flagged in the feature files with issue id numbers, so
+that they may be executed individually based on the issue that covers the problem.
 
 ## Node.js/npm Tips and Troubleshooting
 
