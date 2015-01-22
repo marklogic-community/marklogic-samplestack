@@ -39,6 +39,7 @@ import com.marklogic.samplestack.domain.InitialQuestion;
 import com.marklogic.samplestack.domain.QnADocument;
 import com.marklogic.samplestack.exception.SampleStackDataIntegrityException;
 import com.marklogic.samplestack.exception.SamplestackInvalidParameterException;
+import com.marklogic.samplestack.exception.SamplestackNotFoundException;
 import com.marklogic.samplestack.exception.SamplestackSearchException;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.ContributorService;
@@ -107,7 +108,12 @@ public class QnADocumentController {
 	JsonNode get(@PathVariable(value = "id") String id) {
 		Contributor contributor = contributorService.getByUserName(ClientRole.securityContextUserName());
 		QnADocument qnaDoc = qnaService.get(ClientRole.securityContextRole(), contributor, id);
-		return qnaDoc.getJson();
+		// if URL was accessed with under-privileged role, qnaDoc will be null.
+		if (qnaDoc == null) {
+			throw new SamplestackNotFoundException();
+		} else {
+			return qnaDoc.getJson();
+		}
 	}
 
 	/**
