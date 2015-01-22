@@ -4073,7 +4073,7 @@ button.close, .ss-dialog header button {
     padding: 0 5px; }
 
 .tooltip-inner {
-  max-width: 200px;
+  max-width: 400px;
   padding: 3px 8px;
   color: #fff;
   text-align: center;
@@ -4652,7 +4652,7 @@ h1 {
   color: #428bca; }
 
 .tooltip-inner {
-  min-width: 100px; }
+  min-width: 140px; }
 
 .ss-page-header {
   /** samplestack logo **/

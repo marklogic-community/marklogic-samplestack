@@ -19,16 +19,20 @@
       <span ng-if="doc.owner && doc.owner.id != 'unknown'" class="ss-author">
         <a
           ng-if="doc.owner.originalId === undefined"
+          tooltip="View this user's account details"
           href=""
           ng-click="showContributor()"
         >{{doc.owner.displayName}}</a>
         <a
           ng-if="!(doc.owner.originalId === undefined)"
+          tooltip="View this user's profile page on Stack Overflow (in a separate window)"
           href="{{soUserLink()}}"
           target="_blank"
         >{{doc.owner.displayName}}&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span></a>
         &nbsp;
-        <span ng-if="doc.owner.reputation !== undefined">[<span class="ss-reputation">{{doc.owner.reputation}}</span>]</span>
+        <span
+          ng-if="doc.owner.reputation !== undefined"
+        >[<span class="ss-reputation">{{doc.owner.reputation}}</span>]</span>
       </span>
     </span>
   </div>
@@ -60,10 +64,12 @@
       <a
         ng-if="doc.owner.originalId === undefined"
         href=""
+        tooltip="View this user's account details"
         ng-click="showContributor()"
       >{{doc.owner.displayName}}</a>
       <a
         ng-if="!(doc.owner.originalId === undefined)"
+        tooltip="View this user's profile page on Stack Overflow (in a separate window)"
         href="{{soUserLink()}}"
         target="_blank"
       >{{doc.owner.displayName}}&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span>&nbsp;</a>
