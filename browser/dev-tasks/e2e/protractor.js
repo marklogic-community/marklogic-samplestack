@@ -15,7 +15,7 @@ var ptorConfig = {
   rootElement: 'html',
   chromeOnly: false,
   framework: 'cucumber',
-  maxSessions: 1,
+  maxSessions: 3,
   specs: require('globule').find(
     path.resolve(ctx.paths.projectRoot, 'specs/features/**/*.feature')
   ),
