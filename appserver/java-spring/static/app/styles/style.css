@@ -4959,10 +4959,13 @@ h1 {
   border-color: #3071a9 transparent transparent transparent; }
 .ss-vote-module .ss-accept {
   margin-top: 10px; }
-.ss-vote-module .ss-accept .ss-accepted, .ss-vote-module .ss-accept .ss-unaccepted {
+.ss-vote-module .ss-accept .ss-accepted {
   font-size: 30px;
   color: #3abc9a; }
 .ss-vote-module .ss-accept .ss-unaccepted {
+  font-size: 30px;
+  color: #777; }
+.ss-vote-module .ss-accept .ss-unaccepted .glyphicon-ok-circle {
   cursor: pointer; }
 
 /* question */

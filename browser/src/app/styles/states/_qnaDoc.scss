@@ -91,13 +91,17 @@
     margin-top:10px;
   }
 
-  .ss-accept .ss-accepted,
-  .ss-accept .ss-unaccepted {
+  .ss-accept .ss-accepted {
     font-size:30px;
     color:#3abc9a;
   }
 
   .ss-accept .ss-unaccepted {
+    font-size:30px;
+    color:#777;
+  }
+
+  .ss-accept .ss-unaccepted .glyphicon-ok-circle {
     cursor: pointer;
   }
 
