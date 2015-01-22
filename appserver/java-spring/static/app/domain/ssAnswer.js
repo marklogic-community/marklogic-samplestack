@@ -23,6 +23,9 @@ define(['app/module'], function (module) {
       $q, mlModelBase, mlSchema, mlUtil, ssComment,
       ssVote, ssAcceptedAnswer
     ) {
+
+      var self;
+
       /**
        * @ngdoc type
        * @name SsAnswerObject
@@ -38,6 +41,7 @@ define(['app/module'], function (module) {
        * @description Constructor. Uses default implementation.
        */
       var SsAnswerObject = function (spec, parent) {
+        self = this;
         mlModelBase.object.call(this, spec, parent);
       };
       SsAnswerObject.prototype = Object.create(
@@ -52,8 +56,7 @@ define(['app/module'], function (module) {
        * @param {object} userInfo userInfo from session.
        */
       SsAnswerObject.prototype.vote = function (val, userInfo) {
-        var vote = ssVote.create({upDown: val}, this);
-        var self = this;
+        var vote = ssVote.create({upDown: val}, self);
         if (vote.$ml.valid) {
           return vote.post().$ml.waiting.then(function () {
             userInfo.voteCount++;
@@ -70,7 +73,7 @@ define(['app/module'], function (module) {
        * @description Accepts the answer.
        */
       SsAnswerObject.prototype.accept = function () {
-        var acceptedAnswer = ssAcceptedAnswer.create({}, this);
+        var acceptedAnswer = ssAcceptedAnswer.create({}, self);
         if (acceptedAnswer.$ml.valid) {
           acceptedAnswer.post().$ml.waiting.then(function () {
             // Do nothing more on success
@@ -87,7 +90,7 @@ define(['app/module'], function (module) {
        * @description Sets answer as having been voted on.
        */
       SsAnswerObject.prototype.setVoted = function () {
-        this.$ml.parent.setVoted(this.id);
+        self.$ml.parent.setVoted(self.id);
       };
 
       SsAnswerObject.prototype.$mlSpec = {
@@ -116,14 +119,14 @@ define(['app/module'], function (module) {
 
         // Replace comments with ssComment objects
         angular.forEach(data.comments, function (comment, index) {
-          data.comments[index] = ssComment.create(comment, this);
+          data.comments[index] = ssComment.create(comment, self);
         });
         // Add empty ssComment object for posting new comment
         data.comments = data.comments || [];
-        data.comments[data.comments.length] = ssComment.create({}, this);
+        data.comments[data.comments.length] = ssComment.create({}, self);
 
-        mlUtil.merge(this, data);
-        this.testValidity();
+        mlUtil.merge(self, data);
+        self.testValidity();
       };
 
       /**
@@ -134,8 +137,8 @@ define(['app/module'], function (module) {
        * @param {object} parent Comment parent.
        */
       SsAnswerObject.prototype.addComment = function (data, parent) {
-        this.comments = this.comments || []; // Ensure an comments array exists
-        this.comments[this.comments.length] = ssComment.create(data, parent);
+        self.comments = self.comments || []; // Ensure an comments array exists
+        self.comments[self.comments.length] = ssComment.create(data, parent);
       };
 
       SsAnswerObject.prototype.preconstruct = function (spec, parent) {
@@ -157,9 +160,9 @@ define(['app/module'], function (module) {
       SsAnswerObject.prototype.getHttpUrl = function (httpMethod) {
         switch (httpMethod) {
           case 'POST':
-            return '/' + this.$ml.parent.getResourceName(httpMethod) +
-            this.$ml.parent.getEndpointIdentifier(httpMethod) +
-            '/' + this.getResourceName(httpMethod);
+            return '/' + self.$ml.parent.getResourceName(httpMethod) +
+            self.$ml.parent.getEndpointIdentifier(httpMethod) +
+            '/' + self.getResourceName(httpMethod);
           default:
             throw new Error(
               'unsupported http method passed to getEndpoint: ' + httpMethod
@@ -175,7 +178,7 @@ define(['app/module'], function (module) {
        * @param {string} data Response data
        */
       SsAnswerObject.prototype.onResponsePOST = function (data) {
-        this.$ml.parent.onResponsePOST(data);
+        self.$ml.parent.onResponsePOST(data);
       };
 
       return mlModelBase.extend('SsAnswerObject', SsAnswerObject);

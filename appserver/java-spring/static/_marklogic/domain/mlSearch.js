@@ -169,6 +169,7 @@ define(['_marklogic/module'], function (module) {
           },
           timezone: { type: 'string' },
           start: { type: 'integer', minimum: 0 },
+          pageLength: { type: 'integer', minimum: 0 },
           constraints: {
             patternProperties: {
               '^.+$': {

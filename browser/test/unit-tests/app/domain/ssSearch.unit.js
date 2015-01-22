@@ -1,7 +1,6 @@
 define([
-  'testHelper',
   'mocks/index'
-], function (helper, mocks) {
+], function (mocks) {
 
   return function () {
     describe('ssSearch', function () {

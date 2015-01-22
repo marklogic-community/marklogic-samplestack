@@ -34,7 +34,7 @@ define(['app/module'], function (module) {
 
       /**
        * @ngdoc method
-       * @name SsContributorObject#constructor
+       * @name SsSearchObject#constructor
        * @param {object} spec Data used to populate
        * the new instance.
        * @description Constructor. Creates the basic structure of a search,
@@ -102,85 +102,94 @@ define(['app/module'], function (module) {
       SsSearchObject.prototype = Object.create(
         mlSearch.object.prototype
       );
-      SsSearchObject.prototype.$mlSpec.schema = mlSchema.addSchema({
-        id: 'http://marklogic.com/samplestack#search',
-        allOf: [
-          { $ref: 'http://marklogic.com/#search' }
-        ],
-        required: ['criteria'],
-        properties: {
-          criteria: {
-            required: ['constraints'],
+
+      Object.defineProperty(SsSearchObject.prototype, '$mlSpec', {
+        value: {
+          schema: mlSchema.addSchema({
+            id: 'http://marklogic.com/samplestack#search',
+            allOf: [
+              { $ref: 'http://marklogic.com/#search' }
+            ],
+            required: ['criteria'],
             properties: {
-              timezone: { type: [ 'string', null ] },
-              sort: {
-                type: 'array',
-                items: {
-                  type: {
-                    enum: ['relevance', 'active', 'score']
-                  }
-                }
-              },
-              constraints: {
-                required: [
-                  'userName',
-                  'resolved',
-                  'tags',
-                  'dateStart',
-                  'dateEnd'
-                ],
+              criteria: {
+                required: ['constraints'],
                 properties: {
-                  userName: {
-                    properties: {
-                      constraintName: { enum: ['userName'] },
-                      type: { enum: ['text'] },
-                      value: { type: ['string', 'null'] },
-                      queryStringName: { enum: ['contributor'] }
+                  timezone: { type: [ 'string', null ] },
+                  sort: {
+                    type: 'array',
+                    items: {
+                      type: {
+                        enum: ['relevance', 'active', 'score']
+                      }
                     }
                   },
-                  resolved: {
+                  constraints: {
+                    required: [
+                      'userName',
+                      'resolved',
+                      'tags',
+                      'dateStart',
+                      'dateEnd'
+                    ],
                     properties: {
-                      constraintName: { enum: ['resolved'] },
-                      type: { enum: ['boolean'] },
-                      value: { type: ['boolean', 'null'] },
-                      queryStringName: { enum: ['resolved'] }
-                    }
-                  },
-                  tags: {
-                    properties: {
-                      constraintName: { enum: ['tag'] },
-                      type: { enum: ['enum'] },
-                      subType: { enum: ['string'] },
-                      values: { type: ['array', 'null'] },
-                      queryStringName: { enum: ['tags'] }
-                    }
-                  },
-                  dateStart: {
-                    properties: {
-                      constraintName: { enum: ['lastActivity'] },
-                      operator: { enum: ['GE'] },
-                      type: { enum: ['dateTime'] },
-                      value: { type: ['date-time', 'null'] },
-                      queryStringName: { enum: ['date-ge'] }
-                    }
-                  },
-                  dateEnd: {
-                    properties: {
-                      constraintName: { enum: ['lastActivity'] },
-                      operator: { enum: ['LT'] },
-                      type: { enum: ['dateTime'] },
-                      value: { type: ['date-time', 'null'] },
-                      queryStringName: { enum: ['date-lt'] }
+                      userName: {
+                        properties: {
+                          constraintName: { enum: ['userName'] },
+                          type: { enum: ['text'] },
+                          value: { type: ['string', 'null'] },
+                          queryStringName: { enum: ['contributor'] }
+                        }
+                      },
+                      resolved: {
+                        properties: {
+                          constraintName: { enum: ['resolved'] },
+                          type: { enum: ['boolean'] },
+                          value: { type: ['boolean', 'null'] },
+                          queryStringName: { enum: ['resolved'] }
+                        }
+                      },
+                      tags: {
+                        properties: {
+                          constraintName: { enum: ['tag'] },
+                          type: { enum: ['enum'] },
+                          subType: { enum: ['value'] },
+                          values: { type: ['array', 'null'] },
+                          queryStringName: { enum: ['tags'] }
+                        }
+                      },
+                      dateStart: {
+                        properties: {
+                          constraintName: { enum: ['lastActivity'] },
+                          operator: { enum: ['GE'] },
+                          type: { enum: ['dateTime'] },
+                          value: { type: ['date-time', 'null'] },
+                          queryStringName: { enum: ['date-ge'] }
+                        }
+                      },
+                      dateEnd: {
+                        properties: {
+                          constraintName: { enum: ['lastActivity'] },
+                          operator: { enum: ['LT'] },
+                          type: { enum: ['dateTime'] },
+                          value: { type: ['date-time', 'null'] },
+                          queryStringName: { enum: ['date-lt'] }
+                        }
+                      }
                     }
                   }
                 }
               }
             }
-          }
+          })
         }
       });
 
       SsSearchObject.prototype.$mlSpec.serviceName = 'ssSearch';
+
+      SsSearchObject.prototype.getResourceName = function (httpMethod) {
+        return 'search';
+      };
 
       SsSearchObject.prototype.getHttpDataPOST = function () {
         var base = mlSearch.object.prototype
