@@ -545,6 +545,8 @@ define(['app/module'], function (module) {
             scope.$apply(function () {
               ngModelCtrl.$setViewValue(elm.val());
             });
+            event.preventDefault();
+            event.stopPropagation();
           }
         });
       }
