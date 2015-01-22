@@ -5,6 +5,9 @@ package com.marklogic.samplestack.service;
  * Defines the methods for getting tags related to a particular one via
  * a semantic relationship, stored on the server as a REST
  * resource extension.
+ * 
+ * This service is fully functioning as part of the middle tier, but is
+ * not exposed in the UI in 1.0.0
  */
 public interface RelatedTagsService {
 
