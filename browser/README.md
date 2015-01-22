@@ -154,6 +154,9 @@ gulp e2e # or gulp e2e --middle-tier=external --browser=chrome
 
 Runs the tests against locally installed Chrome with automatically configured local Selenium server, assuming the middle-tier has been launched in a separate process, and prints the results to the console.
 
+Please note: if you either do not specify the middle-tier flag pr specify `external`, you are responsible for having a Java middle-tier running and ready. You are also responsible for ensuring that
+your MarkLogic server has a clean/up-to-date Samplestack configuration and seed data. In other words, you should probably run the middle-tier teardown process if you're not sure of the state of your dataset/configuration.
+
 ```bash
 gulp e2e --middle-tier=java --sauce --tags="~@broken"
 ```
