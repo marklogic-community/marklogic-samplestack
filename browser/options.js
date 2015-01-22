@@ -74,6 +74,7 @@ var defaults = {
     'osx10.6-chrome-37': { platform: 'OS X 10.6', browserName: 'chrome', version: '37', deviceName: '' },
     'osx10.6-firefox-22': { platform: 'OS X 10.6', browserName: 'firefox', version: '22', deviceName: '' },
     'osx10.6-firefox-32': { platform: 'OS X 10.6', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.8-chrome-37': { platform: 'OS X 10.8', browserName: 'chrome', version: '37', deviceName: '' },
     'osx10.9-chrome-33': { platform: 'OS X 10.9', browserName: 'chrome', version: '33', deviceName: '' },
     'osx10.9-chrome-37': { platform: 'OS X 10.9', browserName: 'chrome', version: '37', deviceName: '' },
     'osx10.9-firefox-22': { platform: 'OS X 10.9', browserName: 'firefox', version: '22', deviceName: '' },
@@ -83,8 +84,8 @@ var defaults = {
   supportedBrowsers: [
     'linux-chrome-37',
     'linux-firefox-32',
-    'osx10.9-chrome-37',
-    'osx10.9-firefox-32',
+    'osx10.8-chrome-37',
+    'osx10.9-firefox-32', // Sauce doesn't have 10.8/ff-32
     'win7-firefox-32',
     'win7-chrome-37',
     'win7-ie-9'
