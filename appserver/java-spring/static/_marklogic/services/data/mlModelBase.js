@@ -130,7 +130,7 @@ define(['_marklogic/module'], function (module) {
 
       MlModel.prototype.getBaseUrl = function () {
         // configure in /browser/options.js
-        return 'http://localhost:8090/v1';
+        return '/v1';
       };
 
       MlModel.prototype.attachScope = function (scope, as) {
