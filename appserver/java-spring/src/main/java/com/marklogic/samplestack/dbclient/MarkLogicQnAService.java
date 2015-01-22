@@ -414,11 +414,6 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 			// do nothing with facets if we couldn't add the period.
 			logger.debug("Unable to decorate facet payload with Period " + period);
 		}
-		try {
-			logger.debug(mapper.writeValueAsString(responseNode.get("facets")));
-		} catch (JsonProcessingException e) {
-			logger.debug("JSONERROR");
-		}
 		responseNode.set("facets", facetsNode);
 		return (ObjectNode) responseNode;
 	}
