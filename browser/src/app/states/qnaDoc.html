@@ -94,22 +94,22 @@
                 <div class="question-module-comment">
                   <button
                     class="btn btn-default btn-xs"
-                    ng-show="!showQuestionComment"
-                    ng-click="showQuestionComment=true"
+                    ng-show="!doc.comments.draft"
+                    ng-click="addComment(doc)"
                     ng-disabled="!store.session"
                   >Add a Comment</button>
 
-                  <div ng-show="showQuestionComment">
+                  <div ng-show="doc.comments.draft">
                     <!-- final empty comment used for new comment -->
                     <textarea
-                      ng-model="doc.comments[doc.comments.length - 1].text"
+                      ng-model="doc.comments.draft.text"
                       placeholder="Enter your comment"
                       class="form-control"
                     ></textarea>
                     <button
                       class="btn btn-primary btn-xs"
-                      ng-click="saveQuestionComment(doc.comments[doc.comments.length - 1])"
-                      ng-disabled="!doc.comments[doc.comments.length - 1].text"
+                      ng-click="saveQuestionComment()"
+                      ng-disabled="!doc.comments.draft.text"
                     >
                       Submit Comment
                     </button>
@@ -229,24 +229,22 @@
                   <div class="question-module-comment">
                     <button
                       class="btn btn-default btn-xs"
-                      ng-show="!showAnswerComment[$index]"
-                      ng-click="showAnswerComment[$index]=true"
+                      ng-show="!answer.comments.draft"
+                      ng-click="addComment(answer)"
                       ng-disabled="!store.session"
                     >Add a Comment</button>
 
-                    <div ng-show="showAnswerComment[$index]">
+                    <div ng-show="answer.comments.draft">
                       <!-- final empty comment used for new comment -->
                       <textarea
-                        ng-model="answer.comments[answer.comments.length - 1].text"
+                        ng-model="answer.comments.draft.text"
                         placeholder="Enter your comment"
                         class="form-control"
                       ></textarea>
                       <button
                         class="btn btn-primary btn-xs"
-                        ng-click="saveAnswerComment(
-                          answer.comments[answer.comments.length - 1]
-                        )"
-                        ng-disabled="!answer.comments[answer.comments.length - 1].text"
+                        ng-click="saveAnswerComment(answer)"
+                        ng-disabled="!answer.comments.draft.text"
                       >
                         Submit Comment
                       </button>
