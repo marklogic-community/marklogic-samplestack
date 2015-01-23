@@ -2,14 +2,43 @@ define(['app/module'], function (module) {
 
   module.controller('askCtlr', [
 
-    '$scope', 'appRouting', 'ssQnaDoc',
-    function ($scope, appRouting, ssQnaDoc) {
+    '$scope', 'appRouting', 'ssQnaDoc', 'ssTagsSearch',
+    function ($scope, appRouting, ssQnaDoc, ssTagsSearch) {
 
       $scope.setPageTitle('ask');
 
       ssQnaDoc.create().attachScope($scope, 'qnaDoc');
 
       $scope.tagsInput; // store tags-input data
+
+      var tagsSearch = ssTagsSearch.create({
+        criteria: {
+          tagsQuery: {
+            start: 1,
+            pageLength: 100,
+            sort: 'frequency',
+            forTag: ' '
+          }
+        }
+      });
+
+      $scope.loadTags = function (query) {
+        tagsSearch.criteria.tagsQuery.forTag = query;
+        return tagsSearch.post().$ml.waiting
+          .then(function (response) {
+            var tagsArr = [];
+            angular.forEach(response.results.items, function (value, key) {
+              tagsArr.push({'text': value.name + ' (' + value.count + ')'});
+            });
+            return tagsArr;
+          });
+      };
+
+      // Remove trailing freq in parens
+      $scope.parseTag = function (tag) {
+        tag.text = tag.text.substring(0, tag.text.indexOf('-('));
+        return tag;
+      };
 
       $scope.save = function () {
 

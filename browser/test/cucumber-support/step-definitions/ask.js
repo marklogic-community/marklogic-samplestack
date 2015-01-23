@@ -61,7 +61,22 @@ module.exports = function () {
   this.When(
     /enter "(.*)" as a question tag/,
     function (tag, next) {
-      this.currentPage.enterQnaQuestionTag(tag).then(next);
+      this.currentPage.typeQnaQuestionTag(tag).then(next);
+    }
+  );
+
+  this.Then(
+    /question tags menu appears/,
+    function (next) {
+      expect(this.currentPage.qnaQuestionTagsMenu)
+        .to.eventually.exist.and.notify(next);
+    }
+  );
+
+  this.When(
+    /click a question tag in the menu/,
+    function (next) {
+      this.currentPage.clickQnaQuestionTagsMenuItem().then(next);
     }
   );
 

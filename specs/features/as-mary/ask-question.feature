@@ -12,12 +12,14 @@ Feature: Ask Question
     Then the submit button is disabled
     When I type "foo" as the question title
     And I type "**bar**" as the question content
-    And I enter "baz" as a question tag
+    And I enter "javascr" as a question tag
     Then the question title is "foo"
     And the question content is "**bar**"
-    And the question tag is "baz"
+    And the question tags menu appears
     And the submit button is not disabled
     And the previewed content is not displayed
+    When I click a question tag in the menu
+    Then the question tag is "javascript"
     When I preview the content
     Then the previewed content is displayed
     And the previewed content has "strong" formatting

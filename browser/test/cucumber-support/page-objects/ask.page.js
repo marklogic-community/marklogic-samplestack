@@ -73,11 +73,26 @@ function AskPage () {
     }
   });
 
-  self.enterQnaQuestionTag = function (tag) {
+  Object.defineProperty(self, 'qnaQuestionTagsMenu', {
+    get: function () {
+      return element(by.css('ul.suggestion-list'));
+    }
+  });
+
+  Object.defineProperty(self, 'qnaQuestionTagsMenuItem', {
+    get: function () {
+      return element.all(by.css('li.suggestion-item')).first();;
+    }
+  });
+
+  self.typeQnaQuestionTag = function (tag) {
     return self.qnaQuestionTagsElement
       .clear()
-      .sendKeys(tag)
-      .sendKeys(protractor.Key.ENTER);
+      .sendKeys(tag);
+  };
+
+  self.clickQnaQuestionTagsMenuItem = function () {
+    return self.qnaQuestionTagsMenuItem.click();
   };
 
   // Submit button

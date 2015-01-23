@@ -46,7 +46,15 @@
           value=""
           class="tags"
           placeholder="Enter Tags"
-          ng-model="tagsInput">
+          ng-model="tagsInput"
+          add-from-autocomplete-only="true"
+          on-tag-added="parseTag($tag)"
+        >
+          <auto-complete
+            source="loadTags($query)"
+            min-length="1"
+            max-results-to-show="20"
+          ></auto-complete>
         </tags-input>
 
             <!-- <label>Tags</label>
