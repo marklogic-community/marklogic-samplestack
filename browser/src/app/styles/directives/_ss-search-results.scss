@@ -114,8 +114,14 @@
   }
 
   @media (max-width: 768px) {
+    .ss-search-results-mode {
+      position: absolute;
+      top: 0;
+    }
+
     .ss-sort {
       float: left;
+      margin-top: 30px;
     }
   }
 
