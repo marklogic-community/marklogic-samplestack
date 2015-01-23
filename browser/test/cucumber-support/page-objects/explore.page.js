@@ -13,9 +13,10 @@ function ExplorePage () {
     clearAll: function () {
       return self.qself(q.all([
         self.filters.mineOnly.setValue(false),
-        self.filters.resolvedOnly.setValue(false),
-        self.filters.dateFrom.setValue(''),
-        self.filters.dateTo.setValue('')
+        self.filters.resolvedOnly.setValue(false)
+        // commented out.  setValue for dateTo/From tends to hang randomly
+        // self.filters.dateFrom.setValue(''),
+        // self.filters.dateTo.setValue('')
       ]));
     },
     mineOnly: {
@@ -35,14 +36,24 @@ function ExplorePage () {
     dateFrom: {
       setValue: function (value) {
         return self.qself(
-          utilities.setCheckboxValue(getDateStartFilterElement(), value)
+          utilities.setInputValue(getDateStartFilterElement(), value)
+        );
+      },
+      pressEnter: function () {
+        return self.qself(
+          getDateStartFilterElement().sendKeys(protractor.Key.ENTER)
         );
       }
     },
     dateTo: {
       setValue: function (value) {
         return self.qself(
-          utilities.setCheckboxValue(getDateEndFilterElement(), value)
+          utilities.setInputValue(getDateEndFilterElement(), value)
+        );
+      },
+      pressEnter: function () {
+        return self.qself(
+          getDateEndFilterElement().sendKeys(protractor.Key.ENTER)
         );
       }
     }

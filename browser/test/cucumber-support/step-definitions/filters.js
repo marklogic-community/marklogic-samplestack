@@ -41,6 +41,21 @@ module.exports = function () {
     }
   );
 
+  this.When(
+    /press key enter in to date/,
+    function (next) {
+      this.currentPage.filters.dateTo.pressEnter()
+          .then(this.notifyOk(next), next);
+    }
+  );
+
+  this.When(
+    /press key enter in from date/,
+    function (next) {
+      this.currentPage.filters.dateFrom.pressEnter()
+          .then(this.notifyOk(next), next);
+    }
+  );
 
   // this.When(
   //   /I select the filter resolved only/,
