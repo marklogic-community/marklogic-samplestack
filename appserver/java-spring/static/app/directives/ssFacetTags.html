@@ -3,8 +3,14 @@
   <!-- tags search -->
   <div class="tags-module-search-wrapper">
     <div class="tags-module-search clearfix">
-      <div class="tags-module-clear-icon hide" >
-        <i class="glyphicon glyphicon-remove"></i>
+      <div
+        class="tags-module-clear-icon"
+        ng-show="selected"
+      >
+        <i
+          class="glyphicon glyphicon-remove"
+          ng-click="selected = null"
+        ></i>
       </div>
       <div class="tags-module-search-icon">
         <i class="glyphicon glyphicon-search"></i>
