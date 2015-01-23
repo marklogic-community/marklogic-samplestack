@@ -122,16 +122,12 @@ define(['app/module'], function (module) {
       SsAnswerObject.prototype.mergeData = function (data) {
 
         // Replace comments with ssComment objects
+        data.comments = data.comments || [];
         angular.forEach(data.comments, function (comment, index) {
           data.comments[index] = ssComment.create(comment, this);
         });
-        // Add empty ssComment object for posting new comment
-        data.comments = data.comments || [];
-        data.comments[data.comments.length] = ssComment.create({}, this);
 
         mlUtil.merge(this, data);
-
-        this.comments.draft = this.comments.draft || ssComment.create({}, this);
 
         this.testValidity();
       };

@@ -217,12 +217,11 @@ define(['app/module'], function (module) {
         }
       };
 
-      $scope.saveQuestionComment = function (comment) {
+      $scope.saveQuestionComment = function () {
+        var comment = $scope.doc.comments.draft;
         if (comment.$ml.valid) {
           comment.post().$ml.waiting.then(function () {
-            $scope.doc.addComment({}, $scope.doc);
-            // Show link and hide form
-            $scope.showQuestionComment = false;
+            delete $scope.doc.comments.draft;
           },
           function (error) {
             if (error.status === 401) {
@@ -237,13 +236,12 @@ define(['app/module'], function (module) {
         }
       };
 
-      $scope.saveAnswerComment = function (comment) {
+      $scope.saveAnswerComment = function (answer) {
+        var comment = answer.comments.draft;
         if (comment.$ml.valid) {
           var formIndex = this.$parent.$index;
           comment.post().$ml.waiting.then(function () {
-            comment.$ml.parent.addComment({}, comment.parent);
-            // Show link and hide form
-            $scope.showAnswerComment[formIndex] = false;
+            delete answer.comments.draft;
           },
           function (error) {
             if (error.status === 401) {
@@ -294,6 +292,10 @@ define(['app/module'], function (module) {
       $scope.searchbarText = null;
 
       init();
+
+      $scope.addComment = function (contentObj) {
+        contentObj.comments.draft = ssComment.create({}, contentObj);
+      };
 
     }
 

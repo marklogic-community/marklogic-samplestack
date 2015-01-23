@@ -72,6 +72,10 @@ define(['app/module'], function (module) {
         var self = this;
         data.answers = data.answers || [];
         angular.forEach(data.answers, function (answer, index) {
+          answer.comments = answer.comments || [];
+          angular.forEach(answer.comments, function (comment, index) {
+            answer.comments[index] = ssComment.create(comment, self);
+          });
           data.answers[index] = ssAnswer.create(answer, self);
         });
 
@@ -83,7 +87,8 @@ define(['app/module'], function (module) {
         mlUtil.merge(this, data);
 
         this.answers.draft = this.answers.draft || ssAnswer.create({}, this);
-        this.comments.draft = this.comments.draft || ssComment.create({}, this);
+        // this.comments.draft =
+        //     this.comments.draft || ssComment.create({}, this);
         this.testValidity();
       };
 
@@ -138,24 +143,12 @@ define(['app/module'], function (module) {
         });
 
         this.comments.sort(function (comment1, comment2) {
-          // do not sort empty comments, keep those as-is at end of array
-          if (comment1.id === undefined || comment2.id === undefined) {
-            return 0;
-          }
-          else {
-            return comment1.creationDate > comment2.creationDate;
-          }
+          return comment1.creationDate - comment2.creationDate;
         });
 
         this.answers.forEach(function (answer) {
           answer.comments.sort(function (comment1, comment2) {
-            // do not sort empty comments, keep those as-is at end of array
-            if (comment1.id === undefined || comment2.id === undefined) {
-              return 0;
-            }
-            else {
-              return comment1.creationDate > comment2.creationDate;
-            }
+            return comment1.creationDate - comment2.creationDate;
           });
         });
       };
