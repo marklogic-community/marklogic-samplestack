@@ -19,8 +19,14 @@
 
     <div class="tags-modal-search-wrapper clearfix">
       <div class="tags-modal-search clearfix">
-        <div id="tags-modal-clear-icon" class="tags-modal-clear-icon hide">
-          <i class="glyphicon glyphicon-remove"></i>
+        <div
+          class="tags-modal-clear-icon"
+          ng-show="selected"
+        >
+          <i
+            class="glyphicon glyphicon-remove"
+            ng-click="selected = null"
+          ></i>
         </div>
         <div class="tags-modal-search-icon">
           <i class="glyphicon glyphicon-search"></i>
