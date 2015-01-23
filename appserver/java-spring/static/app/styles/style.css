@@ -4816,6 +4816,7 @@ h1 {
 
 .ss-ask {
   margin-top: 20px;
+  margin-right: 0 !important;
   /* TODO get tags-input looking like other elements */
   /* .ss-ask-wrapper .tag-field {
     height: 46px;
@@ -5077,6 +5078,8 @@ h1 {
   float: left; }
 .ss-dialog-all-tags .ss-submit {
   float: right; }
+.ss-dialog-all-tags .tags-modal-clear-icon .glyphicon-remove {
+  cursor: pointer; }
 .ss-dialog-all-tags ul.dropdown-menu {
   left: 24px !important; }
 .ss-dialog-all-tags .modal-browser {
@@ -5425,7 +5428,8 @@ ss-facet-tags .tags-module-search-wrapper .glyphicon-remove {
   margin-top: 8px;
   margin-right: 12px;
   color: #ccc;
-  float: right; }
+  float: right;
+  cursor: pointer; }
 ss-facet-tags .search-tags {
   padding: 0 0 15px 0;
   border-bottom: 1px solid #ddd; }
