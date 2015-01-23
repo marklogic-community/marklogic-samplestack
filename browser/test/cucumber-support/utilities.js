@@ -13,10 +13,9 @@ module.exports = {
       });
   },
   setInputValue : function (locate, value) {
-    var el;
     return locate
       .then(function (el) {
-        el.click().clear().sendKeys(value);
+        return el.click().clear().sendKeys(value);
       });
   }
 };

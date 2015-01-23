@@ -1,4 +1,4 @@
-@explore-docs-by-mine-only @explore @broken
+@explore-docs-by-date-range @explore
 Feature: Explore Docs By Date Range
 
   When searching for documents, a facet filter may be applied to limit results to
@@ -7,13 +7,13 @@ Feature: Explore Docs By Date Range
   Scenario: As a contributor filtering by date range, I see the correct results
     Given I am "Joe"
     When I visit the "explore" page
-    And I clear all filters
-    And I clear the search text
-    When I filter documents by from date = "01/01/2011"
-    Then the docs count is "2463"
+    And I filter documents by from date = "01/01/2011"
+    And I press key enter in from date
+    Then the docs count is "2866"
     When I focus on the "first" search result,
     Then the result "title" is "Q: mine only test"
-    When I filter documents by from date = "12/01/2012"
-    Then the docs count is "627"
+    When I filter documents by to date = "12/01/2012"
+    And I press key enter in to date
+    Then the docs count is "1004"
     When I focus on the "first" search result,
     Then the result "title" is "Q: JS split() function that ignores separator appearing inside quotation marks"
