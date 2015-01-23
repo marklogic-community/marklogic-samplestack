@@ -4750,10 +4750,6 @@ h1 {
   margin-top: 20px;
   min-height: 555px; }
 
-@media (max-width: 768px) {
-  .ss-explore {
-    margin-top: 130px !important; } }
-
 .ss-filters .list-group .list-group-section {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd; }
@@ -5347,7 +5343,6 @@ h1 {
       margin-top: 50px; }
     .ss-search-bar .search-wrapper .search-inner input {
       width: 70%;
-      height: 34px;
       padding: 6px 12px;
       line-height: 1.42857; }
     .ss-search-bar .search-wrapper .search-inner button#search {
@@ -5451,7 +5446,6 @@ ss-qna-doc-metadata .ss-question-metadata {
   margin-bottom: 0;
   padding: 0; }
 ss-qna-doc-metadata .ss-question-tags {
-  width: 60%;
   float: left; }
 ss-qna-doc-metadata .ss-question-tags span.label-default {
   background-color: #777; }
@@ -5558,8 +5552,12 @@ ss-qna-doc-metadata .ss-comment-info {
     border-bottom: none;
     float: right; }
   @media (max-width: 768px) {
+    .ss-results .ss-search-results-mode {
+      position: absolute;
+      top: 0; }
     .ss-results .ss-sort {
-      float: left; } }
+      float: left;
+      margin-top: 30px; } }
   .ss-results .ss-sort li a {
     border: 1px solid #ddd;
     color: #333; }

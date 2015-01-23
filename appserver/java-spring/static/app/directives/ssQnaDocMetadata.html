@@ -1,6 +1,18 @@
 <!-- for questions, answers -->
 <div class="ss-question-metadata clearfix" ng-if="docType != 'comment'">
 
+  <!-- question tags -->
+  <div class="ss-question-tags">
+      <a href=""
+        tooltip-placement="bottom"
+        tooltip="Perform new search for only this tag"
+        ng-click="goTag(tag)"
+        ng-repeat="tag in doc.tags">
+        <span class="label label-default">{{tag}}</span>
+      </a>
+    </span>
+  </div>
+
   <!-- date+user+reputation -->
   <div class="ss-question-info">
     <span class="started">
@@ -36,18 +48,6 @@
           tooltip="Reputation"
         >{{doc.owner.reputation}}</span>]</span>
       </span>
-    </span>
-  </div>
-
-  <!-- question tags -->
-  <div class="ss-question-tags">
-      <a href=""
-        tooltip-placement="bottom"
-        tooltip="Perform new search for only this tag"
-        ng-click="goTag(tag)"
-        ng-repeat="tag in doc.tags">
-        <span class="label label-default">{{tag}}</span>
-      </a>
     </span>
   </div>
 
