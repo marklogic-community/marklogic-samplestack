@@ -59,6 +59,9 @@ var go = function (args, cb) {
     }
     _.each(multiCapabilities, function (cap) {
       cap['idle-timeout'] = 360;
+      if (process.env['TRAVIS_JOB_NUMBER']) {
+        cap['tunnel-identifier'] = process.env['TRAVIS_JOB_NUMBER'];
+      }
     });
     _.merge(ptorConfig, {
       sauceUser: ctx.options.sauceCredentials.user,
@@ -84,6 +87,10 @@ var go = function (args, cb) {
   }
   else {
     ptorConfig.cucumberOpts.format = args.reporter;
+  }
+
+  if (ptorConfig.multiCapabilities) {
+    delete ptorConfig.capabilities;
   }
 
   var ptorString = JSON.stringify(ptorConfig, null, ' ');

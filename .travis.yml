@@ -1,5 +1,8 @@
 language: java
 
+addons:
+  sauce_connect: true
+
 # for non-pull-requests, aka pushes, requires secure emvironment
 # variables for access to MarkLogic nightlies (when applicable)
 # and for SauceLabs integration. These are configured in
@@ -20,7 +23,7 @@ install:
   - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then ./browser/dev-tasks/e2e/travis-install-ml.sh ; else (exit 0) ; fi'
   - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then sudo /etc/init.d/MarkLogic start ; else (exit 0) ; fi'
 
-  # intall node things and browser app
+  # install node things and browser app
   # (gulp e2e commands below invoke the corresponding gradle tasks
   # to congifure the java middle tier)
 
@@ -44,5 +47,5 @@ script:
   #
   # Also, don't run tests tagged as @broken since we already know about them
 
-  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then gulp e2e --tags="~@broken" --sauce --middle-tier=java ; else (exit 0) ; fi'
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then gulp e2e --tags="~@broken" --sauce --selenium=external --middle-tier=java ; else (exit 0) ; fi'
   # - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "false" ] ; then gulp e2e --tags="~@broken" --middle-tier=java ; else (exit 0) ; fi'
