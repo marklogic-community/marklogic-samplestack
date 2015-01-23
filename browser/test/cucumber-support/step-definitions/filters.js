@@ -25,6 +25,22 @@ module.exports = function () {
     }
   );
 
+  this.When(
+    /filter documents by from date = "(.*)"/,
+    function (setting, next) {
+      this.currentPage.filters.dateFrom.setValue(setting)
+          .then(this.notifyOk(next), next);
+    }
+  );
+
+  this.When(
+    /filter documents by to date = "(.*)"/,
+    function (setting, next) {
+      this.currentPage.filters.dateTo.setValue(setting)
+          .then(this.notifyOk(next), next);
+    }
+  );
+
 
   // this.When(
   //   /I select the filter resolved only/,

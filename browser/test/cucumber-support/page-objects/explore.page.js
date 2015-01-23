@@ -13,7 +13,9 @@ function ExplorePage () {
     clearAll: function () {
       return self.qself(q.all([
         self.filters.mineOnly.setValue(false),
-        self.filters.resolvedOnly.setValue(false)
+        self.filters.resolvedOnly.setValue(false),
+        self.filters.dateFrom.setValue(''),
+        self.filters.dateTo.setValue('')
       ]));
     },
     mineOnly: {
@@ -27,6 +29,20 @@ function ExplorePage () {
       setValue: function (value) {
         return self.qself(
           utilities.setCheckboxValue(getResolvedOnlyFilterElement(), value)
+        );
+      }
+    },
+    dateFrom: {
+      setValue: function (value) {
+        return self.qself(
+          utilities.setCheckboxValue(getDateStartFilterElement(), value)
+        );
+      }
+    },
+    dateTo: {
+      setValue: function (value) {
+        return self.qself(
+          utilities.setCheckboxValue(getDateEndFilterElement(), value)
         );
       }
     }
@@ -43,6 +59,14 @@ function ExplorePage () {
 
   var getResolvedOnlyFilterElement = function () {
     return element(by.model('resolvedOnly'));
+  };
+
+  var getDateStartFilterElement = function () {
+    return element(by.model('pickerDateStart'));
+  };
+
+  var getDateEndFilterElement = function () {
+    return element(by.model('pickerDateEnd'));
   };
 
 }
