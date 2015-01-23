@@ -126,6 +126,12 @@
     .search-tips-wrapper button.search-tips span.glyphicon-chevron-down  {
       margin: 0px;
     }
+
+    .search-tips-wrapper button.search-tips {
+      i.icon-pointer-down, i.icon-pointer-up {
+        margin: 0;
+      }
+    }
   }
 
   /* search tips box */
