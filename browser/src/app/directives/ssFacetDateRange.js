@@ -329,6 +329,15 @@ define(['app/module'], function (module) {
             };
             scope.parseStrict = true;
 
+            scope.clearSingleDate = function (inputModel) {
+              if (inputModel === 'pickerDateStart') {
+                scope.constraints.dateStart.value = null;
+              }
+              else {
+                scope.constraints.dateEnd.value = null;
+              }
+            };
+
             scope.closePickers = function () {
               scope['dateStartOpened'] = false;
               scope['dateEndOpened'] = false;
@@ -379,13 +388,34 @@ define(['app/module'], function (module) {
             };
 
             scope.applyPickerDates = function () {
+              var foundChange = false;
               var el = scope.selectedInput;
               var model = scope.selectedInputModel;
 
               // case invalid date format, so bound scope undefined
               // reset value to previously valid value
               if (!scope[model] && el.val()) {
-                el.val(scope.lastValid[model]);
+                // case of invalid model value, from manual entry
+                // reset it's value in the input to what was there previously
+                // but don't update the scope model, as this entry was
+                // never committed
+                if (el.val() !== scope.lastValid[model]) {
+                  el.val(scope.lastValid[model]);
+                }
+                // case where ng-change is triggered by Clear button in the
+                // datepicker pop-up.  This event happens, but the view element
+                // in the DOM has yet to be updated, so in still contains
+                // the same value as in the lastValid scope value.
+                else {
+                  scope.clearSingleDate(model);
+                  foundChange = true;
+                }
+              }
+
+              // case where scope was manually cleared
+              if (!scope[model] && !el.val()) {
+                scope.clearSingleDate(model);
+                foundChange = true;
               }
 
               // If a valid but out-of-order date is manually
@@ -400,7 +430,6 @@ define(['app/module'], function (module) {
                 scope[oVar] = mlUtil.moment(scope[model]).format('MM/DD/YYYY');
               }
 
-              var foundChange = false;
               if (scope.pickerDateStart && assignIfDifferent(
                 mlUtil.moment(scope.pickerDateStart),
                 scope.constraints.dateStart

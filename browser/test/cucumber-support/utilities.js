@@ -11,5 +11,12 @@ module.exports = {
           return el.click();
         }
       });
+  },
+  setInputValue : function (locate, value) {
+    var el;
+    return locate
+      .then(function (el) {
+        el.click().clear().sendKeys(value);
+      });
   }
 };
