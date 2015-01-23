@@ -71,6 +71,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		String questionResponse = this.mockMvc
 				.perform(get("/v1/questions")
+				.with(csrf().asHeader())
 				.session((MockHttpSession) session)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse()
@@ -80,7 +81,7 @@ public class QnADocumentControllerTestImpl extends ControllerTests {
 
 		questionResponse = this.mockMvc
 				.perform(post("/v1/search")
-				.with(csrf())
+				.with(csrf().asHeader())
 				.session((MockHttpSession) session)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"search\":{\"qtext\":\"true\"}}")

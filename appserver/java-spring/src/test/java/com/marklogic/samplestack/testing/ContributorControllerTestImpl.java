@@ -52,6 +52,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		this.mockMvc.perform(
 				delete("/v1/contributors/" + basicUser.getId())
+				.with(csrf().asHeader())
 				.session((MockHttpSession) session)
 				.locale(Locale.ENGLISH))
 				.andExpect(status().isOk()).andReturn().getResponse();
@@ -60,7 +61,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 		login("testC1@example.com", "c1");
 		this.mockMvc.perform(
 				post("/v1/contributors")
-				.with(csrf())
+				.with(csrf().asHeader())
 				.session((MockHttpSession) session)
 						.locale(Locale.ENGLISH)
 						.contentType(MediaType.APPLICATION_JSON)
@@ -69,7 +70,7 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		logger.debug("Basic User:" + mapper.writeValueAsString(basicUser));
 		login("testA1@example.com", "a1");
-		
+
 		MockHttpServletResponse response = this.mockMvc
 				.perform(
 						post("/v1/contributors")
@@ -89,7 +90,9 @@ public class ContributorControllerTestImpl extends ControllerTests {
 
 		String contributorsList = this.mockMvc
 				.perform(
-						get("/v1/contributors").session(
+						get("/v1/contributors")
+						.with(csrf().asHeader())
+						.session(
 								(MockHttpSession) session)).andReturn()
 				.getResponse().getContentAsString();
 
@@ -100,31 +103,34 @@ public class ContributorControllerTestImpl extends ControllerTests {
 				this.mockMvc
 						.perform(
 								get("/v1/contributors/" + returnedUser.getId())
-										.session((MockHttpSession) session)
-										.locale(Locale.ENGLISH))
+									.with(csrf().asHeader())
+									.session((MockHttpSession) session)
+									.locale(Locale.ENGLISH))
 						.andExpect(status().isOk()).andReturn().getResponse()
 						.getContentAsString(), Contributor.class);
 
 		assertEquals("Id name matches when get By ID", getById.getId(),
 				returnedUser.getId());
-		
+
 		logout();
 		getById = mapper.readValue(
 				this.mockMvc
 						.perform(
 								get("/v1/contributors/" + returnedUser.getId())
-										.session((MockHttpSession) session)
-										.locale(Locale.ENGLISH))
+									.with(csrf().asHeader())
+									.session((MockHttpSession) session)
+									.locale(Locale.ENGLISH))
 						.andExpect(status().isOk()).andReturn().getResponse()
 						.getContentAsString(), Contributor.class);
 
 		assertEquals("Id name matches when get By ID", getById.getId(),
 				returnedUser.getId());
-		
+
 		login("testA1@example.com", "a1");
-		
+
 		this.mockMvc.perform(
 				delete("/v1/contributors/" + returnedUser.getId())
+				.with(csrf().asHeader())
 				.session((MockHttpSession) session)
 				.locale(Locale.ENGLISH))
 				.andExpect(status().isOk()).andReturn().getResponse();

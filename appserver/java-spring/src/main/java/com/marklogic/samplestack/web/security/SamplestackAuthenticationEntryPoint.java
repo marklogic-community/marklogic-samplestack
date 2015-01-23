@@ -50,12 +50,19 @@ public class SamplestackAuthenticationEntryPoint implements
 	public void commence(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException authException)
 			throws IOException {
+
 		HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(
 				response);
-		responseWrapper.setStatus(HttpStatus.SC_UNAUTHORIZED);
-		
 		Writer out = responseWrapper.getWriter();
-		errors.writeJsonResponse(out, HttpStatus.SC_UNAUTHORIZED, "Unauthorized");
+		
+		if (request.getMethod().equals("OPTIONS")) {
+			responseWrapper.setStatus(HttpStatus.SC_OK);
+			errors.writeJsonResponse(out, HttpStatus.SC_OK, "OK");
+		}
+		else {
+			responseWrapper.setStatus(HttpStatus.SC_UNAUTHORIZED);
+			errors.writeJsonResponse(out, HttpStatus.SC_UNAUTHORIZED, "Unauthorized");
+		}
 		out.close();
 	}
 }

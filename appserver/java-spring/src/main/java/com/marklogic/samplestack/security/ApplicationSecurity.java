@@ -49,7 +49,6 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	 */
 	protected void configure(HttpSecurity http) throws Exception {
 		configurer.configure(http);
-		
 	}
 
 	@Override

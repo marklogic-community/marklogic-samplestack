@@ -67,6 +67,10 @@ define(['_marklogic/module'], function (module) {
         return '/' + this.getResourceName(httpMethod);
       };
 
+      MlSessionObject.prototype.onResponseGET = function (data) {
+        // throw away the superfluous body that Spring returns
+      };
+
       MlSessionObject.prototype.onResponsePOST = function (data) {
         delete this.password;
         this.assignData(data); // drops password
