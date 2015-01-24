@@ -113,7 +113,8 @@
     float: right;
   }
 
-  @media (max-width: 768px) {
+  /* trigger tabs to layout left */
+  @media (max-width: 600px) {
     .ss-search-results-mode {
       position: absolute;
       top: 0;
