@@ -22,10 +22,13 @@ import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_OPT
 import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_TRANSFORM;
 import static com.marklogic.samplestack.security.ClientRole.SAMPLESTACK_CONTRIBUTOR;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.UUID;
+
+import javax.annotation.PostConstruct;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -34,7 +37,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
@@ -101,6 +106,20 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 
 	}
 
+	/**
+	 * This method simply runs a search against MarkLogic so that its
+	 * cache warms up while the Java tier is also warming up.
+	 * @throws Exception
+	 */
+	@PostConstruct
+	public void warmupSearchCache() throws Exception {
+		logger.info("Warming up MarkLogic Search Caches");
+		ObjectNode query = (ObjectNode) mapper
+				.readValue("{\"search\":{\"qtext\":\"\"}}",
+						JsonNode.class);
+		this.rawSearch(SAMPLESTACK_CONTRIBUTOR, query, 1, DateTimeZone.forOffsetHours(1));
+	}
+	
 	/**
 	 * Start a transaction
 	 * 
