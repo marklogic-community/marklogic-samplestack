@@ -1,5 +1,10 @@
 <!-- user link for opening -->
-<a href="" class="dropdown-toggle" dropdown-toggle is-open="open">
+<a href="" class="dropdown-toggle"
+  dropdown-toggle
+  is-open="open"
+  tooltip-placement="bottom"
+  tooltip="View account information or log out"
+  >
   <span class="glyphicon glyphicon-user"></span>
   <span class="ss-user-info-display-name-reputation">
     {{store.session.userInfo.displayName}}
