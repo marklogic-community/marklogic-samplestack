@@ -118,6 +118,14 @@
     position: relative;
   }
 
+  @media (max-width: 1024px) {
+    .search-tips-wrapper button.search-tips {
+      i.icon-pointer-down, i.icon-pointer-up {
+        margin: 0;
+      }
+    }
+  }
+
   @media (max-width: 970px) {
     .search-tips-wrapper button.search-tips {
       margin: 0;
@@ -125,12 +133,6 @@
     .search-tips-wrapper button.search-tips span.glyphicon-chevron-up,
     .search-tips-wrapper button.search-tips span.glyphicon-chevron-down  {
       margin: 0px;
-    }
-
-    .search-tips-wrapper button.search-tips {
-      i.icon-pointer-down, i.icon-pointer-up {
-        margin: 0;
-      }
     }
   }
 

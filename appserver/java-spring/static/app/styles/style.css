@@ -5296,13 +5296,14 @@ h1 {
     margin-left: -2px;
     margin-right: 14px;
     position: relative; }
+  @media (max-width: 1024px) {
+    .ss-search-bar .search-tips-wrapper button.search-tips i.icon-pointer-down, .ss-search-bar .search-tips-wrapper button.search-tips i.icon-pointer-up {
+      margin: 0; } }
   @media (max-width: 970px) {
     .ss-search-bar .search-tips-wrapper button.search-tips {
       margin: 0; }
     .ss-search-bar .search-tips-wrapper button.search-tips span.glyphicon-chevron-up, .ss-search-bar .search-tips-wrapper button.search-tips span.glyphicon-chevron-down {
-      margin: 0px; }
-    .ss-search-bar .search-tips-wrapper button.search-tips i.icon-pointer-down, .ss-search-bar .search-tips-wrapper button.search-tips i.icon-pointer-up {
-      margin: 0; } }
+      margin: 0px; } }
   .ss-search-bar .tips-box {
     color: #ccc;
     background: #333;
@@ -5480,7 +5481,8 @@ ss-qna-doc-metadata .ss-comment-info {
   /* result row */
   /* voting */
   /* result question */
-  /* sorting */ }
+  /* sorting */
+  /* trigger tabs to layout left */ }
   .ss-results .ss-search-results-mode {
     font-size: 14px;
     font-weight: 500;
@@ -5553,7 +5555,7 @@ ss-qna-doc-metadata .ss-comment-info {
   .ss-results .ss-sort {
     border-bottom: none;
     float: right; }
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .ss-results .ss-search-results-mode {
       position: absolute;
       top: 0; }
