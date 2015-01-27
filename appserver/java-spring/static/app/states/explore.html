@@ -29,8 +29,7 @@
               <label
                 ng-disabled="!store.session"
                 ng-class="{'ss-disabled': !store.session}"
-                tooltip-placement="right"
-                tooltip="Constrain results to entries containg my contributions"
+                title="Constrain results to entries containing my contributions"
               >
                 <input
                   type="checkbox"
@@ -42,8 +41,7 @@
             <div class="checkbox">
               <label
                 ng-class="{'ss-disabled': !store.session}"
-                tooltip-placement="right"
-                tooltip="Constrain results to entries with accepted answers"
+                title="Constrain results to entries with accepted answers"
                 ng-disabled="!store.session"
               >
                 <!-- resolvedOnly checked when not logged in -->
