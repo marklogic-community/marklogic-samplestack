@@ -150,10 +150,7 @@ repositories {
 dependencies {
     compile "org.codehaus.groovy:groovy-all:2.3.7"
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
-        exclude(group: "org.springframework.boot", module: "spring-boot-starter-tomcat")
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     compile("org.springframework.security:spring-security-ldap:4.0.0.RC1")
     compile("org.springframework.security:spring-security-web:4.0.0.RC1")
     compile("org.springframework.security:spring-security-test:4.0.0.RC1")
