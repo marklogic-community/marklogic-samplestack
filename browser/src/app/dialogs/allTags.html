@@ -38,6 +38,7 @@
             class="form-control input-sm"
             ng-model="selected"
             placeholder="Search Tags"
+            title="Search for an available tag"
             autocomplete="off"
             typeahead="
                 tag.count as tag.name+' ('+tag.count+')'
@@ -59,6 +60,7 @@
         ng-class="{
           'active': sort === selectedSort
         }"
+        title="{{sort.title}}"
       >
         <a href="" role="tab">{{sort.label}}</a>
       </li>
@@ -74,7 +76,7 @@
           class="checkbox"
           ng-repeat="tag in page"
         >
-          <label>
+          <label title="Constrain results to selected tag">
             <input
               type="checkbox"
               ng-checked="selTags.indexOf(tag.name) > -1"

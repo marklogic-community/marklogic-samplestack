@@ -73,11 +73,13 @@ define(['app/module'], function (module) {
       $scope.sorts = [
         {
           label: 'Name',
-          value: 'name'
+          value: 'name',
+          title: 'Sort tags by name'
         },
         {
           label: 'Count',
-          value: 'frequency'
+          value: 'frequency',
+          title: 'Sort tags by count (most frequent first)'
         }
       ];
       $scope.selectedSort = $scope.sorts[1]; // Default sort
