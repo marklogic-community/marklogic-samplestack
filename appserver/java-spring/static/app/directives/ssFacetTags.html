@@ -22,8 +22,7 @@
           placeholder="Search Tags"
           autocomplete="off"
           ng-model="selected"
-          tooltip-placement="right"
-          tooltip="Search all available tags"
+          title="Search all available tags"
           typeahead="
             tag.count as tag.name+' ('+tag.count+')'
             for tag in typeaheadSearch($viewValue) | filter:$viewValue | orderBy:sort
@@ -47,8 +46,7 @@
       ng-repeat="tag in toArray(selTags) | orderBy:sort"
     >
       <label
-          tooltip-placement="right"
-          tooltip="Constrain results to selected tag"
+          title="Constrain results to selected tag"
       >
         <input
           type="checkbox"
@@ -70,8 +68,7 @@
                  limitTo:tagLimit"
     >
       <label
-          tooltip-placement="right"
-          tooltip="Show tags related to this tag"
+          title="Show tags related to this tag"
       >
         <input
           type="checkbox"
@@ -86,8 +83,7 @@
 
   <!-- more tags button -->
   <button class="button-more-tags btn btn-default btn-block btn-sm"
-    tooltip-placement="right"
-    tooltip="View all available tags"
+    title="View all available tags"
     data-toggle="modal"
     data-target="#tagsModal"
     ng-click="showAllTagsDialog()"

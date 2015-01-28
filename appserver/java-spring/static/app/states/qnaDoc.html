@@ -14,8 +14,7 @@
       <div class="ss-vote-module">
         <div
           class="ss-vote-control ss-vote-control-up"
-          tooltip-placement="right"
-          tooltip="{{ tooltipUpFor(doc) }}"
+          title="{{ tooltipUpFor(doc) }}"
           ng-click="vote(1, doc)"
           ng-disabled="!canVoteOn(doc)"
         >
@@ -31,8 +30,7 @@
         </div>
         <div
           class="ss-vote-control ss-vote-control-down"
-          tooltip-placement="right"
-          tooltip="{{ tooltipDownFor(doc) }}"
+          title="{{ tooltipDownFor(doc) }}"
           ng-disabled="!canVoteOn(doc)"
           ng-click="vote(-1, doc)"
         >
@@ -56,7 +54,7 @@
             <a
               href="http://stackoverflow.com/questions/{{doc.originalId}}"
               target="_blank"
-              tooltip="View this question on Stack Overflow (in a separate window)"
+              title="View this question on Stack Overflow (in a separate window)"
               ng-if="doc.originalId"
             >
               <span class="glyphicon glyphicon-new-window"></span>
@@ -151,8 +149,7 @@
         <div class="ss-vote-module">
           <div
             class="ss-vote-control ss-vote-control-up"
-            tooltip-placement="right"
-            tooltip="{{ tooltipUpFor(answer) }}"
+            title="{{ tooltipUpFor(answer) }}"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(1, answer)"
           >
@@ -168,8 +165,7 @@
           </div>
           <div
             class="ss-vote-control ss-vote-control-down"
-            tooltip-placement="right"
-            tooltip="{{ tooltipDownFor(answer) }}"
+            title="{{ tooltipDownFor(answer) }}"
             ng-disabled="!canVoteOn(answer)"
             ng-click="vote(-1, answer)"
           >
@@ -185,6 +181,7 @@
           <div class="ss-accept text-center" >
             <div
               class="ss-unaccepted"
+              title="Accept this answer"
               ng-if="canAcceptAnswer(answer) &&
                      answer.id != doc.acceptedAnswerId"
               ng-click="accept(answer)"
