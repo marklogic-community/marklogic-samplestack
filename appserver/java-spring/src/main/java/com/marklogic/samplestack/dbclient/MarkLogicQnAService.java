@@ -22,7 +22,6 @@ import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_OPT
 import static com.marklogic.samplestack.SamplestackConstants.SINGLE_QUESTION_TRANSFORM;
 import static com.marklogic.samplestack.security.ClientRole.SAMPLESTACK_CONTRIBUTOR;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -37,12 +36,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.marklogic.client.MarkLogicIOException;
@@ -80,7 +76,18 @@ import com.marklogic.samplestack.service.ContributorService;
 import com.marklogic.samplestack.service.QnAService;
 
 /**
- * Implementation of the QnAService interface.
+ * Implementation of the QnAService interface that uses the MarkLogic Java Client API
+ * to implement searches and document updates.  In this class you'll find examples
+ * of how to use MarkLogic's multistatement transactions, server-side transforms,
+ * and modifications to document permissions.
+ * 
+ * @see <a href="http://docs.marklogic.com/REST/client/transaction-management">REST API /v1/transactions</a>
+ * @see <a href="http://docs.marklogic.com/REST/client/transaction-management">REST API /v1/documents</a>
+ * @see <a href="http://docs.marklogic.com/REST/client/transaction-management">REST API /v1/search</a>
+ * @see <a href="http://docs.marklogic.com/REST/client/transaction-management">REST API /v1/values</a>
+ * @see <a href="http://docs.marklogic.com/guide/java/transactions">Java Client API Transactions</a>
+ * @see <a href="http://docs.marklogic.com/guide/java/document-operations/">Java Client API Document operations</a>
+ * @see <a href="http://docs.marklogic.com/guide/java/searches">Java Client API Searches</a>
  */
 @Component
 public class MarkLogicQnAService extends MarkLogicBaseService implements
@@ -121,10 +128,10 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 	}
 	
 	/**
-	 * Start a transaction
+	 * Start a multistatement transaction.
 	 * 
 	 * @param role
-	 *            Role to search with
+	 *            Role for owning the transaction
 	 * @return A transaction to use in subsequent calls to MarkLogic
 	 */
 	private Transaction startTransaction(ClientRole role) {
