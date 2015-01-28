@@ -54,15 +54,14 @@ define(['app/module'], function (module) {
 
         template:
           '<div ' +
-          ' tooltip="Constrain results to selected dates.' +
+          ' title="Constrain results to selected dates.' +
           ' Drag to select a date range.">' +
           '<highchart class="highcharts ss-facet-date-range" ' +
           '  config="highchartsConfig"></highchart></div>' +
           '<div class="input-daterange input-group">' +
           '<input ng-model="pickerDateStart" type="text" ' +
           '  class="input-sm form-control ng-valid-date" ' +
-          '  tooltip-placement="bottom" ' +
-          '  tooltip=' +
+          '  title=' +
               '"Constrain results to entries beginning on selected date" ' +
           '  datepicker-popup="MM/dd/yyyy" ' +
           '  datepicker-options="dateStartOptions" ' +
@@ -77,8 +76,7 @@ define(['app/module'], function (module) {
 
           '<input ng-model="pickerDateEnd" type="text" ' +
           '  class="input-sm form-control ng-valid-date" ' +
-          '  tooltip-placement="bottom" ' +
-          '  tooltip=' +
+          '  title=' +
               '"Constrain results to entries ending on selected date" ' +
           '  datepicker-popup="MM/dd/yyyy" ' +
           '  datepicker-options="dateEndOptions" ' +
