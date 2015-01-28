@@ -75,7 +75,7 @@ define(['app/module'], function (module) {
           // place after $stateChangeStart
           $rootScope.errorCondition = null;
         }
-      }
+      };
 
       $rootScope.$on(
         '$stateChangeSuccess',
