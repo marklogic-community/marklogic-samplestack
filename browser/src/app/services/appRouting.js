@@ -90,25 +90,13 @@ define(['app/module'], function (module) {
         '$location',
         '$uiViewScroll',
         'initialize',
+        'statesHierarchy',
+        'mlStore',
         function (
-          $rootScope, $state, $stateParams, $location, $uiViewScroll, initialize
+          $rootScope, $state, $stateParams, $location, $uiViewScroll,
+          initialize, statesHierarchy, mlStore
         ) {
 
-          // this was rescrolling the window. Not clear why we were doing this
-          // but we certainly don't want to do it each and every time.
-          // $rootScope.$on('$locationChangeSuccess',function () {
-          //   $window.scrollTo(0, 0);
-          // });
-          $rootScope.$on('$stateChangeSuccess', function () {
-            $rootScope.clearLocalError();
-          });
-
-          $rootScope.$on('sessionChange', function () {
-            if (!$rootScope.store.session) {
-              $location.url('/');
-            }
-          });
-          
           return {
             params: $stateParams,
 

@@ -42,6 +42,7 @@ define(['_marklogic/module'], function (module) {
         '$cookieStore',
         '$timeout',
         'mlStore',
+        '$location',
         function (
           $injector,
           $rootScope,
@@ -49,7 +50,8 @@ define(['_marklogic/module'], function (module) {
           $window,
           $cookieStore,
           $timeout,
-          mlStore
+          mlStore,
+          $location
         ) {
           var sessionModel = $injector.get(this.sessionModel);
 
@@ -211,6 +213,7 @@ define(['_marklogic/module'], function (module) {
               delete mlStore.session;
               deferred.resolve();
               onSessionChange();
+              $location.url('/');
             };
 
             // the heaviest part of being logged in is the cookie

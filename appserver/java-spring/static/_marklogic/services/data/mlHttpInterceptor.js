@@ -49,8 +49,8 @@ define(['_marklogic/module', 'moment'], function (module, moment) {
        */
       this.$get = [
         // we inject injector in order to avoid circular dependency on $http
-        '$injector', '$q', 'mlUtil',
-        function ($injector, $q, mlUtil) {
+        '$injector', '$q', 'mlUtil', 'mlStore', '$rootScope',
+        function ($injector, $q, mlUtil, mlStore, $rootScope) {
 
           var $http;
           var outstanding;
@@ -151,8 +151,35 @@ define(['_marklogic/module', 'moment'], function (module, moment) {
               if (rejection.data && rejection.data.status === 500 &&
                   /RESTAPI-NODOCUMENT/.test(rejection.data.message)
               ) {
-                rejection.status = 401;
-                return $q.reject(rejection);
+                rejection.status = 404;
+              }
+
+              if (rejection.status === 404) {
+                // not found
+                if (mlStore.session && mlStore.session.id) {
+                  // someone is logged in
+                  $rootScope.errorCondition = 'notFoundWithSession';
+                }
+                else {
+                  $rootScope.errorCondition = 'notFoundNoSession';
+                  // noone is logged in
+                }
+              }
+
+              if (
+                rejection.status === 401 ||
+                rejection.status === 403
+              ) {
+                // permissions
+                // what is state of session?
+                if (mlStore.session && mlStore.session.id) {
+                  // someone is logged in
+                  $rootScope.errorCondition = 'preventedWithSession';
+                }
+                else {
+                  $rootScope.errorCondition = 'preventedNoSession';
+                  // noone is logged in
+                }
               }
               return $q.reject(rejection);
             }

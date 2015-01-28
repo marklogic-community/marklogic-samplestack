@@ -1,4 +1,4 @@
-<div ng-if="globalError.length" marked="globalError" class="ss-global-error has-error"></div>
+<div ng-if="globalError.length && !errorCondition.length" marked="globalError" class="ss-global-error has-error"></div>
 <div>
 
   <div ng-if="loading" class="spinner">
@@ -72,10 +72,17 @@
 </header>
 
   <div ng-class="{ loading: loading }">
-    <div ng-if="localError" class="has-error">{{localError}}</div>
-    <section class="ss-main">
-      <div ui-view></div>
-    </section>
+    <div ng-if="localError && !errorCondition.length" class="has-error">{{localError}}</div>
+    <div ng-if="!errorCondition.length">
+      <section class="ss-main">
+        <div ui-view></div>
+      </section>
+    </div>
+    <div if="errorCondition">
+      <section class="ss-main">
+        <div style="margin-top: 100px"><p>{{errorCondition}}</p></div>
+      </section>
+    </div>
 
     <footer class="ss-page-footer">
       <p class="text-center">

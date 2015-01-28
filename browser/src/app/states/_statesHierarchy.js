@@ -65,12 +65,37 @@ define(
       },
       {
         name: 'root.layout.ask',
+        authRequired: true,
         url: '/ask',
         controller: 'askCtlr',
         templateUrl: '/app/states/ask.html'
       }
 
     ];
+
+
+    root.find = function (stateName) {
+      var myObj = root;
+      var children = [root];
+      var names = stateName.split('.');
+      var nameToFind = names[0];
+
+      var processChild = function (child) {
+        if (child.name === nameToFind) {
+          myObj = child;
+          children = child.children;
+          names.shift();
+          return false;
+        }
+
+      };
+
+      while (names.length) {
+        _.forEach(children, processChild);
+        nameToFind += ('.' + names[0]);
+      }
+      return myObj;
+    };
 
     module.constant('statesHierarchy', root);
 
