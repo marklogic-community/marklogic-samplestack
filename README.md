@@ -52,13 +52,13 @@ Then, launch each of the tiers to get a feel for Samplestack's 3-tiered architec
 
 1) **Database**
 
-The current version of Samplestack is intended to run with recent (on or after 2014-12-29) MarLogic 8.0 (trunk) nightly builds. See : https://root.marklogic.com/nightly/builds
+This version of Samplestack is intended to run with MarkLogic 8.0
 
 2) **Middle Tier - Application Server**
 
 You can choose to run/examine one of two middle tier application servers.  Each of these will use the same MarkLogic backend configuration and the same MVC browser application.
 
-* [Set up the Java middle tier and database tiers with gradle](appserver/java-spring/README.md)  (Available now in EA-3)
+* [Set up the Java middle tier and database tiers with gradle](appserver/java-spring/README.md)  (Available now)
 * [Set up the Node middle and database tiers with gulp](appserver/node-express/README.md) (Available in future release, under development)
 
 3) **Browser Application**
@@ -66,7 +66,7 @@ You can choose to run/examine one of two middle tier application servers.  Each 
 The browser application is delivered in two forms:
 
 * The Java middle tier hosts a pre-built version; or
-* [Set up the Angular.js/Gulp development environment](browser/README.md) (Available now in EA-3)
+* [Set up the Angular.js/Gulp development environment](browser/README.md) (Available now)
 
 ## Additional Information
 For more information, see the following:
