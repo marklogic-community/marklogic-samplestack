@@ -99,7 +99,7 @@ Users and Roles (log in, log out) | Security (authentication and authorization)
 Restricted Content | Role-based Permissions
 Facets | Search constraints, analytics
 Ask, Answer, Comment | Document updates
-Voting | Updates impact search relevance
+Voting | Updates impact sorting
 Accepted Answers Reputation | Transactional model, data integrity
 
 Coming soon: Related tags — demonstration of semantics with the use of RDF triples and SPARQL.
@@ -107,6 +107,20 @@ Coming soon: Related tags — demonstration of semantics with the use of RDF tri
 ## Contributing
 
 Please see our [contributing guidelines](./CONTRIBUTING.md).
+
+## Support
+
+Samplestack is maintained by MarkLogic Engineering and distributed under the
+[Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0). It is not
+designed for use in production. Everyone is encouraged to file bug reports,
+feature requests, and pull requests through GitHub. This input is critical and
+will be carefully considered, but we can’t promise a specific resolution or
+timeframe for any request. In addition, MarkLogic provides technical support
+for release tags of Samplestack to licensed customers under the terms outlined
+in the [Support
+Handbook](http://www.marklogic.com/files/Mark_Logic_Support_Handbook.pdf) For
+more information or to sign up for support, visit
+[help.marklogic.com](http://help.marklogic.com).
 
 ## License
 
