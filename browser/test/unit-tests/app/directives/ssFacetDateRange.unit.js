@@ -13,6 +13,7 @@ define(['testHelper','mocks/index'], function (helper, mocks) {
       var emitSpy;
 
       beforeEach(function (done) {
+        this.timeout(5000);
         module('app');
 
         inject(
