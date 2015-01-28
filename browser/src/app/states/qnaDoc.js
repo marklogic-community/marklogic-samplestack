@@ -1,5 +1,40 @@
 define(['app/module'], function (module) {
 
+  /**
+   * @ngdoc controller
+   * @kind constructor
+   * @name qnaDocCtlr
+   * @description
+   * Controller for the ask root.layout.qnaDoc ui-router state, which
+   * displays a Samplestack question and its associated answers and
+   * comments. Upon instantiation of the controller, an ssQnaDoc for
+   * the question is created based on an ID parameter. The answers and
+   * comments are represented by ssAnswer and ssComment sub-objects
+   * of ssQnaDoc. The view also displays voting history information
+   * and authenticated users can cast votes and accept answers.
+   *
+   * @param {angular.Scope} $scope (injected)
+   * @param {object} $timeout (injected)
+   * @param {object} marked For parsing and displaying markdown content.
+   * @param {object} appRouting (injected)
+   * @param {object} ssQnaDoc Question model object.
+   * @param {object} ssAnswer Answer model object.
+   * @param {object} ssComment Comment model object.
+   * @param {object} ssVote Vote model object.
+   * @param {object} ssAcceptedAnswer Accepted answer model object.
+   *
+   * @property {boolean} $scope.setLoading Flag set to true when page
+   * data is loading.
+   * @property {ssQnaDoc} $scope.doc The document object to be displayed.
+   * @property {boolean} $scope.showQuestionComment Flag set to true
+   * when question comment form should be displayed.
+   * @property {Array.<object>} $scope.showAnswerComment Array of objects,
+   * one per answer, that determine whether to display an answer comment
+   * form.
+   * @property {object} $scope.draftAnswer A draft object for new answers.
+   * @property {ssQnaDoc} $scope.doc The Qna document
+   * @property {ssQnaDoc} $scope.doc The Qna document
+   */
   module.controller('qnaDocCtlr', [
 
     '$scope',
@@ -30,7 +65,8 @@ define(['app/module'], function (module) {
           { id: appRouting.params.id },
           // by passing a contributorId we instigate the getting
           // and availability of voting properties on the content
-          // objects
+          // objects [TODO Is this still relevant since /hasVoted
+          // endpoint is now gone?]
           $scope.store.session ? $scope.store.session.id : null
         );
         doc.$ml.waiting.then(
@@ -73,6 +109,7 @@ define(['app/module'], function (module) {
 
       };
 
+      // Handle search queries from the search bar
       $scope.$on('setQueryText', function (evt, arg) {
         appRouting.go('root.layout.explore.results', {
           q: $scope.dasherize(arg.queryText)
@@ -81,8 +118,10 @@ define(['app/module'], function (module) {
 
      /**
       * @ngdoc method
-      * @name $scope.canVoteOn
-      * @description Returns whether current user can vote on the object
+      * @name qnaDocCtlr#$scope.canVoteOn
+      * @description Returns whether current user can vote on the object.
+      * Votes can be cast on questions and answers.
+      * @param {object} obj A ssQnaDoc object or ssAnswer object
       * @returns {boolean} true or false
       */
       $scope.canVoteOn = function (obj) {
@@ -97,8 +136,9 @@ define(['app/module'], function (module) {
 
      /**
       * @ngdoc method
-      * @name $scope.hasVotedUp
+      * @name qnaDocCtlr#$scope.hasVotedUp
       * @description Returns whether current user has upvoted the object
+      * @param {object} obj A ssQnaDoc object or ssAnswer object
       * @returns {boolean} true or false
       */
       $scope.hasVotedUp = function (obj) {
@@ -114,8 +154,9 @@ define(['app/module'], function (module) {
 
      /**
       * @ngdoc method
-      * @name $scope.hasVotedDown
+      * @name qnaDocCtlr#$scope.hasVotedDown
       * @description Returns whether current user has downvoted the object
+      * @param {object} obj A ssQnaDoc object or ssAnswer object
       * @returns {boolean} true or false
       */
       $scope.hasVotedDown = function (obj) {
@@ -159,7 +200,7 @@ define(['app/module'], function (module) {
 
      /**
       * @ngdoc method
-      * @name $scope.canAcceptAnswer
+      * @name qnaDocCtlr#$scope.canAcceptAnswer
       * @description Returns whether current user can accept
       * an answer associated with the QnaDoc.
       * @param {ssAnswer} answer The ssAnswer object.
@@ -174,20 +215,35 @@ define(['app/module'], function (module) {
 
      /**
       * @ngdoc method
-      * @name $scope.canAnswer
+      * @name qnaDocCtlr#$scope.canAnswer
       * @description Returns whether current user can submit
       * an answer to the QnaDoc.
+      * @param {ssAnswer} answer The ssAnswer object.
       * @returns {boolean} true or false
       */
       $scope.canAnswer = function (answer) {
         return $scope.store.session;
       };
 
+     /**
+      * @ngdoc method
+      * @name qnaDocCtlr#$scope.answersCountLabel
+      * @description Returns a singular or plural answers label based on
+      * the number of answers.
+      * @returns {string} A label
+      */
       $scope.answersCountLabel = function () {
         var len = $scope.doc.answers.length;
         return len + (len === 1 ? ' Answer' : ' Answers');
       };
 
+     /**
+      * @ngdoc method
+      * @name qnaDocCtlr#$scope.marked
+      * @description Parses markdown-formatted text.
+      * @param {string} text Text to be parsed.
+      * @returns {string} Parsed text
+      */
       $scope.marked = function (text) {
         return marked(text);
       };
@@ -196,6 +252,12 @@ define(['app/module'], function (module) {
         appRouting.go('^.explore', { q: $scope.searchbarText });
       };
 
+     /**
+      * @ngdoc method
+      * @name qnaDocCtlr#$scope.saveAnswer
+      * @description Saves an answer if valid.
+      * @param {ssAnswer} answer Answer to be saved.
+      */
       $scope.saveAnswer = function (answer) {
         if (answer.$ml.valid) {
           answer.post().$ml.waiting.then(
@@ -217,6 +279,11 @@ define(['app/module'], function (module) {
         }
       };
 
+     /**
+      * @ngdoc method
+      * @name qnaDocCtlr#$scope.saveQuestionComment
+      * @description Saves a question comment if valid.
+      */
       $scope.saveQuestionComment = function () {
         var comment = $scope.doc.comments.draft;
         if (comment.$ml.valid) {
@@ -236,6 +303,11 @@ define(['app/module'], function (module) {
         }
       };
 
+     /**
+      * @ngdoc method
+      * @name qnaDocCtlr#$scope.saveAnswerComment
+      * @description Saves an answer comment if valid.
+      */
       $scope.saveAnswerComment = function (answer) {
         var comment = answer.comments.draft;
         if (comment.$ml.valid) {

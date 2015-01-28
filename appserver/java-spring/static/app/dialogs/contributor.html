@@ -8,7 +8,8 @@
     <span class="sr-only">Close</span>
   </button>
   <h4 class="modal-title">Samplestack Account Details</h4>
-</div>
+</div><!-- modal-header -->
+
 <div class="modal-body">
   <div ng-if="contributor">
     <div class="form-group">
@@ -30,7 +31,8 @@
   <div ng-if="notFound">
     <div class="alert alert-warning">Contributor data not found.</div>
   </div>
-</div>
+</div><!-- modal-body -->
+
 <div class="modal-footer">
   <button
     type="button"
@@ -38,4 +40,4 @@
     data-dismiss="modal"
     ng-click="cancel()"
   >OK</button>
-</div>
+</div><!-- modal-footer -->
