@@ -2,16 +2,21 @@
 
 
 <!--
+
+
+NO TRAVIS badge until things start to settle down in e2e tests
+
 ***********************************************************************
 REMEMBER to change the branch name in this code when preparing releases
 ***********************************************************************
--->
 <div>
 <a target="_blank" href="https://travis-ci.org/marklogic/marklogic-samplestack">
   <img hspace="15" align="right" src="https://travis-ci.org/marklogic/marklogic-samplestack.svg"></img>
 </a>
 </div>
 <div/>
+
+-->
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
@@ -105,7 +110,7 @@ Please see our [contributing guidelines](./CONTRIBUTING.md).
 
 ## License
 
-Copyright © 2014 MarkLogic
+Copyright © 2012-2015 MarkLogic
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

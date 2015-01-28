@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# This shill script is not intended for public use.
+#
+# It is used by members of the development team internally to quickly update
+# MarkLogic nightly build and reinstall Samplestack database and seed-data/run
+# the server.
+#
+# It requires OSX, the mlvm (https://github.com/withjam/mlvm) utility, and
+# access/credentials for the MarkLogic nightly build download site.
+
+
 # runs command from parameters and exits with the eoror code of the command
 # if it fails
 function successOrExit {
