@@ -91,8 +91,9 @@ define(['_marklogic/module'], function (module) {
   module.factory('mlModelBase', [
 
     '$http', '$q','$parse', '$injector', 'mlSchema', 'mlUtil', 'mlWaiter',
+    '$timeout',
     function (
-      $http, $q, $parse, $injector, mlSchema, mlUtil, mlWaiter
+      $http, $q, $parse, $injector, mlSchema, mlUtil, mlWaiter, $timeout
     ) {
 
       /**
@@ -401,8 +402,24 @@ define(['_marklogic/module'], function (module) {
         var waiter = mlWaiter.waitOn(this);
         httpConfig.url = this.getBaseUrl() + httpConfig.url;
         promises.unshift($http(httpConfig));
+
+
+        // after normal timeout plus one second, timeout manually because
+        // angular lost track of the promise (IE9 hack)
+        var aborter = $q.defer();
+        aborter.requestComplete = false;
+        $timeout(function () {
+          if (!aborter.requestComplete) {
+            throw new Error(
+              '$http operation seems to have timed out (and Angular may have ' +
+              'lost the promise due to IE9 incompatibility?)'
+            );
+          }
+        }, httpConfig.timeout + 1000);
+
         $q.all(promises).then(
           function (results) {
+            aborter.requestComplete = true;
             self.onHttpResponse(
               results[0].data,
               httpMethod,
@@ -411,6 +428,7 @@ define(['_marklogic/module'], function (module) {
             waiter.resolve();
           },
           function (results) {
+            aborter.requestComplete = true;
             waiter.reject(results);
           }
         );
