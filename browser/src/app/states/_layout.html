@@ -78,9 +78,42 @@
         <div ui-view></div>
       </section>
     </div>
-    <div if="errorCondition">
+    <div ng-if="errorCondition">
       <section class="ss-main">
-        <div style="margin-top: 100px"><p>{{errorCondition}}</p></div>
+        <div class="row">
+          <div class="col-md-11 col-xs-offset-1">
+            <div class="msg-404-wrapper">
+              <div class="msg-404-inner">
+                <div class="msg-404-center">
+                  <img src="app/images/404-header-alt.svg" border="0" height="110">
+                  <!-- Guest trying to access Ask a Question page -->
+                  <div ng-if="errorCondition === 'authRequiredNav'">
+                    <p>You must be logged-in to ask a question on this site.<br/>
+                    Please <a href="" ng-click="openLogin()">log in</a> to try again.</p>
+                  </div>
+                  <!-- Guest trying to access QnA Doc page if page not available, or
+                       question is not resolved -->
+                  <div ng-if="errorCondition === 'notFoundNoSession'">
+                    <p>We could not find the content you tried to access.<br/>
+                    <strong>NOTE:</strong>
+                    Some content is only available to registered users.<br/>
+                    Please <a href="" ng-click="openLogin()">log in</a> to try again.</p>
+                  </div>
+                  <!-- Reg'd user trying to access QnA Doc page that is not available. -->
+                  <div ng-if="errorCondition === 'notFoundWithSession'">
+                    <p>We could not find the content you tried to access.</p>
+                  </div>
+                  <!-- All other errors -->
+                  <div ng-if="errorCondition !== 'authRequiredNav'
+                              && errorCondition !== 'notFoundNoSession'
+                              &&  errorCondition !== 'notFoundWithSession'">
+                    <p>The content you tried to access does not exist.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- questions -->
+        </div><!-- row -->
       </section>
     </div>
 

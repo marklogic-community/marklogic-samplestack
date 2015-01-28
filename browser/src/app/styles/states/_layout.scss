@@ -145,3 +145,33 @@
     color: #666;
   }
 }
+
+/* 404 page unavailable */
+
+  .msg-404-wrapper {
+    height: 686px;
+    position: relative;
+  }
+
+  .msg-404-inner {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+  .msg-404-center {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform:    translateY(-50%);
+    -ms-transform:     translateY(-50%);
+    -o-transform:      translateY(-50%);
+    transform:         translateY(-50%);
+  }
+
+  .msg-404-center p {
+    font-weight: 100;
+    font-size:35px;
+    color:#333333;
+    line-height:38px;
+  }
