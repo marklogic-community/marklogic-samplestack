@@ -192,6 +192,7 @@ define(['_marklogic/module'], function (module) {
               },
               function (reason) {
                 deferred.reject(new Error(reason.statusText));
+                $rootScope.errorCondition = null;
               }
             );
             return deferred.promise;
