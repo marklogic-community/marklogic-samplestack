@@ -28,10 +28,24 @@ define(['app/module'], function (module) {
           .then(function (response) {
             var tagsArr = [];
             angular.forEach(response.results.items, function (value, key) {
-              tagsArr.push({'text': value.name + ' (' + value.count + ')'});
+              // do not show selected tags in list
+              if (!$scope.tagSelected(value)) {
+                tagsArr.push({'text': value.name + ' (' + value.count + ')'});
+              }
             });
             return tagsArr;
           });
+      };
+
+      // Is tag selected already?
+      $scope.tagSelected = function (tag) {
+        var result = false;
+        angular.forEach($scope.tagsInput, function (value, key) {
+          if (tag.name === value.text) {
+            result = true;
+          }
+        });
+        return result;
       };
 
       // Remove trailing freq in parens
