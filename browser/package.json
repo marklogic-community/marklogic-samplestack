@@ -1,6 +1,6 @@
 {
   "name": "marklogic-samplestack-angular",
-  "version": "1.0.0-ea3.2",
+  "version": "1.0.0",
   "description": "An AngularJS webapp to demonstrate basic 3-tiered MarkLogic-based development following the MarkLogic Reference Architecture",
   "license": "Apache-2.0",
   "repository": {
