@@ -398,7 +398,7 @@ define(['_marklogic/module'], function (module) {
           promises = [];
         }
         var httpConfig = this.getHttpConfig(httpMethod);
-        httpConfig.timeout = 30000;
+        httpConfig.timeout = 60000;
         var waiter = mlWaiter.waitOn(this);
         httpConfig.url = this.getBaseUrl() + httpConfig.url;
         promises.unshift($http(httpConfig));

@@ -260,7 +260,7 @@ self = module.exports = {
           request({
             url: options.addresses.appServer.href + 'v1' + req.url,
             // 31 seconds, one more than the browser will wait
-            timeout: 31 * 1000
+            timeout: 61 * 1000
           })
         )
         .on('error', function (err) {
