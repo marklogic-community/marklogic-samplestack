@@ -408,7 +408,7 @@ define(['_marklogic/module'], function (module) {
         // angular lost track of the promise (IE9 hack)
         var aborter = $q.defer();
         aborter.requestComplete = false;
-        $timeout(function () {
+        var waitForThis = $timeout(function () {
           if (!aborter.requestComplete) {
             throw new Error(
               '$http operation seems to have timed out (and Angular may have ' +
@@ -419,6 +419,7 @@ define(['_marklogic/module'], function (module) {
 
         $q.all(promises).then(
           function (results) {
+            $timeout.cancel(waitForThis);
             aborter.requestComplete = true;
             self.onHttpResponse(
               results[0].data,
@@ -428,6 +429,7 @@ define(['_marklogic/module'], function (module) {
             waiter.resolve();
           },
           function (results) {
+            $timeout.cancel(waitForThis);
             aborter.requestComplete = true;
             waiter.reject(results);
           }
