@@ -39,7 +39,7 @@ define(['app/module'], function (module) {
 
       // Is tag selected already?
       $scope.tagSelected = function (tag) {
-        result = false;
+        var result = false;
         angular.forEach($scope.tagsInput, function (value, key) {
           if (tag.name === value.text) {
             result = true;
