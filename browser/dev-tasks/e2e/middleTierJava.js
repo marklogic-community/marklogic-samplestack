@@ -13,6 +13,9 @@ var childProcess = require('child_process');
 var chalk = require('chalk');
 var gradleCmd = /^win/.test(process.platform) ? 'gradlew.bat' : './gradlew';
 
+// if custom seed data version is on command line, get from there
+var customSeed = require('yargs').argv.seed;
+
 var shellCmd = function (cwd, command, signal, cb) {
   process.stdout.write(chalk.green('\n' + command + '\n'));
   var backupWd = process.cwd();
@@ -87,13 +90,24 @@ var start = function (args, cb) {
     ctx.paths.projectRoot, 'appserver/java-spring'
   );
 
+  var seedFile = path.resolve(
+    process.cwd(), '..', 'seed-data' + customSeed + '.tgz'
+  );
+
+  var dbLoadParam = customSeed ?
+      ' -PseedDataUrl=file://' + seedFile :
+      '';
+  var loadCmd = gradleCmd + ' dbLoad' + dbLoadParam;
+
   async.series([
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbTeardown', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbConfigure', null),
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' test', null),
-    shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbLoad --stacktrace', null),
+    shellCmd.bind(
+      null, dirForMiddle, loadCmd, null
+    ),
     shellCmd.bind(
       null,
       dirForMiddle,
