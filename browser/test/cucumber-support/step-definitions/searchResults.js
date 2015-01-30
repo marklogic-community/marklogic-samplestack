@@ -17,6 +17,14 @@ module.exports = function () {
     }
   );
 
+  this.Then(
+    /docs count is less than "(.*)"/,
+    function (count, next) {
+      expect(this.currentPage.resultsCount)
+      .to.eventually.be.lessThan(parseInt(count)).and.notify(next);
+    }
+  );
+
   this.When(
     /focus on the "(.*)" search result/,
     function (positional, next) {
