@@ -97,7 +97,7 @@ var start = function (args, cb) {
   var dbLoadParam = customSeed ?
       ' -PseedDataUrl=file://' + seedFile :
       '';
-  var loadCmd = gradleCmd + ' dbLoad' + dbLoadParam;
+  var loadCmd = gradleCmd + ' dbLoad' + dbLoadParam + ' --stacktrace';
 
   async.series([
     shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
