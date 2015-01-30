@@ -573,7 +573,7 @@ define(['app/module'], function (module) {
   ]); // end directive
 
   // directive for triggering the ng-change event ONLY when the
-  // keydown 'enter' or blue event occur.  The directive was created to support
+  // keydown 'enter' or blur event occur.  The directive was created to support
   // UX requirements to only validate a date that has been manually entered
   // during those two events.
   module.directive('ngModelOnblurOnenter', function () {
