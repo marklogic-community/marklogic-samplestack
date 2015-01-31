@@ -167,6 +167,9 @@ Note on `~@broken`: always specify this flag unless you are interested in seeing
 are known to be broken. Such tests are also flagged in the feature files with issue id numbers, so
 that they may be executed individually based on the issue that covers the problem.
 
+**Note: to use SauceLabs tests, please add a hosts file entry (or other domain resolution) that points "samplestack.local" to 127.0.0.1 on your machine.**
+The reasons for this are documented in https://support.saucelabs.com/entries/27401240-Testing-with-a-localhost-server-and-some-browsers-can-t-load-my-website .
+
 ## Node.js/npm Tips and Troubleshooting
 
 Please see [Node.js and npm Tips for Samplestack Development](https://github.com/marklogic/marklogic-samplestack/wiki/Node.js-and-npm-Tips-for-Samplestack-Development).

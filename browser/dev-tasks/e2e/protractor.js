@@ -37,6 +37,13 @@ var ptorConfig = {
 
 
 var go = function (args, cb) {
+  // sauce/IE doens't like "localhost", so we punt.
+  // running on Sauce now requires this hosts file entry
+  if (args.sauce) {
+    ptorConfig.baseUrl =
+    ptorConfig.baseUrl.replace('localhost', 'samplestack.local');
+  }
+
   if (args.tags) {
     ptorConfig.cucumberOpts.tags = [args.tags];
   }

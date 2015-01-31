@@ -1,5 +1,9 @@
 language: java
 
+addons:
+  hosts:
+    - samplestack.local
+
 # for non-pull-requests, aka pushes, requires secure emvironment
 # variables for access to MarkLogic nightlies (when applicable)
 # and for SauceLabs integration. These are configured in
