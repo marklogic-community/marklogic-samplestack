@@ -57,6 +57,7 @@ define(['app/module'], function (module) {
             id: { type: 'string', minLength: 36, maxLength: 36 },
             location: { type: [ 'string', 'null' ]},
             voteCount: { type: [ 'integer' ] }
+            // displayName???
           }
         })
       };

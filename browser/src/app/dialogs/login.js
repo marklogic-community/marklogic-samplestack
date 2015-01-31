@@ -4,21 +4,23 @@ define(['app/module'], function (module) {
    * @ngdoc controller
    * @kind constructor
    * @name loginDialogCtlr
+   * @description
+   * Controller for {@link loginDialog}. The controller is injected by the
+   * $modal service. Provides a user interface for authenticating a user.
+   * Upon instantiation the `loginDialogCtlr` creates an empty instance of
+   * {@link ssSession} for handling authentication. See
+   * <a href="http://angular-ui.github.io/bootstrap/"
+   * target="_blank">ui.bootstrap.modal</a> for more information.
+   *
    * @param {angular.Scope} $scope (injected)
    * @param {ui.bootstrap.modal.$modalInstance} $modalInstance (injected)
    * @param {object} ssSession Session object
    * @param {object} mlAuth Authentication object
-   * @description
-   * Controller for {@link loginDialog}. The controller is injected by the
-   * $modal service.
    *
-   * Used to provide a user interface through which to autenticate a user.
-   *
-   * Upon instantiation the `loginDialogCtlr` creates an empty instance of
-   * {@link ssSession} for handling authentication.
-   *
-   * @property {string} $scope.error If present, indicates textually what
-   * error occured while attempting to authenticate a user.
+   * @property {string} $scope.error If present, indicates what error
+   * occurred while attempting to authenticate a user.
+   * @property {string} $scope.session.username The username input.
+   * @property {string} $scope.session.password The password input.
    */
   module.controller('loginDialogCtlr', [
 
@@ -67,10 +69,23 @@ define(['app/module'], function (module) {
         );
       };
 
+      /**
+       * @ngdoc method
+       * @name loginDialogCtlr#$scope.onAuthSuccess
+       * @description Called upon successful authentication and closes the
+       * dialog.
+       */
       var onAuthSuccess = function (user) {
         $modalInstance.close(user);
       };
 
+      /**
+       * @ngdoc method
+       * @name loginDialogCtlr#$scope.onAuthFailure
+       * @description Called upon failed authentication. Sets the error message
+       * and attaches a ssSession object with username information only to
+       * scope.
+       */
       var onAuthFailure = function (reason) {
         $scope.error = 'Login Failed: ' + reason;
         ssSession.create( { username: $scope.session.username })
@@ -80,7 +95,7 @@ define(['app/module'], function (module) {
       /**
        * @ngdoc method
        * @name loginDialogCtlr#$scope.cancel
-       * @description Dismisses the dialog.
+       * @description Dismisses the dialog (without logging in)
        */
       $scope.cancel = function () {
         $modalInstance.dismiss();
@@ -107,11 +122,12 @@ define(['app/module'], function (module) {
    * @ngdoc dialog
    * @name loginDialog
    * @kind function
-   *
-   * @description User interface for logging into the Samplestack application.
-   *
-   * This is the service that cobfigures the dialog and
-   * the {@link loginDialogCtlr}, and launches the dialog.
+   * @description A UI Bootstrap component that provides a modal dialog for
+   * logging into the Samplestack application. When called, this service
+   * configures the dialog and the controller {@link loginDialogCtlr}, and
+   * launches the dialog using the template. The size property controls the
+   * size of the dialog. See <a href="http://angular-ui.github.io/bootstrap/"
+   * target="_blank">ui.bootstrap.modal</a> for more information.
    */
   module.factory('loginDialog', [
     '$modal',
