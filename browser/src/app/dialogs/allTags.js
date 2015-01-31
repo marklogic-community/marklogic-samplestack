@@ -5,25 +5,42 @@ define(['app/module'], function (module) {
    * @ngdoc controller
    * @kind constructor
    * @name allTagsDialogCtlr
-   * @usage the controller is injected by the $modal service
+   * @description
+   * Controller for {@link allTagsDialog}. The controller is injected by the
+   * $modal service. It handles the display and search of tags in the dialog.
+   * The user can page through the tags using a pagination component, sort
+   * the tags by count or name, and filter the tags by typing a string. See
+   * <a href="http://angular-ui.github.io/bootstrap/"
+   * target="_blank">ui.bootstrap.modal</a> for more information.
+   *
    * @param {angular.Scope} $scope (injected)
    * @param {ui.bootstrap.modal.$modalInstance} $modalInstance (injected)
-   * @param  {ui.bootstrap.$modalInstance} allTagsStartFromFilter Filter for
-   * columnar display of tags
-   * @param  {Array.<object>} unselTags unselected tags
-   * @param  {Array.<object>} selTags selected tags
-   * @property {Array.<string>} $scope.unselTags set of tags that are found
+   * @param  {object} ssTagsSearch Instantiated upon a search for
+   * tags to populate the dialog. Represents the tag-specific search criteria.
+   * @param  {SsSearchObject} ssTagsSearch Represents the current search
+   * criteria, facets, and results for the application.
+   * @param  {object} mlUtil An object with various utility methods.
+   *
+   * @property {Array.<string>} $scope.unselTags Set of tags that are found
    * in tags facet results but not presently selected as criteria.
-   * @property {Array.<string>} $scope.selTags set of tags that are found
+   * @property {Array.<string>} $scope.selTags Set of tags that are found
    * in tags facet results are are presently selected as criteria.
-   * @property {Array.<string>} $scope.tags set of tags that are found
-   * in tags facet results. Since the list of tags is limited by configuration
-   * to 8, at most 8 tags will be in this array at any time.
-   *
-   *
-   * @description
-   * Controller for {@link allTagsDialog}. This dialog isn't fully implemented.
-   * More detail TBD.
+   * @property {string} $scope.selected Text by which the tag set is
+   * filtered.
+   * @property {Array.<string>} $scope.arrTags Array whose length is equal to
+   * the number of display columns.
+   * @property {integer} $scope.tagsPerCol Number of tags to display in
+   * each column.
+   * @property {integer} $scope.maxSize Maximum number of page numbers
+   * displayed in the pagination component.
+   * @property {integer} $scope.pageSize Maximum number of tags to be
+   * displayed on the page.
+   * @property  {Array.<object>} $scope.sorts Set of objects for controlling
+   * the sort of the tags.
+   * @property {Array.<string>} $scope.tags Set of tags that are found
+   * in tags facet results. The total number is limited to a $scope.pageSize
+   * maximum.
+   * @property  {object} $scope.selectedSort The currently selected sort.
    */
   module.controller('allTagsDialogCtlr', [
 
@@ -41,10 +58,9 @@ define(['app/module'], function (module) {
     ) {
 
       // Tag settings
-      /**
-       */
-      // get a fresh copy so we don't mess with main search while we're in
-      // the dialog
+      //
+      // get a copy of the search criteria, don't change the main search while
+      // in the dialog
       var criteria = angular.copy(searchObject.criteria);
       criteria.constraints.tags.values = criteria.constraints.tags.values || [];
       $scope.selTags = criteria.constraints.tags.values;
@@ -64,6 +80,14 @@ define(['app/module'], function (module) {
       $scope.currentPage = 1; // initial
       $scope.maxSize = 5;
       $scope.pageSize = numCols * $scope.tagsPerCol;
+
+      /**
+       * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.updatePage
+       * @description
+       * Handle pagination changes.
+       * @param  {string} currentPage the current page, initially set to 1.
+       */
       $scope.updatePage = function (currentPage) {
         $scope.currentPage = currentPage;
         search();
@@ -109,20 +133,41 @@ define(['app/module'], function (module) {
        * Close the dialog via the $modalInstance. This resolves the promise
        * from the {@link allTagsDialog} service
        */
-
       $scope.submit = function () {
         $modalInstance.close($scope.selTags);
       };
 
+      /**
+       * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.cancel
+       * @description
+       * Cancel the dialog via the $modalInstance.
+       */
       $scope.cancel = function () {
         $modalInstance.dismiss();
       };
 
+      /**
+       * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.setSort
+       * @description
+       * Set the current sort for the tags.
+       */
       $scope.setSort = function () {
         $scope.selectedSort = this.sort;
         search();
       };
 
+      /**
+       * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.selectTagTypeahead
+       * @param {object} $item object with tag name and count properties
+       * @param {integer} $model tag count (e.g, 123)
+       * @param {string} $label selected item label (e.g., 'java (123)')
+       * @description
+       * Called upon tag selection in the typeahead menu. Adds tag name to
+       * the $scope.selTags array and executes a search for tags.
+       */
       $scope.selectTagTypeahead = function ($item, $model, $label) {
         $scope.selected = ''; // Clear typeahead menu
         if ($scope.selTags.indexOf($item.name) === -1) {
@@ -131,6 +176,14 @@ define(['app/module'], function (module) {
         }
       };
 
+      /**
+       * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.typeaheadSearch
+       * @param {string} searchForName input text
+       * @description
+       * Called upon entering text in the typeahead input. Returns a
+       * promise which returns an array of menu item objects.
+       */
       $scope.typeaheadSearch = function (searchForName) {
         var tagsSearch = ssTagsSearch.create({
           criteria: mlUtil.merge(
@@ -154,6 +207,15 @@ define(['app/module'], function (module) {
         });
       };
 
+      /**
+       * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.search
+       * @description
+       * Performs a search for tags based on page and sort criteria.
+       * Instantiates a ssTagsSearch object. Upon successful search, the
+       * method populates a $scope.pagedTagsByColumn array of arrays which
+       * organizes tags for display (an array of tags for each column).
+       */
       var search = function () {
         var tagsSearch = ssTagsSearch.create({
           criteria: mlUtil.merge(
@@ -173,22 +235,21 @@ define(['app/module'], function (module) {
           $scope.totalPages = Math.ceil(
             tagsSearch.results.count / $scope.pageSize
           );
-          $scope.pagedTagsByColumn = [];
+          $scope.pagedTagsByColumn = []; // array of arrays
           while (
             tagsSearch.results.items.length &&
             $scope.pagedTagsByColumn.length < numCols
           ) {
+            // an array of tags in each column array
             $scope.pagedTagsByColumn.push(
               tagsSearch.results.items.splice(0, $scope.tagsPerCol)
             );
           }
         });
 
-
       };
 
-
-      // kick the search
+      // perform the initial search
       search();
 
     }
@@ -199,21 +260,19 @@ define(['app/module'], function (module) {
    * @ngdoc dialog
    * @kind function
    * @name allTagsDialog
-   * @description
-   * Displays all tags in the database in a paged modal, and allows for
-   * searching and selecting the tags for inclusion as filters on a search.
-   * Uses <a href="http://angular-ui.github.io/bootstrap/"
-   * target="_blank">ui.bootstrap.modal</a>. Also see the
-   * {@link allTagsDialogCtlr}
-   * and the {@link allTagsStartFrom allTagsStartFrom filter}.
-   * @param {Array.<object>} unselTags unselected tags
-   * @param {Array.<object>} selTags selected tags
-   * @returns {angular.Promise} the promise will either be rejected
-   * or will resolve to an object the following properties that reflect the
-   * result of the user interaction has the dialog:
+   * @description A UI Bootstrap component that provides a modal dialog for
+   * displaying all tags available for a search. When called, this service
+   * configures the dialog and the controller {@link allTagsDialogCtlr}, and
+   * launches the dialog using the template. See
+   * <a href="http://angular-ui.github.io/bootstrap/"
+   * target="_blank">ui.bootstrap.modal</a> for more information.
    *
-   *   * **unselTags** - `{Array.<object}` the unselected tags
-   *   * **selTags** - `{Array.<object}` - the selected tags
+   * @param {SsSearchObject} searchObject An object representing the current
+   * search criteria, facets, and results for the application.
+   *
+   * @returns {angular.Promise} The promise will either be rejected
+   * or will resolve to an object with an array of selected tags as its
+   * property.
    */
   module.factory('allTagsDialog', [
     '$modal',

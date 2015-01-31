@@ -1,5 +1,23 @@
 define(['app/module'], function (module) {
 
+  /**
+   * @ngdoc controller
+   * @kind constructor
+   * @name askCtlr
+   * @description
+   * Controller for the ask root.layout.ask ui-router state, which
+   * provides an interface for asking a Samplestack question. Upon
+   * instantiation of the controller, an ssQnaDoc object is created
+   * for the new question and this object is attached to the $scope
+   * as $scope.qnaDoc.
+   *
+   * @param {angular.Scope} $scope (injected)
+   * @param {object} appRouting (injected)
+   * @param {object} ssQnaDoc The question model object.
+   *
+   * @property {Array.string} $scope.tagsInput An array of selected
+   * tag names.
+   */
   module.controller('askCtlr', [
 
     '$scope', 'appRouting', 'ssQnaDoc', 'ssTagsSearch',
@@ -54,6 +72,14 @@ define(['app/module'], function (module) {
         return tag;
       };
 
+      /**
+       * @ngdoc method
+       * @name askCtlr#$scope.save
+       * @description Posts the new question to the server if the question is
+       * valid, then redirects the user to the root.layout.qnaDoc view for
+       * that new question. If the question is invalid, an error message is
+       * displayed.
+       */
       $scope.save = function () {
 
         // convert tags-input data from array of objects to array of strings
