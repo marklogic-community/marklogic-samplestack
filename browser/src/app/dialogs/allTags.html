@@ -2,6 +2,7 @@
 
   <div class="modal-header">
 
+    <!-- dialog cancel -->
     <button
       type="button"
       class="close"
@@ -19,6 +20,7 @@
 
     <div class="tags-modal-search-wrapper clearfix">
       <div class="tags-modal-search clearfix">
+        <!-- clear search button -->
         <div
           class="tags-modal-clear-icon"
           ng-show="selected"
@@ -31,6 +33,7 @@
         <div class="tags-modal-search-icon">
           <i class="glyphicon glyphicon-search"></i>
         </div>
+        <!-- search input field -->
         <div class="tags-modal-search-input">
           <input
             type="search"
@@ -53,6 +56,7 @@
       </div>
     </div><!-- tags-modal-search-wrapper -->
 
+    <!-- sort tabs -->
     <ul class="ss-sort nav nav-tabs" role="tablist">
       <li
         ng-repeat="sort in sorts"
@@ -70,6 +74,7 @@
 
   <div class="modal-body clearfix">
 
+    <!-- tag display columns -->
     <div class="ss-column" ng-repeat="page in pagedTagsByColumn">
       <ul>
         <li
@@ -93,6 +98,7 @@
 
   <div class="modal-footer">
 
+    <!-- dialog submit -->
     <div class="ss-submit">
       <button
         type="button"
@@ -114,4 +120,4 @@
 
   </div><!-- modal-footer -->
 
-</div><!--tagsModal -->
+</div><!--ss-dialog-all-tags -->

@@ -39,29 +39,24 @@
           placeholder="Enter Your Question"
         ></div>
 
-        <!-- question tags -->
+        <!-- tags-input directive -->
         <div class="form-group">
-        <tags-input
-          type="text"
-          value=""
-          class="tags"
-          placeholder="Enter Tags"
-          ng-model="tagsInput"
-          add-from-autocomplete-only="true"
-          on-tag-added="parseTag($tag)"
-        >
-          <auto-complete
-            source="loadTags($query)"
-            min-length="1"
-            max-results-to-show="20"
-          ></auto-complete>
-        </tags-input>
-
-            <!-- <label>Tags</label>
-      <tags-input ng-model="tagsInput"></tags-input>
-      (tags input in progress) -->
-
-      </div> <!-- form-group -->
+          <tags-input
+            type="text"
+            value=""
+            class="tags"
+            placeholder="Enter Tags"
+            ng-model="tagsInput"
+            add-from-autocomplete-only="true"
+            on-tag-added="parseTag($tag)"
+          >
+            <auto-complete
+              source="loadTags($query)"
+              min-length="1"
+              max-results-to-show="20"
+            ></auto-complete>
+          </tags-input>
+        </div> <!-- form-group -->
 
         <!-- submit button -->
         <div class="form-group">
@@ -74,36 +69,5 @@
         </div> <!-- form-group -->
       </div> <!-- col-md-10 -->
     </div>
-  </div><!-- ask-a-question -->
-</div>
-
-  <!-- @todo move Bootstrap form classes (.form-inline, .form-control etc.)
-into sass without losing styles -->
-<!-- <section class="ss-ask">
-  <header>
-    <h2>Ask a Question</h2>
-  </header>
-  <p
-    class="has-error"
-    ng-if="error"
-  >
-    {{localError}}
-  </p>
-  <form class="form-inline">
-    <div class="ss-ask-title">
-      <label>Title</label>
-      <input type="text" ng-model="qnaDoc.title" class="form-control ss-ask-title-input" />
-    </div>
-    <div ss-markdown-editor content="qnaDoc.text"></div>
-    <div class="ss-ask-tags ss-incomplete">
-      <label>Tags</label>
-      <tags-input ng-model="tagsInput"></tags-input> (tags input in progress)
-    </div>
-    <button
-      ng-disabled="qnaDoc.$ml.invalid"
-      ng-click="save()"
-    >
-      Post Your Question
-    </button>
-  </form>
-</section> -->
+  </div><!-- ss-ask-wrapper -->
+</div><!-- ss-ask -->

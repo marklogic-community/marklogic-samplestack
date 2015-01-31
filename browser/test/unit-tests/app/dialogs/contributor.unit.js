@@ -79,7 +79,7 @@ define([
           $httpBackend.flush();
           $timeout.flush();
           angular.element(
-            el[2].querySelector('.ss-contributor-display-name')
+            el[3].querySelector('.ss-contributor-display-name')
           ).text().should.equal(mocks.contributor.displayName);
         });
 
@@ -93,7 +93,7 @@ define([
           $httpBackend.flush();
           $timeout.flush();
           angular.element(
-            el[2].querySelector('.alert')
+            el[3].querySelector('.alert')
           ).text().should.be.ok;
         });
 
