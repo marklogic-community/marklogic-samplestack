@@ -32,8 +32,6 @@ define(['app/module'], function (module) {
    * one per answer, that determine whether to display an answer comment
    * form.
    * @property {object} $scope.draftAnswer A draft object for new answers.
-   * @property {ssQnaDoc} $scope.doc The Qna document
-   * @property {ssQnaDoc} $scope.doc The Qna document
    */
   module.controller('qnaDocCtlr', [
 

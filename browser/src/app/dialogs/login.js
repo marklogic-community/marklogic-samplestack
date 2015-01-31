@@ -83,7 +83,8 @@ define(['app/module'], function (module) {
        * @ngdoc method
        * @name loginDialogCtlr#$scope.onAuthFailure
        * @description Called upon failed authentication. Sets the error message
-       * and attaches a ssSession object with username information only to scope.
+       * and attaches a ssSession object with username information only to
+       * scope.
        */
       var onAuthFailure = function (reason) {
         $scope.error = 'Login Failed: ' + reason;
