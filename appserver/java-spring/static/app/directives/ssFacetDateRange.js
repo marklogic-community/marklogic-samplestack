@@ -41,6 +41,7 @@ define(['app/module'], function (module) {
    * | `dateEndPlaceholder` | {@type string}  | Formatted representation of the late date found (shadowed) search results to use as placeholder in the dateEnd picker. |
    * | `pickerDateStart`  | {@type Date? }  | If a Date object, the value of the dateStart search constraint represented as a day for the dateStart picker. |
    * | `pickerDateEnd`  | {@type Date? }  | If a Date object, the value of the dateEnd search constraint represented as a day for the dateEnd picker. |
+   * | `lastValid`  | {@type object }  | Stores the last valid Date values for pickerDateStart and pickerDateEnd to be used in the case of an invalid date through manual entry. |
    */
 
   /* jshint ignore:end */
@@ -182,6 +183,8 @@ define(['app/module'], function (module) {
               return false; // no more jquery event handling
             };
 
+            // simple utility function thtat checks to see if the date passed
+            // has a value that is different from the value of the constraint
             var assignIfDifferent = function (newDate, constraint) {
               var newValidDate = isNaN(newDate) ? null : newDate;
               if (newValidDate === null) {
@@ -237,6 +240,8 @@ define(['app/module'], function (module) {
               return false;
             };
 
+            // clears the range selection on the chart,
+            // as well as the constraint values
             var clearSelectedRange = function (event) {
               scope.$apply(function () {
                 var noop = !scope.constraints.dateStart.value &&
@@ -251,6 +256,7 @@ define(['app/module'], function (module) {
 
             };
 
+            // HighCharts configuration object with event callbacks
             scope.highchartsConfig = {
               options: {
                 chart: {
@@ -319,14 +325,21 @@ define(['app/module'], function (module) {
 
             };
 
+            // angulas-ui datepicker directive options
             scope.dateStartOptions = scope.dateEndOptions = {
               formatYear: 'yy',
               startingDay: 1,
               showWeeks: false,
               showButtonBar: false
             };
+
+            // angulas-ui datepicker extended option for ensuring that the
+            // datepicker only ever parses manually entered dates strictly
+            // and does not attempt to set the picker value unless the
+            // input matches the required format
             scope.parseStrict = true;
 
+            // clears the constraint associated with a datepicker input
             scope.clearSingleDate = function (inputModel) {
               if (inputModel === 'pickerDateStart') {
                 scope.constraints.dateStart.value = null;
@@ -336,6 +349,7 @@ define(['app/module'], function (module) {
               }
             };
 
+            // closes the datepicker popup UI for both datepickers
             scope.closePickers = function () {
               scope['dateStartOpened'] = false;
               scope['dateEndOpened'] = false;
@@ -385,6 +399,10 @@ define(['app/module'], function (module) {
               event.stopPropagation();
             };
 
+            // applyPickerDates triggered on ng-change, which occurs on
+            // selection of a date by the picker pop-up, or during manual
+            // entry of a date on keydown 'enter' or blur events
+            // (see ngModelOnblurOnenter directive below for more details)
             scope.applyPickerDates = function () {
               var foundChange = false;
               var el = scope.selectedInput;
@@ -449,6 +467,10 @@ define(['app/module'], function (module) {
           },
 
           post: function (scope) {
+            // watches for pickerDateStart & pickerDateEnd, storing the last
+            // valid date (scope.lastValid) that was entered into the field.
+            // These scope values are used to restore the value of the input
+            // in the cause of an invalid date through manual entry.
             scope.lastValid = [];
             scope.$watch('pickerDateStart', function (newValue, oldValue) {
               if (newValue) {
@@ -550,6 +572,10 @@ define(['app/module'], function (module) {
     }
   ]); // end directive
 
+  // directive for triggering the ng-change event ONLY when the
+  // keydown 'enter' or blur event occur.  The directive was created to support
+  // UX requirements to only validate a date that has been manually entered
+  // during those two events.
   module.directive('ngModelOnblurOnenter', function () {
     return {
       restrict: 'A',
