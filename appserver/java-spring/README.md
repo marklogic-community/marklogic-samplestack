@@ -101,7 +101,6 @@ Here are the endpoints supported by the middle tier appserver:
 * DELETE /v1/session
 * GET /v1/questions  Get a paginated list of questions (snippet form)
 * GET /v1/questions?q=term&start=20
-* GET /v1/hasVoted?postId=id&contributorId=id
 * POST /v1/search
 * POST /v1/questions
 * GET /v1/questions/{id}

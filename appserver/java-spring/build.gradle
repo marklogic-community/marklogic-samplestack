@@ -144,7 +144,6 @@ repositories {
     mavenCentral()
     maven { url "http://repo.spring.io/snapshot" }
     maven { url "http://repo.spring.io/milestone" }
-    maven { url "https://raw.github.com/marklogic/java-client-api/mvn-repo" }
 }
 
 dependencies {
@@ -158,7 +157,7 @@ dependencies {
     compile("org.apache.directory.server:apacheds-bootstrap-partition:1.5.5")
     compile("org.apache.directory.server:apacheds-bootstrap-extract:1.5.5")
     compile("joda-time:joda-time:2.4")
-    compile(group: 'com.marklogic', name: 'client-api-java', version: '3.0-SNAPSHOT', changing: true) {
+    compile('com.marklogic:java-client-api:3.0.1') {
         exclude(group: 'org.slf4j')
         exclude(group: 'ch.qos.logback')
     }
