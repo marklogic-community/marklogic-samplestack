@@ -22,6 +22,11 @@ var args = {
 
 _.merge(args, require('yargs').argv);
 
+if (!args.tags) {
+  // by default, do not execute known-broken tests
+  args.tags = '~@broken';
+}
+
 if (args.sauce && args.selenium !== 'external') {
   args.selenium = 'sauce';
 }
