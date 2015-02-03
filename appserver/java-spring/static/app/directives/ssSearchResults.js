@@ -1,21 +1,52 @@
 define(['app/module'], function (module) {
 
+  /* jshint ignore:start */
+
   /**
    * @ngdoc directive
    * @name ssSearchResults
    * @restrict E
    *
    * @description
-   * Directive for displaying a set of search results.
+   * Directive for displaying a set of search results. Upon initialization,
+   * an `ssSearch` object representing the current search is bound to
+   * `scope.search`. The view binds to various properties of the
+   * `scope.search.results` property and assigns element from the `items`
+   * property in an ngRepeater for use by the {@link ssSearchResult}
+   * directive.
    *
-   * The view binds to various properties of the `$scope.results` property
-   * and assigns the `item` property in an ngRepeater
-   * for use by the {@link ssSearchResult} directive.
+   * Available sorts for a search are defined by an array of objects in
+   * `sorts`. Each object specifies the tab label to be displayed in the
+   * UI, a sort value, tooltip information for the sort tab, and an active flag
+   * (some sorts are only active in certain modes). When the user selects a
+   * sort in the UI, the `search.criteria.sort` property is set to
+   * the corresponding sort value.
    *
+   * The directive uses the
+   * <a href="http://angular-ui.github.io/bootstrap/#/pagination">
+   * Bootstrap UI pagination component</a> for search-result paging.
+   *
+   * ## `scope` properties/methods:
+   *
+   * | Variable  | Type | Details |
+   * |--|--|--|
+   * | `getSelectedSort`  | {@type function}  | Returns user-selected sort value or default sort value for the current mode. |
+   * | `setSort`  | {@link function}  | Sets sort based on selection made in UI. |
+   * | `sorts`  | {@type Array.<object>}  | Array of sort objects. |
+   * | `search.criteria.q`  | {@type string}  | Search query string set in search bar. |
+   * | `search.criteria.sort`  | {@type object}  | Current user-selected sort to be used in searches. |
+   * | `search.criteria.start`  | {@type int}  | Starting search result index in results set. |
+   * | `maxSize`  | {@type int}  | Maximum page numbers displayed in the pagination. |
+   * | `currPage`  | {@type int}  | Current page index. |
+   * | `updatePage`  | {@link function}  | Update current page index, called by pagination component. |
+   * | `searchMode`  | {@link function}  | Whether app is in Search Mode (i.e., does a query string exist). |
+   * | `filterMode`  | {@link function}  | Whether app is in Filter Mode (i.e., is a filter is set). |
    */
+
+  /* jshint ignore:end */
+
   module.directive('ssSearchResults', [
-    '$parse',
-    function ($parse) {
+    function () {
       return {
         restrict: 'E',
         templateUrl: '/app/directives/ssSearchResults.html',
@@ -47,20 +78,21 @@ define(['app/module'], function (module) {
               }
             ];
 
-            // for pagination
-            scope.pad = 2;
-
             scope.getSelectedSort = function () {
+              // If sort is unset, use default
               if (!scope.search.criteria.sort) {
+                // If search mode (i.e., search query exists): "Relevance"
                 if (scope.search.criteria.q &&
                   scope.search.criteria.q.length
                 ) {
                   return 'relevance';
                 }
+                // Else browse mode: "Newest"
                 else {
                   return 'active';
                 }
               }
+              // Else sort is set, use it
               else {
                 return scope.search.criteria.sort[0];
               }
@@ -74,7 +106,7 @@ define(['app/module'], function (module) {
 
             // paging
             scope.maxSize = 5;
-            scope.currPage = scope.search.getCurrentPage(); // initial
+            scope.currPage = scope.search.getCurrentPage(); // set init page
             scope.updatePage = function (currPage) {
               scope.currPage = currPage;
               if (scope.search.setCurrentPage(scope.currPage)) {

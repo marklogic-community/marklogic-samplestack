@@ -1,14 +1,40 @@
 define(['app/module'], function (module) {
 
   /**
-   * @ngdoc state
-   * @name explore
-   *
+   * @ngdoc controller
+   * @kind constructor
+   * @name exploreCtlr
    * @description
-   * TBD
+   * Controller for the root.layout.explore ui-router state, which displays
+   * a sidebar of search filters and a container for search results.
+   * The controller provides methods for executing searches and managing
+   * filter data. Upon initialization, the controller creates an ssSearch
+   * object and sets up watches that will trigger new searches. The initial
+   * search is executed in {@link exploreResultsCtlr}.
    *
+   * @param {angular.Scope} $scope (injected)
+   * @param {object} $timeout (injected)
+   * @param {object} appRouting (injected)
+   * @param {object} ssSearch A model object for executing a search
+   * @param {object} allTagsDialog A service for displaying a tags modal
+   * dialog
+   * @param {object} ssTagsSearch Represents the tag-specific search criteria
+   * @param  {object} mlUtil An object with various utility methods
+   *
+   * @property {ssSearch} $scope.search Instatiated for handling searches
+   * @property {boolean} $scope.showMineOnly Whether to show only results
+   * that include contributions from the logged-in user
+   * @property {boolean} $scope.resolvedOnlyEnabled Whether to show only
+   * results that have an accepted answer
+   * @property {string} $scope.searchbarText Current search bar text
+   * @property {boolean} $scope.showMineOnlyEnabled Whether to enabled the
+   * showMineOnly checkbox filter
+   * @property {boolean} $scope.resolvedOnlyEnabled Whether to enabled the
+   * resolvedOnly checkbox filter
+   * @property {string} $scope.tagsTypeaheadPromise Current search bar text
+   * @property {angular.Promise} $scope.tagsTypeaheadPromise A promise
+   * object that results from the user typing in the Tags filter search box.
    */
-
   module.controller('exploreCtlr', [
 
     '$scope',
@@ -28,8 +54,12 @@ define(['app/module'], function (module) {
       mlUtil
     ) {
 
-      // after everything is arranged, this function is called to initialize
-      // the state
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.init
+       * @description After everything is arranged, this function is called to
+       * initialize the state.
+       */
       var init = function () {
         $scope.setPageTitle('explore');
 
@@ -41,6 +71,13 @@ define(['app/module'], function (module) {
         setWatches();
       };
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.sortOverride
+       * @description Called by $scope.onCriteriaChange(). Deletes sort
+       * criteria if the 'relevance' sort is set and there is no search
+       * query text.
+       */
       var sortOverride = function () {
         if (
           $scope.search.criteria.sort &&
@@ -51,6 +88,12 @@ define(['app/module'], function (module) {
         }
       };
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.setWatches
+       * @description Handle changes to search criteria in the user
+       * interface.
+       */
       var setWatches = function () {
         var onChange = function (newVal, oldVal) {
           if (newVal !== oldVal) { $scope.$emit('criteriaChange'); }
@@ -70,6 +113,12 @@ define(['app/module'], function (module) {
         );
       };
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.applyScopeToSearch
+       * @description Apply scope information in the user interface to
+       * the ssSearch object, which handles searches.
+       */
       $scope.applyScopeToSearch = function () {
         $scope.search.criteria.constraints.userName.value =
             $scope.showMineOnly === true ?
@@ -80,6 +129,12 @@ define(['app/module'], function (module) {
         $scope.search.criteria.q = $scope.searchbarText;
       };
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.applyScopeToSearch
+       * @description Apply ssSearch object data to properties in the
+       * controller scope that determine what appears in the user interface.
+       */
       $scope.applySearchToScope = function () {
         // showMineOnly only if the user is a contributor AND they have
         // specified it in the url. see also setShowMineOnly and
@@ -97,12 +152,24 @@ define(['app/module'], function (module) {
         $scope.searchbarText = $scope.search.criteria.q;
       };
 
-
-      // these inputs are only enabled for contributors
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.showMineOnlyEnabled,
+       * exploreCtlr#$scope.resolvedOnlyEnabled
+       * @description Enable showMineOnly and resolvedOnly inputs for users
+       * who are logged in.
+       * @returns {boolean} true if user has a session
+       */
       $scope.showMineOnlyEnabled = $scope.resolvedOnlyEnabled = function () {
         return $scope.store.session;
       };
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.onCriteriaChange
+       * @description React to a change in the search criteria in the user
+       * interface.
+       */
       $scope.onCriteriaChange = function () {
         sortOverride();
         $scope.applyScopeToSearch();
@@ -140,6 +207,12 @@ define(['app/module'], function (module) {
         $scope.runSearch();
       });
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.clearConstraints
+       * @description React to a clear button event in the filters sidebar.
+       * Emits a 'criteriaChange' event to execute a search.
+       */
       $scope.clearConstraints = function (type) {
         // can only change showMineOnly and resolvedOnly if logged in
         if (type === 'all' && $scope.store.session) {
@@ -161,6 +234,11 @@ define(['app/module'], function (module) {
 
       var activeSearches = [];
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.runSearch
+       * @description Execute a search
+       */
       $scope.runSearch = function () {
         $scope.searching = true;
         if ($scope.search.results) {
@@ -213,6 +291,15 @@ define(['app/module'], function (module) {
 
       };
 
+      /**
+       * @ngdoc method
+       * @name exploreCtlr#$scope.tagsTypeaheadSearch
+       * @description React to typing in the Tags filter search input
+       * and execute a search for tags.
+       * @returns {angular.Promise} A promise object. Its resolution
+       * returns an array of tag item objects that include name and
+       * frequency properties.
+       */
       $scope.tagsTypeaheadSearch = function (searchForName) {
         var tagsSearch = ssTagsSearch.create({
           criteria: mlUtil.merge(

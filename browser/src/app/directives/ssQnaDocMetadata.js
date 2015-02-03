@@ -13,11 +13,9 @@ define(['app/module'], function (module) {
 
   module.directive('ssQnaDocMetadata', [
 
-    '$parse',
     'mlUtil',
     'appRouting',
     function (
-      $parse,
       mlUtil,
       appRouting
     ) {
