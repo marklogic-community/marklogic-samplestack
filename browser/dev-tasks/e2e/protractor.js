@@ -7,6 +7,7 @@ var Runner = require('protractor/lib/runner');
 
 var ctx = require('../context');
 
+
 var ptorConfig = {
   stackTrace: false,
   getPageTimeout: 180000,
@@ -32,11 +33,24 @@ var ptorConfig = {
   capabilities: {
     'phantomjs.binary.path': require('phantomjs').path,
     'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG'],
+    'webdriver.ie.driver': 'IEDriverServer.exe'
   }
 };
 
 
 var go = function (args, cb) {
+
+  if (args.browser === 'ie') {
+    var sjs = require('shelljs');
+    sjs.exec(
+      'node ' +
+          path.normalize(' node_modules/protractor/bin/webdriver-manager') +
+          ' update --ie'
+    );
+    process.env.path += ';' +
+        path.resolve(__dirname, '../../node_modules/protractor/selenium');
+  }
+
   // sauce/IE doens't like "localhost", so we punt.
   // running on Sauce now requires this hosts file entry
   if (args.sauce) {

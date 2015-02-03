@@ -83,7 +83,6 @@ var close;
 var start = function (args, cb) {
   ctx.seleniumStarted = false;
   getServer(function (err) {
-    console.log('server got');
     if (err) {
       return cb(err);
     }
