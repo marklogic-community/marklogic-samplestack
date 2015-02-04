@@ -1,0 +1,5 @@
+Samplestack incorporates certain third party libraries and components which are
+subject to the attributions, terms, conditions and disclaimers set forth in the
+MarkLogic "Combined Product Notice" at
+
+https://docs.marklogic.com/guide/copyright/legal.
