@@ -18,3 +18,5 @@ MarkLogic Admin : http://localhost:8001
 
 MarkLogic Query Console : http://localhost:8000/qconsole
 
+If you are interested, the project to create the seed data for samplestack
+can be found for the time being at http://github.com/grechaw/samplestack-etl
