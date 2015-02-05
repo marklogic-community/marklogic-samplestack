@@ -72,8 +72,11 @@ The browser application is delivered in two forms:
 For more information, see the following:
 * READMEs for the [database](database/README.md), [Java appserver](appserver/java-spring/README.md), and [Angular.js browser](browser/README.md) tiers.
 * [Samplestack wiki](https://github.com/marklogic/marklogic-samplestack/wiki).
-* [MarkLogic product documentation](http://docs.marklogic.com).
+* [MarkLogic product documentation](http://docs.marklogic.com) for further details on MarkLogic Server and the Client APIs.
 * MarkLogic [Developer Community](http://developer.marklogic.com/) site with tutorials, blogs, and more.
+* Full [Documentation](http://docs.marklogic.com/ref-arch) on the Reference Architecture and Samplestack.
+* Take [Free MarkLogic Training](http://www.marklogic.com/services/training).
+Some of the courses cover how to build Samplestack.
 
 ## Reference Architecture Introduction
 
@@ -94,13 +97,13 @@ Each of the features in Samplestack demonstrates an important concept for develo
 Samplestack Feature | MarkLogic Concept
 ------------ | -------------
 Full-text Search | Indexes, query styles
-User records and documents | Data Model for JSON and POJOs
+User records and Question documents | Data Model for POJOs and JSON.
 Users and Roles (log in, log out) | Security (authentication and authorization)
 Restricted Content | Role-based Permissions
 Facets | Search constraints, analytics
 Ask, Answer, Comment | Document updates
 Voting | Updates impact sorting
-Accepted Answers Reputation | Transactional model, data integrity
+Accepted Answers and Reputation | Transactional model, data integrity
 
 Coming soon: Related tags — demonstration of semantics with the use of RDF triples and SPARQL.
 
