@@ -240,6 +240,11 @@ public class MockPojoRepositoryImpl implements
 			return null;
 		}
 
+		@Override
+		public void close() {
+			//noop
+		}
+
 	}
 
 	@Override
