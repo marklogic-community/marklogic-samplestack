@@ -1,134 +1,153 @@
-var baseParams = {
+var _ = require('lodash');
+
+var url = require('url');
+
+var defaults = {
 
   addresses: {
-    appServer: 'http://localhost:8090',
-    seleniumServer: 'http://localhost:4445',
-    marklogicServer: 'http://localhost:8006',
-    browserUnit: 'http://localhost:3004',
-    coverageBrowserUnit: 'http://localhost:3004',
-    coverageNodeUnit: 'http://localhost:8094'
+    // the middle tier
+    appServer: url.parse('http://localhost:8090'),
+    // for e2e testing
+    seleniumServer: url.parse('http://localhost:4445'),
+    // the marklogic application server
+    marklogicServer: url.parse('http://localhost:8006'),
+    // the web application
+    webApp: url.parse('http://localhost:3000'),
+    // test unit test runner for browser access to unit tests
+    unitRunner: url.parse('http://localhost:3001/unit-runner.html'),
+    // the unit test runner for executing covered tests (through phantomjs)
+    unitRunnerCoverage: url.parse('http://localhost:3002/unit-runner.html'),
+    // the reports for coverage from unit tests
+    unitCoverage: url.parse('http://localhost:3002/coverage'),
+    // the e2e coverage reports -- NOT YET USED
+    e2eCoverage: url.parse('http://localhost:3004/coverage/'),
   },
 
+  // for different cases where livereload in browser is supported, specifies the
+  // port on which to listen for/serve the messages
+  liveReloadPorts: {
+    webApp: 35730,
+    unitCoverage: 35731
+  },
+
+  // not yet usec
   reportsDirs: {
-    browserUnitXunit: 'browser/reports/unit',
-    // browserUnitLcov: 'browser/reports/unit',
-    browserE2eXUnit: 'browser/reports/e2e',
-    nodeUnitXunit: 'appserver/node-express/reports/unit',
-    nodeUnitXunit: 'browser/reports/unit',
-    browserE2eXUnit: 'appserver/node-express/reports/e2e',
-  }
+    unit: 'browser/reports/unit',
+    unitLcov: 'browser/reports/unit',
+    e2eLcov: 'browser/reports/e2e'
+  },
+
+  // TODO: set ML account and read credentials from secure env vars
+  sauceCredentials: {
+    user: require('./credentials').sauce.user ||
+                process.env['SAUCE_USERNAME'],
+    accessKey: require('./credentials').sauce.accessToken ||
+                process.env['SAUCE_ACCESS_KEY'],
+  },
+
+/* jshint ignore:start */
+  sauceBrowsers: {
+    'win7-chrome-37': { platform: 'Windows 7', browserName: 'chrome', version: '37', deviceName: '' },
+    'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
+    'win7-ie-9': { platform: 'Windows 7', browserName: 'internet explorer', version: '9', deviceName: '' },
+    'linux-chrome-37': { platform: 'Linux', browserName: 'chrome', version: '37', deviceName: '' },
+    'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.9-chrome-37': { platform: 'OS X 10.9', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' },
+
+    'win7-chrome-33': { platform: 'Windows 7', browserName: 'chrome', version: '33', deviceName: '' },
+    'win7-chrome-38': { platform: 'Windows 7', browserName: 'chrome', version: '38', deviceName: '' },
+    'win7-firefox-22': { platform: 'Windows 7', browserName: 'firefox', version: '22', deviceName: '' },
+    'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
+    'win7-ie-10': { platform: 'Windows 7', browserName: 'internet explorer', version: '10', deviceName: '' },
+    'win7-ie-11': { platform: 'Windows 7', browserName: 'internet explorer', version: '11', deviceName: '' },
+    'win7-opera-11': { platform: 'Windows 7', browserName: 'opera', version: '11', deviceName: '' },
+    'win7-opera-12': { platform: 'Windows 7', browserName: 'opera', version: '12', deviceName: '' },
+    'win8-ie-10': { platform: 'Windows 8', browserName: 'internet explorer', version: '10', deviceName: '' },
+    'win8.1-ie-11': { platform: 'Windows 8.1', browserName: 'internet explorer', version: '11', deviceName: '' },
+    'linux-chrome-33': { platform: 'Linux', browserName: 'chrome', version: '33', deviceName: '' },
+    'linux-chrome-38': { platform: 'Linux', browserName: 'chrome', version: '38', deviceName: '' },
+    'linux-firefox-22': { platform: 'Linux', browserName: 'firefox', version: '22', deviceName: '' },
+    'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
+    'linux-opera-12': { platform: 'Linux', browserName: 'opera', version: '12', deviceName: '' },
+    'osx10.6-chrome-33': { platform: 'OS X 10.6', browserName: 'chrome', version: '33', deviceName: '' },
+    'osx10.6-chrome-37': { platform: 'OS X 10.6', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.6-firefox-22': { platform: 'OS X 10.6', browserName: 'firefox', version: '22', deviceName: '' },
+    'osx10.6-firefox-32': { platform: 'OS X 10.6', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.8-chrome-37': { platform: 'OS X 10.8', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.9-chrome-33': { platform: 'OS X 10.9', browserName: 'chrome', version: '33', deviceName: '' },
+    'osx10.9-chrome-37': { platform: 'OS X 10.9', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.9-firefox-22': { platform: 'OS X 10.9', browserName: 'firefox', version: '22', deviceName: '' },
+    'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.9-safari-7': { platform: 'OS X 10.9', browserName: 'safari', version: '7', deviceName: '' },
+  },
+  supportedBrowsers: [
+    'linux-chrome-37',
+    'linux-firefox-32',
+    'osx10.8-chrome-37',
+    'osx10.9-firefox-32', // Sauce doesn't have 10.8/ff-32
+    'win7-firefox-32',
+    'win7-chrome-37',
+    'win7-ie-9'
+  ],
+/* jshint ignore:end */
+
+  // when not empty string, becomes a tweak to dependency paths so that
+  // CDNs which present librarires with ".min.js" URLs can be referenced
+  min: '',
+
+  // in cases where there *IS* a defined mock for an appserver endpoing
+  // (see src/modkedApp.js), use it rather than calling the actual middle tier.
+  // This can
+  // be helpful when middle-tier endpoint isn't ready. If there is no mock
+  // for a given endpoint,the actual middle-tier endpoint would still be
+  // called normally
+  useE2eMocks: true,
+
+  // exposes package.json in its entirety for easy access
+  pkg: require('../package.json'),
+
+  // browser app uses angular html5 push state routing
+  html5Mode: true,
+
+  // turn on/off CSRF handling in the browser
+  // disable if the serer doesn't support CSRF acquisition, otherwise
+  // TODO" new server-side CSRF implementation should be able to get rid
+  // of this parameter as CSRF handling should kick in only when the server
+  // supplies a CSRF header on login
+  enableCsrf: false
 };
 
+// THESE OVERRIDES are mostly TODO
 var envOverrides = {
-  unit: {
+  // at this time, doesn't have any overrides for unit testing
+  unit: { },
 
-  },
-  javaEmbedded: {
-
-  },
+  // NOT yet used
   e2e: {
-
+    // because we want to run against instrumented app for e2e tests
+    // webApp: url.parse('http://localhost:3003'),
+    javaAppServer: url.parse('http://localhost:8090'),
+    // TODO: run against **instrumented** app to determine coverage (on 8093)?
+    nodeAppServer: url.parse('http://localhost:8090')
   },
-  prod: {
 
+  // not yet used
+  prod: {
+    // use minified version of lib files
+    min: 'min',
+
+    aopServer: url.parse('https://example.com')
   }
 };
 
-var envs = {};
-
-_.forEach(envOverrides, function (overrideSet, envName) {
-  envs[envName] = _.merge(_clone(baseParams), overrideSet);
-});
-
-modoule.exports = envs;
-//
-// };
-//
-//   // if true, disable sourcemaps b/c node-sass segfaults on syntax err
-//   sassCompiler: 'node-sass-safe'
-//   // ***********************************************************************
-//   // WARNING: 'roby-sass' options is experimental and is not likely to work,
-//   // yet.
-//   // ***********************************************************************
-//
-//   // node-sass is *much* faster than ruby-sass. In a watch environment while
-//   // editing scss file and relying on live-reload to see changes, the difference
-//   // in speed is palpable.
-//   //
-//   // However, node-sass uses libsass, and between the two of them there is
-//   // currently a bug which causes segfaults if libsass encounters a syntax
-//   // error. As such, this setting is provided to allow for workarounds.
-//   //
-//   // The segfaults seem only to ocurr when sourceMaps are enabled, so one option
-//   // is to disable them. However, sourceMaps with sass are very useful in
-//   // developing styles.
-//   //
-//   // As such, another option is to use the slower ruby compiler.
-//   //
-//   // The recommended configuration is to use node-sass and to use a syntax
-//   // checker in your development environment, (e.g. a linter in the Atom
-//   // editor) so that you are less likely to save a syntax error.
-//   //
-//   // However, if you want to reduce the likelihood of having to restart your
-//   // `gulp watch`, then you can either use node-sass and disable sourceMaps or
-//   // you can use ruby-sass (if you have Ruby installed!).
-//   //
-//   // alternative settings here are:
-//   //
-//   //   `'node-sass'` (default): If not specifieduse node-sass and have it
-//   //   generate source maps.
-//   //
-//   //   `'node-sass-safe'``: use node-sass but do not generate source maps.
-//   //
-//   //   `'ruby-sass'`: use ruby-sass. If you do not have ruby-sass installed,
-//   //   a warning will be reported and the build will fall back to
-//   //   node-sass-safe mode.
-// };
-//
-// defaultParams.appSettings = {
-//   version: defaultParams.pkg.version,
-//   appName: defaultParams.appName,
-//   html5Mode: true
-// };
-//
-// var targetParams = {
-//   // build target specifics
-//   build: {
-//     appSettings: {
-//       disableCsrf: true
-//     }
-//   },
-//   // unit target specifics
-//   unit: {
-//     unit: true,
-//     e2eMock: true,
-//     appSettings: {
-//       disableCsrf: true
-//     }
-//   },
-//   // e2e target specifics
-//   e2e: {
-//
-//   },
-//   // dist target specifics
-//   dist: {
-//
-//   }
-// };
-//
-// var _ = require('lodash');
-//
-// // overlay target specific
-// var params = {};
-// var fromDefault;
-// _.forEach(targetParams, function (thoseParams, targetName) {
-//   fromDefault = {};
-//   _.merge(fromDefault, defaultParams, thoseParams);
-//   params[targetName] = fromDefault;
-// });
-//
-// /**
-//  * Parameters for builds
-//  * @type {Object}
-//  */
-// module.exports = params;
+module.exports = _.transform(
+  envOverrides,
+  function (result, overrideSet, envName) {
+    // merge the env-specific override into a copy of the base params
+    // and added it to the result under the envname key
+    result.envs[envName] = _.merge(_.clone(defaults), overrideSet);
+  },
+  // start with one set of params that is only the (base) set as "default"
+  _.merge( { envs: {} }, _.clone(defaults))
+);

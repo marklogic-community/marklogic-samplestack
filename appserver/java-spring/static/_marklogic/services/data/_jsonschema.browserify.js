@@ -1,4 +1,14 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+define([], function () {
+  // use commonjs syntax to get the jsonschema module ;
+  // browserify process will cause this to contain/return  the proper ojbect
+  // for use in the browser
+  var jsonschema = require('jsonschema');
+  return jsonschema;
+
+});
+
+},{"jsonschema":9}],2:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/punycode v1.2.4 by @mathias */
 ;(function(root) {
@@ -509,7 +519,7 @@
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -595,7 +605,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -682,13 +692,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":2,"./encode":3}],5:[function(require,module,exports){
+},{"./decode":3,"./encode":4}],6:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1397,7 +1407,7 @@ function isNullOrUndefined(arg) {
   return  arg == null;
 }
 
-},{"punycode":1,"querystring":4}],6:[function(require,module,exports){
+},{"punycode":2,"querystring":5}],7:[function(require,module,exports){
 'use strict';
 
 var helpers = require('./helpers');
@@ -2061,7 +2071,7 @@ validators.not = validators.disallow = function validateNot (instance, schema, o
 
 module.exports = attribute;
 
-},{"./helpers":7}],7:[function(require,module,exports){
+},{"./helpers":8}],8:[function(require,module,exports){
 'use strict';
 
 var uri = require('url');
@@ -2325,7 +2335,7 @@ exports.encodePath = function encodePointer(a){
 	return a.map(function(v){ return '/'+encodeURIComponent(v).replace(/~/g,'%7E'); }).join('');
 }
 
-},{"url":5}],8:[function(require,module,exports){
+},{"url":6}],9:[function(require,module,exports){
 'use strict';
 
 var Validator = module.exports.Validator = require('./validator');
@@ -2339,7 +2349,7 @@ module.exports.validate = function (instance, schema, options) {
   return v.validate(instance, schema, options);
 };
 
-},{"./helpers":7,"./validator":9}],9:[function(require,module,exports){
+},{"./helpers":8,"./validator":10}],10:[function(require,module,exports){
 'use strict';
 
 var urilib = require('url');
@@ -2655,14 +2665,4 @@ types.object = function testObject (instance) {
 
 module.exports = Validator;
 
-},{"./attribute":6,"./helpers":7,"url":5}],10:[function(require,module,exports){
-define([], function () {
-  // use commonjs syntax to get the jsonschema module ;
-  // browserify process will cause this to contain/return  the proper ojbect
-  // for use in the browser
-  var jsonschema = require('jsonschema');
-  return jsonschema;
-
-});
-
-},{"jsonschema":8}]},{},[10]);
+},{"./attribute":7,"./helpers":8,"url":6}]},{},[1]);

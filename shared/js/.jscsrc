@@ -1,0 +1,61 @@
+{
+  "excludeFiles": ["src/application.js"],
+  "disallowMultipleVarDecl": true,
+  "requireSpaceBeforeBinaryOperators": [
+    "?",
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!=="
+  ],
+  "requireSpaceAfterBinaryOperators": [
+    "?",
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!=="
+  ],
+  "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+  "validateIndentation": 2,
+  "requireKeywordsOnNewLine": ["else"],
+  "disallowKeywordsOnNewLine": [],
+  "safeContextKeyword": [ "self" ],
+  "requireSpacesInFunctionExpression": {
+      "beforeOpeningRoundBrace": true,
+      "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInConditionalExpression": {
+      "afterTest": true,
+      "beforeConsequent": true,
+      "afterConsequent": true,
+      "beforeAlternate": true
+  },
+  "validateJSDoc": {
+    "checkParamNames": true,
+    "checkRedundantParams": true,
+    "requireParamTypes": true
+  },
+  "maximumLineLength": 1000,
+  "additionalRules": [
+      "node_modules/jscs-jsdoc/lib/rules/*.js"
+  ],
+  "jsDoc": {
+    "checkParamNames": true,
+    "checkRedundantParams": true,
+    "requireParamTypes": true,
+    "checkReturnTypes": true,
+    "checkRedundantReturns": true,
+    "requireReturnTypes": true,
+    "checkTypes": true
+  }
+}

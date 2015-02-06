@@ -21,7 +21,7 @@ Conversely, *to unit test the webapp*, you need not be running the middle tier -
 To configure and develop the browser app for Samplestack, you need the following software:
 
 * Node.js, version 0.10 or later. See [nodejs.org](http://nodejs.org).
-* A global installation of the Node.js components [bower](http://bower.io) and [gulp](https://github.com/gulpjs/gulp).  *(MarkLogic has tested with bower version 1.3.12.)*
+* A global installation of the Node.js component [gulp](https://github.com/gulpjs/gulp).
 
 Before you begin, please ensure that [node.js](http://nodejs.org/) and [git](http://git-scm.com/) are installed. It is a good idea to update node.js if you have not installed a recent version, but it is believed that any 0.10 or 0.11 version will work.
 
@@ -47,12 +47,11 @@ The following instructions should allow you:
 
 #### Global Utilities
 
-There are two node.js components that you must have installed **globally** on your machine: [bower](http://bower.io/) and [gulp](https://github.com/gulpjs/gulp)
+There is one node.js components that you must have installed **globally** on your machine: [gulp](https://github.com/gulpjs/gulp).
 
-Use npm, which should be installed with node.js, to install them:
+Use npm, which should be installed with node.js, to install it:
 
 ```bash
-(from-anywhere)> npm install -g bower
 (from-anywhere)> npm install -g gulp
 ```
 
@@ -67,16 +66,14 @@ In Windows, one way to do this is to launch a `Command Prompt` with elevated pri
 
 ### Installing the Webapp
 
-The first time you want to run the webapp, please follow these directions.  Also repea them any time you pull down an updated version of Samplestack from Github, as the dependencies which these steps install may have changed.
+The first time you want to run the webapp, please install the dependences via npm.  Also repeat this step any time you pull down an updated version of Samplestack from Github, as the dependencies which these steps install may have changed.
 
 We are installing various node.js utilities that are used in the build, and we are installing various browser libraries that are used by the webapp itself.  These command *should not* require elevated privileges. *Unless you **really know** why you're doing so*, **do not** use `sudo` or an elevated shell to execute them.
 
 *From the marklogic-samplestack directory:*
 
 ```bash
-marklogic-samplestack> cd browser
-marklogic-samplestack/browser> npm install
-marklogic-samplestack/browser> bower install
+marklogic-samplestack> npm install
 ```
 
 **If you get this far without errors, your Samplestack browser installation is complete.**
@@ -112,7 +109,7 @@ From here, you are presented with a menu that points to three web servers, in or
 
 The following command do everything that the `run` command does, but additionally enters "watch mode".  In watch mode, changes you make to the application, its tests, or its documentation are instantly incorporate into the build, unit tests are rerun and documentation regenerated.
 
-*From the marklogic-samplestack/**browser** sub-directory:*
+*From the marklogic-samplestack directory:*
 
 ```bash
 marklogic-samplestack/browser> gulp watch
