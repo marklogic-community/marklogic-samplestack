@@ -1,0 +1,55 @@
+language: java
+
+addons:
+  hosts:
+    - samplestack.local
+
+# for non-pull-requests, aka pushes, requires secure emvironment
+# variables for access to MarkLogic nightlies (when applicable)
+# and for SauceLabs integration. These are configured in
+# travis repository settings so that this file may be
+# used across forks/branches.
+
+before_install:
+  - npm -v
+  - node -v
+
+  # set Pacific time for ML download (look for the right nightly)
+  - echo 'America/Los_Angeles' | sudo tee /etc/timezone
+  - sudo dpkg-reconfigure --frontend noninteractive tzdata
+
+install:
+  # download seed data using travis_retry
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then travis_retry curl -f -k --anyauth -o ./seed-data1.8.1.tgz http://developer.marklogic.com/media/gh/seed-data1.8.1.tgz ; else (exit 0) ; fi'
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then ls seed* ; else (exit 0) ; fi'
+  # install/start MarkLogic,
+  # (first downloading, converting to a .deb)
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then ./browser/dev-tasks/e2e/travis-install-ml.sh ; else (exit 0) ; fi'
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then sudo /etc/init.d/MarkLogic start ; else (exit 0) ; fi'
+
+  # intall node things and browser app
+  # (gulp e2e commands below invoke the corresponding gradle tasks
+  # to congifure the java middle tier)
+
+  - npm cache clean
+  - npm install -g npm@2.1.10
+  - npm install -g gulp
+  - npm install -g bower
+  - cd browser
+  - npm install
+  - bower install
+
+script:
+  - gulp unit
+  # for pull requests, we can't use sec. env vars, so no access
+  # to nightlies or sauce, run against publicly available ML
+  # and test only with PhnatomJS, staying within Tavis environment
+  #
+  # TODO: until we have made ML 8.0 publically available, we
+  # *do* use credentials to get at the nightly. Thus, travis
+  # tests will, until this is changed, always fail on pull requests
+  #
+  # Also, don't run tests tagged as @broken since we already know about them
+
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then gulp e2e --tags="~@broken" --sauce --middle-tier=java --seed=1.8.1 ; else (exit 0) ; fi'
+  # - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "false" ] ; then gulp e2e --tags="~@broken" --middle-tier=java ; else (exit 0) ; fi'
