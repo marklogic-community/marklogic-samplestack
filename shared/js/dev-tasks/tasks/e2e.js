@@ -76,6 +76,7 @@ var middleTierStart = function (cb) {
 
 myTasks.push({
   name: 'selenium-start',
+  deps: [ 'middle-tier-start' ],
   func: seleniumStart
 });
 
