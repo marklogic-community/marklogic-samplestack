@@ -19,9 +19,6 @@ before_install:
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 install:
-  # download seed data using travis_retry
-  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then travis_retry curl -f -k --anyauth -o ./seed-data1.8.1.tgz http://developer.marklogic.com/media/gh/seed-data1.8.1.tgz ; else (exit 0) ; fi'
-  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then ls seed* ; else (exit 0) ; fi'
   # install/start MarkLogic,
   # (first downloading, converting to a .deb)
   - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then ./browser/dev-tasks/e2e/travis-install-ml.sh ; else (exit 0) ; fi'
@@ -51,5 +48,5 @@ script:
   #
   # Also, don't run tests tagged as @broken since we already know about them
 
-  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then gulp e2e --tags="~@broken" --sauce --middle-tier=java --seed=1.8.1 ; else (exit 0) ; fi'
+  - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "true" ] ; then gulp e2e --tags="~@broken" --sauce --middle-tier=java ; else (exit 0) ; fi'
   # - 'if [ "${TRAVIS_SECURE_ENV_VARS}" = "false" ] ; then gulp e2e --tags="~@broken" --middle-tier=java ; else (exit 0) ; fi'
