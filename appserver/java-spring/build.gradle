@@ -19,6 +19,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'de.undercouch:gradle-download-task:1.2'
     }
 }
 
@@ -28,6 +29,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'de.undercouch.download'
 
 group = samplestackGroup
 version = samplestackVersion
@@ -80,10 +82,15 @@ assemble.dependsOn(dbInit, dbConfigure, test)
 /**
  * FETCH SEED DATA
  */
-task seedDataFetch(type: MarkLogicFetchTask) {
-    url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.1.tgz"
-    destFile = file("${buildDir}/seed.tgz")
+task seedDataFetch {
+    def url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.1.tgz"
+    logger.warn("Fetching data from " + url)
+    def destFile = file("${buildDir}/seed.tgz")
     outputs.file destFile
+    download {
+       src url
+       dest destFile
+    }
 }
 seedDataFetch.dependsOn(processResources)
 
@@ -106,7 +113,7 @@ seedDataExtract.dependsOn(seedDataFetch)
  * LOAD
  */
 task dbLoad(type: MarkLogicSlurpTask) {
-    seedDirectory = file("${buildDir}/seed-data")  
+    seedDirectory = file("${buildDir}/seed-data")
     inputs.dir seedDirectory
 }
 dbLoad.mustRunAfter(assemble)
