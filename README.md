@@ -74,7 +74,7 @@ For more information, see the following:
 * [Samplestack wiki](https://github.com/marklogic/marklogic-samplestack/wiki).
 * [MarkLogic product documentation](http://docs.marklogic.com) for further details on MarkLogic Server and the Client APIs.
 * MarkLogic [Developer Community](http://developer.marklogic.com/) site with tutorials, blogs, and more.
-* Full [Documentation](http://docs.marklogic.com/ref-arch) on the Reference Architecture and Samplestack.
+* Full [Documentation](http://docs.marklogic.com/guide/ref-arch) on the Reference Architecture and Samplestack.
 * Take [Free MarkLogic Training](http://www.marklogic.com/services/training).
 Some of the courses cover how to build Samplestack.
 
