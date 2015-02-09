@@ -48,7 +48,6 @@ var self;
 var gulpChild;
 var closing = false;
 
-var ncp = require('ncp');
 var del = require('del');
 var fs = require('fs');
 
@@ -72,34 +71,41 @@ var deployBuilt = function (cb) {
     }
     // copy most of the files
     // TODO: replace with gulp.src/dest
-    ncp(
-      src, dest, { clobber: true, filter: isntSpecial }, function (err) {
-        if (err) {
-          $.util.log(chalk.red('Error Deploying static build: ' + err));
-          return cb(err);
-        }
-        try {
-          // handle special files
-          var index = fs.readFileSync(
-            path.join(src, 'index.html'), { encoding: 'utf8' }
-          );
-          index = index.replace(/<script.*livereload.*script>/, '');
-          fs.writeFileSync(path.join(dest, 'index.html'), index);
+    var stream = gulp.src([
+      path.join(src, '**/*'), '!application.js', '!index.html'
+    ])
+      .pipe(gulp.dest(dest));
 
-          var appjs = fs.readFileSync(
-            path.join(src, 'application.js'), { encoding: 'utf8' }
-          );
-          appjs = appjs.replace('html5Mode: true', 'html5Mode: false');
-          fs.writeFileSync(path.join(dest, 'application.js'), appjs);
-          $.util.log(chalk.green('(...static build deployed)'));
-        }
-        catch (err) {
-          return cb(err);
-        }
-
-        cb();
+    stream.on('error', function (err) {
+      if (err) {
+        $.util.log(chalk.red('Error Deploying static build: ' + err));
+        return cb(err);
       }
-    );
+    });
+
+    stream.on('end', function () {
+      try {
+        // handle special files
+        var index = fs.readFileSync(
+          path.join(src, 'index.html'), { encoding: 'utf8' }
+        );
+        index = index.replace(/<script.*livereload.*script>/, '');
+        fs.writeFileSync(path.join(dest, 'index.html'), index);
+
+        var appjs = fs.readFileSync(
+          path.join(src, 'application.js'), { encoding: 'utf8' }
+        );
+        appjs = appjs.replace('html5Mode: true', 'html5Mode: false');
+        fs.writeFileSync(path.join(dest, 'application.js'), appjs);
+        $.util.log(chalk.green('(...static build deployed)'));
+      }
+      catch (err) {
+        $.util.log(chalk.red('Error Deploying static build: ' + err));
+        return cb(err);
+      }
+
+      cb();
+    });
   });
 
 };
