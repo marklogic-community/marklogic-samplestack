@@ -14,8 +14,8 @@ function successOrExit {
 test $1 && arg1=$1
 if [[ $arg1 = 'release' ]]; then
 
-  fname=MarkLogic-8.0-1.x86_64.rpm
-  ver=8.0-1
+  fname=MarkLogic-8.0-1.1.x86_64.rpm
+  ver=8.0-1.1
   fnamedeb="marklogic_"
   fnamedeb=$fnamedeb$ver
   suff="_amd64.deb"
