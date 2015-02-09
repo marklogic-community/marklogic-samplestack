@@ -171,22 +171,14 @@ The reasons for this are documented in https://support.saucelabs.com/entries/274
 
 Please see [Node.js and npm Tips for Samplestack Development](https://github.com/marklogic/marklogic-samplestack/wiki/Node.js-and-npm-Tips-for-Samplestack-Development).
 
-## Temporary OSX Workaround for Watch Mode
+## OSX Workaround for Watch Mode
 
-In general your "watch" process is faster if you raise the limit of the number
-of open files for your process or the system.  However, in normal cases, there
-is no harm (other than speed) to not raising the limit, because
-[gaze](https://github.com/shama/gaze) implements a different strategy when
-it reaches that limit.  However, at the present time two forces are combining
-to make the `watch` task problematic:
+In general your "watch" process will be faster on Mac/OSX computers if you raise the limit of the number
+of open files for your process.  
 
-1. OSX defaults to a very low limit
-2. gaze has a bug that is causing it to fail when that limit is reached.
+Additionally, there may be machines that report errors in `watch` mode saying that the maximum number of open files has been reached.
 
-Thus, while generally it's just a good idea to raise the limit, for now it's
-also mandatory on OSX.
-
-To achive this, make or modify the file at `~/.launchd.conf` to have a line
+To set the maxfiles limit for your system, make or modify the file at `~/.launchd.conf` to have a line
 reading:
 
 ```
