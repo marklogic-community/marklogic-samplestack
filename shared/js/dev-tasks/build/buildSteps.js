@@ -73,7 +73,7 @@ module.exports = {
   sass: function (stream) {
 
     var importDirs = [
-      'browser/bower_components/bootstrap-sass-official/assets/stylesheets'
+      'browser/bower_components/bootstrap-sass/assets/stylesheets'
     ];
 
     // TODO: considering using bourbon instead of bootstrap
