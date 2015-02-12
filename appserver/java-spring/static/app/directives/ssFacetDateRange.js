@@ -220,11 +220,11 @@ define(['app/module'], function (module) {
                 if (event.xAxis) {
                   newStart = mlUtil.moment(event.xAxis[0].min).startOf('M');
                   newEnd = mlUtil.moment(event.xAxis[0].max)
-                      .startOf('M').add('M', 1);
+                      .startOf('M').add(1, 'M');
                 }
                 else {
                   newStart = mlUtil.moment(event.point.x);
-                  newEnd = mlUtil.moment(event.point.x).add('M', 1);
+                  newEnd = mlUtil.moment(event.point.x).add(1, 'M');
                 }
                 if (assignIfDifferent(newStart, scope.constraints.dateStart)) {
                   foundChange = true;
@@ -453,7 +453,7 @@ define(['app/module'], function (module) {
                 foundChange = true;
               }
               if (scope.pickerDateEnd && assignIfDifferent(
-                mlUtil.moment(scope.pickerDateEnd).add('d', 1),
+                mlUtil.moment(scope.pickerDateEnd).add(1, 'd'),
                 scope.constraints.dateEnd
               )) {
                 foundChange = true;
@@ -528,7 +528,7 @@ define(['app/module'], function (module) {
 
                 var dateToPickerEnd = function (val) {
                   return val ?
-                      new Date(mlUtil.moment(val).subtract('d', 1)) :
+                      new Date(mlUtil.moment(val).subtract(1, 'd')) :
                       null;
                 };
 
