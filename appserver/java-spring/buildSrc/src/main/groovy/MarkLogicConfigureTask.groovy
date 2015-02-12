@@ -97,8 +97,7 @@ public class MarkLogicConfigureTask extends MarkLogicTask {
 
     void putTransform(transform) {
         def transformFileName = transform.getPath().replaceAll(~"\\\\","/")
-        def transformName = transformFileName.replaceAll(~"\\.[^\\.]+", "").replaceAll(~".*\\/","")
-
+        def transformName = transformFileName.split("/")[-1].replaceAll(~"\\.[^\\.]+", "")
         if (transformName) {
             logger.info( "Saving transform " + transformName)
             RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port + "/v1/config/transforms/" + transformName)
