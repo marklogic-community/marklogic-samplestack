@@ -20,7 +20,7 @@ REMEMBER to change the branch name in this code when preparing releases
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
-## README for Version 1.0.0
+## README for Version 1.0.1
 
 
 This release features a middle tier for the Java Enterprise Developer, implemented using Java, Spring, and Gradle.
