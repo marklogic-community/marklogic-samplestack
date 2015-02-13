@@ -20,9 +20,11 @@
 var path = require('path');
 var del = require('del');
 var shelljs = require('shelljs');
+var chalk = require('chalk');
 
+console.log(chalk.green('Samplestack: fetching bower_components'));
 del(
-  'bower_components',
+  'browser/bower_components',
   {},
   function (err) {
     if (err) {
@@ -35,5 +37,12 @@ del(
       'node ' + path.normalize('../node_modules/bower/bin/bower') + ' install'
     );
     shelljs.cd('..');
+
+    console.log(chalk.green('Samplestack: cleaning up unused directories'));
+    del([
+      'browser/dev-tasks',
+      'browser/node_modules',
+      'browser/npm-debug.log'
+    ]);
   }
 );
