@@ -78,7 +78,7 @@ Its possible that you will need to clean your environment, especially if you're 
 * `./gradlew dbLoad` Runs seedDataFetch, seedDataExtract as dependencies (unless up-to-date) to load seed data.
 * `./gradlew dbClear`  Deletes all data from the database.
 
-* ./gradlew eclipse  is one way to set up this project for use in eclipse.  [wiki link]
+* `./gradlew eclipse`  is one way to set up this project for use in eclipse.  [wiki link]
 * `./gradlew javadoc` These docs are built in build/docs/javadoc
 
 * `./gradlew test` This command runs unit tests.  
