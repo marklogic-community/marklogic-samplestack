@@ -5644,13 +5644,13 @@ h1 {
     .ss-search-bar .search-wrapper .search-inner input {
       width: 70%;
       padding: 6px 12px;
-      line-height: 1.42857; }
+      line-height: 1.42857143; }
     .ss-search-bar .search-wrapper .search-inner button#search {
       padding: 6px 12px;
       margin-bottom: 0;
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.42857; }
+      line-height: 1.42857143; }
     .ss-search-bar .search-wrapper .search-inner button#tips {
       margin-right: 11px;
       margin-left: 11px;
@@ -5658,7 +5658,7 @@ h1 {
       margin-bottom: 0;
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.42857; } }
+      line-height: 1.42857143; } }
   @media (max-width: 992px) {
     .ss-search-bar .tips-box .col {
       border-top: 1px solid #595959;
