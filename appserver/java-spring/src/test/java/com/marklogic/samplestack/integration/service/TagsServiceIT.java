@@ -63,7 +63,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 		ObjectNode results;
 		logger.debug("Query: " + mapper.writeValueAsString(topNode));
 		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					"ada", topNode, 1, 1);
+					"ada", topNode, null, 1, 1);
 		logger.debug("Result: " + mapper.writeValueAsString(results));
 		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"}]}}", mapper.writeValueAsString(results), false);
 	}
@@ -82,7 +82,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 		ObjectNode results;
 		logger.debug("Query: " + mapper.writeValueAsString(topNode));
 		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					null, topNode, 1, 1);
+					null, topNode, null, 1, 1);
 		logger.debug("Result: " + mapper.writeValueAsString(results));
 		JSONAssert.assertEquals("{values-response:{name:\"tags\",type:\"xs:string\",distinct-value:[{frequency:2,_value:\"ada\"}]}}", mapper.writeValueAsString(results), false);
 
@@ -93,7 +93,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 
 		ObjectNode results;
 		results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					null, null, 1, 5);
+					null, null, null, 1, 5);
 		logger.debug("Result: " + mapper.writeValueAsString(results));
 		assertEquals("Size of results for all tags: ", results.get("values-response").get("distinct-value").size(), 5L);
 
@@ -112,7 +112,7 @@ public class TagsServiceIT extends MarkLogicIntegrationIT {
 							"{\"search\":{\"qtext\":\"tag:test-data-tag\",\"query\":{\"word-constraint-query\":{\"constraint-name\":\"tag\",\"text\":\"cloj*\"}}}}",
 							JsonNode.class);
 			results = tagsService.getTags(ClientRole.SAMPLESTACK_CONTRIBUTOR,
-					"clo", query, 1, 1);
+					"clo", query, null, 1, 1);
 
 			logger.debug("Query Results:" + mapper.writeValueAsString(results));
 		} catch (IOException e) {

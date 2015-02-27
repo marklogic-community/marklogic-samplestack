@@ -56,9 +56,10 @@ public class RelatedTagsManager extends ResourceManager implements RelatedTagsSe
 	/**
 	 * Gets tags from the server that are related to the provided one.
 	 * @param tag An input tag to check for related tags.
-	 * @return A list of tags related to the input.
+	 * @return A list of tags related to the input, as a JSON document
+	 * to be delivered to the browser.
 	 */
-	public String getRelatedTags(String tag) {
+	public ObjectNode getRelatedTags(String tag) {
 		clients.get(ClientRole.SAMPLESTACK_CONTRIBUTOR).init(EXTENSION_NAME,  this);  // is this expensive?
 		RequestParameters params = new RequestParameters();
 		params.add("tag", tag);
@@ -71,6 +72,6 @@ public class RelatedTagsManager extends ResourceManager implements RelatedTagsSe
 			ServiceResult result = resultIterator.next();
 			results = (ObjectNode) result.getContent(new JacksonHandle()).get();
 		}
-		return results.get("qtext").asText();
+		return results;
 	}
 }

@@ -15,6 +15,8 @@
  */
 package com.marklogic.samplestack.web;
 
+import java.util.Iterator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +44,10 @@ public class TagsController {
 
 	@Autowired
 	private TagsService tagsService;
-	
-	@Autowired 
+
+	@Autowired
 	private ObjectMapper mapper;
-	
+
 	@Autowired
 	private RelatedTagsService relatedTagsService;
 
@@ -53,12 +55,12 @@ public class TagsController {
 	private final Logger logger = LoggerFactory.getLogger(TagsController.class);
 
 	/**
-	 * 
+	 *
 	 */
 	@RequestMapping(value = "v1/tags", method = RequestMethod.POST)
-	public @ResponseBody
-	ObjectNode tags(@RequestBody(required=false) ObjectNode combinedQuery) {
-		
+	public @ResponseBody ObjectNode tags(
+			@RequestBody(required = false) ObjectNode combinedQuery) {
+
 		ObjectNode searchNode;
 		if (combinedQuery == null) {
 			combinedQuery = mapper.createObjectNode();
@@ -67,7 +69,8 @@ public class TagsController {
 		if (combinedQuery.has("search")) {
 			searchNode = (ObjectNode) combinedQuery.get("search");
 		} else {
-			throw new SamplestackInvalidParameterException("Tags requires a JSON with root \"search\" key");
+			throw new SamplestackInvalidParameterException(
+					"Tags requires a JSON with root \"search\" key");
 		}
 		JsonNode postedStartNode = searchNode.get("start");
 		JsonNode postedPageLength = searchNode.get("pageLength");
@@ -79,23 +82,12 @@ public class TagsController {
 		}
 
 		JsonNode relatedTagNode = searchNode.get("relatedTo");
-		String relatedTagsQtext = "";
+		ArrayNode relatedTags = null;
 		if (relatedTagNode != null) {
 			String relatedToText = relatedTagNode.asText();
-			relatedTagsQtext = relatedTagsService.getRelatedTags(relatedToText);
-			JsonNode qtextNode = searchNode.findPath("qtext");
-			if (qtextNode.isMissingNode()) {
-				searchNode.put("qtext", relatedTagsQtext);
-			} else if (qtextNode.isArray()) {
-				((ArrayNode) searchNode.get("qtext")).add(relatedTagsQtext);
-			} else if (qtextNode.isTextual()) {
-				String existingText = searchNode.get("qtext").asText();
-				ArrayNode newQtexts = searchNode.putArray("qtext");
-				newQtexts.add(existingText);
-				newQtexts.add(relatedTagsQtext);
-			}
+			relatedTags = (ArrayNode) relatedTagsService.getRelatedTags(relatedToText).get("reltags");
 		}
-		
+
 		long start = 1;
 		long pageLength = SamplestackConstants.RESULTS_PAGE_LENGTH;
 		String sortBy = "name";
@@ -117,10 +109,11 @@ public class TagsController {
 			} else if (sortBy.equals("frequency")) {
 				sortBy = "frequency-order";
 			} else {
-				throw new SamplestackInvalidParameterException("Sort must be name or frequency");
+				throw new SamplestackInvalidParameterException(
+						"Sort must be name or frequency");
 			}
 		}
-		
+
 		ObjectNode optionsNode = searchNode.putObject("options");
 		ObjectNode valuesNode = optionsNode.putObject("values");
 		ObjectNode rangeNode = valuesNode.putObject("range");
@@ -128,10 +121,10 @@ public class TagsController {
 		rangeNode.put("json-property", "tags");
 		valuesNode.put("name", "tags");
 		valuesNode.put("values-option", sortBy);
-		//ObjectNode aggregateNode = valuesNode.putObject("aggregate");
-		//aggregateNode.put("apply", "count");
+		// ObjectNode aggregateNode = valuesNode.putObject("aggregate");
+		// aggregateNode.put("apply", "count");
 
-		return tagsService.getTags(ClientRole.securityContextRole(), forTagText, combinedQuery, start, pageLength);
+		return tagsService.getTags(ClientRole.securityContextRole(),
+					forTagText, combinedQuery, relatedTags, start, pageLength);
 	}
-	
 }

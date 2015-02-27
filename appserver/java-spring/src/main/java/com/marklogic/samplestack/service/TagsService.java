@@ -15,6 +15,7 @@
  */
 package com.marklogic.samplestack.service;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.security.ClientRole;
 
@@ -34,11 +35,11 @@ public interface TagsService {
 	 * @param role Role to search with
 	 * @param tagPattern A pattern to filter the tag result.
 	 * @param combinedQuery a JSON node containing the options definition for this query.
+	 * @param relatedTags Tags related to the target, for semantic graph extension
 	 * @param start the first index to retrieve.
 	 * @param pageLength The number of tags to return.
-	 * @param 
 	 * @return A values response in a JSON structure.
 	 */
-	public ObjectNode getTags(ClientRole role, String tagPattern, ObjectNode combinedQuery, long start, long pageLength);
+	public ObjectNode getTags(ClientRole role, String tagPattern, ObjectNode combinedQuery, ArrayNode relatedTags, long start, long pageLength);
 
 }

@@ -15,6 +15,8 @@
  */
 package com.marklogic.samplestack.dbclient;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,16 +42,17 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 	 * 
 	 * @param role
 	 *            Role to search with
-	 * @param forTag
-	 *            The string pattern to filter tag results.
 	 * @param combinedQuery
 	 *            a JSON node containing the options definition for this query.
 	 * @param start
 	 *            the first index to retrieve.
+	 * @param forTag
+	 *            The string pattern to filter tag results.
 	 * @return A values response in a JSON structure.
 	 */
 	public ObjectNode getTags(ClientRole role, String forTag,
-			ObjectNode combinedQuery, long start, long pageLength) {
+			ObjectNode combinedQuery, ArrayNode relatedTags, long start,
+			long pageLength) {
 		QueryManager queryManager = clients.get(role).newQueryManager();
 		ValuesDefinition valdef = queryManager.newValuesDefinition("tags",
 				"tags");
@@ -92,24 +95,33 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 		}
 		JacksonHandle responseHandle;
 		valdef.setAggregate("count");
-		// semantics is different for forTags and others
-		if (forTag != null) {
+
+		if (forTag == null && relatedTags == null) {
 			responseHandle = queryManager
 					.values(valdef, new JacksonHandle(), 1);
-			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, start, pageLength);
+			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, relatedTags,
+					start, pageLength);
 		} else {
 			responseHandle = queryManager.values(valdef, new JacksonHandle(),
 					start);
-			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, 1, pageLength);
+			return filterResponseBy((ObjectNode) responseHandle.get(), forTag, relatedTags,
+					1, pageLength);
+
 		}
 	}
 
 	private ObjectNode filterResponseBy(ObjectNode responseJson, String forTag,
-			long start, long pageLength) {
+			ArrayNode relatedTags, long start, long pageLength) {
+		ArrayList<String> relatedTagsList = new ArrayList<String>();
+		if (relatedTags != null) {
+			for (JsonNode n : relatedTags) {
+				relatedTagsList.add(n.asText());
+			}
+		}
 		ObjectNode responseNode = (ObjectNode) responseJson
 				.get("values-response");
-		ArrayNode distinctValues = (ArrayNode) responseNode.get(
-				"distinct-value");
+		ArrayNode distinctValues = (ArrayNode) responseNode
+				.get("distinct-value");
 		if (distinctValues == null) {
 			return responseJson;
 		} else {
@@ -120,7 +132,10 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 		int kept = 0;
 		for (int i = 0; i < distinctValues.size() && kept < pageLength; i++) {
 			ObjectNode value = (ObjectNode) distinctValues.get(i);
-			if (forTag == null || value.get("_value").asText().contains(forTag)) {
+			String thisTag = value.get("_value").asText();
+			if (relatedTagsList.contains(thisTag) ||
+				(relatedTagsList.isEmpty() && forTag == null) ||
+				(forTag != null && thisTag.contains(forTag))) {
 				if (start > 1) {
 					start--;
 				} else {

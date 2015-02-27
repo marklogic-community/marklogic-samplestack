@@ -33,6 +33,15 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
         client.put(params)
     }
 
+    void updateRdfPermissions(client, graphName) {
+        logger.info("Updating permissions on RDF triples");
+        def params = [:]
+        params.path = "/v1/resources/graphPermSetter"
+        params.contentType = "application/json"
+		params.body = new String("{\"graphName\":\"" + graphName + "\"}")
+        client.put(params)
+    }
+
     @TaskAction
     void load() {
 		RESTClient client = writerClient()
@@ -49,6 +58,7 @@ include '**/*.nt'}
             if (it.path.contains("dbpedia")) {
                 logger.info("PUT RDF data to graph " + docUri)
                 putRdf(client, docUri, it.text)
+                updateRdfPermissions(client, docUri);
             }
             else {
                 logger.info("Adding a JSON object: " + docUri)
@@ -72,5 +82,7 @@ include '**/*.nt'}
         if (numWritten % BATCH_SIZE > 0) {
             docMgr.write(writeSet)
         }
+
     }
+
 }

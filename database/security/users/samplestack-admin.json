@@ -3,6 +3,7 @@
   "password": "samplestack-admin-password",
   "description": "user that can administer REST server",
   "role": [
-    "rest-admin"
+    "rest-admin",
+    "samplestack-writer"
   ]
 }

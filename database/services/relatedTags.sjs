@@ -17,17 +17,17 @@
 /*
  * relatedTags.sjs
  *
- * Server-side extension for incorporating 
- * results from a SPARQL query into
- * a values call
+ * Finds tags related to a given tag
+ * by way of executing a SPARQL query against
+ * dbpedia data.
+ *
+ * also spins off a lexicon call for each tag
+ * to get the total document count for a given tag.
  */
 var sem = require("/MarkLogic/semantics.xqy");
 
 function get(context, params) {
-    xdmp.log("RELATED TAGS");
     var tag = params.tag;  // required
-    var structuredQuery = params.structuredQuery;  // required
-    xdmp.log(tag);
     var queryResults = sem.sparql(
         'prefix dbr: <http://dbpedia.org/resource/>              '+
         'prefix dbc: <http://dbpedia.org/resource/Category:>     '+
@@ -46,13 +46,17 @@ function get(context, params) {
            'filter (lcase(?label) = $tag)                        '+
         '}                                                       '+
         'order by ?label2 limit 5000', {tag: tag});
+    var resultObject = {};
     var queryStrings = [];
     for (var result of queryResults) {
+        var relatedTag = result.relatedTag;
+        xdmp.log("Found related tag " + relatedTag);
         queryStrings.push(result.relatedTag);
     };
     var queryString = "tag:" + queryStrings.join(" OR tag:");
     context.outputTypes = ["application/json"];
-    return {qtext:queryString};
+    resultObject.qtext = queryString;
+    return resultObject;
 };
 
 exports.GET = get;
