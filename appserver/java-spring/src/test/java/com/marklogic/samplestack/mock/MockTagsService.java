@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.security.ClientRole;
 import com.marklogic.samplestack.service.TagsService;
@@ -41,7 +42,7 @@ public class MockTagsService extends MockServiceBase implements TagsService {
 
 
 	public ObjectNode getTags(ClientRole role, String forTag, ObjectNode combinedQuery,
-			long start, long pageLength) {
+			ArrayNode relatedTags, long start, long pageLength) {
 
 		try {
 			logger.debug(mapper.writeValueAsString(combinedQuery));

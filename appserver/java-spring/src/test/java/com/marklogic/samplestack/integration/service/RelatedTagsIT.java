@@ -17,16 +17,20 @@ package com.marklogic.samplestack.integration.service;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.marklogic.samplestack.dbclient.DatabaseContext;
 import com.marklogic.samplestack.dbclient.RelatedTagsManager;
 import com.marklogic.samplestack.testing.DatabaseExtensionTests;
@@ -34,7 +38,7 @@ import com.marklogic.samplestack.testing.TestDataManager;
 
 
 /**
- * Tests the semantic extension for related tags. 
+ * Tests the semantic extension for related tags.
  * This feature is expected to be delivered in a
  * revision of Samplestack after 8.0-1.
  */
@@ -49,19 +53,21 @@ public class RelatedTagsIT {
 
 	@Autowired
 	RelatedTagsManager manager;
-	
+
+	@Autowired
+	private ObjectMapper mapper;
+
 	@Test
-	@Ignore
-	public void testRelatedTags() {
+	public void testRelatedTags() throws JsonProcessingException, JSONException {
 
-		String relatedTagsQueryString = manager.getRelatedTags("tex");
+		ObjectNode relatedTagsResponse = manager.getRelatedTags("tex");
 
-		logger.info("" + relatedTagsQueryString);
+		logger.info(mapper.writeValueAsString(relatedTagsResponse));
+		JSONAssert.assertEquals("{reltags:[\"ada\",\"braille\",\"capitalization\",\"cleartype\",\"context\",\"cutepdf\",\"directwrite\",\"freetype\",\"harfbuzz\",\"knitr\",\"latex\",\"lyx\",\"mix\",\"mmix\",\"metapost\",\"miktex\",\"opentype\",\"pstricks\",\"pango\",\"pdftex\",\"postscript\",\"sweave\",\"tex4ht\",\"termcap\",\"test-data-tag\",\"texinfo\",\"truetype\",\"typeface\",\"typekit\",\"typesetting\",\"uniscribe\",\"web\",\"xetex\"]}",
+				mapper.writeValueAsString(relatedTagsResponse), true);
+		relatedTagsResponse = manager.getRelatedTags("latex");
+		logger.info(mapper.writeValueAsString(relatedTagsResponse));
 
-		assertEquals("Expected related tags query for 'tex'", "tag:braille OR tag:capitalization OR tag:cleartype OR tag:context OR tag:cutepdf OR tag:directwrite OR tag:freetype OR tag:harfbuzz OR tag:knitr OR tag:latex OR tag:lyx OR tag:mix OR tag:mmix OR tag:metapost OR tag:miktex OR tag:opentype OR tag:pstricks OR tag:pango OR tag:pdftex OR tag:postscript OR tag:sweave OR tag:tex4ht OR tag:termcap OR tag:texinfo OR tag:truetype OR tag:typeface OR tag:typekit OR tag:typesetting OR tag:uniscribe OR tag:web OR tag:xetex",relatedTagsQueryString);
-		
-		relatedTagsQueryString = manager.getRelatedTags("latex");
-
-		assertEquals("Expected related tags query for 'latex'", "tag:context OR tag:knitr OR tag:metapost OR tag:miktex OR tag:pstricks OR tag:pdftex OR tag:sweave OR tag:tex OR tag:texinfo OR tag:xetex", relatedTagsQueryString);
+		JSONAssert.assertEquals("{reltags:[\"clay\",\"context\",\"concrete\",\"figlet\",\"fxml\",\"fiber\",\"freetype\",\"gemstone\",\"glass\",\"itext\",\"knitr\",\"mxml\",\"material\",\"metapost\",\"miktex\",\"pstricks\",\"pdftex\",\"putty\",\"sweave\",\"tar\",\"tex\",\"terracotta\",\"texinfo\",\"troff\",\"xbl\",\"xetex\"]}", mapper.writeValueAsString(relatedTagsResponse), true);
 	}
 }

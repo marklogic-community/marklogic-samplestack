@@ -1,5 +1,7 @@
 package com.marklogic.samplestack.service;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 
 /**
  * Defines the methods for getting tags related to a particular one via
@@ -18,6 +20,6 @@ public interface RelatedTagsService {
 	 * @param tag The tag for which I want related ones.
 	 * @return A query string, to be combined with a tags search.
 	 */
-	public String getRelatedTags(String tag);
+	public ObjectNode getRelatedTags(String tag);
 
 }

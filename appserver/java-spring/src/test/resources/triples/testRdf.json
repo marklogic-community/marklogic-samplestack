@@ -1,1 +1,1078 @@
-{"triples":[{"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"TeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Braille"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Braille"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Braille"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Capitalization"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Capitalization"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Capitalization"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/ClearType"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/ClearType"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"ClearType"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/ConTeXt"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/ConTeXt"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"ConTeXt"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Desktop_publishing_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/CutePDF"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Desktop_publishing_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/CutePDF"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"CutePDF"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/DirectWrite"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/DirectWrite"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"DirectWrite"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/FreeType"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/FreeType"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"FreeType"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/HarfBuzz"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/HarfBuzz"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"HarfBuzz"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Knitr"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Knitr"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Knitr"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/LaTeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/LaTeX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"LaTeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/LyX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Desktop_publishing_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/LyX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"LyX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Donald_Knuth"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MIX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Donald_Knuth"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MIX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"MIX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MMIX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Donald_Knuth"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MMIX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"MMIX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MetaPost"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MetaPost"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"MetaPost"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MiKTeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/MiKTeX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"MiKTeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/OpenType"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/OpenType"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"OpenType"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/OpenType"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Macro_programming_languages"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PSTricks"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Macro_programming_languages"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PSTricks"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"PSTricks"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PSTricks"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Pango"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Pango"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Pango"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PdfTeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PdfTeX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"PdfTeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PostScript"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/PostScript"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"PostScript"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Sweave"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Sweave"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Sweave"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:TeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX4ht"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:TeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX4ht"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"TeX4ht"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:1978_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Termcap"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:1978_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Termcap"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Termcap"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Texinfo"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Texinfo"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Texinfo"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TrueType"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TrueType"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"TrueType"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/TrueType"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Typeface"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Typeface"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Typeface"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Typekit"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Typekit"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Typekit"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Typesetting"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Typesetting"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Typesetting"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Uniscribe"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/Uniscribe"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"Uniscribe"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/WEB"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:TeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/WEB"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"WEB"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/XeTeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:TeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/XeTeX"}, "predicate":{"value":"http://www.w3.org/2000/01/rdf-schema#label"}, "object":{"lang":"en", "value":"XeTeX"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/XeTeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Free_TeX_software"}}}, {"triple":{"subject":{"value":"http://dbpedia.org/resource/XeTeX"}, "predicate":{"value":"http://purl.org/dc/terms/subject"}, "object":{"value":"http://dbpedia.org/resource/Category:Digital_typography"}}}]}
+{
+    "triples": [
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "TeX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/test-data-tag"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Ada"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/ada"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Test-Data-Tag"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/test-data-tag"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/ada"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Braille"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Braille"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Braille"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Typesetting"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Typesetting"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Capitalization"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Capitalization"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Capitalization"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/ClearType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "ClearType"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/ClearType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/ConTeXt"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "ConTeXt"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/ConTeXt"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Desktop_publishing_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Desktop_publishing_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/CutePDF"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "CutePDF"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/CutePDF"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/DirectWrite"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "DirectWrite"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/DirectWrite"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/FreeType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "FreeType"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/FreeType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/HarfBuzz"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "HarfBuzz"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/HarfBuzz"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Knitr"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Knitr"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Knitr"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/LaTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "LaTeX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/LaTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Desktop_publishing_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/LyX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "LyX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/LyX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Donald_Knuth"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Donald_Knuth"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MIX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "MIX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MIX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Donald_Knuth"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MMIX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "MMIX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MMIX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MetaPost"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "MetaPost"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MetaPost"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MiKTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "MiKTeX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/MiKTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Typesetting"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/OpenType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "OpenType"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/OpenType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/OpenType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Macro_programming_languages"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Macro_programming_languages"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PSTricks"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "PSTricks"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PSTricks"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PSTricks"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Pango"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Pango"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Pango"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PdfTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "PdfTeX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PdfTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PostScript"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "PostScript"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/PostScript"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Sweave"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Sweave"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Sweave"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:TeX"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:TeX"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX4ht"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "TeX4ht"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX4ht"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:1978_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:1978_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Termcap"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Termcap"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Termcap"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Texinfo"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Texinfo"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Texinfo"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Typesetting"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TrueType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "TrueType"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TrueType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/TrueType"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Typesetting"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Typeface"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Typeface"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Typeface"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Typekit"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Typekit"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Typekit"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Typesetting"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Typesetting"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Typesetting"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Typesetting"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Uniscribe"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "Uniscribe"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/Uniscribe"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:TeX"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/WEB"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "WEB"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/WEB"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:TeX"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/XeTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "lang": "en",
+                    "value": "XeTeX"
+                },
+                "predicate": {
+                    "value": "http://www.w3.org/2000/01/rdf-schema#label"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/XeTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Free_TeX_software"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/XeTeX"
+                }
+            }
+        },
+        {
+            "triple": {
+                "object": {
+                    "value": "http://dbpedia.org/resource/Category:Digital_typography"
+                },
+                "predicate": {
+                    "value": "http://purl.org/dc/terms/subject"
+                },
+                "subject": {
+                    "value": "http://dbpedia.org/resource/XeTeX"
+                }
+            }
+        }
+    ]
+}

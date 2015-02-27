@@ -142,6 +142,7 @@ public class TagControllerTestImpl extends ControllerTests {
 						post("/v1/tags")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("{\"search\":{\"relatedTo\":\"tex\","
+										+ "\"start\":2,"
 										+ "\"qtext\":\"tag:test-data-tag\"}}")
 								.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();

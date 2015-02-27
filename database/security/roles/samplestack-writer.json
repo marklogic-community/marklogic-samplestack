@@ -17,5 +17,13 @@
       "role-name": "rest-writer",
       "capability": "update"
     }
+  ],
+  "privilege":[
+    {
+        "privilege-name":"unprotected-collections",
+        "action":"http://marklogic.com/xdmp/privileges/unprotected-collections",
+        "kind":"execute"
+    }
   ]
 }
+
