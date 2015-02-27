@@ -20,7 +20,7 @@ var run = function () {
 
 
   if (options.ldap.useBuiltInServer) {
-    libRequire('ldapServer');
+    require('./ldapWorker');
   }
 
   /**
@@ -33,7 +33,7 @@ var run = function () {
       1;
 
   if (numWorkers === 1) {
-    libRequire('server');
+    require('./samplestackWorker');
   }
   else {
     cluster.setupMaster({

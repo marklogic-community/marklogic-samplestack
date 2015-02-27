@@ -19,7 +19,7 @@ module.exports = {
   // whether html5 pushstate mode should be enabled (if serving webapp)
   html5Mode: true,
   // whether to run/enforce CSRF protection
-  disableCsrf: true,
+  enavleCsrf: false,
   // properties for database tier connections
   db: {
     clientConnection: {
@@ -40,7 +40,7 @@ module.exports = {
     searchFilter: '(uid={{username}})',
     useBuiltInServer: true,
     // true for ldap over ssl (built-in server support not implemented)
-    ldaps: false
+    protocol: 'ldap' // or 'ldaps' for secure
   },
   // mapping of LDAP roles to database credentials
   // TODO store/manage passwords more securely

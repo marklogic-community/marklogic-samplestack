@@ -1,19 +1,19 @@
 /*
 http://ldapjs.org/examples.html
 
-		.userDnPatterns("uid={0},ou=people", "uid={0},ou=apps")
-				.groupSearchBase("ou=groups").contextSource()
-				.ldif("classpath:samplestack-ds.ldif")
-				.root("dc=samplestack,dc=org");
+    .userDnPatterns("uid={0},ou=people", "uid={0},ou=apps")
+        .groupSearchBase("ou=groups").contextSource()
+        .ldif("classpath:samplestack-ds.ldif")
+        .root("dc=samplestack,dc=org");
 
-	final String ldapServer = "ldap://localhost:33389";
-	final String ldapSearchBase = "dc=samplestack,dc=org";
+  final String ldapServer = "ldap://localhost:33389";
+  final String ldapSearchBase = "dc=samplestack,dc=org";
 
-	//use one of the existing users...
-	final String ldapUsername = "uid=mary@example.com,’";
-	final String ldapPassword = "marysPassword";
+  //use one of the existing users...
+  final String ldapUsername = "uid=mary@example.com,’";
+  final String ldapPassword = "marysPassword";
 
-	final String contributor = "Joe User";
+  final String contributor = "Joe User";
 
     assertEquals(
       "joe@example.com",
@@ -21,8 +21,8 @@ http://ldapjs.org/examples.html
 );
 
 
-	String searchFilter = "(&(objectclass=person)(cn="
-				+ accountName + "))";
+  String searchFilter = "(&(objectclass=person)(cn="
+        + accountName + "))";
 
 
  */

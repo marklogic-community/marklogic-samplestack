@@ -1,3 +1,6 @@
+// TODO: factor out all ldap stuff
+
+
 var options = libRequire('../options');
 
 var ldapProtocol = options.ldap.ldaps ? 'ldaps' : 'ldap';

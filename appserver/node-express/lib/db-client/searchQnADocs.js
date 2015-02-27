@@ -1,13 +1,13 @@
 var Promise = require('bluebird');
 var options = libRequire('../options');
 
-module.exports = function (req, res, next) {
+module.exports = function (searchSpec) {
   var qb = require('marklogic').queryBuilder;
 
   var query = {
     search: {
       queries: [
-        _.merge(req.body, { directory: '/questions/' })
+        _.merge(searchSpec, { directory: '/questions/' })
       ]
     },
     optionsName: 'questions'
@@ -16,19 +16,12 @@ module.exports = function (req, res, next) {
   var sliceSize = 10;
   var order = ['relevance'];
 
-  var q = req.db.documents.query(query);
+  var q = this.documents.query(query);
     // .slice(sliceStart, sliceSize)
     // .orderBy(order);
 
-  q.result(
-    function (response) {
-      console.log(JSON.stringify(response, null, ' '));
-      next();
-    },
-    function (err) {
-      next(err);
-    }
-  );
+  // TODO: suspect this is a promise, not a function, pergaps
+  return q.result;
 };
 
 /*

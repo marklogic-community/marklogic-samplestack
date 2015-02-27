@@ -1,1 +1,3 @@
-module.exports = require('requireindex')(__dirname);
+module.exports = function (app) {
+  app.use(require('./500'));
+};
