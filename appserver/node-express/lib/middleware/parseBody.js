@@ -9,19 +9,21 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
  * @module lib/parseBody
  * @type {Object}
  */
-module.exports = {
-  /**
-   * Parse a JSON-serialized body.
-   * @param {Object}   req
-   * @param {Object}   res
-   * @param {Function} next
-   */
-  json: jsonParser,
-  /**
-   * Parse a form/url-encoded body.
-   * @param {Object}   req
-   * @param {Object}   res
-   * @param {Function} next
-   */
-  urlEncoded: urlencodedParser
+module.exports = function (app) {
+  return {
+    /**
+     * Parse a JSON-serialized body.
+     * @param {Object}   req
+     * @param {Object}   res
+     * @param {Function} next
+     */
+    json: jsonParser,
+    /**
+     * Parse a form/url-encoded body.
+     * @param {Object}   req
+     * @param {Object}   res
+     * @param {Function} next
+     */
+    urlEncoded: urlencodedParser
+  };
 };

@@ -9,7 +9,7 @@ module.exports = {
   // ip to which the server children bind
   address: '0.0.0.0',
   // port on which server children bind
-  port: 8090,
+  port: 8091,
   // whether to use https or not
   https: false,
   // https: {
@@ -19,7 +19,7 @@ module.exports = {
   // whether html5 pushstate mode should be enabled (if serving webapp)
   html5Mode: true,
   // whether to run/enforce CSRF protection
-  enavleCsrf: false,
+  enableCsrf: false,
   // properties for database tier connections
   db: {
     clientConnection: {

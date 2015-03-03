@@ -24,12 +24,19 @@ app.use(require('cookie-parser')());
 // handlers close to the code that is triggering the errors
 var mw = libRequire('middleware')(app);
 libRequire('routing')(app, mw);
-libRequire('error-handlers')(app);
 
-// unlike the db client module, which manages multiple connections so that we
-// can pick an ppropriate one per request (during routing), we only have one
-// ldap client, so it is stored in `locals`
-app.locals.ldap = libRequire('ldap-client')(options.ldap);
+// last error handler
+var errorMsg = require('chalk').red('500 ERROR!');
+app.use(function (err, req, res, next) {
+  console.log(errorMsg);
+  if (err.stack) {
+    console.log(err.stack);
+  }
+  else {
+    console.log(JSON.stringify(err, null, ' '));
+  }
+  res.status(500).send({ error: err });
+});
 
 var listener;
 if (options.https) {

@@ -31,11 +31,7 @@ var roleToAction = function (req, res, next) {
   }
 };
 
-module.exports = {
-  rolesMap: options.rolesMap,
-
-  // roles are in order of preference for the route. first is preferred
-  roles: function (roles) {
+module.exports = function (roles) {
     return function (req, res, next) {
       var filterClauses = [];
       var potentialRoles = {};
@@ -125,3 +121,5 @@ module.exports = {
 
 
 };
+
+module.exports = {};

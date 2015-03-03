@@ -1,13 +1,12 @@
 var mlclient = require('marklogic');
 var options = libRequire('../options').db;
-var connections = {};
+var boundClients = {};
 
 module.exports = function (user, password) {
-  var boundMods  = {};
-  if (!connections[user]) {
+  if (!boundClients[user]) {
     var modules = require('requireindex')(__dirname);
-    connections[user] = mlclient.createDatabaseClient(_.merge(
-      options,
+    var connection = mlclient.createDatabaseClient(_.merge(
+      options.clientConnection,
       {
         user: user,
         password: password
@@ -15,14 +14,18 @@ module.exports = function (user, password) {
     ));
     // connections[role].setLogger({ console: false });
 
+    var boundClient = {};
 
     // bind all functions to the user-specific client
     _.each(modules, function (mod, key) {
-      boundMods[key] = mod.bind(connections[user]);
+      boundClient[key] = mod.bind(connection);
     });
+    boundClients[user] = boundClient;
   }
-  return boundMods;
+  return boundClients[user];
 };
+
+
 
 // db.getClientForRole = function (rolesMap, role) {
 //   if (!connections[role]) {

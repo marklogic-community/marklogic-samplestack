@@ -1,0 +1,92 @@
+
+var csrf = require('csurf');
+
+
+
+// module.exports = function (app) {
+//   // deal with any existing session
+//
+//   // req.user now available if logged in
+//   // logged-in users must use CSRF
+//   // app.use(checkCsrf);
+//   // app.use(csrfError);
+//
+// };
+//
+// module.exports = {};
+//
+//
+// module.exports = passport.authenticate('ldapauth');
+
+
+// var secModules = require('requireindex')(__dirname);
+//
+// app.use(require('express-session')({
+//   secret: '<mysecret>',
+//   saveUninitialized: true,
+//   resave: true
+// }));
+//
+//
+// module.exports = function (req, res, next) {
+//   secModules.getSessionInfo(req, res);
+//
+//   if (secModules.csrfRequi)
+//   if (req.user && !
+//      // don't require csrf if attempting to log in
+//     !req.user &&
+//     //
+//     req.method === 'GET' && req.path.toLowerCase() === '/v1/session') {
+//     res.set('X-CSRF-Token', req.csrfToken());
+//     next();
+//   }
+//   else {
+//     csrf({ ignoreMethods: ['OPTIONS'] })(req, res, next);
+//   }
+// });
+// app.use(function (req, res, next) {
+//   next();
+// });
+//
+//
+// app.use(function (err, req, res, next) {
+//   if (err.code !== 'EBADCSRFTOKEN') {
+//     return next(err);
+//   }
+//   // handle CSRF token errors here
+//   res.status(403);
+//   res.send('session has expired or form tampered with');
+// });
+//
+// //app.use(libRequire('middleware/ml-passport'));
+//   //passport.initialize
+//   //passport.session
+//
+// // TBD
+// //app.use(libRequire('middleware/ml-ldap-passport'));
+//
+//
+// // function (req, res, next) {
+// //   require('csurf')({ ignoreMethods: ['OPTIONS'] })(req, res, function () {
+// //     // console.log(req.csrfToken());
+// //
+// //     next();
+// //   });
+// // });
+//
+//
+// // app.use(function (req, res, next) {
+// //   require('csurf')({ ignoreMethods: ['OPTIONS'] })(req, res, function () {
+// //     // console.log(req.csrfToken());
+// //
+// //     res.set('X-CSRF-Token', req.csrfToken());
+// //     next();
+// //   });
+// // });
+//
+// var csrf = require('csurf');
+//
+// //
+// app.use(security.session());
+// app.use(security.checkCsrf());
+//

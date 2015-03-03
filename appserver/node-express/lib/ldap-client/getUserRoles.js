@@ -1,13 +1,18 @@
+var Promise = require('bluebird');
+
 module.exports = function (uid) {
+  var self = this;
   return new Promise(function (resolve, reject) {
 
     var roles = [];
-    this.search(
+    var filter = '(&(objectclass=groupOfNames)(uniqueMember=uid=' +
+        uid +
+        ',ou=people,dc=samplestack,dc=org)(|' +
+        '))';
+    self.search(
       'dc=samplestack,dc=org',
       {
-        filter: '(&(objectclass=groupOfNames)' +
-            '(uniqueMember=uid=maryAdmin@marklogic.com,' +
-            'ou=people,dc=samplestack,dc=org))',
+        filter: filter,
         attributes: ['cn'],
       },
       function (err, response) {
@@ -28,6 +33,7 @@ module.exports = function (uid) {
           });
 
           response.on('end', function () {
+            console.log(JSON.stringify(roles));
             resolve(roles);
           });
         }

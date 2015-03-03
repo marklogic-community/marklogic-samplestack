@@ -1,10 +1,10 @@
 module.exports = function (app) {
-  var modules = require('requireindex')(__dirname);
-  _.each(modules, function (mod, key) {
-    mod.bind(app.locals.options);
-    _.each(mod.errHandlers, function (handler) {
-      app.use(handler);
-    });
+  var modules = {};
+  var moduleFuncs = require('requireindex')(__dirname);
+  _.each(moduleFuncs, function (modFunc, key) {
+    // mod.bind(app.locals.options);
+    var funcs = modFunc(app);
+    modules[key] = funcs;
   });
   return modules;
 };
