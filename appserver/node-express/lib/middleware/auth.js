@@ -3,6 +3,71 @@ var ldapauth = require('passport-ldapauth');
 var cookieSession = require('cookie-session');
 var async = require('async');
 var options = libRequire('../options').ldap;
+var csrf = require('csurf');
+var util = require('util');
+
+var csrf = {
+  handleError: function (err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN') {
+      return next(err);
+    }
+    res.status(400).send({error: 'Invalid CSRF token.'});
+  },
+
+  /**
+   * Error handlers associated with this module.
+   * @type {Array}
+   */
+  /**
+   * If enabled, generates a CSRF token, stores it to the session (TODO), and
+   * sets the response HEADER.
+   *
+   * @param {Object}   req
+   * @param {Object}   res
+   * @param {Function} next
+   */
+  setHeader: function (req, res, next) {
+    if (options.enableCsrf) {
+      try {
+        csrf()(req, res, function () {});
+      }
+      // expect failure, csurf needs work here, they don't let you
+      // cleanly generate a token ATM
+      catch (err) {}
+      res.set('X-CSRF-Token', req.csrfToken());
+    }
+    next();
+  },
+
+  /**
+   * When this is called, we only do something if BOTH:
+   * a) CSRF protection is enabled in the options file; and
+   * b) the request is associated with a session
+   *
+   * In other words, we allow people to proceed without CSRF if they
+   * do not even claim to have a session, or if we aren't intending to
+   * enforce CSRF. Otherwise, they must pass the CSRF token test.
+   * (The token must have been stored in the session data for this to work.)
+   * TODO:
+   * a) revive session data if the user comes in with a sessionid
+   * b) set the server-side token in memory to match the revived session data
+   * c) store token in session data as part of auth. mechanism
+   * d) throw out sessions when a bad request comes in (not found token or
+   * CSRF mismatch)
+   *
+   * @param {Object}   req
+   * @param {Object}   res
+   * @param {Function} next
+   */
+  checkHeader: function (req, res, next) {
+    if (options.enableCsrf && req.session) {
+      csrf()(req, res, next);
+    }
+    else {
+      next();
+    }
+  }
+};
 
 var configurePassport = function (app , ldapConfig) {
   passport.use(new ldapauth.Strategy(
@@ -25,24 +90,21 @@ var configurePassport = function (app , ldapConfig) {
   // TODO: serialize to-from server
   var users = {};
 
+
+
+
   passport.serializeUser(function (user, done) {
-    console.log('serialize: ' + JSON.stringify(user));
+    console.log('store user');
     users[user.uid] = JSON.stringify(user);
     done(null, user.uid);
   });
 
 
   passport.deserializeUser(function (id, done) {
-
-
-    console.log('serialize');
-
-    // console.log('deserialize, users: ' + JSON.stringify(users));
-
+    console.log('load user');
     var userStr = users[id];
     if (userStr) {
       var user = JSON.parse(userStr);
-      // console.log('deserialize: ' + JSON.stringify(user));
       done(null, user);
     }
     else {
@@ -64,30 +126,19 @@ var configurePassport = function (app , ldapConfig) {
 
   var authenticate = passport.authenticate('ldapauth');
 
-  // app.use(require('express-session')({
-  //   secret: '<mysecret>',
-  //   saveUninitialized: false,
-  //   resave: false
-  // }));
-  //
-  //
-
   return {
     createSession: expressSession,
-    // createSession: function (req, res, next) {
-    //   expressSession(
-    //     req,
-    //     res,
-    //     passport.initialize.bind(passport,req, res, next)
-    //   );
-    // },
+    getSession: expressSession,
     loginSession: function (req, res, next) {
-      // next();
       async.waterfall([
         expressSession.bind(this, req, res),
         passport.initialize().bind(passport, req, res),
         passport.session().bind(passport, req, res),
-        authenticate.bind(passport, req, res)
+        authenticate.bind(passport, req, res),
+        // function (cb) {
+        //   console.log(JSON.stringify(req.session));
+        //   cb();
+        // }
       ], next);
     }
   };
@@ -95,6 +146,8 @@ var configurePassport = function (app , ldapConfig) {
 };
 
 module.exports = function (app) {
+  app.use(csrf.handleError);
+
   var ldap = libRequire('ldap-client')(app);
   var sessions = configurePassport(app, ldap.config);
 
@@ -104,13 +157,13 @@ module.exports = function (app) {
     checkRole: function (role, req, res, next) {
       ldap.getUserRoles(req.user.uid)
       .then(function (roles) {
-        console.log(JSON.stringify(roles));
         req.roles = roles;
         if (roles.indexOf(role) < 0) {
           return next({ status: 403, message: 'insufficientPrivileges' });
         }
         else {
           req.role = role;
+          return next();
         }
       })
       .catch(next);
@@ -132,6 +185,27 @@ module.exports = function (app) {
       }
     },
     createSession: sessions.createSession,
-    login: sessions.loginSession
+    login: sessions.loginSession,
+
+    tryReviveSession: function (req, res, next) {
+      console.log('revive');
+      console.log(util.inspect(req));
+      // is the request purporting to have a session?
+      // if so, it should have a csrf ID, in which case we will try reviving
+      // the user
+      // otherwise, it's business as usual
+      if (req.cookies && req.cookies['connect.sid']) {
+        console.log('waterfall');
+        async.waterfall([
+          csrf.checkHeader.bind(app, req, res),
+          sessions.getSession.bind(app, req, res),
+          passport.initialize().bind(passport, req, res),
+          passport.session().bind(passport, req, res),
+        ], next);
+      }
+      else {
+        next();
+      }
+    }
   };
 };

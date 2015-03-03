@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 var qb = require('marklogic').queryBuilder;
 
-module.exports = function (userId) {
+module.exports = function (userSpec) {
   var self = this;
 
   return new Promise(function (resolve, reject) {
@@ -13,15 +13,30 @@ module.exports = function (userId) {
     //     qb.value('id', userId)
     //   )
     // ).result(
+    //
+    var fetch;
 
-    self.documents.read(
-      'com.marklogic.samplestack.domain.Contributor/' + userId + '.json'
-    ).result(
+    if (userSpec.contributorId) {
+      fetch = self.documents.read(
+        'com.marklogic.samplestack.domain.Contributor/' +
+            userSpec.contributorId +
+            '.json'
+      );
+    }
+    else {
+      fetch = self.documents.query(
+        qb.where(
+          qb.directory('com.marklogic.samplestack.domain.Contributor/'),
+          qb.value('userName', userSpec.uid)
+        )
+      );
+    }
+    fetch.result(
       function (response) {
         if (response.length !== 1) {
           return reject({
             error: 'cardinalityViolation',
-            userId: userId,
+            userSpec: userSpec,
             count: response.length
           });
         }

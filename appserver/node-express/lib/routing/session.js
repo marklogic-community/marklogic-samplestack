@@ -1,16 +1,32 @@
 var Promise = require('bluebird');
+var async = require('async');
+
+var contriburGetter = function (mw, req, res, next) {
+  console.log('fail here');
+  var self = this;
+  return Promise.join(
+    req.db.getContributor({ uid: req.user.uid }),
+    mw.auth.getUserRoles(req.user.uid),
+    function (contributor, ldapUser) {
+      _.merge(contributor, { role: ldapUser });
+      return res.status(200).send(contributor);
+    }
+  ).catch(next);
+};
 
 module.exports = function (app, mw) {
   app.get('/v1/session', [
+    mw.auth.tryReviveSession,
     function (req, res, next) {
-      if (req.session) {
-        return next({
-          error: 'sessionExists',
-          message: 'A session already exists. Log out of it first.',
-          status: 400
-        });
+      if (req.user) {
+        return async.waterfall([
+          mw.db.setClientForRole.bind(app, 'default', req, res),
+          contriburGetter.bind(app, mw, req, res)
+        ], next);
       }
-      next();
+      else {
+        return next();
+      }
     },
     mw.csrf.setHeader,
     mw.auth.createSession,
@@ -47,18 +63,7 @@ module.exports = function (app, mw) {
     mw.db.setClientForRole.bind(app, 'contributors'),
 
     // retrieve and return  information about the user
-    function (req, res, next) {
-      var self = this;
-      console.log(require('util').inspect(req));
-      return Promise.join(
-        req.db.getContributor(req.user.uid),
-        self.locals.ldap.getUserRoles(req.user.uid),
-        function (contributor, ldapUser) {
-          _.merge(contributor, { role: ldapUser });
-          return res.status(200).send(contributor);
-        }
-      ).catch(next);
-    }
+    contriburGetter.bind(app, mw)
   ];
 
   var putRouting = [

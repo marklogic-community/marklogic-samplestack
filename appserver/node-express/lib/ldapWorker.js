@@ -59,8 +59,6 @@ process.on('exit', function () {
 
 
 server.bind('cn=root', function (req, res, next) {
-  console.log('oooh Im being rooted');
-  // console.log('root bind');
   if (req.dn.toString() !== 'cn=root' ||
       req.credentials !== options.ldap.adminPassword
   ) {
@@ -72,8 +70,6 @@ server.bind('cn=root', function (req, res, next) {
 });
 
 server.bind(SUFFIX, function (req, res, next) {
-  console.log('oooh Im being bound');
-  // console.log('bind user');
   var dn = req.dn.toString();
   if (!db[dn]) {
     return next(new ldap.NoSuchObjectError(dn));
@@ -92,7 +88,6 @@ server.bind(SUFFIX, function (req, res, next) {
 });
 
 server.compare(SUFFIX, authorize, function (req, res, next) {
-  // console.log('compare');
   var dn = req.dn.toString();
   if (!db[dn]) {
     return next(new ldap.NoSuchObjectError(dn));
@@ -116,8 +111,6 @@ server.compare(SUFFIX, authorize, function (req, res, next) {
 });
 
 server.search(SUFFIX, authorize, function (req, res, next) {
-  console.log('oooh Im being searched');
-  // console.log('search');
   Object.keys(db).forEach(function (k) {
     if (req.filter.matches(db[k].attributes)) {
       var user = _.cloneDeep(db[k]);
@@ -125,7 +118,6 @@ server.search(SUFFIX, authorize, function (req, res, next) {
         delete user.attributes.userPassword;
       }
       res.send(_.merge({ dn: k }, user ));
-      // console.log(user);
     }
   });
 

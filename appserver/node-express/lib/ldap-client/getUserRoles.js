@@ -7,9 +7,8 @@ module.exports = function (uid) {
     var roles = [];
     var filter = '(&(objectclass=groupOfNames)(uniqueMember=uid=' +
         uid +
-        ',ou=people,dc=samplestack,dc=org)(|' +
-        '))';
-    self.search(
+        ',ou=people,dc=samplestack,dc=org))';
+    return self.search(
       'dc=samplestack,dc=org',
       {
         filter: filter,
@@ -17,13 +16,15 @@ module.exports = function (uid) {
       },
       function (err, response) {
         if (err) {
-          reject(err);
+          return reject(err);
         }
         else {
-          response.on('error', reject);
+          response.on('error', function (err) {
+            return reject(err);
+          });
 
           response.on('searchReference', function (referral) {
-            reject(new Error(
+            return reject(new Error(
               'LDAP search reference returned -- not implemented'
             ));
           });
@@ -33,8 +34,7 @@ module.exports = function (uid) {
           });
 
           response.on('end', function () {
-            console.log(JSON.stringify(roles));
-            resolve(roles);
+            return resolve(roles);
           });
         }
       }

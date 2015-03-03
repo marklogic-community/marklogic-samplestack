@@ -10,7 +10,7 @@ module.exports = function (app, mw) {
     mw.db.setClientForRole.bind(app, 'contributors'),
 
     function (req, res, next) {
-      return req.db.getContributor(req.params.id)
+      return req.db.getContributor({ contributorId: req.params.id })
       .then(function (contributor) {
         return res.status(200).send(contributor);
       })
