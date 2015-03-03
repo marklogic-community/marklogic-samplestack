@@ -1,17 +1,15 @@
 var Promise = require('bluebird');
 var async = require('async');
 
-var contriburGetter = function (mw, req, res, next) {
-  console.log('fail here');
-  var self = this;
-  return Promise.join(
-    req.db.getContributor({ uid: req.user.uid }),
-    mw.auth.getUserRoles(req.user.uid),
-    function (contributor, ldapUser) {
-      _.merge(contributor, { role: ldapUser });
-      return res.status(200).send(contributor);
-    }
-  ).catch(next);
+var sessionGetter = function (req, res, next) {
+  console.log(JSON.stringify(req.user, null, ' '));
+  return req.db.getContributor({ uid: req.user.uid })
+  .then(function (contributor) {
+    // add in the roles of the user
+    contributor.role = req.user.roles;
+    return res.status(200).send(contributor);
+  })
+  .catch(next);
 };
 
 module.exports = function (app, mw) {
@@ -19,63 +17,50 @@ module.exports = function (app, mw) {
     mw.auth.tryReviveSession,
     function (req, res, next) {
       if (req.user) {
-        return async.waterfall([
-          mw.db.setClientForRole.bind(app, 'default', req, res),
-          contriburGetter.bind(app, mw, req, res)
-        ], next);
+        sessionGetter(req, res, next);
       }
       else {
-        return next();
+        // there is isn't an authenticated user -- so generate or regenerate
+        // a csrf token
+        mw.auth.createSession(req, res, next);
+        res.status(204).send();
       }
-    },
-    mw.csrf.setHeader,
-    mw.auth.createSession,
-    function (req, res) {
-      res.status(204).send();
     }
   ]);
 
   app.delete('/v1/session', [
     function (req, res, next) {
+      // fail silently so as not to upset the browser's applecart
       if (!req.session) {
-        return next({
-          error: 'noSession',
-          message: 'There is no session to delete.',
-          status: 400
+        res.status(205).send({ message: 'Reset Content'});
+      }
+      else {
+        async.waterfall([
+          mw.auth.logout.bind(app, req, res)
+        ], function (err) {
+          if (err) {
+            // we might want to log this formally
+            console.log('failed logoout');
+          }
+          res.status(205).send({ message: 'Reset Content'});
         });
       }
-      next();
     },
-    mw.auth.logout
   ]);
 
-  var loginRouting = [
+  app.put('/v1/session', [
+    mw.auth.tryReviveSession,
+    mw.parseBody.json,
     mw.auth.login,
-    // use the passportjs library to check authentication against ldap
-    // mw.auth.authenticate, //passport.authenticate('ldapauth'),
-    // if the user is in the contributors role, assume that role for DB
-    // connection purposes, otherwise return 401
-    //auth.roles(['contributors'])
-    mw.auth.checkRole.bind(app, 'contributors'),
-    // set CSRF header if configured to do so
-    // mw.csrf.set,
-    // get a dbclient instance fitting the role set above
-    mw.db.setClientForRole.bind(app, 'contributors'),
+    mw.auth.associateBestRole.bind(app, ['contributors']),
+    sessionGetter.bind(app)
+  ]);
 
-    // retrieve and return  information about the user
-    contriburGetter.bind(app, mw)
-  ];
-
-  var putRouting = [
-    mw.csrf.checkHeader, mw.parseBody.json
-  ].concat(loginRouting);
-
-  var postRouting = [
-    mw.csrf.checkHeader, mw.parseBody.urlEncoded
-  ].concat(loginRouting);
-
-  // respond to POSTs and PUTs to this address
-  // POSTs use url encoding, PUTs use json encoding (newer API)
-  app.put('/v1/session', putRouting);
-  app.post('/v1/session', postRouting);
+  app.post('/v1/session', [
+    mw.auth.tryReviveSession,
+    mw.parseBody.urlEncoded,
+    mw.auth.login,
+    mw.auth.associateBestRole.bind(app, ['contributors']),
+    sessionGetter.bind(app)
+  ]);
 };

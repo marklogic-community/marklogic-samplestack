@@ -6,6 +6,31 @@ var connections = {};
 
 module.exports = function (app) {
   return {
+    associateBestRole: function (roles, req, res, next) {
+      var userRoles = res.user ?
+          req.user.roles :
+          [];
+      userRoles.push('default');
+      var roleChoice;
+
+      _.each(roles, function (desiredRole) {
+        var testIndex = userRoles.indexOf(desiredRole);
+        if (testIndex > -1) {
+          roleChoice = userRoles[testIndex];
+          return false;
+        }
+      });
+      if (roleChoice) {
+        req.role = roleChoice;
+
+        next();
+      }
+
+    },
+
+    associateSpecificConnection: function (req, res, next) {
+
+    }
     setClientForRole: function (role, req, res, next) {
       try {
         var user = options.rolesMap[role].dbUser;

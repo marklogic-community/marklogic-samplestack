@@ -2,70 +2,69 @@ var passport = require('passport');
 var ldapauth = require('passport-ldapauth');
 var cookieSession = require('cookie-session');
 var async = require('async');
-var options = libRequire('../options').ldap;
+var options = libRequire('../options');
 var csrf = require('csurf');
 var util = require('util');
+var dbClient = libRequire('db-client');
 
-var csrf = {
-  handleError: function (err, req, res, next) {
-    if (err.code !== 'EBADCSRFTOKEN') {
-      return next(err);
-    }
-    res.status(400).send({error: 'Invalid CSRF token.'});
-  },
+var handleCsrfError = function (err, req, res, next) {
+  if (err.code !== 'EBADCSRFTOKEN') {
+    return next(err);
+  }
+  res.status(400).send({error: 'Invalid CSRF token.'});
+};
 
-  /**
-   * Error handlers associated with this module.
-   * @type {Array}
-   */
-  /**
-   * If enabled, generates a CSRF token, stores it to the session (TODO), and
-   * sets the response HEADER.
-   *
-   * @param {Object}   req
-   * @param {Object}   res
-   * @param {Function} next
-   */
-  setHeader: function (req, res, next) {
-    if (options.enableCsrf) {
-      try {
-        csrf()(req, res, function () {});
-      }
-      // expect failure, csurf needs work here, they don't let you
-      // cleanly generate a token ATM
-      catch (err) {}
-      res.set('X-CSRF-Token', req.csrfToken());
+/**
+ * Error handlers associated with this module.
+ * @type {Array}
+ */
+/**
+ * If enabled, generates a CSRF token, stores it to the session (TODO), and
+ * sets the response HEADER.
+ *
+ * @param {Object}   req
+ * @param {Object}   res
+ * @param {Function} next
+ */
+var setCsrfHeader = function (req, res, next) {
+  if (options.enableCsrf) {
+    try {
+      csrf()(req, res, function () {});
     }
+    // expect failure, csurf needs work here, they don't let you
+    // cleanly generate a token ATM
+    catch (err) {}
+    res.set('X-CSRF-Token', req.csrfToken());
+  }
+  next();
+};
+
+/**
+ * When this is called, we only do something if BOTH:
+ * a) CSRF protection is enabled in the options file; and
+ * b) the request is associated with a session
+ *
+ * In other words, we allow people to proceed without CSRF if they
+ * do not even claim to have a session, or if we aren't intending to
+ * enforce CSRF. Otherwise, they must pass the CSRF token test.
+ * (The token must have been stored in the session data for this to work.)
+ * TODO:
+ * a) revive session data if the user comes in with a sessionid
+ * b) set the server-side token in memory to match the revived session data
+ * c) store token in session data as part of auth. mechanism
+ * d) throw out sessions when a bad request comes in (not found token or
+ * CSRF mismatch)
+ *
+ * @param {Object}   req
+ * @param {Object}   res
+ * @param {Function} next
+ */
+var checkCsrfHeader = function (req, res, next) {
+  if (options.enableCsrf && req.session) {
+    csrf()(req, res, next);
+  }
+  else {
     next();
-  },
-
-  /**
-   * When this is called, we only do something if BOTH:
-   * a) CSRF protection is enabled in the options file; and
-   * b) the request is associated with a session
-   *
-   * In other words, we allow people to proceed without CSRF if they
-   * do not even claim to have a session, or if we aren't intending to
-   * enforce CSRF. Otherwise, they must pass the CSRF token test.
-   * (The token must have been stored in the session data for this to work.)
-   * TODO:
-   * a) revive session data if the user comes in with a sessionid
-   * b) set the server-side token in memory to match the revived session data
-   * c) store token in session data as part of auth. mechanism
-   * d) throw out sessions when a bad request comes in (not found token or
-   * CSRF mismatch)
-   *
-   * @param {Object}   req
-   * @param {Object}   res
-   * @param {Function} next
-   */
-  checkHeader: function (req, res, next) {
-    if (options.enableCsrf && req.session) {
-      csrf()(req, res, next);
-    }
-    else {
-      next();
-    }
   }
 };
 
@@ -74,13 +73,13 @@ var configurePassport = function (app , ldapConfig) {
 
     {
       server : {
-        url: options.protocol +
-            '://' + options.hostname +
-            ':' + options.port,
-        bindDn: options.adminDn,
-        bindCredentials: options.adminPassword,
-        searchBase: options.searchBase,
-        searchFilter: options.searchFilter
+        url: options.ldap.protocol +
+            '://' + options.ldap.hostname +
+            ':' + options.ldap.port,
+        bindDn: options.ldap.adminDn,
+        bindCredentials: options.ldap.adminPassword,
+        searchBase: options.ldap.searchBase,
+        searchFilter: options.ldap.searchFilter
       },
       usernameField: 'username',
       passwordField: 'password'
@@ -90,11 +89,7 @@ var configurePassport = function (app , ldapConfig) {
   // TODO: serialize to-from server
   var users = {};
 
-
-
-
   passport.serializeUser(function (user, done) {
-    console.log('store user');
     users[user.uid] = JSON.stringify(user);
     done(null, user.uid);
   });
@@ -127,8 +122,8 @@ var configurePassport = function (app , ldapConfig) {
   var authenticate = passport.authenticate('ldapauth');
 
   return {
+    // TODO: this isn't overwriting previous sessions!!!!!!
     createSession: expressSession,
-    getSession: expressSession,
     loginSession: function (req, res, next) {
       async.waterfall([
         expressSession.bind(this, req, res),
@@ -145,32 +140,106 @@ var configurePassport = function (app , ldapConfig) {
 
 };
 
-module.exports = function (app) {
-  app.use(csrf.handleError);
+var getUserRoles = function (ldap, req, res, next) {
+  ldap.getUserRoles(req.user.uid)
+  .then(function (roles) {
+    req.user.roles = roles;
+    next();
+  })
+  .catch(next);
+};
 
+var pickRole = function (roles, req, res, next) {
+
+  // a request is made by someone with roles.
+  // the fallback role is "default", so we tack that on to the end of
+  // the requestor's list
+  var userRoles = req.user ?
+      _.clone(req.user.roles) :
+      [];
+  userRoles.push('default');
+  var roleChoice;
+
+  // from among the roles that we may assign for this request, choose the
+  // first that the requestor actually has
+  _.each(roles, function (desiredRole) {
+    var testIndex = userRoles.indexOf(desiredRole);
+    if (testIndex > -1) {
+      roleChoice = userRoles[testIndex];
+      return false;
+    }
+  });
+  if (roleChoice) {
+    // if we found a matching role, assign it and get the database connection
+    // that matches
+    req.role = roleChoice;
+    var user = options.rolesMap[roleChoice].dbUser;
+    var password = options.rolesMap[roleChoice].dbPassword;
+    var db = dbClient(user, password);
+    req.db = db;
+    next();
+  }
+  else {
+    // if we don't have a matching role and we already know who the user
+    // is, it's a 403
+    if (req.user) {
+      res.status(403).send({ message: 'Forbidden' });
+    }
+    // if we don't have a matching role and we don't even have
+    // a session, then it's a 401
+    else {
+      res.status(401).send({ message: 'Unauthorized' });
+    }
+  }
+};
+
+module.exports = function (app) {
   var ldap = libRequire('ldap-client')(app);
   var sessions = configurePassport(app, ldap.config);
 
-  return {
-    getUserRoles: ldap.getUserRoles,
+  app.use(handleCsrfError);
 
-    checkRole: function (role, req, res, next) {
-      ldap.getUserRoles(req.user.uid)
-      .then(function (roles) {
-        req.roles = roles;
-        if (roles.indexOf(role) < 0) {
-          return next({ status: 403, message: 'insufficientPrivileges' });
-        }
-        else {
-          req.role = role;
-          return next();
-        }
-      })
-      .catch(next);
+
+
+  return {
+    createSession: sessions.createSession,
+
+
+    tryReviveSession: function (req, res, next) {
+      // is the request purporting to have a session?
+      // if so, it should have a csrf ID, in which case we will try reviving
+      // the user
+      // otherwise, it's business as usual
+      // we presently implemented, this will make a client receive an error
+      // if they have a token mismatch or if their session is no longer
+      // available. We could theoretically send a kill instruction here
+      // and attempt to let the request go through anyway.
+      if (req.cookies && req.cookies['connect.sid']) {
+        async.waterfall([
+          checkCsrfHeader.bind(app, req, res),
+          sessions.createSession.bind(app, req, res),
+          passport.initialize().bind(passport, req, res),
+          passport.session().bind(passport, req, res),
+        ], next);
+      }
+      else {
+        // no sign of a session -- move on
+        next();
+      }
     },
-    // getBestRole: function (roles, req, res, next) {
-    //   ldap.authorization.roles(roles)(req, res, next);
-    // },
+
+    login: function (req, res, next) {
+      async.waterfall([
+        checkCsrfHeader.bind(app, req, res),
+        sessions.loginSession.bind(app, req, res),
+        getUserRoles.bind(app, ldap, req, res)
+      ], next);
+    },
+
+    // getUserRoles: getUserRoles,
+
+    associateBestRole: pickRole,
+
     logout: function (req, res, next) {
       try {
         // TODO this is the passport logout function -- does it clear the
@@ -181,29 +250,6 @@ module.exports = function (app) {
       finally {
         // this function shouldn't fail
         // TODO
-        next();
-      }
-    },
-    createSession: sessions.createSession,
-    login: sessions.loginSession,
-
-    tryReviveSession: function (req, res, next) {
-      console.log('revive');
-      console.log(util.inspect(req));
-      // is the request purporting to have a session?
-      // if so, it should have a csrf ID, in which case we will try reviving
-      // the user
-      // otherwise, it's business as usual
-      if (req.cookies && req.cookies['connect.sid']) {
-        console.log('waterfall');
-        async.waterfall([
-          csrf.checkHeader.bind(app, req, res),
-          sessions.getSession.bind(app, req, res),
-          passport.initialize().bind(passport, req, res),
-          passport.session().bind(passport, req, res),
-        ], next);
-      }
-      else {
         next();
       }
     }
