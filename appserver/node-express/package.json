@@ -21,6 +21,7 @@
     "minimist": "^1.1.0",
     "moment": "^2.9.0",
     "monitor": "0.6.10",
+    "node-uuid": "^1.4.2",
     "passport": "^0.2.1",
     "passport-ldapauth": "^0.2.4",
     "requireindex": "^1.1.0"
