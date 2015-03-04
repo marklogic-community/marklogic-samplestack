@@ -27,8 +27,6 @@ http://ldapjs.org/examples.html
 
  */
 
-
-
 var ldap = require('ldapjs');
 
 var options = libRequire('../options');

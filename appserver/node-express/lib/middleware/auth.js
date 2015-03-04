@@ -6,6 +6,11 @@ var options = libRequire('../options');
 var csrf = require('csurf');
 var util = require('util');
 var dbClient = libRequire('db-client');
+var mon = libRequire('monitoring');
+
+// TODO: serialize to-from server
+var users = {};
+
 
 var handleCsrfError = function (err, req, res, next) {
   if (err.code !== 'EBADCSRFTOKEN') {
@@ -72,6 +77,9 @@ var configurePassport = function (app , ldapConfig) {
   passport.use(new ldapauth.Strategy(
 
     {
+      passReqToCallback: true,
+      usernameField: 'username',
+      passwordField: 'password',
       server : {
         url: options.ldap.protocol +
             '://' + options.ldap.hostname +
@@ -79,15 +87,19 @@ var configurePassport = function (app , ldapConfig) {
         bindDn: options.ldap.adminDn,
         bindCredentials: options.ldap.adminPassword,
         searchBase: options.ldap.searchBase,
-        searchFilter: options.ldap.searchFilter
-      },
-      usernameField: 'username',
-      passwordField: 'password'
+        searchFilter: options.ldap.searchFilter,
+      }
+    },
+    function (req, user, done) {
+      user.roles = _.reduce(user.role, function (role, ldapEntry) {
+        var cn = ldapEntry.split(',')[0].split('=')[1];
+        role.push(cn);
+        return role;
+      }, []);
+      done(null, user);
     }
   ));
 
-  // TODO: serialize to-from server
-  var users = {};
 
   passport.serializeUser(function (user, done) {
     users[user.uid] = JSON.stringify(user);
@@ -96,7 +108,6 @@ var configurePassport = function (app , ldapConfig) {
 
 
   passport.deserializeUser(function (id, done) {
-    console.log('load user');
     var userStr = users[id];
     if (userStr) {
       var user = JSON.parse(userStr);
@@ -119,7 +130,6 @@ var configurePassport = function (app , ldapConfig) {
     resave: false
   });
 
-  var authenticate = passport.authenticate('ldapauth');
 
   return {
     // TODO: this isn't overwriting previous sessions!!!!!!
@@ -129,28 +139,14 @@ var configurePassport = function (app , ldapConfig) {
         expressSession.bind(this, req, res),
         passport.initialize().bind(passport, req, res),
         passport.session().bind(passport, req, res),
-        authenticate.bind(passport, req, res),
-        // function (cb) {
-        //   console.log(JSON.stringify(req.session));
-        //   cb();
-        // }
+        passport.authenticate('ldapauth').bind(passport, req, res)
       ], next);
     }
   };
 
 };
 
-var getUserRoles = function (ldap, req, res, next) {
-  ldap.getUserRoles(req.user.uid)
-  .then(function (roles) {
-    req.user.roles = roles;
-    next();
-  })
-  .catch(next);
-};
-
 var pickRole = function (roles, req, res, next) {
-
   // a request is made by someone with roles.
   // the fallback role is "default", so we tack that on to the end of
   // the requestor's list
@@ -231,26 +227,32 @@ module.exports = function (app) {
     login: function (req, res, next) {
       async.waterfall([
         checkCsrfHeader.bind(app, req, res),
-        sessions.loginSession.bind(app, req, res),
-        getUserRoles.bind(app, ldap, req, res)
+        sessions.loginSession.bind(app, req, res)
       ], next);
     },
-
-    // getUserRoles: getUserRoles,
 
     associateBestRole: pickRole,
 
     logout: function (req, res, next) {
       try {
-        // TODO this is the passport logout function -- does it clear the
-        // session in the database?
-        // what else does it do?
-        req.logout();
+        if (!req.session) {
+          res.status(454).send({ message:'Session Not Found' });
+        }
+        if (req.user) {
+          var uid = req.user.uid;
+          // TODO this is the passport logout function -- does it clear the
+          // session in the database?
+          // what else does it do?
+          req.logout();
+          delete users[uid];
+        }
+        else {
+          req.session.destroy();
+        }
+        res.status(205).send({ message:'Reset Content' });
       }
-      finally {
-        // this function shouldn't fail
-        // TODO
-        next();
+      catch (err) {
+        next(err);
       }
     }
   };
