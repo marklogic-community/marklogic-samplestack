@@ -15,8 +15,11 @@ var sessionGetter = function (req, res, next) {
 };
 
 module.exports = function (app, mw) {
+
+  // for every REST endpoing, we first want to try to identify the requestor
+  app.use('/v1/', mw.auth.tryReviveSession);
+
   app.get('/v1/session', [
-    mw.auth.tryReviveSession,
     mw.auth.associateBestRole.bind(app, ['default']),
     function (req, res, next) {
       if (req.user) {
@@ -33,20 +36,17 @@ module.exports = function (app, mw) {
   ]);
 
   app.delete('/v1/session', [
-    mw.auth.tryReviveSession,
     mw.auth.logout
   ]);
 
   app.put('/v1/session', [
-    mw.auth.tryReviveSession,
     mw.parseBody.json,
     mw.auth.login,
     mw.auth.associateBestRole.bind(app, ['contributors']),
-    sessionGetter.bind(app)
+    sessionGetter.bind(app),
   ]);
 
   app.post('/v1/session', [
-    mw.auth.tryReviveSession,
     mw.parseBody.urlEncoded,
     mw.auth.login,
     mw.auth.associateBestRole.bind(app, ['contributors']),
