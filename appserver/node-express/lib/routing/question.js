@@ -1,4 +1,4 @@
-var roles = ['contributors'];
+var roles = ['default','contributors'];
 
 module.exports = function (app, mw) {
   app.get('/v1/questions', [

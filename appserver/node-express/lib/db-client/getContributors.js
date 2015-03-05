@@ -25,10 +25,7 @@ module.exports = function (userSpec) {
             count: response.length
           });
         }
-        var obj = response[0].content[
-          Object.keys(response[0].content)[0]
-        ];
-        return resolve(obj);
+        return resolve(response);
       },
       reject
     );
