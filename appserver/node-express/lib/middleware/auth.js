@@ -39,7 +39,8 @@ var setCsrfHeader = function (req, res, next) {
     // expect failure, csurf needs work here, they don't let you
     // cleanly generate a token ATM
     catch (err) {}
-    res.set('X-CSRF-Token', req.csrfToken());
+    req.user.token = req.csrfToken();
+    res.set('X-CSRF-Token', req.user.token);
   }
   next();
 };

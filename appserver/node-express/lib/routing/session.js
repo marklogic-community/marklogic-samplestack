@@ -7,6 +7,8 @@ var sessionGetter = function (req, res, next) {
   .then(function (contributor) {
     // add in the roles of the user
     contributor.role = req.user.roles;
+    req.user.displayName = contributor.displayName;
+    req.user.contributorId = contributor.id;
     return res.status(200).send(contributor);
   })
   .catch(next);
