@@ -232,7 +232,12 @@ module.exports = function (app) {
       ], next);
     },
 
-    associateBestRole: pickRole,
+    // associateBestRole: pickRole,
+    associateBestRole: function (roles, req, res, next) {
+      var db = dbClient('samplestack-contributor', 'sc-pass');
+      req.db = db;
+      next();
+    },
 
     logout: function (req, res, next) {
       try {

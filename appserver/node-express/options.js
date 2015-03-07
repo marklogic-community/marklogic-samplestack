@@ -33,7 +33,7 @@ module.exports = {
   // //better docs please
   ldap: {
     hostname: 'localhost',
-    port: 33389,
+    port: 33388, // was 33389
     adminDn: 'cn=root',
     adminPassword: 'admin',
     searchBase: 'ou=people,dc=samplestack,dc=org',
