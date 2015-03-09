@@ -234,8 +234,6 @@ var handleAnswerVote = function (userSpec) {
       var aOwnerID            = answerDoc.owner.id;
       var newItemTally        = answerDoc.itemTally + upDown;
       var newVoteCount        = qDoc.voteCount + 1;
-      console.log('mlAnswerDocIndex');
-      console.log(mlAnswerDocIndex);
       var contribTypeToStore  = (upDown === 1) ?
             'upvotingContributorIds' : 'downvotingContributorIds';
       var insertPath = '/answers[' + mlAnswerDocIndex + ']/array-node("'
@@ -274,8 +272,44 @@ var handleAnswerVote = function (userSpec) {
  * COMMENT ON AN ANSWER
  */
 var handleAnswerComment = function (userSpec) {
+  var questionId = userSpec.questionId;
+  var answerId = userSpec.answerId;
+  var questionURI = questionsDir + questionId + '.json';
+  var commentObj = userSpec.body;
+  var commentContent = _.clone(commentTemplate);
+  commentContent.creationDate = new Date();
+  _.merge(commentContent, commentObj);
+
   return new Promise(function (resolve, reject) {
-    return resolve('not implemented');
+
+    var result = readDocument(questionURI);
+    result.then(function (qDoc) {
+      var answerDocIndex = _.findIndex(qDoc.answers, { 'id': answerId });
+      var aDocIndex = answerDocIndex + 1; // uses 1 based index
+      var insertPath = '/answers[' + aDocIndex + ']/array-node("comments")';
+      var fetch = db.documents.patch(
+        questionURI,
+        pb.insert(insertPath, 'last-child', commentContent)
+      );
+
+      fetch.result(
+        function (response) {
+          if (response.uri) {
+            return resolve(readDocument(response.uri));
+          }
+          else {
+            return reject({
+              error: 'cardinalityViolation',
+              userSpec: userSpec,
+              count: response.documents.length
+            });
+          }
+        },
+        reject
+      );
+
+    });
+
   });
 };
 
@@ -283,8 +317,40 @@ var handleAnswerComment = function (userSpec) {
  * ACCEPT AN ANSWER
  */
 var handleAnswerAccept = function (userSpec) {
+  var questionId = userSpec.questionId;
+  var answerId = userSpec.answerId;
+  var questionURI = questionsDir + questionId + '.json';
+
   return new Promise(function (resolve, reject) {
-    return resolve('not implemented');
+
+    var result = readDocument(questionURI);
+    result.then(function (qDoc) {
+      var answerDocIndex = _.findIndex(qDoc.answers, { 'id': answerId });
+      // use answerDocIndex for error checking - ensure ID exists
+      var fetch = db.documents.patch(
+        questionURI,
+        pb.replace('/accepted', true),
+        pb.replace('/acceptedAnswerId', answerId)
+      );
+
+      fetch.result(
+        function (response) {
+          if (response.uri) {
+            return resolve(readDocument(response.uri));
+          }
+          else {
+            return reject({
+              error: 'cardinalityViolation',
+              userSpec: userSpec,
+              count: response.documents.length
+            });
+          }
+        },
+        reject
+      );
+
+    });
+
   });
 };
 
