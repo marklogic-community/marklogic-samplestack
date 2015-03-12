@@ -124,7 +124,11 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		ObjectNode query = (ObjectNode) mapper
 				.readValue("{\"search\":{\"qtext\":\"\"}}",
 						JsonNode.class);
-		this.rawSearch(SAMPLESTACK_CONTRIBUTOR, query, 1, DateTimeZone.forOffsetHours(1));
+		try {
+			this.rawSearch(SAMPLESTACK_CONTRIBUTOR, query, 1, DateTimeZone.forOffsetHours(1));
+		} catch (Exception e) {
+			logger.error("Cannot initialize application.  Something is probably wrong with the MarkLogic server.", e);
+		}
 	}
 	
 	/**
