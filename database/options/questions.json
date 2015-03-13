@@ -1,5 +1,6 @@
 {
     "options": {
+        "additional-query": "<cts:json-property-range-query xmlns:cts=\"http://marklogic.com/cts\" operator=\">=\"><cts:property>voteCount</cts:property><cts:value xsi:type=\"xs:integer\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">-10000</cts:value><cts:option>score-function=linear</cts:option><cts:option>slope-factor=1</cts:option></cts:json-property-range-query>",
         "constraint": [
             {
                 "name": "askedBy",
