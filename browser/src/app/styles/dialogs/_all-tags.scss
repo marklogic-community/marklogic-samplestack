@@ -82,6 +82,13 @@
 
   .modal-footer ul.pagination {
     margin: 0;
+
+  }
+
+  ul.pagination li {
+    &:last-of-type {
+      display: none;
+    }
   }
 
   .modal-footer ul.pagination li a {
