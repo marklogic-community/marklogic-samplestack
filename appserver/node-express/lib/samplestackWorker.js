@@ -21,6 +21,7 @@ app.use(require('compression')({ threshold: 1024 }));
 // read/parse cookies all the time on REST endpoints
 app.use('/v1/', require('cookie-parser')());
 
+
 // we give the app over to the middleware so that we can put specific error
 // handlers into the app as we define the middleware, even though technically
 // the middleware itself won't live in the app. This lets us put our error
@@ -32,8 +33,20 @@ libRequire('routing')(app, mw);
 
 // THE VERY LAST FAILSAFE ERROR HANDLER for rest endpoints
 app.use('/v1/', function (err, req, res, next) {
-  mon.error(500, err);
-  res.status(500).send({ error: err });
+  if (err.status){
+    res.status(err.status).send( {error: err });
+  }
+  else {
+    if (err.statusCode){
+      res.status(err.statusCode).send( {
+        message: err.body.errorResponse.message,
+      });
+    }
+    else {
+      mon.error(500, err);
+      res.status(500).send({ error: err });
+    }
+  }
 });
 
 var listener;

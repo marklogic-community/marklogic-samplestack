@@ -4,7 +4,6 @@ var boundClients = {};
 
 module.exports = function (user, password) {
   if (!boundClients[user]) {
-    var modules = require('requireindex')(__dirname);
     var connection = mlclient.createDatabaseClient(_.merge(
       options.clientConnection,
       {
@@ -12,32 +11,25 @@ module.exports = function (user, password) {
         password: password
       }
     ));
+    // TODO: this used to work -- determine best way to catch
+    // errors in-app and keep logging from being spit out of dbclient
     // connections[role].setLogger({ console: false });
 
     var boundClient = {};
 
-    // bind all functions to the user-specific client
+    var modules = {
+      qnaDoc: require('./qnaDoc'),
+      contributor: require('./contributor'),
+      tags: require('./tags')
+    };
+
+    // have the individual modules handle binding themselves to the connection
+    // by calling their exported function
     _.each(modules, function (mod, key) {
-      boundClient[key] = mod.bind(connection);
+      boundClient[key] = mod(connection);
     });
+    boundClient.transactions = connection.transactions;
     boundClients[user] = boundClient;
   }
   return boundClients[user];
 };
-
-
-
-// db.getClientForRole = function (rolesMap, role) {
-//   if (!connections[role]) {
-//     connections[role] = mlclient.createDatabaseClient(_.merge(
-//       options.db.clientConnection,
-//       {
-//         user: options.rolesMap[role].dbUser,
-//         // TODO read this from a secure file or env variable
-//         password: options.rolesMap[role].dbPassword
-//       }
-//     ));
-//     // connections[role].setLogger({ console: false });
-//   }
-//   return connections[role];
-// };

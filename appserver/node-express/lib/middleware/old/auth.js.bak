@@ -11,6 +11,8 @@ var mon = libRequire('monitoring');
 // TODO: serialize to-from server
 var users = {};
 
+var mockContributor = libRequire('mocks/joeSessionMock');
+
 
 var handleCsrfError = function (err, req, res, next) {
   if (err.code !== 'EBADCSRFTOKEN') {
@@ -74,55 +76,6 @@ var checkCsrfHeader = function (req, res, next) {
   }
 };
 
-var useRole = function (role, req) {
-  req.role = role;
-  var user = options.rolesMap[role].dbUser;
-  var password = options.rolesMap[role].dbPassword;
-  var db = dbClient(user, password);
-  req.db = db;
-
-};
-
-var pickRole = function (roles, req, res, next) {
-  // a request is made by someone with roles.
-  // the fallback role is "default", so we tack that on to the end of
-  // the requestor's list
-  var userRoles = req.user ?
-      _.clone(req.user.roles) :
-      [];
-  userRoles.push('default');
-  var roleChoice;
-
-  // from among the roles that we may assign for this request, choose the
-  // first that the requestor actually has
-  _.each(roles, function (desiredRole) {
-    var testIndex = userRoles.indexOf(desiredRole);
-    if (testIndex > -1) {
-      roleChoice = userRoles[testIndex];
-      return false;
-    }
-  });
-  if (roleChoice) {
-    // if we found a matching role, assign it and get the database connection
-    // that matches
-    useRole(roleChoice, req);
-
-    next();
-  }
-  else {
-    // if we don't have a matching role and we already know who the user
-    // is, it's a 403
-    if (req.user) {
-      res.status(403).send({ message: 'Forbidden' });
-    }
-    // if we don't have a matching role and we don't even have
-    // a session, then it's a 401
-    else {
-      res.status(401).send({ message: 'Unauthorized' });
-    }
-  }
-};
-
 var configurePassport = function (app , ldapConfig) {
   passport.use(new ldapauth.Strategy(
 
@@ -141,38 +94,21 @@ var configurePassport = function (app , ldapConfig) {
       }
     },
     function (req, user, done) {
-      if (!_.isArray(user.role)) {
-        user.role = [user.role];
-      }
       user.roles = _.reduce(user.role, function (role, ldapEntry) {
         var cn = ldapEntry.split(',')[0].split('=')[1];
         role.push(cn);
         return role;
       }, []);
-
-      useRole(['default'], req);
-      req.db.contributor.getUniqueContent(null, { userName: user.uid })
-      .then(function (contributor) {
-        user = {
-          id: contributor.id,
-          roles: user.roles,
-          displayName: contributor.displayName,
-        };
-
-        // stuff this on the request so we can reply nicely
-        contributor.role = user.roles;
-        req.contributor = contributor;
-
-        done(null, user);
-      });
+      done(null, user);
     }
   ));
 
 
   passport.serializeUser(function (user, done) {
-    users[user.id] = JSON.stringify(user);
-    done(null, user.id);
+    users[user.uid] = JSON.stringify(user);
+    done(null, user.uid);
   });
+
 
   passport.deserializeUser(function (id, done) {
     var userStr = users[id];
@@ -213,7 +149,48 @@ var configurePassport = function (app , ldapConfig) {
 
 };
 
+var pickRole = function (roles, req, res, next) {
+  // a request is made by someone with roles.
+  // the fallback role is "default", so we tack that on to the end of
+  // the requestor's list
+  var userRoles = req.user ?
+      _.clone(req.user.roles) :
+      [];
+  userRoles.push('default');
+  var roleChoice;
 
+  // from among the roles that we may assign for this request, choose the
+  // first that the requestor actually has
+  _.each(roles, function (desiredRole) {
+    var testIndex = userRoles.indexOf(desiredRole);
+    if (testIndex > -1) {
+      roleChoice = userRoles[testIndex];
+      return false;
+    }
+  });
+  if (roleChoice) {
+    // if we found a matching role, assign it and get the database connection
+    // that matches
+    req.role = roleChoice;
+    var user = options.rolesMap[roleChoice].dbUser;
+    var password = options.rolesMap[roleChoice].dbPassword;
+    var db = dbClient(user, password);
+    req.db = db;
+    next();
+  }
+  else {
+    // if we don't have a matching role and we already know who the user
+    // is, it's a 403
+    if (req.user) {
+      res.status(403).send({ message: 'Forbidden' });
+    }
+    // if we don't have a matching role and we don't even have
+    // a session, then it's a 401
+    else {
+      res.status(401).send({ message: 'Unauthorized' });
+    }
+  }
+};
 
 module.exports = function (app) {
   var ldap = libRequire('ldap-client')(app);
@@ -221,76 +198,73 @@ module.exports = function (app) {
 
   app.use(handleCsrfError);
 
-  // TEMPORARY
-  // var dbClient = libRequire('db-client');
-  // var mockContributor = libRequire('mocks/joeSessionMock');
+
 
   return {
-    // associateBestRole: function (roles, req, res, next) {
-    //   var db = dbClient('samplestack-contributor', 'sc-pass');
-    //   req.db = db;
-    //   req.session = {
-    //     contributor: mockContributor
-    //   };
-    //   next();
+    // createSession: sessions.createSession,
+    //
+    //
+    // tryReviveSession: function (req, res, next) {
+    //   // is the request purporting to have a session?
+    //   // if so, it should have a csrf ID, in which case we will try reviving
+    //   // the user
+    //   // otherwise, it's business as usual
+    //   // we presently implemented, this will make a client receive an error
+    //   // if they have a token mismatch or if their session is no longer
+    //   // available. We could theoretically send a kill instruction here
+    //   // and attempt to let the request go through anyway.
+    //   if (req.cookies && req.cookies['connect.sid']) {
+    //     async.waterfall([
+    //       checkCsrfHeader.bind(app, req, res),
+    //       sessions.createSession.bind(app, req, res),
+    //       passport.initialize().bind(passport, req, res),
+    //       passport.session().bind(passport, req, res),
+    //     ], next);
+    //   }
+    //   else {
+    //     // no sign of a session -- move on
+    //     next();
+    //   }
+    // },
+    //
+    // login: function (req, res, next) {
+    //   async.waterfall([
+    //     checkCsrfHeader.bind(app, req, res),
+    //     sessions.loginSession.bind(app, req, res)
+    //   ], next);
     // },
 
-    createSession: sessions.createSession,
-
-
-    tryReviveSession: function (req, res, next) {
-      // is the request purporting to have a session?
-      // if so, it should have a csrf ID, in which case we will try reviving
-      // the user
-      // otherwise, it's business as usual
-      // we presently implemented, this will make a client receive an error
-      // if they have a token mismatch or if their session is no longer
-      // available. We could theoretically send a kill instruction here
-      // and attempt to let the request go through anyway.
-      if (req.cookies && req.cookies['connect.sid']) {
-        async.waterfall([
-          checkCsrfHeader.bind(app, req, res),
-          sessions.createSession.bind(app, req, res),
-          passport.initialize().bind(passport, req, res),
-          passport.session().bind(passport, req, res),
-        ], next);
-      }
-      else {
-        // no sign of a session -- move on
-        next();
-      }
+    // associateBestRole: pickRole,
+    associateBestRole: function (roles, req, res, next) {
+      var db = dbClient('samplestack-contributor', 'sc-pass');
+      req.db = db;
+      req.session = {
+        contributor: mockContributor
+      };
+      next();
     },
 
-    login: function (req, res, next) {
-      async.waterfall([
-        checkCsrfHeader.bind(app, req, res),
-        sessions.loginSession.bind(app, req, res)
-      ], next);
-    },
-
-    associateBestRole: pickRole,
-
-    logout: function (req, res, next) {
-      try {
-        if (!req.session) {
-          res.status(454).send({ message:'Session Not Found' });
-        }
-        if (req.user) {
-          var uid = req.user.uid;
-          // TODO this is the passport logout function -- does it clear the
-          // session in the database?
-          // what else does it do?
-          req.logout();
-          delete users[uid];
-        }
-        else {
-          req.session.destroy();
-        }
-        res.status(205).send({ message:'Reset Content' });
-      }
-      catch (err) {
-        next(err);
-      }
-    }
+    // logout: function (req, res, next) {
+    //   try {
+    //     if (!req.session) {
+    //       res.status(454).send({ message:'Session Not Found' });
+    //     }
+    //     if (req.user) {
+    //       var uid = req.user.uid;
+    //       // TODO this is the passport logout function -- does it clear the
+    //       // session in the database?
+    //       // what else does it do?
+    //       req.logout();
+    //       delete users[uid];
+    //     }
+    //     else {
+    //       req.session.destroy();
+    //     }
+    //     res.status(205).send({ message:'Reset Content' });
+    //   }
+    //   catch (err) {
+    //     next(err);
+    //   }
+    // }
   };
 };
