@@ -53,9 +53,12 @@ define(['app/module'], function (module) {
       SsVote.prototype.getHttpUrl = function (httpMethod) {
         switch (httpMethod) {
           case 'POST':
-            return '/questions' +
-            this.$ml.parent.getEndpointIdentifier(httpMethod) +
-            '/' + this.getResourceName(httpMethod);
+            // use parent's GET so that we cause it to include its identifying
+            // information
+            var path = //'/questions' +
+              this.$ml.parent.getHttpUrl('GET') +
+              '/' + this.getResourceName(httpMethod);
+            return path;
           default:
             throw new Error(
               'unsupported http method passed to getEndpoint: ' + httpMethod

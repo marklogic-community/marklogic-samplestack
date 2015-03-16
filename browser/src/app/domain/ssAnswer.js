@@ -77,10 +77,10 @@ define(['app/module'], function (module) {
        * @description Accepts the answer.
        */
       SsAnswerObject.prototype.accept = function () {
+        var self = this;
         var acceptedAnswer = ssAcceptedAnswer.create({}, this);
         if (acceptedAnswer.$ml.valid) {
-          acceptedAnswer.post().$ml.waiting.then(function () {
-            // Do nothing more on success
+          return acceptedAnswer.post().$ml.waiting.then(function () {
           },
           function (error) {
             throw new Error('Error occurred: ' + JSON.stringify(error));
@@ -120,11 +120,12 @@ define(['app/module'], function (module) {
        * @param {object} data Data to merge.
        */
       SsAnswerObject.prototype.mergeData = function (data) {
+        var self = this;
 
         // Replace comments with ssComment objects
         data.comments = data.comments || [];
         angular.forEach(data.comments, function (comment, index) {
-          data.comments[index] = ssComment.create(comment, this);
+          data.comments[index] = ssComment.create(comment, self);
         });
 
         mlUtil.merge(this, data);
@@ -151,8 +152,13 @@ define(['app/module'], function (module) {
         switch (httpMethod) {
           case 'POST':
             return '/' + this.$ml.parent.getResourceName(httpMethod) +
-            this.$ml.parent.getEndpointIdentifier(httpMethod) +
-            '/' + this.getResourceName(httpMethod);
+                this.$ml.parent.getEndpointIdentifier(httpMethod) +
+                '/' + this.getResourceName(httpMethod);
+          case 'GET':
+            return '/' + this.$ml.parent.getResourceName(httpMethod) +
+                this.$ml.parent.getEndpointIdentifier(httpMethod) +
+                '/' + this.getResourceName(httpMethod) +
+                '/' + this.id;
           default:
             throw new Error(
               'unsupported http method passed to getEndpoint: ' + httpMethod
@@ -168,7 +174,7 @@ define(['app/module'], function (module) {
        * @param {string} data Response data
        */
       SsAnswerObject.prototype.onResponsePOST = function (data) {
-        this.$ml.parent.onResponsePOST(data);
+        return this.$ml.parent.onResponsePOST(data);
       };
 
       return mlModelBase.extend('SsAnswerObject', SsAnswerObject);

@@ -353,7 +353,10 @@ define(['app/module'], function (module) {
       };
 
       $scope.accept = function (answer) {
-        answer.accept();
+        answer.accept()
+        .then(function () {
+          $scope.updateReputation(answer);
+        });
       };
 
       $scope.setPageTitle('doc');

@@ -57,7 +57,7 @@ define(['app/module'], function (module) {
       };
 
       ssAcceptedAnswer.prototype.onResponsePOST = function (data) {
-        this.$ml.parent.onResponsePOST(data);
+        return this.$ml.parent.onResponsePOST(data);
       };
 
       return mlModelBase.extend('ssAcceptedAnswer', ssAcceptedAnswer);

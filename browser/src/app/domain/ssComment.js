@@ -69,16 +69,8 @@ define(['app/module'], function (module) {
           case 'POST':
             // By default, for a question comment
             var url =
-              '/' + this.$ml.parent.getResourceName(httpMethod) +
-              this.$ml.parent.getEndpointIdentifier(httpMethod) +
+              this.$ml.parent.getHttpUrl('GET') +
               '/' + this.getResourceName(httpMethod);
-            // An answer commment has (and the URL requires) an add'l parent
-            if (this.$ml.parent.$ml.parent) {
-              url =
-                '/' + this.$ml.parent.$ml.parent.getResourceName(httpMethod) +
-                this.$ml.parent.$ml.parent.getEndpointIdentifier(httpMethod) +
-                url;
-            }
             return url;
           default:
             throw new Error(
