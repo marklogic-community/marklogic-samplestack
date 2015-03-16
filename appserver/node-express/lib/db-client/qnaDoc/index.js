@@ -45,7 +45,7 @@ funcs.post = function (txid, contributor, spec) {
   var id = util.uuid();
   var now = moment();
   var newDoc = _.merge(
-    _.clone(meta.template),
+    _.clone(meta.template.question),
     spec,
     {
       lastActivityDate: now,
