@@ -20,6 +20,7 @@
     "marklogic": "git://github.com/marklogic/node-client-api#develop",
     "minimist": "^1.1.0",
     "moment": "^2.9.0",
+    "moment-timezone": "^0.3.0",
     "monitor": "0.6.10",
     "node-uuid": "^1.4.2",
     "passport": "^0.2.1",
