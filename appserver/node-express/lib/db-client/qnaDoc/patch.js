@@ -44,16 +44,6 @@ module.exports = function (txid, spec) {
     }).result();
   };
 
-  // TODO: this is a really crummy hack
-  var metaQ = libRequire('db-client/qnaDoc/meta');
-  var getQuestion = function (txid, questionId) {
-    return self.documents.read({
-      txid: txid,
-      uris: [metaQ.getUri(questionId)]
-    }).result()
-    .then(util.getOnlyContent);
-  };
-
   var patchQuestionVote = function (txid, contributor, questionId, voteChange) {
     return votePatch(txid, questionId, '', contributor.id, voteChange);
   };
@@ -77,6 +67,7 @@ module.exports = function (txid, spec) {
   };
 
   var patchQuestionAddAnswer = function (txid, contributor, questionId, spec) {
+    var now = moment();
     var answerId = util.uuid();
     var answer = _.merge(
       _.clone(meta.template.answer),
@@ -84,7 +75,7 @@ module.exports = function (txid, spec) {
       {
         id: answerId,
         owner: contributor,
-        creationDate: moment(),
+        creationDate: now,
       }
     );
 
@@ -94,7 +85,7 @@ module.exports = function (txid, spec) {
       operations: [
         pb.replace('answerCount', pb.add(1)),
         pb.insert('/array-node("answers")', 'last-child', answer),
-        pb.replace('/lastActivityDate', moment())
+        pb.replace('/lastActivityDate', now)
       ]
     }).result();
   };
