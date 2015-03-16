@@ -129,7 +129,6 @@ module.exports = function (app, mw) {
               promises.push(req.db.qnaDoc.patch(txid, spec));
               break;
             default:
-              req.db.transactions.rollback(txid);
               throw new errs.unsupportedMethod(req);
           }
 
@@ -244,7 +243,6 @@ module.exports = function (app, mw) {
               }
               break;
             default:
-              req.db.transactions.rollback(txid);
               throw new errs.unsupportedMethod(req);
           }
 
