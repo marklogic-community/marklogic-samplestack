@@ -20,7 +20,8 @@ module.exports = function (user, password) {
     var modules = {
       qnaDoc: require('./qnaDoc'),
       contributor: require('./contributor'),
-      tags: require('./tags')
+      tags: require('./tags'),
+      search: require('./search')
     };
 
     // have the individual modules handle binding themselves to the connection

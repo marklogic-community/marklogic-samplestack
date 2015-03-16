@@ -1,7 +1,7 @@
 var qb = require('marklogic').queryBuilder;
 var vb = require('marklogic').valuesBuilder;
 var moment = require('moment-timezone');
-var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
+var parseSearchQuery = require('./parseSearchQuery');
 
 /**
  * Perform a Samplestack search based on user-submitted query text and
@@ -15,16 +15,15 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
  * 5. Build the bucket constraints based on the min and max dates.
  * 6. Perform a documents.query() to get the search results.
  *
- * @param {Object} req Request object
+ * @param {Object} spec Search specification
  * @return {Object}
  */
-
- module.exports = function (req) {
+var search = function (spec) {
 
   var self = this;
 
   // parse query JSON from browser
-  var parsedQuery = parseSearchQuery(req.body);
+  var parsedQuery = parseSearchQuery(spec);
 
   // pagination
   var resultsPerPage = 10; // TODO get from options?
@@ -57,9 +56,10 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
   if (parsedQuery.lastActivityLT) {
     facets.push(qb.range('lastActivityDate', '>=', parsedQuery.lastActivityLT));
   }
+  var i;
   if (parsedQuery.tags) {
     for (i = 0; i < parsedQuery.tags.length; ++i) {
-      facets.push(qb.range("tags", parsedQuery.tags[i]));
+      facets.push(qb.range('tags', parsedQuery.tags[i]));
     }
   }
 
@@ -71,8 +71,12 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
     // define constraints allowed in query text (e.g., "askedBy:joeUser")
     qb.parseBindings(
       qb.range(qb.pathIndex('/owner/displayName'), qb.bind('askedBy')),
-      qb.range(qb.pathIndex('/answers/owner/displayName'), qb.bind('answeredBy')),
-      qb.range(qb.pathIndex('//comments/owner/displayName'), qb.bind('commentedBy')),
+      qb.range(
+        qb.pathIndex('/answers/owner/displayName'), qb.bind('answeredBy')
+      ),
+      qb.range(
+        qb.pathIndex('//comments/owner/displayName'), qb.bind('commentedBy')
+      ),
       qb.value('displayName', qb.bind('user')),
       qb.range('id', qb.bind('id')),
       qb.word('title', qb.bind('title')),
@@ -100,7 +104,7 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
   slice(0);
 
   // TODO values.read() can be skipped if from/to values coming from browser
-  return this.values.read(valuesQuery).result(function(response) {
+  return this.values.read(valuesQuery).result(function (response) {
 
     // from values call, get min and max dates, adjusting for timezone
     var min = moment(
@@ -140,8 +144,8 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
     .orderBy(sort)
     // return tag and date facets in results
     .calculate(
-      qb.facet('tag', "tags", qb.facetOptions(
-        'frequency-order', 'descending', "limit=10"
+      qb.facet('tag', 'tags', qb.facetOptions(
+        'frequency-order', 'descending', 'limit=10'
       )),
       qb.facet('date', 'lastActivityDate', dateBuckets)
     )
@@ -166,7 +170,8 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
       metrics: true
     });
 
-    return self.documents.query(searchQuery).result(function(response) {
+    return self.documents.query(searchQuery).result()
+    .then(function (response) {
 
       // add snippets to newResponse result set
       var newResponse = _.clone(response, true);
@@ -186,7 +191,9 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
             'voteCount': newResponse[i]['content']['voteCount']
           };
           // add the existing matches as snippet property
-          content['snippet'] = _.clone(response[0].results[i - 1].matches, true);
+          content['snippet'] = _.clone(
+            response[0].results[i - 1].matches, true
+          );
           // put assembled content into results
           newResponse[0].results[i - 1].content = content;
           // remove old matches property from results
@@ -202,4 +209,8 @@ var parseSearchQuery = libRequire('./db-client/parseSearchQuery');
 
   });
 
+};
+
+module.exports = function (connection) {
+  return search.bind(connection);
 };
