@@ -177,27 +177,28 @@ var search = function (spec) {
       var newResponse = _.clone(response, true);
       if (newResponse[0]['total'] > 0) {
         // cycle through each doc (begins at index 1)
-        for (var i = 1; i <= newResponse[0]['page-length']; i++) {
+        var j;
+        for (j = 1; j <= newResponse[0]['page-length']; j++) {
           // store only what is required
           var content = {
-            'accepted': newResponse[i]['content']['accepted'],
-            'creationDate': newResponse[i]['content']['creationDate'],
-            'id': newResponse[i]['content']['id'],
-            'lastActivityDate': newResponse[i]['content']['lastActivityDate'],
-            'originalId': newResponse[i]['content']['originalId'],
-            'owner': newResponse[i]['content']['owner'],
-            'tags': newResponse[i]['content']['tags'],
-            'title': newResponse[i]['content']['title'],
-            'voteCount': newResponse[i]['content']['voteCount']
+            'accepted': newResponse[j]['content']['accepted'],
+            'creationDate': newResponse[j]['content']['creationDate'],
+            'id': newResponse[j]['content']['id'],
+            'lastActivityDate': newResponse[j]['content']['lastActivityDate'],
+            'originalId': newResponse[j]['content']['originalId'],
+            'owner': newResponse[j]['content']['owner'],
+            'tags': newResponse[j]['content']['tags'],
+            'title': newResponse[j]['content']['title'],
+            'voteCount': newResponse[j]['content']['voteCount']
           };
           // add the existing matches as snippet property
           content['snippet'] = _.clone(
-            response[0].results[i - 1].matches, true
+            response[0].results[j - 1].matches, true
           );
           // put assembled content into results
-          newResponse[0].results[i - 1].content = content;
+          newResponse[0].results[j - 1].content = content;
           // remove old matches property from results
-          delete newResponse[0].results[i - 1].matches;
+          delete newResponse[0].results[j - 1].matches;
         }
       }
       // Return first element without all the payload docs
