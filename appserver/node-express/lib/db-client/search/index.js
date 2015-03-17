@@ -200,11 +200,8 @@ var search = function (spec) {
           delete newResponse[0].results[i - 1].matches;
         }
       }
-      // remove all docs from newResponse before returning
-      newResponse.splice(1, newResponse[0]['page-length']);
-
-      return newResponse;
-
+      // Return first element without all the payload docs
+      return newResponse[0];
     });
 
   });
