@@ -1,212 +1,93 @@
-var qb = require('marklogic').queryBuilder;
-var vb = require('marklogic').valuesBuilder;
 var moment = require('moment-timezone');
-var parseSearchQuery = require('./parseSearchQuery');
 
-/**
- * Perform a Samplestack search based on user-submitted query text and
- * facet, sort, and paging selections. The search involves the following:
- *
- * 1. Parse structured JSON query from browser.
- * 2. Set up variables for pagination, sorting, and facet constraints.
- * 3. Build search clause with submitted qtext and defined constraints.
- * 4. Perform a values.read() to get min and max last-activity dates
- *    from the results.
- * 5. Build the bucket constraints based on the min and max dates.
- * 6. Perform a documents.query() to get the search results.
- *
- * @param {Object} spec Search specification
- * @return {Object}
- */
 var search = function (spec) {
 
-  var self = this;
+  var query = _.clone(spec, true);
 
-  // parse query JSON from browser
-  var parsedQuery = parseSearchQuery(spec);
+  // search settings
+  query.pageStart = spec.search.start;
+  delete query.search.start;
+  query.pageLength = 10;
+  query.optionsName = 'questions';
+  query.view = 'all';
 
-  // pagination
-  var resultsPerPage = 10; // TODO get from options?
-  var start = parsedQuery.start;
-
-  // sorting
-  var sort;
-  switch(parsedQuery.sort) {
-    case 'sort:active':
-      sort = qb.sort('lastActivityDate', 'descending');
-      break;
-    case 'sort:votes':
-      sort = qb.sort('voteCount', 'descending');
-      break;
-    default:
-      sort = qb.score(); // default relevance
+  // limit to qna docs
+  var dirClause = {'directory-query': {uri:[ '/questions/' ]}};
+  if (query.search.query) {
+    query.search.query['and-query'].queries.push(dirClause);
+  }
+  else {
+    query.search.query = { 'and-query': { 'queries': [ dirClause ] } };
   }
 
-  // facet constraints
-  var facets = [];
-  if (parsedQuery.user) {
-    facets.push(qb.value('displayName', parsedQuery.user));
-  }
-  if (parsedQuery.resolved) {
-    facets.push(qb.value('accepted', parsedQuery.resolved));
-  }
-  if (parsedQuery.lastActivityGE) {
-    facets.push(qb.range('lastActivityDate', '>=', parsedQuery.lastActivityGE));
-  }
-  if (parsedQuery.lastActivityLT) {
-    facets.push(qb.range('lastActivityDate', '>=', parsedQuery.lastActivityLT));
-  }
-  var i;
-  if (parsedQuery.tags) {
-    for (i = 0; i < parsedQuery.tags.length; ++i) {
-      facets.push(qb.range('tags', parsedQuery.tags[i]));
+  // create date buckets for facet
+  var datesBuckets = {
+    'name': 'date',
+    range: {
+      facet: true,
+      'json-property': 'lastActivityDate',
+      'type': 'xs:dateTime',
+      'bucket':[]
     }
+  };
+  var minDate = moment('2008-01-01T00:00:00Z').tz(spec.search.timezone);
+  var maxDate = moment('2014-12-31T11:59:59Z').tz(spec.search.timezone);
+  var currDate = minDate.clone();
+  var b;
+  var nextDate;
+  while (currDate < maxDate) {
+    nextDate = currDate.clone().add(1, 'month');
+    b = {
+      ge: currDate.format(),
+      lt: nextDate.format(),
+      name: currDate.format(),
+      label: currDate.format()
+    };
+    datesBuckets.range.bucket.push(b);
+    currDate = nextDate;
   }
+  _.merge(query.search, { options: { constraint: [ datesBuckets ]}});
 
-  // search clause used in both values query and search query
-  // see: http://docs.marklogic.com/jsdoc/queryBuilder.html#parsedFrom
-  var parsedFrom = qb.parsedFrom(
-    // query text from search box
-    parsedQuery.qtext,
-    // define constraints allowed in query text (e.g., "askedBy:joeUser")
-    qb.parseBindings(
-      qb.range(qb.pathIndex('/owner/displayName'), qb.bind('askedBy')),
-      qb.range(
-        qb.pathIndex('/answers/owner/displayName'), qb.bind('answeredBy')
-      ),
-      qb.range(
-        qb.pathIndex('//comments/owner/displayName'), qb.bind('commentedBy')
-      ),
-      qb.value('displayName', qb.bind('user')),
-      qb.range('id', qb.bind('id')),
-      qb.word('title', qb.bind('title')),
-      qb.word('accepted', qb.bind('resolved')),
-      qb.range('lastActivityDate', qb.bind('lastActivity')),
-      qb.range('voteCount', qb.bind('votes')),
-      qb.range('answerCount', qb.bind('answers'))
-    )
-  );
+  // execute async search
+  return this.documents.query(query).result()
+  .then(function (response) {
 
-  // construct values query with ValuesBuilder
-  // see: http://docs.marklogic.com/jsdoc/valuesBuilder.html
-  var valuesQuery = vb.fromIndexes(
-    // get values from lastActivityDate prop
-    vb.range('lastActivityDate')
-  )
-  .where(
-    parsedFrom,
-    qb.directory('/questions/'), // limit to qna docs
-    qb.and.apply(this, facets)
-  )
-  // get min and max aggregates
-  .aggregates('min', 'max').
-  // don't return the values, only aggregates
-  slice(0);
-
-  // TODO values.read() can be skipped if from/to values coming from browser
-  return this.values.read(valuesQuery).result(function (response) {
-
-    // from values call, get min and max dates, adjusting for timezone
-    var min = moment(
-      response['values-response']['aggregate-result'][0]['_value']
-    ).tz(parsedQuery.timezone);
-    var max = moment(
-      response['values-response']['aggregate-result'][1]['_value']
-    ).tz(parsedQuery.timezone);
-    // adjust to start and end of months
-    var minDate = min.clone().startOf('month');
-    var maxDate = max.clone().endOf('month');
-    // create date buckets for facet
-    // see: http://docs.marklogic.com/jsdoc/queryBuilder.html#bucket
-    var dateBuckets = [];
-    var currDate = minDate.clone();
-    while (currDate < maxDate) {
-      var nextDate = currDate.clone().add(1, 'month');
-      dateBuckets.push(
-        qb.bucket(
-          currDate.format(),
-          currDate.format(),
-          '<',
-          nextDate.format()
-        )
-      );
-      currDate = nextDate;
-    }
-
-    // construct search query with QueryBuilder
-    // see: http://docs.marklogic.com/jsdoc/queryBuilder.html
-    var searchQuery = qb.where(
-      parsedFrom,
-      qb.directory('/questions/'), // limit to qna docs
-      qb.and.apply(this, facets)
-    )
-    // apply sort
-    .orderBy(sort)
-    // return tag and date facets in results
-    .calculate(
-      qb.facet('tag', 'tags', qb.facetOptions(
-        'frequency-order', 'descending', 'limit=10'
-      )),
-      qb.facet('date', 'lastActivityDate', dateBuckets)
-    )
-    // handle paging and turn on snippets
-    .slice(
-      start,
-      resultsPerPage,
-      qb.snippet({
-        'apply': 'snippet',
-        'max-snippet-chars': 100,
-        'max-matches' :4,
-        'per-match-tokens' :12,
-        'preferred-matches': {
-          'json-property': ['text', 'title']
-        }
-      }),
-      qb.transform('search-response')
-    )
-    // miscellaneous settings for testing
-    // TODO remove after testing
-    .withOptions({
-      metrics: true
-    });
-
-    return self.documents.query(searchQuery).result()
-    .then(function (response) {
-
-      // add snippets to newResponse result set
-      var newResponse = _.clone(response, true);
-      if (newResponse[0]['total'] > 0) {
-        // cycle through each doc (begins at index 1)
-        var j;
-        for (j = 1; j <= newResponse[0]['page-length']; j++) {
-          // store only what is required
-          var content = {
-            'accepted': newResponse[j]['content']['accepted'],
-            'creationDate': newResponse[j]['content']['creationDate'],
-            'id': newResponse[j]['content']['id'],
-            'lastActivityDate': newResponse[j]['content']['lastActivityDate'],
-            'originalId': newResponse[j]['content']['originalId'],
-            'owner': newResponse[j]['content']['owner'],
-            'tags': newResponse[j]['content']['tags'],
-            'title': newResponse[j]['content']['title'],
-            'voteCount': newResponse[j]['content']['voteCount']
-          };
-          // add the existing matches as snippet property
-          content['snippet'] = _.clone(
-            response[0].results[j - 1].matches, true
-          );
-          // put assembled content into results
-          newResponse[0].results[j - 1].content = content;
-          // remove old matches property from results
-          delete newResponse[0].results[j - 1].matches;
-        }
+    // add snippets to newResponse result set
+    var newResponse = _.clone(response, true);
+    if (newResponse[0]['total'] > 0) {
+      // cycle through each doc (begins at index 1)
+      var j;
+      for (j = 1; j <= newResponse[0]['page-length']; j++) {
+        // store only what is required
+        var content = {
+          'accepted': newResponse[j]['content']['accepted'],
+          'creationDate': newResponse[j]['content']['creationDate'],
+          'id': newResponse[j]['content']['id'],
+          'lastActivityDate': newResponse[j]['content']['lastActivityDate'],
+          'originalId': newResponse[j]['content']['originalId'],
+          'owner': newResponse[j]['content']['owner'],
+          'tags': newResponse[j]['content']['tags'],
+          'title': newResponse[j]['content']['title'],
+          'voteCount': newResponse[j]['content']['voteCount']
+        };
+        // add the existing matches as snippet property
+        content['snippet'] = _.clone(
+          response[0].results[j - 1].matches, true
+        );
+        // put assembled content into results
+        newResponse[0].results[j - 1].content = content;
+        // remove old matches property from results
+        delete newResponse[0].results[j - 1].matches;
       }
-      // Return first element without all the payload docs
-      return newResponse[0];
-    });
+    }
 
+    // Return first element without all the payload docs
+    return newResponse[0];
+
+  })
+  .catch(function (err) {
+    console.dir(err);
   });
-
 };
 
 module.exports = function (connection) {
