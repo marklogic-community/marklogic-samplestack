@@ -2,13 +2,14 @@ var moment = require('moment-timezone');
 
 var search = function (spec) {
 
-  var query = _.clone(spec, true);
+  var query = spec;
 
   // search settings
   query.pageStart = spec.search.start;
   delete query.search.start;
   query.pageLength = 10;
   query.optionsName = 'questions';
+  query['transform'] = 'search-response';
   query.view = 'all';
 
   // limit to qna docs
@@ -51,42 +52,17 @@ var search = function (spec) {
   // execute async search
   return this.documents.query(query).result()
   .then(function (response) {
-
-    // add snippets to newResponse result set
-    var newResponse = _.clone(response, true);
-    if (newResponse[0]['total'] > 0) {
-      // cycle through each doc (begins at index 1)
-      var j;
-      for (j = 1; j <= newResponse[0]['page-length']; j++) {
-        // store only what is required
-        var content = {
-          'accepted': newResponse[j]['content']['accepted'],
-          'creationDate': newResponse[j]['content']['creationDate'],
-          'id': newResponse[j]['content']['id'],
-          'lastActivityDate': newResponse[j]['content']['lastActivityDate'],
-          'originalId': newResponse[j]['content']['originalId'],
-          'owner': newResponse[j]['content']['owner'],
-          'tags': newResponse[j]['content']['tags'],
-          'title': newResponse[j]['content']['title'],
-          'voteCount': newResponse[j]['content']['voteCount']
-        };
-        // add the existing matches as snippet property
-        content['snippet'] = _.clone(
-          response[0].results[j - 1].matches, true
-        );
-        // put assembled content into results
-        newResponse[0].results[j - 1].content = content;
-        // remove old matches property from results
-        delete newResponse[0].results[j - 1].matches;
+    var finalResponse = response.shift();
+    _.each(finalResponse.results, function (finalItem, index) {
+      var snippets = finalItem.matches;
+      delete finalItem.matches;
+      finalItem.content = response[index].content;
+      if (snippets && snippets.length && snippets[0].id) {
+        delete finalItem.content.text;
+        finalItem.content.snippets = snippets;
       }
-    }
-
-    // Return first element without all the payload docs
-    return newResponse[0];
-
-  })
-  .catch(function (err) {
-    console.dir(err);
+    });
+    return finalResponse;
   });
 };
 
