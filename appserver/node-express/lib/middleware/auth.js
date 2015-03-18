@@ -163,8 +163,9 @@ var configurePassport = function (app , ldapConfig) {
         contributor.role = user.roles;
         req.contributor = contributor;
 
-        done(null, user);
-      });
+        return done(null, user);
+      })
+      .catch(done);
     }
   ));
 
