@@ -799,6 +799,25 @@ define(['_marklogic/module'], function (module) {
         return info;
       };
 
+      var constraintNonEmpty = function (constraint) {
+        var valueProp = constraint.values || constraint.value;
+        if (valueProp) {
+          if (angular.isArray(valueProp)) {
+            if (valueProp.length) {
+              return true;
+            }
+          }
+          else {
+            if (valueProp || valueProp === 0) {
+              return true;
+            }
+          }
+        }
+        else {
+          return false;
+        }
+      };
+
       var makeShadowSearches = function (
         self,
         service
@@ -809,14 +828,22 @@ define(['_marklogic/module'], function (module) {
         // want a shadow that is *NOT* impacted by other constraints...
         var shadowSearches = {};
         angular.forEach(self.facets, function (facet, name) {
+          var facetWasFiltered = false;
           var spec = angular.copy(self.criteria);
-          angular.forEach(facet.shadowConstraints, function (constraint) {
+          angular.forEach(
+            facet.shadowConstraints,
+            function (constraint) {
+            if (constraintNonEmpty(spec.constraints[constraint])) {
+              facetWasFiltered = facetWasFiltered || true;
+            }
             delete spec.constraints[constraint].values;
             delete spec.constraints[constraint].value;
           });
-          shadowSearches[name] = service.create({
-            criteria: spec
-          });
+          if (facetWasFiltered) {
+            shadowSearches[name] = service.create({
+              criteria: spec
+            });
+          }
         });
         return shadowSearches;
       };
@@ -850,50 +877,51 @@ define(['_marklogic/module'], function (module) {
         );
         $q.all(todo).then(
           function () {
-            self.results.shadowTotals = {};
-            angular.forEach(shadowSearches, function (shadow, facetName) {
-              // merge the shadow results with the filtered results
-              var filteredFacetStats = self.results.facets[facetName];
-              var shadowedFacetStats = shadow.results.facets[facetName];
-              // shadows will be the larger set so it is the baseline
-              if (self.facets[facetName].valuesType === 'object') {
-                angular.forEach(shadowedFacetStats, function (
-                  shadowStat, shadowStatKey
-                ) {
-                  // if we didn't get any numbers for a key in the filtered
-                  // results, at least start with an object there
-                  filteredFacetStats[shadowStatKey] = mlUtil.merge(
-                    { name: shadowStatKey }, filteredFacetStats[shadowStatKey]
-                  );
-                  filteredFacetStats[shadowStatKey].shadow = shadowStat;
-                });
-              }
-              else {
-                var filteredIterator = 0;
-                var newStats = [];
-                // var tempDict = {};
-                angular.forEach(shadowedFacetStats, function (stat) {
-                  var newStat = { name: stat.name, shadow: stat };
-                  var filteredStat = filteredFacetStats[filteredIterator];
-                  if (
-                    filteredStat && filteredStat.name === newStat.name
+            if (Object.keys(shadowSearches).length) {
+              self.results.shadowTotals = {};
+              angular.forEach(shadowSearches, function (shadow, facetName) {
+                // merge the shadow results with the filtered results
+                var filteredFacetStats = self.results.facets[facetName];
+                var shadowedFacetStats = shadow.results.facets[facetName];
+                // shadows will be the larger set so it is the baseline
+                if (self.facets[facetName].valuesType === 'object') {
+                  angular.forEach(shadowedFacetStats, function (
+                    shadowStat, shadowStatKey
                   ) {
-                    mlUtil.merge(newStat, filteredStat);
-                    filteredIterator++;
-                  }
-                  newStats.push(newStat);
-                });
-                self.results.facets[facetName] = newStats;
-              }
+                    // if we didn't get any numbers for a key in the filtered
+                    // results, at least start with an object there
+                    filteredFacetStats[shadowStatKey] = mlUtil.merge(
+                      { name: shadowStatKey }, filteredFacetStats[shadowStatKey]
+                    );
+                    filteredFacetStats[shadowStatKey].shadow = shadowStat;
+                  });
+                }
+                else {
+                  var filteredIterator = 0;
+                  var newStats = [];
+                  // var tempDict = {};
+                  angular.forEach(shadowedFacetStats, function (stat) {
+                    var newStat = { name: stat.name, shadow: stat };
+                    var filteredStat = filteredFacetStats[filteredIterator];
+                    if (
+                      filteredStat && filteredStat.name === newStat.name
+                    ) {
+                      mlUtil.merge(newStat, filteredStat);
+                      filteredIterator++;
+                    }
+                    newStats.push(newStat);
+                  });
+                  self.results.facets[facetName] = newStats;
+                }
 
-              // we have now merged in the shadow query stats for this
-              // facet and can loop
-              // client code must deal with facet stats that don't have
-              // anything other than shadow data
-              // and we shouldn't have got
-              self.results.shadowTotals[facetName] = shadow.results.total;
-            });
-
+                // we have now merged in the shadow query stats for this
+                // facet and can loop
+                // client code must deal with facet stats that don't have
+                // anything other than shadow data
+                // and we shouldn't have got
+                self.results.shadowTotals[facetName] = shadow.results.total;
+              });
+            }
             deferred.resolve();
           },
           deferred.reject

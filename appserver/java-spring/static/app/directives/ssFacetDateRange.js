@@ -499,16 +499,37 @@ define(['app/module'], function (module) {
                 var newData = [];
                 var maxCount = 0;
 
+                var resultsWithShadows = scope.results[0] &&
+                    (
+                      scope.results[0].shadow ||
+                      scope.results[scope.results.length - 1].shadow
+                    );
+
                 angular.forEach(scope.results, function (item) {
                   // we display the *shadow* counts, not the counts
                   // that result from applying this directive's criteria
-                  newData.push({
-                    x: mlUtil.moment(item.shadow.name, 'YYYYMM').toDate(),
-                    y: item.shadow.count
-                  });
+                  // BUT ONLY if there are shadow results -- for searches
+                  // with no date criteria there are no shadow results
+                  if (resultsWithShadows) {
 
-                  if (item.shadow.count > maxCount) {
-                    maxCount = item.shadow.count;
+                    newData.push({
+                      x: mlUtil.moment(item.shadow.name, 'YYYYMM').toDate(),
+                      y: item.shadow.count
+                    });
+
+                    if (item.shadow.count > maxCount) {
+                      maxCount = item.shadow.count;
+                    }
+                  }
+                  else {
+                    newData.push({
+                      x: mlUtil.moment(item.name, 'YYYYMM').toDate(),
+                      y: item.count
+                    });
+
+                    if (item.count > maxCount) {
+                      maxCount = item.count;
+                    }
                   }
                 });
 

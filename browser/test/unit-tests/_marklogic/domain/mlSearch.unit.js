@@ -633,13 +633,14 @@ define([
         var s = mlSearch.create({
           facets: {
             tag: {
-              constraints: ['tag']
+              constraints: ['tag'],
+              shadowConstraints: [ 'tag' ]
             }
           },
           criteria: {
             q: 'testy',
             constraints: {
-              dummy: {
+              tag: {
                 queryStringName: 'tag',
                 constraintName: 'tag',
                 constraintType: 'range',
@@ -680,13 +681,14 @@ define([
           var s = mlSearch.create({
             facets: {
               tag: {
-                constraints: ['tag']
+                constraints: ['tag'],
+                shadowConstraints: [ 'tag' ]
               }
             },
             criteria: {
               q: 'testy',
               constraints: {
-                dummy: {
+                tag: {
                   queryStringName: 'tag',
                   constraintName: 'tag',
                   constraintType: 'range',
