@@ -31,8 +31,10 @@ var search = function (spec) {
       'bucket':[]
     }
   };
-  var minDate = moment('2008-01-01T00:00:00Z').tz(spec.search.timezone);
-  var maxDate = moment('2014-12-31T11:59:59Z').tz(spec.search.timezone);
+  // Seed data (v1.8.2) range:
+  // 2009-06-08T02:33:16.860Z - 2014-10-01T08:59:12.230Z
+  var minDate = moment('2009-06-01T00:00:00Z').tz(spec.search.timezone);
+  var maxDate = moment().tz(spec.search.timezone);
   var currDate = minDate.clone();
   var b;
   var nextDate;
