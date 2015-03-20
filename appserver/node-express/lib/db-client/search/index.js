@@ -9,8 +9,10 @@ var search = function (spec) {
   delete query.search.start;
   query.pageLength = 10;
   query.optionsName = 'questions';
-  query['transform'] = 'search-response';
-  query.view = 'all';
+  if (!spec.shadow) {
+    query['transform'] = 'search-response';
+    query.view = 'all';
+  }
 
   // limit to qna docs
   var dirClause = {'directory-query': {uri:[ '/questions/' ]}};
@@ -54,20 +56,25 @@ var search = function (spec) {
   // execute async search
   return this.documents.query(query).result()
   .then(function (response) {
-    // final response is first element of original response
-    var finalResponse = response.shift();
-    // put doc content into each result
-    _.each(finalResponse.results, function (finalItem, index) {
-      var snippets = finalItem.matches;
-      delete finalItem.matches;
-      finalItem.content = response[index].content;
-      // add snippets if they exist
-      if (snippets && snippets.length && snippets[0].id) {
-        delete finalItem.content.text;
-        finalItem.content.snippets = snippets;
-      }
-    });
-    return finalResponse;
+    if (spec.shadow) {
+      return response;
+    }
+    else {
+      // final response is first element of original response
+      var finalResponse = response.shift();
+      // put doc content into each result
+      _.each(finalResponse.results, function (finalItem, index) {
+        var snippets = finalItem.matches;
+        delete finalItem.matches;
+        finalItem.content = response[index].content;
+        // add snippets if they exist
+        if (snippets && snippets.length && snippets[0].id) {
+          delete finalItem.content.text;
+          finalItem.content.snippets = snippets;
+        }
+      });
+      return finalResponse;
+    }
   });
 };
 

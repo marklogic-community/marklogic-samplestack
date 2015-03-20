@@ -488,7 +488,7 @@ define(['_marklogic/module'], function (module) {
         var criteriaToPost = {
           search: {
             qtext: [myCriteria.q || ''],
-          },
+          }
         };
 
         if (this.criteria.sort && this.criteria.sort.length) {
@@ -519,6 +519,16 @@ define(['_marklogic/module'], function (module) {
         return criteriaToPost;
       };
 
+      MlSearchObject.prototype.getHttpUrl = function (httpMethod) {
+        var endpoint = '/' + this.getResourceName(httpMethod);
+
+        if (this.shadow) {
+          //indicate this is a shadow query so that the middle-tier can
+          //skip some steps it doesn't need to do for us
+          endpoint += '?shadow=' + this.shadow;
+        }
+        return endpoint;
+      };
 
       /**
        * @ngdoc method
@@ -828,21 +838,24 @@ define(['_marklogic/module'], function (module) {
         // want a shadow that is *NOT* impacted by other constraints...
         var shadowSearches = {};
         angular.forEach(self.facets, function (facet, name) {
-          var facetWasFiltered = false;
-          var spec = angular.copy(self.criteria);
-          angular.forEach(
-            facet.shadowConstraints,
-            function (constraint) {
-            if (constraintNonEmpty(spec.constraints[constraint])) {
-              facetWasFiltered = facetWasFiltered || true;
-            }
-            delete spec.constraints[constraint].values;
-            delete spec.constraints[constraint].value;
-          });
-          if (facetWasFiltered) {
-            shadowSearches[name] = service.create({
-              criteria: spec
+          if (facet.shadowConstraints) {
+            var facetWasFiltered = false;
+            var spec = angular.copy(self.criteria);
+            angular.forEach(
+              facet.shadowConstraints,
+              function (constraint) {
+              if (constraintNonEmpty(spec.constraints[constraint])) {
+                facetWasFiltered = facetWasFiltered || true;
+              }
+              delete spec.constraints[constraint].values;
+              delete spec.constraints[constraint].value;
             });
+            if (facetWasFiltered) {
+              shadowSearches[name] = service.create({
+                criteria: spec,
+                shadow: name
+              });
+            }
           }
         });
         return shadowSearches;

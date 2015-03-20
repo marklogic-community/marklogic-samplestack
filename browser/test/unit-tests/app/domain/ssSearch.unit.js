@@ -147,8 +147,10 @@ define([
           }
         });
         $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
-        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
-        $httpBackend.expectPOST('/v1/search').respond(mocks.searchResponse);
+        $httpBackend.expectPOST('/v1/search?shadow=tags')
+            .respond(mocks.searchResponse);
+        $httpBackend.expectPOST('/v1/search?shadow=dates')
+            .respond(mocks.searchResponse);
         s.shadowSearch().then(
           function () {
             expect(s.results.facets.dates[0].shadow).to.be.ok;

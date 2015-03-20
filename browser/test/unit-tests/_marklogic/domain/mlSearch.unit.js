@@ -628,7 +628,8 @@ define([
         });
         helper.setExpectCsrf($httpBackend);
         $httpBackend.expectPOST(/\/v1\/search$/).respond(mocks.searchResponse);
-        $httpBackend.expectPOST(/\/v1\/search$/).respond(mocks.searchResponse);
+        $httpBackend.expectPOST(/\/v1\/search\?shadow=tag$/)
+            .respond(mocks.searchResponse);
 
         var s = mlSearch.create({
           facets: {
@@ -675,7 +676,7 @@ define([
           helper.setExpectCsrf($httpBackend);
           $httpBackend.expectPOST(/\/v1\/search$/)
               .respond(mocks.searchResponse);
-          $httpBackend.expectPOST(/\/v1\/search$/)
+          $httpBackend.expectPOST(/\/v1\/search\?shadow=tag$/)
               .respond(mocks.searchResponse);
 
           var s = mlSearch.create({

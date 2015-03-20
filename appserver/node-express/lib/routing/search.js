@@ -7,6 +7,7 @@ module.exports = function (app, mw) {
     mw.parseBody.json,
 
     function (req, res, next) {
+      req.body.shadow = req.params.shadow;
       return req.db.search(req.body)
       .then(function (result) {
         return res.status(200).send(result);
