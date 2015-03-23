@@ -6,7 +6,7 @@ var defaults = {
 
   addresses: {
     // the middle tier
-    appServer: url.parse('http://localhost:8091'),
+    appServer: url.parse('http://localhost:3000'),
     // for e2e testing
     seleniumServer: url.parse('http://localhost:4445'),
     // the marklogic application server

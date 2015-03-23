@@ -18,6 +18,9 @@ app.set('x-powered-by', false);
 // above 1024 bytes, use compression (this is te default)
 app.use(require('compression')({ threshold: 1024 }));
 
+var browserBuilt = path.resolve(__dirname, '../../../browser/builds/built');
+app.use(/^(?!\/v1\/)/, express.static(browserBuilt));
+
 // read/parse cookies all the time on REST endpoints
 app.use('/v1/', require('cookie-parser')());
 

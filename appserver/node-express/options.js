@@ -5,11 +5,11 @@ module.exports = {
   // how many worker child processes to launch
   numWorkers: 1,
   // easy access to the contents of package.json file
-  pkg: require('./package.json'),
+  // pkg: require('./package.json'),
   // ip to which the server children bind
   address: '0.0.0.0',
   // port on which server children bind
-  port: 8091,
+  port: 3000,
   // whether to use https or not
   https: false,
   // https: {

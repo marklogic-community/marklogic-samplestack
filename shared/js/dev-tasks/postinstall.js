@@ -22,7 +22,7 @@ var del = require('del');
 var shelljs = require('shelljs');
 var chalk = require('chalk');
 
-console.log(chalk.green('Samplestack: fetching bower_components'));
+console.log(chalk.green('Samplestack: fetching browser run-time dependencies'));
 del(
   'browser/bower_components',
   {},

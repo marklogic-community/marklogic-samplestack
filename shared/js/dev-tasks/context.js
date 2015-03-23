@@ -31,6 +31,7 @@ var hadErrors = false;
 // TODO: consolidate path definitions into some sort of paths.js file
 var projectRoot = path.resolve(__dirname, '../../..');
 var browserRootDir = path.resolve(projectRoot, 'browser');
+var serverRootDir = path.resolve(projectRoot, 'appserver/node-express');
 var reportsDir = path.resolve(projectRoot, 'reports');
 
 var browserBuilds =  {
@@ -38,6 +39,13 @@ var browserBuilds =  {
   built: path.normalize('builds/built'),
   unit: path.normalize('builds/unit-tester'),
   dist: path.normalize('builds/dist')
+};
+
+var serverBuilds =  {
+  // TODO: these relatie paths are sketchy
+  built: serverRootDir,
+  // unit: ,
+  // dist:
 };
 
 var javaStaticDir = path.resolve(
@@ -274,50 +282,57 @@ self = module.exports = {
   // Alternatively, we could leave this and always run middle-tier
   // on port 8090?
   startServer: function (filePath, port, html5) {
-    if (!self.getActiveServer(port)) {
-      var connect = require('connect');
-      var serveStatic = require('serve-static');
-      var request = require('request').defaults({
-        timeout: 10000
-      });
-
-      var server = connect()
-      .use('/v1/', function (req, res) {
-        req.pipe(
-          request({
-            url: options.addresses.appServer.href + 'v1' + req.url,
-            // 31 seconds, one more than the browser will wait
-            timeout: 61 * 1000
-          })
-        )
-        .on('error', function (err) {
-          console.log(err);
-        })
-        .pipe(res);
-      });
-
-      if (options.html5Mode) {
-        server.use(
-          require('connect-modrewrite')(
-            // if lacking a dot, redirect to index.html
-            ['!\\. /index.html [L]']
-          )
-        );
-      }
-
-      var listener = server
-      .use(serveStatic(path.normalize(filePath), {redirect: false}))
-      .listen(port, '0.0.0.0');
-
-      listener.on('error', function (err) {
-        console.log(err);
-      });
-      self.setActiveServer(port, server);
-
-      return server;
+    if (port === '3000') {
+      // console.log('start middle tier?');
+      require(path.join(serverBuilds.built, 'main'));
     }
     else {
-      return self.getActiveServer(port);
+      // console.log('don\'t start middle tier -- ' + port);
+      if (!self.getActiveServer(port)) {
+        var connect = require('connect');
+        var serveStatic = require('serve-static');
+        var request = require('request').defaults({
+          timeout: 10000
+        });
+
+        var server = connect()
+        .use('/v1/', function (req, res) {
+          req.pipe(
+            request({
+              url: options.addresses.appServer.href + 'v1' + req.url,
+              // 31 seconds, one more than the browser will wait
+              timeout: 61 * 1000
+            })
+          )
+          .on('error', function (err) {
+            console.log(err);
+          })
+          .pipe(res);
+        });
+
+        if (options.html5Mode) {
+          server.use(
+            require('connect-modrewrite')(
+              // if lacking a dot, redirect to index.html
+              ['!\\. /index.html [L]']
+            )
+          );
+        }
+
+        var listener = server
+        .use(serveStatic(path.normalize(filePath), {redirect: false}))
+        .listen(port, '0.0.0.0');
+
+        listener.on('error', function (err) {
+          console.log(err);
+        });
+        self.setActiveServer(port, server);
+
+        return server;
+      }
+      else {
+        return self.getActiveServer(port);
+      }
     }
   },
 
