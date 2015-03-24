@@ -2,15 +2,19 @@ var mlclient = require('marklogic');
 var options = libRequire('../options').db;
 var boundClients = {};
 
-module.exports = function (user, password) {
+var getClient = function (user, password) {
+  return mlclient.createDatabaseClient(_.merge(
+    options.clientConnection,
+    {
+      user: user,
+      password: password
+    }
+  ));
+};
+
+var getBoundClient = function (user, password) {
   if (!boundClients[user]) {
-    var connection = mlclient.createDatabaseClient(_.merge(
-      options.clientConnection,
-      {
-        user: user,
-        password: password
-      }
-    ));
+    var connection = getClient(user, password);
     // TODO: this used to work -- determine best way to catch
     // errors in-app and keep logging from being spit out of dbclient
     // connections[role].setLogger({ console: false });
@@ -33,4 +37,10 @@ module.exports = function (user, password) {
     boundClients[user] = boundClient;
   }
   return boundClients[user];
+};
+
+
+module.exports = {
+  getBoundClient: getBoundClient,
+  getGenericClient: getClient
 };

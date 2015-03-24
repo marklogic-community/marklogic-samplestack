@@ -86,6 +86,7 @@
     "bluebird": "^2.9.13",
     "body": "^5.0.0",
     "compression": "^1.4.1",
+    "connect-marklogic": "git://github.com/withjam/connect-marklogic#13ec9f0631af3b58e470cce97da9f05f3fb7e90d",
     "connect-timeout": "^1.6.0",
     "cookie-parser": "^1.3.4",
     "cookie-session": "^1.1.0",

@@ -78,7 +78,7 @@ var useRole = function (role, req) {
   req.role = role;
   var user = options.rolesMap[role].dbUser;
   var password = options.rolesMap[role].dbPassword;
-  var db = dbClient(user, password);
+  var db = dbClient.getBoundClient(user, password);
   req.db = db;
 
 };
@@ -171,22 +171,23 @@ var configurePassport = function (app , ldapConfig) {
 
 
   passport.serializeUser(function (user, done) {
-    users[user.id] = JSON.stringify(user);
-    done(null, user.id);
+    done(null, user);
   });
 
-  passport.deserializeUser(function (id, done) {
-    var userStr = users[id];
-    if (userStr) {
-      var user = JSON.parse(userStr);
-      done(null, user);
-    }
-    else {
-      done(new Error('user not found in memory: ' + id));
-    }
+  passport.deserializeUser(function (user, done) {
+    done(null, user);
   });
+  
+  var sessionModule = require('express-session');
+  var MarkLogicStore = require('connect-marklogic')(sessionModule);
 
-  var expressSession = require('express-session')({
+
+  var expressSession = sessionModule({
+
+    // TODO: move credentials into options
+    store: new MarkLogicStore({
+      client: dbClient.getGenericClient('admin', 'admin')
+    }),
     secret: '<mysecret>',
 
     // this is here so that a successful
