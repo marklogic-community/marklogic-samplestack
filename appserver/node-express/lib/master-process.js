@@ -5,22 +5,26 @@ does.
 
  */
 
+var ldapWorker;
+var ssWorker;
+var cluster = require('cluster');
+var moment = require('moment');
+var path = require('path');
+var options = require('../options');
+
 var run = function () {
-  var options = require('../options');
 
   /**
    * Libraries
    **/
-  var cluster = require('cluster');
-  var moment = require('moment');
-  var path = require('path');
   global.libRequire = function (name) {
     return require(path.resolve(__dirname, name));
   };
 
 
   if (options.ldap.useBuiltInServer) {
-    require('./ldapWorker');
+    ldapWorker = require('./ldapWorker');
+    ldapWorker.run();
   }
 
   /**
@@ -33,7 +37,7 @@ var run = function () {
       1;
 
   if (numWorkers === 1) {
-    require('./samplestackWorker');
+    ssWorker = require('./samplestackWorker');
   }
   else {
     cluster.setupMaster({
@@ -83,6 +87,28 @@ var run = function () {
 
 };
 
+var stopCluster = function () {
+  function eachWorker(callback) {
+    for (var id in cluster.workers) {
+      callback(cluster.workers[id]);
+    }
+  }
+  eachWorker(function (worker) {
+    worker.kill();
+  });
+};
+
+var stop = function () {
+  if (!ssWorker) {
+    // if we don't have an ssWorker objec then it's a cluster
+    stopCluster();
+  }
+  if (ldapWorker) {
+    ldapWorker.stop();
+  }
+};
+
 module.exports = {
-  run: run
+  run: run,
+  stop: stop
 };

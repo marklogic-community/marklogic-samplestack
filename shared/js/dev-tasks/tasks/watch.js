@@ -117,7 +117,6 @@ function lrManualSetup (port, cb) {
 var watchTaskFunc = function (cb) {
   var lrChanger;
   if (!ctx.amWatching) {
-    console.log(addresses.webApp.port);
     ctx.startServer(ctx.paths.browser.buildDir, addresses.webApp.port);
     ctx.startServer(ctx.paths.browser.unitDir, addresses.unitRunner.port);
     ctx.startIstanbulServer(

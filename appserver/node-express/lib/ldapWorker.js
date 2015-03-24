@@ -48,13 +48,14 @@ var SUFFIX = 'dc=samplestack,dc=org';
 var db = {};
 var server = ldap.createServer();
 
-process.on('exit', function () {
+var stop = function () {
   try {
+    console.log('Stopping LDAP worker...');
     server.close();
   }
   catch (e) {}
-});
-
+};
+process.on('exit', stop);
 
 server.bind('cn=root', function (req, res, next) {
   if (req.dn.toString() !== 'cn=root' ||
@@ -124,94 +125,105 @@ server.search(SUFFIX, authorize, function (req, res, next) {
 });
 
 ///--- Fire it up
-var listener = server.listen(
-  options.ldap.port,
-  options.ldap.hostname,
-  function () {
-
-    // TODO: read from ldif?
-    // list of roles for user:
-    /*
-
-    ldapsearch -H ldap://localhost:8389 -x -D cn=root -w admin -LLL
-      -b "o=samplestack"
-      "(&(objectclass=groupOfNames)(uniqueMember= \
-      uid=mary@example.com,ou=people,dc=samplestack,dc=org))" \
-     cn
-     */
+var listener;
 
 
-    db['ou=groups,dc=samplestack,dc=org'] = {
-      dn: 'ou=groups,dc=samplestack,dc=org',
-      attributes: {
-        objectclass: ['top', 'organizationalUnit'],
-        ou: 'people'
-      }
-    };
+var start = function () {
 
-    db['ou=people,dc=samplestack,dc=org'] = {
-      dn: 'ou=people,dc=samplestack,dc=org',
-      attributes: {
-        objectclass: ['top', 'organizationalUnit'],
-        ou: 'people'
-      }
-    };
+  listener = server.listen(
+    options.ldap.port,
+    options.ldap.hostname,
+    function () {
 
-    db['uid=joe@example.com,ou=people,dc=samplestack,dc=org'] = {
-      dn: 'uid=joe@example.com,ou=people,dc=samplestack,dc=org',
-      attributes: {
-        objectclass: ['top', 'person', 'organizationalPerson', 'inetOrgPerson'],
-        cn: 'Joe User',
-        sn: 'User',
-        uid: 'joe@example.com',
-        userPassword: 'joesPassword',
-        // TODO: do we want to use a role array?
-        role: [
-          'cn=contributors,ou=groups,dc=samplestack,dc=org'
-        ]
-      }
-    };
+      // TODO: read from ldif?
+      // list of roles for user:
+      /*
 
-    db['uid=mary@example.com,ou=people,dc=samplestack,dc=org'] = {
-      dn: 'uid=mary@example.com,ou=people,dc=samplestack,dc=org',
-      attributes: {
-        objectclass: ['top', 'person', 'organizationalPerson', 'inetOrgPerson'],
-        cn: 'Mary Admin',
-        sn: 'User',
-        uid: 'mary@example.com',
-        userPassword: 'marysPassword',
-        role: [
-          'cn=admins,ou=groups,dc=samplestack,dc=org',
-          'cn=contributors,ou=groups,dc=samplestack,dc=org'
-        ]
-      }
-    };
+      ldapsearch -H ldap://localhost:8389 -x -D cn=root -w admin -LLL
+        -b "o=samplestack"
+        "(&(objectclass=groupOfNames)(uniqueMember= \
+        uid=mary@example.com,ou=people,dc=samplestack,dc=org))" \
+       cn
+       */
 
-    db['cn=admins,ou=groups,dc=samplestack,dc=org'] = {
-      dn: 'cn=admins,ou=groups,dc=samplestack,dc=org',
-      attributes: {
-        objectclass: ['groupOfNames'],
-        cn: 'admins',
-        ou: 'groups',
-        uniqueMember: [
-          'uid=mary@example.com,ou=people,dc=samplestack,dc=org'
-        ]
-      }
-    };
 
-    db['cn=contributors,ou=groups,dc=samplestack,dc=org'] = {
-      dn: 'cn=contributors,ou=groups,dc=samplestack,dc=org',
-      attributes: {
-        objectclass: ['groupOfNames'],
-        cn: 'contributors',
-        ou: 'groups',
-        uniqueMember: [
-          'uid=mary@example.com,ou=people,dc=samplestack,dc=org',
-          'uid=joe@example.com,ou=people,dc=samplestack,dc=org'
-        ]
-      }
-    };
+      db['ou=groups,dc=samplestack,dc=org'] = {
+        dn: 'ou=groups,dc=samplestack,dc=org',
+        attributes: {
+          objectclass: ['top', 'organizationalUnit'],
+          ou: 'people'
+        }
+      };
 
-    console.log('Samplestack LDAP server up at: %s', server.url);
-  }
-);
+      db['ou=people,dc=samplestack,dc=org'] = {
+        dn: 'ou=people,dc=samplestack,dc=org',
+        attributes: {
+          objectclass: ['top', 'organizationalUnit'],
+          ou: 'people'
+        }
+      };
+
+      db['uid=joe@example.com,ou=people,dc=samplestack,dc=org'] = {
+        dn: 'uid=joe@example.com,ou=people,dc=samplestack,dc=org',
+        attributes: {
+          objectclass: ['top', 'person', 'organizationalPerson', 'inetOrgPerson'],
+          cn: 'Joe User',
+          sn: 'User',
+          uid: 'joe@example.com',
+          userPassword: 'joesPassword',
+          // TODO: do we want to use a role array?
+          role: [
+            'cn=contributors,ou=groups,dc=samplestack,dc=org'
+          ]
+        }
+      };
+
+      db['uid=mary@example.com,ou=people,dc=samplestack,dc=org'] = {
+        dn: 'uid=mary@example.com,ou=people,dc=samplestack,dc=org',
+        attributes: {
+          objectclass: ['top', 'person', 'organizationalPerson', 'inetOrgPerson'],
+          cn: 'Mary Admin',
+          sn: 'User',
+          uid: 'mary@example.com',
+          userPassword: 'marysPassword',
+          role: [
+            'cn=admins,ou=groups,dc=samplestack,dc=org',
+            'cn=contributors,ou=groups,dc=samplestack,dc=org'
+          ]
+        }
+      };
+
+      db['cn=admins,ou=groups,dc=samplestack,dc=org'] = {
+        dn: 'cn=admins,ou=groups,dc=samplestack,dc=org',
+        attributes: {
+          objectclass: ['groupOfNames'],
+          cn: 'admins',
+          ou: 'groups',
+          uniqueMember: [
+            'uid=mary@example.com,ou=people,dc=samplestack,dc=org'
+          ]
+        }
+      };
+
+      db['cn=contributors,ou=groups,dc=samplestack,dc=org'] = {
+        dn: 'cn=contributors,ou=groups,dc=samplestack,dc=org',
+        attributes: {
+          objectclass: ['groupOfNames'],
+          cn: 'contributors',
+          ou: 'groups',
+          uniqueMember: [
+            'uid=mary@example.com,ou=people,dc=samplestack,dc=org',
+            'uid=joe@example.com,ou=people,dc=samplestack,dc=org'
+          ]
+        }
+      };
+
+      console.log('Samplestack LDAP server up at: %s', server.url);
+    }
+  );
+};
+
+module.exports = {
+  run: start,
+  stop: stop
+};

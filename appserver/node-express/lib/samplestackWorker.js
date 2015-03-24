@@ -65,3 +65,7 @@ else {
 process.on('exit', function () {
   listener.close();
 });
+
+module.exports = {
+  stop: function () { listener.close(); }
+};
