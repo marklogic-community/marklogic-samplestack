@@ -6,11 +6,14 @@ var util = libRequire('db-client/util');
 
 var funcs = {};
 
-/*
- * REPUTATION CHANGE
- * A contributor's reputation may be changed up or down --
- * repChange may be a positive or negative int. Use server-side
- * math so we don't need to read the value into the middle-tier
+/**
+ * Handle an update to a contributor's reputation. This occurs during
+ * a question vote, an answer vote, or an answer acceptance.
+ *
+ * @param  {String} txid The transaction ID.
+ * @param  {String} id The contributor ID.
+ * @param  {Number} repChange Increment or decrement value.
+ * @return {Promise} A promise object.
  */
 funcs.patchReputation = function (txid, id, repChange) {
   // add (or subtract) from reputation property
@@ -19,18 +22,6 @@ funcs.patchReputation = function (txid, id, repChange) {
     uri: meta.getUri(id),
     operations: [
       pb.replace('reputation', pb.add(repChange))
-    ]
-  }).result()
-  .then(meta.responseToSpec);
-};
-
-funcs.patchVoteCount = function (txid, id, voteCountChange) {
-  // add (or subtract) from voteCount property
-  return this.documents.patch({
-    txid: txid,
-    uri: meta.getUri(id),
-    operations: [
-      pb.replace('voteCount', pb.add(voteCountChange))
     ]
   }).result()
   .then(meta.responseToSpec);

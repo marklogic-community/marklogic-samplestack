@@ -24,6 +24,17 @@ funcs.search = function (spec) {
   ).result();
 };
 
+/**
+ * Get one or more documents from the Samplestack database based ID(s).
+ * For single documents, apply a transform to include voting and
+ * reputation information.
+ *
+ * @param  {String} txid The transaction ID.
+ * @param  {Object|Array} spec An object with a document ID property. Example:
+ *   {"id":"b6ff5e47-2d08-4c20-9a16-4998fbb1bc10"}
+ * For multiple documents, an array of objects (not currently used).
+ * @return {Promise} A promise object.
+ */
 funcs.getUniqueContent = function (txid, spec) {
   // TODO: this is identical to the code for contributor (except for the pojo
   // issue)... abstract it?
@@ -43,6 +54,27 @@ funcs.getUniqueContent = function (txid, spec) {
   }
 };
 
+/**
+ * Handle the post of a new question to Samplestack. The posted question
+ * is merged with a question template object, a unique ID, contributor
+ * information, and the current time. The resulting object is written to
+ * the MarkLogic database with a URI based on the unique ID.
+ *
+ * @param  {String} txid Transaction ID (currently unused and set to null)
+ * @param  {Object} contributor Contributor objectExample:
+ *   {"id":"cf99542d-f024-4478-a6dc-7e723a51b040",
+ *    "displayName":"JoeUser"}
+ * @param  {Object} spec New question content object. Example:
+ *   {"title":"What is foo?",
+ *    "text":"I want to know about foo.",
+ *    "tags":["foo", "bar"]}
+ * @return {Promise} A promise object. When fulfilled, the response for the
+ * promise includes the new document URI. Example response object:
+ *   {"documents":[{
+ *     "uri":"/questions/5ddb169f-b5d0-4be6-bba5-77277a719b3b.json",
+ *     "contentType":null}
+ *   ]}
+ */
 funcs.post = function (txid, contributor, spec) {
   var id = util.uuid();
   var now = moment();
@@ -57,6 +89,7 @@ funcs.post = function (txid, contributor, spec) {
     }
   );
 
+  // @see http://docs.marklogic.com/jsdoc/documents.html#write
   return this.documents.write({
     txid: txid,
     uri: meta.getUri(newDoc.id),
