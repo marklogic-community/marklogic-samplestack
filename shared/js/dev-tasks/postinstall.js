@@ -42,7 +42,9 @@ del(
     del([
       'browser/dev-tasks',
       'browser/node_modules',
-      'browser/npm-debug.log'
+      'appserver/node-express/node_modules',
+      'browser/npm-debug.log',
+      'appserver/node-express/npm-debug.log'
     ]);
   }
 );
