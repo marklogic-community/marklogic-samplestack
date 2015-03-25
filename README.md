@@ -20,19 +20,18 @@ REMEMBER to change the branch name in this code when preparing releases
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
-## README for Version 1.0.1
-
+## README for Version 1.1.0
 
 This release features a middle tier for the Java Enterprise Developer, implemented using Java, Spring, and Gradle.
 
 The project includes the following major components:
-* MVC browser application implemented in [Angular.js](https://angularjs.org)
-* Middle appserver tier implemented in Java/[Spring](http://projects.spring.io/spring-framework/)
 * [MarkLogic](http://www.marklogic.com/) for the database tier
-* [Gradle](http://www.gradle.org/) framework to drive build and configuration of the appserver and database tiers
+* MVC browser application implemented in [Angular.js](https://angularjs.org)
+* Middle-tier REST server implemented in Java/[Spring](http://projects.spring.io/spring-framework/)
+* [Gradle](http://www.gradle.org/) framework to drive build and configuration of the appserver and database tiers in Java/Groovy
+* Middle-tier REST tier implemented in Node.js/[Express](expressjs.com)
+* [Gulp](http://www.gradle.org/)-based automation to drive build and configuration of Javascript and database tiers (**note: database-tier Gulp-based setup coming soon**)
 * Unit and end-to-end tests
-
-A [Node.js](http://nodejs.org/) version of Samplestack that uses gulp automation will be coming soon.
 
 This README covers the following topics:
 * [Getting Started](#getting-started)
@@ -58,19 +57,12 @@ This version of Samplestack is intended to run with MarkLogic 8.0-1.1. Note: The
 
 You can choose to run/examine one of two middle tier application servers.  Each of these will use the same MarkLogic backend configuration and the same MVC browser application.
 
-* [Set up the Java middle tier and database tiers with gradle](appserver/java-spring/README.md)  (Available now)
-* [Set up the Node middle and database tiers with gulp](appserver/node-express/README.md) (Available in future release, under development)
-
-3) **Browser Application**
-
-The browser application is delivered in two forms:
-
-* The Java middle tier hosts a pre-built version; or
-* [Set up the Angular.js/Gulp development environment](browser/README.md) (Available now)
+* [Set up the Java middle tier and database tier with gradle](appserver/java-spring/README.md). A pre-built instaance of the browser app is included.
+* [Set up the JavaScript Node.js-based tiers and database tier using npm](./README-JavaScript.md)
 
 ## Additional Information
 For more information, see the following:
-* READMEs for the [database](database/README.md), [Java appserver](appserver/java-spring/README.md), and [Angular.js browser](browser/README.md) tiers.
+* READMEs for the [database](database/README.md), [Java appserver](appserver/java-spring/README.md), and [JavaScript-based tiers](README-JavaScript.md).
 * [Samplestack wiki](https://github.com/marklogic/marklogic-samplestack/wiki).
 * [MarkLogic product documentation](http://docs.marklogic.com) for further details on MarkLogic Server and the Client APIs.
 * MarkLogic [Developer Community](http://developer.marklogic.com/) site with tutorials, blogs, and more.
