@@ -7,7 +7,6 @@ module.exports = function (app, mw) {
     mw.parseBody.json,
 
     function (req, res, next) {
-      console.dir(req);
       // Handle typeahead and ask tags
       if (req.body.search.forTag) {
         return req.db.tags.getTags(req.body)
