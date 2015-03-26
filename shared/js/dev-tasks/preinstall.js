@@ -8,10 +8,10 @@ var version = function () {
 
 var v = version();
 
-if (v.minor !== 10 || v.revision < 24) {
+if (v.minor !== 10 || v.revision < 20) {
   process.stderr.write(
     'Unsupported Node.js version (' + process.version + ').\n\n' +
-        'Please install a recent release of Node.js 0.10.x'
+        'Please install a recent release of Node.js 0.10.x ()'
   );
   process.exit(1);
 }
