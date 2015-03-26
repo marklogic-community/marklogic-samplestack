@@ -1,25 +1,31 @@
-
-var dummy = {
-  'values-response': {
-    'name':'tags',
-    'type':'xs:string',
-    'aggregate-result':[
-      {
-        'name':'count',
-        '_value':'0'
-      }
-    ],
-    'metrics':{
-      'values-resolution-time':'PT0.005573S',
-      'aggregate-resolution-time':'PT0.000495S',
-      'total-time':'PT0.044434S'
-    },
-    'distinct-value':[]
-  }
-};
+var roles = [ 'contributors', 'default' ];
 
 module.exports = function (app, mw) {
-  app.post('/v1/tags', function (req, res) {
-    res.send(dummy);
-  });
+  app.post('/v1/tags', [
+    mw.auth.tryReviveSession,
+    mw.auth.associateBestRole.bind(app, roles),
+    mw.parseBody.json,
+
+    function (req, res, next) {
+      console.dir(req);
+      // Handle typeahead and ask tags
+      if (req.body.search.forTag) {
+        return req.db.tags.getTags(req.body)
+        .then(function (result) {
+          return res.status(200).send(result);
+        })
+        .catch(next);
+      }
+      // Handle related tags
+      else if (req.body.search.relatedTo) {
+        return req.db.tags.getRelatedTags(req.body)
+        .then(function (result) {
+          // TODO make it work
+          return res.status(200).send(result);
+        })
+        .catch(next);
+      }
+    }
+
+  ]);
 };
