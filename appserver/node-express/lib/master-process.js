@@ -5,24 +5,24 @@ does.
 
  */
 
+var path = require('path');
+
+global.libRequire = function (name) {
+  return require(path.resolve(__dirname, name));
+};
+global.sharedRequire = function (name) {
+  return require(path.resolve(__dirname, '../../../shared', name));
+};
+
+var options = sharedRequire('js/options');
+
 var ldapWorker;
 var ssWorker;
 var cluster = require('cluster');
 var moment = require('moment');
-var path = require('path');
-var options = require('../options');
-
 var run = function () {
 
-  /**
-   * Libraries
-   **/
-  global.libRequire = function (name) {
-    return require(path.resolve(__dirname, name));
-  };
-
-
-  if (options.ldap.useBuiltInServer) {
+  if (options.middleTier.ldap.useBuiltInServer) {
     ldapWorker = require('./ldapWorker');
     ldapWorker.run();
   }
@@ -32,7 +32,7 @@ var run = function () {
    * for thread count, use configured value if available. If not, use one
    * less than the number of cpu cores, or if single-core, use one worker
    **/
-  var numWorkers = options.numWorkers ||
+  var numWorkers = options.middleTier.numWorkers ||
       require('os').cpus().length - 1 || // otherwise use one less than number
       1;
 

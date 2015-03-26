@@ -1,13 +1,18 @@
 var path = require('path');
-var options = require('../options');
-var mon = libRequire('monitoring');
-var express = require('express');
 
 // all paths to libRequire are relative to the lib directory, hence very
 // few upward traversals (options is the exception)
 global.libRequire = function (name) {
   return require(path.resolve(__dirname, name));
 };
+global.sharedRequire = function (name) {
+  return require(path.resolve(__dirname, '../../../shared', name));
+};
+
+var options = sharedRequire('js/options');
+var mon = libRequire('monitoring');
+var express = require('express');
+
 
 // configure Express
 var app = express();
@@ -53,13 +58,13 @@ app.use('/v1/', function (err, req, res, next) {
 });
 
 var listener;
-if (options.https) {
-  listener = require('https').createServer(options.https, app)
-      .listen(options.port, options.hostname);
+if (options.middleTier.https) {
+  listener = require('https').createServer(options.middleTier.https, app)
+      .listen(options.middleTier.port, options.midleTier.hostname);
 }
 else {
   listener = require('http').createServer(app)
-      .listen(options.port, options.hostname);
+      .listen(options.middleTier.port, options.middleTier.hostname);
 }
 
 process.on('exit', function () {

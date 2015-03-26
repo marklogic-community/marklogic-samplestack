@@ -29,7 +29,7 @@ http://ldapjs.org/examples.html
 
 var ldap = require('ldapjs');
 
-var options = libRequire('../options');
+var options = sharedRequire('js/options');
 
 ///--- Shared handlers
 
@@ -59,7 +59,7 @@ process.on('exit', stop);
 
 server.bind('cn=root', function (req, res, next) {
   if (req.dn.toString() !== 'cn=root' ||
-      req.credentials !== options.ldap.adminPassword
+      req.credentials !== options.middleTier.ldap.adminPassword
   ) {
     return next(new ldap.InvalidCredentialsError());
   }
@@ -131,8 +131,8 @@ var listener;
 var start = function () {
 
   listener = server.listen(
-    options.ldap.port,
-    options.ldap.hostname,
+    options.middleTier.ldap.port,
+    options.middleTier.ldap.hostname,
     function () {
 
       // TODO: read from ldif?

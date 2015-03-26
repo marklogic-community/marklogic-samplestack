@@ -1,10 +1,11 @@
+var options = sharedRequire('js/options');
+
 var mlclient = require('marklogic');
-var options = libRequire('../options').db;
 var boundClients = {};
 
 var getClient = function (user, password) {
   return mlclient.createDatabaseClient(_.merge(
-    options.clientConnection,
+    options.middleTier.db.clientConnection,
     {
       user: user,
       password: password

@@ -1,8 +1,9 @@
+var options = sharedRequire('js/options');
+
 var passport = require('passport');
 var ldapauth = require('passport-ldapauth');
 var cookieSession = require('cookie-session');
 var async = require('async');
-var options = libRequire('../options');
 var csrf = require('csurf');
 var util = require('util');
 var dbClient = libRequire('db-client');
@@ -32,7 +33,7 @@ var handleCsrfError = function (err, req, res, next) {
  * @param {Function} next
  */
 var setCsrfHeader = function (req, res, next) {
-  if (options.enableCsrf) {
+  if (options.middleTier.enableCsrf) {
     try {
       csrf()(req, res, function () {});
     }
@@ -66,7 +67,7 @@ var setCsrfHeader = function (req, res, next) {
  * @param {Function} next
  */
 var checkCsrfHeader = function (req, res, next) {
-  if (options.enableCsrf && req.session) {
+  if (options.middleTier.enableCsrf && req.session) {
     csrf()(req, res, next);
   }
   else {
@@ -76,8 +77,8 @@ var checkCsrfHeader = function (req, res, next) {
 
 var useRole = function (role, req) {
   req.role = role;
-  var user = options.rolesMap[role].dbUser;
-  var password = options.rolesMap[role].dbPassword;
+  var user = options.middleTier.rolesMap[role].dbUser;
+  var password = options.middleTier.rolesMap[role].dbPassword;
   var db = dbClient.getBoundClient(user, password);
   req.db = db;
 
@@ -124,6 +125,8 @@ var pickRole = function (roles, req, res, next) {
 };
 
 var configurePassport = function (app , ldapConfig) {
+  var ldapOptions = options.middleTier.ldap;
+
   passport.use(new ldapauth.Strategy(
 
     {
@@ -131,13 +134,13 @@ var configurePassport = function (app , ldapConfig) {
       usernameField: 'username',
       passwordField: 'password',
       server : {
-        url: options.ldap.protocol +
-            '://' + options.ldap.hostname +
-            ':' + options.ldap.port,
-        bindDn: options.ldap.adminDn,
-        bindCredentials: options.ldap.adminPassword,
-        searchBase: options.ldap.searchBase,
-        searchFilter: options.ldap.searchFilter,
+        url: ldapOptions.protocol +
+            '://' + ldapOptions.hostname +
+            ':' + ldapOptions.port,
+        bindDn: ldapOptions.adminDn,
+        bindCredentials: ldapOptions.adminPassword,
+        searchBase: ldapOptions.searchBase,
+        searchFilter: ldapOptions.searchFilter,
       }
     },
     function (req, user, done) {
@@ -177,7 +180,7 @@ var configurePassport = function (app , ldapConfig) {
   passport.deserializeUser(function (user, done) {
     done(null, user);
   });
-  
+
   var sessionModule = require('express-session');
   var MarkLogicStore = require('connect-marklogic')(sessionModule);
 

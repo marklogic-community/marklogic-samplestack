@@ -16,7 +16,7 @@ var chalk = require('chalk');
 // var minimist = require('minimist');
 var argv = require('yargs').argv;
 var helper = require('./helper');
-var options = require('../../options');
+var options = require('../options');
 
 // make it easier to get to plugins
 var $ = helper.$;
