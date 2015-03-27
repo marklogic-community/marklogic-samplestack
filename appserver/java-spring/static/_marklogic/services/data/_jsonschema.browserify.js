@@ -1463,7 +1463,7 @@ validators.type = function validateType (instance, schema, options, ctx) {
 };
 
 function testSchema(instance, options, ctx, schema){
-	return this.validateSchema(instance, schema, options, ctx).valid;
+  return this.validateSchema(instance, schema, options, ctx).valid;
 }
 
 /**
@@ -1483,8 +1483,8 @@ validators.anyOf = function validateAnyOf (instance, schema, options, ctx) {
     throw new SchemaError("anyOf must be an array");
   }
   if (!schema.anyOf.some(testSchema.bind(this, instance, options, ctx))) {
-    return "is not any of " + schema.anyOf.map(function (v) {
-      return v.id && ('<' + v.id + '>') || (v+'');
+    return "is not any of " + schema.anyOf.map(function (v, i) {
+      return (v.id && ('<' + v.id + '>')) || (v.title && JSON.stringify(v.title)) || (v['$ref'] && ('<' + v['$ref'] + '>')) || '[subschema '+i+']';
     });
   }
   return null;
@@ -1499,6 +1499,7 @@ validators.anyOf = function validateAnyOf (instance, schema, options, ctx) {
  * @return {String|null}
  */
 validators.allOf = function validateAllOf (instance, schema, options, ctx) {
+  var result = new ValidatorResult(instance, schema, options, ctx);
   // Ignore undefined instances
   if (instance === undefined) {
     return null;
@@ -1506,12 +1507,16 @@ validators.allOf = function validateAllOf (instance, schema, options, ctx) {
   if (!(schema.allOf instanceof Array)){
     throw new SchemaError("allOf must be an array");
   }
-  if (!schema.allOf.every(testSchema.bind(this, instance, options, ctx))) {
-    return "is not all from " + schema.allOf.map(function (v) {
-      return v.id && ('<' + v.id + '>') || (v+'');
-    });
-  }
-  return null;
+  var self = this;
+  schema.allOf.forEach(function(v, i){
+    var valid = self.validateSchema(instance, v, options, ctx);
+    if(!valid.valid){
+      var msg = (v.id && ('<' + v.id + '>')) || (v.title && JSON.stringify(v.title)) || (v['$ref'] && ('<' + v['$ref'] + '>')) || '[subschema '+i+']';
+      result.addError('does not match allOf schema ' + msg + ' with ' + valid.errors.length + ' error[s]:');
+      result.importErrors(valid);
+    }
+  });
+  return result;
 };
 
 /**
@@ -1532,8 +1537,8 @@ validators.oneOf = function validateOneOf (instance, schema, options, ctx) {
   }
   var count = schema.oneOf.filter(testSchema.bind(this, instance, options, ctx)).length;
   if (count!==1) {
-    return "is not exactly one from " + schema.oneOf.map(function (v) {
-      return v.id && ('<' + v.id + '>') || (v+'');
+    return "is not exactly one from " + schema.oneOf.map(function (v, i) {
+      return (v.id && ('<' + v.id + '>')) || (v.title && JSON.stringify(v.title)) || (v['$ref'] && ('<' + v['$ref'] + '>')) || '[subschema '+i+']';
     });
   }
   return null;
@@ -1572,7 +1577,7 @@ function testAdditionalProperty (instance, schema, options, ctx, property, resul
     return;
   }
   if (schema.additionalProperties === false) {
-    result.addError("Property " + property + " does not exist in the schema");
+    result.addError("additionalProperty '"+property+"' exists in instance when not allowed");
   } else {
     var additionalProperties = schema.additionalProperties || {};
     var res = this.validateSchema(instance[property], additionalProperties, options, ctx.makeChild(additionalProperties, property));
@@ -1698,7 +1703,7 @@ validators.items = function validateItems (instance, schema, options, ctx) {
       return false;
     }
     var res = self.validateSchema(value, items, options, ctx.makeChild(items, i));
-    result.instance[i] = res.instance;
+    if(res.instance !== result.instance[i]) result.instance[i] = res.instance;
     result.importErrors(res);
     return true;
   });
@@ -1722,7 +1727,7 @@ validators.minimum = function validateMinimum (instance, schema) {
     valid = instance >= schema.minimum;
   }
   if (!valid) {
-    return "is not " + schema.minimum;
+    return "must have a minimum value of " + schema.minimum;
   }
   return null;
 };
@@ -1744,7 +1749,7 @@ validators.maximum = function validateMaximum (instance, schema) {
     valid = instance <= schema.maximum;
   }
   if (!valid) {
-    return "is not " + schema.maximum;
+    return "must have a maximum value of " + schema.maximum;
   }
   return null;
 };
@@ -1827,7 +1832,7 @@ validators.pattern = function validatePattern (instance, schema) {
     return null;
   }
   if (!instance.match(schema.pattern)) {
-    return "does not match pattern" + schema.pattern;
+    return "does not match pattern " + schema.pattern;
   }
   return null;
 };
@@ -2015,7 +2020,7 @@ validators.dependencies = function validateDependencies (instance, schema, optio
       });
     } else {
       var res = this.validateSchema(instance, dep, options, childContext);
-      result.instance[property] = res.instance;
+      if(result.instance !== res.instance) result.instance = res.instance;
       if (res && res.errors.length) {
         result.addError("does not meet dependency required by " + childContext.propertyPath);
         result.importErrors(res);
@@ -2032,15 +2037,15 @@ validators.dependencies = function validateDependencies (instance, schema, optio
  * @param schema
  * @return {String|null}
  */
-validators.enum = function validateEnum (instance, schema) {
-  if (!(schema.enum instanceof Array)) {
+validators['enum'] = function validateEnum (instance, schema) {
+  if (!(schema['enum'] instanceof Array)) {
     throw new SchemaError("enum expects an array", schema);
   }
   if (instance === undefined) {
     return null;
   }
-  if (!schema.enum.some(helpers.deepCompareStrict.bind(null, instance))) {
-    return "is not one of enum values: " + schema.enum;
+  if (!schema['enum'].some(helpers.deepCompareStrict.bind(null, instance))) {
+    return "is not one of enum values: " + schema['enum'];
   }
   return null;
 };
@@ -2175,7 +2180,7 @@ SchemaContext.prototype.makeChild = function makeChild(schema, propertyName){
 }
 
 var FORMAT_REGEXPS = exports.FORMAT_REGEXPS = {
-  'date-time': /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-[0-9]{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/,
+  'date-time': /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-[0-9]{2}[tT ]\d{2}:\d{2}:\d{2}(\.\d+)?([zZ]|[+-]\d{2}:\d{2})$/,
   'date': /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-[0-9]{2}$/,
   'time': /^\d{2}:\d{2}:\d{2}$/,
 
@@ -2184,9 +2189,11 @@ var FORMAT_REGEXPS = exports.FORMAT_REGEXPS = {
   'ipv6': /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/,
   'uri': /^[a-zA-Z][a-zA-Z0-9+-.]*:[^\s]*$/,
 
-  'color': /(#?([0-9A-Fa-f]{3,6})\b)|(aqua)|(black)|(blue)|(fuchsia)|(gray)|(green)|(lime)|(maroon)|(navy)|(olive)|(orange)|(purple)|(red)|(silver)|(teal)|(white)|(yellow)|(rgb\(\s*\b([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\b\s*,\s*\b([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\b\s*,\s*\b([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\b\s*\))|(rgb\(\s*(\d?\d%|100%)+\s*,\s*(\d?\d%|100%)+\s*,\s*(\d?\d%|100%)+\s*\))/,
+  'color': /^(#?([0-9A-Fa-f]{3}){1,2}\b|aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|purple|red|silver|teal|white|yellow|(rgb\(\s*\b([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\b\s*,\s*\b([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\b\s*,\s*\b([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\b\s*\))|(rgb\(\s*(\d?\d%|100%)+\s*,\s*(\d?\d%|100%)+\s*,\s*(\d?\d%|100%)+\s*\)))$/,
 
-  'host-name': /^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/,
+  // hostname regex from: http://stackoverflow.com/a/1420225/5628
+  'hostname': /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\.?$/,
+  'host-name': /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\.?$/,
 
   'alpha': /^[a-zA-Z]+$/,
   'alphanumeric': /^[a-zA-Z0-9]+$/,
@@ -2443,14 +2450,14 @@ Validator.prototype.addSubSchemaArray = function addSubSchemaArray(baseuri, sche
   for(var i=0; i<schemas.length; i++){
     this.addSubSchema(baseuri, schemas[i]);
   }
-}
+};
 
 Validator.prototype.addSubSchemaObject = function addSubSchemaArray(baseuri, schemas) {
   if(!schemas || typeof schemas!='object') return;
   for(var p in schemas){
     this.addSubSchema(baseuri, schemas[p]);
   }
-}
+};
 
 
 
@@ -2539,13 +2546,13 @@ Validator.prototype.validateSchema = function validateSchema (instance, schema, 
     return schema;
   }
 
-  if (schema.extends) {
-    if (schema.extends instanceof Array) {
-      schema.extends.forEach(function (s) {
+  if (schema['extends']) {
+    if (schema['extends'] instanceof Array) {
+      schema['extends'].forEach(function (s) {
         schema = helpers.deepMerge(schema, resolve(s, ctx));
       });
     } else {
-      schema = helpers.deepMerge(schema, resolve(schema.extends, ctx));
+      schema = helpers.deepMerge(schema, resolve(schema['extends'], ctx));
     }
   }
 
@@ -2607,7 +2614,8 @@ Validator.prototype.resolve = function resolve (schema, switchSchema, ctx) {
     throw new SchemaError("no such schema " + fragment + " located in <" + document + ">", schema);
   }
   return {subschema: subschema, switchSchema: switchSchema};
-}
+};
+
 /**
  * Tests whether the instance if of a certain type.
  * @private
@@ -2649,7 +2657,7 @@ types.number = function testNumber (instance) {
 types.array = function testArray (instance) {
   return instance instanceof Array;
 };
-types.null = function testNull (instance) {
+types['null'] = function testNull (instance) {
   return instance === null;
 };
 types.date = function testDate (instance) {
