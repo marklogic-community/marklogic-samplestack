@@ -1,59 +1,92 @@
-var vb = require('marklogic').valuesBuilder;
+var ml = require('marklogic');
+var hookRequest = require('./hookRequest');
 
 var funcs = {};
 
-// For typeahead (filtered) and ask tags (not filtered)
-funcs.getTags = function (spec) {
-
-  var forTag = spec.forTag;
-
-  var valuesQuery = vb.fromIndexes(
-    vb.range('tags')
-  )
-  .aggregates('count')
-  .withOptions({values: ["frequency-order", "descending", "limit=10"]});
-
-  // TODO In 8.0-1, CANNOT include parse* information with Node Client values
-  // call, thus we can't get tags constrained to current search qtext/facets
-  // or typeahead text.
-  // Fixed in 8.0-2: https://github.com/marklogic/node-client-api/issues/155
-
-  return this.values.read(valuesQuery).result()
-  .then(function (response) {
-    // Rearrange response so it looks like the Java tier's
-    // TODO Temporary, we want to avoid this
-    var distVals = [];
-    var item;
-    for (var i = 0; i < response['values-response']['tuple'].length; i++) {
-      item = response['values-response']['tuple'][i];
-      distVals.push({
-        'frequency': item['frequency'],
-        '_value': item['distinct-value'][0]
-      });
-    }
-    response['values-response']['distinct-value'] = distVals;
-    delete response['values-response']['tuple'];
-    console.log(JSON.stringify(response['values-response'], null, ' '));
+var filterResponse = function (response, forTag, start, pageLength) {
+  var vals = response['values-response'];
+  var distinct = vals['distinct-value'];
+  var zeroIndexStart = start - 1;
+  if (!distinct) {
     return response;
-  });
+  }
+  else {
+    var newVals = [];
+    var ignored = 0;
+    _.each(distinct, function (distinctVal) {
+      if (!forTag || distinctVal._value.indexOf(forTag) >= 0) {
+        if (zeroIndexStart - 1 <= ignored) {
+          newVals.push(distinctVal);
+          if (newVals.length === pageLength) {
+            return false;
+          }
+        }
+        else {
+          ignored++;
+        }
+      }
+    });
 
+    vals['distinct-value'] = newVals;
+  }
+  return response;
 };
 
-// For related tags
-// TODO in progress
-funcs.getRelatedTags = function (spec) {
+// TODO In 8.0-1, CANNOT include parse* information with Node Client values
+// call, thus we can't get tags constrained to current search qtext/facets
+// or typeahead text.
+// Fixed in 8.0-2: https://github.com/marklogic/node-client-api/issues/155
+//.DO NOT TRY THE BELOW TECHNIQUE AT HONME.
+// The use of the hookRequest is not recommended. It is a temporary workaround
+// for Samplestack 1.1.0, to be used only as long as compatibility with Node
+// Client version 1.0.1 is required.
+funcs.getTags = function (spec) {
+  spec.search.qtext.push('tagword:"*' + spec.search.forTag + '*"');
+  var start = spec.search.start;
+  delete spec.search.start;
+  var pageLength = spec.search.pageLength;
+  delete spec.search.pageLength;
 
-  var relatedTo = spec.relatedTo;
+  spec.search.options = {
+    values: {
+      range: {
+        type: 'xs:string',
+        'json-property': 'tags'
+      },
+      name: 'tags',
+      'values-option': 'item-order'
+    }
+  };
 
-  var valuesQuery = vb.fromIndexes(
-    vb.range('tags')
+  var unhook = hookRequest.hook(
+    this,
+    {
+      optionsRewrite: function (options) {
+        if (options.method === 'POST') {
+          options.path = '/v1/values/tags?' +
+              'pageLength=10000&options=tags&start=1&aggregate=count';
+          options.headers.accept = 'application/json';
+        }
+        return options;
+      }
+      // no need to rewrite query body
+      // chunkRewrite: function (chunk) {
+      //   return chunk;
+      // }
+    }
   );
+  var result = this.documents.query(spec).result();
 
-  return this.resources.get(
-    {name:'relatedTags', params:{tag:relatedTo}}
-  ).result();
-
+  return result.then(function (response) {
+    unhook();
+    return filterResponse(response, spec.search.forTag, start, pageLength);
+  })
+  .catch(function (err) {
+    unhook();
+    throw err;
+  });
 };
+
 
 module.exports = function (connection) {
   // create an object with the funcs all bound to the given connection
