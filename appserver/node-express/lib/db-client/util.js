@@ -20,6 +20,16 @@ module.exports = {
     }
   },
 
+  serverResponseToSpec: function (resp) {
+    var docID;
+    if (resp && resp.uri) {
+      docID = resp.uri.split('/');
+      docID = docID[docID.length - 1].replace('.json','');
+    }
+    console.log('serverResponseToSpec: ' + docID);
+    return { id : docID };
+  },
+
   specToValues: function (spec) {
     return _.map(spec, function (property, name) {
       return qb.value(name, property);

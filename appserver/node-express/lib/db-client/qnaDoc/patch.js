@@ -41,7 +41,7 @@ module.exports = function (txid, spec) {
         voteCountUp,
         itemTallyChange
       ]
-    }).result();
+    }).result(util.serverResponseToSpec);
   };
 
   var patchQuestionVote = function (txid, contributor, questionId, voteChange) {
@@ -87,12 +87,12 @@ module.exports = function (txid, spec) {
         pb.insert('/array-node("answers")', 'last-child', answer),
         pb.replace('/lastActivityDate', now)
       ]
-    }).result();
+    }).result(util.serverResponseToSpec);
   };
 
-
   var patchQuestionAddComment = function (
-    txid, contributor, questionId, spec) {
+    txid, contributor, questionId, spec
+  ) {
     var comment = _.merge(
       _.clone(meta.template.comment),
       spec,
@@ -109,7 +109,7 @@ module.exports = function (txid, spec) {
         pb.insert('/array-node("comments")', 'last-child', comment)
       ]
     }
-    ).result();
+    ).result(util.serverResponseToSpec);
   };
 
   var patchAnswerAddComment = function (
@@ -134,7 +134,7 @@ module.exports = function (txid, spec) {
           comment
         )
       ]
-    }).result();
+    }).result(util.serverResponseToSpec);
   };
 
   var patchAnswerAccept = function (txid, contributor, questionId, answerId) {
@@ -148,7 +148,7 @@ module.exports = function (txid, spec) {
           pb.replace('/lastActivityDate', moment())
         ]
       }
-    ).result();
+    ).result(util.serverResponseToSpec);
   };
 
   switch (spec.operation) {

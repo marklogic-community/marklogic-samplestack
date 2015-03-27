@@ -21,7 +21,7 @@ funcs.patchReputation = function (txid, id, repChange) {
       pb.replace('reputation', pb.add(repChange))
     ]
   }
-  ).result();
+  ).result(util.serverResponseToSpec);
 };
 
 funcs.patchVoteCount = function (txid, id, voteCountChange) {
@@ -33,7 +33,7 @@ funcs.patchVoteCount = function (txid, id, voteCountChange) {
       pb.replace('voteCount', pb.add(voteCountChange))
     ]
   }
-  ).result();
+  ).result(util.serverResponseToSpec);
 };
 
 funcs.getUniqueContent = function (txid, spec) {

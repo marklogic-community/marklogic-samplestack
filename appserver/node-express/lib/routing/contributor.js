@@ -22,7 +22,7 @@ module.exports = function (app, mw) {
 
     function (req, res, next) {
       return req.db.contributor.getUniqueContent(
-        { id: req.params.id }
+        null, { id: req.params.id }
       )
       .then(function (contributor) {
         return res.status(200).send(contributor);
