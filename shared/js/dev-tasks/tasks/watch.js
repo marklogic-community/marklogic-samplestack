@@ -68,6 +68,7 @@ function lrSetup (port, glob, name, fileRelativizer, cb) {
       {
         name: name, // 'reload-watch',
         emitOnGlob: false,
+        ignoreInitial: true,
         emit: 'one',
         debounceDelay: 250,
         verbose: false
@@ -139,6 +140,7 @@ var watchTaskFunc = function (cb) {
     ],
     {
       name: 'watch',
+      ignoreInitial: true,
       emitOnGlob: false,
       emit: 'one',
       verbose: false
@@ -249,7 +251,6 @@ var setProcessWatch = function () {
     );
     // ctx.closeActiveServers(function () {
     ctx.restartChild();
-    // });
   });
   ctx.setActiveServer('processWatcher', watcher);
   watcher.on('error', function (e) {
@@ -265,7 +266,7 @@ myTasks.push({
   name: 'watch',
   deps: ['watchCalled', 'build', 'unit'],
   func: function (cb) {
-    setProcessWatch();
+    // setProcessWatch();
     watchTaskFunc(cb);
   }
 });
