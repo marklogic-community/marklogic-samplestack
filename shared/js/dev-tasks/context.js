@@ -129,10 +129,16 @@ var closeServer = function (server, cb) {
   try {
     server.on('end', onClosed);
     server.on('close', onClosed);
-    server.close(onClosed);
+    server.on('exit', onClosed);
+    if (server.close) {
+      server.close(onClosed);
+    }
+    else {
+      server.kill();
+    }
   }
   catch (err) {
-    onClosed();
+    onClosed(err);
   }
 };
 
@@ -184,6 +190,9 @@ self = module.exports = {
 
   paths:  {
     projectRoot: projectRoot,
+    middle: {
+      lib: path.join(serverRootDir, 'lib')
+    },
     browser: {
       rootDir: browserRootDir,
       targets: browserBuilds,
@@ -210,7 +219,7 @@ self = module.exports = {
   closeActiveServer: function (key, cb) {
     var server = activeServers && activeServers[key.toString()];
     if (server) {
-      closeServer(server, function () {
+      closeServer(server, function (err) {
         delete activeServers[key.toString];
         cb();
       });
@@ -277,14 +286,17 @@ self = module.exports = {
   },
 
 
+
   // TODO: let's stop using connect and stick to express?
   // this needs to be reconciled w/middle-tier express app
   // Alternatively, we could leave this and always run middle-tier
   // on port 8090?
   startServer: function (filePath, port, html5) {
     if (port === '3000') {
-      // console.log('start middle tier?');
-      require(path.join(serverBuilds.built, 'main'));
+      var middleProcess = childProcess.fork(
+        path.join(serverBuilds.built, 'main')
+      );
+      self.setActiveServer(port, middleProcess);
     }
     else {
       // console.log('don\'t start middle tier -- ' + port);

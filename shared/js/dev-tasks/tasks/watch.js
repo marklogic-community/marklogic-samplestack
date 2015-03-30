@@ -133,7 +133,7 @@ var watchTaskFunc = function (cb) {
     );
   }
 
-  var watcher = $.watch(
+  var browserWatcher = $.watch(
     [
       path.join(ctx.paths.browser.srcDir, '**/*'),
       path.join(ctx.paths.browser.unitSrcDir, '**/*')
@@ -194,11 +194,31 @@ var watchTaskFunc = function (cb) {
       }
     }
   );
-  watcher.on('error', function (e) {
+  browserWatcher.on('error', function (e) {
     console.log('watcher error: ' + e.toString());
   });
 
-  ctx.setActiveServer('watcher', watcher);
+  ctx.setActiveServer('watcher', browserWatcher);
+  console.log(path.join(ctx.paths.middle.lib, '**/*'));
+  var middleWatcher = $.watch(
+    path.join(ctx.paths.middle.lib, '**/*'),
+    {
+      name: 'watchMiddle',
+      ignoreInitial: true,
+      emitOnGlob: false,
+      emit: 'one',
+      verbose: false
+    },
+    function (file) {
+      ctx.closeActiveServer(
+        addresses.webApp.port,
+        function () {
+          ctx.startServer(ctx.paths.browser.buildDir, addresses.webApp.port);
+          writeWatchMenu();
+        }
+      );
+    }
+  );
 
   if (!ctx.getActiveServer('reload-build-watch')) {
     lrSetup(

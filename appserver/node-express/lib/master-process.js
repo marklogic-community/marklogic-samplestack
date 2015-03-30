@@ -103,6 +103,9 @@ var stop = function () {
     // if we don't have an ssWorker objec then it's a cluster
     stopCluster();
   }
+  else {
+    console.log('i dont have to stop anything');
+  }
   if (ldapWorker) {
     ldapWorker.stop();
   }
