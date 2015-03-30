@@ -5,29 +5,28 @@ var funcs = {};
 
 var filterResponse = function (response, forTag, start, pageLength) {
   var vals = response['values-response'];
-  var distinct = vals['distinct-value'];
-  var zeroIndexStart = start - 1;
-  if (!distinct) {
-    return response;
-  }
-  else {
-    var newVals = [];
-    var ignored = 0;
-    _.each(distinct, function (distinctVal) {
-      if (!forTag || distinctVal._value.indexOf(forTag) >= 0) {
-        if (zeroIndexStart - 1 <= ignored) {
-          newVals.push(distinctVal);
-          if (newVals.length === pageLength) {
-            return false;
+  if (vals) {
+    var distinct = vals['distinct-value'];
+    var zeroIndexStart = start - 1;
+    if (distinct) {
+      var newVals = [];
+      var ignored = 0;
+      _.each(distinct, function (distinctVal) {
+        if (!forTag || distinctVal._value.indexOf(forTag) >= 0) {
+          if (zeroIndexStart - 1 <= ignored) {
+            newVals.push(distinctVal);
+            if (newVals.length === pageLength) {
+              return false;
+            }
+          }
+          else {
+            ignored++;
           }
         }
-        else {
-          ignored++;
-        }
-      }
-    });
+      });
 
-    vals['distinct-value'] = newVals;
+      vals['distinct-value'] = newVals;
+    }
   }
   return response;
 };

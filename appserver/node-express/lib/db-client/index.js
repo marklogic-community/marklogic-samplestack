@@ -3,21 +3,23 @@ var options = sharedRequire('js/options');
 var mlclient = require('marklogic');
 var boundClients = {};
 
-var execAsTransaction = function(ex) {
+var execAsTransaction = function (ex) {
+  var self = this;
   var txid;
+
   return this.transactions.open().result()
-  .then(function(resp) {
+  .then(function (resp) {
     txid = resp.txid;
-    console.log('execAsTransaction - txid: ' + txid);
     return ex(txid);
   })
-  .then(function () {
-    console.log('execAsTransaction - COMMIT');
-    return this.transactions.commit(txid).result();
+  .then(function (result) {
+    return self.transactions.commit(txid).result()
+    .then(function () {
+      return result;
+    });
   })
   .catch(function (err) {
-    console.log('execAsTransaction - ROLLBACK');
-    return this.transactions.rollback(txid).result()
+    return self.transactions.rollback(txid).result()
     .thenThrow(err);
   });
 };
