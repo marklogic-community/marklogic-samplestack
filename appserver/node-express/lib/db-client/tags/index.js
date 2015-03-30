@@ -1,5 +1,4 @@
-var ml = require('marklogic');
-var hookRequest = require('./hookRequest');
+var hookStartRequest = require('./hookStartRequest');
 
 var funcs = {};
 
@@ -36,7 +35,7 @@ var filterResponse = function (response, forTag, start, pageLength) {
 // or typeahead text.
 // Fixed in 8.0-2: https://github.com/marklogic/node-client-api/issues/155
 //.DO NOT TRY THE BELOW TECHNIQUE AT HONME.
-// The use of the hookRequest is not recommended. It is a temporary workaround
+// The use of the hookStartRequest is not recommended. It is a temporary workaround
 // for Samplestack 1.1.0, to be used only as long as compatibility with Node
 // Client version 1.0.1 is required.
 funcs.getTags = function (spec) {
@@ -56,32 +55,14 @@ funcs.getTags = function (spec) {
       'values-option': 'item-order'
     }
   };
-
-  var unhook = hookRequest.hook(
-    this,
-    {
-      optionsRewrite: function (options) {
-        if (options.method === 'POST') {
-          options.path = '/v1/values/tags?' +
-              'pageLength=10000&options=tags&start=1&aggregate=count';
-          options.headers.accept = 'application/json';
-        }
-        return options;
-      }
-      // no need to rewrite query body
-      // chunkRewrite: function (chunk) {
-      //   return chunk;
-      // }
-    }
-  );
   var result = this.documents.query(spec).result();
 
   return result.then(function (response) {
-    unhook();
+    // unhook();
     return filterResponse(response, spec.search.forTag, start, pageLength);
   })
   .catch(function (err) {
-    unhook();
+    // unhook();
     throw err;
   });
 };
