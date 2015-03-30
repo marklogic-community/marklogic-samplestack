@@ -24,7 +24,14 @@ app.set('x-powered-by', false);
 app.use(require('compression')({ threshold: 1024 }));
 
 var browserBuilt = path.resolve(__dirname, '../../../browser/builds/built');
-app.use(/^(?!\/v1\/)/, express.static(browserBuilt));
+var serveStaticDir = express.static(browserBuilt);
+
+app.use(/^(?!\/v1\/)/, function (req, res, next) {
+  if (req.path.indexOf('.') < 0) {
+    req.url = '/index.html';
+  }
+  serveStaticDir(req, res, next);
+});
 
 // read/parse cookies all the time on REST endpoints
 app.use('/v1/', require('cookie-parser')());
