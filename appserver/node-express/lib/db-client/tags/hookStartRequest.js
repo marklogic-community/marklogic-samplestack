@@ -6,7 +6,7 @@ mlrest.startRequest = function (operation) {
   if (
     operation.options.path === '/v1/search?format=json&category=content' &&
     operation.requestBody && operation.requestBody.search &&
-    operation.requestBody.search.forTag
+    operation.requestBody.search.forTag !== undefined
   ) {
     operation.options.path = '/v1/values/tags?' +
         'pageLength=10000&options=tags&start=1&aggregate=count';
