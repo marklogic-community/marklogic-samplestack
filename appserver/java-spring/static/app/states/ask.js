@@ -34,7 +34,7 @@ define(['app/module'], function (module) {
           tagsQuery: {
             start: 1,
             pageLength: 100,
-            sort: 'frequency',
+            sort: 'name',
             forTag: ' '
           }
         }
