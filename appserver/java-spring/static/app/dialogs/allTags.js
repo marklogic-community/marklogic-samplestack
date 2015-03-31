@@ -155,6 +155,7 @@ define(['app/module'], function (module) {
        */
       $scope.setSort = function () {
         $scope.selectedSort = this.sort;
+        $scope.currentPage = 1; // reset to first page
         search();
       };
 
