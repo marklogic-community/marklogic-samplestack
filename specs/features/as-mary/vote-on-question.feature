@@ -6,7 +6,6 @@ Feature: Vote on Question
   gains reputation points. When a downvote is made to a  question, the author
   of the question loses reputation points.
 
-  @broken @564
   Scenario: Mary votes for Joe's question
     Given I am "Joe"
     When I visit the "ask" page
