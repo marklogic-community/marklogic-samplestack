@@ -7,8 +7,7 @@ var util = libRequire('db-client/util');
 var funcs = {};
 
 /**
- * Handle an update to a contributor's reputation. This occurs during
- * a question vote, an answer vote, or an answer acceptance.
+ * Handle an update to a contributor's reputation by patch the document.
  *
  * @param  {String} txid The transaction ID.
  * @param  {String} id The contributor ID.
@@ -22,6 +21,25 @@ funcs.patchReputation = function (txid, id, repChange) {
     uri: meta.getUri(id),
     operations: [
       pb.replace('reputation', pb.add(repChange))
+    ]
+  }).result()
+  .then(meta.responseToSpec);
+};
+
+/**
+ * Handle an update to a contributor's voteCount by patching the document.
+ *
+ * @param  {String} txid The transaction ID.
+ * @param  {String} id The contributor ID.
+ * @param  {Number} increment Increment or decrement value.
+ * @return {Promise} A promise object.
+ */
+funcs.patchVoteCount = function (txid, id, increment) {
+  return this.documents.patch({
+    txid: txid,
+    uri: meta.getUri(id),
+    operations: [
+      pb.replace('voteCount', pb.add(increment))
     ]
   }).result()
   .then(meta.responseToSpec);

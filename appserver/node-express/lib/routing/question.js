@@ -42,6 +42,7 @@ module.exports = function (app, mw) {
       .then(function (doc) {
         var step1;
         var step2;
+        var step3;
         var contentContributorId;
         var content = spec.answerId ?
             _.find(
@@ -57,7 +58,10 @@ module.exports = function (app, mw) {
         step2 = db.contributor.patchReputation(
           txid, contentContributorId, spec.voteChange
         );
-        return Promise.all([step1, step2]);
+        step3 = db.contributor.patchVoteCount(
+          txid, spec.contributor.id, 1
+        );
+        return Promise.all([step1, step2, step3]);
       })
       .then(function (responses) {
         // the first item in the array is the spec we want (question spec)
