@@ -35,7 +35,10 @@ module.exports = {
       answerCount: 0,
       itemTally: 0,
       upvotingContributorIds: [],
-      downvotingContributorIds: []
+      downvotingContributorIds: [],
+      // seems to be unused but its absence is triggering error in java
+      // code
+      voteCount: 0
     },
     answer: {
       itemTally: 0,
