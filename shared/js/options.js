@@ -2,6 +2,7 @@ var url = require('url');
 
 // expose lodash globally for easy access
 global._ = require('lodash');
+_.mixin(require('lodash-deep'));
 
 var credentials = require('../credentials');
 var pkg = require('../../package.json');
