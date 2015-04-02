@@ -5406,7 +5406,7 @@ h1 {
   text-align: left; }
 .ss-dialog-all-tags .modal-footer ul.pagination, .ss-dialog-all-tags .ss-dialog footer ul.pagination, .ss-dialog .ss-dialog-all-tags footer ul.pagination {
   margin: 0; }
-.ss-dialog-all-tags ul.pagination li:last-of-type {
+.ss-dialog-all-tags ul.pagination.missing-count li:last-of-type {
   display: none; }
 .ss-dialog-all-tags .modal-footer ul.pagination li a, .ss-dialog-all-tags .ss-dialog footer ul.pagination li a, .ss-dialog .ss-dialog-all-tags footer ul.pagination li a {
   padding: 4px 8px; }

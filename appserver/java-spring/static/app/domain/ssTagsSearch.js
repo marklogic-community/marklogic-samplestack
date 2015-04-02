@@ -223,7 +223,8 @@ define(['app/module'], function (module) {
       SsTagsSearchObject.prototype.onResponsePOST = function (data) {
         data = data['values-response'];
         this.results = {
-          count: data['aggregate-result'][0]._value,
+          asManyAs: data['aggregate-result'][0]._value,
+          count: data.total,
           items: _.map(
             data['distinct-value'],
             function (item) {

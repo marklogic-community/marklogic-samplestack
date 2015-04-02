@@ -103,13 +103,14 @@
 
     <!-- paging -->
     <pagination
-      total-items="tagsCount"
+      total-items="tagsCount || asManyAs"
       items-per-page="pageSize"
       ng-model="currentPage"
       ng-change="updatePage(currentPage)"
       max-size="maxSize"
       boundary-links="true"
-      rotate="false"
+      rotate="true"
+      ng-class="{ 'missing-count': tagsCount === undefined }"
     ></pagination>
 
   </div><!-- modal-footer -->

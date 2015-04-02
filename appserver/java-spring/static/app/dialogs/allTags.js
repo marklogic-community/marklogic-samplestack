@@ -233,8 +233,9 @@ define(['app/module'], function (module) {
 
         tagsSearch.post().$ml.waiting.then(function () {
           $scope.tagsCount = tagsSearch.results.count;
+          $scope.asManyAs = tagsSearch.results.asManyAs;
           $scope.totalPages = Math.ceil(
-            tagsSearch.results.count / $scope.pageSize
+            (tagsSearch.tagsCount || $scope.asManyAs) / $scope.pageSize
           );
           $scope.pagedTagsByColumn = []; // array of arrays
           while (

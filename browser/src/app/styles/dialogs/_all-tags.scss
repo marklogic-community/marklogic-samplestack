@@ -85,7 +85,7 @@
 
   }
 
-  ul.pagination li {
+  ul.pagination.missing-count li {
     &:last-of-type {
       display: none;
     }
