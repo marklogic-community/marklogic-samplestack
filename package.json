@@ -94,6 +94,7 @@
     "csurf": "^1.7.0",
     "express": "^4.12.2",
     "express-session": "^1.10.3",
+    "globby": "^1.2.0",
     "ldapjs": "^0.7.1",
     "lodash": "~3.3.1",
     "lodash-deep": "^1.6.0",
