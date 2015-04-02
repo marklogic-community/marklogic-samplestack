@@ -123,7 +123,10 @@ var closeServer = function (server, cb) {
   var onClosed = function () {
     if (!closed) {
       closed = true;
-      cb();
+      try {
+        cb();
+      }
+      catch (err) {}
     }
   };
   try {

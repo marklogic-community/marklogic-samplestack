@@ -49,54 +49,6 @@ function refireWatchTask (servers) {
   ctx.closeActiveServers(gulp.start.bind(gulp, 'watch'));
 }
 
-// TODO: what the heck does fileRelativizer do?
-function lrSetup (port, glob, name, fileRelativizer, cb) {
-  if (ctx.getActiveServer(port)) {
-    if (cb) {
-      return cb();
-    }
-    else {
-      return;
-    }
-  }
-
-  var tinylr = require('tiny-lr-fork');
-  var lrServer = new tinylr.Server();
-  lrServer.listen(port, function () {
-    var watcher = $.watch(
-      glob,
-      {
-        name: name, // 'reload-watch',
-        emitOnGlob: false,
-        ignoreInitial: true,
-        emit: 'one',
-        debounceDelay: 250,
-        verbose: false
-      }
-    )
-    .on('data', function (file) {
-      // TODO: this file.base seems strange
-      file.base = path.resolve('./build');
-      lrServer.changed({
-        body: {
-          files: [
-            fileRelativizer(file)
-          ]
-        }
-      });
-      return file;
-    });
-    watcher.on('error', function (e) {
-      console.log('caught gaze error: ' + e.toString());
-    });
-    ctx.setActiveServer(name, watcher);
-    ctx.setActiveServer(port, lrServer);
-    if (cb) {
-      cb();
-    }
-  });
-}
-
 function lrManualSetup (port, cb) {
   if (!ctx.getActiveServer(port)) {
     var tinylr = require('tiny-lr-fork');
@@ -116,9 +68,11 @@ function lrManualSetup (port, cb) {
 }
 
 var watchTaskFunc = function (cb) {
-  var lrChanger;
+  var lrUnitChanger;
+  var lrBuildChanger;
+
+  ctx.startServer(ctx.paths.browser.buildDir, addresses.webApp.port);
   if (!ctx.amWatching) {
-    ctx.startServer(ctx.paths.browser.buildDir, addresses.webApp.port);
     ctx.startServer(ctx.paths.browser.unitDir, addresses.unitRunner.port);
     ctx.startIstanbulServer(
       ctx.paths.browser.unitDir, addresses.unitCoverage.port
@@ -128,7 +82,7 @@ var watchTaskFunc = function (cb) {
     lrManualSetup(
       ctx.options.liveReloadPorts.unitCoverage,
       function (changer) {
-        lrChanger = changer;
+        lrUnitChanger = changer;
       }
     );
   }
@@ -152,9 +106,9 @@ var watchTaskFunc = function (cb) {
         ctx.paths.projectRoot, file.path
       );
       $.util.log('[' + chalk.cyan('watch') + '] ' +
-          chalk.bold.blue(relpath) + ' was ' + chalk.magenta(file.event));
+          chalk.bold.blue(relpath) + ' -- ' + chalk.magenta(file.event));
 
-      if (!(file.event === 'changed' || file.event === 'added')) {
+      if (!(file.event === 'change' || file.event === 'add')) {
         refireWatchTask();
       }
       else if (ctx.rebuildOnNext) {
@@ -170,13 +124,14 @@ var watchTaskFunc = function (cb) {
 
         var out = runBuild(files).pipe(
           $.util.buffer(function (err, files) {
+            lrBuildChanger(['/', '/index.html']);
             if(!ctx.rebuildOnNext && !ctx.hadErrors) {
               runUnit({ reporter: 'dot' }, function () {
                 ctx.deployBuilt(function (err) {
                   try {
                     // sometimes this isn't working due to task restarts?
                     // don't crash
-                    lrChanger(['/coverage', '/coverage/show']);
+                    lrUnitChanger(['/coverage', '/coverage/show']);
                   }
                   catch (err) {}
 
@@ -199,7 +154,8 @@ var watchTaskFunc = function (cb) {
   });
 
   ctx.setActiveServer('watcher', browserWatcher);
-  console.log(path.join(ctx.paths.middle.lib, '**/*'));
+
+
   var middleWatcher = $.watch(
     path.join(ctx.paths.middle.lib, '**/*'),
     {
@@ -221,29 +177,16 @@ var watchTaskFunc = function (cb) {
   );
 
   if (!ctx.getActiveServer('reload-build-watch')) {
-    lrSetup(
-        ctx.options.liveReloadPorts.webApp,
-      [ path.join(ctx.paths.browser.targets.built, '**/*') ],
-      'reload-build-watch',
-      function (file) {
-        file.base = path.resolve('./build');
-        return file.relative;
-      },
-      function () {
-        writeWatchMenu();
-        if (cb) {
-          // if we restarted this function then no cb is available or
-          // necessary
-          cb();
-        }
+    lrManualSetup(
+      ctx.options.liveReloadPorts.webApp,
+      function (changer) {
+        lrBuildChanger = changer;
       }
     );
   }
-  else {
-    writeWatchMenu();
-    if (cb) {
-      cb();
-    }
+  writeWatchMenu();
+  if (cb) {
+    cb();
   }
 
 };
@@ -251,11 +194,7 @@ var watchTaskFunc = function (cb) {
 var devTasksDir = path.resolve(ctx.paths.projectRoot, 'shared/js/dev-tasks');
 var setProcessWatch = function () {
   var watcher = $.watch([
-    // TODO: watch every dir involved in automation (minus node_modules)?
-    path.join(devTasksDir, 'build/**/*'),
-    path.join(devTasksDir, 'tasks/**/*'),
-    path.join(devTasksDir, 'unit/**/*'),
-    path.join(devTasksDir, '*'), // not deeply!
+    path.join(devTasksDir, '/**/*'), // deeply
     path.join(ctx.paths.browser.rootDir, '*.js')
   ],
   {
@@ -286,7 +225,7 @@ myTasks.push({
   name: 'watch',
   deps: ['watchCalled', 'build', 'unit'],
   func: function (cb) {
-    // setProcessWatch();
+    setProcessWatch();
     watchTaskFunc(cb);
   }
 });
