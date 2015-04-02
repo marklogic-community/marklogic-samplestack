@@ -175,10 +175,7 @@ define(['_marklogic/module'], function (module) {
       };
 
       MlModel.prototype.onResponseDELETE = function (data) {
-        // we normally consider it an error if delete has a body
-        if (data && Object.keys(data).length) {
-          throw new Error('don\'nt assign data on DELETE');
-        }
+        // do nothing with responses to DELETE;
       };
 
       /**

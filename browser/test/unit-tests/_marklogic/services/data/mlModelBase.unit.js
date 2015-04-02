@@ -154,24 +154,7 @@ define(['testHelper'], function (helper) {
       });
 
       it(
-        'should throw an error if someone tries to do anything on DELETE',
-        function () {
-          var instance = impl1.create({
-            id: '1'
-          });
-          try {
-            instance.onHttpResponse({ stuff: 'bad'}, 'DELETE');
-          }
-          catch (err) {
-            assert(true);
-            return;
-          }
-          assert(false, 'no error was thrown');
-        }
-      );
-
-      it(
-        'should NOT throw an error if someone tries to do nothing on DELETE',
+        'should not error on DELETE',
         function () {
           var instance = impl1.create({
             id: '1'
