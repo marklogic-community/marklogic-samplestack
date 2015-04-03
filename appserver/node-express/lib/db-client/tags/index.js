@@ -36,6 +36,11 @@ var filterResponse = function (response, forTag, start, pageLength) {
 // with Node Client version 1.0.1 is required.
 var hookStartRequest = require('./hookStartRequest');
 funcs.getTags = function (spec) {
+  // don't worry about uppercase, all tags are lowercase
+  spec.search.forTag = spec.search.forTag ?
+      spec.search.forTag.toLowerCase() :
+      spec.search.forTag;
+
   // if forTags exists, put into qtext
   if (spec.search.forTag) {
     spec.search.qtext.push('tagword:"*' + spec.search.forTag + '*"');
