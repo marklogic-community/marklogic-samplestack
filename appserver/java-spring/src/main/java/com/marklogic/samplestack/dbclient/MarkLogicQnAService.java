@@ -201,41 +201,28 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 	 */
 	public QnADocument answer(Contributor contributor, String toAnswerId,
 			String answerText) {
-		String documentUri = uriFromId(toAnswerId);
-		DocumentPatchBuilder patchBuilder = jsonDocumentManager(
-				SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
+		
+		//YOUR CODE HERE
+		
+		String documentUri = "";
+		//use uriFromId() to captured documentURI
 
-		Answer answer = new Answer();
-		answer.setText(answerText);
-		answer.setId(UUID.randomUUID().toString());
-		answer.setItemTally(0);
-		answer.setComments(new ArrayList<Comment>());
-		answer.setCreationDate(new Date());
-		answer.setUpvotingContributorIds(new String[] {});
-		answer.setDownvotingContributorIds(new String[] {});
+		//create a patch builder to update the answer document
 
-		// put ths sparse contributor data on this node
-		SparseContributor owner = contributor.asSparseContributor();
-		answer.setOwner(owner);
+		//create an answer and set the appropriate fields 
+		// hint : you may want to use SparseContributor
 
-		try {
-			patchBuilder.insertFragment("/node('answers')",
-					Position.LAST_CHILD, mapper.writeValueAsString(answer));
-			patchBuilder.replaceValue("/lastActivityDate",
-					ISO8601Formatter.format(new Date()));
-			Call call = patchBuilder.call().add(1);
-			patchBuilder.replaceApply("/answerCount", call);
-			DocumentPatchHandle patch = patchBuilder.build();
-			logger.debug(patch.toString());
-			jsonDocumentManager(SAMPLESTACK_CONTRIBUTOR).patch(
-					documentUri, patch);
-		} catch (MarkLogicIOException e) {
-			throw new SamplestackIOException(e);
-		} catch (JsonProcessingException e) {
-			throw new SamplestackIOException(e);
-		}
+
+		//create patch object and update answer document
+		//hint: use Call to increment the call
+
+
+	    //persist the patch in the database with the document manager
+
+
 		return get(SAMPLESTACK_CONTRIBUTOR, contributor, idFromUri(documentUri));
 	}
+
 
 	@Override
 	/**
