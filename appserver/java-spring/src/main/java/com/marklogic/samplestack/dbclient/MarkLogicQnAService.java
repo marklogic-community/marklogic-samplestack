@@ -233,6 +233,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		return get(SAMPLESTACK_CONTRIBUTOR, contributor, idFromUri(documentUri));
 	}
 
+
 	@Override
 	/**
 	 * Use DocumentPatchBuilder to accept an answer.
@@ -458,7 +459,10 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 	}
 
 	private void vote(Contributor voter, String postId, int delta, String trackingArrayKeyName) {
-		Transaction transaction = startTransaction(SAMPLESTACK_CONTRIBUTOR);
+
+		//YOUR CODE HERE
+		//need to start transaction
+
 		QnADocument qnaDocument = getByPostId(SAMPLESTACK_CONTRIBUTOR, voter, postId);
 		String voterId = voter.getId();
 		String qnaDocumentId = qnaDocument.getId();
@@ -466,8 +470,8 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		
 		logger.debug("IN VOTES.  voter is "+ voter.getUserName() +". Voter votecount is " + voter.getVoteCount());
 
-		try {
 			// is this vote on a root question?
+			// a contributor can only vote once on a question
 			String tallyPath = null;
 			String trackingArrayPath = null;
 			if (postId.equals(qnaDocumentId)) {
@@ -512,54 +516,23 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 					}
 				}
 			}
+
 			logger.debug("Voting on " + postId + " at documentURI"
 					+ documentUri);
-			DocumentPatchBuilder patchBuilder = jsonDocumentManager(
-					SAMPLESTACK_CONTRIBUTOR).newPatchBuilder();
 
-			try {
-				Call call = patchBuilder.call().add(delta);
-				patchBuilder.replaceApply("/voteCount", call);
+			//YOUR CODE HERE
+			//Update voter document
+			// Hint: use jsonDocumentManager() to create a patch builder, then
+			//persist the updated vote count on the answer document
 
-				patchBuilder.replaceApply(tallyPath, call);
 
-				patchBuilder.insertFragment(trackingArrayPath, Position.LAST_CHILD, new TextNode(voterId));
-				DocumentPatchHandle patch = patchBuilder.build();
+			//update the contributor document with the vote and reputation as well
+			// Hint: see ContributorService
 
-				logger.debug(patch.toString());
-				jsonDocumentManager(SAMPLESTACK_CONTRIBUTOR).patch(
-						documentUri, patch, transaction);
-			} catch (MarkLogicIOException e) {
-				throw new SamplestackIOException(e);
-			}
 
-			// update the contributor record with vote
-			Contributor toUpdateVoter = contributorService.read(voterId, transaction);
-			toUpdateVoter.setVoteCount(toUpdateVoter.getVoteCount() + 1);
-			contributorService.store(toUpdateVoter, transaction);
-
-			if (qnaDocument.getJson().get("id").asText().equals(postId)) {
-				adjustReputation(qnaDocument.getJson().get("owner"), delta, transaction);
-			}
-			else {
-				Iterator<JsonNode> iterator = qnaDocument.getJson().get("answers").iterator();
-				while (iterator.hasNext()) {
-					ObjectNode answer = (ObjectNode) iterator.next();
-					if (answer.get("id").asText().equals(postId)) {
-						adjustReputation(answer.get("owner"), delta, transaction);
-						break;
-					}
-				}
-			}
-
-			transaction.commit();
-			transaction = null;
-		}
-		finally {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		}
+			//commit the transaction if you're implementing the transaction logic in this method
+		 
+		
 	}
 
 	private void adjustReputation(JsonNode ownerNode, int delta,
