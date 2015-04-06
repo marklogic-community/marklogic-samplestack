@@ -165,25 +165,20 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 
 	@Override
 	public QnADocument ask(Contributor user, InitialQuestion question) {
-		String documentUri = generateUri();
-		question.setId(idFromUri(documentUri));
 
-		Date now = new Date();
-		question.setCreationDate(now);
-		question.updateLastActivityDate();
-		question.setAcceptedAnswerId(null);
-		question.setOwner(user.asSparseContributor());
-		question.setComments(new Comment[0]);
-		question.setAnswers(new Answer[0]);
-		question.setAnswerCount(0);
+		//YOUR CODE HERE
 
-		JsonNode jsonNode = mapper.convertValue(question, JsonNode.class);
-		jsonDocumentManager(SAMPLESTACK_CONTRIBUTOR).write(
-				documentUri, new JacksonHandle(jsonNode));
+		//use generateUri() to create document URI
+		String documentUri = "";
+
+		//serialize object as JSON
+
+
+		//Persist object in db
 
 		return new QnADocument((ObjectNode) getJsonDocument(
 				SAMPLESTACK_CONTRIBUTOR, documentUri));
-	}
+}
 
 	@Override
 	/**
@@ -191,7 +186,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 	 * @param contributor
 	 * 			The owner of the answer.
 	 * @param toAnswerId
-	 * 			The ID of the question that's being answererd.
+	 * 			The ID of the question that's being answered.
 	 * @param answer
 	 * 			Markdown of this answer's body.
 	 */
@@ -210,7 +205,7 @@ public class MarkLogicQnAService extends MarkLogicBaseService implements
 		answer.setUpvotingContributorIds(new String[] {});
 		answer.setDownvotingContributorIds(new String[] {});
 
-		// put ths sparse contributor data on this node
+		// put this sparse contributor data on this node
 		SparseContributor owner = contributor.asSparseContributor();
 		answer.setOwner(owner);
 
