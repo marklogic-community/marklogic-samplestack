@@ -121,7 +121,7 @@ funcs.getRelatedTags = function (spec) {
     };
 
     // Add ORed tags to qtext
-    var orString = "tag:" + response[0].content.reltags.join(" OR tag:");
+    var orString = 'tag:' + response[0].content.reltags.join(' OR tag:');
     spec.search.qtext.push(orString);
 
     // Second call to tags endpoint (via hookStartRequest)
@@ -133,7 +133,7 @@ funcs.getRelatedTags = function (spec) {
       if (response2['values-response']['distinct-value']) {
         _.each(response2['values-response']['distinct-value'], function (item) {
           if (_.contains(response[0].content.reltags, item._value)) {
-            newDistVals.push(item)
+            newDistVals.push(item);
           }
         });
       }
@@ -141,7 +141,7 @@ funcs.getRelatedTags = function (spec) {
       response2['values-response']['distinct-value'] = newDistVals;
 
       return response2;
-    })
+    });
   })
   .catch(function (err) {
     throw err;
