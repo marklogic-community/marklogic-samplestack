@@ -84,6 +84,8 @@ public class MarkLogicTagsService extends MarkLogicBaseService implements
 			 * and hope to get original pageLength from it.
 			 */
 			queryManager.setPageLength(pageLength * 1000);
+		} else if (relatedTags != null) {
+			queryManager.setPageLength(pageLength * 1000);
 		} else {
 			queryManager.setPageLength(pageLength);
 		}
