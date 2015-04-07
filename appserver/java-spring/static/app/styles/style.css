@@ -6005,13 +6005,39 @@ ss-facet-tags .search-tags input {
   background: url('/images/glyphicons_027_search.png') no-repeat 2% 48%;
   background-size: 16px 16px; }
 ss-facet-tags .unselected-tags {
-  padding: 15px 0 15px 0;
-  padding-bottom: 15px; }
+  padding: 12px 0 12px 0;
+  padding-bottom: 12px; }
 ss-facet-tags .selected-tags {
-  padding: 15px 0 15px 0;
-  border-bottom: 1px solid #ddd; }
+  padding: 12px 0 12px 0;
+  /* border-bottom: 1px solid #ddd; */ }
+ss-facet-tags .tags-divider {
+  height: 1px;
+  border-bottom: 1px solid #ddd;
+  margin-left: 15px;
+  margin-right: 15px; }
 ss-facet-tags ul.dropdown-menu {
   left: 45px !important; }
+ss-facet-tags .tags-module-search-wrapper {
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px; }
+ss-facet-tags .checkbox {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0 !important;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+ss-facet-tags .button-more-tags {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 90% !important; }
+ss-facet-tags .checkbox:hover {
+  background-color: #e7e7e7;
+  background-image: url("/app/images/right-gray.png");
+  background-position: 96% 50%;
+  background-repeat: no-repeat; }
+ss-facet-tags .list-group-section {
+  padding: 0 !important; }
 
 /* 
  * Copyright 2012-2015 MarkLogic Corporation 
@@ -6060,6 +6086,54 @@ ss-qna-doc-metadata .ss-comment-info {
   padding: 0;
   margin: 0;
   color: #666; }
+
+ss-related-tags {
+  position: absolute;
+  right: -160px;
+  top: -2px;
+  width: 162px;
+  border: solid 1px #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  z-index: 999; }
+  ss-related-tags .ss-related-title {
+    height: 50px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-bottom: solid 1px #ddd;
+    font-weight: bold;
+    line-height: 14px; }
+  ss-related-tags .ss-related-subtitle {
+    font-size: 11.5px;
+    font-weight: normal;
+    color: #999; }
+  ss-related-tags .ss-related-body {
+    position: absolute;
+    top: 50px;
+    padding: 11px;
+    background-color: #eee;
+    border-bottom: solid 1px #ddd;
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+    background-color: #fff;
+    overflow-y: scroll;
+    min-height: 65px;
+    max-height: 150px;
+    width: 100%; }
+  ss-related-tags .ss-related-body div {
+    width: 100%;
+    font-size: 12px;
+    line-height: 22px; }
+  ss-related-tags .ss-related-none-found {
+    padding: 11px;
+    background-color: #f2f2f2;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    height: 50px; }
+  ss-related-tags .spinner {
+    height: 70px;
+    left: 5px; }
 
 /* 
  * Copyright 2012-2015 MarkLogic Corporation 

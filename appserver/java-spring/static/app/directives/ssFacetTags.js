@@ -63,127 +63,187 @@ define(['app/module'], function (module) {
 
   /* jshint ignore:end */
 
-  module.directive('ssFacetTags', ['allTagsDialog', function (allTagsDialog) {
-    return {
-      restrict: 'E',
-      templateUrl: '/app/directives/ssFacetTags.html',
-      scope: {
-        criteria: '=',       // Tags in the selection criteria
-        results: '=',        // Tags in the results
-        totals: '=',         // Object with total data
-        tagLimit: '=numTags', // Num tags to show in unsel list
-        typeaheadSearch: '=', // function to execute typeahead searches
-        typeaheadLoading: '='
-      },
-      link: function (scope, element, attrs) {
-        element.addClass('ss-facet-tags');
-        scope.selected = ''; // For typeahead
-        // Sort precedence
-        scope.sort = ['-count', 'name'];
+  module.directive('ssFacetTags', ['allTagsDialog', 'ssTagsSearch', '$window',
+    function (allTagsDialog, ssTagsSearch, $window) {
+      return {
+        restrict: 'E',
+        templateUrl: '/app/directives/ssFacetTags.html',
+        scope: {
+          criteria: '=',       // Tags in the selection criteria
+          results: '=',        // Tags in the results
+          totals: '=',         // Object with total data
+          tagLimit: '=numTags', // Num tags to show in unsel list
+          typeaheadSearch: '=', // function to execute typeahead searches
+          typeaheadLoading: '='
+        },
+        link: function (scope, element, attrs) {
+          element.addClass('ss-facet-tags');
+          scope.selected = ''; // For typeahead
+          // Sort precedence
+          scope.sort = ['-count', 'name'];
+          scope.relatedShown = null;
+          scope.relatedActive = true;
 
-        var resetSelections = function () {
-          // Start by moving all tags in results to unsel array
-          scope.unselTags = angular.copy(scope.results);
-          angular.forEach(scope.unselTags, function (tag) {
-            // Don't display tags that have no counts
-            if (!tag.count) {
-              delete scope.unselTags[tag.name];
-            }
-          });
-          scope.selTags = {};
-          if (scope.criteria.values) {
-            // Cycle through tags in search criteria (the selected tags)
-            scope.criteria.values.forEach(function (tagName) {
-              // If tag exists in unsel array, move to sel array as-is
-              if (scope.unselTags[tagName]) {
-                scope.selTags[tagName] = scope.unselTags[tagName];
-                delete scope.unselTags[tagName];
-              }
-              // Otherwise, set its counts to 0, move to sel array
-              else {
-                scope.selTags[tagName] = {
-                  name: tagName, count: 0 , shadow: { count: 0 }
-                };
+          var tagsConstraints = scope.criteria.constraints.tags;
+
+          // For controlling related-tags popup
+          scope.show = {};
+
+          var resetSelections = function () {
+            // Start by moving all tags in results to unsel array
+            scope.unselTags = angular.copy(scope.results);
+            angular.forEach(scope.unselTags, function (tag) {
+              // Don't display tags that have no counts
+              if (!tag.count) {
+                delete scope.unselTags[tag.name];
               }
             });
-          }
+            scope.selTags = {};
+            if (tagsConstraints.values) {
+              // Cycle through tags in search criteria (the selected tags)
+              tagsConstraints.values.forEach(function (tagName) {
+                // If tag exists in unsel array, move to sel array as-is
+                if (scope.unselTags[tagName]) {
+                  scope.selTags[tagName] = scope.unselTags[tagName];
+                  delete scope.unselTags[tagName];
+                }
+                // Otherwise, set its counts to 0, move to sel array
+                else {
+                  scope.selTags[tagName] = {
+                    name: tagName, count: 0 , shadow: { count: 0 }
+                  };
+                }
+              });
+            }
 
-          // setup typeahead
-        };
+            // setup typeahead
+          };
 
-       /**
-        * Handle tag selection in UI
-        */
-        scope.selectTag = function (tag) {
-          // Do tag values exist in criteria?
-          if (scope.criteria.values) {
-            // Is selected tag not in the array?
-            if (scope.criteria.values.indexOf(tag.name) < 0) {
-              // Add tag o criteria array
-              scope.criteria.values.push(tag.name);
+         /**
+          * Handle tag selection in UI
+          */
+          scope.selectTag = function (tag) {
+            // Do tag values exist in criteria?
+            if (tagsConstraints.values) {
+              // Is selected tag not in the array?
+              if (tagsConstraints.values.indexOf(tag.name) < 0) {
+                // Add tag o criteria array
+                tagsConstraints.values.push(tag.name);
+                scope.$emit('criteriaChange');
+              }
+            }
+            // Add tag as first value in criteria
+            else {
+              tagsConstraints.values = [tag.name];
               scope.$emit('criteriaChange');
             }
-          }
-          // Add tag as first value in criteria
-          else {
-            scope.criteria.values = [tag.name];
-            scope.$emit('criteriaChange');
-          }
-        };
+            // On select, don't show related
+            scope.relatedActive = false;
+            // On select, close related if open
+            scope.relatedShown = null;
+          };
 
-       /**
-        * Handle typeahead menu selection.
-        * @param {object} $item Tag object
-        * @param {number} $model Tag count
-        * @param {string} $label Menu label text
-        */
-        scope.selectTagTypeahead = function ($item, $model, $label) {
-          scope.selectTag($item);
-          scope.selected = ''; // Clear typeahead menu
-        };
+         /**
+          * Handle typeahead menu selection.
+          * @param {object} $item Tag object
+          * @param {number} $model Tag count
+          * @param {string} $label Menu label text
+          */
+          scope.selectTagTypeahead = function ($item, $model, $label) {
+            scope.selectTag($item);
+            scope.selected = ''; // Clear typeahead menu
+          };
 
-        scope.unselectTag = function (tag) {
-          // Do tag values exist in criteria?
-          if (scope.criteria.values) {
-            // Remove tag from criteria array
-            scope.criteria.values.splice(
-              scope.criteria.values.indexOf(tag.name), 1
-            );
-            scope.$emit('criteriaChange');
-          }
-        };
+          scope.unselectTag = function (tag) {
+            // Do tag values exist in criteria?
+            if (tagsConstraints.values) {
+              // Remove tag from criteria array
+              tagsConstraints.values.splice(
+                tagsConstraints.values.indexOf(tag.name), 1
+              );
+              scope.$emit('criteriaChange');
+            }
+            // On unselect, don't show related
+            scope.relatedActive = false;
+            // On unselect, close related if open
+            scope.relatedShown = null;
+          };
 
-       /**
-        * Convert object to array, for use in list display in template
-        * @param {object} obj An object
-        * @returns {array} An array of object property values
-        */
-        scope.toArray = function (obj) {
-          return obj ?
-              Object.keys(obj).map(function (key) { return obj[key]; }) :
-              [];
-        };
+         /**
+          * Convert object to array, for use in list display in template
+          * @param {object} obj An object
+          * @returns {array} An array of object property values
+          */
+          scope.toArray = function (obj) {
+            return obj ?
+                Object.keys(obj).map(function (key) { return obj[key]; }) :
+                [];
+          };
 
-       /**
-        * Do selected tags exist, for use in template layout
-        * @returns {boolean} true if selTags object has property keys
-        */
-        scope.haveSelectedTags = function () {
-          return scope.selTags  && Object.keys(scope.selTags).length > 0;
-        };
+         /**
+          * Do selected tags exist, for use in template layout
+          * @returns {boolean} true if selTags object has property keys
+          */
+          scope.haveSelectedTags = function () {
+            return scope.selTags  && Object.keys(scope.selTags).length > 0;
+          };
 
-        // set up and then wait for results
-        scope.selTags = {};
-        scope.unselTags = {};
-        scope.$on('newResults', resetSelections);
+          // set up and then wait for results
+          scope.selTags = {};
+          scope.unselTags = {};
+          scope.$on('newResults', resetSelections);
 
-        scope.showAllTagsDialog = function () {
-          scope.$emit('browseTags');
-        };
+          scope.showAllTagsDialog = function () {
+            scope.$emit('browseTags');
+          };
 
-      }
+         /**
+          * Show related-tags popup for a selected tag
+          * @param {object} tag The selected tag object
+          */
+          scope.showRelated = function (tag) {
+            // If popup currently shown, hide
+            if (scope.relatedShown === tag) {
+              scope.relatedShown = null;
+              return;
+            }
+            // Don't show if flag is false
+            // Avoids showing related tags on checkbox or label click
+            if (scope.relatedActive === false) {
+              scope.relatedActive = true;
+              return;
+            }
 
-    };
-  }]);
+            // Populate and display popup
+            scope.show[tag.name]();
+            scope.relatedShown = tag;
+
+            // Close popup on outside clicks
+            // @see http://stackoverflow.com/a/21151625/3682288
+            if (scope.relatedShown) {
+              $window.onclick = function (event) {
+                  scope.relatedShown = null;
+                  scope.$apply();
+              };
+            }
+          };
+
+         /**
+          * Hide related-tags popup on mouseleave event
+          * @param {object} tag The selected tag object
+          */
+          scope.hideRelated = function (tag) {
+            // If popup currently shown, hide
+            if (scope.relatedShown === tag) {
+              scope.relatedShown = null;
+              return;
+            }
+          };
+
+        }
+
+      };
+    }
+  ]);
 
 });

@@ -27,9 +27,11 @@ var mlrest = require('marklogic/lib/mlrest');
 var origStartRequest = mlrest.startRequest;
 
 mlrest.startRequest = function (operation) {
-
   if (
-    operation.options.path === '/v1/search?format=json&category=content'
+    operation.options.path === '/v1/search?format=json&category=content' &&
+    operation.requestBody && operation.requestBody.search &&
+    (operation.requestBody.search.forTag ||
+    operation.requestBody.search.relatedTo)
   ) {
     var valuesName = _.deepGet(
       operation,
