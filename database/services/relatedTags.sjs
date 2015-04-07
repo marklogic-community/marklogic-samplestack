@@ -47,15 +47,14 @@ function get(context, params) {
         '}                                                       '+
         'order by ?label2 limit 5000', {tag: tag});
     var resultObject = {};
-    var queryStrings = [];
+    var relatedTags = [];
     for (var result of queryResults) {
         var relatedTag = result.relatedTag;
         xdmp.log("Found related tag " + relatedTag);
-        queryStrings.push(result.relatedTag);
+        relatedTags.push(result.relatedTag);
     };
-    var queryString = "tag:" + queryStrings.join(" OR tag:");
     context.outputTypes = ["application/json"];
-    resultObject.qtext = queryString;
+    resultObject.reltags = relatedTags;
     return resultObject;
 };
 

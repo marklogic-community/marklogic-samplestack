@@ -85,11 +85,65 @@ funcs.getTags = function (spec) {
   var result = this.documents.query(spec).result();
 
   return result.then(function (response) {
-    // unhook();
     return filterResponse(response, spec.search.forTag, start, pageLength);
   })
   .catch(function (err) {
-    // unhook();
+    throw err;
+  });
+};
+
+funcs.getRelatedTags = function (spec) {
+  var self = this;
+  var start = spec.search.start;
+  delete spec.search.start;
+  var pageLength = spec.search.pageLength;
+  delete spec.search.pageLength;
+  var sort = spec.search.sort;
+  delete spec.search.sort;
+
+  // First call to resources endpoint, get related tags
+  return self.resources.get({
+    name: 'relatedTags',
+    params: {
+      'tag':spec.search.relatedTo
+    }
+  }).result().then(function (response) {
+
+    spec.search.options = {
+      values: {
+        range: {
+          type: 'xs:string',
+          'json-property': 'tags'
+        },
+        name: 'tags',
+        'values-option': 'frequency-order'
+      }
+    };
+
+    // Add ORed tags to qtext
+    var orString = "tag:" + response[0].content.reltags.join(" OR tag:");
+    spec.search.qtext.push(orString);
+
+    // Second call to tags endpoint (via hookStartRequest)
+    return self.documents.query(spec)
+    .result().then(function (response2) {
+
+      // Only return tag values that exist in first results set
+      var newDistVals = [];
+      if (response2['values-response']['distinct-value']) {
+        _.each(response2['values-response']['distinct-value'], function (item) {
+          if (_.contains(response[0].content.reltags, item._value)) {
+            newDistVals.push(item)
+          }
+        });
+      }
+
+      response2['values-response']['distinct-value'] = newDistVals;
+
+      return response2;
+    })
+  })
+  .catch(function (err) {
     throw err;
   });
 };

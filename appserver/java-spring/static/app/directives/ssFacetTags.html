@@ -60,20 +60,31 @@
     <div
       class="checkbox"
       ng-repeat="tag in toArray(selTags) | orderBy:sort"
+      ng-click="
+        showRelated(tag);$event.stopPropagation();
+      "
     >
+      <ss-related-tags
+        ng-show="tag === relatedShown"
+        criteria="criteria"
+        tag="tag"
+        show="show[tag.name]"
+      ></ss-related-tags>
       <label
           title="Constrain results to selected tag"
+          ng-click="unselectTag(tag);"
       >
         <input
           type="checkbox"
           checked="true"
-          ng-click="unselectTag(tag)"
         />
         {{ tag.name }}
         <span class="text-muted">({{ tag.count }})</span>
       </label>
     </div>
   </div>
+
+  <div class="tags-divider"></div>
 
   <!-- unselected tags -->
   <div class="unselected-tags" >
@@ -82,13 +93,23 @@
       ng-repeat="tag in toArray(unselTags) |
                  orderBy:sort |
                  limitTo:tagLimit"
+      ng-click="
+        showRelated(tag);$event.stopPropagation();
+      "
+      ng-mouseleave="hideRelated(tag);"
     >
+      <ss-related-tags
+        ng-show="tag === relatedShown"
+        criteria="criteria"
+        tag="tag"
+        show="show[tag.name]"
+      ></ss-related-tags>
       <label
           title="Constrain results to selected tag"
+          ng-click="selectTag(tag)"
       >
         <input
           type="checkbox"
-          ng-click="selectTag(tag)"
           ng-disabled="!tag.count"
         />
         {{ tag.name }}

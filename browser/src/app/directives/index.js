@@ -21,6 +21,7 @@ define([
   './ssMarkdown',
   './ssMarkdownEditor',
   './ssQnaDocMetadata',
+  './ssRelatedTags',
   './ssSearchBar',
   './ssSearchResult',
   './ssSearchResults'
