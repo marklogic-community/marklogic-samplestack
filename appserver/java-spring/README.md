@@ -16,7 +16,7 @@ available to the Java developer as she iterates through code exploration.
 
 *To build and run:*
 
-Before running anything here, you will need a MarkLogic 8, installed and
+Before running anything here, you need MarkLogic 8.0-1.1, installed and 
 running.  Start this quickstart with it installed and running.  By default this
 process will will secure MarkLogic with username admin, password admin.  If you
 have already secured MarkLogic, you need to update gradle.properties with the
