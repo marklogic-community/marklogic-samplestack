@@ -1,18 +1,18 @@
-/* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+/*
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 var url = require('url');
 
@@ -131,18 +131,23 @@ var defaults = {
                 process.env['SAUCE_ACCESS_KEY'],
   },
 
-/* jshint ignore:start */
+  /* jshint ignore:start */
   sauceBrowsers: {
     'win7-chrome-37': { platform: 'Windows 7', browserName: 'chrome', version: '37', deviceName: '' },
     'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
-    'win7-ie-9': { platform: 'Windows 7', browserName: 'internet explorer', version: '9', deviceName: '' },
+    'win7-firefox-34': { platform: 'Windows 7', browserName: 'firefox', version: '34', deviceName: '' },
+    'win7-ie-10': { platform: 'Windows 7', browserName: 'internet explorer', version: '10', deviceName: '' },
     'linux-chrome-37': { platform: 'Linux', browserName: 'chrome', version: '37', deviceName: '' },
     'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
-    'osx10.9-chrome-37': { platform: 'OS X 10.9', browserName: 'chrome', version: '37', deviceName: '' },
-    'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' },
+    'linux-firefox-34': { platform: 'Linux', browserName: 'firefox', version: '34', deviceName: '' },
+    'osx10.10-chrome-37': { platform: 'OS X 10.10', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.10-firefox-32': { platform: 'OS X 10.10', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.10-firefox-34': { platform: 'OS X 10.10', browserName: 'firefox', version: '34', deviceName: '' },
 
     'win7-chrome-33': { platform: 'Windows 7', browserName: 'chrome', version: '33', deviceName: '' },
     'win7-chrome-38': { platform: 'Windows 7', browserName: 'chrome', version: '38', deviceName: '' },
+    'win7-chrome-40': { platform: 'Windows 7', browserName: 'chrome', version: '40', deviceName: '' },
+    'win7-chrome-41': { platform: 'Windows 7', browserName: 'chrome', version: '41', deviceName: '' },
     'win7-firefox-22': { platform: 'Windows 7', browserName: 'firefox', version: '22', deviceName: '' },
     'win7-firefox-32': { platform: 'Windows 7', browserName: 'firefox', version: '32', deviceName: '' },
     'win7-ie-10': { platform: 'Windows 7', browserName: 'internet explorer', version: '10', deviceName: '' },
@@ -153,6 +158,8 @@ var defaults = {
     'win8.1-ie-11': { platform: 'Windows 8.1', browserName: 'internet explorer', version: '11', deviceName: '' },
     'linux-chrome-33': { platform: 'Linux', browserName: 'chrome', version: '33', deviceName: '' },
     'linux-chrome-38': { platform: 'Linux', browserName: 'chrome', version: '38', deviceName: '' },
+    'linux-chrome-40': { platform: 'Linux', browserName: 'chrome', version: '40', deviceName: '' },
+    'linux-chrome-41': { platform: 'Linux', browserName: 'chrome', version: '41', deviceName: '' },
     'linux-firefox-22': { platform: 'Linux', browserName: 'firefox', version: '22', deviceName: '' },
     'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
     'linux-opera-12': { platform: 'Linux', browserName: 'opera', version: '12', deviceName: '' },
@@ -161,22 +168,22 @@ var defaults = {
     'osx10.6-firefox-22': { platform: 'OS X 10.6', browserName: 'firefox', version: '22', deviceName: '' },
     'osx10.6-firefox-32': { platform: 'OS X 10.6', browserName: 'firefox', version: '32', deviceName: '' },
     'osx10.8-chrome-37': { platform: 'OS X 10.8', browserName: 'chrome', version: '37', deviceName: '' },
-    'osx10.9-chrome-33': { platform: 'OS X 10.9', browserName: 'chrome', version: '33', deviceName: '' },
-    'osx10.9-chrome-37': { platform: 'OS X 10.9', browserName: 'chrome', version: '37', deviceName: '' },
-    'osx10.9-firefox-22': { platform: 'OS X 10.9', browserName: 'firefox', version: '22', deviceName: '' },
-    'osx10.9-firefox-32': { platform: 'OS X 10.9', browserName: 'firefox', version: '32', deviceName: '' },
-    'osx10.9-safari-7': { platform: 'OS X 10.9', browserName: 'safari', version: '7', deviceName: '' },
+    'osx10.10-chrome-33': { platform: 'OS X 10.10', browserName: 'chrome', version: '33', deviceName: '' },
+    'osx10.10-chrome-37': { platform: 'OS X 10.10', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.10-firefox-22': { platform: 'OS X 10.10', browserName: 'firefox', version: '22', deviceName: '' },
+    'osx10.10-firefox-32': { platform: 'OS X 10.10', browserName: 'firefox', version: '32', deviceName: '' },
+    'osx10.10-safari-7': { platform: 'OS X 10.10', browserName: 'safari', version: '7', deviceName: '' },
   },
   supportedBrowsers: [
-    'linux-chrome-37',
-    'linux-firefox-32',
-    'osx10.8-chrome-37',
-    'osx10.9-firefox-32', // Sauce doesn't have 10.8/ff-32
-    'win7-firefox-32',
-    'win7-chrome-37',
-    'win7-ie-9'
+    'linux-chrome-41',
+    'linux-firefox-34',
+    'osx10.10-chrome-41',
+    'osx10.10-firefox-34', // Sauce doesn't have 10.8/ff-32
+    'win7-firefox-34',
+    'win7-chrome-41',
+    'win7-ie-10'
   ],
-/* jshint ignore:end */
+  /* jshint ignore:end */
 
   // when not empty string, becomes a tweak to dependency paths so that
   // CDNs which present librarires with ".min.js" URLs can be referenced
