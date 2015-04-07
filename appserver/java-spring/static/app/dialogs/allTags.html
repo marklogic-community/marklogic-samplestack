@@ -40,14 +40,7 @@
             placeholder="Search Tags"
             title="Search for an available tag"
             autocomplete="off"
-            typeahead="
-                tag.count as tag.name+' ('+tag.count+')'
-                for tag in typeaheadSearch($viewValue) |
-                filter: $viewValue |
-                orderBy: selectedSort.value
-            "
-            typeahead-loading="typeaheadPromise"
-            typeahead-on-select="selectTagTypeahead($item, $model, $label)"
+            ng-change="tagFilter()"
           />
         </div>
       </div>
