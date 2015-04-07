@@ -161,51 +161,13 @@ define(['app/module'], function (module) {
 
       /**
        * @ngdoc method
-       * @name allTagsDialogCtlr#$scope.selectTagTypeahead
-       * @param {object} $item object with tag name and count properties
-       * @param {integer} $model tag count (e.g, 123)
-       * @param {string} $label selected item label (e.g., 'java (123)')
+       * @name allTagsDialogCtlr#$scope.tagFilter
        * @description
-       * Called upon tag selection in the typeahead menu. Adds tag name to
-       * the $scope.selTags array and executes a search for tags.
+       * Called upon entering text in the text input.
+       * Triggers a tags search on each text change.
        */
-      $scope.selectTagTypeahead = function ($item, $model, $label) {
-        $scope.selected = ''; // Clear typeahead menu
-        if ($scope.selTags.indexOf($item.name) === -1) {
-          $scope.selTags.push($item.name);
-          search();
-        }
-      };
-
-      /**
-       * @ngdoc method
-       * @name allTagsDialogCtlr#$scope.typeaheadSearch
-       * @param {string} searchForName input text
-       * @description
-       * Called upon entering text in the typeahead input. Returns a
-       * promise which returns an array of menu item objects.
-       */
-      $scope.typeaheadSearch = function (searchForName) {
-        var tagsSearch = ssTagsSearch.create({
-          criteria: mlUtil.merge(
-            _.clone(criteria),
-            {
-              tagsQuery: {
-                start: 1,
-                pageLength: 10,
-                forTag: searchForName,
-                sort: 'name'
-              }
-            }
-          )
-        });
-
-        $scope.typeaheadPromise = tagsSearch.post().$ml.waiting;
-
-        return $scope.typeaheadPromise.then(function () {
-          delete $scope.typeaheadPromise;
-          return tagsSearch.results.items;
-        });
+      $scope.tagFilter = function () {
+        search();
       };
 
       /**
@@ -217,12 +179,14 @@ define(['app/module'], function (module) {
        * method populates a $scope.pagedTagsByColumn array of arrays which
        * organizes tags for display (an array of tags for each column).
        */
+
       var search = function () {
         var tagsSearch = ssTagsSearch.create({
           criteria: mlUtil.merge(
             _.clone(criteria),
             {
               tagsQuery: {
+                forTag: $scope.selected,
                 start: 1 + ($scope.currentPage - 1) * $scope.pageSize,
                 pageLength: $scope.pageSize,
                 sort: $scope.selectedSort.value
