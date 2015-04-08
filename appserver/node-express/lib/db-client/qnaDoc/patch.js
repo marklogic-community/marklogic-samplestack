@@ -152,29 +152,17 @@ module.exports = function (txid, spec) {
    * promise is empty.
    */
   var patchQuestionAddAnswer = function (txid, contributor, questionId, spec) {
-    var now = moment();
-    var answerId = util.uuid();
-    var answer = _.merge(
-      _.clone(meta.template.answer),
-      spec,
-      {
-        id: answerId,
-        owner: contributor,
-        creationDate: now,
-      }
-    );
 
+    // Build an answer object. Combine meta.template.answer and spec, add an 
+    // id, owner, and creationDate. 
+    // You can use _.merge() -- https://lodash.com/docs#merge
+
+
+    // Patch the MarkLogic QnA document. 
     // @see http://docs.marklogic.com/jsdoc/documents.html#patch
-    return self.documents.patch({
-      txid: txid,
-      uri: meta.getUri(questionId),
-      operations: [
-        pb.replace('answerCount', pb.add(1)),
-        pb.insert('/array-node("answers")', 'last-child', answer),
-        pb.replace('/lastActivityDate', now)
-      ]
-    }).result()
-    .then(meta.responseToSpec);
+    // Use the transaction id passed into the function. 
+    // Find the URI (meta.getUri()).
+    // After the patch, call meta.responseToSpec. 
   };
 
   var patchQuestionAddComment = function (
