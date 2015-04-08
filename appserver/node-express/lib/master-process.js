@@ -129,5 +129,6 @@ var stop = function () {
 
 module.exports = {
   run: run,
-  stop: stop
+  stop: stop,
+  exit: function (cb) { stop(); cb(); }
 };

@@ -14,4 +14,4 @@
  * limitations under the License. 
  */ 
 
-require('./lib/master-process').run();
+module.exports = require('./lib/master-process').run();

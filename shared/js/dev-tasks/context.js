@@ -312,10 +312,17 @@ self = module.exports = {
   // on port 8090?
   startServer: function (filePath, port, html5) {
     if (port === '3000') {
-      var middleProcess = childProcess.fork(
-        path.join(serverBuilds.built, 'main')
-      );
-      self.setActiveServer(port, middleProcess);
+      if (this.watchTaskCalled) {
+        var middleProcess = childProcess.fork(
+          path.join(serverBuilds.built, 'main')
+        );
+        self.setActiveServer(port, middleProcess);
+      }
+      else {
+        self.setActiveServer(
+          port, require(path.join(serverRootDir, 'main'))
+        );
+      }
     }
     else {
       // console.log('don\'t start middle tier -- ' + port);
