@@ -55,15 +55,13 @@ module.exports = function (app, mw) {
     });
   };
 
-  var handleVote = function (type, db, spec, txid) {
-    return db.execAsTransaction(function () {
+  var handleVote = function (type, db, spec) {
+    return db.execAsTransaction(function (txid) {
       return db.qnaDoc.getUniqueContent(
         null, { id: spec.questionId }
       )
       .then(function (doc) {
-        var step1;
-        var step2;
-        var step3;
+        var promises = [];
         var contentContributorId;
         var content = spec.answerId ?
             _.find(
@@ -75,14 +73,14 @@ module.exports = function (app, mw) {
         spec.voteChange = spec.operation === 'upvotes' ? 1 : -1;
         notAlreadyVoted(content, spec.contributor);
         spec.operation = 'vote' + type;
-        step1 = db.qnaDoc.patch(txid, spec);
-        step2 = db.contributor.patchReputation(
+        promises.push(db.qnaDoc.patch(txid, spec));
+        promises.push(db.contributor.patchReputation(
           txid, contentContributorId, spec.voteChange
-        );
-        step3 = db.contributor.patchVoteCount(
+        ));
+        promises.push(db.contributor.patchVoteCount(
           txid, spec.contributor.id, 1
-        );
-        return Promise.all([step1, step2, step3]);
+        ));
+        return Promise.all(promises);
       })
       .then(function (responses) {
         // the first item in the array is the spec we want (question spec)
@@ -102,29 +100,30 @@ module.exports = function (app, mw) {
     return db.qnaDoc.patch(null, spec);
   };
 
-  var handleAccept = function (db, spec, txid) {
-    return db.execAsTransaction(function () {
+  var handleAccept = function (db, spec) {
+    return db.execAsTransaction(function (txid) {
       return db.qnaDoc.getUniqueContent(
         null, { id: spec.questionId }
       )
       .then(function (doc) {
         var promises = [];
-        var contentContributorId;
+        var answerContributorId;
+        var answer = _.find(
+              doc.answers, { 'id': spec.answerId }
+            );
 
-        contentContributorId = doc.owner.id;
+        answerContributorId = answer.owner.id;
         if (doc.owner.id !== spec.contributor.id) {
           throw errs.mustBeOwner(spec);
         }
         spec.operation = 'acceptAnswer';
         promises.push(db.qnaDoc.patch(txid, spec));
-        promises.push(db.contributor.patchReputation(
-          txid, contentContributorId, 1
-        ));
+        // if there was a previously accepted answer (doc.acceptedAnswerId)
+        // we need to take a point away from previous
+        // accepted answer owner
         if (doc.acceptedAnswerId) {
-          // we also need to take a point away from previous
-          // accepted answer owner
           var previously =  _.find(
-            doc.answers, { 'id': spec.answerId }
+            doc.answers, { 'id': doc.acceptedAnswerId }
           );
           var previousContributorId = previously.owner.id;
           promises.push(
@@ -133,6 +132,9 @@ module.exports = function (app, mw) {
             )
           );
         }
+        promises.push(db.contributor.patchReputation(
+          txid, answerContributorId, 1
+        ));
         return Promise.all(promises);
       })
       .then(function (responses) {
