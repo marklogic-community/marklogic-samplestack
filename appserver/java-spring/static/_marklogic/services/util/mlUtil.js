@@ -61,7 +61,7 @@ define([
 
   module.value('mlUtil', {
 
-    moment: moment,
+    moment: window.moment,
 
     /**
      * @ngdoc method
