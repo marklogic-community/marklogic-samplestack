@@ -32,14 +32,10 @@ var funcs = {};
  */
 funcs.patchReputation = function (txid, id, repChange) {
   // add (or subtract) from reputation property
-  return this.documents.patch({
-    txid: txid,
-    uri: meta.getUri(id),
-    operations: [
-      pb.replace('reputation', pb.add(repChange))
-    ]
-  }).result()
-  .then(meta.responseToSpec);
+  // TODO Patch the reputation, adding the repChange value
+  // Use the transaction id that gets passed in. 
+  // Find the correct URI with meta.getUri. 
+  // After patching, call meta.responseToSpec. 
 };
 
 /**
@@ -51,14 +47,10 @@ funcs.patchReputation = function (txid, id, repChange) {
  * @return {Promise} A promise object.
  */
 funcs.patchVoteCount = function (txid, id, increment) {
-  return this.documents.patch({
-    txid: txid,
-    uri: meta.getUri(id),
-    operations: [
-      pb.replace('voteCount', pb.add(increment))
-    ]
-  }).result()
-  .then(meta.responseToSpec);
+  // TODO Patch the voteCount, adding the increment parameter. 
+  // Use the transaction id that gets passed in. 
+  // Find the uri with meta.getUri. 
+  // After patching, call meta.responseToSpec. 
 };
 
 funcs.getUniqueContent = function (txid, spec) {

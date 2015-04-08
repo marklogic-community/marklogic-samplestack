@@ -61,32 +61,19 @@ module.exports = function (app, mw) {
         null, { id: spec.questionId }
       )
       .then(function (doc) {
-        var step1;
-        var step2;
-        var step3;
-        var contentContributorId;
-        var content = spec.answerId ?
-            _.find(
-              doc.answers, { 'id': spec.answerId }
-            ) :
-            doc;
+        // To record a vote, we need to do a few things. 
+        // First, patch the QnA document. You can do this by calling 
+        // db.qnaDoc.patch(). Make sure the spec.voteChange, spec.operation, 
+        // and spec.answerId (if voting on an answer) are set. 
+        // Next, patch the contributor's reputation. See 
+        // lib/db-client/contributor/index.js patchReputation().
+        // Third, patch the contributor's vote count. See patchVoteCount in
+        // lib/db-client/contributor/index.js. 
 
-        contentContributorId = content.owner.id;
-        spec.voteChange = spec.operation === 'upvotes' ? 1 : -1;
-        notAlreadyVoted(content, spec.contributor);
-        spec.operation = 'vote' + type;
-        step1 = db.qnaDoc.patch(txid, spec);
-        step2 = db.contributor.patchReputation(
-          txid, contentContributorId, spec.voteChange
-        );
-        step3 = db.contributor.patchVoteCount(
-          txid, spec.contributor.id, 1
-        );
-        return Promise.all([step1, step2, step3]);
-      })
-      .then(function (responses) {
-        // the first item in the array is the spec we want (question spec)
-        return responses[0];
+        // Each of the those functions should return a promise. Wait here for 
+        // all the promises to finish (Promise.all()), then return the 
+        // question spec
+
       });
     });
   };

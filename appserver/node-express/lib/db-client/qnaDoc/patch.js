@@ -48,35 +48,14 @@ module.exports = function (txid, spec) {
   var votePatch = function (
     txid, docId, contentPath, contributorId, voteChange
   ) {
-    var voteInsert = pb.insert(
-      contentPath +
-          '/array-node("' +
-          (
-            voteChange > 0 ?
-            'upvotingContributorIds' :
-            'downvotingContributorIds'
-          ) +
-          '")',
-      'last-child',
-      contributorId
-    );
+    // Build a patch for [up|down]votingContributorIds
+    // Build a patch to increment voteCount
+    // Build a patch to increment itemTally
 
-    var voteCountUp = pb.replace('voteCount', pb.add(1));
-    var itemTallyChange = pb.replace(
-      contentPath + '/itemTally', pb.add(voteChange)
-    );
-
+    // Apply the patch. Use the transaction id passed in. 
+    // For the URI, see meta.getUri(). 
     // @see http://docs.marklogic.com/jsdoc/documents.html#patch
-    return self.documents.patch({
-      txid: txid,
-      uri: meta.getUri(docId),
-      operations: [
-        voteInsert,
-        voteCountUp,
-        itemTallyChange
-      ]
-    }).result()
-    .then(meta.responseToSpec);
+    // After patching, call meta.responseToSpec. 
   };
 
   /**
