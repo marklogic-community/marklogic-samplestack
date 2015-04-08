@@ -92,27 +92,18 @@ funcs.getUniqueContent = function (txid, spec) {
  *   ]}
  */
 funcs.post = function (txid, contributor, spec) {
-  var id = util.uuid();
-  var now = moment();
-  var newDoc = _.merge(
-    _.clone(meta.template.question),
-    spec,
-    {
-      lastActivityDate: now,
-      creationDate: now,
-      id: id,
-      owner: contributor
-    }
-  );
+  // Create an ID (use util.uuid())
 
+  // Build a document. Combine meta.template.question with the info in spec,
+  // plus lastActivityDate, creationDate, id, and owner. 
+  // You can use _.merge() -- https://lodash.com/docs#merge
+
+
+  // Write your new document to MarkLogic
   // @see http://docs.marklogic.com/jsdoc/documents.html#write
-  return this.documents.write({
-    txid: txid,
-    uri: meta.getUri(newDoc.id),
-    contentType: 'applicaton/json',
-    content: newDoc
-  }).result()
-  .then(meta.responseToSpec);
+  // Use the transaction id passed into this function
+  // Specify the URI (see meta.getUri())
+  // After the write, call meta.responseToSpec to return the ID
 };
 
 // TODO: various patches
