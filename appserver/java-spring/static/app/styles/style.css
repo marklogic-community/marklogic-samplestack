@@ -6091,7 +6091,7 @@ ss-related-tags {
   position: absolute;
   right: -160px;
   top: -2px;
-  width: 162px;
+  width: 165px;
   border: solid 1px #ddd;
   border-radius: 5px;
   background-color: #fff;
@@ -6109,8 +6109,8 @@ ss-related-tags {
     color: #999; }
   ss-related-tags .ss-related-body {
     position: absolute;
-    top: 50px;
-    padding: 11px;
+    top: 48px;
+    padding: 6px 11px 6px 11px;
     background-color: #eee;
     border-bottom: solid 1px #ddd;
     border-left: solid 1px #ddd;
@@ -6118,8 +6118,9 @@ ss-related-tags {
     background-color: #fff;
     overflow-y: scroll;
     min-height: 65px;
-    max-height: 150px;
-    width: 100%; }
+    max-height: 143px;
+    width: 165px;
+    right: -1px; }
   ss-related-tags .ss-related-body div {
     width: 100%;
     font-size: 12px;
@@ -6130,7 +6131,7 @@ ss-related-tags {
     font-size: 12px;
     line-height: 16px;
     text-align: center;
-    height: 50px; }
+    height: 54px; }
   ss-related-tags .spinner {
     height: 70px;
     left: 5px; }
