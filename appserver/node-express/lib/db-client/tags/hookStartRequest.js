@@ -28,10 +28,7 @@ var origStartRequest = mlrest.startRequest;
 
 mlrest.startRequest = function (operation) {
   if (
-    operation.options.path === '/v1/search?format=json&category=content' &&
-    operation.requestBody && operation.requestBody.search &&
-    (operation.requestBody.search.forTag !== undefined ||
-    operation.requestBody.search.relatedTo)
+    operation.options.path === '/v1/search?format=json&category=content'
   ) {
     var valuesName = _.deepGet(
       operation,
