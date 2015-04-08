@@ -1,18 +1,18 @@
-/* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+/*
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 
 
@@ -231,21 +231,41 @@ define(['app/module'], function (module) {
               var foundChange = false;
 
               scope.$apply(function () {
-                var newStart;
-                var newEnd;
+                var selStart;
+                var selEnd;
+                var rangeStart;
+                var rangeEnd;
                 if (event.xAxis) {
-                  newStart = mlUtil.moment(event.xAxis[0].min).startOf('M');
-                  newEnd = mlUtil.moment(event.xAxis[0].max)
+                  selStart = mlUtil.moment(event.xAxis[0].min).startOf('M');
+                  selEnd = mlUtil.moment(event.xAxis[0].max)
                       .startOf('M').add(1, 'M');
                 }
                 else {
-                  newStart = mlUtil.moment(event.point.x);
-                  newEnd = mlUtil.moment(event.point.x).add(1, 'M');
+                  selStart = mlUtil.moment(event.point.x).startOf('M');
+                  selEnd = mlUtil.moment(event.point.x)
+                      .startOf('M').add(1, 'M');
                 }
-                if (assignIfDifferent(newStart, scope.constraints.dateStart)) {
+
+                // correct for drag selection to the edges of the range
+                if (scope.dataRange.start) {
+                  rangeStart = scope.dataRange.start.clone();
+                  selStart = (selStart < rangeStart) ?
+                    rangeStart :
+                    selStart;
+                }
+
+                if (scope.dataRange.end) {
+                  rangeEnd = scope.dataRange.end.clone()
+                      .startOf('M').add(1, 'M');
+                  selEnd = (scope.dataRange.end && selEnd > rangeEnd) ?
+                    rangeEnd :
+                    selEnd;
+                }
+
+                if (assignIfDifferent(selStart, scope.constraints.dateStart)) {
                   foundChange = true;
                 }
-                if (assignIfDifferent(newEnd, scope.constraints.dateEnd)) {
+                if (assignIfDifferent(selEnd, scope.constraints.dateEnd)) {
                   foundChange = true;
                 }
                 if (foundChange) {
@@ -293,9 +313,9 @@ define(['app/module'], function (module) {
                 xAxis: {
                   type: 'datetime',
                   title: { text: null },
-                  // showFirstLabel: true,
-                  // showLastLabel: true,
-                  // startOnTick: true,
+                  labels: {
+                      format: '{value:%Y}',
+                  }
                 },
                 yAxis: {
                   min: 0, title: {text: null}, labels: { enabled: false }
@@ -578,12 +598,21 @@ define(['app/module'], function (module) {
 
                   scope.dateEndPlaceholder = mlUtil.moment(
                     dateToPickerEnd(newData[newData.length - 1].x)
-                  ).format('MM/DD/YYYY');
+                  ).add(1, 'M').format('MM/DD/YYYY');
                 }
                 else {
                   scope.dateStartPlaceholder = null;
                   scope.dateEndPlaceholder = null;
                 }
+
+                scope.dataRange = {
+                  start: (newData.length) ?
+                    mlUtil.moment(newData[0].x) :
+                    null,
+                  end: (newData.length) ?
+                    mlUtil.moment(newData[newData.length - 1].x) :
+                    null
+                };
 
                 var pickerStart = scope.constraints.dateStart.value ?
                     mlUtil.moment(
