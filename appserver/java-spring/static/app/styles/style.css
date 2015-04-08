@@ -6091,7 +6091,7 @@ ss-related-tags {
   position: absolute;
   right: -160px;
   top: -2px;
-  width: 165px;
+  width: 169px;
   border: solid 1px #ddd;
   border-radius: 5px;
   background-color: #fff;
@@ -6119,7 +6119,7 @@ ss-related-tags {
     overflow-y: scroll;
     min-height: 65px;
     max-height: 143px;
-    width: 165px;
+    width: 169px;
     right: -1px; }
   ss-related-tags .ss-related-body div {
     width: 100%;
