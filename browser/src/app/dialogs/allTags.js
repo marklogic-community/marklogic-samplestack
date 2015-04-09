@@ -191,6 +191,18 @@ define(['app/module'], function (module) {
 
       /**
        * @ngdoc method
+       * @name allTagsDialogCtlr#$scope.clearText
+       * @description
+       * Clears text input and resets search.
+       */
+      $scope.clearText = function () {
+        $scope.selected = '';
+        $scope.currentPage = 1; // reset to first page
+        search();
+      };
+
+      /**
+       * @ngdoc method
        * @name allTagsDialogCtlr#$scope.search
        * @description
        * Performs a search for tags based on page and sort criteria.
