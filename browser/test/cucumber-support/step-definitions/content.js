@@ -46,9 +46,11 @@ module.exports = function () {
   this.Then(
     /content contributor reputation is greater than "(.*)"/,
     function (repAlias, next) {
+      var self = this;
+
       expect(this.currentPage.focusedItem.metadata.reputation)
-        .to.eventually.be.greaterThan(this[repAlias])
-        .and.notify(next);
+        .to.eventually.be.greaterThan(self[repAlias])
+        .then(this.notifyOk(next), next);
     }
   );
 

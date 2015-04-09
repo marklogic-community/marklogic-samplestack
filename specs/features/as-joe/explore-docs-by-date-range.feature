@@ -4,7 +4,6 @@ Feature: Explore Docs By Date Range
   When searching for documents, a facet filter may be applied to limit results to
   those documents which created by the user.
 
-  @broken @559
   Scenario: As a contributor filtering by date range, I see the correct results
     Given I am "Joe"
     When I visit the "explore" page

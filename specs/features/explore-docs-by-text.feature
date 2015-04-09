@@ -11,7 +11,7 @@ Feature: Explore Docs By Text
     And I perform a search for "Math"
     Then the docs count is "54".
     When I focus on the "first" search result,
-    Then the result "title" is "Q: How can I detect the distance that the user's mouse has moved?"
+    Then the result "title" is "Q: Get element -moz-transform:rotate value in jQuery"
     When I focus on the "last" search result,
     Then the result "title" is "Q: Nested For loop for initializing array of arrays for Javascript"
 
@@ -22,6 +22,6 @@ Feature: Explore Docs By Text
     And I perform a search for "Math"
     Then the docs count is "77".
     When I focus on the "first" search result,
-    Then the result "title" is "Q: How can I detect the distance that the user's mouse has moved?"
+    Then the result "title" is "Q: Get element -moz-transform:rotate value in jQuery"
     When I focus on the "last" search result,
-    Then the result "title" is "Q: Length of Number in JavaScript"
+    Then the result "title" is "Q: Not same src when append images"
