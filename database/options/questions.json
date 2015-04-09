@@ -152,8 +152,8 @@
         },
         "transform-results":{
             "apply":"snippet",
-            "max-snippet-chars":100,
-            "max-matches":4,
+            "max-snippet-chars":150,
+            "max-matches":3,
             "per-match-tokens":12,
             "preferred-matches":{"json-property":["text","title"]}
         },
