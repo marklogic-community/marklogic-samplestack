@@ -49,7 +49,7 @@ define([
 
           // Remove any tag constraint values, we don't want those
           // influencing frequencies in realted-tags results
-          var newCriteria = _.clone(scope.criteria);
+          var newCriteria = angular.copy(scope.criteria);
           if (newCriteria.constraints && newCriteria.constraints.tags) {
             newCriteria.constraints.tags.values = null;
           }
