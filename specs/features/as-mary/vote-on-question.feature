@@ -1,4 +1,4 @@
-@vote-on-question @vote
+@broken @vote-on-question @vote
 Feature: Vote on Question
 
   Contributors may vote questions up or down. One may only vote on a question
