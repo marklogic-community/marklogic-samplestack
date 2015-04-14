@@ -1,18 +1,18 @@
 /* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 // TODO: get phantomjs e2e working
 //
@@ -60,7 +60,8 @@ var cp = require('child_process');
 
 // don't try to use these until a successful install has happened
 var chalk;
-var del;
+var rimraf;
+var async;
 
 var rootDir = path.resolve(__dirname, '../../..');
 
@@ -84,12 +85,12 @@ var rootDir = path.resolve(__dirname, '../../..');
 // exit on fail, otherwise call back
 var doBower = function (cb) {
   chalk = require('chalk');
-  del = require('del');
+  rimraf = require('rimraf');
   console.log(
     chalk.green('Samplestack: fetching browser run-time dependencies')
   );
-  del(
-    'browser/bower_components',
+  rimraf(
+    path.resolve(__dirname, '../../..', 'browser/bower_components'),
     { cwd: rootDir },
     function (err) {
       if (err) {
@@ -115,18 +116,22 @@ var doBower = function (cb) {
 // clean up old directories, exit on fail, otherwise optionally call back
 var doCleanup = function (cb) {
   chalk = require('chalk');
-  del = require('del');
+  rimraf = require('rimraf');
+  async = require('async');
+
+  var repoRoot = path.resolve(__dirname, '../../..');
   console.log(chalk.green('Samplestack: cleaning up unused directories'));
-  del(
-    [
-      'browser/dev-tasks',
-      'browser/node_modules',
-      'appserver/node-express/node_modules',
-      'browser/npm-debug.log',
-      'appserver/node-express/npm-debug.log'
-    ],
-    { cwd: rootDir },
-    function (err) {
+  async.waterfall([
+    rimraf.bind(rimraf, path.join(repoRoot, 'browser/dev-tasks')),
+    rimraf.bind(rimraf, path.join(repoRoot, 'browser/node_modules')),
+    rimraf.bind(
+      rimraf, path.join(repoRoot, 'appserver/node-express/node_modules')
+    ),
+    rimraf.bind(rimraf, path.join(repoRoot, 'browser/npm-debug.log')),
+    rimraf.bind(
+      rimraf, path.join(repoRoot, 'appserver/node-express/npm-debug.log')
+    )
+  ], function (err) {
       if (err) {
         return process.exit(err);
       }
