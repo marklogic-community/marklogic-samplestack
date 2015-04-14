@@ -311,7 +311,19 @@ self = module.exports = {
   // Alternatively, we could leave this and always run middle-tier
   // on port 8090?
   startServer: function (filePath, port, html5) {
-    if (port === '3000') {
+    var argv = require('yargs').argv;
+    var runProxy = argv.middleTier === 'external' ||
+        argv.middleTier === 'java';
+    if (runProxy) {
+      var url = require('url');
+
+      var prev = options.addresses.appServer;
+      options.addresses.appServer = url.parse(
+        url.format(prev).replace('3000', '8090')
+      );
+    }
+
+    if (port === '3000' && !runProxy) {
       if (this.watchTaskCalled) {
         var middleProcess = childProcess.fork(
           path.join(serverBuilds.built, 'main')
