@@ -1,20 +1,20 @@
-/* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+/*
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-define(['_marklogic/module', 'moment'], function (module, moment) {
+define(['_marklogic/module'], function (module) {
 
   /**
    * @ngdoc provider
@@ -222,7 +222,7 @@ define(['_marklogic/module', 'moment'], function (module, moment) {
         var match;
         // Check for string properties which look like dates.
         if (typeof value === 'string' && (match = value.match(regexIso8601))) {
-          input[key] = moment(value, moment.ISO_8601);
+          input[key] = window.moment(value, window.moment.ISO_8601);
         }
         else {
           // Recurse into object
