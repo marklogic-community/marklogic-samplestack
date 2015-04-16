@@ -20,7 +20,7 @@ You can run the live, dynamically built version of the Samplestack browser with 
 
 You can also execute end-to-end tests of this configuration, where the browser code is tested with the Java middle-tier.
 
-We'll call this kind of development a **mixed enviuronment**. These configurations are discussed below.
+We'll call this kind of development a **mixed environment**. These configurations are discussed below.
 
 ### Running the Application in a Mixed Environment
 
@@ -40,7 +40,7 @@ In this configuration, the browser is hosted on port 3000 (http://loalhost:3000/
 
 The behavior of the `gulp e2e` command is discussed in general in the [JavaScript README](../README-JavaScript). The following flags may be included in `gulp e2e` commands to run them in mixed mode.
 
-- `middle-tier=external`: use this flag to cause e2e tests to be run against the Java middle-tier, when you have already launched the Java middle-tier code in a separate terminal (and you have a **clean and completel** database setup already performed).
+- `middle-tier=external`: use this flag to cause e2e tests to be run against the Java middle-tier, when you have already launched the Java middle-tier code in a separate terminal (and you have a **clean and complete** database setup already performed).
 - `middle-tier=java`: use this flag to cause e2e tests to use the gradle commands themselves to configure/reconfigure the database "from scratch", and then automatically launch the Java middle-tier.
 
 ## License
