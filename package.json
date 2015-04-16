@@ -1,6 +1,6 @@
 {
   "name": "marklogic-samplestack",
-  "version": "1.1.0-rc1",
+  "version": "1.1.0-rc3",
   "description": "A sample application demonstrate basic 3-tiered MarkLogic-based development following the MarkLogic Reference Architecture",
   "license": "Apache-2.0",
   "repository": {
