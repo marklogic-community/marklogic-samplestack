@@ -141,6 +141,7 @@ var defaults = {
     'linux-firefox-32': { platform: 'Linux', browserName: 'firefox', version: '32', deviceName: '' },
     'linux-firefox-34': { platform: 'Linux', browserName: 'firefox', version: '34', deviceName: '' },
     'osx10.10-chrome-37': { platform: 'OS X 10.10', browserName: 'chrome', version: '37', deviceName: '' },
+    'osx10.10-chrome-41': { platform: 'OS X 10.10', browserName: 'chrome', version: '41', deviceName: '' },
     'osx10.10-firefox-32': { platform: 'OS X 10.10', browserName: 'firefox', version: '32', deviceName: '' },
     'osx10.10-firefox-34': { platform: 'OS X 10.10', browserName: 'firefox', version: '34', deviceName: '' },
 
