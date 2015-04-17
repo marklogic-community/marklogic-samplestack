@@ -23,8 +23,6 @@ var $ = helper.$;
 var ctx = require('../context');
 var options = ctx.options;
 
-var shell = require('shelljs');
-
 var childProcess = require('child_process');
 var chalk = require('chalk');
 var gradleCmd = /^win/.test(process.platform) ? 'gradlew.bat' : './gradlew';
@@ -34,13 +32,18 @@ var customSeed = require('yargs').argv.seed;
 
 var shellCmd = function (cwd, command, signal, cb) {
   process.stdout.write(chalk.green('\n' + command + '\n'));
-  var backupWd = process.cwd();
-  process.chdir(cwd);
-  var child = shell.exec(command, { async: true, silent: true });
-  process.chdir(backupWd);
+  // var backupWd = process.cwd();
+  // process.chdir(cwd);
+  var commandSplit = command.split(' ');
+  var child = childProcess.spawn(
+    commandSplit[0],
+    commandSplit.slice(1),
+    { cwd: cwd }
+  );
+
   if (signal) {
     process.on('exit', function () {
-      child.kill();
+      require('tree-kill')(child.pid, 'SIGKILL');
     });
   }
 
@@ -64,9 +67,9 @@ var shellCmd = function (cwd, command, signal, cb) {
     var message = '';
     outBuff += data;
     if (outBuff.indexOf('\n') > -1) {
-      message = outBuff.substr(0, outBuff.indexOf('\n') + 1);
-      outBuff = outBuff.substr(outBuff.indexOf('\n') + 1);
-      if (!signaled && signal && data.indexOf(signal) > -1) {
+      message = outBuff.substr(0, outBuff.toString().indexOf('\n') + 1);
+      outBuff = outBuff.substr(outBuff.toString().indexOf('\n') + 1);
+      if (!signaled && signal && data.toString().indexOf(signal) > -1) {
         signaled = true;
         return cb(null, child);
       }
@@ -83,11 +86,12 @@ var shellCmd = function (cwd, command, signal, cb) {
 
   child.stderr.on('data', function (data) {
     if (!signaled) {
-      process.stdout.write(chalk.red('\n' + data.trim()));
+      process.stdout.write(chalk.red('\n' + data.toString().trim()));
     }
   });
 };
 
+var mtServer;
 
 var pokeServer = function (cb) {
   var request = require('request');
@@ -98,10 +102,29 @@ var pokeServer = function (cb) {
   );
 };
 
+var closeServer = function (cb) {
+  var streamClosedCount = 0;
+
+  var streamOnClosed = function () {
+    if (++streamClosedCount === 2) {
+      cb();
+    }
+  };
+
+  mtServer.stdout.on('close', streamOnClosed);
+  mtServer.stderr.on('close', streamOnClosed);
+
+  if (process.platform === 'win32') {
+    require('tree-kill')(mtServer.pid, 'SIGKILL');
+  }
+  else {
+    mtServer.kill();
+  }
+};
+
 var start = function (args, cb) {
   var async = require('async');
   console.log(chalk.magenta('reconfiguring database, starting app server'));
-  var pwd = shell.pwd();
   var dirForMiddle = path.join(
     ctx.paths.projectRoot, 'appserver/java-spring'
   );
@@ -115,43 +138,53 @@ var start = function (args, cb) {
       '';
   var loadCmd = gradleCmd + ' dbLoad' + dbLoadParam + ' --stacktrace';
 
+  var hasStarted = false;
+
   async.series([
-    shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
-    shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbTeardown', null),
-    shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbInit', null),
-    shellCmd.bind(null, dirForMiddle, gradleCmd + ' dbConfigure', null),
-    shellCmd.bind(null, dirForMiddle, gradleCmd + ' test', null),
     shellCmd.bind(
-      null, dirForMiddle, loadCmd, null
+      null, dirForMiddle, gradleCmd + ' dbInit --no-daemon', null
+    ),
+    shellCmd.bind(
+      null, dirForMiddle, gradleCmd + ' dbTeardown --no-daemon', null
+    ),
+    shellCmd.bind(
+      null, dirForMiddle, gradleCmd + ' dbInit --no-daemon', null
+    ),
+    shellCmd.bind(
+      null, dirForMiddle, gradleCmd + ' dbConfigure --no-daemon', null
+    ),
+    shellCmd.bind(
+      null, dirForMiddle, gradleCmd + ' test --no-daemon', null
+    ),
+    shellCmd.bind(
+      null, dirForMiddle, loadCmd + ' --no-daemon', null
     ),
     shellCmd.bind(
       null,
       dirForMiddle,
-      gradleCmd + ' bootrun',
+      gradleCmd + ' bootrun --no-daemon',
       'marklogic.samplestack.Application - Started Application'
     ),
   ], function (err, results) {
-    console.log(' ');
-    $.util.log(chalk.green('detected middle tier started'));
-    var mtServer = results[results.length - 1];
-    ctx.setActiveServer('middle-tier', {
-      close: function (cb) {
-        console.log('shutting down Java middle tier');
-        mtServer.on('exit', function () {
-          cb();
-        });
-        mtServer.kill();
-      }
-    });
+    if (!hasStarted) {
+      hasStarted = true;
+      console.log(' ');
+      $.util.log(chalk.green('detected middle tier started'));
+      mtServer = results[results.length - 1];
+      ctx.setActiveServer('middle-tier', {
+        close: closeServer
+      });
 
-    pokeServer(function () {
-      console.log(chalk.magenta('preparations complete'));
-      cb(err);
+      pokeServer(function () {
+        console.log(chalk.magenta('preparations complete'));
+        cb(err);
 
-    });
+      });
+    }
   });
 };
 
 module.exports = {
-  start: start
+  start: start,
+  close: closeServer
 };

@@ -81,6 +81,7 @@
     "supertest": "^0.15.0",
     "through2": "^0.6.3",
     "tiny-lr-fork": "^0.0.5",
+    "tree-kill": "0.0.6",
     "vinyl-buffer": "1.0.0",
     "vinyl-fs": "^1.0.0",
     "yargs": "^3.4.5"

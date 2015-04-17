@@ -137,11 +137,11 @@ var go = function (args, cb) {
 
   var ptorProc = cp.spawn('node', [ptorPath, confPath], { stdio: 'inherit' });
   ptorProc.on('exit', function (code) {
-    process.exit(code);
+    cb(code);
   });
 
-  var cucumberParser = require('./cucumberParser');
-  cucumberParser.handle(args, ptorConfig, ptorProc, cb);
+  // var cucumberParser = require('./cucumberParser');
+  // cucumberParser.handle(args, ptorConfig, ptorProc, cb);
 };
 
 module.exports = {

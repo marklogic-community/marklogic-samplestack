@@ -23,18 +23,28 @@ module.exports = [
         ['e2e', '--middle-tier=java', browserFlag],
         { stdio: 'inherit' }
       );
-      child.on('exit', function (err) {
-        if (err) {
-          console.log(chalk.red('\nError(s) occurred.'));
-          console.log(
-            chalk.yellow(
-              'The Samplestack environment may not be properly configured.'
-            )
-          );
-          return cb(err);
+
+      var done = false;
+      var onDone =  function (err) {
+        if (!done) {
+          done = true;
+          if (err) {
+            console.log(chalk.red('\nError(s) occurred.'));
+            console.log(
+              chalk.yellow(
+                'The Samplestack environment may not be properly configured.'
+              )
+            );
+            return cb(err);
+          }
+          console.log(chalk.green('\nSamplestack configuration OK!'));
+          return cb();
         }
-        return cb();
-      });
+      };
+
+      child.on('exit', onDone);
+      child.on('exit', onDone);
+      child.on('close', onDone);
     }
   }
 ];

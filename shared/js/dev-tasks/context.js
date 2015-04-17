@@ -146,14 +146,24 @@ var closeServer = function (server, cb) {
     }
   };
   try {
-    server.on('end', onClosed);
-    server.on('close', onClosed);
-    server.on('exit', onClosed);
+    if (server.on) {
+      // a standard node process
+      server.on('end', onClosed);
+      server.on('close', onClosed);
+      server.on('exit', onClosed);
+    }
     if (server.close) {
+      // a manually managed process of ours
       server.close(onClosed);
     }
     else {
-      server.kill();
+      if (server.kill) {
+        server.kill();
+      }
+      else {
+        // this isn't really an external process
+        cb();
+      }
     }
   }
   catch (err) {
@@ -255,6 +265,10 @@ self = module.exports = {
         // server in activeServers (and thus attempt close them all in parallel)
         _.map(activeServers, function (server, key) {
           return function (cb) {
+            var waitTime = 1000;
+            if (key === 'middle-tier') {
+              waitTime = 5000; //java is slow to exit
+            }
             $.util.log(chalk.green('shutting down ' + key));
             var closed = false;
             setTimeout(function () {
@@ -267,7 +281,7 @@ self = module.exports = {
                 }
                 catch (err) { console.log(err); }
               }
-            }, 1000);
+            }, waitTime);
             closeServer(
               server,
               function (err) {
@@ -376,7 +390,7 @@ self = module.exports = {
         listener.on('error', function (err) {
           console.log(err);
         });
-        self.setActiveServer(port, server);
+        self.setActiveServer(port, listener);
 
         return server;
       }
