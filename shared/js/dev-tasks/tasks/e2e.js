@@ -36,6 +36,20 @@ var args = {
   // or 'chrome' or 'firefox' or 'ie' or 'phantomjs'
 };
 
+var skipNoDesktop = function (task) {
+  if (['linux', 'freebsd', 'sunos'].indexOf(process.platform) >= 0) {
+    if (!process.env.DESKTOP_SESSION) {
+      console.log(
+        chalk.yellow(
+          'Skipping task ' + task + ' because there is no desktop environment'
+        )
+      );
+      return true;
+    }
+  }
+  return false;
+};
+
 _.merge(args, require('yargs').argv);
 
 if (!args.tags) {
@@ -48,6 +62,9 @@ if (args.sauce && args.selenium !== 'external') {
 }
 
 var seleniumStart = function (cb) {
+  if (skipNoDesktop('selenium-start')) {
+    return cb();
+  }
   var seleniumHandler;
   switch (args.selenium) {
     case 'external':
@@ -112,44 +129,40 @@ myTasks.push({
   deps: ['build', 'selenium-start', 'middle-tier-start'],
   func: function (cb) {
     try {
+      var skip = skipNoDesktop('e2e');
+
       var haveClosed = false;
 
       require('gulp').doneCallback = function (err) {
         process.exit(err ? 1 : 0);
       };
 
-      process.on('exit', function (err) {
+      var done = function (err) {
         if (!haveClosed) {
-          err = err ? new Error(err) : null;
+          err = err && !Error.prototype.isPrototypeOf(err) ?
+              new Error(err) :
+              null;
           ctx.closeActiveServers(function () { cb(err); });
           haveClosed = true;
         }
-      });
+      };
 
-      ctx.startServer(
-        ctx.paths.browser.buildDir,
-        ctx.options.envs.e2e.addresses.webApp.port
-      );
+      process.on('exit', done);
 
-      protractorRun(function (err) {
-        haveClosed = true;
-        ctx.closeActiveServers(function () {
-          cb(err);
-          setTimeout(function () {
-            process.exit();
-          }, 500);
-        });
-      });
+      if (!skip) {
+        ctx.startServer(
+          ctx.paths.browser.buildDir,
+          ctx.options.envs.e2e.addresses.webApp.port
+        );
+
+        protractorRun(done);
+      }
+      else {
+        done();
+      }
     }
     catch (err) {
-      haveClosed = true;
-      ctx.closeActiveServers(function () {
-        console.log(err);
-        cb(err);
-        setTimeout(function () {
-          process.exit();
-        }, 500);
-      });
+      done(err);
     }
   }
 });

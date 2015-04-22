@@ -19,6 +19,7 @@ var fs = require('fs');
 var cp = require('child_process');
 
 var _ = require('lodash');
+var chalk = require('chalk');
 var Runner = require('protractor/lib/runner');
 
 var ctx = require('../context');
@@ -57,7 +58,6 @@ var ptorConfig = {
 
 
 var go = function (args, cb) {
-
   if (args.browser === 'ie') {
     var sjs = require('shelljs');
     sjs.exec(
