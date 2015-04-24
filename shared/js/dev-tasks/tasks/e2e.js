@@ -139,11 +139,11 @@ myTasks.push({
 
       var done = function (err) {
         if (!haveClosed) {
+          haveClosed = true;
           err = err && !Error.prototype.isPrototypeOf(err) ?
               new Error(err) :
               null;
           ctx.closeActiveServers(function () { cb(err); });
-          haveClosed = true;
         }
       };
 
