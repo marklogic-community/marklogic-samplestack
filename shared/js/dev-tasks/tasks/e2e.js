@@ -38,7 +38,7 @@ var args = {
 
 var skipNoDesktop = function (task) {
   if (['linux', 'freebsd', 'sunos'].indexOf(process.platform) >= 0) {
-    if (!process.env.DESKTOP_SESSION) {
+    if (!process.env.DESKTOP_SESSION && !args.sauce) {
       console.log(
         chalk.yellow(
           'Skipping task ' + task + ' because there is no desktop environment'
