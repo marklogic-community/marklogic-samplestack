@@ -1,0 +1,2382 @@
+Samplestack makes use of the following software published on npm and/or github:
+
+├─ Base64@0.2.1
+│  ├─ licenses: WTFPL
+│  └─ repository: https://github.com/davidchambers/Base64.js
+├─ JSONStream@0.10.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/dominictarr/JSONStream
+├─ JSONStream@0.7.4
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/dominictarr/JSONStream
+├─ JSONStream@0.8.4
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/dominictarr/JSONStream
+├─ abbrev@1.0.5
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/isaacs/abbrev-js
+├─ accepts@1.2.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/accepts
+├─ accessibility-developer-tools@2.6.0
+│  ├─ licenses: Apache License 2.0
+│  └─ repository: http://github.com/GoogleChrome/accessibility-developer-tools
+├─ acorn@0.9.0
+│  ├─ licenses: MIT
+│  └─ repository: http://marijnhaverbeke.nl/git/acorn
+├─ active-x-obfuscator@0.0.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/felixge/node-active-x-obfuscator
+├─ adm-zip@0.4.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cthackers/adm-zip
+├─ adm-zip@0.4.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cthackers/adm-zip
+├─ amdefine@0.1.0
+│  ├─ licenses
+│  │  ├─ 0: BSD
+│  │  └─ 1: MIT
+│  └─ repository: https://github.com/jrburke/amdefine
+├─ ansi-regex@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/ansi-regex
+├─ ansi-regex@0.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/ansi-regex
+├─ ansi-regex@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/ansi-regex
+├─ ansi-styles@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/ansi-styles
+├─ ansi-styles@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/ansi-styles
+├─ anymatch@1.1.0
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/es128/anymatch
+├─ archiver@0.10.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ctalkington/node-archiver
+├─ archy@0.0.2
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/substack/node-archy
+├─ archy@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-archy
+├─ argparse@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/nodeca/argparse
+├─ array-differ@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/array-differ
+├─ array-filter@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/array-filter
+├─ array-map@0.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/array-map
+├─ array-reduce@0.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/array-reduce
+├─ array-union@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/array-union
+├─ array-uniq@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/array-uniq
+├─ asn1.js-rfc3280@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/asn1.js
+├─ asn1.js@1.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/asn1.js
+├─ asn1@0.1.11
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/mcavage/node-asn1
+├─ asn1@0.2.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/mcavage/node-asn1
+├─ assert-plus@0.1.5
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/mcavage/node-assert-plus
+├─ assert@1.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/defunctzombie/commonjs-assert
+├─ assert@1.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/defunctzombie/commonjs-assert
+├─ assertion-error@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/chaijs/assertion-error
+├─ astw@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/astw
+├─ async-each@0.1.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/paulmillr/async-each
+├─ async@0.1.22
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/caolan/async
+├─ async@0.2.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/caolan/async
+├─ async@0.9.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/caolan/async
+├─ aws-sign2@0.5.0
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/mikeal/aws-sign
+├─ backbone-callbacks@0.1.7
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/lorenwest/backbone-callbacks
+├─ backbone@0.9.9
+│  └─ licenses: MIT*
+├─ balanced-match@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/balanced-match
+├─ base64-js@0.0.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/beatgammit/base64-js
+├─ base64-js@0.0.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/beatgammit/base64-js
+├─ base64-url@1.2.1
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/joaquimserafim/base64-url
+├─ base64id@0.1.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/faeldt/base64id
+├─ bcryptjs@2.1.0
+│  ├─ licenses: New-BSD, MIT
+│  └─ repository: https://github.com/dcodeIO/bcrypt.js
+├─ beeper@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/beeper
+├─ binary-extensions@1.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/binary-extensions
+├─ binary@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-binary
+├─ bl@0.9.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/bl
+├─ bluebird@1.2.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/petkaantonov/bluebird
+├─ bluebird@2.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/petkaantonov/bluebird
+├─ bluebird@2.9.15
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/petkaantonov/bluebird
+├─ bn.js@1.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/bn.js
+├─ body-parser@1.12.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/body-parser
+├─ body-parser@1.4.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/body-parser
+├─ body@5.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/body
+├─ boom@0.4.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/spumko/boom
+├─ boom@2.6.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/boom
+├─ bower-config@0.5.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/config
+├─ bower-endpoint-parser@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/endpoint-parser
+├─ bower-json@0.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/json
+├─ bower-logger@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/logger
+├─ bower-registry-client@0.2.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/registry-client
+├─ bower@1.3.12
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/bower
+├─ brace-expansion@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/brace-expansion
+├─ brorand@1.0.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/brorand
+├─ browser-pack@3.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/browser-pack
+├─ browser-pack@4.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/browser-pack
+├─ browser-resolve@1.8.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/shtylman/node-browser-resolve
+├─ browserify-aes@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/browserify-aes
+├─ browserify-rsa@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/calvinmetcalf/browserify-rsa
+├─ browserify-rsa@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/calvinmetcalf/browserify-rsa
+├─ browserify-sign@2.8.0
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/calvinmetcalf/browserify-sign
+├─ browserify-zlib@0.1.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/devongovett/browserify-zlib
+├─ browserify@5.11.1
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-browserify
+├─ browserify@9.0.3
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-browserify
+├─ buffer-crc32@0.2.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/brianloveswords/buffer-crc32
+├─ buffer@2.8.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/feross/buffer
+├─ buffer@3.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/feross/buffer
+├─ buffers@0.1.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/substack/node-buffers
+├─ builtins@0.0.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/builtins
+├─ bunyan@0.22.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/trentm/node-bunyan
+├─ bytes@1.0.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/bytes.js
+├─ callsite@1.0.0
+│  └─ licenses: UNKNOWN
+├─ camelcase-keys@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/camelcase-keys
+├─ camelcase@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/camelcase
+├─ cardinal@0.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/cardinal
+├─ caseless@0.6.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/mikeal/caseless
+├─ caseless@0.8.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/mikeal/caseless
+├─ caseless@0.9.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/mikeal/caseless
+├─ chai-as-promised@4.3.0
+│  ├─ licenses: WTFPL
+│  └─ repository: https://github.com/domenic/chai-as-promised
+├─ chai@1.10.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/chaijs/chai
+├─ chai@2.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/chaijs/chai
+├─ chainsaw@0.1.0
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/substack/node-chainsaw
+├─ chalk@0.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/chalk
+├─ chalk@0.5.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/chalk
+├─ chalk@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/chalk
+├─ chmodr@0.1.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/chmodr
+├─ chokidar@1.0.0-rc4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/paulmillr/chokidar
+├─ cli-color@0.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/cli-color
+├─ cli-table@0.3.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/Automattic/cli-table
+├─ cli@0.6.5
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/chriso/cli
+├─ clone-stats@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/hughsk/clone-stats
+├─ clone@0.1.19
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pvorb/node-clone
+├─ clone@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pvorb/node-clone
+├─ coffee-script@1.8.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jashkenas/coffeescript
+├─ colors@0.6.2
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/Marak/colors.js
+├─ colors@1.0.3
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/Marak/colors.js
+├─ combine-source-map@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/combine-source-map
+├─ combined-stream@0.0.7
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/felixge/node-combined-stream
+├─ commander@0.6.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/commander.js
+├─ commander@1.1.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/commander.js
+├─ commander@2.0.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/commander.js
+├─ commander@2.1.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/commander.js
+├─ commander@2.3.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/commander.js
+├─ commander@2.6.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tj/commander.js
+├─ commander@2.7.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tj/commander.js
+├─ comment-parser@0.2.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/yavorskiy/comment-parser
+├─ commondir@0.0.1
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/substack/node-commondir
+├─ component-emitter@1.1.2
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/component/emitter
+├─ compressible@2.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/compressible
+├─ compression@1.4.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/compression
+├─ concat-map@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-concat-map
+├─ concat-stream@1.4.7
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/maxogden/concat-stream
+├─ config-chain@1.1.8
+│  ├─ licenses
+│  └─ repository: https://github.com/dominictarr/config-chain
+├─ config@0.4.37
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/lorenwest/node-config
+├─ configstore@0.3.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/yeoman/configstore
+├─ connect-livereload@0.5.3
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/intesso/connect-livereload
+├─ connect-marklogic@0.1.1
+│  ├─ licenses: Apache
+│  └─ repository: https://github.com/withjam/connect-marklogic
+├─ connect-modrewrite@0.7.11
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com:tinganho/connect-modrewrite
+├─ connect-timeout@1.6.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/timeout
+├─ connect@1.7.3
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/senchalabs/connect
+├─ connect@3.3.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/senchalabs/connect
+├─ console-browserify@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/console-browserify
+├─ constants-browserify@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/constants-browserify
+├─ content-disposition@0.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/content-disposition
+├─ content-type@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/content-type
+├─ continuable-cache@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/continuable-cache
+├─ convert-source-map@0.3.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/convert-source-map
+├─ convert-source-map@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/convert-source-map
+├─ cookie-parser@1.3.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/cookie-parser
+├─ cookie-session@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/cookie-session
+├─ cookie-signature@1.0.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/visionmedia/node-cookie-signature
+├─ cookie@0.1.2
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/shtylman/node-cookie
+├─ cookiejar@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bmeck/node-cookiejar
+├─ cookies@0.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/cookies
+├─ core-monitor@0.6.3
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/lorenwest/core-monitor
+├─ core-util-is@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/core-util-is
+├─ crc32-stream@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ctalkington/node-crc32-stream
+├─ crc@3.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/alexgorbatchev/node-crc
+├─ create-ecdh@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/createECDH
+├─ create-hash@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/createHash
+├─ create-hmac@1.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/createHmac
+├─ cron@0.1.3
+│  ├─ licenses
+│  │  ├─ 0: MIT
+│  │  └─ 1: GPL
+│  └─ repository: https://github.com/ncb000gt/node-cron
+├─ cross-spawn@0.2.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/IndigoUnited/node-cross-spawn
+├─ cryptiles@0.2.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hueniverse/cryptiles
+├─ cryptiles@2.0.4
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/cryptiles
+├─ crypto-browserify@3.9.13
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/crypto-browserify
+├─ csrf@2.0.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pillarjs/csrf
+├─ csurf@1.7.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/csurf
+├─ ctype@0.5.3
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/rmustacc/node-ctype
+├─ cucumber-html@0.2.3
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/cucumber/cucumber-html
+├─ cucumber-junit@1.1.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/stjohnjohnson/cucumber-junit
+├─ cucumber@0.4.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cucumber/cucumber-js
+├─ cycle@1.0.3
+│  ├─ licenses: UNKNOWN
+│  └─ repository: http://github.com/dscape/cycle
+├─ d@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/d
+├─ date-now@0.1.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Colingo/date-now
+├─ dateformat@1.0.11
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/felixge/node-dateformat
+├─ debug@0.7.4
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/debug
+├─ debug@1.0.4
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/debug
+├─ debug@2.0.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/debug
+├─ debug@2.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/visionmedia/debug
+├─ decamelize@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/decamelize
+├─ decompress-zip@0.0.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bower/decompress-zip
+├─ deep-eql@0.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/chaijs/deep-eql
+├─ deep-equal@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-deep-equal
+├─ deep-equal@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-deep-equal
+├─ deep-extend@0.2.11
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/unclechu/node-deep-extend
+├─ deep-is@0.1.3
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/thlorenz/deep-is
+├─ deepcopy@0.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sasaplus1/deepcopy.js
+├─ defaults@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tmpvar/defaults
+├─ defined@0.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/defined
+├─ deflate-crc32-stream@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ctalkington/node-deflate-crc32-stream
+├─ delayed-stream@0.0.5
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/felixge/node-delayed-stream
+├─ depd@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dougwilson/nodejs-depd
+├─ depd@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dougwilson/nodejs-depd
+├─ deprecated@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/deprecated
+├─ deps-sort@1.3.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/deps-sort
+├─ destroy@1.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/stream-utils/destroy
+├─ detective@4.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-detective
+├─ dicer@0.2.4
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/mscdex/dicer
+├─ diff@1.0.7
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/kpdecker/jsdiff
+├─ diff@1.0.8
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/kpdecker/jsdiff
+├─ diffie-hellman@3.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/diffie-hellman
+├─ dom-serializer@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cheeriojs/dom-renderer
+├─ domain-browser@1.1.4
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/bevry/domain-browser
+├─ domelementtype@1.1.3
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/FB55/domelementtype
+├─ domelementtype@1.3.0
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/FB55/domelementtype
+├─ domhandler@2.3.0
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/fb55/DomHandler
+├─ domutils@1.5.1
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/FB55/domutils
+├─ duplexer2@0.0.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/deoxxa/duplexer2
+├─ duplexer@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/duplexer
+├─ duplexify@3.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/duplexify
+├─ ee-first@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jonathanong/ee-first
+├─ elliptic@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/elliptic
+├─ end-of-stream@0.1.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/end-of-stream
+├─ end-of-stream@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/end-of-stream
+├─ end-of-stream@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/end-of-stream
+├─ entities@1.0.0
+│  ├─ licenses: BSD-like
+│  └─ repository: https://github.com/fb55/node-entities
+├─ entities@1.1.1
+│  ├─ licenses: BSD-like
+│  └─ repository: https://github.com/fb55/node-entities
+├─ error@2.0.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/error
+├─ es5-ext@0.10.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/es5-ext
+├─ es6-iterator@0.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/es6-iterator
+├─ es6-set@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/es6-set
+├─ es6-symbol@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/es6-symbol
+├─ es6-symbol@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/es6-symbol
+├─ es6-weak-map@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/es6-weak-map
+├─ escape-html@1.0.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/component/escape-html
+├─ escape-string-regexp@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/escape-string-regexp
+├─ escape-string-regexp@1.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/escape-string-regexp
+├─ escodegen@1.3.3
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/Constellation/escodegen
+├─ escodegen@1.6.1
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/estools/escodegen
+├─ esprima-fb@3001.1.0-dev-harmony-fb
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/facebook/esprima
+├─ esprima-harmony-jscs@1.1.0-templates
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/jscs-dev/esprima-harmony
+├─ esprima@1.0.4
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/ariya/esprima
+├─ esprima@1.1.1
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/ariya/esprima
+├─ esprima@1.2.5
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/ariya/esprima
+├─ esprima@2.0.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/jquery/esprima
+├─ estraverse@1.5.1
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/Constellation/estraverse
+├─ estraverse@1.9.3
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/estools/estraverse
+├─ esutils@1.0.0
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/Constellation/esutils
+├─ esutils@1.1.6
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/Constellation/esutils
+├─ etag@1.5.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/etag
+├─ event-emitter@0.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/event-emitter
+├─ event-stream@3.1.7
+│  ├─ licenses
+│  └─ repository: https://github.com/dominictarr/event-stream
+├─ event-stream@3.3.0
+│  ├─ licenses
+│  └─ repository: https://github.com/dominictarr/event-stream
+├─ events@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Gozala/events
+├─ exit@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cowboy/node-exit
+├─ express-session@1.10.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/session
+├─ express@4.12.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/strongloop/express
+├─ extend@1.2.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/justmoon/node-extend
+├─ extend@2.0.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/justmoon/node-extend
+├─ extsprintf@1.0.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/davepacheco/node-extsprintf
+├─ eyes@0.1.8
+│  └─ licenses: MIT
+├─ fast-levenshtein@1.0.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/hiddentao/fast-levenshtein
+├─ faye-websocket@0.4.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/faye/faye-websocket-node
+├─ figures@1.3.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/figures
+├─ file-utils@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/SBoudrias/file-utils
+├─ fileset@0.1.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mklabs/node-fileset
+├─ finalhandler@0.3.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pillarjs/finalhandler
+├─ find-index@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jsdf/find-index
+├─ findup-sync@0.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cowboy/node-findup-sync
+├─ first-chunk-stream@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/first-chunk-stream
+├─ flagged-respawn@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tkellen/node-flagged-respawn
+├─ forever-agent@0.5.2
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/mikeal/forever-agent
+├─ forever-agent@0.6.0
+│  ├─ licenses: Apache-2.0
+│  └─ repository: https://github.com/mikeal/forever-agent
+├─ fork-stream@0.0.4
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/deoxxa/fork-stream
+├─ form-data@0.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/felixge/node-form-data
+├─ form-data@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/felixge/node-form-data
+├─ formidable@1.0.14
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/felixge/node-formidable
+├─ forwarded@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/forwarded
+├─ fresh@0.2.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/fresh
+├─ from@0.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/from
+├─ fs-extra@0.16.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jprichardson/node-fs-extra
+├─ fstream-ignore@1.0.2
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/fstream-ignore
+├─ fstream@1.0.4
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/fstream
+├─ gaze@0.5.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/shama/gaze
+├─ generate-function@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/generate-function
+├─ generate-object-property@1.1.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/mafintosh/generate-object-property
+├─ get-stdin@4.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/get-stdin
+├─ gherkin@2.12.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cucumber/gherkin
+├─ glob-parent@1.2.0
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/es128/glob-parent
+├─ glob-stream@3.1.18
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/glob-stream
+├─ glob-stream@4.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/glob-stream
+├─ glob-watcher@0.0.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/glob-watcher
+├─ glob-watcher@0.0.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/glob-watcher
+├─ glob2base@0.0.12
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/glob2base
+├─ glob@3.1.21
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ glob@3.2.11
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ glob@3.2.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ glob@4.0.6
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ glob@4.3.5
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ glob@4.5.3
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ glob@5.0.3
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/node-glob
+├─ globby@1.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/globby
+├─ globule@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cowboy/node-globule
+├─ globule@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/cowboy/node-globule
+├─ got@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/got
+├─ graceful-fs@1.2.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-graceful-fs
+├─ graceful-fs@2.0.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-graceful-fs
+├─ graceful-fs@3.0.6
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-graceful-fs
+├─ graceful-readlink@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/zhiyelee/graceful-readlink
+├─ growl@1.7.0
+│  └─ licenses: UNKNOWN
+├─ growl@1.8.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/node-growl
+├─ gulp-clone@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mariocasciaro/gulp-clone
+├─ gulp-debug@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/gulp-debug
+├─ gulp-embedlr@0.5.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mollerse/gulp-embedlr
+├─ gulp-filelog@0.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/adamayres/gulp-filelog
+├─ gulp-filter@2.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/gulp-filter
+├─ gulp-if@1.2.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/robrich/gulp-if
+├─ gulp-jscs@1.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jscs-dev/gulp-jscs
+├─ gulp-jshint@1.9.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/spalger/gulp-jshint
+├─ gulp-load-plugins@0.8.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jackfranklin/gulp-load-plugins
+├─ gulp-match@0.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/robrich/gulp-match
+├─ gulp-mocha-phantomjs@0.5.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mrhooray/gulp-mocha-phantomjs
+├─ gulp-plumber@0.6.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/floatdrop/gulp-plumber
+├─ gulp-sass@1.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dlmanning/gulp-sass
+├─ gulp-sourcemaps@1.5.1
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/floridoo/gulp-sourcemaps
+├─ gulp-tap@0.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/geejs/gulp-tap
+├─ gulp-template@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/gulp-template
+├─ gulp-util@2.2.20
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/gulp-util
+├─ gulp-util@3.0.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/gulp-util
+├─ gulp-watch@4.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/floatdrop/gulp-watch
+├─ gulp@3.8.11
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/gulpjs/gulp
+├─ handlebars@1.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wycats/handlebars.js
+├─ handlebars@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wycats/handlebars.js
+├─ har-validator@1.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ahmadnassri/har-validator
+├─ has-ansi@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/has-ansi
+├─ has-ansi@1.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/has-ansi
+├─ has@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tarruda/has
+├─ hash.js@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/hash.js
+├─ hawk@1.1.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hueniverse/hawk
+├─ hawk@2.3.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hueniverse/hawk
+├─ hoek@0.9.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/spumko/hoek
+├─ hoek@2.12.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/hoek
+├─ html-entities@1.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mdevils/node-html-entities
+├─ htmlparser2@3.8.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/fb55/htmlparser2
+├─ http-browserify@1.7.0
+│  ├─ licenses: MIT/X11
+│  └─ repository: http://github.com/substack/http-browserify
+├─ http-errors@1.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/http-errors
+├─ http-signature@0.10.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/joyent/node-http-signature
+├─ https-browserify@0.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/https-browserify
+├─ i@0.3.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pksunkara/inflect
+├─ iconv-lite@0.4.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ashtuchkin/iconv-lite
+├─ iconv-lite@0.4.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ashtuchkin/iconv-lite
+├─ ieee754@1.1.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/feross/ieee754
+├─ indent-string@1.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/indent-string
+├─ indexof@0.0.1
+│  └─ licenses: UNKNOWN
+├─ inflight@1.0.4
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/inflight
+├─ inherits@1.0.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/isaacs/inherits
+├─ inherits@2.0.1
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/inherits
+├─ ini@1.3.3
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/ini
+├─ inline-source-map@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/inline-source-map
+├─ inquirer@0.6.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/SBoudrias/Inquirer.js
+├─ inquirer@0.7.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/SBoudrias/Inquirer.js
+├─ insert-module-globals@6.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/insert-module-globals
+├─ insight@0.4.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/yeoman/insight
+├─ interpret@0.3.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tkellen/node-interpret
+├─ intersect@0.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/intersect
+├─ ipaddr.js@0.1.9
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/whitequark/ipaddr.js
+├─ is-array@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/retrofox/is-array
+├─ is-binary-path@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/is-binary-path
+├─ is-finite@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/is-finite
+├─ is-glob@1.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jonschlinkert/is-glob
+├─ is-my-json-valid@2.10.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/is-my-json-valid
+├─ is-property@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mikolalysenko/is-property
+├─ is-root@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/is-root
+├─ is-utf8@0.2.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/wayfind/is-utf8
+├─ isarray@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/isarray
+├─ isbinaryfile@2.0.3
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/gjtorikian/isBinaryFile
+├─ isstream@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/isstream
+├─ istanbul-middleware@0.2.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/gotwarlost/istanbul-middleware
+├─ istanbul@0.2.16
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/gotwarlost/istanbul
+├─ jade@0.26.3
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/visionmedia/jade
+├─ jasmine-core@2.1.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pivotal/jasmine
+├─ jasmine@2.1.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/pivotal/jasmine-npm
+├─ jasminewd2@0.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/angular/jasminewd
+├─ jasminewd@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/angular/jasminewd
+├─ js-yaml@3.2.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/nodeca/js-yaml
+├─ jscs-jsdoc@0.4.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jscs-dev/jscs-jsdoc
+├─ jscs@1.12.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jscs-dev/node-jscs
+├─ jsdoctypeparser@1.1.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Kuniwak/jsdoctypeparser
+├─ jshint-stylish@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/jshint-stylish
+├─ jshint@2.6.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshint/jshint
+├─ json-schema@0.2.2
+│  ├─ licenses
+│  │  ├─ 0: AFLv2.1
+│  │  └─ 1: BSD
+│  └─ repository: http://github.com/kriszyp/json-schema
+├─ json-stable-stringify@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/json-stable-stringify
+├─ json-stringify-safe@5.0.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/json-stringify-safe
+├─ jsonfile@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jprichardson/node-jsonfile
+├─ jsonify@0.0.0
+│  ├─ licenses: Public Domain
+│  └─ repository: https://github.com/substack/jsonify
+├─ jsonparse@0.0.5
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/creationix/jsonparse
+├─ jsonpointer@1.1.0
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/janl/node-jsonpointer
+├─ jsonschema@1.0.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/tdegrunt/jsonschema
+├─ jsprim@0.3.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/davepacheco/node-jsprim
+├─ junk@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/junk
+├─ kew@0.4.0
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/Obvious/kew
+├─ keygrip@1.0.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/expressjs/keygrip
+├─ keypress@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/TooTallNate/keypress
+├─ labeled-stream-splicer@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/labeled-stream-splicer
+├─ latest-version@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/latest-version
+├─ lazypipe@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/OverZealous/lazypipe
+├─ lazystream@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jpommerening/node-lazystream
+├─ ldapauth-fork@2.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/vesse/node-ldapauth-fork
+├─ ldapjs@0.7.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/mcavage/node-ldapjs
+├─ levn@0.2.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/gkz/levn
+├─ lexical-scope@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/lexical-scope
+├─ liftoff@2.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tkellen/node-liftoff
+├─ lockfile@1.0.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/lockfile
+├─ lodash-deep@1.6.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/marklagendijk/lodash-deep
+├─ lodash._baseassign@3.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._basecopy@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._basetostring@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._basevalues@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._bindcallback@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._createassigner@3.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._escapehtmlchar@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._escapestringchar@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._htmlescapes@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._isiterateecall@3.0.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._isnative@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._objecttypes@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._reescape@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._reevaluate@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._reinterpolate@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._reinterpolate@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash._reunescapedhtml@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash._shimkeys@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.assign@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.debounce@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.defaults@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.escape@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.escape@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.isarguments@3.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.isarray@3.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.isfunction@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.isnative@3.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.isobject@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.keys@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.keys@3.0.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.now@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.restparam@3.6.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.template@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.template@3.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.templatesettings@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash.templatesettings@3.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash.values@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash-cli
+├─ lodash@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash@2.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash@3.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ lodash@3.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lodash/lodash
+├─ log-symbols@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/log-symbols
+├─ lru-cache@2.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/node-lru-cache
+├─ lru-cache@2.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/node-lru-cache
+├─ lru-queue@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/lru-queue
+├─ main-bower-files@2.6.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ck86/main-bower-files
+├─ map-obj@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/map-obj
+├─ map-stream@0.0.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/map-stream
+├─ map-stream@0.1.0
+│  ├─ licenses
+│  └─ repository: https://github.com/dominictarr/map-stream
+├─ marked@0.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/chjj/marked
+├─ marklogic-samplestack@1.1.0
+│  ├─ licenses: Apache-2.0
+│  └─ repository: https://github.com/marklogic/marklogic-samplestack
+├─ marklogic@1.0.1
+│  ├─ licenses: Apache-2.0
+│  └─ repository: http://github.com/marklogic/node-client-api
+├─ media-typer@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/media-typer
+├─ media-typer@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/media-typer
+├─ memoizee@0.3.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/memoize
+├─ meow@3.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/meow
+├─ merge-descriptors@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/component/merge-descriptors
+├─ merge-stream@0.1.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/grncdr/merge-stream
+├─ methods@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/visionmedia/node-methods
+├─ methods@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/methods
+├─ miller-rabin@1.1.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/indutny/miller-rabin
+├─ mime-db@1.8.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/mime-db
+├─ mime-types@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/mime-types
+├─ mime-types@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/mime-types
+├─ mime-types@2.0.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/mime-types
+├─ mime@1.2.11
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/broofa/node-mime
+├─ mime@1.3.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/broofa/node-mime
+├─ minijasminenode@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliemr/minijasminenode
+├─ minimalistic-assert@1.0.0
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/calvinmetcalf/minimalistic-assert
+├─ minimatch@0.2.14
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/minimatch
+├─ minimatch@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/minimatch
+├─ minimatch@0.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/minimatch
+├─ minimatch@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/minimatch
+├─ minimatch@2.0.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/minimatch
+├─ minimist@0.0.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/minimist
+├─ minimist@0.0.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/minimist
+├─ minimist@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/minimist
+├─ minimist@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/minimist
+├─ mkdirp@0.3.0
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/substack/node-mkdirp
+├─ mkdirp@0.3.5
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-mkdirp
+├─ mkdirp@0.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-mkdirp
+├─ mkpath@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jrajav/mkpath
+├─ mocha-phantomjs@3.5.3
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/metaskills/mocha-phantomjs
+├─ mocha-sauce@0.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/mocha-sauce
+├─ mocha@1.20.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/visionmedia/mocha
+├─ mocha@2.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mochajs/mocha
+├─ module-deps@3.7.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/module-deps
+├─ moment-timezone@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/moment/moment-timezone
+├─ moment@2.9.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/moment/moment
+├─ monitor-dashboard@0.6.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lorenwest/monitor-dashboard
+├─ monitor@0.6.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/lorenwest/node-monitor
+├─ mout@0.9.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mout/mout
+├─ ms@0.6.2
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/guille/ms.js
+├─ ms@0.7.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/guille/ms.js
+├─ multimatch@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/multimatch
+├─ multipart-stream@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/hendrikcech/multipart-stream
+├─ multipipe@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/juliangruber/multipipe
+├─ mute-stream@0.0.4
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/mute-stream
+├─ nan@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/nan
+├─ nan@1.7.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/nan
+├─ native-or-bluebird@1.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/normalize/native-or-bluebird
+├─ ncp@0.4.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/AvianFlu/ncp
+├─ negotiator@0.5.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/negotiator
+├─ next-tick@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/next-tick
+├─ nock@0.59.1
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/pgte/nock
+├─ node-sass@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sass/node-sass
+├─ node-uuid@1.4.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/broofa/node-uuid
+├─ nodeunit@0.5.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/caolan/nodeunit
+├─ nopt@1.0.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/nopt
+├─ nopt@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/isaacs/nopt
+├─ nopt@2.1.1
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/isaacs/nopt
+├─ nopt@2.2.1
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/isaacs/nopt
+├─ nopt@3.0.1
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/isaacs/nopt
+├─ noptify@0.0.3
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/mklabs/noptify
+├─ npmconf@2.1.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/npm/npmconf
+├─ oauth-sign@0.5.0
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/mikeal/oauth-sign
+├─ oauth-sign@0.6.0
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/mikeal/oauth-sign
+├─ object-assign@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/object-assign
+├─ object-assign@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/object-assign
+├─ object-assign@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/object-assign
+├─ object-keys@0.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ljharb/object-keys
+├─ on-finished@2.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/on-finished
+├─ on-headers@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/on-headers
+├─ once@1.1.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/once
+├─ once@1.2.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/once
+├─ once@1.3.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/once
+├─ once@1.3.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/once
+├─ open@0.0.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pwnall/node-open
+├─ opn@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/opn
+├─ optimist@0.3.7
+│  ├─ licenses: MIT/X11
+│  └─ repository: http://github.com/substack/node-optimist
+├─ optimist@0.6.1
+│  ├─ licenses: MIT/X11
+│  └─ repository: http://github.com/substack/node-optimist
+├─ optionator@0.5.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/gkz/optionator
+├─ options@0.0.6
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/einaros/options.js
+├─ orchestrator@0.3.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/robrich/orchestrator
+├─ ordered-read-streams@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/armed/ordered-read-streams
+├─ os-browserify@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/drewyoung1/os-browserify
+├─ os-name@1.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/os-name
+├─ osenv@0.0.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/osenv
+├─ osenv@0.1.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/osenv
+├─ osx-release@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/osx-release
+├─ p-throttler@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/IndigoUnited/node-p-throttler
+├─ package-json@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/package-json
+├─ pako@0.2.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/nodeca/pako
+├─ parents@0.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-parents
+├─ parents@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-parents
+├─ parse-asn1@2.0.0
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/calvinmetcalf/parse-asn1
+├─ parse-asn1@3.0.0
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/calvinmetcalf/parse-asn1
+├─ parseurl@1.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/parseurl
+├─ passport-ldapauth@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/vesse/passport-ldapauth
+├─ passport-strategy@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jaredhanson/passport-strategy
+├─ passport@0.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jaredhanson/passport
+├─ path-browserify@0.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/path-browserify
+├─ path-platform@0.0.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: http://github.com/tjfontaine/node-path-platform
+├─ path-platform@0.11.15
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/tjfontaine/node-path-platform
+├─ path-to-regexp@0.1.3
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/component/path-to-regexp
+├─ pause-stream@0.0.11
+│  ├─ licenses
+│  │  ├─ 0: MIT
+│  │  └─ 1: Apache2
+│  └─ repository: https://github.com/dominictarr/pause-stream
+├─ pause@0.0.1
+│  └─ licenses: UNKNOWN
+├─ pbkdf2-compat@3.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/pbkdf2-compat
+├─ pemstrip@0.0.1
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/apatil/pemstrip
+├─ phantomjs@1.9.16
+│  ├─ licenses: Apache-2.0
+│  └─ repository: https://github.com/Medium/phantomjs
+├─ pkginfo@0.3.0
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/indexzero/node-pkginfo
+├─ plexer@0.0.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/nfroidure/plexer
+├─ pogo@0.9.4
+│  ├─ licenses: BSD-2-Clause
+│  └─ repository: https://github.com/featurist/pogoscript
+├─ policyfile@0.0.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/3rd-Eden/FlashPolicyFileServer
+├─ pooling@0.4.6
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/mcavage/node-pooling
+├─ prelude-ls@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/gkz/prelude-ls
+├─ pretty-hrtime@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/robrich/pretty-hrtime
+├─ process@0.10.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/shtylman/node-process
+├─ process@0.6.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/shtylman/node-process
+├─ process@0.7.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/shtylman/node-process
+├─ progress@1.1.8
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/visionmedia/node-progress
+├─ promises-a@2.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/promises-a
+├─ prompt@0.2.14
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/flatiron/prompt
+├─ promptly@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/IndigoUnited/node-promptly
+├─ propagate@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/pgte/propagate
+├─ proto-list@1.2.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/proto-list
+├─ protractor@1.8.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/angular/protractor
+├─ proxy-addr@1.0.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/proxy-addr
+├─ public-encrypt@2.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/publicEncrypt
+├─ pump@0.3.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mafintosh/pump
+├─ punycode@1.2.4
+│  ├─ licenses
+│  │  ├─ 0: MIT
+│  │  └─ 1: GPL
+│  └─ repository: https://github.com/bestiejs/punycode.js
+├─ punycode@1.3.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/bestiejs/punycode.js
+├─ q@0.9.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/kriskowal/q
+├─ q@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/kriskowal/q
+├─ q@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/kriskowal/q
+├─ q@1.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/kriskowal/q
+├─ qs@0.5.6
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/node-querystring
+├─ qs@0.6.6
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/visionmedia/node-querystring
+├─ qs@1.2.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/qs
+├─ qs@1.2.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/qs
+├─ qs@2.3.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/qs
+├─ qs@2.4.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hapijs/qs
+├─ querystring-es3@0.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mike-spainhower/querystring
+├─ querystring@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Gozala/querystring
+├─ randombytes@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/randombytes
+├─ range-parser@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/range-parser
+├─ raw-body@1.1.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/stream-utils/raw-body
+├─ raw-body@1.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/stream-utils/raw-body
+├─ raw-body@1.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/stream-utils/raw-body
+├─ rcfinder@0.1.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/spenceralger/rcfinder
+├─ rcloader@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/spenceralger/rcloader
+├─ read@1.0.5
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/read
+├─ readable-stream@1.0.27-1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/readable-stream
+├─ readable-stream@1.0.33
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/readable-stream
+├─ readable-stream@1.1.13
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/readable-stream
+├─ readable-wrap@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/readable-wrap
+├─ readdirp@1.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/readdirp
+├─ readline2@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/SBoudrias/readline2
+├─ redeyed@0.4.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/thlorenz/redeyed
+├─ reduce-component@1.0.1
+│  ├─ licenses: Apache, Version 2.0
+│  └─ repository: https://github.com/redventures/reduce
+├─ registry-url@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/registry-url
+├─ repeating@1.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/repeating
+├─ replace-ext@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/replace-ext
+├─ request-progress@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/IndigoUnited/node-request-progress
+├─ request-progress@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/IndigoUnited/node-request-progress
+├─ request-replay@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/IndigoUnited/node-request-replay
+├─ request@2.36.0
+│  ├─ licenses: Apache, Version 2.0
+│  └─ repository: http://github.com/mikeal/request
+├─ request@2.42.0
+│  ├─ licenses: Apache-2.0
+│  └─ repository: https://github.com/mikeal/request
+├─ request@2.51.0
+│  ├─ licenses: Apache-2.0
+│  └─ repository: https://github.com/request/request
+├─ request@2.54.0
+│  ├─ licenses: Apache-2.0
+│  └─ repository: https://github.com/request/request
+├─ require-directory@2.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/troygoode/node-require-directory
+├─ requireindex@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/stephenhandley/requireindex
+├─ resolve@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-resolve
+├─ resolve@0.7.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-resolve
+├─ resolve@1.1.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-resolve
+├─ retry@0.6.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/felixge/node-retry
+├─ revalidator@0.1.8
+│  ├─ licenses: Apache 2.0
+│  └─ repository: http://github.com/flatiron/revalidator
+├─ rfile@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/rfile
+├─ rimraf@2.2.8
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/rimraf
+├─ rimraf@2.3.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/isaacs/rimraf
+├─ ripemd160@1.0.0
+│  ├─ licenses: BSD-3-Clause
+│  └─ repository: https://github.com/crypto-browserify/ripemd160
+├─ rndm@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-utils/rndm
+├─ ruglify@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/ruglify
+├─ rx@2.4.6
+│  ├─ licenses: Apache License, Version 2.0
+│  └─ repository: https://github.com/Reactive-Extensions/RxJS
+├─ safe-json-parse@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/safe-json-parse
+├─ sandwich-stream@0.0.4
+│  ├─ licenses: Apache 2.0
+│  └─ repository: https://github.com/connrs/node-sandwich-stream
+├─ sass-graph@1.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/xzyfer/sass-graph
+├─ sauce-connect-launcher@0.9.3
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/bermi/sauce-connect-launcher
+├─ saucelabs@0.1.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/holidayextras/node-saucelabs
+├─ sax@0.6.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/sax-js
+├─ scmp@1.0.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/freewil/scmp
+├─ selenium-webdriver@2.44.0
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://code.google.com/p/selenium/
+├─ selenium-webdriver@2.45.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://code.google.com/p/selenium/
+├─ semver-diff@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/semver-diff
+├─ semver@2.3.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/node-semver
+├─ semver@4.3.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/npm/node-semver
+├─ semver@4.3.3
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/npm/node-semver
+├─ send@0.12.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pillarjs/send
+├─ sequencify@0.0.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/robrich/sequencify
+├─ serve-static@1.9.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/serve-static
+├─ sha.js@2.3.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-browserify/sha.js
+├─ shallow-copy@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/shallow-copy
+├─ shasum@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/shasum
+├─ shell-quote@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-shell-quote
+├─ shell-quote@1.4.3
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/node-shell-quote
+├─ shelljs@0.3.0
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/arturadib/shelljs
+├─ sigmund@1.0.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/isaacs/sigmund
+├─ sntp@0.2.4
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hueniverse/sntp
+├─ sntp@1.0.9
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/hueniverse/sntp
+├─ socket.io-client@0.9.16
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/LearnBoost/socket.io-client
+├─ socket.io-client@0.9.17
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/LearnBoost/socket.io-client
+├─ socket.io@0.9.17
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/LearnBoost/socket.io
+├─ source-map-support@0.2.10
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/evanw/node-source-map-support
+├─ source-map@0.1.32
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/mozilla/source-map
+├─ source-map@0.1.34
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/mozilla/source-map
+├─ source-map@0.1.43
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/mozilla/source-map
+├─ source-map@0.3.0
+│  ├─ licenses: BSD
+│  └─ repository: http://github.com/mozilla/source-map
+├─ split@0.2.10
+│  ├─ licenses
+│  └─ repository: https://github.com/dominictarr/split
+├─ split@0.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/split
+├─ sprintf-js@1.0.2
+│  ├─ licenses: BSD-3-Clause
+│  └─ repository: https://github.com/alexei/sprintf.js
+├─ stack-trace@0.0.9
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/felixge/node-stack-trace
+├─ statuses@1.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/statuses
+├─ stream-browserify@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/stream-browserify
+├─ stream-combiner2@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/stream-combiner2
+├─ stream-combiner@0.0.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/stream-combiner
+├─ stream-combiner@0.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/stream-combiner
+├─ stream-consume@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/aroneous/stream-consume
+├─ stream-splicer@1.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/stream-splicer
+├─ streamsearch@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/mscdex/streamsearch
+├─ string-length@0.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/string-length
+├─ string-length@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/string-length
+├─ string_decoder@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/string_decoder
+├─ string_decoder@0.10.31
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/string_decoder
+├─ stringify-object@1.0.1
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/yeoman/stringify-object
+├─ stringstream@0.0.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mhart/StringStream
+├─ strip-ansi@0.2.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/strip-ansi
+├─ strip-ansi@0.3.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/strip-ansi
+├─ strip-ansi@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/strip-ansi
+├─ strip-bom@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/strip-bom
+├─ strip-json-comments@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/strip-json-comments
+├─ subarg@0.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/subarg
+├─ subarg@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/subarg
+├─ superagent@0.21.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/visionmedia/superagent
+├─ supertest@0.15.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/visionmedia/supertest
+├─ supports-color@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/supports-color
+├─ supports-color@1.2.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/supports-color
+├─ supports-color@1.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/supports-color
+├─ syntax-error@1.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/node-syntax-error
+├─ tar-fs@0.5.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com:mafintosh/tar-fs
+├─ tar-stream@0.4.7
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com:mafintosh/tar-stream
+├─ ternary-stream@1.2.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/robrich/ternary-stream
+├─ test-platforms@2.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mocha-ci/test-platforms
+├─ text-table@0.2.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/text-table
+├─ throttleit@0.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/component/throttle
+├─ through2-filter@1.4.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/brycebaril/through2-filter
+├─ through2@0.4.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/through2
+├─ through2@0.5.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/through2
+├─ through2@0.6.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/through2
+├─ through2@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/rvagg/through2
+├─ through@2.3.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/dominictarr/through
+├─ tildify@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/tildify
+├─ timers-browserify@1.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jryans/timers-browserify
+├─ timers-ext@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/medikoo/timers-ext
+├─ tiny-lr-fork@0.0.5
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/mklabs/tiny-lr
+├─ tinycolor@0.0.1
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/einaros/tinycolor
+├─ tmp@0.0.23
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/raszi/node-tmp
+├─ tmp@0.0.24
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/raszi/node-tmp
+├─ touch@0.0.2
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/isaacs/node-touch
+├─ tough-cookie@0.12.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/goinstant/tough-cookie
+├─ traverse@0.3.9
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/substack/js-traverse
+├─ tree-kill@0.0.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/pkrumins/node-tree-kill
+├─ tty-browserify@0.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/tty-browserify
+├─ tunnel-agent@0.4.0
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/mikeal/tunnel-agent
+├─ type-check@0.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/gkz/type-check
+├─ type-detect@0.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/chaijs/type-detect
+├─ type-is@1.3.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/expressjs/type-is
+├─ type-is@1.6.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/type-is
+├─ typedarray@0.0.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/substack/typedarray
+├─ uglify-js@1.2.5
+│  ├─ licenses: BSD*
+│  └─ repository: https://github.com/mishoo/UglifyJS
+├─ uglify-js@2.2.5
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/mishoo/UglifyJS2
+├─ uglify-js@2.4.17
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/mishoo/UglifyJS2
+├─ uglify-to-browserify@1.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/uglify-to-browserify
+├─ uid-number@0.0.5
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/uid-number
+├─ uid-safe@1.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/crypto-utils/uid-safe
+├─ ultron@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/unshiftio/ultron
+├─ umd@2.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/umd
+├─ umd@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/ForbesLindesay/umd
+├─ underscore.string@2.3.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/epeli/underscore.string
+├─ underscore@1.4.4
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/documentcloud/underscore
+├─ underscore@1.6.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jashkenas/underscore
+├─ underscore@1.7.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jashkenas/underscore
+├─ unique-stream@1.0.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/eugeneware/unique-stream
+├─ unique-stream@2.0.2
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/eugeneware/unique-stream
+├─ update-notifier@0.2.0
+│  ├─ licenses: BSD
+│  └─ repository: https://github.com/yeoman/update-notifier
+├─ url@0.10.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/defunctzombie/node-url
+├─ user-home@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/user-home
+├─ util@0.10.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/defunctzombie/node-util
+├─ utile@0.2.1
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/flatiron/utile
+├─ utils-merge@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jaredhanson/utils-merge
+├─ uuid@2.0.1
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/shtylman/node-uuid
+├─ v8flags@2.0.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/tkellen/node-v8flags
+├─ vary@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jshttp/vary
+├─ vasync@1.4.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/davepacheco/node-vasync
+├─ verror@1.1.0
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/davepacheco/node-verror
+├─ verror@1.3.3
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/davepacheco/node-verror
+├─ vinyl-buffer@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/hughsk/vinyl-buffer
+├─ vinyl-file@1.1.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/vinyl-file
+├─ vinyl-fs@0.3.13
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/vinyl-fs
+├─ vinyl-fs@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/vinyl-fs
+├─ vinyl-sourcemaps-apply@0.1.4
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/floridoo/vinyl-sourcemaps-apply
+├─ vinyl@0.2.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/vinyl
+├─ vinyl@0.4.6
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/wearefractal/vinyl
+├─ vm-browserify@0.0.4
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/substack/vm-browserify
+├─ vow-fs@0.3.4
+│  ├─ licenses: UNKNOWN
+│  └─ repository: http://github.com/dfilatov/vow-fs
+├─ vow-queue@0.4.1
+│  ├─ licenses: MIT*
+│  └─ repository: http://github.com/dfilatov/vow-queue
+├─ vow@0.4.9
+│  ├─ licenses: UNKNOWN
+│  └─ repository: http://github.com/dfilatov/vow
+├─ walkdir@0.0.7
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/soldair/node-walkdir
+├─ wd@0.0.26
+│  ├─ licenses: Apache*
+│  └─ repository: https://github.com/admc/wd
+├─ which@1.0.9
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/isaacs/node-which
+├─ win-release@1.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/win-release
+├─ window-size@0.1.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/jonschlinkert/window-size
+├─ winston@0.8.3
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/flatiron/winston
+├─ wordwrap@0.0.2
+│  ├─ licenses: MIT/X11
+│  └─ repository: https://github.com/substack/node-wordwrap
+├─ wrappy@1.0.1
+│  ├─ licenses: ISC
+│  └─ repository: https://github.com/npm/wrappy
+├─ ws@0.4.32
+│  ├─ licenses: UNKNOWN
+│  └─ repository: https://github.com/einaros/ws
+├─ ws@0.7.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/websockets/ws
+├─ www-authenticate@0.6.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/randymized/www-authenticate
+├─ xdg-basedir@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/sindresorhus/xdg-basedir
+├─ xml2js@0.4.4
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Leonidas-from-XIV/node-xml2js
+├─ xml@0.0.12
+│  ├─ licenses: MIT
+│  └─ repository: http://github.com/dylang/node-xml
+├─ xmlbuilder@2.6.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/oozcitak/xmlbuilder-js
+├─ xmlhttprequest@1.4.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/driverdan/node-XMLHttpRequest
+├─ xtend@2.1.2
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/xtend
+├─ xtend@3.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/xtend
+├─ xtend@4.0.0
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/Raynos/xtend
+├─ yakaa@1.0.1
+│  ├─ licenses: MIT
+│  └─ repository: https://github.com/newrelic/yakaa
+├─ yargs@1.3.3
+│  ├─ licenses: MIT/X11
+│  └─ repository: http://github.com/chevex/yargs
+├─ yargs@3.6.0
+│  ├─ licenses: MIT/X11
+│  └─ repository: http://github.com/bcoe/yargs
+├─ zeparser@0.0.5
+│  ├─ licenses: MIT*
+│  └─ repository: https://github.com/qfox/ZeParser
+└─ zip-stream@0.3.7
+   ├─ licenses: MIT
+   └─ repository: https://github.com/ctalkington/node-zip-stream
