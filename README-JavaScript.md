@@ -190,6 +190,32 @@ The reasons for this are documented in https://support.saucelabs.com/entries/274
 
 Please see [Node.js and npm Tips for Samplestack Development](https://github.com/marklogic/marklogic-samplestack/wiki/Node.js-and-npm-Tips-for-Samplestack-Development).
 
+## OSX Workaround for Improperly Installed `phantomjs` Module
+
+In some cases, the following may be seen when unit tests are run in the terminal:
+
+```
+...
+[18:14:41] Starting 'unit'...
+
+Unit Tests:
+/path/to/marklogic-samplestack/node_modules/phantomjs/lib/location.js:1
+(function (exports, require, module, __filename, __dirname) {
+^
+TypeError: Bad argument
+at ChildProcess.spawn (child_process.js:936:24)
+at exports.spawn (child_process.js:736:9)
+...
+[18:14:43] Error in plugin 'gulp-mocha-phantomjs'
+test failed
+```
+
+This error occurs if the `phantomjs` library did not install properly. To work around this, the developer may manually install `phantomjs` (from the marklogic-samplestack repostiory root directory):
+
+```
+> $ npm install phantomjs
+```
+
 ## OSX Workaround for Watch Mode
 
 In general your "watch" process will be faster on Mac/OSX computers if you raise the limit of the number
