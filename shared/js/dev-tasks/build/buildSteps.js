@@ -29,6 +29,10 @@ var buffer = require('vinyl-buffer');
 var chalk = require('chalk');
 
 var helper = require('../helper');
+var merge = require('event-stream').merge;
+var cloner = require('../cloner');
+var doClone = cloner();
+
 
 // make it easier to get to plugins
 var $ = helper.$;
@@ -126,8 +130,14 @@ module.exports = {
         file.base = file.base.replace(/[\/\\]src/, '');
       });
 
-    var result = stream.pipe($.if('**/*.scss', sassPipe()));
-    return result;
+    var sassStream = stream.pipe(doClone);
+    var srcStream = doClone.cloned;
+    sassStream = sassStream.pipe($.if('**/*.scss', sassPipe()));
+
+    //REMARK: removed gulp-if and replaced it by merge (to avoid loosing random files in pipe) 
+    // https://github.com/robrich/gulp-if/issues/43
+    stream = merge(srcStream,sassStream);
+    return stream;
   },
 
   embedLr: function (stream, port) {
