@@ -1,18 +1,18 @@
-/* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+/*
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 module.exports.support = function (obj) {
   /*******************************/
@@ -20,22 +20,17 @@ module.exports.support = function (obj) {
   /*******************************/
 
   obj.loginStart = function () {
-    return obj.qself(
-      getLoginElement()
-      .then(function (el) {
-        return el.click();
-      })
-    );
+    return obj.pself(getLoginElement().click());
   };
 
   obj.loginCancel = function () {
-    return obj.qself(
+    return obj.pself(
       element(by.css('.ss-dialog-login .ss-button-cancel')).click()
     );
   };
 
   obj.loginSubmit = function () {
-    return obj.qself(getLoginSubmitButton().click());
+    return obj.pself(getLoginSubmitButton().click());
   };
 
   Object.defineProperty(obj, 'loginSubmitEnabled', {
@@ -45,7 +40,7 @@ module.exports.support = function (obj) {
   });
 
   obj.loginEnterUserName = function (userName) {
-    return obj.qself(
+    return obj.pself(
       getLoginUserNameElement()
       .clear()
       .sendKeys(userName)
@@ -53,17 +48,17 @@ module.exports.support = function (obj) {
   };
 
   obj.loginEnterPassword = function (password) {
-    return obj.qself(getLoginPasswordElement()
+    return obj.pself(getLoginPasswordElement()
       .clear()
       .sendKeys(password)
     );
   };
 
   obj.login = function (userName, password) {
-    return q.invoke(obj, 'loginStart')
-      .invoke('loginEnterUserName', userName)
-      .invoke('loginEnterPassword', password)
-      .invoke('loginSubmit');
+    return obj.loginStart()
+    .call('loginEnterUserName', userName)
+    .call('loginEnterPassword', password)
+    .call('loginSubmit');
   };
 
   Object.defineProperty(obj, 'loginIsDenied', {

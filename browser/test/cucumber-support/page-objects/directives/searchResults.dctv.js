@@ -33,7 +33,7 @@ module.exports.support = function (obj) {
   });
 
   obj.focusResultsItem = function (index) {
-    return obj.qself(getResultsItems().then(
+    return obj.pself(getResultsItems().then(
       function (items) {
         obj.focusedItem = new SearchResult(items[index], obj);
         return;
@@ -42,7 +42,7 @@ module.exports.support = function (obj) {
   };
 
   obj.focusFirstResultsItem = function () {
-    return obj.qself(getResultsItems().then(
+    return obj.pself(getResultsItems().then(
       function (items) {
         obj.focusedItem = new SearchResult(items[0], obj);
         return;
@@ -51,7 +51,7 @@ module.exports.support = function (obj) {
   };
 
   obj.focusLastResultsItem = function () {
-    return obj.qself(getResultsItems().then(
+    return obj.pself(getResultsItems().then(
       function (items) {
         obj.focusedItem = new SearchResult(items[items.length - 1], obj);
         return;
