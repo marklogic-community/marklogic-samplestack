@@ -116,7 +116,7 @@ var go = function (args, cb) {
       'phantomjs': 'phantomjs',
     };
     ptorConfig.capabilities.browserName = browsers[args.browser];
-    ptorConfig.seleniumAddress = ctx.getActiveServer('selenium').url.href;
+    ptorConfig.seleniumAddress = ctx.getActiveServer('selenium').url;
   }
   if (args.reporter === 'xunit') {
     ptorConfig.cucumberOpts.format = 'json';
