@@ -8,8 +8,8 @@
     "url": "https://github.com/marklogic/marklogic-samplestack.git"
   },
   "engines": {
-    "npm": ">=2.1.1",
-    "node": ">=0.10.33 <0.11"
+    "npm": ">=2.1.12",
+    "node": ">=0.10.33"
   },
   "main": "main.js",
   "scripts": {

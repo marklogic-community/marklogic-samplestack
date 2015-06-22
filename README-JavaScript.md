@@ -23,8 +23,8 @@ This README focuses on the developer automation for JavaScript development that 
 
 To configure and develop the browser app for Samplestack, you need the following software:
 
-* Node.js, version 0.10.x (it is mot yet compatible with Node.js 0.11 or 0.12). See [nodejs.org](http://nodejs.org).
-* npm, version 2.1.1 or higher. See [npmjs.com](https://www.npmjs.com/)
+* Node.js, version 0.10.33 or higher. See [nodejs.org](http://nodejs.org).
+* npm, version 2.1.12 or higher. See [npmjs.com](https://www.npmjs.com/)
 * git. See [git-scm.com](http://git-scm.com/)
 
 This is "tech-stack" or minor variants thereof are almost ubiquitous in JavaScript dwvelopment shops in 2015.
