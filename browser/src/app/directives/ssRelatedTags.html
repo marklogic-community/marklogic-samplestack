@@ -1,6 +1,6 @@
 <div class="ss-related-tags">
 
-  <div ng-hide="relatedTags.length === 0">
+  <div ng-if="loading || relatedTags.length > 0">
     <div class="ss-related-title">
       Related Tags<br />
       <span class="ss-related-subtitle">Replaces current selection</span>
@@ -9,14 +9,21 @@
     <div
       class="ss-related-body"
     >
-      <div ng-repeat="tag in relatedTags">
-        <a href="" ng-click="selectRelated(tag);">{{ tag.name }}</a>
+      <div
+        ng-repeat="tag in relatedTags"
+      >
+        <a
+          href=""
+          ng-click="selectRelated(tag);"
+          onmouseover="this.setAttribute('title', 'Show tags related to this tag'); this.parentElement.parentElement.focus()"
+          title="Show tags related to this tag"
+        >{{ tag.name }}</a>
         <span class="text-muted">({{ tag.count }})</span>
       </div>
     </div>
   </div>
 
-  <div ng-if="!loading" class="ss-related-none-found" ng-show="relatedTags.length === 0">
+  <div ng-if="!loading && relatedTags.length === 0" class="ss-related-none-found">
     No Related Tags<br />in filtered results
   </div>
 
