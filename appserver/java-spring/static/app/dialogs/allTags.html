@@ -90,7 +90,7 @@
               ng-checked="selTags.indexOf(tag.name) > -1"
               ng-click="onTagClick(tag.name)"
             />
-            {{tag.name}}
+            <span ng-bind-html="highlighted(tag.name, selected)"</span>
             <span class="text-muted">({{tag.count}})</span>
           </label>
         </li>
