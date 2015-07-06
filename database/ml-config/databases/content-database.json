@@ -1,0 +1,130 @@
+{
+    "database-name": "%%DATABASE%%",
+    "element-word-lexicon": [
+        {
+            "collation": "http://marklogic.com/collation/",
+            "localname": "tags",
+            "namespace-uri": ""
+        }
+    ],
+    "field": [
+        {
+            "field-name": "default-samplestack-search",
+            "field-path": [
+                {
+                    "path": "/title",
+                    "weight": 2
+                },
+                {
+                    "path": "/text",
+                    "weight": 2
+                },
+                {
+                    "path": "/answers/text",
+                    "weight": 1
+                },
+                {
+                    "path": "//comments/text",
+                    "weight": 0.5
+                }
+            ],
+            "tokenizer-overrides": null
+        },
+        {
+            "field-name": "",
+            "include-root": true,
+            "tokenizer-overrides": null
+        }
+    ],
+    "range-element-index": [
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "id",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "lastActivityDate",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "dateTime"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "tags",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "userName",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "voteCount",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "long"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "answerCount",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "long"
+        },
+        {
+            "collation": "",
+            "invalid-values": "reject",
+            "localname": "reputation",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "long"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "localname": "title",
+            "namespace-uri": "",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        }
+    ],
+    "range-path-index": [
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "path-expression": "/owner/displayName",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "path-expression": "/answers/owner/displayName",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        },
+        {
+            "collation": "http://marklogic.com/collation/",
+            "invalid-values": "reject",
+            "path-expression": "//comments/owner/displayName",
+            "range-value-positions": false,
+            "scalar-type": "string"
+        }
+    ],
+    "three-character-searches":true,
+    "triple-index": true
+}

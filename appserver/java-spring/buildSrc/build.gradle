@@ -2,17 +2,22 @@ apply plugin: 'groovy'
 
 repositories {
     mavenCentral()
+    maven {url "http://developer.marklogic.com/maven2/"}
+    maven {url "http://rjrudin.github.io/marklogic-java/releases"}
+    maven {url "../../../../gh-pages-marklogic-java/releases"}
 }
 
 dependencies {
+	// Need this in to resolve apache-http conflicts with http-builder and the java-client-api
+	// It has to be loaded first, otherwise the older version in http-builder wins and ml-gradle won't work
+	compile "com.marklogic:ml-gradle:2.0a8"
     compile gradleApi()
     compile("org.codehaus.groovy:groovy-all:2.3.7")
     compile("org.codehaus.groovy.modules.http-builder:http-builder:0.7")
-    compile('com.marklogic:java-client-api:3.0.1') {
-        exclude(group: 'org.slf4j')
-        exclude(group: 'ch.qos.logback')
+    compile('com.marklogic:java-client-api:3.0.2') {
+      exclude(group: 'org.slf4j')
+      exclude(group: 'ch.qos.logback')
     }
-    testCompile("junit:junit:4.10")
 }
 
 

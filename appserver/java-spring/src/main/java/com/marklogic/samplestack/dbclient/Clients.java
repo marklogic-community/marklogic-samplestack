@@ -52,8 +52,8 @@ public class Clients extends HashMap<ClientRole, DatabaseClient> {
 	 * @return A DatabaseClient for accessing MarkLogic 
 	 */
 	private DatabaseClient databaseClient(ClientRole role) {
-		String host = env.getProperty("marklogic.rest.host");
-		Integer port = Integer.parseInt(env.getProperty("marklogic.rest.port"));
+		String host = env.getProperty("mlHost");
+		Integer port = Integer.parseInt(env.getProperty("mlRestPort"));
 		String username = env.getProperty(role.getUserParam());
 		String password = env.getProperty(role.getPasswordParam());
 		return DatabaseClientFactory.newClient(host, port, username, password,

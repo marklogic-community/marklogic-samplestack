@@ -17,7 +17,7 @@ public class MarkLogicSlurpTask extends MarkLogicTask {
     File seedDirectory 
 
 	private writerClient() {
-		RESTClient client = new RESTClient("http://" + config.marklogic.rest.host + ":" + config.marklogic.rest.port)
+		RESTClient client = new RESTClient("http://" + config.mlHost + ":" + config.mlRestPort)
 		client.auth.basic config.marklogic.writer.user, config.marklogic.writer.password
 		client.getEncoder().putAt("application/n-triples", client.getEncoder().getAt("text/plain"))
 		client.getParser().putAt("application/n-triples", client.getParser().getAt("text/plain"))
