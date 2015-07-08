@@ -4,13 +4,13 @@ repositories {
     mavenCentral()
     maven {url "http://developer.marklogic.com/maven2/"}
     maven {url "http://rjrudin.github.io/marklogic-java/releases"}
-    maven {url "../../../../gh-pages-marklogic-java/releases"}
 }
 
 dependencies {
 	// Need this in to resolve apache-http conflicts with http-builder and the java-client-api
 	// It has to be loaded first, otherwise the older version in http-builder wins and ml-gradle won't work
-	compile "com.marklogic:ml-gradle:2.0a8"
+	compile "com.marklogic:ml-gradle:2.0a9"
+    
     compile gradleApi()
     compile("org.codehaus.groovy:groovy-all:2.3.7")
     compile("org.codehaus.groovy.modules.http-builder:http-builder:0.7")

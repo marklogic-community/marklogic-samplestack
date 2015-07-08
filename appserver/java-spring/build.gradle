@@ -19,7 +19,6 @@ buildscript {
 
         maven {url "http://developer.marklogic.com/maven2/"}
         maven {url "http://rjrudin.github.io/marklogic-java/releases"}
-        maven {url "../../../gh-pages-marklogic-java/releases"}
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
