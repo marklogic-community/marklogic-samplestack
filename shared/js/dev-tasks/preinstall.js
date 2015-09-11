@@ -15,16 +15,17 @@
  */ 
 
 var version = function () {
-  var matched = process.version.match(/^v\d+\.(\d+)\.(\d+)$/);
+  var matched = process.version.match(/^v(\d+)\.(\d+)\.(\d+)$/);
   return {
-    minor: parseInt(matched[1]),
-    revision: parseInt(matched[2])
+    major: parseInt(matched[1]),
+    minor: parseInt(matched[2]),
+    revision: parseInt(matched[3])
   };
 };
 
 var v = version();
 
-if (v.minor !== 10 || v.revision < 20) {
+if (!v.major && (v.minor !== 10 || v.revision < 20)) {
   process.stderr.write(
     'Unsupported Node.js version (' + process.version + ').\n\n' +
         'Please install a recent release of Node.js 0.10.x ()'
