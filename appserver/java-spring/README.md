@@ -7,7 +7,7 @@ The implementation of samplestack that runs using
 * gradle as build tool
 * Java as middle-tier development language
 * Spring Boot as application framework
-* MarkLogic as database tier
+* MarkLogic as database tier (and [ml-gradle](https://github.com/rjrudin/ml-gradle) as the  MarkLogic-specific bulid tool)
 
 This README covers running samplestack quickly, then documents each of the commands
 available to the Java developer as she iterates through code exploration.
@@ -16,7 +16,7 @@ available to the Java developer as she iterates through code exploration.
 
 *To build and run:*
 
-Before running anything here, you need MarkLogic 8.0-1.1, installed and 
+Before running anything here, you need MarkLogic 8.0-1.1 or later, installed and
 running.  Start this quickstart with it installed and running.  By default this
 process will will secure MarkLogic with username admin, password admin.  If you
 have already secured MarkLogic, you need to update gradle.properties with the
@@ -57,20 +57,16 @@ Its possible that you will need to clean your environment, especially if you're 
 
 `./gradlew --stop`     (if you've been using the gradle daemon.)
 `./gradlew clean`
-`./gradlew dbteardown`
+`./gradlew undeploy` (an ml-gradle task)
 
-*gradle tasks used in Samplestack development*
+*other gradle tasks used in Samplestack development*
 
-* `./gradlew dbInit`   This is the task that initializes a MarkLogic server and preps it for runninng Samplestack.  It is a one-time task; after running, the users, roles, database, and REST server will be available for configuration.
-* `./gradlew dbTeardown` This command removes Samplestack's entire REST server, database, and security objects from the MarkLogic server.
+* `./gradlew mlInit` (an ml-gradle task)   This is the task that initializes a MarkLogic server and preps it for runninng Samplestack.  It is a one-time task; after running, the users, roles, database, and REST server will be available for configuration.
+* `./gradlew mlUndeploy` (an ml-gradle task) This command removes Samplestack's entire REST server, database, and security objects from the MarkLogic server.
 
 * `./gradlew clean`  This built-in gradle task cleans the build directory.  When in doubt, try it.
 * `./gradlew assemble`   This command bootstraps the middle tier, runs tests, and builds the Java project.  When it is done you have verified the unit tests and built samplestack.
 * `./gradlew tasks`  Lists tasks available to the samplestack project.
-
-* `./gradlew dbConfigure`  Incrementally applies configuration changes in ../../database/* to the MarkLogic instance.
-* `./gradlew dbConfigureClean`   Removes cache info for configuration from build direcotiry (so next dbConfigure will process all files).
-* `./gradlew dbConfigureAll`   dbConfigureClean then runs dbConfigure.  Uploads all config files to MarkLogic.
 
 * `./gradlew bootRun`       This command runs the middle tier and MarkLogic services.  This project also contains a built version of the front-end angular application.  If you want to use and exercise the front-end independently, see the sibling project in /browser for instructions on running the browser application
 * `./gradlew seedDataFetch`  Fetches seed data from a remote location to the build directory.
@@ -86,11 +82,13 @@ Its possible that you will need to clean your environment, especially if you're 
 * `./gradlew dbTest` This command runs the unit tests for server extensions.
 * `./gradlew integrationTest` This command runs the tests that exercise the whole middle and database tier apparatus.
 
+In previous releases of Samplestack, the tasks `dbConfigure`, `dbConfigure` and `dbConfigureAll` were present, allowing for incrementally
+applying configuration and re-applying configuration. Those tasks are no longer included -- however, similar functionality is exposed by ml-gradle
+and may be used in Samplestack, as well (e.g. `mlClearModules`, `mlLoadModules`. **Documentation of each task that ml-gradle supports is beyond the scope of this document. Please see the [ml-gradle documentation](https://github.com/rjrudin/ml-gradle) for more information.**
+
 *To use with Eclipse*
 
 See project wiki https://github.com/marklogic/marklogic-samplestack/wiki/Getting-Started-in-Eclipse
-
-
 
 ### Endpoints
 
