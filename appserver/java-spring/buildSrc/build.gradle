@@ -9,7 +9,7 @@ repositories {
 dependencies {
 	// Need this in to resolve apache-http conflicts with http-builder and the java-client-api
 	// It has to be loaded first, otherwise the older version in http-builder wins and ml-gradle won't work
-	compile "com.marklogic:ml-gradle:2.0a9"
+	compile "com.rjrudin:ml-gradle:2.0b11"
     
     compile gradleApi()
     compile("org.codehaus.groovy:groovy-all:2.3.7")
