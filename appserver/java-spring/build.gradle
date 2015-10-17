@@ -43,8 +43,8 @@ ext {
     }
 }
 
-// mlDeploy calls mlAppDeploy
-mlAppDeploy.dependsOn mlInit, mlInstallAdmin
+// mlDeploy calls mlDeployApp
+mlDeployApp.dependsOn mlInit, mlInstallAdmin
 mlInstallAdmin.mustRunAfter mlInit
 
 mlInstallAdmin.adminUsername = mlAdminUsername
