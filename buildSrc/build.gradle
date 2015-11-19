@@ -20,4 +20,9 @@ dependencies {
     }
 }
 
+subprojects {
+  rootProject.dependencies {
+    runtime project(path)
+  }
+}
 
