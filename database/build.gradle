@@ -61,7 +61,7 @@ task dbLoad(type: MarkLogicSlurpTask) {
     seedDirectory = file("${buildDir}/seed-data")
     inputs.dir seedDirectory
 }
-dbLoad.mustRunAfter(assemble)
+dbLoad.mustRunAfter(":appserver:java-spring:assemble")
 dbLoad.dependsOn(seedDataExtract)
 // never skip dbload if requested
 dbLoad.outputs.upToDateWhen { false }
