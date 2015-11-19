@@ -1,0 +1,10 @@
+subprojects {
+  apply plugin: "eclipse"
+  apply plugin: "idea"
+  apply plugin: "java"
+  
+  /* task to generate the gradle wrapper script */
+  task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+  }
+}

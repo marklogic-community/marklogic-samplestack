@@ -1,0 +1,67 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {url "http://developer.marklogic.com/maven2/"}
+        maven {url "http://rjrudin.github.io/marklogic-java/releases"}
+    }
+
+    dependencies { 
+      classpath "com.rjrudin:ml-gradle:2.0b12" 
+    }
+}
+
+apply plugin: "ml-gradle"
+
+/*
+ * ml-gradle adds an instance of com.marklogic.appdeployer.AppConfig to the Gradle project under the key "mlAppConfig".
+ * This instance can be modified to affect the behavior of ml-gradle.
+ */
+ext {
+  mlAppConfig {
+    createTriggersDatabase = true
+    configDir.setBaseDir(new File("database/src/main/ml-config"))
+    modulePaths = ["database/src/main/ml-modules"]
+  }
+}
+
+/**
+ * FETCH SEED DATA
+ */
+task seedDataFetch {
+    doLast {
+        def url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.2.tgz"
+        def destFile = file("${buildDir}/seed.tgz")
+        println "Fetching data from " + url
+        new URL(url).withInputStream{ i -> destFile.withOutputStream{ it << i }}
+    }    
+}
+
+seedDataFetch.dependsOn(processResources)
+
+task seedDataExtract {
+    ext.destDir = file("${buildDir}/seed-data")
+    ext.srcFile = file("${buildDir}/seed.tgz")
+    inputs.file srcFile
+    outputs.dir destDir
+    doLast {
+        destDir.mkdirs()
+        copy {
+            from tarTree(resources.gzip(srcFile))
+                into destDir
+        }
+    }
+}
+seedDataExtract.dependsOn(seedDataFetch)
+
+
+/*
+ * LOAD
+ */
+task dbLoad(type: MarkLogicSlurpTask) {
+    seedDirectory = file("${buildDir}/seed-data")
+    inputs.dir seedDirectory
+}
+dbLoad.mustRunAfter(assemble)
+dbLoad.dependsOn(seedDataExtract)
+// never skip dbload if requested
+dbLoad.outputs.upToDateWhen { false }

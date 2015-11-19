@@ -27,76 +27,17 @@ buildscript {
 
 /* plugins */
 apply plugin: 'groovy'
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'ml-gradle'
+
 
 group = samplestackGroup
 version = samplestackVersion
 sourceCompatibility = samplestackSourceCompatibility
 
-ext {
-    mlAppConfig {
-        modulePaths = ["../../database/ml-modules"]
-    }
-}
-
-// mlDeploy calls mlDeployApp
-mlDeployApp.dependsOn mlInit, mlInstallAdmin
-mlInstallAdmin.mustRunAfter mlInit
-
-mlInstallAdmin.adminUsername = mlAdminUsername
-mlInstallAdmin.adminPassword = mlAdminPassword
-
-
 /**
  * ASSEMBLE
  */
-assemble.dependsOn(mlDeploy)
-
-/**
- * FETCH SEED DATA
- */
-task seedDataFetch {
-    doLast {
-        def url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.2.tgz"
-        def destFile = file("${buildDir}/seed.tgz")
-        println "Fetching data from " + url
-        new URL(url).withInputStream{ i -> destFile.withOutputStream{ it << i }}
-    }    
-}
-
-seedDataFetch.dependsOn(processResources)
-
-task seedDataExtract {
-    ext.destDir = file("${buildDir}/seed-data")
-    ext.srcFile = file("${buildDir}/seed.tgz")
-    inputs.file srcFile
-    outputs.dir destDir
-    doLast {
-        destDir.mkdirs()
-        copy {
-            from tarTree(resources.gzip(srcFile))
-                into destDir
-        }
-    }
-}
-seedDataExtract.dependsOn(seedDataFetch)
-
-/*
- * LOAD
- */
-task dbLoad(type: MarkLogicSlurpTask) {
-    seedDirectory = file("${buildDir}/seed-data")
-    inputs.dir seedDirectory
-}
-dbLoad.mustRunAfter(assemble)
-dbLoad.dependsOn(seedDataExtract)
-// never skip dbload if requested
-dbLoad.outputs.upToDateWhen { false }
-
+assemble.dependsOn(":database:mlDeploy")
 
 /* use same properties for gradle and Java runtime */
 task props(type: Copy) {
@@ -114,8 +55,8 @@ task appserver <<
 {
    println "Bootstrapping, seeding and starting Samplestack appserver"
 }
-appserver.dependsOn(clean, assemble, dbLoad, bootRun)
-bootRun.shouldRunAfter(dbLoad)
+appserver.dependsOn(clean, ":appserver:java-spring:assemble", ":database:dbLoad", bootRun)
+bootRun.shouldRunAfter(":database:dbLoad")
 
 
 /* The code repositories to consult for dependencies */
@@ -153,7 +94,7 @@ task unitTest(type: Test) {
     }
 }
 
-test.dependsOn(props, mlLoadModules)
+test.dependsOn(props, ":database:mlLoadModules")
 
 task dbTest(type: Test) {
     useJUnit {
@@ -167,7 +108,3 @@ task integrationTest(type: Test) {
     }
 }
 
-/* task to generate the gradle wrapper script */
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}
