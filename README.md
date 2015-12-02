@@ -25,7 +25,7 @@ REMEMBER to change the branch name in this code when preparing releases
 This release features two middle tiers
 
 - one for the Java enterprise developer, implemented using Java, Spring and Gradle
-- one for the JavaScript developer, imple,emted using JavaScript, Node.js and Gulp.
+- one for the JavaScript developer, implemented using JavaScript, Node.js and Gulp.
 
 The project includes the following major components:
 * [MarkLogic](http://www.marklogic.com/) for the database tier
@@ -99,8 +99,7 @@ Facets | Search constraints, analytics
 Ask, Answer, Comment | Document updates
 Voting | Updates impact sorting
 Accepted Answers and Reputation | Transactional model, data integrity
-
-Coming soon: Related tags — demonstration of semantics with the use of RDF triples and SPARQL.
+Related Tags | Semantics, using RDF triples and SPARQL
 
 ## Contributing
 
