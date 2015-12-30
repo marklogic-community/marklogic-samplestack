@@ -16,6 +16,9 @@ buildscript {
         maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
         jcenter()
+
+        maven {url "http://developer.marklogic.com/maven2/"}
+        maven {url "http://rjrudin.github.io/marklogic-java/releases"}
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -24,100 +27,17 @@ buildscript {
 
 /* plugins */
 apply plugin: 'groovy'
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
+
 
 group = samplestackGroup
 version = samplestackVersion
 sourceCompatibility = samplestackSourceCompatibility
 
-/*
- * INIT
- * Run this task to initialize a fresh MarkLogic server
- * and install security objects.
- */
-task dbInit(type: MarkLogicInitTask)
-dbInit.roles = file("../../database/security/roles")
-dbInit.users = file("../../database/security/users")
-
-/*
- * TEARDOWN
- * This task removes all trace of samplestack
- */
-task dbTeardown(type: MarkLogicTeardownTask)
-
-/*
- * CONFIGURE
- *
- * This task configures the database and REST API instance
- * based on files in the database directory
- */
-task dbConfigure(type: MarkLogicConfigureTask)
-
-task dbConfigureClean << {
-    delete("${buildDir}/database")
-}
-
-
-dbConfigure.inputDir = file('../../database')
-dbConfigure.outputDir = file("${buildDir}/database")
-dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
-dbConfigure.shouldRunAfter dbInit
-dbConfigure.shouldRunAfter dbConfigureClean
-dbInit.dependsOn(dbConfigureClean)
-
-task dbConfigureAll
-dbConfigureAll.dependsOn dbConfigureClean
-dbConfigureAll.dependsOn dbConfigure
-
 /**
  * ASSEMBLE
  */
-assemble.dependsOn(dbInit, dbConfigure, test)
-
-/**
- * FETCH SEED DATA
- */
-task seedDataFetch(type: MarkLogicFetchTask) {
-    url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.2.tgz"
-    destFile = file("${buildDir}/seed.tgz")
-}
-seedDataFetch.dependsOn(processResources)
-
-task seedDataExtract {
-    ext.destDir = file("${buildDir}/seed-data")
-    ext.srcFile = file("${buildDir}/seed.tgz")
-    inputs.file srcFile
-    outputs.dir destDir
-    doLast {
-        destDir.mkdirs()
-        copy {
-            from tarTree(resources.gzip(srcFile))
-                into destDir
-        }
-    }
-}
-seedDataExtract.dependsOn(seedDataFetch)
-
-/*
- * LOAD
- */
-task dbLoad(type: MarkLogicSlurpTask) {
-    seedDirectory = file("${buildDir}/seed-data")
-    inputs.dir seedDirectory
-}
-dbLoad.mustRunAfter(assemble)
-dbLoad.dependsOn(seedDataExtract)
-/* never skip dbload if requested */
-dbLoad.outputs.upToDateWhen { false }
-
-/*
- * CLEAR
- */
-task dbClear(type: MarkLogicClearTask)
-
+assemble.dependsOn(":database:mlDeploy")
 
 /* use same properties for gradle and Java runtime */
 task props(type: Copy) {
@@ -135,8 +55,9 @@ task appserver <<
 {
    println "Bootstrapping, seeding and starting Samplestack appserver"
 }
-appserver.dependsOn(clean, assemble, dbLoad, bootRun)
-bootRun.shouldRunAfter(dbLoad)
+appserver.dependsOn(clean, ":appserver:java-spring:assemble", ":database:dbLoad", bootRun)
+bootRun.shouldRunAfter(":database:dbLoad")
+
 
 /* The code repositories to consult for dependencies */
 repositories {
@@ -173,7 +94,7 @@ task unitTest(type: Test) {
     }
 }
 
-test.dependsOn(props, dbConfigure)
+test.dependsOn(props, ":database:mlLoadModules")
 
 task dbTest(type: Test) {
     useJUnit {
@@ -187,7 +108,3 @@ task integrationTest(type: Test) {
     }
 }
 
-/* task to generate the gradle wrapper script */
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}

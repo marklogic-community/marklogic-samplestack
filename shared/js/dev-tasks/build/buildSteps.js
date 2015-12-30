@@ -1,18 +1,18 @@
-/* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+/*
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 var path = require('path');
 
@@ -114,17 +114,18 @@ module.exports = {
         helper.browser.fs.src,
         path.relative(ctx.paths.projectRoot, path.join(srcDir, '**/*.scss'))
       )
+      // adjust the base now, so that when the resulting files are joined with the main stream,
+      // their paths match
+      .pipe($.tap, function (file) {
+        file.base = file.base.replace(/[\/\\]src/, '');
+      })
       .pipe($.sourcemaps.init)
       .pipe($.sass, sassParams)
       .pipe(
         $.sourcemaps.write,
         '.',
         { includeContent: true, sourceRoot: '/' }
-      )
-      // switch up the base
-      .pipe($.tap, function (file) {
-        file.base = file.base.replace(/[\/\\]src/, '');
-      });
+      );
 
     var result = stream.pipe($.if('**/*.scss', sassPipe()));
     return result;

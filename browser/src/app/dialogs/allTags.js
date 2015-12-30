@@ -124,6 +124,30 @@ define(['app/module'], function (module) {
       ];
       $scope.selectedSort = $scope.sorts[1]; // Default sort
 
+
+      // format a tag by bolding the searchText portion of the text
+      $scope.highlighted = function (tagText, searchText) {
+        if (searchText && searchText.length) {
+          var begin = tagText.indexOf(searchText);
+          if (begin < 0) {
+            return tagText;
+          }
+
+          var formatted = tagText.substr(0, begin) +
+              '<strong>' +
+              searchText +
+              '</strong>' +
+              tagText.substr(begin + searchText.length);
+          console.log(tagText, searchText, formatted);
+
+          return formatted;
+        }
+        else {
+          return tagText;
+        }
+      };
+
+
       /**
        * @ngdoc method
        * @name allTagsDialogCtlr#$scope.onTagClick

@@ -30,25 +30,25 @@ module.exports.support = function (obj) {
   });
 
   obj.enterSearchText = function (text) {
-    return obj.qself(getSearchbarTextElement()
+    return obj.pself(getSearchbarTextElement()
       .clear()
       .sendKeys(text)
     );
   };
 
   obj.clearSearchText = function () {
-    return obj.qself(getSearchbarTextElement()
+    return obj.pself(getSearchbarTextElement()
       .clear()
       .then(obj.searchSubmit)
     );
   };
 
   obj.searchSubmit = function () {
-    return obj.qself(getSearchbarSumbmitElement().click());
+    return obj.pself(getSearchbarSumbmitElement().click());
   };
 
   obj.search = function (text) {
-    return obj.qself(obj.enterSearchText(text)
+    return obj.pself(obj.enterSearchText(text)
       .then(obj.searchSubmit)
     );
   };

@@ -18,7 +18,7 @@ module.exports.Metadata = function (webElement, page) {
   var self = this;
 
   self.openContributorDialog = function () {
-    return page.qself(getAuthorElement().element(by.css('a')).click());
+    return page.pself(getAuthorElement().element(by.css('a')).click());
   };
 
   Object.defineProperty(self, 'reputation', {

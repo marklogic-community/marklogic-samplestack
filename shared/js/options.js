@@ -144,6 +144,7 @@ var defaults = {
     'osx10.10-chrome-41': { platform: 'OS X 10.10', browserName: 'chrome', version: '41', deviceName: '' },
     'osx10.10-firefox-32': { platform: 'OS X 10.10', browserName: 'firefox', version: '32', deviceName: '' },
     'osx10.10-firefox-34': { platform: 'OS X 10.10', browserName: 'firefox', version: '34', deviceName: '' },
+    'osx10.10-firefox-35': { platform: 'OS X 10.10', browserName: 'firefox', version: '35', deviceName: '' },
 
     'win7-chrome-33': { platform: 'Windows 7', browserName: 'chrome', version: '33', deviceName: '' },
     'win7-chrome-38': { platform: 'Windows 7', browserName: 'chrome', version: '38', deviceName: '' },

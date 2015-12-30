@@ -2,3 +2,8 @@
 .sass-cache
 node_modules
 npm-debug.log
+.gradle/
+.project
+.classpath
+build/
+.settings/

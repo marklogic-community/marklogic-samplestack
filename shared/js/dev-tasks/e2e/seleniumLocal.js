@@ -105,18 +105,19 @@ var start = function (args, cb) {
 
     server.start({
       stdio: 'inherit'
+    })
+    .then(function (url) {
+      console.log('url = ' + require('util').inspect(url));
+      ctx.seleniumStarted = true;
+      ctx.setActiveServer('selenium', {
+        url: url,
+        close: function (cb) {
+          cb();
+          server.kill();
+        }
+      });
+      cb();
     });
-
-    var url = server.address();
-    ctx.seleniumStarted = true;
-    ctx.setActiveServer('selenium', {
-      url: url,
-      close: function (cb) {
-        cb();
-        server.kill();
-      }
-    });
-    cb();
   });
 };
 

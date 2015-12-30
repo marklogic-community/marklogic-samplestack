@@ -20,7 +20,7 @@ REMEMBER to change the branch name in this code when preparing releases
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
-## README for Version 1.1.0
+## README for Version 1.2.0
 
 This release features two middle tiers
 
@@ -32,6 +32,7 @@ The project includes the following major components:
 * MVC browser application implemented in [Angular.js](https://angularjs.org)
 * Middle-tier REST server implemented in Java/[Spring](http://projects.spring.io/spring-framework/)
 * [Gradle](http://www.gradle.org/) framework to drive build and configuration of the appserver and database tiers in Java/Groovy
+* [ml-grade](https://github.com/rjrudin/ml-gradle)  Gradle plugin that supports a number of tasks pertaining to deploying an application to MarkLogic and interacting with other features of MarkLogic via a Gradle build file.
 * Middle-tier REST server implemented in Node.js/[Express](expressjs.com)
 * [Gulp](http://www.gradle.org/)-based automation to drive build and configuration of Javascript and database tiers (**note: database-tier Gulp-based setup coming soon**)
 * Unit and end-to-end tests

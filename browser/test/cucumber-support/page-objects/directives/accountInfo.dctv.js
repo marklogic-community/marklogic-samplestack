@@ -1,18 +1,18 @@
-/* 
- * Copyright 2012-2015 MarkLogic Corporation 
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *    http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
- */ 
+/*
+ * Copyright 2012-2015 MarkLogic Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 module.exports.support = function (obj) {
   /*******************************/
@@ -51,7 +51,7 @@ module.exports.support = function (obj) {
   });
 
   obj.accountInfoOpen = function () {
-    return obj.qself(getAccountInfoElement().then(
+    return obj.pself(getAccountInfoElement().then(
       function (el) {
         if (el) {
           return el.click();
@@ -64,7 +64,7 @@ module.exports.support = function (obj) {
   };
 
   obj.logout = function () {
-    return obj.qself(obj.accountInfoOpen()
+    return obj.pself(obj.accountInfoOpen()
       .then(function () {
         getLogoutButton().click();
       })
@@ -77,23 +77,23 @@ module.exports.support = function (obj) {
   /*******************************/
 
   var getAccountInfoElement = function () {
-    var theEl;
-    return element(by.className(
+    var el = element(by.className(
       'ss-user-info-display-name-reputation'
-    )).then(
-      // the element is there, maybe or not visisble
-      function (el) {
-        theEl = el;
-        return el.isDisplayed();
-      },
-      // the element isn't present at all
-      function () { return null; }
-    ).then(
-      function (presentAndDisplayed) {
-        // return it only if it's visible
-        return presentAndDisplayed ? theEl : null;
+    ));
+    return el.isPresent()
+    .then(function (isPresent) {
+      if (isPresent) {
+        return el.isDisplayed()
+        .then(function (presentAndDisplayed) {
+            // return it only if it's visible
+            return presentAndDisplayed ? el : null;
+          }
+        );
       }
-    );
+      else {
+        return null;
+      }
+    });
   };
 
   var getAccountInfoLabel = function () {

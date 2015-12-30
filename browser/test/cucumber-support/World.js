@@ -18,7 +18,7 @@
 // cucumber tests it's handy
 var path = require('path');
 global._ = require('lodash');
-global.q = require('q');
+global.Promise = require('bluebird');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -92,20 +92,20 @@ World.prototype.authenticate = function () {
     goPage = self.go(self.pages.default);
   }
 
-  return q.when(goPage)
-    .then(function () {
-      return self.currentPage.isLoggedIn;
-    })
-    .then(function (isLoggedIn) {
-      if (isLoggedIn) {
-        return;
-      }
-      else {
-        return self.currentPage.login(
-          users.Joe.userName, users.Joe.password
-        );
-      }
-    });
+  return Promise.resolve(goPage)
+  .then(function () {
+    return self.currentPage.isLoggedIn;
+  })
+  .then(function (isLoggedIn) {
+    if (isLoggedIn) {
+      return;
+    }
+    else {
+      return self.currentPage.login(
+        users.Joe.userName, users.Joe.password
+      );
+    }
+  });
 };
 
 World.prototype.authenticateAs = function (userName, password) {
@@ -114,7 +114,8 @@ World.prototype.authenticateAs = function (userName, password) {
     goPage = self.go(self.pages.default);
   }
 
-  return q.when(goPage).then(function () {
+  return Promise.resolve(goPage)
+  .then(function () {
     if (userName) {
       return self.currentPage.loginIfNecessary(userName, password);
     }
