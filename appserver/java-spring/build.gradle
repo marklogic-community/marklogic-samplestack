@@ -8,20 +8,20 @@ configurations.all {
 
 /* spring boot build dependency */
 buildscript {
-	ext {
-		springBootVersion = '1.2.1.RELEASE'
-	}
+    ext {
+      springBootVersion = '1.2.1.RELEASE'
+    }
+    
     repositories {
-        mavenCentral()
+        jcenter()
         maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
-        jcenter()
-
         maven {url "http://developer.marklogic.com/maven2/"}
-        maven {url "http://rjrudin.github.io/marklogic-java/releases"}
     }
+    
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.marklogic:ml-gradle:2.0rc3"
     }
 }
 
@@ -31,7 +31,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'ml-gradle'
+apply plugin: 'com.marklogic.ml-gradle'
 
 group = samplestackGroup
 version = samplestackVersion
