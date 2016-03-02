@@ -15,7 +15,7 @@ When the Samplestack application is launched using Gulp, it runs the Node.js mid
 
 This README documents the installation/configuration of the Samplestack for developing JavaScript-based code in the browser and middle-tier. The commands discussed below run both tiers simultaneously.
 
-This README focuses on the developer automation for JavaScript development that is delivered with Samplestack *in general*. The [browser README](./browser/README.md) discusses particulars of the browser-tier. *A Java developer may wish to work solely in the Java middle-tier code, allowing the browser to continue to function as delivered. This is possible because a static. pre-built copy of the browser code is included and run by the Java Spring server. Developer who wish to develop both Java middle-tier code and broqser code may also do so. Please see [Browser Development with Java](./browser/README.md) for information.*
+This README focuses on the developer automation for JavaScript development that is delivered with Samplestack *in general*. The [browser README](./browser/README.md) discusses particulars of the browser-tier. *A Java developer may wish to work solely in the Java middle-tier code, allowing the browser to continue to function as delivered. This is possible because a static, pre-built copy of the browser code is included and run by the Java Spring server. Developer who wish to develop both Java middle-tier code and browser code may also do so. Please see [Browser Development with Java](./browser/README.md) for information.*
 
 ## Installing
 
@@ -27,7 +27,7 @@ To configure and develop the browser app for Samplestack, you need the following
 * npm, version 2.1.1 or higher. See [npmjs.com](https://www.npmjs.com/)
 * git. See [git-scm.com](http://git-scm.com/)
 
-This is "tech-stack" or minor variants thereof are almost ubiquitous in JavaScript dwvelopment shops in 2015.
+This "tech-stack" or minor variants thereof are almost ubiquitous in JavaScript development shops in 2015.
 
 Before you begin, please ensure that the software above is installed and functional. It is a good idea to update node.js to the most recent version of 10.x if you have not installed a recent version.
 
@@ -166,7 +166,7 @@ Samplestack is configured to either run Selenium locally or to access SauceLabs.
 tags present in the feature files. If specified, only features/scenarios which match this
 specification will be executed. To specify NOT to match a tag, prefix with `~`. See example below regarding running tests that are known to be broken. *Full documentation of the syntax for the `--tags` flag is available by entering the command `node_modules/cucumber/bin/cucumber.js --help` from the Samplestack repository root directory.*
 
-A few of examples:
+A few examples:
 
 ```bash
 gulp e2e # or gulp e2e --browser=chrome
