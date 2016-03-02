@@ -108,7 +108,7 @@ marklogic-samplestack>$ gulp once --browser=<browsername>
 For *<browsername>*, you may supply one of "chrome", "firefox" or "ie". Please specify the name of a browser that you have already installed on your development machine,* for example `gulp once --browser=chrome`.
 
 **Note: in version 1.1.0 of Samplestack, this command leverages the gradle/Java setup/automation code to configure the database.
-You must have Java 1.7 or 1.8 installed for this to succeed. In the next release of Samplestack, the above command will in "pure JavaScript".**
+You must have Java 1.7 or 1.8 installed for this to succeed.**
 
 ## Build, Unit Test, Run
 
