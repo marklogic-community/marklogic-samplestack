@@ -22,7 +22,7 @@ REMEMBER to change the branch name in this code when preparing releases
 
 ## README for Version 1.1.0
 
-This release features two middle tiers
+This application features two middle tiers
 
 - one for the Java enterprise developer, implemented using Java, Spring and Gradle
 - one for the JavaScript developer, implemented using JavaScript, Node.js and Gulp.
@@ -54,7 +54,7 @@ Then, launch each of the tiers to get a feel for Samplestack's 3-tiered architec
 
 1) **Database**
 
-This version of Samplestack is intended to run with MarkLogic 8.0-1.1 or 8.0-2. Note: There is no direct upgrade path from Early Access releases of MarkLogic 8 to this release. If you had previously been running an early access pre-release, please perform a full uninstall, including manually deleting data directories, before installing a supported 8.x version for use with Samplestsack.
+This version of Samplestack has been tested to run on MarkLogic 8.0-3. Log an issue for questions on compatibility with MarkLogic server versions. Note: There is no direct upgrade path from previous releases. If you had previously been running previous or pre-release version, please perform a full uninstall, including manually deleting data directories, before installing a supported 8.x version for use with Samplestack.
 
 2) **Middle Tier - Application Server**
 
