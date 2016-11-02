@@ -95,7 +95,7 @@ function searchTransform(context, params, input) {
                 var result = results[i];
                 var matches = result.matches;
                 var uri = result.uri;
-                var sourceDoc = fn.doc(uri).next().value;
+                var sourceDoc = fn.head(fn.doc(uri));
                 for (var j = 0; j < matches.length; j++) {
                     var match = matches[j];
                     var source = "";
@@ -126,7 +126,7 @@ function searchTransform(context, params, input) {
                         }
                         var answerNodePath = "/array-node(\"answers\")/object-node()[" + answerIndex + "]/id";
 
-                        var answersSource = sourceDoc.xpath(answerNodePath).next().value;
+                        var answersSource = fn.head(sourceDoc.xpath(answerNodePath));
                         if (answersSource !== undefined) {
                             match.id = answersSource;
                         } else {
