@@ -1,5 +1,8 @@
 language: java
 
+env:
+  - TRAVIS_NODE_VERSION="0.10"
+
 addons:
   hosts:
     - samplestack.local
