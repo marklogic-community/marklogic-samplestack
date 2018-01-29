@@ -34,8 +34,11 @@ install:
 
   # enable nvm to have control over the Node.js version being used
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
+  - nvm install
+  - nvm use
+
+  - node -v
+  - npm -v
 
   - npm cache clean
   - npm install -g npm@2.1.10
