@@ -1,6 +1,7 @@
 language: java
 
 env:
+  matrix:
   - TRAVIS_NODE_VERSION="0.10"
 
 addons:
@@ -31,8 +32,13 @@ install:
   # (gulp e2e commands below invoke the corresponding gradle tasks
   # to congifure the java middle tier)
 
-  - npm cache clean
-  - npm install -g npm@2.1.10
+  # enable nvm to have control over the Node.js version being used
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+
+  - npm cache verify
+  - npm install -g npm@6.9.0
   - npm install -g gulp
   - npm install
 
