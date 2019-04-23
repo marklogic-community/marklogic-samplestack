@@ -1,8 +1,10 @@
 language: java
 
+dist: xenial
+
 env:
   matrix:
-  - TRAVIS_NODE_VERSION="0.10"
+  - TRAVIS_NODE_VERSION="11.11.0"
 
 addons:
   hosts:
@@ -36,14 +38,13 @@ install:
   - . $HOME/.nvm/nvm.sh
   - nvm install
   - nvm use
+  - npm cache verify
+
+  - npm install -g gulp
+  - npm install
 
   - node -v
   - npm -v
-
-  - npm cache verify
-  - npm install -g npm@6.9.0
-  - npm install -g gulp
-  - npm install
 
 script:
   - gulp unit

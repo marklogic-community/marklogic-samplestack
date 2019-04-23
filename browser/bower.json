@@ -28,7 +28,6 @@
     "modernizr": "2.8.3",
     "momentjs": "2.9.0",
     "ng-tags-input": "wooldridge/ngTagsInput-bower#bb0e439000983363a17256862b5ae763ef6b5000",
-    "ngMarkdown": "GrumpyWizards/ngMarkdown#c396e44b64d9e67f4dbc5626e2a645d36e87ed01",
     "requirejs-plugins": "1.0.3",
     "requirejs": "2.1.15",
     "stacktrace-js": "0.6.4",
