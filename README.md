@@ -18,6 +18,10 @@ REMEMBER to change the branch name in this code when preparing releases
 
 -->
 
+Samplestack is a sample application showing how to build a three tier application on MarkLogic. It was released in *2015 on MarkLogic 8* using a Java middle tier and a parallel Node.js stack implementation, with an Angular front end.
+
+*As of 2019*: While the product team is no longer maintaining the application, the archived repository makes the code available for browsing as a valid reference architecture at a high-level which uses many still relevant features.
+
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
 ## README for Version 1.1.0
@@ -107,17 +111,9 @@ Please see our [contributing guidelines](./CONTRIBUTING.md).
 
 ## Support
 
-Samplestack is maintained by MarkLogic Engineering and distributed under the
+Samplestack was developed by MarkLogic Engineering and is distributed under the
 [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0). It is not
-designed for use in production. Everyone is encouraged to file bug reports,
-feature requests, and pull requests through GitHub. This input is critical and
-will be carefully considered, but we can’t promise a specific resolution or
-timeframe for any request. In addition, MarkLogic provides technical support
-for release tags of Samplestack to licensed customers under the terms outlined
-in the [Support
-Handbook](http://www.marklogic.com/files/Mark_Logic_Support_Handbook.pdf) For
-more information or to sign up for support, visit
-[help.marklogic.com](http://help.marklogic.com).
+designed for use in production. Active feedback and questions should be directed to the MarkLogic community on [Stack Overflow](https://stackoverflow.com/questions/tagged/marklogic) or refer to the [Developer site](https://developer.marklogic.com/) at MarkLogic.com.
 
 ## License
 
