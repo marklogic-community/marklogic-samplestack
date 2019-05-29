@@ -20,7 +20,7 @@ REMEMBER to change the branch name in this code when preparing releases
 
 Samplestack is a sample application showing how to build a three tier application on MarkLogic. It was released in *2015 on MarkLogic 8* using a Java middle tier and a parallel Node.js stack implementation, with an Angular front end.
 
-*As of 2019*: While the product team is no longer maintaining the application, the archived repository makes the code available for browsing as a valid reference architecture at a high-level which uses many still relevant features.
+**As of 2019**: While the product team is **no longer maintaining the application**, the archived repository makes the code available for browsing as a valid reference architecture at a high-level which uses many still relevant features.
 
 > Samplestack is a comprehensive sample application that demonstrates how to build an effective MarkLogic application.  Based on the idea of a "Question and Answer" website, Samplestack shows you how to integrate MarkLogic into a three-tier application architecture (browser, application server, and database).
 
