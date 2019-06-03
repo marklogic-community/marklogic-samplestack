@@ -8,17 +8,20 @@ configurations.all {
 
 /* spring boot build dependency */
 buildscript {
-	ext {
-		springBootVersion = '1.2.1.RELEASE'
-	}
+    ext {
+      springBootVersion = '1.2.1.RELEASE'
+    }
+    
     repositories {
-        mavenCentral()
+        jcenter()
         maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
-        jcenter()
+        maven {url "http://developer.marklogic.com/maven2/"}
     }
+    
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.marklogic:ml-gradle:2.0rc3"
     }
 }
 
@@ -28,62 +31,43 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'com.marklogic.ml-gradle'
 
 group = samplestackGroup
 version = samplestackVersion
 sourceCompatibility = samplestackSourceCompatibility
 
-/*
- * INIT
- * Run this task to initialize a fresh MarkLogic server
- * and install security objects.
- */
-task dbInit(type: MarkLogicInitTask)
-dbInit.roles = file("../../database/security/roles")
-dbInit.users = file("../../database/security/users")
-
-/*
- * TEARDOWN
- * This task removes all trace of samplestack
- */
-task dbTeardown(type: MarkLogicTeardownTask)
-
-/*
- * CONFIGURE
- *
- * This task configures the database and REST API instance
- * based on files in the database directory
- */
-task dbConfigure(type: MarkLogicConfigureTask)
-
-task dbConfigureClean << {
-    delete("${buildDir}/database")
+ext {
+    mlAppConfig {
+        modulePaths = ["../../database/ml-modules"]
+    }
 }
 
+// mlDeploy calls mlDeployApp
+mlDeployApp.dependsOn mlInit, mlInstallAdmin
+mlInstallAdmin.mustRunAfter mlInit
 
-dbConfigure.inputDir = file('../../database')
-dbConfigure.outputDir = file("${buildDir}/database")
-dbConfigure.inputProperty = project.properties['taskInputProperty'] ?: "original"
-dbConfigure.shouldRunAfter dbInit
-dbConfigure.shouldRunAfter dbConfigureClean
-dbInit.dependsOn(dbConfigureClean)
+mlInstallAdmin.adminUsername = mlAdminUsername
+mlInstallAdmin.adminPassword = mlAdminPassword
 
-task dbConfigureAll
-dbConfigureAll.dependsOn dbConfigureClean
-dbConfigureAll.dependsOn dbConfigure
 
 /**
  * ASSEMBLE
  */
-assemble.dependsOn(dbInit, dbConfigure, test)
+assemble.dependsOn(mlDeploy)
 
 /**
  * FETCH SEED DATA
  */
-task seedDataFetch(type: MarkLogicFetchTask) {
-    url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.2.tgz"
-    destFile = file("${buildDir}/seed.tgz")
+task seedDataFetch {
+    doLast {
+        def url = project.hasProperty("seedDataUrl") ? project.seedDataUrl : "http://developer.marklogic.com/media/gh/seed-data1.8.2.tgz"
+        def destFile = file("${buildDir}/seed.tgz")
+        println "Fetching data from " + url
+        new URL(url).withInputStream{ i -> destFile.withOutputStream{ it << i }}
+    }    
 }
+
 seedDataFetch.dependsOn(processResources)
 
 task seedDataExtract {
@@ -110,13 +94,8 @@ task dbLoad(type: MarkLogicSlurpTask) {
 }
 dbLoad.mustRunAfter(assemble)
 dbLoad.dependsOn(seedDataExtract)
-/* never skip dbload if requested */
+// never skip dbload if requested
 dbLoad.outputs.upToDateWhen { false }
-
-/*
- * CLEAR
- */
-task dbClear(type: MarkLogicClearTask)
 
 
 /* use same properties for gradle and Java runtime */
@@ -137,6 +116,7 @@ task appserver <<
 }
 appserver.dependsOn(clean, assemble, dbLoad, bootRun)
 bootRun.shouldRunAfter(dbLoad)
+
 
 /* The code repositories to consult for dependencies */
 repositories {
@@ -173,7 +153,7 @@ task unitTest(type: Test) {
     }
 }
 
-test.dependsOn(props, dbConfigure)
+test.dependsOn(props, mlLoadModules)
 
 task dbTest(type: Test) {
     useJUnit {
