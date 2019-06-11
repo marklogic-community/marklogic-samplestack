@@ -1,5 +1,9 @@
 language: java
 
+env:
+  matrix:
+  - TRAVIS_NODE_VERSION="0.10"
+
 addons:
   hosts:
     - samplestack.local
@@ -27,6 +31,14 @@ install:
   # intall node things and browser app
   # (gulp e2e commands below invoke the corresponding gradle tasks
   # to congifure the java middle tier)
+
+  # enable nvm to have control over the Node.js version being used
+  - . $HOME/.nvm/nvm.sh
+  - nvm install
+  - nvm use
+
+  - node -v
+  - npm -v
 
   - npm cache clean
   - npm install -g npm@2.1.10

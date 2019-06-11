@@ -8086,9 +8086,9 @@
                   "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.0.tgz"
                 },
                 "i": {
-                  "version": "0.3.2",
+                  "version": "0.3.6",
                   "from": "i@>=0.3.0 <0.4.0",
-                  "resolved": "https://registry.npmjs.org/i/-/i-0.3.2.tgz"
+                  "resolved": "https://registry.npmjs.org/i/-/i-0.3.6.tgz"
                 },
                 "ncp": {
                   "version": "0.4.2",
