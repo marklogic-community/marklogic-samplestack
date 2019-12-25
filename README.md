@@ -37,7 +37,7 @@ The project includes the following major components:
 * Middle-tier REST server implemented in Java/[Spring](http://projects.spring.io/spring-framework/)
 * [Gradle](http://www.gradle.org/) framework to drive build and configuration of the appserver and database tiers in Java/Groovy
 * Middle-tier REST server implemented in Node.js/[Express](expressjs.com)
-* [Gulp](http://www.gradle.org/)-based automation to drive build and configuration of Javascript and database tiers (**note: database-tier Gulp-based setup coming soon**)
+* [Gulp](http://gulpjs.com/)-based automation to drive build and configuration of Javascript and database tiers (**note: database-tier Gulp-based setup coming soon**)
 * Unit and end-to-end tests
 
 This README covers the following topics:
