@@ -1,5 +1,11 @@
 language: java
 
+dist: xenial
+
+env:
+  matrix:
+  - TRAVIS_NODE_VERSION="11.11.0"
+
 addons:
   hosts:
     - samplestack.local
@@ -28,10 +34,17 @@ install:
   # (gulp e2e commands below invoke the corresponding gradle tasks
   # to congifure the java middle tier)
 
-  - npm cache clean
-  - npm install -g npm@2.1.10
+  # enable nvm to have control over the Node.js version being used
+  - . $HOME/.nvm/nvm.sh
+  - nvm install
+  - nvm use
+  - npm cache verify
+
   - npm install -g gulp
   - npm install
+
+  - node -v
+  - npm -v
 
 script:
   - gulp unit

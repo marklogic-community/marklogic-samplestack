@@ -68,3 +68,9 @@ if (!ctx.parentPid() && ctx.currentTask === 'watch') {
     ctx.restartChild();
   });
 }
+
+process.on('exit', function() {
+  if ( ctx.hadErrors ) {
+    process.exit(1);
+  }
+});
